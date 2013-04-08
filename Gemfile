@@ -23,6 +23,7 @@ group :development do
   gem 'pry-rails'
   gem 'seedbank'
   gem 'cane', :require => false
+  gem 'yard', :require => false
 end
 
 group :development, :test do
