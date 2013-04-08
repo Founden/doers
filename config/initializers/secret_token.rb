@@ -9,4 +9,5 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-Doers::Application.config.secret_key_base = '2e11e15abf064e4813187b1704513c4e08ac31556b70a445d794f144464da9877dec5c3f401622c76ff0575c5e84ec8d0df09505f6ed14291552fcb7f49e4488'
+Doers::Application.config.secret_key_base =
+  '2e11e15abf064e4813187b1704513c4e08ac31556b70a445d794f144464da9877dec5c3f4016'

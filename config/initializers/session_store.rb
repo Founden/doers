@@ -1,3 +1,4 @@
 # Be sure to restart your server when you modify this file.
 
-Doers::Application.config.session_store :encrypted_cookie_store, key: '_Doers_session'
+Doers::Application.config.session_store(
+  :encrypted_cookie_store, key: '_doers_session')
