@@ -36,4 +36,5 @@ group :development, :test do
   gem 'simplecov', :require => false
   gem 'guard-rspec', :require => false
   gem 'rb-inotify', :require => false
+  gem 'mina', :require => false
 end
