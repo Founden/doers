@@ -1,0 +1,33 @@
+!!! 5
+%html
+  %head
+    %title
+      = content_for?(:title) ? yield(:title) : _('Welcome')
+      &bull; TODO
+
+    = favicon_link_tag('/favicon.png', :type => 'image/png')
+
+    %meta{ :charset => 'utf-8' }
+    %meta{ 'http-equiv' => 'X-UA-Compatible', :content => 'IE=edge,chrome=1' }
+    %meta{ :name => 'viewport', :content => 'width=device-width' }
+    %meta{ :name => :generator, :content => '' }
+
+    /[if lt IE 9]
+      %script{ :src => 'http://html5shiv.googlecode.com/svn/trunk/html5.js' }
+
+    = stylesheet_link_tag 'application'
+
+  %body
+    %header{:role => :banner}
+      %nav{:role => :navigation}
+
+    .wrap
+      %section#content{:role => :main}
+        %div.row{ :id => "#{controller.action_name}-#{controller.controller_name}"}
+
+          = yield
+
+    %footer{:role => :contentinfo}
+      %p
+        = Date.today.year
+        &copy; TODO
