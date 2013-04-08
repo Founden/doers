@@ -3,19 +3,23 @@
   %head
     %title
       = content_for?(:title) ? yield(:title) : _('Welcome')
-      &bull; TODO
+      &bull;
+      TODO
 
     = favicon_link_tag('/favicon.png', :type => 'image/png')
 
     %meta{ :charset => 'utf-8' }
     %meta{ 'http-equiv' => 'X-UA-Compatible', :content => 'IE=edge,chrome=1' }
     %meta{ :name => 'viewport', :content => 'width=device-width' }
-    %meta{ :name => :generator, :content => '' }
+    %meta{ :name => :generator, :content => 'Coursewa.re' }
 
     /[if lt IE 9]
       %script{ :src => 'http://html5shiv.googlecode.com/svn/trunk/html5.js' }
 
     = stylesheet_link_tag 'application'
+    = javascript_include_tag 'application'
+    = yield(:head_embed) if content_for?(:head_embed)
+    = csrf_meta_tags
 
   %body
     %header{:role => :banner}
@@ -23,11 +27,10 @@
 
     .wrap
       %section#content{:role => :main}
-        %div.row{ :id => "#{controller.action_name}-#{controller.controller_name}"}
-
-          = yield
+        = yield
 
     %footer{:role => :contentinfo}
       %p
         = Date.today.year
-        &copy; TODO
+        TODO
+
