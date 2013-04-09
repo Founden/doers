@@ -1,4 +1,12 @@
 GIT
+  remote: git://github.com/dockyard/easy_auth.git
+  revision: 9af9276a3e50d677fcbf64d691c3c2e972f96db1
+  branch: rails4
+  specs:
+    easy_auth (0.3.0)
+      rails (~> 4.0.0.beta1)
+
+GIT
   remote: git://github.com/milgner/compass-rails.git
   revision: 1749c06f15dc4b058427e7969810457213647fb8
   branch: rails4
@@ -197,6 +205,7 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0.beta1)
   compass-rails!
   database_cleaner
+  easy_auth!
   fabrication
   ffaker
   gettext_i18n_rails

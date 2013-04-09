@@ -4,6 +4,7 @@ ruby '2.0.0'
 gem 'rails', '~> 4.0.0.beta1'
 gem 'gettext_i18n_rails'
 gem 'haml-rails'
+gem 'easy_auth', :github => 'dockyard/easy_auth', :branch => 'rails4'
 
 group :production do
   gem 'pg'
