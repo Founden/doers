@@ -1,4 +1,9 @@
-# This file is copied to spec/ when you run 'rails generate rspec:install'
+# Use simplecov only outside guard
+unless ENV['GUARD_NOTIFICATIONS']
+  require 'simplecov'
+  SimpleCov.start 'rails'
+end
+
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rspec/rails'
