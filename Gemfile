@@ -33,7 +33,7 @@ group :development, :test do
   gem 'ffaker'
   gem 'fabrication'
   gem 'rspec-rails'
-  gem 'database_cleaner'
+  gem 'database_cleaner', '~> 1.0.0.RC1'
   gem 'simplecov', :require => false
   gem 'guard-rspec', :require => false
   gem 'rb-inotify', :require => false
