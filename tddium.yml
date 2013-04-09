@@ -1,0 +1,6 @@
+:tddium:
+  :ruby_version: ruby-2.0.0-p0
+  :sqlite: false
+  :postgresql:
+    :version: '9.2'
+  :coverage: true
