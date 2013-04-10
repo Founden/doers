@@ -13,7 +13,6 @@ Identities::Oauth::Twitter.instance_eval do
   end
 
   def retrieve_uid(token)
-    binding.pry
     token.params[:screen_name]
   end
 end
