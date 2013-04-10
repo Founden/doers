@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130409093709) do
+ActiveRecord::Schema.define(version: 20130409083321) do
 
   create_table "identities", force: true do |t|
     t.string   "uid"
@@ -21,8 +21,6 @@ ActiveRecord::Schema.define(version: 20130409093709) do
     t.string   "type"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "remember_token_digest"
-    t.string   "reset_token_digest"
   end
 
   add_index "identities", ["uid"], name: "index_identities_on_uid"

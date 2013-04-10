@@ -5,7 +5,6 @@ gem 'rails', :github => 'rails/rails'
 gem 'gettext_i18n_rails'
 gem 'haml-rails'
 gem 'easy_auth', :github => 'dockyard/easy_auth', :branch => 'rails4'
-gem 'easy_auth-password', :github => 'dockyard/easy_auth-password', :branch => 'sans-attr_accessible'
 
 group :production do
   gem 'pg'
