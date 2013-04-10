@@ -1,0 +1,15 @@
+defaults: &defaults
+  app_name: <%= _('DOERS by Geekcelerator') %>
+  oauth_providers:
+    twitter:
+      client_id: vAODSxZcVZIoPH0wsBDP7A
+      secret_key: AcBQmKP4JoSqHGt80Ut2tE5RlnITqsIwsWJNUgd8q8
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults
