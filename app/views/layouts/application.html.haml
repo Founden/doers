@@ -4,7 +4,7 @@
     %title
       = content_for?(:title) ? yield(:title) : _('Welcome')
       &bull;
-      TODO
+      = Doers::Config.app_name
 
     = favicon_link_tag('/favicon.png', :type => 'image/png')
 
@@ -31,6 +31,6 @@
 
     %footer{:role => :contentinfo}
       %p
+        &copy;
         = Date.today.year
-        TODO
-
+        = Doers::Config.app_name
