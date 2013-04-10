@@ -7,6 +7,7 @@ gem 'haml-rails'
 gem 'easy_auth', :github => 'dockyard/easy_auth', :branch => 'rails4'
 gem 'easy_auth-oauth', :github => 'stas/easy_auth-oauth', :branch => 'update_identity'
 gem 'easy_auth-twitter', :github => 'dockyard/easy_auth-twitter'
+gem 'settingslogic'
 
 group :production do
   gem 'pg'
