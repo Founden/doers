@@ -4,6 +4,7 @@ describe User do
   let(:user) { Fabricate(:user) }
 
   it { should have_many(:projects).dependent(:destroy) }
+  it { should have_many(:panels).dependent('') }
   it { should validate_presence_of(:email) }
   it { should validate_uniqueness_of(:email) }
 
