@@ -3,7 +3,11 @@ require 'spec_helper'
 describe User do
   let(:user) { Fabricate(:user) }
 
-  context 'instance class' do
+  it { should have_many(:projects).dependent(:destroy) }
+  it { should validate_presence_of(:email) }
+  it { should validate_uniqueness_of(:email) }
+
+  context 'instance' do
     subject { user }
 
     it { should be_valid }
