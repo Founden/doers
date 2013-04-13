@@ -70,6 +70,13 @@ GIT
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
 
+GIT
+  remote: git://github.com/thoughtbot/shoulda-matchers.git
+  revision: d92d548d421726e4d4790bf439855c0c42d2b279
+  specs:
+    shoulda-matchers (2.0.0)
+      activesupport (>= 3.0.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -254,6 +261,7 @@ DEPENDENCIES
   sass-rails (~> 4.0.0.beta1)
   seedbank
   settingslogic
+  shoulda-matchers!
   simplecov
   sqlite3
   therubyracer
