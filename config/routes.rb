@@ -3,4 +3,6 @@ Doers::Application.routes.draw do
   get 'sign_in' => 'sessions#index'
 
   resources :profiles, :only => [:show]
+
+  root :to => 'sessions#index'
 end
