@@ -5,7 +5,7 @@ gem 'rails', :github => 'rails/rails'
 gem 'gettext_i18n_rails'
 gem 'haml-rails'
 gem 'easy_auth', :github => 'dockyard/easy_auth', :branch => 'rails4'
-gem 'easy_auth-oauth', :github => 'stas/easy_auth-oauth', :branch => 'update_identity'
+gem 'easy_auth-oauth', :github => 'dockyard/easy_auth-oauth'
 gem 'easy_auth-twitter', :github => 'dockyard/easy_auth-twitter'
 gem 'settingslogic'
 
