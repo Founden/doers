@@ -1,5 +1,6 @@
 # DOERS [Project] class
 class Project < ActiveRecord::Base
+  # Available :status values for a [Project]
   STATES = ['private', 'public', 'archived']
 
   # Relationships

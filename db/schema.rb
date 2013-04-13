@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130413215938) do
+ActiveRecord::Schema.define(version: 20130413230037) do
 
   create_table "identities", force: true do |t|
     t.string   "uid"
@@ -24,6 +24,17 @@ ActiveRecord::Schema.define(version: 20130413215938) do
   end
 
   add_index "identities", ["uid"], name: "index_identities_on_uid"
+
+  create_table "panels", force: true do |t|
+    t.string   "label"
+    t.integer  "position"
+    t.integer  "user_id"
+    t.string   "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "panels", ["user_id"], name: "index_panels_on_user_id"
 
   create_table "projects", force: true do |t|
     t.string   "title"
