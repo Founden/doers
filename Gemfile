@@ -30,6 +30,7 @@ group :development do
   gem 'seedbank'
   gem 'cane', :require => false
   gem 'yard', :require => false
+  gem 'erd', :require => false
 end
 
 group :development, :test do
