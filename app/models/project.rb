@@ -7,6 +7,7 @@ class Project < ActiveRecord::Base
   belongs_to :user
 
   # Validations
+  validates :user, :presence => true
   validates :title, :presence => true
   validates :status, :inclusion => {:in => STATES}
 

@@ -7,6 +7,7 @@ class Panel < ActiveRecord::Base
   belongs_to :user
 
   # Validations
+  validates :user, :presence => true
   validates :label, :uniqueness => true, :presence => true
   validates :status, :inclusion => {:in => STATES}
 
