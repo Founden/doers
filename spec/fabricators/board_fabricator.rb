@@ -1,5 +1,5 @@
 Fabricator(:board) do
-  title    Faker::Lorem.sentence
+  title    { Faker::Lorem.sentence }
   user
   project
   panel
