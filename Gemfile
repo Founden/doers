@@ -8,6 +8,7 @@ gem 'easy_auth', :github => 'dockyard/easy_auth', :branch => 'rails4'
 gem 'easy_auth-oauth', :github => 'dockyard/easy_auth-oauth'
 gem 'easy_auth-twitter', :github => 'dockyard/easy_auth-twitter'
 gem 'settingslogic'
+gem 'oj'
 
 group :production do
   gem 'pg'
