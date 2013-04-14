@@ -34,5 +34,8 @@ module Doers
       g.stylesheets         false
       g.javascripts         false
     end
+
+    # Make sure all model subdirectories get loaded
+    config.autoload_paths += Dir[ Rails.root.join('app', 'models', '**/') ]
   end
 end
