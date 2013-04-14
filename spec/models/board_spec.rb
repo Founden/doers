@@ -6,6 +6,7 @@ describe Board do
   it { should belong_to(:user) }
   it { should belong_to(:project) }
   it { should belong_to(:panel) }
+  it { should have_many(:fields) }
   it { should validate_presence_of(:user) }
   it { should validate_presence_of(:panel) }
   it { should validate_presence_of(:project) }
