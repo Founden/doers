@@ -193,6 +193,9 @@ GEM
       rspec-expectations (~> 2.13.0)
       rspec-mocks (~> 2.13.0)
     ruby-graphviz (1.0.8)
+    sanitize (2.0.3)
+      nokogiri (>= 1.4.4, < 1.6)
+      nokogiri (>= 1.4.4, < 1.6)
     sass (3.2.7)
     sass-rails (4.0.0.beta1)
       railties (>= 4.0.0.beta, < 5.0)
@@ -260,6 +263,7 @@ DEPENDENCIES
   rails!
   rb-inotify
   rspec-rails
+  sanitize
   sass-rails (~> 4.0.0.beta1)
   seedbank
   settingslogic
