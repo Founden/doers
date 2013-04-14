@@ -1,4 +1,4 @@
-# DOERS [Projec] [Board] class
+# DOERS [Project] [Board] class
 class Board < ActiveRecord::Base
   # Available :status values for a [Board]
   STATES = ['published', 'trashed']
@@ -7,6 +7,7 @@ class Board < ActiveRecord::Base
   belongs_to :user
   belongs_to :project
   belongs_to :panel
+  has_many :fields
 
   # Validations
   validates_presence_of :user, :panel, :project, :title
