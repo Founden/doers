@@ -9,6 +9,7 @@ gem 'easy_auth-oauth', :github => 'dockyard/easy_auth-oauth'
 gem 'easy_auth-twitter', :github => 'dockyard/easy_auth-twitter'
 gem 'settingslogic'
 gem 'oj'
+gem 'sanitize'
 
 group :production do
   gem 'pg'
