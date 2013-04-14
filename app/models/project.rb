@@ -5,6 +5,7 @@ class Project < ActiveRecord::Base
 
   # Relationships
   belongs_to :user
+  has_many :boards
 
   # Validations
   validates :user, :presence => true

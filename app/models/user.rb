@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   # Relationships
   has_many :projects, :dependent => :destroy
   has_many :panels
+  has_many :boards
 
   # Validations
   validates :email, :uniqueness => true, :presence => true
