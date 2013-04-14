@@ -4,6 +4,7 @@ describe Panel do
   let(:panel) { Fabricate(:panel) }
 
   it { should belong_to(:user) }
+  it { should have_many(:boards) }
   it { should validate_presence_of(:user) }
   it { should validate_presence_of(:label) }
   it { should ensure_inclusion_of(:status).in_array(Panel::STATES) }
