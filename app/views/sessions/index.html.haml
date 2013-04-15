@@ -1,1 +1,7 @@
-= link_to 'Sign in with Twitter', oauth_sign_in_path(:provider => :twitter)
+#sign-in
+  .row
+    .large-4.columns
+      %h3
+        = _('Please authenticate')
+      %p
+        = link_to _('Sign in with Twitter'), oauth_sign_in_path(:provider => :twitter), :class => 'button secondary radius'

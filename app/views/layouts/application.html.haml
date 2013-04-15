@@ -11,7 +11,7 @@
     %meta{ :charset => 'utf-8' }
     %meta{ 'http-equiv' => 'X-UA-Compatible', :content => 'IE=edge,chrome=1' }
     %meta{ :name => 'viewport', :content => 'width=device-width' }
-    %meta{ :name => :generator, :content => 'Coursewa.re' }
+    %meta{ :name => :generator, :content => Doers::Config.app_id }
 
     /[if lt IE 9]
       %script{ :src => 'http://html5shiv.googlecode.com/svn/trunk/html5.js' }
@@ -23,14 +23,25 @@
 
   %body
     %header{:role => :banner}
+      .row
+        .large-12.columns
+          %h1
+            = Doers::Config.app_name
+          %hr
       %nav{:role => :navigation}
 
     .wrap
       %section#content{:role => :main}
+
+        = render('shared/alerts')
+
         = yield
 
     %footer{:role => :contentinfo}
-      %p
-        &copy;
-        = Date.today.year
-        = Doers::Config.app_name
+      .row
+        .large-12.columns
+          %p
+            %small.right
+              &copy;
+              = Date.today.year
+              = Doers::Config.app_name
