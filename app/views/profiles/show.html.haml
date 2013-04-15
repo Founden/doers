@@ -1,2 +1,6 @@
-%h1
-  = current_user.email
+#profile
+  .row
+    .large-12.columns
+      %h1
+        = _('Welcome back, ')
+        = current_user.email

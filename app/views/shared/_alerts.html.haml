@@ -1,0 +1,9 @@
+#notifications
+  .row
+    .large-6.large-offset-3.columns
+      - flash.each do |name, msg|
+        - if msg.is_a?(String)
+          %div{ :class => "alert-box #{name} radius", 'data-alert' => true }
+            = msg
+            %a.close{ :href => '#' }
+              &times;
