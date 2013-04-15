@@ -23,6 +23,7 @@ group :assets do
   gem 'therubyracer'
   gem 'compass-rails', :github => 'milgner/compass-rails', :branch => 'rails4'
   gem 'zurb-foundation'
+  gem 'jquery-rails'
 end
 
 group :development do
