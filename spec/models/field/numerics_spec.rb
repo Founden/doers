@@ -17,10 +17,10 @@ describe Field::Numerics do
 
     its(:minimum) { should be < numerics_field.maximum }
     its(:maximum) { should be > numerics_field.minimum }
-    its(:selected) { should be < numerics_field.maximum }
-    its(:selected) { should be > numerics_field.minimum }
+    its(:selected) { should be <= numerics_field.maximum }
+    its(:selected) { should be >= numerics_field.minimum }
 
-    context 'zeroes wrong values if any' do
+    context 'validates minimum, maximum and selected values' do
       before { numerics_field.minimum = numerics_field.maximum }
 
       it{ should_not be_valid }
