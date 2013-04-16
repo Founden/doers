@@ -7,9 +7,9 @@ require 'mina/rbenv'  # for rbenv support. (http://rbenv.org)
 
 set :codename, 'doers.geekcelerator.com'
 
-set :port, ''
-set :user, ''
-set :domain, ''
+set :port, '8000'
+set :user, 'deployer'
+set :domain, '198.199.78.237'
 set :deploy_to, "/home/#{user}/#{codename}"
 set :repository, 'git@github.com:stas/doers.git'
 set :branch, 'master'
