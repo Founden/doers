@@ -2,7 +2,7 @@ class CreateProjects < ActiveRecord::Migration
   def change
     create_table :projects do |t|
       t.string :title
-      t.string :description
+      t.text :description
       t.references :user, index: true
       t.string :status
 
