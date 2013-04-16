@@ -11,4 +11,9 @@ class User < ActiveRecord::Base
 
   # Validations
   validates :email, :uniqueness => true, :presence => true
+
+  # Helper to generate the user name
+  def nicename
+    name || email
+  end
 end

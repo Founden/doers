@@ -4,7 +4,7 @@
       = gravatar_tag(current_user.email, {:class => 'avatar left', :size => 60})
       %h1
         = _('Welcome back, ')
-        = current_user.email
+        = current_user.nicename
 
       = form_for current_user,  :url => profile_path(current_user) do |f|
         .row

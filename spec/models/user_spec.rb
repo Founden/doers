@@ -17,6 +17,13 @@ describe User do
     its('identities.first.uid') { should eq(user.email) }
     its(:email) { should_not be_empty }
     its(:name) { should_not be_empty }
+    its(:nicename) { should eq(user.name) }
+
+    context '#nicename when #name is blank' do
+      before { user.update_attribute(:name, nil) }
+
+      its(:nicename) { should eq(user.email) }
+    end
 
     context 'on duplicates' do
       subject { Fabricate.build(:user, :email => user.email) }
