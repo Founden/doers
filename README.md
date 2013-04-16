@@ -19,6 +19,17 @@ You are all set now! Use you local system username (ex.: `ENV['USER']`) or `dev`
 and append `@lvh.me` to get the seeded user email account.
 Your password is `secret` (the same for any pre-seeded user).
 
+# Deployments
+
+DOERS uses a Heroku PostgreSQL database and is hosted on a Digital Ocean
+instance. We use `mina` for deployments.
+
+To deploy latest version from GitHub, run:
+
+```bash
+$ bundle exec mina deploy
+```
+
 # Coding style
 
 ## Vim
