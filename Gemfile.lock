@@ -71,6 +71,14 @@ GIT
       thor (>= 0.18.1, < 2.0)
 
 GIT
+  remote: git://github.com/stas/doorkeeper.git
+  revision: d2b9e143c18dbc3cfd10693c75e2c312f138057d
+  branch: rails4
+  specs:
+    doorkeeper (0.6.7)
+      railties (>= 3.1)
+
+GIT
   remote: git://github.com/thoughtbot/shoulda-matchers.git
   revision: d92d548d421726e4d4790bf439855c0c42d2b279
   specs:
@@ -248,6 +256,7 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0.beta1)
   compass-rails!
   database_cleaner (~> 1.0.0.RC1)
+  doorkeeper!
   easy_auth!
   easy_auth-oauth!
   easy_auth-twitter!
