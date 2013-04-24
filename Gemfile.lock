@@ -164,6 +164,11 @@ GEM
       activesupport (>= 3.1, < 4.1)
       haml (>= 3.1, < 4.1)
       railties (>= 3.1, < 4.1)
+    hamlbars (2.0.0)
+      execjs (>= 1.2)
+      haml
+      sprockets
+      tilt
     handlebars-source (1.0.0.rc3)
     hike (1.2.2)
     i18n (0.6.4)
@@ -298,6 +303,7 @@ DEPENDENCIES
   gettext_i18n_rails
   guard-rspec
   haml-rails
+  hamlbars
   handlebars-source (~> 1.0.0.rc3)
   jquery-rails
   mina
