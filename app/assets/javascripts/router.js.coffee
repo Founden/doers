@@ -1,3 +1,5 @@
-Doers.Router.map (match)->
-  # match('/').to('index')
+Doers.Router.reopen
+  rootURL: '/'
 
+Doers.Router.map (match)->
+  @route 'sign_in'
