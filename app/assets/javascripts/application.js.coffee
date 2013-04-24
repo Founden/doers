@@ -17,7 +17,14 @@
 #= require foundation/foundation.tooltips
 # require foundation/foundation.topbar
 
+# Ember.js App
+# ~~~~~~~~~~~~
+#= require doers
+
 #= require_self
+
+Doers.Application.create
+  rootElement: 'body'
 
 ((w, $) ->
   $(document).foundation()
