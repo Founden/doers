@@ -18,6 +18,7 @@ group :production do
 end
 
 group :assets do
+  gem 'sprockets-rails', '~> 2.0.0.rc4'
   gem 'sass-rails', '~> 4.0.0.rc1'
   gem 'coffee-rails', '~> 4.0.0'
   gem 'uglifier'
@@ -25,6 +26,9 @@ group :assets do
   gem 'compass-rails', :github => 'milgner/compass-rails', :branch => 'rails4'
   gem 'zurb-foundation'
   gem 'jquery-rails'
+  gem 'ember-rails', :github => 'emberjs/ember-rails'
+  gem 'handlebars-source', '~> 1.0.0.rc3 '
+  gem 'ember-auth-source'
 end
 
 group :development do
