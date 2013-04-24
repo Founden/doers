@@ -29,6 +29,7 @@ group :assets do
   gem 'ember-rails', :github => 'emberjs/ember-rails'
   gem 'handlebars-source', '~> 1.0.0.rc3 '
   gem 'ember-auth-source'
+  gem 'hamlbars'
 end
 
 group :development do
