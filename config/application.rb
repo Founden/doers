@@ -37,5 +37,8 @@ module Doers
 
     # Make sure all model subdirectories get loaded
     config.autoload_paths += Dir[ Rails.root.join('app', 'models', '**/') ]
+
+    # Handle Ember.js variant based on environment
+    config.ember.variant = ::Rails.env
   end
 end
