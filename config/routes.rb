@@ -9,7 +9,9 @@ Doers::Application.routes.draw do
 
   get 'sign_in' => 'sessions#index'
 
-  resources :profiles, :only => [:show, :update]
+  resources :profiles, :only => [:show, :update] do
+    get :mine, :on => :collection
+  end
   resource :pages, :only => [], :path => '/' do
     get :dashboard
   end
