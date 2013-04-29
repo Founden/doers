@@ -12,4 +12,4 @@
 window.Doers ||= Ember.Application.create
   app_name: 'DOERS by Geekcelerator'
   rootElement: '#doers-app'
-  client_id: null
+  client_id: '1234567890987654321'
