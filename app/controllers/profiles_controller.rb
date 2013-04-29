@@ -1,8 +1,14 @@
 # Handles user profiles
 class ProfilesController < ApplicationController
+  include EasyAuth::Controllers::Authenticated
+
+  # Shows current user profile
+  def mine
+  end
 
   # Shows user profile
   def show
+    @profile = User.find(params[:id])
   end
 
   # Updates user profile
