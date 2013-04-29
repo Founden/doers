@@ -1,1 +1,1 @@
-Doers.RESTAdapter = Auth.RESTAdapter.extend()
+Doers.RESTAdapter = DS.RESTAdapter.extend()
