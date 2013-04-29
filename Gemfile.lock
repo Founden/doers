@@ -128,11 +128,6 @@ GEM
       sass (~> 3.1)
     database_cleaner (1.0.0.RC1)
     diff-lcs (1.2.4)
-    ember-auth-rails (4.0.1)
-      ember-auth-source
-      rails
-    ember-auth-source (4.1.4)
-      ember-source (>= 0.0.2, != 1.0.0.rc1.2, != 1.0.0.rc1.1, != 1.0.0.rc1.0.0, != 1.0.0.pre4.1)
     ember-data-source (0.0.5)
       ember-source
     ember-source (1.0.0.rc3.1)
@@ -298,7 +293,6 @@ DEPENDENCIES
   easy_auth!
   easy_auth-oauth!
   easy_auth-twitter!
-  ember-auth-rails
   ember-rails!
   erd
   fabrication

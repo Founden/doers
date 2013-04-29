@@ -8,10 +8,8 @@
 #= require_tree ./templates
 #= require_tree ./routes
 #= require ./router
-#= require ./auth
 
 window.Doers ||= Ember.Application.create
-  Route: Auth.Route.extend()
   app_name: 'DOERS by Geekcelerator'
   rootElement: '#doers-app'
   client_id: null
