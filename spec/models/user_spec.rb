@@ -36,4 +36,16 @@ describe User do
       it { should_not be_valid }
     end
   end
+
+  context 'when predefined app uid is available' do
+    before do
+      webapp = Fabricate(:doorkeeper_app)
+      webapp.update_attribute(:uid, Doers::Config.webapp_uid)
+    end
+
+    subject { Fabricate(:user) }
+
+    its(:access_tokens) { should_not be_empty }
+  end
+
 end

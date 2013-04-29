@@ -17,6 +17,16 @@ class User < ActiveRecord::Base
   # Validations
   validates :email, :uniqueness => true, :presence => true
 
+  # Callbacks
+  after_create :create_access_token
+
+  # Creates an access token for current user if there's a pre-defined webapp uid
+  def create_access_token
+    app = Doorkeeper::Application.where(:uid => Doers::Config.webapp_uid).first
+    app.authorized_tokens.create(:resource_owner_id => self.id) unless app.nil?
+  end
+
+
   # Helper to generate the user name
   def nicename
     name || email
