@@ -9,6 +9,11 @@ class User < ActiveRecord::Base
   has_many :boards
   has_many :fields
 
+  has_many(:oauth_applications, :class_name => 'Doorkeeper::Application',
+           :as => :owner, :dependent => :destroy)
+  has_many(:access_tokens, :class_name => 'Doorkeeper::AccessToken',
+           :foreign_key => :resource_owner_id, :dependent => :destroy)
+
   # Validations
   validates :email, :uniqueness => true, :presence => true
 
