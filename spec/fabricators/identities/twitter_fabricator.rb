@@ -1,3 +1,3 @@
-Fabricator(:password_identity, :class_name => Identities::Oauth::Twitter) do
-  uid       { sequence(:email) { |eid| Faker::Internet.email } }
+Fabricator(:twitter_identity, :class_name => Identities::Oauth::Twitter) do
+  uid       { sequence(:uid_email) { |eid| Faker::Internet.email } }
 end
