@@ -4,13 +4,8 @@ sqlite: &sqlite
   timeout: 5000
 
 production: &production
-  adapter: postgresql
-  encoding: unicode
-  database: doers_production
-  username: doers
-  password: doers_password
-  host: localhost
-  pool: 5
+  <<: *sqlite
+  database: 'db/production.sqlit3'
 
 development:
   <<: *sqlite
