@@ -43,7 +43,7 @@ GIT
 
 GIT
   remote: git://github.com/rails/rails.git
-  revision: 226de24fa2c9c402495287f5d8153e132759c8c8
+  revision: a91bde349f736477e3ed44845655e377edaf44bb
   specs:
     actionmailer (4.0.0.beta1)
       actionpack (= 4.0.0.beta1)
@@ -91,6 +91,14 @@ GIT
       railties (>= 3.1)
 
 GIT
+  remote: git://github.com/thoughtbot/capybara-webkit.git
+  revision: 7bf3c800315ebf90da1f549c028b90306c88c0f2
+  specs:
+    capybara-webkit (0.14.1)
+      capybara (~> 2.0, >= 2.0.2)
+      json
+
+GIT
   remote: git://github.com/thoughtbot/shoulda-matchers.git
   revision: d680e7d47ba0d0bc6eba888cc4648f65b61ac2cf
   specs:
@@ -103,6 +111,7 @@ GEM
     active_model_serializers (0.7.0)
       activemodel (>= 3.0)
     activerecord-deprecated_finders (1.0.1)
+    addressable (2.3.4)
     arel (4.0.0)
     atomic (1.1.8)
     barber (0.4.2)
@@ -118,9 +127,6 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
-    capybara-webkit (0.14.2)
-      capybara (~> 2.0, >= 2.0.2)
-      json
     choice (0.1.6)
     chunky_png (1.2.8)
     coderay (1.0.9)
@@ -135,6 +141,7 @@ GEM
       chunky_png (~> 1.2)
       fssm (>= 0.2.7)
       sass (~> 3.1)
+    crack (0.3.2)
     database_cleaner (1.0.0.RC1)
     diff-lcs (1.2.4)
     ember-data-source (0.0.5)
@@ -149,7 +156,7 @@ GEM
       multi_json (~> 1.0)
     fabrication (2.6.5)
     fast_gettext (0.7.0)
-    ffaker (1.15.0)
+    ffaker (1.16.0)
     ffi (1.8.1)
     formatador (0.2.4)
     fssm (0.2.10)
@@ -184,7 +191,7 @@ GEM
       thor (>= 0.14, < 2.0)
     json (1.7.7)
     libv8 (3.11.8.17)
-    listen (1.0.2)
+    listen (1.0.3)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
       rb-kqueue (>= 0.2)
@@ -202,7 +209,7 @@ GEM
     multi_json (1.7.2)
     nokogiri (1.5.9)
     oauth (0.4.7)
-    oj (2.0.11)
+    oj (2.0.12)
     open4 (1.3.0)
     parallel (0.6.4)
     pg (0.15.1)
@@ -287,6 +294,10 @@ GEM
     uglifier (2.0.1)
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
+    vcr (2.4.0)
+    webmock (1.11.0)
+      addressable (>= 2.2.7)
+      crack (>= 0.3.2)
     xpath (2.0.0)
       nokogiri (~> 1.3)
     yard (0.8.6.1)
@@ -298,7 +309,7 @@ PLATFORMS
 
 DEPENDENCIES
   cane
-  capybara-webkit
+  capybara-webkit!
   coffee-rails (~> 4.0.0)
   compass-rails!
   database_cleaner (~> 1.0.0.RC1)
@@ -335,5 +346,7 @@ DEPENDENCIES
   sqlite3
   therubyracer
   uglifier
+  vcr
+  webmock
   yard
   zurb-foundation
