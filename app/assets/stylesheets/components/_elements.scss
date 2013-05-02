@@ -1,9 +1,10 @@
-@import 'compass/css3/border-radius';
+// WTF Compass Rails?!?!
+// @import 'compass/css3/border-radius';
 
 img {
   &.gravatar, &.avatar {
     // TODO: WTF it can not see `$global-rounded`???
-     @include border-radius(1000px);
+    // @include border-radius(1000px);
     // @include border-radius($global-rounded);
     margin: 10px;
   }
