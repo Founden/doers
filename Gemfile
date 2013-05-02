@@ -11,6 +11,7 @@ gem 'settingslogic'
 gem 'oj'
 gem 'sanitize'
 gem 'doorkeeper', :github => 'stas/doorkeeper', :branch => 'rails4'
+gem 'ember-rails', :github => 'emberjs/ember-rails'
 
 group :production do
   gem 'pg'
@@ -26,7 +27,6 @@ group :assets do
   gem 'compass-rails', :github => 'milgner/compass-rails', :branch => 'rails4'
   gem 'zurb-foundation'
   gem 'jquery-rails'
-  gem 'ember-rails', :github => 'emberjs/ember-rails'
   gem 'handlebars-source', '~> 1.0.0.rc3 '
   gem 'hamlbars'
 end
