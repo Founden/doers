@@ -22,7 +22,6 @@
 #= require handlebars
 #= require ember
 #= require ember-data
-#= require ember-auth
 #= require doers
 
 #= require_self
