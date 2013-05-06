@@ -19,3 +19,11 @@
 window.Doers ||= Ember.Application.create
   app_name: 'DOERS by Geekcelerator'
   rootElement: '#doers-app'
+
+window.Doers.initializer
+  name: 'AjaxCSRFToken'
+  initialize: (container, application)->
+    $.ajaxPrefilter (options, originalOptions, xhr)->
+      token = $('meta[name="csrf-token"]').attr('content')
+      xhr.setRequestHeader('X-CSRF-Token', token)
+
