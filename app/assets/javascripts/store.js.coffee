@@ -3,4 +3,4 @@ Doers.Store = DS.Store.extend
   adapter: Doers.RESTAdapter.create
     bulkCommit: false
     # API End-point namespace
-    url: 'v1'
+    namespace: 'api/v1'
