@@ -15,7 +15,7 @@ GIT
 
 GIT
   remote: git://github.com/emberjs/ember-rails.git
-  revision: f991b9af9f886ee45d4e0da77b01555f1fb12e94
+  revision: 4aca660ed814770dc74acf49a00f8fb8e34db705
   specs:
     ember-rails (0.12.0)
       active_model_serializers
@@ -26,16 +26,8 @@ GIT
       railties (>= 3.1)
 
 GIT
-  remote: git://github.com/milgner/compass-rails.git
-  revision: 1749c06f15dc4b058427e7969810457213647fb8
-  branch: rails4
-  specs:
-    compass-rails (1.0.3)
-      compass (>= 0.12.2, < 0.14)
-
-GIT
   remote: git://github.com/rails/rails.git
-  revision: ca2bc303a9764f23aa1b610c6b06cadbb23d5408
+  revision: b5e4eb24e0fdef4eed37e67b9726ea0b595917da
   specs:
     actionmailer (4.1.0.beta)
       actionpack (= 4.1.0.beta)
@@ -92,15 +84,15 @@ GIT
 
 GIT
   remote: git://github.com/thoughtbot/shoulda-matchers.git
-  revision: d680e7d47ba0d0bc6eba888cc4648f65b61ac2cf
+  revision: 4594740650eb53d2db07d1191f5e8dee112eff11
   specs:
-    shoulda-matchers (2.0.0)
+    shoulda-matchers (2.1.0)
       activesupport (>= 3.0.0)
 
 GEM
   remote: https://rubygems.org/
   specs:
-    active_model_serializers (0.7.0)
+    active_model_serializers (0.8.1)
       activemodel (>= 3.0)
     activerecord-deprecated_finders (1.0.2)
     addressable (2.3.4)
@@ -129,10 +121,10 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.6.2)
-    compass (0.12.2)
+    compass (0.13.alpha.4)
       chunky_png (~> 1.2)
-      fssm (>= 0.2.7)
-      sass (~> 3.1)
+      listen (<= 0.9.9)
+      sass (~> 3.2.5)
     crack (0.3.2)
     database_cleaner (1.0.0.RC1)
     diff-lcs (1.2.4)
@@ -148,21 +140,20 @@ GEM
       multi_json (~> 1.0)
     fabrication (2.6.5)
     fast_gettext (0.7.0)
-    ffaker (1.16.0)
+    ffaker (1.16.1)
     ffi (1.8.1)
     formatador (0.2.4)
-    fssm (0.2.10)
     gettext_i18n_rails (0.9.4)
       fast_gettext (>= 0.4.8)
-    guard (1.8.0)
+    guard (1.7.0)
       formatador (>= 0.2.4)
-      listen (>= 1.0.0)
+      listen (>= 0.6.0)
       lumberjack (>= 1.0.2)
       pry (>= 0.9.10)
       thor (>= 0.14.6)
-    guard-rspec (2.6.0)
-      guard (>= 1.8)
-      rspec (~> 2.13)
+    guard-rspec (2.5.4)
+      guard (>= 1.1)
+      rspec (~> 2.11)
     haml (4.0.2)
       tilt
     haml-rails (0.4)
@@ -183,10 +174,7 @@ GEM
       thor (>= 0.14, < 2.0)
     json (1.7.7)
     libv8 (3.11.8.17)
-    listen (1.0.3)
-      rb-fsevent (>= 0.9.3)
-      rb-inotify (>= 0.9)
-      rb-kqueue (>= 0.2)
+    listen (0.7.3)
     lumberjack (1.0.3)
     mail (2.5.3)
       i18n (>= 0.4.0)
@@ -198,7 +186,7 @@ GEM
       open4
       rake
     minitest (4.7.4)
-    multi_json (1.7.2)
+    multi_json (1.7.3)
     nokogiri (1.5.9)
     oauth (0.4.7)
     oj (2.0.12)
@@ -225,10 +213,7 @@ GEM
       choice (~> 0.1.6)
       ruby-graphviz (~> 1.0.4)
     rake (10.0.4)
-    rb-fsevent (0.9.3)
     rb-inotify (0.9.0)
-      ffi (>= 0.5.0)
-    rb-kqueue (0.2.0)
       ffi (>= 0.5.0)
     ref (1.0.4)
     rspec (2.13.0)
@@ -303,7 +288,7 @@ DEPENDENCIES
   cane
   capybara-webkit!
   coffee-rails (~> 4.0.0)
-  compass-rails!
+  compass (= 0.13.alpha.4)
   database_cleaner (~> 1.0.0.RC1)
   easy_auth!
   easy_auth-oauth!
