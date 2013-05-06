@@ -8,9 +8,6 @@ describe User do
   it { should have_many(:boards).dependent('') }
   it { should have_many(:fields).dependent('') }
 
-  it { should have_many(:oauth_applications).dependent(:destroy) }
-  it { should have_many(:access_tokens).dependent(:destroy) }
-
   it { should validate_presence_of(:email) }
   it { should validate_uniqueness_of(:email) }
 
@@ -22,7 +19,6 @@ describe User do
     its(:email) { should_not be_empty }
     its(:name) { should_not be_empty }
     its(:nicename) { should eq(user.name) }
-    its(:access_tokens) { should be_empty }
 
     context '#nicename when #name is blank' do
       before { user.update_attribute(:name, nil) }
@@ -35,17 +31,6 @@ describe User do
 
       it { should_not be_valid }
     end
-  end
-
-  context 'when predefined app uid is available' do
-    before do
-      webapp = Fabricate(:doorkeeper_app)
-      webapp.update_attribute(:uid, Doers::Config.webapp_uid)
-    end
-
-    subject { Fabricate(:user) }
-
-    its(:access_tokens) { should_not be_empty }
   end
 
 end

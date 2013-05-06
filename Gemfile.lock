@@ -75,14 +75,6 @@ GIT
       thor (>= 0.18.1, < 2.0)
 
 GIT
-  remote: git://github.com/stas/doorkeeper.git
-  revision: d2b9e143c18dbc3cfd10693c75e2c312f138057d
-  branch: rails4
-  specs:
-    doorkeeper (0.6.7)
-      railties (>= 3.1)
-
-GIT
   remote: git://github.com/stas/easy_auth.git
   revision: 4cf8104ebad35a441ddfbc1e1fd41d09dd90fadc
   branch: rails4
@@ -313,7 +305,6 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   compass-rails!
   database_cleaner (~> 1.0.0.RC1)
-  doorkeeper!
   easy_auth!
   easy_auth-oauth!
   easy_auth-twitter!

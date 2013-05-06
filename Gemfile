@@ -10,7 +10,6 @@ gem 'easy_auth-twitter', :github => 'dockyard/easy_auth-twitter'
 gem 'settingslogic'
 gem 'oj'
 gem 'sanitize'
-gem 'doorkeeper', :github => 'stas/doorkeeper', :branch => 'rails4'
 gem 'ember-rails', :github => 'emberjs/ember-rails'
 
 group :production do
