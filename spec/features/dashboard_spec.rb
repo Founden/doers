@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'User Dashboard', :js, :vcr => {:cassette_name => :twitter_oauth} do
+feature 'Dashboard', :js, :slow, :vcr => {:cassette_name => :twitter_oauth} do
 
   background do
     sign_in_with_twitter
