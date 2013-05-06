@@ -1,5 +1,5 @@
 class ProjectSerializer < ActiveModel::Serializer
   attributes :id, :title, :description, :status, :updated_at
 
-  has_one :user
+  has_one :user, :embed => :ids
 end
