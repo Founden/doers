@@ -39,6 +39,14 @@ module Doers
     config.autoload_paths += Dir[ Rails.root.join('app', 'models', '**/') ]
 
     # Handle Ember.js variant based on environment
-    config.ember.variant = ::Rails.env
+    config.ember.variant = ::Rails.env if config.respond_to?(:ember)
+
+    # Load compass
+    if defined?(Compass)
+      config.assets.paths << Compass::Frameworks[:compass].stylesheets_directory
+    end
+
+    # TODO: See @github:sprockets-rails/#36
+    config.assets.precompile += %w( doers.js )
   end
 end

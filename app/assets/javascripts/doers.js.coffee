@@ -1,3 +1,10 @@
+# Ember.js App
+# ~~~~~~~~~~~~
+#= require handlebars
+#= require ember
+#= require ember-data
+#= require doers
+
 #= require_self
 #= require ./adapter
 #= require ./store
