@@ -10,24 +10,24 @@ gem 'easy_auth-twitter', :github => 'dockyard/easy_auth-twitter'
 gem 'settingslogic'
 gem 'oj'
 gem 'sanitize'
-gem 'ember-rails', :github => 'emberjs/ember-rails'
 
 group :production do
   gem 'pg'
   gem 'puma'
 end
 
-group :production, :assets do
+group :assets do
   gem 'sprockets-rails', '~> 2.0.0.rc4'
   gem 'sass-rails', '~> 4.0.0.rc1'
   gem 'coffee-rails', '~> 4.0.0'
   gem 'uglifier'
   gem 'therubyracer'
-  gem 'compass-rails', :github => 'milgner/compass-rails', :branch => 'rails4'
+  gem 'compass', '0.13.alpha.4'
   gem 'zurb-foundation'
   gem 'jquery-rails'
   gem 'handlebars-source', '~> 1.0.0.rc3 '
   gem 'hamlbars'
+  gem 'ember-rails', :github => 'emberjs/ember-rails'
 end
 
 group :development do
