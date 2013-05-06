@@ -1,9 +1,4 @@
 Doers::Application.routes.draw do
-  # OAuth 2.0 endpoints
-  use_doorkeeper do
-    skip_controllers :applications, :authorized_applications
-  end
-
   # Easy Auth endpoints
   easy_auth_routes
 

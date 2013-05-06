@@ -1,7 +1,6 @@
 defaults: &defaults
   app_name: <%= _('DOERS by Geekcelerator') %>
   app_id: doers.geekcelerator.com
-  webapp_uid: 1234567890987654321
   oauth_providers:
     twitter:
       client_id: vAODSxZcVZIoPH0wsBDP7A
