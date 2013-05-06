@@ -1,0 +1,22 @@
+%h5 Create a new project
+
+%form{:_action => 'save on="submit"'}
+  .row
+    .large-2.columns
+      %label.right.inline{:for => :titleInput}
+        Project Name
+    .large-8.columns.end
+      {{view Ember.TextField valueBinding='content.title' id='titleInput' placeholder='Give it a nice name' required='true'}}
+
+  .row
+    .large-2.columns
+      %label.right.inline{:for => :descriptionInput}
+        Project Description
+    .large-8.columns.end
+      {{view Ember.TextArea valueBinding='content.description' id='descriptionInput' placeholder='What is this project about...' required='true'}}
+  .row
+    .large-2.columns
+      %a.button.small.secondary.right{:_action => 'cancel'}
+        Cancel
+    .large-2.columns.end
+      %input.button.primary.small{:type => :submit, :value => 'Create'}

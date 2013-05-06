@@ -3,3 +3,6 @@ Doers.Router.reopen
 
 Doers.Router.map (match)->
   @route 'dashboard'
+  @resource 'projects', ->
+    @route('new')
+    @resource 'project', {path: ':project_id'}

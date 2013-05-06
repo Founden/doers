@@ -1,0 +1,11 @@
+%h5
+  {{content.title}}
+
+%p
+  By {{content.user.nicename}}
+
+%p
+  {{content.description}}
+
+
+{{#linkTo dashboard}}Back to all{{/linkTo}}
