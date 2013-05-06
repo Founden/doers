@@ -18,7 +18,7 @@ describe Api::V1::ProjectsController do
   end
 
   describe '#show' do
-    before { get(:show, :id => user.id) }
+    before { get(:show, :id => user.projects.reload.first.id) }
 
     it 'serializes user project into a json' do
       api_project = JSON.parse(response.body)['project']
