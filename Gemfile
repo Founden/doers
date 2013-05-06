@@ -31,9 +31,7 @@ group :assets do
 end
 
 group :development do
-  gem 'sqlite3'
   gem 'quiet_assets'
-  gem 'pry-rails'
   gem 'seedbank'
   gem 'cane', :require => false
   gem 'yard', :require => false
@@ -41,6 +39,8 @@ group :development do
 end
 
 group :development, :test do
+  gem 'sqlite3'
+  gem 'pry-rails'
   gem 'ffaker'
   gem 'fabrication'
   gem 'rspec-rails'
