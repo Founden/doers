@@ -31,7 +31,7 @@ describe Api::V1::ProjectsController do
       api_project['description'].should eq(project.description)
       api_project['status'].should eq(project.status)
       api_project['updated_at'].should_not be_blank
-      api_project['user']['id'].should eq(user.id)
+      api_project['user_id'].should eq(user.id)
     end
   end
 
@@ -47,7 +47,7 @@ describe Api::V1::ProjectsController do
       project['title'].should eq(prj_attrs['title'])
       project['description'].should eq(prj_attrs['description'])
       project['status'].should eq(Project::STATES.first)
-      project['user']['id'].should eq(user.id)
+      project['user_id'].should eq(user.id)
     end
 
     context 'except on wrong arguments' do
@@ -77,7 +77,7 @@ describe Api::V1::ProjectsController do
       project['title'].should eq(prj_attrs['title'])
       project['description'].should eq(prj_attrs['description'])
       project['status'].should eq(Project::STATES.last)
-      project['user']['id'].should eq(user.id)
+      project['user_id'].should eq(user.id)
     end
   end
 

@@ -3,12 +3,14 @@ class Api::V1::ProjectsController < Api::V1::ApplicationController
 
   # Lists available projects
   def index
-    render :json => current_account.projects
+    projects = current_account.projects
+    render :json => projects
   end
 
   # Shows available project
   def show
-    render :json => current_account.projects.where(params[:id]).first
+    project = current_account.projects.find(params[:id])
+    render :json => project
   end
 
   # Handles project creation
