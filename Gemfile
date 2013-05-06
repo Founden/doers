@@ -36,6 +36,7 @@ group :development do
   gem 'cane', :require => false
   gem 'yard', :require => false
   gem 'erd', :require => false
+  gem 'mina', :require => false
 end
 
 group :development, :test do
@@ -43,6 +44,11 @@ group :development, :test do
   gem 'pry-rails'
   gem 'ffaker'
   gem 'fabrication'
+  gem 'guard-rspec', :require => false
+  gem 'rb-inotify', :require => false
+end
+
+group :test do
   gem 'rspec-rails'
   gem 'vcr'
   gem 'webmock'
@@ -50,7 +56,4 @@ group :development, :test do
   gem 'database_cleaner', '~> 1.0.0.RC1'
   gem 'shoulda-matchers', :github => 'thoughtbot/shoulda-matchers'
   gem 'simplecov', :require => false
-  gem 'guard-rspec', :require => false
-  gem 'rb-inotify', :require => false
-  gem 'mina', :require => false
 end
