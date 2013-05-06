@@ -1,3 +1,5 @@
-//= require foundation_and_overrides
-//= require_tree ./components
-//= require_self
+@charset "UTF-8";
+
+@import 'foundation_and_overrides';
+@import 'components/fonts';
+@import 'components/misc';

@@ -17,13 +17,6 @@
 #= require foundation/foundation.tooltips
 # require foundation/foundation.topbar
 
-# Ember.js App
-# ~~~~~~~~~~~~
-#= require handlebars
-#= require ember
-#= require ember-data
-#= require doers
-
 #= require_self
 
 ((w, $) ->
