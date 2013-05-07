@@ -35,7 +35,7 @@ GIT
 
 GIT
   remote: git://github.com/rails/rails.git
-  revision: 2291d0be5c7bdebeaad1091ae13a5917ac6ba811
+  revision: 33283c98ed690b12bc2bca75276236dc907798b2
   specs:
     actionmailer (4.1.0.beta)
       actionpack (= 4.1.0.beta)
@@ -146,7 +146,7 @@ GEM
     erubis (2.7.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
-    fabrication (2.6.5)
+    fabrication (2.7.0)
     faraday (0.8.7)
       multipart-post (~> 1.1)
     fast_gettext (0.7.0)
