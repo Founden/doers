@@ -26,6 +26,14 @@ GIT
       railties (>= 3.1)
 
 GIT
+  remote: git://github.com/nadarei/mina.git
+  revision: 8248fba1222ac4da7f73d422c9a71e99e23df957
+  specs:
+    mina (0.2.1)
+      open4
+      rake
+
+GIT
   remote: git://github.com/rails/rails.git
   revision: 2291d0be5c7bdebeaad1091ae13a5917ac6ba811
   specs:
@@ -194,9 +202,6 @@ GEM
       treetop (~> 1.4.8)
     method_source (0.8.1)
     mime-types (1.23)
-    mina (0.2.1)
-      open4
-      rake
     minitest (4.7.4)
     multi_json (1.7.3)
     multi_xml (0.5.3)
@@ -327,7 +332,7 @@ DEPENDENCIES
   hamlbars
   handlebars-source (~> 1.0.0.rc3)
   jquery-rails
-  mina
+  mina!
   oj
   party_foul
   pg

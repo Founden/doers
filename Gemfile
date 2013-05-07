@@ -38,7 +38,7 @@ group :development do
   gem 'cane', :require => false
   gem 'yard', :require => false
   gem 'erd', :require => false
-  gem 'mina', :require => false
+  gem 'mina', :require => false, :github => 'nadarei/mina'
 end
 
 group :development, :test do
