@@ -13,4 +13,8 @@ test:
   <<: *defaults
 
 production:
+  github:
+    oauth_token: 'a4aefdd92c8ff470da5a098bb5cbcedcc283fa15'
+    owner: 'stas'
+    repository: 'doers'
   <<: *defaults
