@@ -5,3 +5,7 @@ Doers.Project = DS.Model.extend
   updatedAt: DS.attr('date')
 
   user: DS.belongsTo('Doers.User')
+
+  slug: (->
+    'project-' + @get('id')
+  ).property('id')

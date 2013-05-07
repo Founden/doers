@@ -19,4 +19,4 @@
       %a.button.small.secondary.right{:_action => 'cancel'}
         Cancel
     .large-2.columns.end
-      %input.button.primary.small{:type => :submit, :value => 'Create'}
+      %input#projects-save.button.primary.small{:type => :submit, :value => 'Create'}
