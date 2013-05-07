@@ -3,11 +3,11 @@
 #projects
   {{#if content.length}}
   %ul
-    %li {{#linkTo projects.new class='icon-plus'}} Create one{{/linkTo}}
+    %li {{#linkTo projects.new class='icon-plus' id='projects-add'}} Create one{{/linkTo}}
     {{#each project in content}}
-    %li {{#linkTo project project}}{{project.title}}{{/linkTo}}
+    %li.project{:bind => {:id => 'project.slug'}} {{#linkTo project project}}{{project.title}}{{/linkTo}}
     {{/each}}
   {{else}}
   %p
-    There are no projects yet. {{#linkTo projects.new}}Create one{{/linkTo}}.
+    There are no projects yet. {{#linkTo projects.new id='projects-add'}}Create one{{/linkTo}}.
   {{/if}}
