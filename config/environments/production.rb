@@ -77,4 +77,7 @@ Doers::Application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
+
+  # Enable Party Foul exception logger
+  config.middleware.use('PartyFoul::Middleware')
 end
