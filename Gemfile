@@ -46,12 +46,12 @@ group :development, :test do
   gem 'pry-rails'
   gem 'ffaker'
   gem 'fabrication'
+  gem 'rspec-rails'
   gem 'guard-rspec', :require => false
   gem 'rb-inotify', :require => false
 end
 
 group :test do
-  gem 'rspec-rails'
   gem 'vcr'
   gem 'webmock'
   gem 'capybara-webkit', :github => 'thoughtbot/capybara-webkit'

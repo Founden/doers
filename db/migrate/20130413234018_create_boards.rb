@@ -5,8 +5,9 @@ class CreateBoards < ActiveRecord::Migration
       t.integer :position
       t.references :user, index: true
       t.references :project, index: true
-      t.references :panel, index: true
+      t.references :board, index: true
       t.string :status
+      t.string :type
 
       t.timestamps
     end

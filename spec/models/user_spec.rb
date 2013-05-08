@@ -4,7 +4,6 @@ describe User do
   let(:user) { Fabricate(:user) }
 
   it { should have_many(:projects).dependent(:destroy) }
-  it { should have_many(:panels).dependent('') }
   it { should have_many(:boards).dependent('') }
   it { should have_many(:fields).dependent('') }
 
