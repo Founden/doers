@@ -5,7 +5,9 @@ class Project < ActiveRecord::Base
 
   # Relationships
   belongs_to :user
-  has_many :boards
+  has_many :personas, :class_name => Board::Persona
+  has_many :problems, :class_name => Board::Problem
+  has_many :solutions, :class_name => Board::Solution
   has_many :fields
 
   # Validations

@@ -18,13 +18,14 @@ ActiveRecord::Schema.define(version: 20130414092640) do
     t.integer  "position"
     t.integer  "user_id"
     t.integer  "project_id"
-    t.integer  "panel_id"
+    t.integer  "board_id"
     t.string   "status"
+    t.string   "type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "boards", ["panel_id"], name: "index_boards_on_panel_id"
+  add_index "boards", ["board_id"], name: "index_boards_on_board_id"
   add_index "boards", ["project_id"], name: "index_boards_on_project_id"
   add_index "boards", ["user_id"], name: "index_boards_on_user_id"
 
@@ -52,17 +53,6 @@ ActiveRecord::Schema.define(version: 20130414092640) do
   end
 
   add_index "identities", ["uid"], name: "index_identities_on_uid"
-
-  create_table "panels", force: true do |t|
-    t.string   "label"
-    t.integer  "position"
-    t.integer  "user_id"
-    t.string   "status"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "panels", ["user_id"], name: "index_panels_on_user_id"
 
   create_table "projects", force: true do |t|
     t.string   "title"
