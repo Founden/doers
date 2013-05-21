@@ -1,9 +1,8 @@
 module Doers::RSpecHelpers
-  def sign_in_with_twitter
-    visit oauth_callback_path(
-      :provider => :twitter,
-      :oauth_token => 'DUMMY_TOKEN',
-      :oauth_token_secret => 'DUMMY_SECRET'
+  def sign_in_with_angel_list
+    visit oauth2_callback_path(
+      :provider => :angel_list,
+      :code => 'DUMMY_CODE'
     )
   end
 end

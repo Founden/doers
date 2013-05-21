@@ -1,10 +1,10 @@
 defaults: &defaults
   app_name: <%= _('DOERS by Geekcelerator') %>
   app_id: doers.geekcelerator.com
-  oauth_providers:
-    twitter:
-      client_id: vAODSxZcVZIoPH0wsBDP7A
-      secret_key: AcBQmKP4JoSqHGt80Ut2tE5RlnITqsIwsWJNUgd8q8
+  oauth2_providers:
+    angel_list:
+      client_id: 645e9a49faf15df3cf67853f1ad255bd
+      secret_key: d7534214ae71a6ae79a0aa4ba5f7e4ff
 
 development:
   <<: *defaults

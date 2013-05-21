@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-feature 'Projects', :js, :slow, :vcr => {:cassette_name => :twitter_oauth} do
+feature 'Projects', :js, :slow, :vcr => {:cassette_name=>:angel_list_oauth2} do
 
   background do
-    sign_in_with_twitter
+    sign_in_with_angel_list
   end
 
   scenario 'user can access an existing project' do
