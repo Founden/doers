@@ -1,17 +1,10 @@
 GIT
-  remote: git://github.com/dockyard/easy_auth-oauth.git
-  revision: 32caea8d4b2ac740b5fc869eb4e8e812b805eeef
+  remote: git://github.com/dockyard/easy_auth-oauth2.git
+  revision: 992f2c5a41e963e1d1626ff5317945dc65f12301
   specs:
-    easy_auth-oauth (0.2.0)
+    easy_auth-oauth2 (0.2.0)
       easy_auth (~> 0.3.0)
-      oauth (~> 0.4.7)
-
-GIT
-  remote: git://github.com/dockyard/easy_auth-twitter.git
-  revision: 7090f4600da502afea733ee74280521a64c6c48d
-  specs:
-    easy_auth-twitter (0.1.1)
-      easy_auth-oauth (~> 0.2.0)
+      oauth2 (~> 0.8.0)
 
 GIT
   remote: git://github.com/emberjs/ember-rails.git
@@ -24,6 +17,13 @@ GIT
       ember-source (>= 1.0.0.rc2.2)
       execjs (>= 1.2)
       railties (>= 3.1)
+
+GIT
+  remote: git://github.com/geekcelerator/easy_auth-angel_list.git
+  revision: 1a032d6df01205c95238828aaa2cecdf5146bfd6
+  specs:
+    easy_auth-angel_list (0.0.1)
+      easy_auth-oauth2
 
 GIT
   remote: git://github.com/nadarei/mina.git
@@ -207,8 +207,7 @@ GEM
     multi_xml (0.5.3)
     multipart-post (1.2.0)
     nokogiri (1.5.9)
-    oauth (0.4.7)
-    oauth2 (0.9.1)
+    oauth2 (0.8.0)
       faraday (~> 0.8)
       httpauth (~> 0.1)
       jwt (~> 0.1.4)
@@ -320,8 +319,8 @@ DEPENDENCIES
   compass (= 0.13.alpha.4)
   database_cleaner (~> 1.0.0.RC1)
   easy_auth!
-  easy_auth-oauth!
-  easy_auth-twitter!
+  easy_auth-angel_list!
+  easy_auth-oauth2!
   ember-rails!
   erd
   fabrication

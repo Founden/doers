@@ -11,14 +11,14 @@ describe SessionsController do
       get('/sign_in').should route_to('sessions#index')
     end
 
-    it 'for twitter sign_in' do
-      get('/sign_in/oauth/twitter').should route_to(
-        'sessions#new', :identity => :oauth, :provider => 'twitter')
+    it 'for angel_list sign_in' do
+      get('/sign_in/oauth2/angel_list').should route_to(
+        'sessions#new', :identity => :oauth2, :provider => 'angel_list')
     end
 
-    it 'for twitter sign_in callback' do
-      get('/sign_in/oauth/twitter/callback').should route_to(
-        'sessions#create', :identity => :oauth, :provider => 'twitter')
+    it 'for angel_list sign_in callback' do
+      get('/sign_in/oauth2/angel_list/callback').should route_to(
+        'sessions#create', :identity => :oauth2, :provider => 'angel_list')
     end
 
   end
