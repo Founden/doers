@@ -1,0 +1,127 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://angel.co/api/oauth/token
+    body:
+      encoding: US-ASCII
+      string: grant_type=authorization_code&code=DUMMY_CODE&client_id=DUMMY_CLIENT_ID&client_secret=DUMMY_SECRET&redirect_uri=http%3A%2F%2Flvh.me%3A3999%2Fsign_in%2Foauth2%2Fangel_list%2Fcallback
+    headers:
+      User-Agent:
+      - Faraday v0.8.7
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept:
+      - ! '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-store
+      Content-Type:
+      - application/json;charset=UTF-8
+      Date:
+      - Tue, 21 May 2013 13:13:53 GMT
+      Etag:
+      - ! '"0708dc5c475d364e97b1c99ce28e0190"'
+      Pragma:
+      - no-cache
+      Server:
+      - nginx
+      Status:
+      - 200 OK
+      Vary:
+      - Accept-Encoding
+      X-Process:
+      - app02 19231
+      X-Runtime:
+      - '341'
+      X-Thanks:
+      - For using AngelList. Rock on!
+      Content-Length:
+      - '73'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '{"access_token":"DUMMY_TOKEN","token_type":"bearer"}'
+    http_version:
+  recorded_at: Tue, 21 May 2013 13:13:52 GMT
+- request:
+    method: get
+    uri: https://api.angel.co/1/me
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.8.7
+      Authorization:
+      - Bearer DUMMY_TOKEN
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept:
+      - ! '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-store
+      Content-Type:
+      - application/json;charset=UTF-8
+      Date:
+      - Tue, 21 May 2013 13:14:53 GMT
+      Etag:
+      - ! '"0708dc5c475d364e97b1c99ce28e0190"'
+      Pragma:
+      - no-cache
+      Server:
+      - nginx
+      Status:
+      - 200 OK
+      Vary:
+      - Accept-Encoding
+      X-Process:
+      - app02 19231
+      X-Runtime:
+      - '341'
+      X-Thanks:
+      - For using AngelList. Rock on!
+      Content-Length:
+      - '73'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! |-
+        {
+        "name":"A Name",
+        "id":123,
+        "bio":"A Description",
+        "follower_count":0,
+        "angellist_url":"https://angel.co/doer",
+        "image":"",
+        "email":"doer@geekcelerator.com",
+        "blog_url":"",
+        "online_bio_url":"",
+        "twitter_url":"",
+        "facebook_url":"",
+        "linkedin_url":"",
+        "aboutme_url":"",
+        "github_url":"",
+        "dribbble_url":"",
+        "behance_url":"",
+        "what_ive_built":"",
+        "locations":[],
+        "roles":[],
+        "skills":[],
+        "investor":false,
+        "scopes":[ "email", "message", "dealflow" ]
+        }
+    http_version:
+  recorded_at: Tue, 21 May 2013 13:13:54 GMT
+recorded_with: VCR 2.5.0
