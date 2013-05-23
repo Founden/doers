@@ -13,6 +13,7 @@ test:
   <<: *defaults
 
 production:
+  <<: *defaults
   github:
     oauth_token: 'a4aefdd92c8ff470da5a098bb5cbcedcc283fa15'
     owner: 'stas'
@@ -21,4 +22,3 @@ production:
     angel_list:
       client_id: 1be58d394a63667825c2e5479fc9d617
       secret_key: fd70eb48c593ff0d5da95d144a38ee81
-  <<: *defaults
