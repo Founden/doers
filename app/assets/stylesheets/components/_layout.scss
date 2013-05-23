@@ -58,6 +58,15 @@ header {
   }
 }
 
+#content {
+
+  .panel {
+    hr {
+      border-color: $black;
+    }
+  }
+}
+
 footer {
   p {
     color: rgba($white, 0.5);

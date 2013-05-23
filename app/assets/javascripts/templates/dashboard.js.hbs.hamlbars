@@ -1,13 +1,28 @@
-%h5 Current projects
-
 #projects
-  {{#if content.length}}
-  %ul
-    %li {{#linkTo projects.new class='icon-plus' id='projects-add'}} Create one{{/linkTo}}
-    {{#each project in content}}
-    %li.project{:bind => {:id => 'project.slug'}} {{#linkTo project project}}{{project.title}}{{/linkTo}}
-    {{/each}}
-  {{else}}
-  %p
-    There are no projects yet. {{#linkTo projects.new id='projects-add'}}Create one{{/linkTo}}.
-  {{/if}}
+
+  .row
+    .large-4.large-offset-4.columns.end
+      %h1.align-center
+        = _('Available Projects')
+
+  .row
+    .large-4.large-offset-4.columns.panel
+      .row
+        .large-11.columns.split-1
+          {{#if content.length}}
+          %ul.no-bullet
+            {{#each project in content}}
+            %li.project{:bind => {:id => 'project.slug'}}
+              {{#linkTo project project}}
+              %h3 {{project.title}}
+              %h5.subheader {{project.description}}
+              {{/linkTo}}
+            {{/each}}
+          {{else}}
+          %p.faded
+            = _('You have no projects yet.')
+          {{/if}}
+
+        {{#linkTo projects.new id='projects-add' class='large-1 columns split-2' title="#{_('Create another one')}"}}
+        %span.icon-plus
+        {{/linkTo}}
