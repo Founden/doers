@@ -1,0 +1,52 @@
+.row
+  .large-12.columns
+    %nav.top-bar{:role => :navigation}
+      %ul.title-area
+        %li.name
+          %h1
+            %a{:href => root_path}
+              != Doers::Config.app_name
+        -# Enable in case we have dropdowns
+        %li.toggle-topbar
+          %a{:href => '#'}
+            %span
+              = _('Menu')
+            %span.icon-layers
+
+      %section.top-bar-section
+        %ul.right
+          - if account_signed_in?
+            %li.has-dropdown{:class => (current_page?(root_path) ? 'active' : '') }
+              %a{:href => dashboard_pages_path}
+                %span.icon-list
+                  %span.emph
+                    = _('Your Startups')
+              %ul.dropdown
+                %li
+                  %a{:href => '#projects/new'}
+                    %span.icon-plus_alt
+                    %span.emph
+                      = _('Create a new one')
+            %li{:class => (current_page?('settings') ? 'active' : '') }
+              %a{:href => '#settings'}
+                %span.icon-equalizer
+                  %span.emph
+                    = _('Settings')
+            %li.has-dropdown{:class => (current_page?(mine_profiles_path) ? 'active' : '') }
+              %a{:href => mine_profiles_path}
+                = gravatar_tag(current_user.email, {:class => 'avatar', :size => 24})
+                = _('Hello,')
+                %span.emph
+                  = current_user.name
+              %ul.dropdown
+                %li
+                  %a{:href => sign_out_path}
+                    %span.icon-lock_fill
+                    %span.emph
+                      = _('Sign out')
+          - else
+            %li{:class => (current_page?(sign_in_path) ? 'active' : '') }
+              %a{:href => sign_in_path}
+                %span.icon-user
+                %span.emph
+                  = _('Sign In')
