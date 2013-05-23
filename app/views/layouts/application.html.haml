@@ -4,7 +4,7 @@
     %title
       = content_for?(:title) ? yield(:title) : _('Welcome')
       &bull;
-      = Doers::Config.app_name
+      = sanitize(Doers::Config.app_name, :tags=>[])
 
     = favicon_link_tag(image_path('favicon.ico'), :type => 'image/x-icon', :rel => 'shortcut icon')
 
@@ -17,31 +17,20 @@
       %script{ :src => 'http://html5shiv.googlecode.com/svn/trunk/html5.js' }
 
     = stylesheet_link_tag 'application'
-    = javascript_include_tag 'application'
+    = javascript_include_tag 'vendor/custom.modernizr.js'
     = yield(:head_embed) if content_for?(:head_embed)
     = csrf_meta_tags
 
   %body
     %header{:role => :banner}
-      .row
-        .large-12.columns
-          %h1
-            = Doers::Config.app_name
-          %hr
-      %nav{:role => :navigation}
+      = render('shared/topbar')
 
-    .wrap
-      %section#content{:role => :main}
-
-        = render('shared/alerts')
-
-        = yield
+    %section#content{:role => :main}
+      = render('shared/alerts')
+      = yield
 
     %footer{:role => :contentinfo}
-      .row
-        .large-12.columns
-          %p
-            %small.right
-              &copy;
-              = Date.today.year
-              = Doers::Config.app_name
+      = render('shared/footer')
+
+    = javascript_include_tag 'application'
+    = yield(:footer_embed) if content_for?(:footer_embed)
