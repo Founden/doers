@@ -1,24 +1,30 @@
 #profile
   .row
-    .large-12.columns
-      = gravatar_tag(current_user.email, {:class => 'avatar left', :size => 60})
+    .large-4.large-offset-4.columns.end
       %h1
-        = _('Welcome back, ')
-        = current_user.nicename
+        = _('Your Profile')
 
-      = form_for current_user,  :url => profile_path(current_user) do |f|
-        .row
-          .large-2.columns
-            = f.label :email, _('Email'), :class => 'right inline'
-          .large-4.columns.end
-            = f.email_field :email, :required => true
+  .row
+    .large-4.large-offset-4.columns.panel
 
-        .row
-          .large-2.columns
-            = f.label :name, _('Name'), :class => 'right inline'
-          .large-4.columns.end
-            = f.text_field :name, :required => true
+      .row
+        .large-2.columns.align-center
+          = gravatar_tag(current_user.email, {:class => 'avatar', :size => 70})
 
-        .row
-          .large-4.large-offset-2.columns
-            = f.submit _('OK'), :class => 'button small secondary'
+        .large-10.columns
+          = form_for current_user,  :url => profile_path(current_user) do |f|
+            .row
+              .large-2.columns
+                = f.label :email, _('Email'), :class => 'right inline'
+              .large-10.columns.end
+                = f.email_field :email, :required => true
+
+            .row
+              .large-2.columns
+                = f.label :name, _('Name'), :class => 'right inline'
+              .large-10.columns.end
+                = f.text_field :name, :required => true
+
+            .row
+              .large-10.large-offset-2.columns
+                = f.submit _('OK'), :class => 'button primary'

@@ -18,6 +18,7 @@ class ProfilesController < ApplicationController
     else
       flash[:alert] = _('Profile could not be updated. Try again.')
     end
+    @profile = current_user
     render :show
   end
 
