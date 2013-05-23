@@ -47,6 +47,6 @@ module Doers
     end
 
     # TODO: See @github:sprockets-rails/#36
-    config.assets.precompile += %w( doers.js )
+    config.assets.precompile += %w( doers.js modernizr.js )
   end
 end
