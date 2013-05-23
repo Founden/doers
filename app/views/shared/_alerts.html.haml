@@ -1,9 +1,9 @@
 #notifications
   .row
-    .large-6.large-offset-3.columns
+    .large-4.large-offset-4.columns
       - flash.each do |name, msg|
         - if msg.is_a?(String)
-          %div{ :class => "alert-box #{name} radius", 'data-alert' => true }
+          .align-center{ :class => "alert-box #{name} radius", 'data-alert' => true }
             = msg
             %a.close{ :href => '#' }
               &times;
