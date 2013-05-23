@@ -1,11 +1,9 @@
-%h5
-  {{content.title}}
+#projects
 
-%p
-  By {{content.user.nicename}}
-
-%p
-  {{content.description}}
-
-
-{{#linkTo dashboard}}Back to all{{/linkTo}}
+  .row
+    .large-4.large-offset-4.columns.end
+      .welcome
+        %div.title
+          {{content.title}}
+        %div
+          = _('Dashboard')

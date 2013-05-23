@@ -1,6 +1,3 @@
-%hr
-%h3 {{Doers.app_name}}
-
 .row
   .large-12.columns
     {{outlet}}

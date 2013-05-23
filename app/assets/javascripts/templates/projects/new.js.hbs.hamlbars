@@ -1,22 +1,31 @@
-%h5 Create a new project
-
-%form{:_action => 'save on="submit"'}
-  .row
-    .large-2.columns
-      %label.right.inline{:for => :titleInput}
-        Project Name
-    .large-8.columns.end
-      {{view Ember.TextField valueBinding='content.title' id='titleInput' placeholder='Give it a nice name' required='true'}}
+#projects
 
   .row
-    .large-2.columns
-      %label.right.inline{:for => :descriptionInput}
-        Project Description
-    .large-8.columns.end
-      {{view Ember.TextArea valueBinding='content.description' id='descriptionInput' placeholder='What is this project about...' required='true'}}
+    .large-4.large-offset-4.columns.end
+      %h1.align-center
+        = _('Create a new project')
+
   .row
-    .large-2.columns
-      %a.button.small.secondary.right{:_action => 'cancel'}
-        Cancel
-    .large-2.columns.end
-      %input#projects-save.button.primary.small{:type => :submit, :value => 'Create'}
+    .large-4.large-offset-4.columns.panel
+      .row
+        .large-12.columns.split-none
+
+          %form{:_action => 'save on="submit"'}
+            .row
+              .large-3.columns
+                %label.right.inline{:for => :titleInput}
+                  Project Name
+              .large-9.columns.end
+                {{view Ember.TextField valueBinding='content.title' id='titleInput' placeholder='Give it a nice name' required='true'}}
+
+            .row
+              .large-3.columns
+                %label.right.inline{:for => :descriptionInput}
+                  Project Description
+              .large-9.columns.end
+                {{view Ember.TextArea valueBinding='content.description' id='descriptionInput' placeholder='What is this project about...' required='true'}}
+            .row
+              .large-9.large-offset-3.columns
+                %input#projects-save.button.primary{:type => :submit, :value => 'Create'}
+                %a.button.secondary.right{:_action => 'cancel'}
+                  Cancel

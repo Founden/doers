@@ -1,10 +1,3 @@
-= content_for(:head_embed, javascript_include_tag('doers'))
+= content_for(:footer_embed, javascript_include_tag('doers'))
 
-#dashboard
-  .row
-    .large-12.columns
-      = gravatar_tag(current_user.email, {:class => 'avatar left', :size => 60})
-      %h1
-        = _('Your Projects')
-
-      #doers-app
+#doers-app

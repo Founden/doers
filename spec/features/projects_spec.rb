@@ -37,8 +37,6 @@ feature 'Projects', :js, :slow, :vcr => {:cassette_name=>:angel_list_oauth2} do
     visit root_path(:anchor => :dashboard)
     find('#project-%d a' % projects.first.id).click
 
-    expect(page).to have_content(projects.first.title)
-    expect(page).to have_content(projects.first.description)
-    expect(page).to have_content(projects.first.user.nicename)
+    expect(page).to have_content(projects.first.title.upcase)
   end
 end
