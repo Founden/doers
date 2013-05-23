@@ -1,5 +1,14 @@
 @charset "UTF-8";
 
+@import 'compass/css3/images';
+@import 'compass/css3/border-radius';
+@import 'compass/css3/box-shadow';
+@import 'compass/css3/text-shadow';
+
 @import 'foundation_and_overrides';
+
+@import 'components/layout';
 @import 'components/fonts';
 @import 'components/misc';
+
+@import 'components/sessions';

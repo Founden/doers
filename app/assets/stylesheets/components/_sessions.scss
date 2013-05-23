@@ -1,0 +1,27 @@
+#sign-in {
+  .panel {
+    margin-top: 10%;
+    margin-bottom: 10%;
+
+    .dark-split {
+      background: lighten($black, 10%);
+
+      margin-left: -2 * $panel-padding;
+      margin-right: -2 * $panel-padding;
+      margin-bottom: -2 * $panel-padding;
+
+      .first {
+        background: $black;
+      }
+
+      .first, .second {
+        padding: 2 * $panel-padding;
+
+        p {
+          color: $white;
+        }
+      }
+    }
+
+  }
+}
