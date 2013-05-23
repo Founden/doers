@@ -1,8 +1,35 @@
-@import 'compass/css3/border-radius';
-
 img {
   &.gravatar, &.avatar {
     @include border-radius($global-rounded);
-    margin: 10px;
   }
+}
+
+.white {
+  color: $white;
+}
+
+.button, input[type="text"], input[type="email"], input[type="password"], textarea {
+  @include border-radius($global-radius);
+}
+
+.panel {
+  @include panel($white, 2 * $panel-padding);
+  @include box-shadow($bw_6 0 2px 10px 0px);
+}
+
+.faded {
+  color: lighten($black, 30%) !important;
+}
+
+.alert-box {
+  @include alert(rgba($white, 0.5));
+  color: $bw_4;
+}
+
+.align-center {
+  text-align: center;
+}
+
+.align-right {
+  text-align: right;
 }

@@ -28,7 +28,10 @@ $bw_2:   #24282b;
 $bw_1:   #0e1012; // almost black
 
 $white: #fff;
-$black: #000;
+$black: #272727;
+$blue: #3CD3AE;
+$dark-blue: #6ab2b2;
+
 
 //
 // Foundation Global Variables
@@ -38,8 +41,8 @@ $black: #000;
 $em-base: 16px;
 
 // We use these to control various global styles
-$body-bg: $white;
-$body-font-color: $black;
+$body-bg: $blue;
+$body-font-color: $white;
 $body-font-family: "Open Sans", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 $body-font-weight: normal;
 $body-font-style: normal;
@@ -51,10 +54,10 @@ $font-smoothing: antialiased;
 // $text-direction: ltr;
 
 // We use these as default colors throughout
-// $primary-color: #2ba6cb;
-// $secondary-color: #e9e9e9;
-// $alert-color: #c60f13;
-// $success-color: #5da423;
+$primary-color: #d34a1d;
+$secondary-color: #25c2c2;
+$alert-color: #a80000;
+$success-color: #6fbf4d;
 
 // We use these to make sure border radius matches unless we want it different.
 // $global-radius: 3px;
@@ -88,7 +91,7 @@ $include-print-styles: true;
 // Grid Variables
 //
 
-// $row-width: 62.5em;
+$row-width: 100%;
 // $column-gutter: 1.875em;
 // $total-columns: 12;
 
@@ -111,7 +114,7 @@ $include-print-styles: true;
 $header-font-family: "Open Sans", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 $header-font-weight: 300;
 $header-font-style: normal;
-$header-font-color: $black;
+$header-font-color: $white;
 $header-line-height: 1.4;
 $header-top-margin: .2em;
 $header-bottom-margin: .5em;
@@ -159,7 +162,7 @@ $code-font-weight: normal;
 // We use these to style the <hr> element
 $hr-border-width: 1px;
 $hr-border-style: solid;
-$hr-border-color: $black;
+$hr-border-color: $white;
 $hr-margin: emCalc(20px);
 
 // We use these to style lists
@@ -282,7 +285,7 @@ $button-font-weight: normal;
 // $button-function-factor: 10%;
 
 // We use these to control button border styles.
-// $button-border-width: 1px;
+$button-border-width: 0;
 // $button-border-style: solid;
 // $button-border-color: darken($primary-color, $button-function-factor);
 
@@ -383,13 +386,13 @@ $alert-font-weight: normal;
 
 // We use these to control border styles.
 // $alert-border-style: solid;
-// $alert-border-width: 1px;
+$alert-border-width: 0;
 // $alert-border-color: darken($primary-color, $alert-function-factor);
 // $alert-bottom-margin: emCalc(20px);
 
 // We use these to style the close buttons
 // $alert-close-color: #333;
-// $alert-close-position: emCalc(5px);
+$alert-close-position: emCalc(8px);
 // $alert-close-font-size: emCalc(22px);
 // $alert-close-opacity: 0.3;
 // $alert-close-opacity-hover: 0.5;
@@ -703,7 +706,7 @@ $alert-font-weight: normal;
 // We use these to control the background and border styles
 // $panel-bg: darken(#fff, 5%);
 // $panel-border-style: solid;
-// $panel-border-size: 1px;
+$panel-border-size: 0;
 
 // We use this % to control how much we darken things on hover
 // $panel-function-factor: 10%;
@@ -999,7 +1002,7 @@ $alert-font-weight: normal;
 //
 
 // Background color for the top bar
-// $topbar-bg: #111;
+$topbar-bg: $black;
 
 // Height and margin
 // $topbar-height: 45px;
@@ -1009,17 +1012,18 @@ $alert-font-weight: normal;
 // $topbar-input-height: 2.45em;
 
 // Controlling the styles for the title in the top bar
-// $topbar-title-weight: bold;
-// $topbar-title-font-size: emCalc(17px);
+$topbar-title-weight: normal;
+$topbar-title-font-size: emCalc(14px);
 
 // Set the link colors and styles for top-level nav
-// $topbar-link-color: #fff;
-// $topbar-link-weight: bold;
-// $topbar-link-font-size: emCalc(13px);
+$topbar-link-color: lighten($black, 40%);
+$topbar-link-weight: normal;
+// $topbar-link-font-size: emCalc(14px);
+$topbar-link-hover-lightness: 0%;
 
 // Style the top bar dropdown elements
-// $topbar-dropdown-bg: #333;
-// $topbar-dropdown-link-color: #fff;
+$topbar-dropdown-bg: $black;
+$topbar-dropdown-link-color: $topbar-link-color;
 // $topbar-dropdown-toggle-size: 5px;
 // $topbar-dropdown-toggle-color: #fff;
 // $topbar-dropdown-toggle-alpha: 0.5;
@@ -1028,11 +1032,11 @@ $alert-font-weight: normal;
 // Top menu icon styles
 // $topbar-menu-link-transform: uppercase;
 // $topbar-menu-link-font-size: emCalc(13px);
-// $topbar-menu-link-weight: bold;
+$topbar-menu-link-weight: normal;
 // $topbar-menu-link-color: #fff;
 // $topbar-menu-icon-color: #fff;
-// $topbar-menu-link-color-toggled: #888;
-// $topbar-menu-icon-color-toggled: #888;
+$topbar-menu-link-color-toggled: $topbar-link-color;
+$topbar-menu-icon-color-toggled: $black;
 
 // Transitions and breakpoint styles
 // $topbar-transition-speed: 300ms;
@@ -1052,11 +1056,11 @@ $alert-font-weight: normal;
 @import "foundation/components/forms";
 // @import "foundation/components/custom-forms";
 // @import "foundation/components/button-groups";
-// @import "foundation/components/dropdown-buttons";
+@import "foundation/components/dropdown-buttons";
 // @import "foundation/components/split-buttons";
 // @import "foundation/components/flex-video";
 @import "foundation/components/section";
-// @import "foundation/components/top-bar";
+@import "foundation/components/top-bar";
 // @import "foundation/components/orbit";
 // @import "foundation/components/reveal";
 // @import "foundation/components/joyride";
@@ -1065,9 +1069,9 @@ $alert-font-weight: normal;
 // @import "foundation/components/breadcrumbs";
 // @import "foundation/components/keystrokes";
 // @import "foundation/components/labels";
-// @import "foundation/components/inline-lists";
+@import "foundation/components/inline-lists";
 // @import "foundation/components/pagination";
-// @import "foundation/components/panels";
+@import "foundation/components/panels";
 // @import "foundation/components/pricing-tables";
 // @import "foundation/components/progress-bars";
 // @import "foundation/components/side-nav";
