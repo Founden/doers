@@ -1,5 +1,5 @@
 defaults: &defaults
-  app_name: <%= _('DOERS by Geekcelerator') %>
+  app_name: <%= _('<span class="white">DOERS</span> by Geekcelerator').html_safe %>
   app_id: doers.geekcelerator.com
   oauth2_providers:
     angel_list:
