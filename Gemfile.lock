@@ -83,14 +83,6 @@ GIT
       rails (>= 4.0.0.beta1)
 
 GIT
-  remote: git://github.com/thoughtbot/capybara-webkit.git
-  revision: 7bf3c800315ebf90da1f549c028b90306c88c0f2
-  specs:
-    capybara-webkit (0.14.1)
-      capybara (~> 2.0, >= 2.0.2)
-      json
-
-GIT
   remote: git://github.com/thoughtbot/shoulda-matchers.git
   revision: 4594740650eb53d2db07d1191f5e8dee112eff11
   specs:
@@ -119,6 +111,9 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    capybara-webkit (1.0.0)
+      capybara (~> 2.0, >= 2.0.2)
+      json
     choice (0.1.6)
     chunky_png (1.2.8)
     coderay (1.0.9)
@@ -190,7 +185,7 @@ GEM
     jquery-rails (2.2.1)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
-    json (1.7.7)
+    json (1.8.0)
     jwt (0.1.8)
       multi_json (>= 1.5)
     libv8 (3.11.8.17)
@@ -314,10 +309,10 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers
   cane
-  capybara-webkit!
+  capybara-webkit
   coffee-rails (~> 4.0.0)
-  compass (= 0.13.alpha.4)
-  database_cleaner (~> 1.0.0.RC1)
+  compass
+  database_cleaner
   easy_auth!
   easy_auth-angel_list!
   easy_auth-oauth2!

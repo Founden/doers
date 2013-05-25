@@ -54,8 +54,8 @@ end
 group :test do
   gem 'vcr'
   gem 'webmock'
-  gem 'capybara-webkit', :github => 'thoughtbot/capybara-webkit'
-  gem 'database_cleaner', '~> 1.0.0.RC1'
+  gem 'capybara-webkit'
+  gem 'database_cleaner'
   gem 'shoulda-matchers', :github => 'thoughtbot/shoulda-matchers'
   gem 'simplecov', :require => false
 end
