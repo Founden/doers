@@ -1,0 +1,11 @@
+box: wercker/ubuntu12.04-ruby2.0.0
+
+services:
+  - wercker/postgresql
+
+build:
+    steps:
+        - bundle-install
+        - script:
+               name: RSpec
+               script: bundle exec rspec
