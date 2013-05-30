@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130414092640) do
+ActiveRecord::Schema.define(version: 20130530101816) do
 
   create_table "boards", force: true do |t|
     t.string   "title"
@@ -28,6 +28,21 @@ ActiveRecord::Schema.define(version: 20130414092640) do
   add_index "boards", ["board_id"], name: "index_boards_on_board_id"
   add_index "boards", ["project_id"], name: "index_boards_on_project_id"
   add_index "boards", ["user_id"], name: "index_boards_on_user_id"
+
+  create_table "comments", force: true do |t|
+    t.integer  "parent_comment_id"
+    t.integer  "project_id"
+    t.integer  "board_id"
+    t.integer  "user_id"
+    t.text     "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "comments", ["board_id"], name: "index_comments_on_board_id"
+  add_index "comments", ["parent_comment_id"], name: "index_comments_on_parent_comment_id"
+  add_index "comments", ["project_id"], name: "index_comments_on_project_id"
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id"
 
   create_table "fields", force: true do |t|
     t.integer "user_id"

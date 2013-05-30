@@ -6,6 +6,7 @@ describe User do
   it { should have_many(:projects).dependent(:destroy) }
   it { should have_many(:boards).dependent('') }
   it { should have_many(:fields).dependent('') }
+  it { should have_many(:comments).dependent(:destroy) }
 
   it { should validate_presence_of(:email) }
   it { should validate_uniqueness_of(:email) }
