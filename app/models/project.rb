@@ -3,6 +3,10 @@ class Project < ActiveRecord::Base
   # Available :status values for a [Project]
   STATES = ['private', 'public', 'archived']
 
+  # TODO: Change this to an hstore when in production
+  store :data, :coder => JSON
+  store_accessor :data, :angel_list_id
+
   # Relationships
   belongs_to :user
   has_many :personas, :class_name => Board::Persona

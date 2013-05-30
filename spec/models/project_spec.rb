@@ -16,5 +16,6 @@ describe Project do
     subject { project }
 
     its(:status) { should eq(Project::STATES.first) }
+    its(:angel_list_id) { should be_nil }
   end
 end
