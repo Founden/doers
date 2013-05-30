@@ -18,6 +18,7 @@ describe User do
     its(:email) { should_not be_empty }
     its(:name) { should_not be_empty }
     its(:nicename) { should eq(user.name) }
+    its(:angel_list_id) { should be_nil }
 
     context '#nicename when #name is blank' do
       before { user.update_attribute(:name, nil) }
