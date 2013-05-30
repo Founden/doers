@@ -7,6 +7,7 @@ class Board < ActiveRecord::Base
   belongs_to :user
   belongs_to :project
   has_many :fields
+  has_many :comments, :dependent => :destroy
 
   # Validations
   validates_presence_of :user, :project, :title

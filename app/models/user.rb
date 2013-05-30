@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
   has_many :projects, :dependent => :destroy
   has_many :boards
   has_many :fields
+  has_many :comments, :dependent => :destroy
 
   # Validations
   validates :email, :uniqueness => true, :presence => true

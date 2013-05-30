@@ -13,6 +13,7 @@ class Project < ActiveRecord::Base
   has_many :problems, :class_name => Board::Problem
   has_many :solutions, :class_name => Board::Solution
   has_many :fields
+  has_many :comments, :dependent => :destroy
 
   # Validations
   validates :user, :presence => true
