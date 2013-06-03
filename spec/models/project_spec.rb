@@ -9,6 +9,8 @@ describe Project do
   it { should have_many(:solutions).dependent('') }
   it { should have_many(:fields).dependent('') }
   it { should have_many(:comments).dependent(:destroy) }
+  it { should have_one(:logo).dependent(:destroy) }
+
   it { should validate_presence_of(:user) }
   it { should validate_presence_of(:title) }
   it { should ensure_inclusion_of(:status).in_array(Project::STATES) }

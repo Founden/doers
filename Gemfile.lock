@@ -83,6 +83,18 @@ GIT
       rails (>= 4.0.0.beta1)
 
 GIT
+  remote: git://github.com/thoughtbot/paperclip.git
+  revision: 455b87e0df49e4ed81deedd9d6e0c7aeb8cee5c5
+  branch: rails-4
+  specs:
+    paperclip (3.4.1)
+      activemodel (>= 3.0.0)
+      activerecord (>= 3.0.0)
+      activesupport (>= 3.0.0)
+      cocaine (~> 0.5.0)
+      mime-types
+
+GIT
   remote: git://github.com/thoughtbot/shoulda-matchers.git
   revision: 4594740650eb53d2db07d1191f5e8dee112eff11
   specs:
@@ -98,6 +110,10 @@ GEM
     addressable (2.3.4)
     arel (4.0.0)
     atomic (1.1.9)
+    aws-sdk (1.11.0)
+      json (~> 1.4)
+      nokogiri (>= 1.4.4)
+      uuidtools (~> 2.1)
     barber (0.4.2)
       ember-source
       execjs
@@ -116,6 +132,10 @@ GEM
       json
     choice (0.1.6)
     chunky_png (1.2.8)
+    climate_control (0.0.3)
+      activesupport (>= 3.0)
+    cocaine (0.5.1)
+      climate_control (>= 0.0.3, < 1.0)
     coderay (1.0.9)
     coffee-rails (4.0.0)
       coffee-script (>= 2.2.0)
@@ -293,6 +313,7 @@ GEM
     uglifier (2.0.1)
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
+    uuidtools (2.1.4)
     vcr (2.4.0)
     webmock (1.11.0)
       addressable (>= 2.2.7)
@@ -308,6 +329,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers
+  aws-sdk
   cane
   capybara-webkit
   coffee-rails (~> 4.0.0)
@@ -328,6 +350,7 @@ DEPENDENCIES
   jquery-rails
   mina!
   oj
+  paperclip!
   party_foul
   pg
   pry-rails
