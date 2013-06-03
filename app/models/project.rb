@@ -14,6 +14,7 @@ class Project < ActiveRecord::Base
   has_many :solutions, :class_name => Board::Solution
   has_many :fields
   has_many :comments, :dependent => :destroy
+  has_one :logo, :dependent => :destroy
 
   # Validations
   validates :user, :presence => true

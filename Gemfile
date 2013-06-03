@@ -11,11 +11,13 @@ gem 'readwritesettings'
 gem 'oj'
 gem 'sanitize'
 gem 'active_model_serializers'
+gem 'paperclip', :github => 'thoughtbot/paperclip', :branch => 'rails-4'
 
 group :production do
   gem 'pg'
   gem 'puma'
   gem 'party_foul'
+  gem 'aws-sdk'
 end
 
 group :assets do

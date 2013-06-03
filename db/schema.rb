@@ -11,7 +11,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130530101816) do
+ActiveRecord::Schema.define(version: 20130603152146) do
+
+  create_table "assets", force: true do |t|
+    t.integer  "project_id"
+    t.integer  "board_id"
+    t.integer  "user_id"
+    t.text     "description"
+    t.string   "type"
+    t.integer  "assetable_id"
+    t.string   "assetable_type"
+    t.string   "attachment_file_name"
+    t.string   "attachment_remote_url"
+    t.string   "attachment_content_type"
+    t.integer  "attachment_file_size"
+    t.datetime "attachment_updated_at"
+  end
+
+  add_index "assets", ["board_id"], name: "index_assets_on_board_id"
+  add_index "assets", ["project_id"], name: "index_assets_on_project_id"
+  add_index "assets", ["user_id"], name: "index_assets_on_user_id"
 
   create_table "boards", force: true do |t|
     t.string   "title"
