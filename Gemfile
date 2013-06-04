@@ -41,6 +41,7 @@ group :development do
   gem 'yard', :require => false
   gem 'erd', :require => false
   gem 'mina', :require => false, :github => 'nadarei/mina'
+  gem 'simplecov', :require => false
 end
 
 group :development, :test do
@@ -59,5 +60,4 @@ group :test do
   gem 'capybara-webkit'
   gem 'database_cleaner'
   gem 'shoulda-matchers', :github => 'thoughtbot/shoulda-matchers'
-  gem 'simplecov', :require => false
 end
