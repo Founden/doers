@@ -1,15 +1,33 @@
 #projects
 
   .row
-    .large-4.large-offset-4.columns.end
+    .large-8.large-offset-2.columns.end
       %h1.align-center
         = _('Available Projects')
 
+  {{#unless content.length}}
+  %p.align-center
+    = _('Looks like you’re new here.')
+    = _('Import existing projects from Angel List or create a new one.')
+
   .row
-    .large-4.large-offset-4.columns.panel
+    .large-8.large-offset-2.columns.panel
+      .row
+        {{#linkTo projects.import id='projects-import' class='large-6 columns split-1' title="#{_('Import from Angel List')}"}}
+        %h3.icon-curved_arrow
+          = _('Import from Angel List')
+        {{/linkTo}}
+
+        {{#linkTo projects.new id='projects-add' class='large-6 columns split-2 ' title="#{_('Create a new project')}"}}
+        %h3.icon-plus
+          = _('Create a new project')
+        {{/linkTo}}
+
+  {{else}}
+  .row
+    .large-8.large-offset-2.columns.panel
       .row
         .large-11.columns.split-1
-          {{#if content.length}}
           %ul.no-bullet
             {{#each project in content}}
             %li.project{:bind => {:id => 'project.slug'}}
@@ -18,11 +36,5 @@
               %h5.subheader {{project.description}}
               {{/linkTo}}
             {{/each}}
-          {{else}}
-          %p.faded
-            = _('You have no projects yet.')
-          {{/if}}
 
-        {{#linkTo projects.new id='projects-add' class='large-1 columns split-2' title="#{_('Create another one')}"}}
-        %span.icon-plus
-        {{/linkTo}}
+  {{/unless}}

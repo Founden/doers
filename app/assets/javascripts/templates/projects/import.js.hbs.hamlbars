@@ -1,0 +1,19 @@
+#importer
+
+  .row
+    .large-8.large-offset-2.columns.end
+      %h1.align-center
+        = _('Your Projects From Angel List')
+
+  .row
+    .large-8.large-offset-2.columns
+      .row
+        .large-12.columns
+          %ul.projects
+          {{#each project in content}}
+          %li.project{:bind => {:id => 'project.slug'}}
+            %h3 {{project.title}}
+            %h5.subheader {{project.description}}
+            %small
+              {{project.website}}
+          {{/each}}
