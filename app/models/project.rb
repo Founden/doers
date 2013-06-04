@@ -5,7 +5,7 @@ class Project < ActiveRecord::Base
 
   # TODO: Change this to an hstore when in production
   store :data, :coder => JSON
-  store_accessor :data, :angel_list_id
+  store_accessor :data, :angel_list_id, :website
 
   # Relationships
   belongs_to :user
@@ -20,6 +20,7 @@ class Project < ActiveRecord::Base
   validates :user, :presence => true
   validates :title, :presence => true
   validates :status, :inclusion => {:in => STATES}
+  validates_format_of :website, :with => URI::regexp(%w(http https)), :allow_blank => true
 
   # Callbacks
   after_initialize do

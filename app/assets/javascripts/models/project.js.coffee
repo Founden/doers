@@ -4,6 +4,7 @@ Doers.Project = DS.Model.extend
   description: DS.attr('string')
   status: DS.attr('string')
   updatedAt: DS.attr('date')
+  website: DS.attr('string')
   logoUrl: DS.attr('string')
 
   user: DS.belongsTo('Doers.User')
