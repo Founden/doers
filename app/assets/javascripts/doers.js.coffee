@@ -17,7 +17,6 @@
 #= require ./router
 
 window.Doers ||= Ember.Application.create
-  app_name: 'DOERS by Geekcelerator'
   rootElement: '#doers-app'
 
 window.Doers.initializer

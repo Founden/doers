@@ -1,7 +1,7 @@
 #project
 
   .row
-    .large-4.large-offset-4.columns.end
+    .large-8.large-offset-2.columns.end
       .welcome
         %div.title
           {{content.title}}

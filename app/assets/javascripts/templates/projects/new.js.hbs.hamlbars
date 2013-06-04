@@ -1,12 +1,12 @@
 #project
 
   .row
-    .large-4.large-offset-4.columns.end
+    .large-8.large-offset-2.columns.end
       %h1.align-center
         = _('Create a new project')
 
   .row
-    .large-4.large-offset-4.columns.panel
+    .large-8.large-offset-2.columns.panel
       .row
         .large-12.columns.split-none
 
@@ -14,14 +14,21 @@
             .row
               .large-3.columns
                 %label.right.inline{:for => :titleInput}
-                  Project Name
+                  = _('Name')
               .large-9.columns.end
                 {{view Ember.TextField valueBinding='content.title' id='titleInput' placeholder='Give it a nice name' required='true'}}
 
             .row
               .large-3.columns
+                %label.right.inline{:for => :wwwInput}
+                  = _('Website')
+              .large-9.columns.end
+                {{view Ember.TextField valueBinding='content.website' id='wwwInput' placeholder='http://...' required='true'}}
+
+            .row
+              .large-3.columns
                 %label.right.inline{:for => :descriptionInput}
-                  Project Description
+                  = _('Description')
               .large-9.columns.end
                 {{view Ember.TextArea valueBinding='content.description' id='descriptionInput' placeholder='What is this project about...' required='true'}}
             .row
