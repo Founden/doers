@@ -21,10 +21,11 @@ describe Api::V1::UsersController do
 
     it 'serializes current user into a json' do
       api_user = JSON.parse(response.body)['user']
-      api_user.keys.count.should eq(2)
+      api_user.keys.count.should eq(3)
 
       api_user['id'].should eq(user.id)
       api_user['nicename'].should eq(user.name)
+      api_user['angel_list_id'].should eq(user.angel_list_id)
     end
   end
 end
