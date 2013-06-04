@@ -4,12 +4,14 @@ describe Api::V1::ProjectsController do
   let(:user) { Fabricate(:user) }
 
   before do
-    2.times { Fabricate(:project, :user => user) }
     controller.stub(:current_account) { user }
   end
 
   describe '#index' do
-    before { get(:index) }
+    before do
+      2.times { Fabricate(:project, :user => user) }
+      get(:index)
+    end
 
     it 'serializes current user projects list into a json' do
       projects = JSON.parse(response.body)['projects']
@@ -18,11 +20,15 @@ describe Api::V1::ProjectsController do
   end
 
   describe '#show' do
-    before { get(:show, :id => user.projects.reload.first.id) }
+    let(:prj) { Fabricate(:project, :user => user) }
+
+    let!(:logo) { Fabricate(:logo, :project => prj, :user => user) }
+
+    before { get(:show, :id => prj.id) }
 
     it 'serializes user project into a json' do
       api_project = JSON.parse(response.body)['project']
-      api_project.keys.count.should eq(6)
+      api_project.keys.count.should eq(7)
 
       project = user.projects.first
 
@@ -32,6 +38,7 @@ describe Api::V1::ProjectsController do
       api_project['status'].should eq(project.status)
       api_project['updated_at'].should_not be_blank
       api_project['user_id'].should eq(user.id)
+      api_project['logo_url'].should eq(logo.attachment.url)
     end
   end
 
@@ -41,7 +48,7 @@ describe Api::V1::ProjectsController do
 
     it 'creates a project and serializes it to json' do
       project = JSON.parse(response.body)['project']
-      project.keys.count.should eq(6)
+      project.keys.count.should eq(7)
 
       project['id'].should_not be_nil
       project['title'].should eq(prj_attrs['title'])
@@ -71,7 +78,7 @@ describe Api::V1::ProjectsController do
 
     it 'creates a project and serializes it to json' do
       project = JSON.parse(response.body)['project']
-      project.keys.count.should eq(6)
+      project.keys.count.should eq(7)
 
       project['id'].should eq(prj.id)
       project['title'].should eq(prj_attrs['title'])
