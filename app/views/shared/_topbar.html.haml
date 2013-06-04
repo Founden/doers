@@ -14,8 +14,8 @@
             %span.icon-layers
 
       %section.top-bar-section
-        %ul.right
-          - if account_signed_in?
+        - if account_signed_in?
+          %ul.left
             %li.has-dropdown{:class => (current_page?(root_path) ? 'active' : '') }
               %a{:href => dashboard_pages_path}
                 %span.icon-list
@@ -27,6 +27,7 @@
                     %span.icon-plus_alt
                     %span.emph
                       = _('Create a new one')
+          %ul.right
             %li{:class => (current_page?('settings') ? 'active' : '') }
               %a{:href => '#settings'}
                 %span.icon-equalizer
@@ -44,7 +45,8 @@
                     %span.icon-lock_fill
                     %span.emph
                       = _('Sign out')
-          - else
+        - else
+          %ul.right
             %li{:class => (current_page?(sign_in_path) ? 'active' : '') }
               %a{:href => sign_in_path}
                 %span.icon-user
