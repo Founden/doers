@@ -80,4 +80,21 @@ Doers::Application.configure do
 
   # Enable Party Foul exception logger
   config.middleware.use('PartyFoul::Middleware')
+
+  # Setup default url options for mail
+  config.action_mailer.default_url_options = {:host => 'beta.geekcelerator.com'}
+
+  # Use Amazon AWS for mail delivery
+  config.action_mailer.delivery_method = :amazon_ses
+
+  # Use Amazon S3 settings for Paperclip uploads
+  config.paperclip_defaults = {
+    :storage => :s3,
+    :s3_protocol => 'https',
+    :s3_credentials => {
+      :bucket => 'doers-assets',
+      :access_key_id => AWS.config.credentials[:access_key_id],
+      :secret_access_key => AWS.config.credentials[:secret_access_key]
+    }
+  }
 end
