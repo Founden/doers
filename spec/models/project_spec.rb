@@ -13,6 +13,11 @@ describe Project do
 
   it { should validate_presence_of(:user) }
   it { should validate_presence_of(:title) }
+
+  it { should allow_value(Faker::Internet.uri(:http)).for(:website) }
+  it { should allow_value(Faker::Internet.uri(:https)).for(:website) }
+  it { should_not allow_value(Faker::Internet.domain_name).for(:website) }
+
   it { should ensure_inclusion_of(:status).in_array(Project::STATES) }
 
   context 'instance' do

@@ -28,7 +28,7 @@ describe Api::V1::ProjectsController do
 
     it 'serializes user project into a json' do
       api_project = JSON.parse(response.body)['project']
-      api_project.keys.count.should eq(7)
+      api_project.keys.count.should eq(8)
 
       project = user.projects.first
 
@@ -38,6 +38,7 @@ describe Api::V1::ProjectsController do
       api_project['status'].should eq(project.status)
       api_project['updated_at'].should_not be_blank
       api_project['user_id'].should eq(user.id)
+      api_project['website'].should eq(project.website)
       api_project['logo_url'].should eq(logo.attachment.url)
     end
   end
@@ -48,7 +49,7 @@ describe Api::V1::ProjectsController do
 
     it 'creates a project and serializes it to json' do
       project = JSON.parse(response.body)['project']
-      project.keys.count.should eq(7)
+      project.keys.count.should eq(8)
 
       project['id'].should_not be_nil
       project['title'].should eq(prj_attrs['title'])
@@ -78,7 +79,7 @@ describe Api::V1::ProjectsController do
 
     it 'creates a project and serializes it to json' do
       project = JSON.parse(response.body)['project']
-      project.keys.count.should eq(7)
+      project.keys.count.should eq(8)
 
       project['id'].should eq(prj.id)
       project['title'].should eq(prj_attrs['title'])
