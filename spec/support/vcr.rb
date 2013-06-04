@@ -5,5 +5,6 @@ VCR.configure do |c|
   c.cassette_library_dir = 'spec/cassettes'
   c.default_cassette_options = { :record => :new_episodes }
   c.ignore_localhost = true
+  c.ignore_hosts 'test.example.com'
   c.configure_rspec_metadata!
 end
