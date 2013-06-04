@@ -1,5 +1,5 @@
 # Use simplecov only outside guard
-unless ENV['GUARD_NOTIFICATIONS']
+if !ENV['GUARD_NOTIFICATIONS'] and !ENV['TDDIUM']
   require 'simplecov'
   SimpleCov.start 'rails'
 end
