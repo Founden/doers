@@ -1,6 +1,7 @@
 Doers.User = DS.Model.extend
   angelListId: DS.attr('number')
   nicename: DS.attr('string')
+  angelListToken: DS.attr('string')
   startups: Ember.ArrayController.create()
 
   startupsUrl: ( ->
