@@ -4,16 +4,36 @@
     .large-8.large-offset-2.columns.end
       %h1.align-center
         = _('Your Projects From Angel List')
+      %p.align-center
+        = _('Select projects you want us to import.')
 
   .row
     .large-8.large-offset-2.columns
-      .row
-        .large-12.columns
-          %ul.projects
-          {{#each project in content}}
-          %li.project{:bind => {:id => 'project.slug'}}
-            %h3 {{project.title}}
-            %h5.subheader {{project.description}}
-            %small
-              {{project.website}}
-          {{/each}}
+      .row.projects
+        {{#each project in content}}
+        .project.large-4.columns.panel{:bind => {:id => 'project.slug'}}
+          .row
+            .large-8.columns.misc
+              %h3 {{project.title}}
+              {{#if project.website}}
+              %small.icon-link {{project.website}}
+              {{else}}
+              %small.icon-link N/A
+              {{/if}}
+            .large-4.columns.logo
+              %img{:bind => {:src => 'project.logoUrl'}}
+          .row
+            .large-12.columns.description
+              %p.faded
+                {{project.description}}
+        {{/each}}
+
+
+        .project.large-4.columns.panel.special{:bind => {:id => 'project.slug'}}
+          .row
+            .large-12.columns.misc
+              {{#linkTo projects.new id='projects-add' title="#{_('Create a new project')}"}}
+              .icon-plus_alt
+              %h2
+                = _('New Project')
+              {{/linkTo}}
