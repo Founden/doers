@@ -10,5 +10,5 @@ Doers.Project = DS.Model.extend
   user: DS.belongsTo('Doers.User')
 
   slug: (->
-    'project-' + @get('id')
+    'project-' + (@get('id') || @get('angelListId'))
   ).property('id')
