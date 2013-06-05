@@ -42,11 +42,11 @@ group :development do
   gem 'erd', :require => false
   gem 'mina', :require => false, :github => 'nadarei/mina'
   gem 'simplecov', :require => false
+  gem 'pry-rails'
 end
 
 group :development, :test do
   gem 'sqlite3'
-  gem 'pry-rails'
   gem 'ffaker'
   gem 'fabrication'
   gem 'rspec-rails'
