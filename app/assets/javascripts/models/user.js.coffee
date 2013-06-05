@@ -6,8 +6,8 @@ Doers.User = DS.Model.extend
 
   startupsUrl: ( ->
     'https://api.angel.co/1/startup_roles?v=1&callback=c&user_id=' +
-      @get('angelListId')
-  ).property('angelListId')
+      @get('angelListId') + '&access_token=' + @get('angelListToken')
+  ).property('angelListToken')
 
 
   startupsObserver: ( ->
@@ -19,7 +19,7 @@ Doers.User = DS.Model.extend
       dataType: 'jsonp'
       success: (response) ->
         response.startup_roles.forEach ((role) ->
-          if role.role == 'founder'
+          if role.role == 'founder' || role.role == 'advisor'
             startup = role.startup
             self.get('startups').addObject Doers.Project.createRecord
               angelListId: startup.id
