@@ -27,6 +27,11 @@
                     %span.icon-plus_alt
                     %span.emph
                       = _('Create a new one')
+                %li
+                  %a{:href => root_path(:anchor => 'projects/import')}
+                    %span.icon-curved_arrow
+                    %span.emph
+                      = _('Import from Angel List')
           %ul.right
             %li{:class => (current_page?('settings') ? 'active' : '') }
               %a{:href => '#settings'}
