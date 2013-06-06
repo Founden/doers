@@ -15,7 +15,6 @@ img {
 
 .panel {
   @include panel($white, 2 * $panel-padding);
-  @include box-shadow($bw_6 0 2px 10px 0px);
 }
 
 .faded {
