@@ -37,3 +37,10 @@ img {
 .align-right {
   text-align: right;
 }
+
+.wait {
+  background: image-url('wait.gif') no-repeat top center;
+  height: 40px;
+  width: 40px;
+  margin: 0 auto;
+}

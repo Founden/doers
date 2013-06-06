@@ -1,12 +1,10 @@
 #importer
   #processingModal.reveal-modal.small.align-center
+    .wait
     %h2
-      = _("Fantastic! It's almost done.")
+      = _('Almost done.')
     %p
-      = _('Give us some time until we get everything processed.')
-    %p
-      = _('Feel free to close this page and check back later.')
-      %br
+      = _('While we get everything processed, feel free to navigate away from this page.')
       = _('We will email you anyway.')
 
   {{#view view.statusView}}
