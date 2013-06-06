@@ -12,13 +12,17 @@
 # require foundation/foundation.magellan
 # require foundation/foundation.orbit
 #= require foundation/foundation.placeholder
-# require foundation/foundation.reveal
+#= require foundation/foundation.reveal
 # require foundation/foundation.section
-#= require foundation/foundation.tooltips
+# require foundation/foundation.tooltips
 #= require foundation/foundation.topbar
 
 #= require_self
 
 ((w, $) ->
+  # Disable close on click and escape key
+  Foundation.libs.reveal.settings.closeOnBackgroundClick =
+    Foundation.libs.reveal.settings.closeOnEsc = false
+
   $(document).foundation()
 ) window, jQuery
