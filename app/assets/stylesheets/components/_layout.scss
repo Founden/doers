@@ -62,8 +62,31 @@ header {
   }
 }
 
+#notifications {
+  margin-bottom: 1em * $paragraph-line-height;
+  position: absolute;
+  top: $topbar-height;
+  width: 100%;
+  z-index: 2;
+
+  .notification {
+    padding: 0;
+  }
+}
+
+.alert-box {
+  margin: 0;
+  padding: $topbar-height / 2 0;
+  background-color: rgba($white, 0.5);
+  color: $bw_4;
+
+  &.success {
+    color: $bw_4;
+  }
+}
+
 #content {
-  margin-top: $topbar-height;
+  margin-top: $topbar-height * 2;
 
   .panel {
     hr {

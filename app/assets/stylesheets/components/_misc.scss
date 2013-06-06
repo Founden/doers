@@ -10,6 +10,9 @@ img {
 
 .button, input[type="text"], input[type="email"], input[type="password"], textarea {
   @include border-radius($global-radius);
+}
+
+.button {
   text-transform: uppercase;
 }
 
@@ -19,15 +22,6 @@ img {
 
 .faded {
   color: lighten($black, 30%) !important;
-}
-
-.alert-box {
-  @include alert(rgba($white, 0.5));
-  color: $bw_4;
-
-  &.success {
-    color: $bw_4;
-  }
 }
 
 .align-center {

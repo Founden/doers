@@ -57,8 +57,8 @@ $font-smoothing: antialiased;
 // We use these as default colors throughout
 $primary-color: $blue;
 $secondary-color: $orangered;
-$alert-color: $secondary-color;
-$success-color: #47ffc2;
+$alert-color: rgba($secondary-color, 0.8);
+$success-color: rgba(#47ffc2, 0.8);
 
 // We use these to make sure border radius matches unless we want it different.
 // $global-radius: 3px;
@@ -393,7 +393,7 @@ $alert-border-width: 0;
 
 // We use these to style the close buttons
 // $alert-close-color: #333;
-$alert-close-position: emCalc(8px);
+$alert-close-position: emCalc(12px);
 // $alert-close-font-size: emCalc(22px);
 // $alert-close-opacity: 0.3;
 // $alert-close-opacity-hover: 0.5;
@@ -805,7 +805,7 @@ $panel-border-size: 0;
 // $reveal-overlay-bg-old: #000;
 
 // We use these to control the style of the modal itself.
-$reveal-modal-bg: $primary-color;
+$reveal-modal-bg: rgba($primary-color, 0.9);
 // $reveal-position-top: 50px;
 // $reveal-default-width: 80%;
 // $reveal-modal-padding: emCalc(20px);
