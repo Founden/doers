@@ -29,8 +29,9 @@ $bw_1:   #0e1012; // almost black
 
 $white: #fff;
 $black: #272727;
-$blue: #3CD3AE;
-$dark-blue: #6ab2b2;
+$blue: #3fd3ba;
+$dark-blue: #38baaf;
+$orangered: #f24f18;
 
 
 //
@@ -54,10 +55,10 @@ $font-smoothing: antialiased;
 // $text-direction: ltr;
 
 // We use these as default colors throughout
-$primary-color: #d34a1d;
-$secondary-color: #25c2c2;
-$alert-color: #a80000;
-$success-color: #6fbf4d;
+$primary-color: $blue;
+$secondary-color: $orangered;
+$alert-color: $secondary-color;
+$success-color: #47ffc2;
 
 // We use these to make sure border radius matches unless we want it different.
 // $global-radius: 3px;
@@ -278,7 +279,7 @@ $list-style-position: inside;
 // $button-font-tny: emCalc(11px);
 // $button-font-sml: emCalc(13px);
 // $button-font-lrg: emCalc(20px);
-$button-font-weight: normal;
+$button-font-weight: bold;
 // $button-font-align: center;
 
 // We use these to control various hover effects.
@@ -804,11 +805,12 @@ $panel-border-size: 0;
 // $reveal-overlay-bg-old: #000;
 
 // We use these to control the style of the modal itself.
-// $reveal-modal-bg: #fff;
+$reveal-modal-bg: $primary-color;
 // $reveal-position-top: 50px;
 // $reveal-default-width: 80%;
 // $reveal-modal-padding: emCalc(20px);
 // $reveal-box-shadow: 0 0 10px rgba(#000,.4);
+$reveal-box-shadow: none;
 
 // We use these to style the reveal close button
 // $reveal-close-font-size: emCalc(22px);
@@ -819,7 +821,7 @@ $panel-border-size: 0;
 
 // We use these to control the modal border
 // $reveal-border-style: solid;
-// $reveal-border-width: 1px;
+$reveal-border-width: 0px;
 // $reveal-border-color: #666;
 
 //
@@ -1062,7 +1064,7 @@ $topbar-menu-icon-color-toggled: $black;
 @import "foundation/components/section";
 @import "foundation/components/top-bar";
 // @import "foundation/components/orbit";
-// @import "foundation/components/reveal";
+@import "foundation/components/reveal";
 // @import "foundation/components/joyride";
 // @import "foundation/components/clearing";
 @import "foundation/components/alert-boxes";
