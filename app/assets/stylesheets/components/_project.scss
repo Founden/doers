@@ -9,7 +9,6 @@
     text-transform: uppercase;
     text-align: justify;
     font-weight: 200;
-    @include text-shadow(0 2px 10px $bw_5);
 
     div {
       white-space: nowrap;
