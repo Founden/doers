@@ -24,6 +24,10 @@ img {
 .alert-box {
   @include alert(rgba($white, 0.5));
   color: $bw_4;
+
+  &.success {
+    color: $bw_4;
+  }
 }
 
 .align-center {
