@@ -25,6 +25,10 @@ header {
 }
 
 .top-bar {
+  position: fixed;
+  width: 100%;
+  z-index: 999;
+
   li {
     a .emph {
       color: $topbar-link-color;
@@ -59,10 +63,11 @@ header {
 }
 
 #content {
+  margin-top: $topbar-height;
 
   .panel {
     hr {
-      border-color: $black;
+      border-color: $bw_8;
     }
   }
 }
