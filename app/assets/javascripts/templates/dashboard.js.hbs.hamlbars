@@ -13,12 +13,12 @@
   .row
     .large-8.large-offset-2.columns.panel
       .row
-        {{#linkTo projects.import id='projects-import' class='large-6 columns split-1' title="#{_('Import from Angel List')}"}}
+        {{#linkTo projects.import id='projects-import' class='large-7 columns split-1' title="#{_('Import from Angel List')}"}}
         %h3.icon-curved_arrow
           = _('Import from Angel List')
         {{/linkTo}}
 
-        {{#linkTo projects.new id='projects-add' class='large-6 columns split-2 ' title="#{_('Create a new project')}"}}
+        {{#linkTo projects.new id='projects-add' class='large-5 columns split-2 ' title="#{_('Create a new project')}"}}
         %h3.icon-plus
           = _('Create a new project')
         {{/linkTo}}
