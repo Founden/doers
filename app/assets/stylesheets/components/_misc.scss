@@ -10,6 +10,7 @@ img {
 
 .button, input[type="text"], input[type="email"], input[type="password"], textarea {
   @include border-radius($global-radius);
+  text-transform: uppercase;
 }
 
 .panel {
