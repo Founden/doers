@@ -1,39 +1,58 @@
 #importer
+  #processingModal.reveal-modal.small.align-center
+    %h2
+      = _("Fantastic! It's almost done.")
+    %p
+      = _('Give us some time until we get everything processed.')
+    %p
+      = _('Feel free to close this page and check back later.')
+      %br
+      = _('We will email you anyway.')
 
-  .row
-    .large-8.large-offset-2.columns.end
-      %h1.align-center
-        = _('Your Projects From Angel List')
-      %p.align-center
-        = _('Select projects you want us to import.')
+  {{#view view.statusView}}
+  {{#if view.hasSelections}}
+  .large-5.large-offset-2.columns
+    %h3
+      = _('You have selected {{selectedStartups.length}} project(s).')
+  .large-3.columns.end.align-right
+    %h3.button.secondary{:_action => 'doImport', 'data-reveal-id' => 'processingModal'}
+      = _('Import selected')
+  {{else}}
+  .large-5.large-offset-2.columns.end
+    %h3
+      = _('Select projects to import.')
+  .large-3.columns.end.align-right
+    %h3.button.primary
+      = _('Or create a new one')
+  {{/if}}
+  {{/view}}
 
   .row
     .large-8.large-offset-2.columns
       .row.projects
-        {{#each project in content}}
-        .project.large-4.columns.panel{:bind => {:id => 'project.slug'}}
-          .row
-            .large-8.columns.misc
-              %h3 {{project.title}}
-              {{#if project.website}}
-              %small.icon-link {{project.website}}
-              {{else}}
-              %small.icon-link N/A
-              {{/if}}
-            .large-4.columns.logo
-              %img{:bind => {:src => 'project.logoUrl'}}
-          .row
-            .large-12.columns.description
-              %p.faded
-                {{project.description}}
+        {{#each startup in content}}
+        {{#view view.startupView startupBinding=startup}}
+        .row
+          .large-8.columns.misc
+            %h3 {{startup.title}}
+          .large-4.columns.logo
+            {{#if startup.isSelected}}
+            .icon-check.bookmark
+            {{else}}
+            %img{:bind => {:src => 'startup.logoUrl'}}
+            {{/if}}
+        .row
+          .large-12.columns.description
+            %p.faded
+              {{startup.description}}
+
+        %hr
+
+        .row
+          .large-12.columns.link
+            %h6.icon-link
+              %a{:bind => {:href => 'startup.website'}}
+                {{view.websiteText}}
+
+        {{/view}}
         {{/each}}
-
-
-        .project.large-4.columns.panel.special{:bind => {:id => 'project.slug'}}
-          .row
-            .large-12.columns.misc
-              {{#linkTo projects.new id='projects-add' title="#{_('Create a new project')}"}}
-              .icon-plus_alt
-              %h2
-                = _('New Project')
-              {{/linkTo}}
