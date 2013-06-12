@@ -9,6 +9,7 @@ Doers::Application.routes.draw do
   end
   resource :pages, :only => [], :path => '/' do
     get :dashboard
+    get :waiting
   end
 
   namespace :api, :constraints => {:format => :json} do

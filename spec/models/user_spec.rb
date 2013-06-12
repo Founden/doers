@@ -11,6 +11,12 @@ describe User do
   it { should validate_presence_of(:email) }
   it { should validate_uniqueness_of(:email) }
 
+  context 'unconfirmed' do
+    subject { User.new }
+
+    its(:confirmed?) { should be_false }
+  end
+
   context 'instance' do
     subject { user }
 
@@ -20,6 +26,7 @@ describe User do
     its(:name) { should_not be_empty }
     its(:nicename) { should eq(user.name) }
     its(:angel_list_id) { should eq(user.angel_list_id) }
+    its(:confirmed?) { should be_true }
 
     context '#nicename when #name is blank' do
       before { user.update_attribute(:name, nil) }
