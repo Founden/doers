@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
 
   # TODO: Change this to an hstore when in production
   store :data, :coder => JSON
-  store_accessor :data, :angel_list_id
+  store_accessor :data, :angel_list_id, :confirmed
 
   # Relationships
   has_many :projects, :dependent => :destroy
@@ -19,5 +19,9 @@ class User < ActiveRecord::Base
   # Helper to generate the user name
   def nicename
     name || email
+  end
+
+  def confirmed?
+    !confirmed.blank?
   end
 end

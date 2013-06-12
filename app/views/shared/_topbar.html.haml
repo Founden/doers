@@ -14,7 +14,7 @@
             %span.icon-layers
 
       %section.top-bar-section
-        - if account_signed_in?
+        - if account_signed_in? and current_account.confirmed?
           %ul.left
             %li.has-dropdown{:class => (current_page?(root_path) ? 'active' : '') }
               %a{:href => dashboard_pages_path}
@@ -32,6 +32,8 @@
                     %span.icon-curved_arrow
                     %span.emph
                       = _('Import from Angel List')
+
+        - if account_signed_in?
           %ul.right
             %li.hide{:class => (current_page?('settings') ? 'active' : '') }
               %a{:href => '#settings'}
