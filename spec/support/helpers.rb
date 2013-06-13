@@ -4,6 +4,8 @@ module Doers::RSpecHelpers
       :provider => :angel_list,
       :code => 'DUMMY_CODE'
     )
+    # TODO: Remove this once we do not need confirmations anymore
+    User.last.update_attribute(:confirmed, true)
   end
 end
 
