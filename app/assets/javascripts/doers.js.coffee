@@ -24,6 +24,11 @@ window.Doers ||= Ember.Application.create
       message: message
       type: type
     view.appendTo(@get('notificationsElement'))
+  # Placeholder for the localization method
+  # TODO: Implement localization support
+  #       Probably use an API endpoint to provide localized strings
+  _: (string)->
+    string
 
 window.Doers.initializer
   name: 'AjaxCSRFToken'
