@@ -68,6 +68,7 @@ header {
   top: $topbar-height;
   width: 100%;
   z-index: 2;
+  overflow: hidden;
 
   .notification {
     padding: 0;

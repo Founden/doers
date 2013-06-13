@@ -18,6 +18,12 @@
 
 window.Doers ||= Ember.Application.create
   rootElement: '#doers-app'
+  notificationsElement: '#notifications .notification'
+  alert: (message, type)->
+    view = Doers.AlertView.create
+      message: message
+      type: type
+    view.appendTo(@get('notificationsElement'))
 
 window.Doers.initializer
   name: 'AjaxCSRFToken'
