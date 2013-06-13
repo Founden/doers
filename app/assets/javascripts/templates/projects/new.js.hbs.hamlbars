@@ -10,7 +10,7 @@
       .row
         .large-12.columns.split-none
 
-          %form{:_action => 'save on="submit"'}
+          %form#project-new{:_action => 'save on="submit"'}
             .row
               .large-3.columns
                 %label.right.inline{:for => :titleInput}
@@ -33,6 +33,6 @@
                 {{view Ember.TextArea valueBinding='content.description' id='descriptionInput' placeholder='What is this project about...' required='true'}}
             .row
               .large-9.large-offset-3.columns
-                %input#projects-save.button.primary{:type => :submit, :value => 'Create'}
+                %input#project-save.button.primary{:type => :submit, :value => 'Create'}
                 %a.button.secondary.right{:_action => 'cancel'}
                   Cancel
