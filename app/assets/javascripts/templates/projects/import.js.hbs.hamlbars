@@ -27,7 +27,7 @@
 
   .row
     .large-8.large-offset-2.columns
-      .row.projects
+      .row.startups
         {{#each startup in content}}
         {{#view view.startupView startupBinding=startup}}
         .row
