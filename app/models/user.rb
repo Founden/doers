@@ -4,10 +4,10 @@ class User < ActiveRecord::Base
   include EasyAuth::Models::Account
 
   INTERESTS = {
-    _('Founder') => :founder,
-    _('Advisor') => :advisor,
-    _('Domain Expert') => :expert,
-    _('Running an Accelerator') => :owner
+    _('Founder') => 'founder',
+    _('Advisor') => 'advisor',
+    _('Domain Expert') => 'expert',
+    _('Running an Accelerator') => 'owner'
   }
 
   # TODO: Change this to an hstore when in production
