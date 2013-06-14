@@ -12,13 +12,13 @@ gem 'oj'
 gem 'sanitize'
 gem 'active_model_serializers'
 gem 'paperclip'
-  gem 'intercom-rails'
 
 group :production do
   gem 'pg'
   gem 'puma'
   gem 'party_foul'
   gem 'aws-sdk'
+  gem 'intercom-rails'
 end
 
 group :assets do
