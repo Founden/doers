@@ -18,10 +18,14 @@
   {{else}}
   .large-5.large-offset-2.columns.end
     %h3
+      {{#if content.length}}
       = _('Select projects to import.')
+      {{else}}
+      = _('Loading projects from Angel List... {{content.length}} found.')
+      {{/if}}
   .large-3.columns.end.align-right
     %h3.button.primary
-      = _('Or create a new one')
+      = _('Create a new one')
   {{/if}}
   {{/view}}
 
