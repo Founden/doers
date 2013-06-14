@@ -11,7 +11,7 @@ gem 'readwritesettings'
 gem 'oj'
 gem 'sanitize'
 gem 'active_model_serializers'
-gem 'paperclip', :github => 'thoughtbot/paperclip', :branch => 'rails-4'
+gem 'paperclip'
 
 group :production do
   gem 'pg'
@@ -61,5 +61,5 @@ group :test do
   gem 'poltergeist'
   gem 'puffing-billy'
   gem 'database_cleaner'
-  gem 'shoulda-matchers', :github => 'thoughtbot/shoulda-matchers'
+  gem 'shoulda-matchers'
 end
