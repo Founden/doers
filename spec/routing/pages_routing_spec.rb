@@ -12,6 +12,10 @@ describe PagesController do
       get('/waiting').should route_to('pages#waiting')
     end
 
+    it 'for waiting page (PATCH)' do
+      patch('/waiting').should route_to('pages#waiting')
+    end
+
   end
 end
 

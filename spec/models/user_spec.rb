@@ -10,6 +10,7 @@ describe User do
 
   it { should validate_presence_of(:email) }
   it { should validate_uniqueness_of(:email) }
+  it { should ensure_inclusion_of(:interest).in_array(User::INTERESTS.values) }
 
   context 'unconfirmed' do
     subject { User.new }
@@ -26,6 +27,8 @@ describe User do
     its(:name) { should_not be_empty }
     its(:nicename) { should eq(user.name) }
     its(:angel_list_id) { should eq(user.angel_list_id) }
+    its(:interest) { should be_blank }
+    its(:company) { should be_blank }
     its(:confirmed?) { should be_true }
 
     context '#nicename when #name is blank' do
