@@ -5,18 +5,19 @@ Doers.User = DS.Model.extend
   startups: Ember.ArrayController.create()
 
   startupsUrl: ( ->
-    'https://api.angel.co/1/startup_roles?v=1&callback=c&user_id=' +
+    'https://api.angel.co/1/startup_roles?v=1&user_id=' +
       @get('angelListId') + '&access_token=' + @get('angelListToken')
   ).property('angelListToken')
 
 
-  startupsObserver: ( ->
+  startupsUrlObserver: ( ->
     url = @get('startupsUrl')
     self = @
 
     $.ajax
       url: url
       dataType: 'jsonp'
+      jsonpCallback: '_cb'
       success: (response) ->
         response.startup_roles.forEach ((role) ->
           if role.role == 'founder' || role.role == 'advisor'
