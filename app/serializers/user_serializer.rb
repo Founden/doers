@@ -1,3 +1,4 @@
+# [User] model serializer
 class UserSerializer < ActiveModel::Serializer
   attributes :id, :nicename, :angel_list_id, :angel_list_token
 

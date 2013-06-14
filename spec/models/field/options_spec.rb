@@ -29,7 +29,8 @@ describe Field::Options do
       end
 
       it 'without HTML' do
-        options_field.options[0]["label"].should eq(Sanitize.clean(option_label))
+        options_field.options[0]["label"].should eq(
+          Sanitize.clean(option_label))
         options_field.options[0]["selected"].should be_true
       end
     end

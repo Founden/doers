@@ -20,7 +20,8 @@ class Project < ActiveRecord::Base
   validates :user, :presence => true
   validates :title, :presence => true
   validates :status, :inclusion => {:in => STATES}
-  validates_format_of :website, :with => URI::regexp(%w(http https)), :allow_blank => true
+  validates_format_of(
+    :website, :with => URI::regexp(%w(http https)), :allow_blank => true)
 
   # Callbacks
   after_initialize do
