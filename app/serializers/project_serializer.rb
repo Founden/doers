@@ -1,3 +1,4 @@
+# [Project] model serializer
 class ProjectSerializer < ActiveModel::Serializer
   attributes :id, :title, :description, :status, :updated_at, :logo_url
   attributes :website
