@@ -39,7 +39,7 @@ IntercomRails.config do |config|
   config.user.custom_data = {
     # :angel_list_id => ,
     :angel_list_id => :angel_list_id,
-    :interest => Proc.new { |user| User::INTERESTS[user.interest] },
+    :interest => Proc.new { |usr| User::INTERESTS.invert[usr.interest.to_sym] },
     :confirmed => :confirmed
   }
 
