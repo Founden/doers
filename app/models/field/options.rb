@@ -27,17 +27,16 @@ class Field::Options < Field
   before_validation do
     self.title = Sanitize.clean(self.title)
 
-    # Let validations set the error messages
-    return true if self.options.nil?
+    unless self.options.nil?
+      self.options.collect! do |option|
+        option.delete_if { |k, v| v.blank? } if !option.nil?
 
-    self.options.collect! do |option|
-      option.delete_if { |k, v| v.blank? } if !option.nil?
-
-      option['label'] = Sanitize.clean(option['label'])
-      option['selected'] = option['selected'] ? true : false
-      option if !option['label'].blank?
+        option['label'] = Sanitize.clean(option['label'])
+        option['selected'] = option['selected'] ? true : false
+        option if !option['label'].blank?
+      end
+      self.options.compact!
     end
-    self.options.compact!
   end
 
   # Check if there are available options
