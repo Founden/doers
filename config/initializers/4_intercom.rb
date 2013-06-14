@@ -37,8 +37,9 @@ IntercomRails.config do |config|
   #   :favorite_color => :favorite_color
   # }
   config.user.custom_data = {
-    # :angel_list_id => Proc.new { |current_user| current_user.angel_list_id },
+    # :angel_list_id => ,
     :angel_list_id => :angel_list_id,
+    :interest => Proc.new { |user| User::INTERESTS[user.interest] },
     :confirmed => :confirmed
   }
 

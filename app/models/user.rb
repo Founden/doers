@@ -3,9 +3,16 @@ class User < ActiveRecord::Base
   # Include support for authentication
   include EasyAuth::Models::Account
 
+  INTERESTS = {
+    _('Founder') => :founder,
+    _('Advisor') => :advisor,
+    _('Domain Expert') => :expert,
+    _('Running an Accelerator') => :owner
+  }
+
   # TODO: Change this to an hstore when in production
   store :data, :coder => JSON
-  store_accessor :data, :angel_list_id, :confirmed
+  store_accessor :data, :angel_list_id, :confirmed, :interest, :company
 
   # Relationships
   has_many :projects, :dependent => :destroy
@@ -15,6 +22,7 @@ class User < ActiveRecord::Base
 
   # Validations
   validates :email, :uniqueness => true, :presence => true
+  validates_inclusion_of :interest, :in => INTERESTS.values, :allow_nil => true
 
   # Helper to generate the user name
   def nicename
