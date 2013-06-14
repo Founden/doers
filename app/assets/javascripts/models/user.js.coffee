@@ -18,6 +18,7 @@ Doers.User = DS.Model.extend
       url: url
       dataType: 'jsonp'
       jsonpCallback: '_cb'
+      cache: true
       success: (response) ->
         response.startup_roles.forEach ((role) ->
           if role.role == 'founder' || role.role == 'advisor'

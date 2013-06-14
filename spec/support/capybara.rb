@@ -1,7 +1,9 @@
 require 'capybara/rspec'
+require 'capybara/poltergeist'
+require 'billy/rspec'
 
-Capybara.default_driver = :webkit
-Capybara.javascript_driver = :webkit
+Capybara.default_driver = :poltergeist_billy
+Capybara.javascript_driver = :poltergeist_billy
 
 class ActiveRecord::Base
   mattr_accessor :shared_connection

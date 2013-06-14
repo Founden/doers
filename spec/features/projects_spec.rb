@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 feature 'Projects', :js, :slow, :vcr => {:cassette_name=>:angel_list_oauth2} do
-
   background do
     sign_in_with_angel_list
   end
@@ -56,7 +55,21 @@ feature 'Projects', :js, :slow, :vcr => {:cassette_name=>:angel_list_oauth2} do
     expect(page).to have_content(projects.first.title.upcase)
   end
 
-  scenario 'importer for Angel List projects' do
-    pending 'jQuery.ajax needs mocking, which is pretty hard to do from Ruby'
+  context 'importer for Angel List projects' do
+    given(:startups) do
+      MultiJson.load(Rails.root.join('spec/fixtures/angel_list_startups.json'))
+    end
+
+    background do
+      proxy.stub(/startup_roles/).and_return(:jsonp => startups)
+    end
+
+    scenario 'are rendered and can be selected' do
+      visit root_path(:anchor => :dashboard)
+
+      click_on('projects-import')
+
+      expect(page).to have_css('.startups .startup', :count => 2)
+    end
   end
 end
