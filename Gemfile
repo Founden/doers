@@ -57,7 +57,8 @@ end
 group :test do
   gem 'vcr'
   gem 'webmock'
-  gem 'capybara-webkit'
+  gem 'poltergeist'
+  gem 'puffing-billy'
   gem 'database_cleaner'
   gem 'shoulda-matchers', :github => 'thoughtbot/shoulda-matchers'
 end
