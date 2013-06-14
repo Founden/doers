@@ -16,6 +16,10 @@
 #= require_tree ./routes
 #= require ./router
 
+
+# Disable Ember.js version logging
+Ember.LOG_VERSION = false
+
 window.Doers ||= Ember.Application.create
   rootElement: '#doers-app'
   notificationsElement: '#notifications .notification'

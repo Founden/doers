@@ -8,7 +8,7 @@ GIT
 
 GIT
   remote: git://github.com/emberjs/ember-rails.git
-  revision: f606dbda5f2aa36d8cc3f142bad2c582b4478b97
+  revision: 157dcc2dd19a1e4356e255d8c917ac2e5cf57e3f
   specs:
     ember-rails (0.12.0)
       active_model_serializers
@@ -152,7 +152,7 @@ GEM
     crack (0.3.2)
     database_cleaner (1.0.1)
     diff-lcs (1.2.4)
-    ember-data-source (0.0.5)
+    ember-data-source (0.13)
       ember-source
     ember-source (0.0.9)
       handlebars-source (= 1.0.0.rc4)
@@ -218,7 +218,7 @@ GEM
     method_source (0.8.1)
     mime-types (1.23)
     minitest (4.7.4)
-    multi_json (1.7.5)
+    multi_json (1.7.7)
     multipart-post (1.2.0)
     nokogiri (1.5.9)
     oauth2 (0.8.1)
