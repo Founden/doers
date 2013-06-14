@@ -1,10 +1,10 @@
 GIT
   remote: git://github.com/dockyard/easy_auth-oauth2.git
-  revision: 992f2c5a41e963e1d1626ff5317945dc65f12301
+  revision: da13184911dd5b64478e51173e206d4057c821de
   specs:
     easy_auth-oauth2 (0.2.0)
       easy_auth (~> 0.3.0)
-      oauth2 (~> 0.8.0)
+      oauth2 (~> 0.9.1)
 
 GIT
   remote: git://github.com/emberjs/ember-rails.git
@@ -36,11 +36,11 @@ GIT
 
 GIT
   remote: git://github.com/rails/rails.git
-  revision: 33283c98ed690b12bc2bca75276236dc907798b2
+  revision: add318c7f4b5c0e353a0f74c77661fef612efa65
   specs:
     actionmailer (4.1.0.beta)
       actionpack (= 4.1.0.beta)
-      mail (~> 2.5.3)
+      mail (~> 2.5.4)
     actionpack (4.1.0.beta)
       activesupport (= 4.1.0.beta)
       builder (~> 3.1.0)
@@ -57,8 +57,8 @@ GIT
       arel (~> 4.0.0)
     activesupport (4.1.0.beta)
       i18n (~> 0.6, >= 0.6.4)
-      minitest (~> 4.2)
-      multi_json (~> 1.3)
+      json (~> 1.7)
+      minitest (~> 5.0)
       thread_safe (~> 0.1)
       tzinfo (~> 0.3.37)
     rails (4.1.0.beta)
@@ -68,7 +68,7 @@ GIT
       activesupport (= 4.1.0.beta)
       bundler (>= 1.3.0, < 2.0)
       railties (= 4.1.0.beta)
-      sprockets-rails (~> 2.0.0.rc4)
+      sprockets-rails (~> 2.0.0)
     railties (4.1.0.beta)
       actionpack (= 4.1.0.beta)
       activesupport (= 4.1.0.beta)
@@ -97,9 +97,9 @@ GIT
 
 GIT
   remote: git://github.com/thoughtbot/shoulda-matchers.git
-  revision: 4594740650eb53d2db07d1191f5e8dee112eff11
+  revision: 41a18a94287df760cc39fd3159f3e980d6084dcc
   specs:
-    shoulda-matchers (2.1.0)
+    shoulda-matchers (2.2.0)
       activesupport (>= 3.0.0)
 
 GEM
@@ -107,20 +107,20 @@ GEM
   specs:
     active_model_serializers (0.8.1)
       activemodel (>= 3.0)
-    activerecord-deprecated_finders (1.0.2)
+    activerecord-deprecated_finders (1.0.3)
     addressable (2.3.4)
     arel (4.0.0)
     atomic (1.1.9)
-    aws-sdk (1.11.0)
+    aws-sdk (1.11.2)
       json (~> 1.4)
-      nokogiri (>= 1.4.4)
+      nokogiri (< 1.6.0)
       uuidtools (~> 2.1)
     barber (0.4.2)
       ember-source
       execjs
       handlebars-source
     builder (3.1.4)
-    cane (2.5.2)
+    cane (2.6.0)
       parallel
     capybara (2.1.0)
       mime-types (>= 1.16)
@@ -147,7 +147,8 @@ GEM
       listen (<= 0.9.9)
       sass (~> 3.2.5)
     cookiejar (0.3.0)
-    crack (0.3.2)
+    crack (0.4.0)
+      safe_yaml (~> 0.9.0)
     database_cleaner (1.0.1)
     diff-lcs (1.2.4)
     em-http-request (1.0.3)
@@ -170,18 +171,19 @@ GEM
     eventmachine_httpserver (0.2.1)
     execjs (1.4.0)
       multi_json (~> 1.0)
-    fabrication (2.7.1)
+    fabrication (2.7.2)
     faraday (0.8.7)
       multipart-post (~> 1.1)
     fast_gettext (0.7.0)
     faye-websocket (0.4.7)
       eventmachine (>= 0.12.0)
     ffaker (1.16.1)
-    ffi (1.8.1)
+    ffi (1.9.0)
     formatador (0.2.4)
-    gettext_i18n_rails (0.9.4)
+    gettext_i18n_rails (0.10.0)
       fast_gettext (>= 0.4.8)
-    github_api (0.9.7)
+    github_api (0.10.1)
+      addressable
       faraday (~> 0.8.1)
       hashie (>= 1.2)
       multi_json (~> 1.4)
@@ -193,24 +195,23 @@ GEM
       lumberjack (>= 1.0.2)
       pry (>= 0.9.10)
       thor (>= 0.14.6)
-    guard-rspec (2.5.4)
+    guard-rspec (1.2.1)
       guard (>= 1.1)
-      rspec (~> 2.11)
-    haml (4.0.2)
+    haml (4.0.3)
       tilt
     haml-rails (0.4)
       actionpack (>= 3.1, < 4.1)
       activesupport (>= 3.1, < 4.1)
       haml (>= 3.1, < 4.1)
       railties (>= 3.1, < 4.1)
-    hamlbars (2.0.0)
+    hamlbars (2.0.1)
       execjs (>= 1.2)
       haml
       sprockets
       tilt
     handlebars-source (1.0.0.rc4)
-    hashie (2.0.4)
-    hike (1.2.2)
+    hashie (2.0.5)
+    hike (1.2.3)
     http_parser.rb (0.5.3)
     httpauth (0.2.0)
     i18n (0.6.4)
@@ -228,19 +229,21 @@ GEM
       treetop (~> 1.4.8)
     method_source (0.8.1)
     mime-types (1.23)
-    minitest (4.7.4)
+    minitest (5.0.4)
     multi_json (1.7.7)
+    multi_xml (0.5.4)
     multipart-post (1.2.0)
-    nokogiri (1.5.9)
-    oauth2 (0.8.1)
+    nokogiri (1.5.10)
+    oauth2 (0.9.1)
       faraday (~> 0.8)
       httpauth (~> 0.1)
       jwt (~> 0.1.4)
       multi_json (~> 1.0)
+      multi_xml (~> 0.5)
       rack (~> 1.2)
     oj (2.0.14)
     open4 (1.3.0)
-    parallel (0.6.4)
+    parallel (0.7.0)
     party_foul (1.2.2)
       github_api (~> 0.9)
     pg (0.15.1)
@@ -249,11 +252,11 @@ GEM
       faye-websocket (>= 0.4.4, < 0.5.0)
       http_parser.rb (~> 0.5.3)
     polyglot (0.3.3)
-    pry (0.9.12.1)
+    pry (0.9.12.2)
       coderay (~> 1.0.5)
       method_source (~> 0.8)
       slop (~> 3.4)
-    pry-rails (0.2.2)
+    pry-rails (0.3.1)
       pry (>= 0.9.10)
     puffing-billy (0.2.1)
       capybara
@@ -278,43 +281,43 @@ GEM
     rb-inotify (0.9.0)
       ffi (>= 0.5.0)
     readwritesettings (3.0.1)
-    ref (1.0.4)
-    rspec (2.13.0)
-      rspec-core (~> 2.13.0)
-      rspec-expectations (~> 2.13.0)
-      rspec-mocks (~> 2.13.0)
-    rspec-core (2.13.1)
-    rspec-expectations (2.13.0)
+    ref (1.0.5)
+    rspec (2.14.0.rc1)
+      rspec-core (= 2.14.0.rc1)
+      rspec-expectations (= 2.14.0.rc1)
+      rspec-mocks (= 2.14.0.rc1)
+    rspec-core (2.14.0.rc1)
+    rspec-expectations (2.14.0.rc1)
       diff-lcs (>= 1.1.3, < 2.0)
-    rspec-mocks (2.13.1)
-    rspec-rails (2.13.2)
+    rspec-mocks (2.14.0.rc1)
+    rspec-rails (2.14.0.rc1)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       railties (>= 3.0)
-      rspec-core (~> 2.13.0)
-      rspec-expectations (~> 2.13.0)
-      rspec-mocks (~> 2.13.0)
+      rspec-core (= 2.14.0.rc1)
+      rspec-expectations (= 2.14.0.rc1)
+      rspec-mocks (= 2.14.0.rc1)
     ruby-graphviz (1.0.9)
+    safe_yaml (0.9.3)
     sanitize (2.0.3)
       nokogiri (>= 1.4.4, < 1.6)
     sass (3.2.9)
-    sass-rails (4.0.0.rc1)
+    sass-rails (4.0.0.rc2)
       railties (>= 4.0.0.beta, < 5.0)
       sass (>= 3.1.10)
-      sprockets-rails (~> 2.0.0.rc0)
-      tilt (~> 1.3)
+      sprockets-rails (~> 2.0.0)
     seedbank (0.2.1)
     simplecov (0.7.1)
       multi_json (~> 1.0)
       simplecov-html (~> 0.7.1)
     simplecov-html (0.7.1)
-    slop (3.4.4)
+    slop (3.4.5)
     sprockets (2.10.0)
       hike (~> 1.2)
       multi_json (~> 1.0)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
-    sprockets-rails (2.0.0.rc4)
+    sprockets-rails (2.0.0)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (~> 2.8)
@@ -326,7 +329,7 @@ GEM
     thread_safe (0.1.0)
       atomic
     tilt (1.4.1)
-    treetop (1.4.12)
+    treetop (1.4.14)
       polyglot
       polyglot (>= 0.3.1)
     tzinfo (0.3.37)
@@ -341,7 +344,7 @@ GEM
     xpath (2.0.0)
       nokogiri (~> 1.3)
     yard (0.8.6.1)
-    zurb-foundation (4.2.1)
+    zurb-foundation (4.2.2)
       sass (>= 3.2.0)
 
 PLATFORMS
@@ -351,7 +354,7 @@ DEPENDENCIES
   active_model_serializers
   aws-sdk
   cane
-  coffee-rails (~> 4.0.0)
+  coffee-rails
   compass (= 0.13.alpha.4)
   database_cleaner
   easy_auth!
@@ -365,8 +368,8 @@ DEPENDENCIES
   guard-rspec
   haml-rails
   hamlbars
-  handlebars-source (~> 1.0.0.rc3)
-  jquery-rails
+  handlebars-source (= 1.0.0.rc4)
+  jquery-rails (= 2.2.1)
   mina!
   oj
   paperclip!
@@ -380,13 +383,14 @@ DEPENDENCIES
   rails!
   rb-inotify
   readwritesettings
-  rspec-rails
+  rspec (~> 2.14.0.rc1)
+  rspec-rails (~> 2.14.0.rc1)
   sanitize
   sass-rails (~> 4.0.0.rc1)
   seedbank
   shoulda-matchers!
   simplecov
-  sprockets-rails (~> 2.0.0.rc4)
+  sprockets-rails
   sqlite3
   therubyracer
   uglifier
