@@ -21,15 +21,15 @@ group :production do
 end
 
 group :assets do
-  gem 'sprockets-rails', '~> 2.0.0.rc4'
+  gem 'sprockets-rails'
   gem 'sass-rails', '~> 4.0.0.rc1'
-  gem 'coffee-rails', '~> 4.0.0'
+  gem 'coffee-rails'
   gem 'uglifier'
   gem 'therubyracer'
   gem 'compass', '0.13.alpha.4'
   gem 'zurb-foundation'
-  gem 'jquery-rails'
-  gem 'handlebars-source', '~> 1.0.0.rc3 '
+  gem 'jquery-rails', '2.2.1'
+  gem 'handlebars-source', '1.0.0.rc4'
   gem 'hamlbars'
   gem 'ember-rails', :github => 'emberjs/ember-rails'
 end
@@ -49,7 +49,8 @@ group :development, :test do
   gem 'sqlite3'
   gem 'ffaker'
   gem 'fabrication'
-  gem 'rspec-rails'
+  gem 'rspec', '~> 2.14.0.rc1', :require => false
+  gem 'rspec-rails', '~> 2.14.0.rc1'
   gem 'guard-rspec', :require => false
   gem 'rb-inotify', :require => false
 end
