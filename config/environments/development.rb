@@ -24,4 +24,7 @@ Doers::Application.configure do
 
   # Debug mode disables concatenation and preprocessing of assets.
   config.assets.debug = true
+
+  # Tell Action Mailer not to deliver emails to the real world.
+  config.action_mailer.delivery_method = :letter_opener
 end

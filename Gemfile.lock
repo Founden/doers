@@ -204,6 +204,10 @@ GEM
     json (1.8.0)
     jwt (0.1.8)
       multi_json (>= 1.5)
+    launchy (2.3.0)
+      addressable (~> 2.3)
+    letter_opener (1.1.1)
+      launchy (~> 2.2)
     libv8 (3.11.8.17)
     listen (0.7.3)
     lumberjack (1.0.3)
@@ -362,6 +366,7 @@ DEPENDENCIES
   handlebars-source (= 1.0.0.rc4)
   intercom-rails
   jquery-rails (= 2.2.1)
+  letter_opener
   mina!
   oj
   paperclip
