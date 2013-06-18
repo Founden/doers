@@ -1,10 +1,11 @@
 defaults: &defaults
   app_name: <%= _('<span class="white">DOERS</span> by Geekcelerator').html_safe %>
-  app_id: doers.geekcelerator.com
+  app_id: doersapp.com
   oauth2_providers:
     angel_list:
       client_id: 645e9a49faf15df3cf67853f1ad255bd
       secret_key: d7534214ae71a6ae79a0aa4ba5f7e4ff
+  default_email: 'sos@doersapp.com'
 
 development:
   <<: *defaults
