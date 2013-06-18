@@ -44,6 +44,7 @@ group :development do
   gem 'mina', :require => false, :github => 'nadarei/mina'
   gem 'simplecov', :require => false
   gem 'pry-rails'
+  gem 'letter_opener'
 end
 
 group :development, :test do
