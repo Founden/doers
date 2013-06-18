@@ -24,12 +24,32 @@ class User < ActiveRecord::Base
   validates :email, :uniqueness => true, :presence => true
   validates_inclusion_of :interest, :in => INTERESTS.values, :allow_nil => true
 
+  # Callbacks
+  after_commit :send_welcome_email, :on => :create
+  after_save :send_confirmation_email
+
   # Helper to generate the user name
   def nicename
     name || email
   end
 
+  # Checks if user is confirmed
   def confirmed?
     !confirmed.blank?
   end
+
+  private
+
+  # Creates a job to send the welcome email
+  def send_welcome_email
+    SuckerPunch::Queue.new(:email).async.perform(:welcome, self.id)
+  end
+
+  # Create a job to send the confirmation email on validation
+  def send_confirmation_email
+    if !changes.blank? and changes[:confirmed]
+      SuckerPunch::Queue.new(:email).async.perform(:confirmed, self.id)
+    end
+  end
+
 end
