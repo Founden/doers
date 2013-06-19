@@ -33,6 +33,7 @@ group :assets do
   gem 'handlebars-source', '1.0.0.rc4'
   gem 'hamlbars'
   gem 'ember-rails', :github => 'emberjs/ember-rails'
+  gem 'neat'
 end
 
 group :development do

@@ -1,0 +1,14 @@
+body {
+  font: 400 12px/1.5em "Open Sans" $helvetica;
+  @include linear-gradient(to right, shade($blue, 10%), $blue, $fallback: $blue);
+  color: $white;
+}
+
+a {
+  color: $white;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
