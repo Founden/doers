@@ -1,61 +1,34 @@
-.row
-  .large-12.columns
-    %nav.top-bar{:role => :navigation}
-      %ul.title-area
-        %li.name
-          %h1
-            %a{:href => root_path}
-              != Doers::Config.app_name
-        -# Enable in case we have dropdowns
-        %li.toggle-topbar
-          %a{:href => '#'}
-            %span
-              = _('Menu')
-            %span.icon-layers
+%nav.top-bar{:role => :navigation}
 
-      %section.top-bar-section
-        - if account_signed_in? and current_account.confirmed?
-          %ul.left
-            %li.has-dropdown{:class => (current_page?(root_path) ? 'active' : '') }
-              %a{:href => dashboard_pages_path}
-                %span.icon-list
-                  %span.emph
-                    = _('Your Startups')
-              %ul.dropdown
-                %li
-                  %a{:href => root_path(:anchor => 'projects/new')}
-                    %span.icon-plus_alt
-                    %span.emph
-                      = _('Create a new one')
-                %li
-                  %a{:href => root_path(:anchor => 'projects/import')}
-                    %span.icon-curved_arrow
-                    %span.emph
-                      = _('Import from Angel List')
+  %a{:href => root_path, :class => 'name'}
+    = Doers::Config.app_name
+    %span
+      = _('by')
+      = Doers::Config.app_owner
 
-        - if account_signed_in?
-          %ul.right
-            %li.hide{:class => (current_page?('settings') ? 'active' : '') }
-              %a{:href => '#settings'}
-                %span.icon-equalizer
-                  %span.emph
-                    = _('Settings')
-            %li.has-dropdown{:class => (current_page?(mine_profiles_path) ? 'active' : '') }
-              %a{:href => mine_profiles_path}
-                = gravatar_tag(current_user.email, {:class => 'avatar', :size => 24})
-                = _('Hello,')
-                %span.emph
-                  = current_user.name
-              %ul.dropdown
-                %li
-                  %a{:href => sign_out_path}
-                    %span.icon-lock_fill
-                    %span.emph
-                      = _('Sign out')
-        - else
-          %ul.right
-            %li{:class => (current_page?(sign_in_path) ? 'active' : '') }
-              %a{:href => sign_in_path}
-                %span.icon-user
-                %span.emph
-                  = _('Sign In')
+  %ul
+    - if account_signed_in?
+      - if current_account.confirmed?
+        %li
+          %a{:href => dashboard_pages_path}
+            = _('Your Startups')
+          %ul
+            %li
+              %a{:href => root_path(:anchor => 'projects/new')}
+                = _('Create a new one')
+            %li
+              %a{:href => root_path(:anchor => 'projects/import')}
+                = _('Import from Angel List')
+      %li
+        %a{:href => mine_profiles_path}
+          = gravatar_tag(current_user.email, {:class => 'avatar', :size => 24})
+          = _('Hello,')
+          = current_user.name
+        %ul
+          %li
+            %a{:href => sign_out_path}
+              = _('Sign out')
+    - else
+      %li
+        %a{:href => sign_in_path}
+          = _('Sign In')

@@ -1,7 +1,10 @@
+@import 'core/vars';
+
 @import 'bourbon';
 @import 'neat';
 
-@import 'core/vars';
 @import 'core/fonts';
 @import 'core/normalize';
 @import 'core/base';
+
+@import 'layouts/header';

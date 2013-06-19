@@ -1,5 +1,5 @@
 body {
-  font: 400 12px/1.5em "Open Sans" $helvetica;
+  font: 400 12px/20px "Open Sans" $helvetica;
   @include linear-gradient(to right, shade($blue, 10%), $blue, $fallback: $blue);
   color: $white;
 }
@@ -7,8 +7,9 @@ body {
 a {
   color: $white;
   text-decoration: none;
+  @include transition(color 0.2s);
 
   &:hover {
-    text-decoration: underline;
+    text-decoration: none;
   }
 }
