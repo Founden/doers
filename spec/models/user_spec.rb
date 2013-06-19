@@ -12,6 +12,14 @@ describe User do
   it { should validate_uniqueness_of(:email) }
   it { should ensure_inclusion_of(:interest).in_array(User::INTERESTS.values) }
 
+  it 'sends a welcome email' do
+    expect {
+      Fabricate(:user)
+    }.to change {
+      SuckerPunch::Queue.new(:email).jobs.size
+    }.by(1)
+  end
+
   context 'unconfirmed' do
     subject { User.new }
 
@@ -30,6 +38,14 @@ describe User do
     its(:interest) { should be_blank }
     its(:company) { should be_blank }
     its(:confirmed?) { should be_true }
+
+    it 'sends a confirmation email' do
+      expect {
+        user.update_attributes(:confirmed => true)
+      }.to change {
+        SuckerPunch::Queue.new(:email).jobs.size
+      }.by(1)
+    end
 
     context '#nicename when #name is blank' do
       before { user.update_attribute(:name, nil) }
