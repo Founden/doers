@@ -2,23 +2,29 @@
   .row
     .large-8.large-offset-2.columns.end
       %h1
-        = _('Your Profile')
+        = _('%s Profile') % @profile.nicename
 
   .row
     .large-8.large-offset-2.columns.panel
 
       .row
         .large-2.columns.align-center
-          = gravatar_tag(current_user.email, {:class => 'avatar', :size => 70})
+          = gravatar_tag(@profile.email, {:class => 'avatar', :size => 70})
 
         .large-10.columns
-          = form_for current_user,  :url => profile_path(current_user) do |f|
-
+          = form_for @profile,  :url => profile_path(@profile) do |f|
             .row
               .large-2.columns
                 = f.label :name, _('Name'), :class => 'right inline'
               .large-10.columns.end
                 = f.text_field :name, :required => true
+
+            - if current_account.admin?
+              .row
+                .large-2.columns
+                  = f.label :confirmed, _('Allow Beta'), :class => 'right'
+                .large-10.columns.end
+                  = f.check_box :confirmed
 
             .row
               .large-10.large-offset-2.columns

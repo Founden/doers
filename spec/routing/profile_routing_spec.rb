@@ -12,6 +12,10 @@ describe ProfilesController do
       get('/profiles/mine').should route_to('profiles#mine')
     end
 
+    it 'for editing user' do
+      get('/profiles/1/edit').should route_to('profiles#edit', :id => '1')
+    end
+
   end
 end
 
