@@ -69,7 +69,7 @@ describe ProfilesController do
       user.name.should eq(name)
     end
 
-    context 'redirects on profiles user does not own' do
+    context 'as a user updating a profile it does not own' do
       let(:user_id) { rand(10..20) }
 
       it 'updates own profile' do
@@ -86,7 +86,7 @@ describe ProfilesController do
         controller.stub(:current_account) { admin }
       end
 
-      it 'updates any user special fields' do
+      it 'updates any user profile' do
         should render_template(:show)
         admin.name.should_not eq(name)
 
