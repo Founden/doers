@@ -1,8 +1,7 @@
 Doers.AlertView = Ember.View.extend
   templateName: 'shared/alert'
-  classNames: ['alert-box', 'align-center']
+  classNames: ['alert-box']
   classNameBindings: ['type']
-  attributeBindings: ['type:data-alert']
   type: null
   message: null
   closeIcon: Ember.View.extend
