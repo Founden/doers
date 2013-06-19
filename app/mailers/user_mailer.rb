@@ -1,6 +1,7 @@
 # Default mailer for [User] actions
 class UserMailer < ActionMailer::Base
-  default :from => Doers::Config.default_email
+  default :from => Doers::Config.default_email,
+    :return_path => Doers::Config.contact_email
 
   # Sends a welcome email
   def welcome(user)
