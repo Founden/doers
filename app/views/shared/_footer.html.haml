@@ -4,4 +4,6 @@
       %small.right
         &copy;
         = Date.today.year
-        != Doers::Config.app_name
+        %span.white
+          = Doers::Config.app_name.upcase
+        = _('by Geekcelerator')
