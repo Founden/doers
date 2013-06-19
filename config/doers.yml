@@ -7,6 +7,7 @@ defaults: &defaults
       secret_key: d7534214ae71a6ae79a0aa4ba5f7e4ff
   default_email: no-reply@doersapp.com
   contact_email: sos@doersapp.com
+  admin_regex: !ruby/regexp '/geekcelerator\.com/i'
 
 development:
   <<: *defaults

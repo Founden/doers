@@ -38,6 +38,11 @@ class User < ActiveRecord::Base
     !confirmed.blank?
   end
 
+  # Check if user can administrate things
+  def admin?
+    !Doers::Config.admin_regex.match(email).blank?
+  end
+
   private
 
   # Creates a job to send the welcome email
