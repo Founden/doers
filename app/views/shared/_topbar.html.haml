@@ -5,7 +5,9 @@
         %li.name
           %h1
             %a{:href => root_path}
-              != Doers::Config.app_name
+              %span.white
+                = Doers::Config.app_name.upcase
+              = _('by Geekcelerator')
         -# Enable in case we have dropdowns
         %li.toggle-topbar
           %a{:href => '#'}
