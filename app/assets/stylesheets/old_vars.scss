@@ -1,0 +1,52 @@
+// Custom DOERS Stuff
+// ~~~~~~~~~~~~~~~~~~
+
+// David's Magic Black&Whites
+// Grays (slightly tinted)
+// bw(i) = bw(i-1) - 10% B + 2% S
+
+$bw_10:  #f5f6f7; // almost white
+$bw_9d5: #e5e6e7;
+$bw_9:   #d7dbde;
+$bw_8:   #bbbfc4;
+$bw_7:   #9fa5ab;
+$bw_6:   #848b91;
+$bw_5:   #6b7178;
+$bw_4:   #52585e;
+$bw_3d5: #4b4d50;
+$bw_3:   #3b4045;
+$bw_2:   #24282b;
+$bw_1:   #0e1012; // almost black
+
+$white: #fff;
+$black: #272727;
+$blue: #3fd3ba;
+$dark-blue: #38baaf;
+$orangered: #f24f18;
+
+
+//
+// Foundation Global Variables
+//
+
+// This is the default html and body font-size for the base em value.
+$em-base: 16px;
+
+// We use these to control various global styles
+$body-bg: $blue;
+$body-font-color: $white;
+$body-font-family: "Open Sans", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+$body-font-weight: normal;
+$body-font-style: normal;
+
+// We use this to control font-smoothing
+$font-smoothing: antialiased;
+
+// We use these to control text direction settings
+// $text-direction: ltr;
+
+// We use these as default colors throughout
+$primary-color: $blue;
+$secondary-color: $orangered;
+$alert-color: rgba($secondary-color, 0.8);
+$success-color: rgba(#47ffc2, 0.8);

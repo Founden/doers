@@ -112,7 +112,6 @@ GEM
     celluloid (0.14.1)
       timers (>= 1.0.0)
     choice (0.1.6)
-    chunky_png (1.2.8)
     climate_control (0.0.3)
       activesupport (>= 3.0)
     cocaine (0.5.1)
@@ -125,10 +124,6 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.6.2)
-    compass (0.13.alpha.4)
-      chunky_png (~> 1.2)
-      listen (<= 0.9.9)
-      sass (~> 3.2.5)
     cookiejar (0.3.0)
     crack (0.4.0)
       safe_yaml (~> 0.9.0)
@@ -355,7 +350,6 @@ DEPENDENCIES
   aws-sdk
   cane
   coffee-rails
-  compass (= 0.13.alpha.4)
   database_cleaner
   easy_auth!
   easy_auth-angel_list!
