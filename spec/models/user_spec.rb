@@ -38,6 +38,15 @@ describe User do
     its(:interest) { should be_blank }
     its(:company) { should be_blank }
     its(:confirmed?) { should be_true }
+    its(:admin?) { should be_false }
+
+    context '#admin?' do
+      before do
+        user.update_attributes(:email => 'test@geekcelerator.com')
+      end
+
+      its(:admin?) { should be_true }
+    end
 
     it 'sends a confirmation email' do
       expect {
