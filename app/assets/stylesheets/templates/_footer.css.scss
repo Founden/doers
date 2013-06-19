@@ -1,0 +1,14 @@
+.footer {
+
+  .copyright {
+    text-align: right;
+    color: rgba($white, 0.5);
+    font-size: em(11, 12);
+    line-height: 45px;
+    padding: 0 15px;
+
+    a {
+      color: $white;
+    }
+  }
+}

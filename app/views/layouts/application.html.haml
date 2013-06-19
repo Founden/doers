@@ -21,14 +21,16 @@
     = csrf_meta_tags
 
   %body
-    %header.header{:role => :banner}
-      = render('shared/topbar')
 
-    %section#content{:role => :main}
-      = render('shared/alerts')
-      = yield
+    = render('shared/topbar')
 
-    %footer{:role => :contentinfo}
+    .wrapper
+
+      .content{:role => :main}
+        = render('shared/alerts')
+        = yield
+
+    %footer.footer{:role => :contentinfo}
       = render('shared/footer')
 
     = javascript_include_tag 'application'

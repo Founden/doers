@@ -1,7 +1,7 @@
-.row
-  .large-12.columns
-    %p
-      %small.right
-        &copy;
-        = Date.today.year
-        != Doers::Config.app_name
+.copyright
+  &copy;
+  = Date.today.year
+  %a{:href => root_path}
+    = Doers::Config.app_name
+  = _('by')
+  = Doers::Config.app_owner

@@ -1,11 +1,11 @@
 body {
-  font: 400 12px/20px "Open Sans" $helvetica;
+  font: 400 12px/1 "Open Sans" $helvetica;
   @include linear-gradient(to right, shade($blue, 10%), $blue, $fallback: $blue);
-  color: $white;
+  color: $black;
 }
 
 a {
-  color: $white;
+  color: $black;
   text-decoration: none;
   @include transition(color 0.2s);
 
