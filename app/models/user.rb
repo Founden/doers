@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
 
   # Callbacks
   after_commit :send_welcome_email, :on => :create
-  after_save :send_confirmation_email
+  after_commit :send_confirmation_email, :on => :update
 
   # Helper to generate the user name
   def nicename
@@ -52,7 +52,11 @@ class User < ActiveRecord::Base
 
   # Create a job to send the confirmation email on validation
   def send_confirmation_email
-    if !changes.blank? and changes[:confirmed]
+    _data = changes[:data]
+    # It's either a hash or an array of changes
+    _data = _data.last if _data.respond_to?(:last)
+
+    if !_data.blank? and data[:confirmed]
       SuckerPunch::Queue.new(:email).async.perform(:confirmed, self.id)
     end
   end
