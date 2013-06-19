@@ -1,0 +1,49 @@
+.content {
+  margin: 65px 0;
+
+  .header {
+    @include row;
+    margin-bottom: 20px;
+
+    h1 {
+      font-size: golden-ratio(1em, 2);
+      font-weight: 300;
+      color: $white;
+      text-shadow: 1px 1px rgba($black, 0.2);
+    }
+  }
+
+  .projects {
+    @include row;
+
+    .project {
+      @include span-columns(4);
+
+      a {
+        display: block;
+        background-color: $white;
+        padding: 20px;
+
+        &:hover {
+          background-color: shade($white, 10%);
+        }
+      }
+
+      h3 {
+        font-size: golden-ratio(1em, 1);
+        font-weight: 600;
+        margin: 0 0 0.5em 0;
+      }
+
+      p {
+        line-height: 1.5em;
+        margin: 0;
+      }
+
+      img {
+        float: right;
+        @include size(65px);
+      }
+    }
+  }
+}
