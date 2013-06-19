@@ -1,15 +1,45 @@
 .content {
-  margin: 65px 0;
+  margin: 85px 0;
 
   .header {
     @include row;
-    margin-bottom: 20px;
+    margin-bottom: 3em;
 
     h1 {
       font-size: golden-ratio(1em, 2);
       font-weight: 300;
       color: $white;
-      text-shadow: 1px 1px rgba($black, 0.2);
+      text-shadow: 0 1px rgba($black, 0.2);
+      margin: 0;
+    }
+
+    .headline {
+      @include span-columns(8);
+      font-size: golden-ratio(1em, 1);
+      line-height: 1.3em;
+      color: rgba($white, 0.8);
+      margin: 1em 0 0 0;
+    }
+  }
+
+  .sing-in {
+    @include span-columns(4);
+    @include pad(default);
+    background-color: $white;
+    color: $black;
+    box-shadow: 0 1px rgba($black, 0.2);
+
+    h2 {
+      font-size: golden-ratio(1em, 1);
+      line-height: 1.5em;
+      font-weight: 600;
+      margin: 0 0 1em 0;
+    }
+
+    p {
+      line-height: 1.5em;
+      color: shade($white, 40%);
+      margin: 0;
     }
   }
 
