@@ -52,11 +52,11 @@ class User < ActiveRecord::Base
 
   # Create a job to send the confirmation email on validation
   def send_confirmation_email
-    _data = changes[:data]
+    _data = previous_changes[:data]
     # It's either a hash or an array of changes
     _data = _data.last if _data.respond_to?(:last)
 
-    if !_data.blank? and data[:confirmed]
+    if !_data.blank? and data[:confirmed].to_i > 0
       SuckerPunch::Queue.new(:email).async.perform(:confirmed, self.id)
     end
   end
