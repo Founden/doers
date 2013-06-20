@@ -26,6 +26,16 @@
     }
   }
 
+  &.light {
+    background-color: $white;
+    color: tint($black, 10%);
+    text-shadow: none;
+
+    &:hover {
+      background-color: shade($white, 5%);
+    }
+  }
+
   &.large {
     font-size: em(18, 12);
   }
