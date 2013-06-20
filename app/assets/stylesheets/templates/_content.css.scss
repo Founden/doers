@@ -4,10 +4,10 @@
   .header {
     @include row;
     margin-bottom: 3em;
+    position: relative;
 
     h1 {
       margin: 0;
-      @include span-columns(8);
       font-size: golden-ratio(1em, 2);
       font-weight: 300;
       line-height: 1.3em;
@@ -16,27 +16,28 @@
     }
 
     .headline {
-      margin: 1em 0 0 0;
-      @include span-columns(8);
+      margin: 1em 0;
+      @include span-columns(6);
       font-size: golden-ratio(1em, 1);
       line-height: 1.3em;
       color: rgba($white, 0.8);
     }
 
     .pull-right {
-      @include span-columns(4);
-      margin-right: 0;
-      text-align: right;
+      position: absolute;
+      right: 0;
+      top: 0;
+      z-index: 5;
 
       .button {
-        margin-bottom: 0;
+        margin-left: 1em;
       }
     }
   }
 
   .sing-in {
     @include span-columns(4);
-    @include pad(default);
+    padding: 20px;
     background-color: $white;
     color: $black;
     box-shadow: 0 1px rgba($black, 0.2);

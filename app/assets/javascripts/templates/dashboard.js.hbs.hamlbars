@@ -3,6 +3,18 @@
   %header.header
     %h1
       = _('Available Projects')
+    {{#unless projects.length}}
+    .headline
+      = _('Looks like you’re new here.')
+      = _('Import existing projects from Angel List or create a new one.')
+    .pull-right
+      {{#linkTo projects.import id='projects-import' class='button light' title="#{_('Import from Angel List')}"}}
+      = _('Import from Angel List')
+      {{/linkTo}}
+      {{#linkTo projects.new id='projects-add' class='button secondary' title="#{_('Create a new project')}"}}
+      = _('Create a new project')
+      {{/linkTo}}
+    {{/unless}}
 
   {{#if projects.length}}
 
@@ -15,19 +27,5 @@
       %p {{project.description}}
       {{/linkTo}}
     {{/each}}
-
-  {{else}}
-
-  .welcome
-    = _('Looks like you’re new here.')
-    = _('Import existing projects from Angel List or create a new one.')
-
-    {{#linkTo projects.import id='projects-import' class='large-7 columns split-1' title="#{_('Import from Angel List')}"}}
-    = _('Import from Angel List')
-    {{/linkTo}}
-
-    {{#linkTo projects.new id='projects-add' class='large-5 columns split-2 ' title="#{_('Create a new project')}"}}
-    = _('Create a new project')
-    {{/linkTo}}
 
   {{/if}}
