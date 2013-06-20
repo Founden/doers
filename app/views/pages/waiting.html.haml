@@ -1,29 +1,21 @@
 #waiting
-  .row
-    .large-8.large-offset-2.columns.panel
 
-      .row
-        .large-12.columns
-          %h2
-            = _('Thank you %s for applying.') % current_account.name
+  %header.header
+    %h1
+      = _('Thank you %s for applying') % current_account.name
 
-          %hr
+  .welcome
+    %h2
+      = _("You're on the list!")
+    %p
+      = _('To make sure we make the most of this beta testing phase, it might take a while for us to to get back to you.')
+      = _('We appreciate your patience.')
+      = _('We will email you as soon as we are able to grant you access on Doers.')
+    %p
+      = _('We are looking to have a diverse group of beta customers.')
+      = _('So in order to facilitate for us the process, please choose your status below:')
 
-          %p
-            = _("You're on the list!")
-
-          %p
-            = _('To make sure we make the most of this beta testing phase, it might take a while for us to to get back to you.')
-            = _('We appreciate your patience.')
-            = _('We will email you as soon as we are able to grant you access on Doers.')
-
-          %p
-            = _('We are looking to have a diverse group of beta customers.')
-            = _('So in order to facilitate for us the process, please choose your status below:')
-
-          = form_for(current_account, :url => waiting_pages_path) do |f|
-            .row
-              .large-4.columns
-                = f.select :interest, User::INTERESTS
-              .large-2.columns.end
-                = f.submit _('Save'), :class => 'button primary'
+    = form_for(current_account, :url => waiting_pages_path) do |f|
+      %p
+        = f.select :interest, User::INTERESTS
+      = f.submit _('Save'), :class => 'button secondary'
