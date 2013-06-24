@@ -1,4 +1,3 @@
-.row
-  .large-4.large-offset-4.columns.end
-    {{view.message}}
-{{view view.closeIcon classNames='icon-x_alt'}}
+%p
+  {{view.message}}
+{{view view.closeIcon classNames='icon-close'}}
