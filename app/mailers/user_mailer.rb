@@ -6,12 +6,21 @@ class UserMailer < ActionMailer::Base
   # Sends a welcome email
   def welcome(user)
     @user = user
-    mail(:to => user.email, :subject => _('Hello from DOERS.'))
+    mail(:to => user.email,
+         :subject => _('Hello from %s.') % Doers::Config.app_name)
   end
 
   # Sends a confirmation email
   def confirmed(user)
     @user = user
-    mail(:to => user.email, :subject => _('DOERS beta available from now.'))
+    mail(:to => user.email,
+         :subject => _('%s beta available from now.') % Doers::Config.app_name)
+  end
+
+  # Sends a startup import report to the project user
+  def startup_imported(project)
+    @project = project
+    mail(:to => project.user.email, :subject => _('%s imported to %s.') % [
+      project.title, Doers::Config.app_name])
   end
 end
