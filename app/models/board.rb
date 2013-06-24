@@ -9,7 +9,7 @@ class Board < ActiveRecord::Base
   belongs_to :project
   belongs_to :parent_board, :class_name => Board
   has_many :branches, :class_name => Board, :foreign_key => :parent_board_id
-  has_many :fields, :dependent => :destroy
+  has_many :cards, :dependent => :destroy
   has_many :comments, :dependent => :destroy
 
   # Validations
