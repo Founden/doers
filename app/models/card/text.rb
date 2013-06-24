@@ -1,5 +1,5 @@
-# DOERS text area [Field] STI class
-class Field::TextArea < Field
+# DOERS text [Card] STI class
+class Card::Text < Card
   # Store accessors definition
   store_accessor :data, :content
 
@@ -9,6 +9,6 @@ class Field::TextArea < Field
   # Callbacks
   # Sanitize user input
   before_validation do
-    self.content = Sanitize.clean(self.content, Sanitize::Config::BASIC)
+    self.content = Sanitize.clean(self.content)
   end
 end

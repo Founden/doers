@@ -5,7 +5,7 @@ describe Project do
 
   it { should belong_to(:user) }
   it { should have_many(:boards).dependent('') }
-  it { should have_many(:fields).dependent('') }
+  it { should have_many(:cards).through(:boards).dependent('') }
   it { should have_many(:comments).dependent(:destroy) }
   it { should have_one(:logo).dependent(:destroy) }
 
@@ -23,5 +23,17 @@ describe Project do
 
     its(:status) { should eq(Project::STATES.first) }
     its(:angel_list_id) { should be_nil }
+
+    context 'sanitizes #content' do
+      let(:content) { Faker::HTMLIpsum.body }
+
+      before do
+        project.update_attributes(:title => content)
+        project.update_attributes(:description => content)
+      end
+
+      its(:title) { should eq(Sanitize.clean(content)) }
+      its(:description) { should eq(Sanitize.clean(content)) }
+    end
   end
 end

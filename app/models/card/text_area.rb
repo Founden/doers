@@ -1,5 +1,5 @@
-# DOERS text [Field] STI class
-class Field::Text < Field
+# DOERS text area [Card] STI class
+class Card::TextArea < Card
   # Store accessors definition
   store_accessor :data, :content
 

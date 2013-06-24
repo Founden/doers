@@ -8,7 +8,7 @@ describe Board do
   it { should belong_to(:project) }
   it { should belong_to(:parent_board) }
   it { should have_many(:branches).dependent('') }
-  it { should have_many(:fields).dependent(:destroy) }
+  it { should have_many(:cards).dependent(:destroy) }
   it { should have_many(:comments).dependent(:destroy) }
   it { should validate_presence_of(:author) }
   it { should validate_presence_of(:title) }
