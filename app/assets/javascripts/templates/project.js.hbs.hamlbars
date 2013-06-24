@@ -1,9 +1,7 @@
 #project
 
-  .row
-    .large-8.large-offset-2.columns.end
-      .welcome
-        %div.title
-          {{content.title}}
-        %div
-          = _('Dashboard')
+  %header.header
+    %h1
+      {{content.title}}
+    .headline
+      {{content.description}}
