@@ -4,9 +4,7 @@ describe Project do
   let(:project) { Fabricate(:project) }
 
   it { should belong_to(:user) }
-  it { should have_many(:personas).dependent('') }
-  it { should have_many(:problems).dependent('') }
-  it { should have_many(:solutions).dependent('') }
+  it { should have_many(:boards).dependent('') }
   it { should have_many(:fields).dependent('') }
   it { should have_many(:comments).dependent(:destroy) }
   it { should have_one(:logo).dependent(:destroy) }

@@ -1,25 +1,32 @@
 # DOERS [Project] [Board] class
 class Board < ActiveRecord::Base
   # Available :status values for a [Board]
-  STATES = ['published', 'trashed']
+  STATES = ['private', 'public']
 
   # Relationships
   belongs_to :user
+  belongs_to :author, :class_name => User
   belongs_to :project
-  has_many :fields
+  belongs_to :parent_board, :class_name => Board
+  has_many :branches, :class_name => Board, :foreign_key => :parent_board_id
+  has_many :fields, :dependent => :destroy
   has_many :comments, :dependent => :destroy
 
   # Validations
-  validates_presence_of :user, :project, :title
+  validates_presence_of :title
+  # Require an author on initial creation
+  validates_presence_of :author, :unless => :parent_board
+  # Require a user on `branch-ing`
+  validates_presence_of :user, :if => :parent_board
   validates :status, :inclusion => {:in => STATES}
 
   # Callbacks
   after_initialize do
     self.status ||= STATES.first
-    self.position ||= 0
   end
   before_validation do
     # Sanitize user input
     self.title = Sanitize.clean(self.title)
+    self.description = Sanitize.clean(self.description)
   end
 end
