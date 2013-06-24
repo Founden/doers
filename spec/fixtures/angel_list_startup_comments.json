@@ -1,0 +1,28 @@
+[
+  {
+  "id": 1234,
+  "comment": "This a comment.",
+  "created_at": "2012-01-12T15:55:25Z",
+  "user": {
+    "name": "The DOER",
+    "id": 123,
+    "bio": "DOER Ships.",
+    "follower_count": 13293,
+    "angellist_url": "http://angel.co/doer",
+    "image": "https://s3.amazonaws.com/photos.angel.co/users/123-medium"
+    }
+  },
+  {
+  "id": 1235,
+  "comment": "This another comment.",
+  "created_at": "2012-02-22T15:55:25Z",
+  "user": {
+    "name": "Another DOER",
+    "id": 124,
+    "bio": "DOER Ships. No really!",
+    "follower_count": 23,
+    "angellist_url": "http://angel.co/doer-2",
+    "image": "https://s3.amazonaws.com/photos.angel.co/users/124-medium"
+    }
+  }
+]
