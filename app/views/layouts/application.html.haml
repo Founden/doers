@@ -4,7 +4,7 @@
     %title
       = content_for?(:title) ? yield(:title) : _('Welcome')
       &bull;
-      = Doers::Config.app_name.upcase
+      = Doers::Config.app_name
 
     = favicon_link_tag(image_path('favicon.ico'), :type => 'image/x-icon', :rel => 'shortcut icon')
 
