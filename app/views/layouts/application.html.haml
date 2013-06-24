@@ -23,11 +23,10 @@
   %body
 
     = render('shared/topbar')
+    = render('shared/alerts')
 
     .wrapper
-
       .content{:role => :main}
-        = render('shared/alerts')
         = yield
 
     %footer.footer{:role => :contentinfo}
