@@ -1,38 +1,24 @@
 #project
 
-  .row
-    .large-8.large-offset-2.columns.end
-      %h1.align-center
-        = _('Create a new project')
+  %header.header
+    %h1
+      = _('Create a new project')
 
-  .row
-    .large-8.large-offset-2.columns.panel
-      .row
-        .large-12.columns.split-none
-
-          %form#project-new{:_action => 'save on="submit"'}
-            .row
-              .large-3.columns
-                %label.right.inline{:for => :titleInput}
-                  = _('Name')
-              .large-9.columns.end
-                {{view Ember.TextField valueBinding='content.title' id='titleInput' placeholder='Give it a nice name' required='true'}}
-
-            .row
-              .large-3.columns
-                %label.right.inline{:for => :wwwInput}
-                  = _('Website')
-              .large-9.columns.end
-                {{view Ember.TextField valueBinding='content.website' id='wwwInput' placeholder='http://...' required='true'}}
-
-            .row
-              .large-3.columns
-                %label.right.inline{:for => :descriptionInput}
-                  = _('Description')
-              .large-9.columns.end
-                {{view Ember.TextArea valueBinding='content.description' id='descriptionInput' placeholder='What is this project about...' required='true'}}
-            .row
-              .large-9.large-offset-3.columns
-                %input#project-save.button.primary{:type => :submit, :value => 'Create'}
-                %a.button.secondary.right{:_action => 'cancel'}
-                  Cancel
+  %form{:class => 'form', :_action => 'save on="submit"'}
+    %fieldset
+      .field
+        %label{:for => :titleInput}
+          = _('Name')
+        {{view Ember.TextField valueBinding='content.title' id='titleInput' placeholder='Give it a nice name' required='true'}}
+      .field
+        %label{:for => :wwwInput}
+          = _('Website')
+        {{view Ember.TextField valueBinding='content.website' id='wwwInput' placeholder='http://...' required='true'}}
+      .field
+        %label{:for => :descriptionInput}
+          = _('Description')
+        {{view Ember.TextArea valueBinding='content.description' id='descriptionInput' placeholder='What is this project about...' required='true' rows='6'}}
+      .actions
+        %input.button{:type => :submit, :value => _('Create')}
+        %a.button.secondary{:_action => 'cancel'}
+          = _('Cancel')

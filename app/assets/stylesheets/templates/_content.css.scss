@@ -84,6 +84,8 @@
 
     .project {
       @include span-columns(4);
+      @include omega(3n);
+      margin-bottom: 20px;
 
       &.selected {
 
@@ -104,6 +106,7 @@
         padding: 20px;
         background-color: $white;
         box-shadow: 0 1px rgba($black, 0.2);
+        height: 105px;
         @include transition(background-color 0.1s);
 
         &:hover {
@@ -120,10 +123,15 @@
       p {
         line-height: 1.5em;
         margin: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
 
       img {
         float: right;
+        display: block;
+        margin-left: 20px;
         @include size(65px);
       }
     }
