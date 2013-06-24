@@ -10,8 +10,10 @@
       .row
         .large-12.columns.split-none
 
-          %form#project-new{:_action => 'save on="submit"'}
+          %form#project-new{:_action => 'save view on="submit"'}
             .row
+              .hide.on-error
+                = _('Name is missing.')
               .large-3.columns
                 %label.right.inline{:for => :titleInput}
                   = _('Name')
@@ -19,6 +21,8 @@
                 {{view Ember.TextField valueBinding='content.title' id='titleInput' placeholder='Give it a nice name' required='true'}}
 
             .row
+              .hide.on-error
+                = _('Website is missing.')
               .large-3.columns
                 %label.right.inline{:for => :wwwInput}
                   = _('Website')
