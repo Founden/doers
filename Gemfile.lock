@@ -224,6 +224,7 @@ GEM
       bourbon (>= 2.1)
       sass (>= 3.2)
     nokogiri (1.5.10)
+    normalize-rails (2.1.1)
     oauth2 (0.9.1)
       faraday (~> 0.8)
       httpauth (~> 0.1)
@@ -372,6 +373,7 @@ DEPENDENCIES
   letter_opener
   mina!
   neat
+  normalize-rails
   oj
   paperclip
   party_foul

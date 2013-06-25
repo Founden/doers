@@ -3,15 +3,15 @@
 @import 'bourbon';
 @import 'neat';
 
-@import "mixins/neat/*";
+@import 'mixins/neat/*';
 
 @import 'core/fonts';
-@import 'core/normalize';
+@import 'normalize-rails/normalize';
 @import 'core/base';
 
-@import "components/buttons";
-@import "components/forms";
-@import "components/alerts";
+@import 'components/buttons';
+@import 'components/forms';
+@import 'components/alerts';
 
 @import 'layouts/wrapper';
 
