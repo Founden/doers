@@ -52,7 +52,7 @@ feature 'Projects', :js, :slow, :vcr => {:cassette_name=>:angel_list_oauth2} do
     visit root_path(:anchor => :dashboard)
     find('#project-%d a' % projects.first.id).click
 
-    expect(page).to have_content(projects.first.title.upcase)
+    expect(page).to have_content(projects.first.title)
   end
 
   context 'importer for Angel List projects' do
@@ -69,7 +69,7 @@ feature 'Projects', :js, :slow, :vcr => {:cassette_name=>:angel_list_oauth2} do
 
       click_on('projects-import')
 
-      expect(page).to have_css('.startups .startup', :count => 2)
+      expect(page).to have_css('.projects .project', :count => 2)
     end
   end
 end

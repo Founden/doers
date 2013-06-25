@@ -17,9 +17,9 @@ describe Card do
 
     context 'sanitizes #title' do
       let(:content) { Faker::HTMLIpsum.body }
-      before { card.update_attributes(:title => content) }
+      before { card.update_attributes(:title => content[0..250]) }
 
-      its(:title) { should eq(Sanitize.clean(content)) }
+      its(:title) { should eq(Sanitize.clean(content[0..250])) }
     end
   end
 end

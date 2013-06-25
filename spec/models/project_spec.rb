@@ -28,11 +28,11 @@ describe Project do
       let(:content) { Faker::HTMLIpsum.body }
 
       before do
-        project.update_attributes(:title => content)
+        project.update_attributes(:title => content[0..250])
         project.update_attributes(:description => content)
       end
 
-      its(:title) { should eq(Sanitize.clean(content)) }
+      its(:title) { should eq(Sanitize.clean(content[0..250])) }
       its(:description) { should eq(Sanitize.clean(content)) }
     end
   end

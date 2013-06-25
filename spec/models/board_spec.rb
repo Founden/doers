@@ -23,11 +23,11 @@ describe Board do
       let(:content) { Faker::HTMLIpsum.body }
 
       before do
-        board.update_attributes(:title => content)
+        board.update_attributes(:title => content[0..250])
         board.update_attributes(:description => content)
       end
 
-      its(:title) { should eq(Sanitize.clean(content)) }
+      its(:title) { should eq(Sanitize.clean(content[0..250])) }
       its(:description) { should eq(Sanitize.clean(content)) }
     end
 
