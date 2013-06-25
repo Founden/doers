@@ -1,8 +1,8 @@
-Fabricator('field/numerics') do
+Fabricator('card/numerics') do
   title { Faker::Lorem.sentence }
   minimum   { rand(0..50) }
   maximum   { rand(60..100) }
   selected  { |attr| rand(Range.new(attr[:minimum], attr[:maximum])) }
   user
-  project
+  board
 end

@@ -1,4 +1,4 @@
-Fabricator('field/options') do
+Fabricator('card/options') do
   title { Faker::Lorem.phrase }
   options {
     opts = [
@@ -9,5 +9,5 @@ Fabricator('field/options') do
     opts.map(&:with_indifferent_access)
   }
   user
-  project
+  board
 end

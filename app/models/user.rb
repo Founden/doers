@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
   # Relationships
   has_many :projects, :dependent => :destroy
   has_many :boards
-  has_many :fields
+  has_many :cards
   has_many :comments, :dependent => :destroy
 
   # Validations

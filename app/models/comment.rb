@@ -13,6 +13,6 @@ class Comment < ActiveRecord::Base
   # Callbacks
   # Sanitize user input
   before_validation do
-    self.content = Sanitize.clean(self.content, Sanitize::Config::BASIC)
+    self.content = Sanitize.clean(self.content)
   end
 end

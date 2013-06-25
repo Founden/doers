@@ -1,4 +1,4 @@
-# DOERS options [Field] STI class
+# DOERS options [Card] STI class
 #
 # @example `#data` will represent a JSON like below
 #   {
@@ -15,18 +15,16 @@
 #     ]
 #   }
 #
-class Field::Options < Field
+class Card::Options < Card
   # Store accessors definition
-  store_accessor :data, :title, :options
+  store_accessor :data, :options
 
   # Validations
-  validates_presence_of :title, :options
+  validates_presence_of :options
 
   # Callbacks
   # Sanitize user input
   before_validation do
-    self.title = Sanitize.clean(self.title)
-
     unless self.options.nil?
       self.options.collect! do |option|
         option.delete_if { |k, v| v.blank? } if !option.nil?
