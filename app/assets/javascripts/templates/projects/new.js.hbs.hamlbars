@@ -1,4 +1,4 @@
-#project
+#project-new
 
   %header.header
     %h1
@@ -19,6 +19,6 @@
           = _('Description')
         {{view Ember.TextArea valueBinding='content.description' id='descriptionInput' placeholder='What is this project about...' required='true' rows='6'}}
       .actions
-        %input.button{:type => :submit, :value => _('Create')}
+        %input.button{:type => :submit, :value => _('Create'), :id => 'project-save'}
         %a.button.secondary{:_action => 'cancel'}
           = _('Cancel')
