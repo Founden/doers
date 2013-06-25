@@ -24,7 +24,7 @@ Doers.User = DS.Model.extend
         response.startup_roles.forEach ((role) ->
           if role.role == 'founder' || role.role == 'advisor'
             startup = role.startup
-            self.get('startups').addObject Doers.Startup.create
+            self.get('startups').addObject Doers.Startup.createRecord
               angelListId: startup.id
               title: startup.name
               description: startup.product_desc
