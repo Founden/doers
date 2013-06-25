@@ -23,16 +23,12 @@ Ember.LOG_VERSION = false
 window.Doers ||= Ember.Application.create
   rootElement: '#doers-app'
   notificationsElement: '#notifications .notification'
+  errorSelector: '.on-error'
   alert: (message, type)->
     view = Doers.AlertView.create
       message: message
       type: type
     view.appendTo(@get('notificationsElement'))
-  # Placeholder for the localization method
-  # TODO: Implement localization support
-  #       Probably use an API endpoint to provide localized strings
-  _: (string)->
-    string
 
 window.Doers.initializer
   name: 'AjaxCSRFToken'
