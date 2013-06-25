@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 20130624164233) do
 
   create_table "boards", force: true do |t|
     t.string   "title"
-    t.string   "description"
+    t.text     "description"
     t.integer  "user_id"
     t.integer  "author_id"
     t.integer  "project_id"
