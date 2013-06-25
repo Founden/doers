@@ -1,60 +1,38 @@
 #importer
-  #processingModal.reveal-modal.small.align-center
-    .wait
-    %h2
-      = _('Almost done.')
-    %p
-      = _('While we get everything processed, feel free to navigate away from this page.')
-      = _('We will email you anyway.')
+
+  / #processingModal.reveal-modal.small.align-center
+  /   .wait
+  /   %h2
+  /     = _('Almost done.')
+  /   %p
+  /     = _('While we get everything processed, feel free to navigate away from this page.')
+  /     = _('We will email you anyway.')
 
   {{#view view.statusView}}
-  {{#if view.hasSelections}}
-  .large-5.large-offset-2.columns
-    %h3
-      = _('You have selected {{selectedStartups.length}} project(s).')
-  .large-3.columns.end.align-right
-    %h3.button.secondary{:_action => 'doImport', 'data-reveal-id' => 'processingModal'}
-      = _('Import selected')
-  {{else}}
-  .large-5.large-offset-2.columns.end
-    %h3
+  %header.header
+    {{#if view.hasSelections}}
+    %h1
+      = _('You have selected {{selectedStartups.length}} project(s)')
+    .pull-right
+      %button.button.secondary{:_action => 'doImport'}
+        = _('Import selected')
+    {{else}}
+    %h1
       {{#if content.length}}
-      = _('Select projects to import.')
+      = _('Select projects to import')
       {{else}}
-      = _('Loading projects from Angel List... {{content.length}} found.')
+      = _('Loading projects from Angel List... {{content.length}} found')
       {{/if}}
-  .large-3.columns.end.align-right
-    %h3.button.primary
-      = _('Create a new one')
-  {{/if}}
+    {{/if}}
   {{/view}}
 
-  .row
-    .large-8.large-offset-2.columns
-      .row.startups
-        {{#each startup in content}}
-        {{#view view.startupView startupBinding=startup}}
-        .row
-          .large-8.columns.misc
-            %h3 {{startup.title}}
-          .large-4.columns.logo
-            {{#if startup.isSelected}}
-            .icon-check.bookmark
-            {{else}}
-            %img{:bind => {:src => 'startup.logoUrl'}}
-            {{/if}}
-        .row
-          .large-12.columns.description
-            %p.faded
-              {{startup.description}}
-
-        %hr
-
-        .row
-          .large-12.columns.link
-            %h6.icon-link
-              %a{:bind => {:href => 'startup.website'}}
-                {{view.websiteText}}
-
-        {{/view}}
-        {{/each}}
+  .projects
+    {{#each startup in content}}
+    {{#view view.startupView startupBinding=startup}}
+    %a
+      %img{:bind => {:src => 'startup.logoUrl', :alt => 'startup.title'}}/
+      %h3 {{startup.title}}
+      %p {{startup.description}}
+      %p {{view.websiteText}}
+    {{/view}}
+    {{/each}}

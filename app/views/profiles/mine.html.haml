@@ -1,25 +1,27 @@
 #profile
-  .row
-    .large-8.large-offset-2.columns.end
-      %h1
-        = _('Your Profile')
+
+  %header.header
+    %h1
+      = _('Your Profile')
 
   .row
     .large-8.large-offset-2.columns.panel
 
       .row
         .large-2.columns.align-center
-          = gravatar_tag(current_user.email, {:class => 'avatar', :size => 70})
+
 
         .large-10.columns
-          = form_for current_user,  :url => profile_path(current_user) do |f|
-
-            .row
-              .large-2.columns
+          = form_for current_user, :url => profile_path(current_user), :html => { :class => 'form' } do |f|
+            %fieldset
+              .field
+                = f.label :avatar
+                = gravatar_tag(current_user.email, {:class => 'avatar', :size => 34})
+              .field
+                = f.label :email, _('Email'), :class => 'right inline'
+                = f.email_field :email, :required => true
+              .field
                 = f.label :name, _('Name'), :class => 'right inline'
-              .large-10.columns.end
                 = f.text_field :name, :required => true
-
-            .row
-              .large-10.large-offset-2.columns
-                = f.submit _('OK'), :class => 'button primary'
+              .actions
+                = f.submit _('Save'), :class => 'button primary'
