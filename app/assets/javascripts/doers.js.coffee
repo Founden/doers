@@ -22,8 +22,8 @@ Ember.LOG_VERSION = false
 
 window.Doers ||= Ember.Application.create
   rootElement: '#doers-app'
-  notificationsElement: '#notifications .notification'
-  errorSelector: '.on-error'
+  notificationsElement: '#notifications'
+  errorDataAttr: 'error'
   alert: (message, type)->
     view = Doers.AlertView.create
       message: message

@@ -4,9 +4,11 @@ Doers.ProjectsNewController = Ember.Controller.extend
       @get('store').commit()
       @get('target.router').transitionTo('dashboard')
     else
-      selector = @get('namespace').get('errorSelector')
-      message = view.$().find(selector).text()
-      @get('namespace').alert(message, 'alert')
+      self = @
+      view.$().find('label').map ->
+        if message = $(@).data('error')
+          self.get('namespace').alert(message, 'alert')
+
   cancel: ->
     @get('content').deleteRecord()
     @get('target.router').transitionTo('dashboard')
