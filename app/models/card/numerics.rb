@@ -1,7 +1,7 @@
-# DOERS numeric [Field] STI class
-class Field::Numerics < Field
+# DOERS numeric [Card] STI class
+class Card::Numerics < Card
   # Store accessors definition
-  store_accessor :data, :title, :minimum, :maximum, :selected
+  store_accessor :data, :minimum, :maximum, :selected
 
   # Validations
   validates_presence_of :title, :minimum, :maximum, :selected
@@ -9,10 +9,4 @@ class Field::Numerics < Field
   validates_numericality_of :maximum, :greater_than => :minimum
   validates_numericality_of :selected, :greater_than_or_equal_to => :minimum
   validates_numericality_of :selected, :less_than_or_equal_to => :maximum
-
-  # Callbacks
-  # Sanitize user input
-  before_validation do
-    self.title = Sanitize.clean(self.title)
-  end
 end

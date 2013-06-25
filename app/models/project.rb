@@ -9,10 +9,8 @@ class Project < ActiveRecord::Base
 
   # Relationships
   belongs_to :user
-  has_many :personas, :class_name => Board::Persona
-  has_many :problems, :class_name => Board::Problem
-  has_many :solutions, :class_name => Board::Solution
-  has_many :fields
+  has_many :boards
+  has_many :cards, :through => :boards
   has_many :comments, :dependent => :destroy
   has_one :logo, :dependent => :destroy
 
@@ -26,5 +24,10 @@ class Project < ActiveRecord::Base
   # Callbacks
   after_initialize do
     self.status ||= STATES.first
+  end
+  before_validation do
+    # Sanitize user input
+    self.title = Sanitize.clean(self.title)
+    self.description = Sanitize.clean(self.description)
   end
 end

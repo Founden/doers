@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130603152146) do
+ActiveRecord::Schema.define(version: 20130624164233) do
 
   create_table "assets", force: true do |t|
     t.integer  "project_id"
@@ -33,19 +33,34 @@ ActiveRecord::Schema.define(version: 20130603152146) do
 
   create_table "boards", force: true do |t|
     t.string   "title"
-    t.integer  "position"
+    t.string   "description"
     t.integer  "user_id"
+    t.integer  "author_id"
     t.integer  "project_id"
-    t.integer  "board_id"
+    t.integer  "parent_board_id"
     t.string   "status"
-    t.string   "type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "boards", ["board_id"], name: "index_boards_on_board_id"
+  add_index "boards", ["author_id"], name: "index_boards_on_author_id"
+  add_index "boards", ["parent_board_id"], name: "index_boards_on_parent_board_id"
   add_index "boards", ["project_id"], name: "index_boards_on_project_id"
   add_index "boards", ["user_id"], name: "index_boards_on_user_id"
+
+  create_table "cards", force: true do |t|
+    t.integer "user_id"
+    t.integer "project_id"
+    t.integer "board_id"
+    t.integer "position"
+    t.string  "title"
+    t.string  "type"
+    t.text    "data"
+  end
+
+  add_index "cards", ["board_id"], name: "index_cards_on_board_id"
+  add_index "cards", ["project_id"], name: "index_cards_on_project_id"
+  add_index "cards", ["user_id"], name: "index_cards_on_user_id"
 
   create_table "comments", force: true do |t|
     t.integer  "parent_comment_id"
@@ -61,19 +76,6 @@ ActiveRecord::Schema.define(version: 20130603152146) do
   add_index "comments", ["parent_comment_id"], name: "index_comments_on_parent_comment_id"
   add_index "comments", ["project_id"], name: "index_comments_on_project_id"
   add_index "comments", ["user_id"], name: "index_comments_on_user_id"
-
-  create_table "fields", force: true do |t|
-    t.integer "user_id"
-    t.integer "project_id"
-    t.integer "board_id"
-    t.integer "position"
-    t.string  "type"
-    t.text    "data"
-  end
-
-  add_index "fields", ["board_id"], name: "index_fields_on_board_id"
-  add_index "fields", ["project_id"], name: "index_fields_on_project_id"
-  add_index "fields", ["user_id"], name: "index_fields_on_user_id"
 
   create_table "identities", force: true do |t|
     t.string   "uid"
