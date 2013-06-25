@@ -34,6 +34,7 @@ group :assets do
   gem 'hamlbars'
   gem 'ember-rails', :github => 'emberjs/ember-rails'
   gem 'neat'
+  gem 'normalize-rails'
 end
 
 group :development do
