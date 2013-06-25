@@ -10,4 +10,3 @@ end
 ).each do |task|
   Rake.application.remove_task task
 end
-
