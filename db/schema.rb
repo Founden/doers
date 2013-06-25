@@ -70,6 +70,7 @@ ActiveRecord::Schema.define(version: 20130624164233) do
     t.text     "content"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "data"
   end
 
   add_index "comments", ["board_id"], name: "index_comments_on_board_id"

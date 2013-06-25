@@ -16,6 +16,8 @@ describe Comment do
 
     it { should be_valid }
     its(:parent_comment) { should be_nil }
+    its(:imported?) { should be_false }
+    its('author.nicename') { should eq(comment.user.nicename) }
 
     context 'sanitizes #content' do
       let(:content) { Faker::HTMLIpsum.body }
@@ -30,6 +32,13 @@ describe Comment do
       let(:comment) { Fabricate(:comment_with_parent) }
 
       its(:parent_comment) { should_not be_nil }
+    end
+
+    context '#imported?' do
+      let(:comment) { Fabricate(:comment_from_angel_list) }
+
+      its(:imported?) { should be_true }
+      its('author.nicename') { should eq(comment.angel_list_author_name) }
     end
   end
 
