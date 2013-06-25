@@ -1,0 +1,16 @@
+body {
+  font: 400 12px/1 "Open Sans" $helvetica;
+  @include linear-gradient(to right, shade($primary-color, 10%), $primary-color, $fallback: $blue);
+  color: $black;
+  padding: 45px 0 0 0;
+}
+
+a {
+  color: $black;
+  text-decoration: none;
+  @include transition(color 0.2s);
+
+  &:hover {
+    text-decoration: none;
+  }
+}

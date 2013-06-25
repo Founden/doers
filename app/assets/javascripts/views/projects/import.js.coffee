@@ -9,7 +9,7 @@ Doers.ProjectsImportView = Ember.View.extend
 
   # Startup entry view
   startupView: Ember.View.extend
-    classNames: ['startup', 'large-4', 'columns', 'panel']
+    classNames: ['project']
     classNameBindings: ['startupId', 'selected']
 
     startupId: ( ->

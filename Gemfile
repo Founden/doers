@@ -29,12 +29,12 @@ group :assets do
   gem 'coffee-rails'
   gem 'uglifier'
   gem 'therubyracer'
-  gem 'compass', '0.13.alpha.4'
-  gem 'zurb-foundation'
   gem 'jquery-rails', '2.2.1'
   gem 'handlebars-source', '1.0.0.rc4'
   gem 'hamlbars'
   gem 'ember-rails', :github => 'emberjs/ember-rails'
+  gem 'neat'
+  gem 'normalize-rails'
 end
 
 group :development do

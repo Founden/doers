@@ -1,0 +1,139 @@
+.content {
+  margin: 40px 0;
+
+  .header {
+    @include row;
+    margin-bottom: 3em;
+    position: relative;
+
+    h1 {
+      margin: 0;
+      font-size: golden-ratio(1em, 2);
+      font-weight: 300;
+      line-height: 1.3em;
+      color: $white;
+      text-shadow: 0 1px rgba($black, 0.2);
+    }
+
+    .headline {
+      margin: 1em 0;
+      @include span-columns(6);
+      font-size: golden-ratio(1em, 1);
+      line-height: 1.3em;
+      color: rgba($white, 0.8);
+    }
+
+    .pull-right {
+      position: absolute;
+      right: 0;
+      top: 0;
+      z-index: 5;
+
+      .button {
+        margin-left: 1em;
+      }
+    }
+  }
+
+  .sing-in {
+    @include span-columns(4);
+    padding: 20px;
+    background-color: $white;
+    color: $black;
+    box-shadow: 0 1px rgba($black, 0.2);
+
+    h2 {
+      font-size: golden-ratio(1em, 1);
+      line-height: 1.5em;
+      font-weight: 600;
+      margin: 0 0 1em 0;
+    }
+
+    p {
+      line-height: 1.5em;
+      color: shade($white, 40%);
+      margin: 0;
+    }
+  }
+
+  .welcome {
+    @include span-columns(4);
+    background-color: $white;
+    padding: 20px;
+    box-shadow: 0 1px rgba($black, 0.2);
+
+    h2 {
+      font-size: golden-ratio(1em, 1);
+      line-height: 1.5em;
+      font-weight: 600;
+      margin: 0 0 1em 0;
+    }
+
+    p {
+      line-height: 1.5em;
+      margin: 0 0 1.5em 0;
+    }
+
+    .button {
+      margin: 0;
+    }
+  }
+
+  .projects {
+    @include row;
+
+    .project {
+      @include span-columns(4);
+      @include omega(3n);
+      margin-bottom: 20px;
+
+      &.selected {
+
+        a {
+          background-color: $black;
+          color: $white;
+
+          &:hover {
+            background-color: tint($black, 5%);
+          }
+        }
+      }
+
+      a {
+        @include clearfix;
+        display: block;
+        cursor: pointer;
+        padding: 20px;
+        background-color: $white;
+        box-shadow: 0 1px rgba($black, 0.2);
+        height: 105px;
+        @include transition(background-color 0.1s);
+
+        &:hover {
+          background-color: shade($white, 5%);
+        }
+      }
+
+      h3 {
+        font-size: golden-ratio(1em, 1);
+        font-weight: 600;
+        margin: 0 0 0.5em 0;
+      }
+
+      p {
+        line-height: 1.5em;
+        margin: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      img {
+        float: right;
+        display: block;
+        margin-left: 20px;
+        @include size(65px);
+      }
+    }
+  }
+}

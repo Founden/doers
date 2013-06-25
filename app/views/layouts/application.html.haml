@@ -17,19 +17,19 @@
       %script{ :src => 'http://html5shiv.googlecode.com/svn/trunk/html5.js' }
 
     = stylesheet_link_tag 'application'
-    = javascript_include_tag 'modernizr.js'
     = yield(:head_embed) if content_for?(:head_embed)
     = csrf_meta_tags
 
   %body
-    %header{:role => :banner}
-      = render('shared/topbar')
 
-    %section#content{:role => :main}
-      = render('shared/alerts')
-      = yield
+    = render('shared/topbar')
+    = render('shared/alerts')
 
-    %footer{:role => :contentinfo}
+    .wrapper
+      .content{:role => :main}
+        = yield
+
+    %footer.footer{:role => :contentinfo}
       = render('shared/footer')
 
     = javascript_include_tag 'application'
