@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 ruby '2.0.0'
 
-gem 'rails', :github => 'rails/rails'
+gem 'rails'
 gem 'gettext_i18n_rails'
 gem 'haml-rails'
 gem 'easy_auth', :github => 'stas/easy_auth', :branch => 'rails4'
@@ -39,7 +39,8 @@ end
 
 group :development do
   gem 'quiet_assets'
-  gem 'seedbank'
+  # TODO: Enable when this is fixed: james2m/seedbank/#27
+  # gem 'seedbank'
   gem 'cane', :require => false
   gem 'yard', :require => false
   gem 'erd', :require => false
