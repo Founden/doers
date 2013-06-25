@@ -1,5 +1,6 @@
-- flash.each do |name, msg|
-  - if msg.is_a?(String)
-    .alert-box{:class => "#{name}", 'data-alert' => true}
-      %p
-        = msg
+#notifications
+  - flash.each do |name, msg|
+    - if msg.is_a?(String)
+      .alert-box{:class => "#{name}"}
+        %p
+          = msg
