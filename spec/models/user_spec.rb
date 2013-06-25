@@ -39,6 +39,7 @@ describe User do
     its(:company) { should be_blank }
     its(:confirmed?) { should be_true }
     its(:admin?) { should be_false }
+    its(:importing) { should be_false }
 
     context '#admin?' do
       before do
