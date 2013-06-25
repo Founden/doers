@@ -1,6 +1,5 @@
-Doers.Startup = Ember.Object.extend
-  projectId: null
-  angelListId: null
+Doers.Startup = DS.Model.extend
+  angelListId: DS.attr('number')
   title: null
   description: null
   website: null
