@@ -23,7 +23,7 @@ describe Comment do
       before { comment.update_attributes(:content => content) }
 
       its(:content) {
-        should eq(Sanitize.clean(content, Sanitize::Config::BASIC)) }
+        should eq(Sanitize.clean(content)) }
     end
 
     context 'having a parent comment' do

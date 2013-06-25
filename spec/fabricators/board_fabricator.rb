@@ -1,5 +1,4 @@
 Fabricator(:board) do
-  title    { Faker::Lorem.sentence }
-  user
-  project
+  author(:fabricator => :user)
+  title { Faker::Lorem.sentence }
 end

@@ -1,5 +1,5 @@
-# DOERS map [Field] STI class
-class Field::Map < Field
+# DOERS map [Card] STI class
+class Card::Map < Card
   # Store accessors definition
   store_accessor :data, :location, :address, :latitude, :longitude
 
