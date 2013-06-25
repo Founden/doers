@@ -7,19 +7,6 @@ GIT
       oauth2 (~> 0.9.1)
 
 GIT
-  remote: git://github.com/emberjs/ember-rails.git
-  revision: 243c9b4e420bfdeb7a63e43cdf00fb15cbace3d4
-  specs:
-    ember-rails (0.13.0)
-      active_model_serializers
-      barber (>= 0.4.1)
-      ember-data-source
-      ember-source
-      execjs (>= 1.2)
-      handlebars-source
-      railties (>= 3.1)
-
-GIT
   remote: git://github.com/geekcelerator/easy_auth-angel_list.git
   revision: 1a032d6df01205c95238828aaa2cecdf5146bfd6
   specs:
@@ -124,6 +111,14 @@ GEM
       eventmachine (>= 1.0.0.beta.4)
     ember-data-source (0.13)
       ember-source
+    ember-rails (0.13.0)
+      active_model_serializers
+      barber (>= 0.4.1)
+      ember-data-source
+      ember-source
+      execjs (>= 1.2)
+      handlebars-source
+      railties (>= 3.1)
     ember-source (0.0.9)
       handlebars-source (= 1.0.0.rc4)
     erd (0.2.0)
@@ -360,7 +355,7 @@ DEPENDENCIES
   easy_auth!
   easy_auth-angel_list!
   easy_auth-oauth2!
-  ember-rails!
+  ember-rails
   erd
   fabrication
   ffaker
@@ -390,7 +385,7 @@ DEPENDENCIES
   rspec (~> 2.14.0.rc1)
   rspec-rails (~> 2.14.0.rc1)
   sanitize
-  sass-rails (~> 4.0.0.rc1)
+  sass-rails
   shoulda-matchers
   simplecov
   sprockets-rails

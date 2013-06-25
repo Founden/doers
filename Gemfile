@@ -25,14 +25,14 @@ end
 
 group :assets do
   gem 'sprockets-rails'
-  gem 'sass-rails', '~> 4.0.0.rc1'
+  gem 'sass-rails'
   gem 'coffee-rails'
   gem 'uglifier'
   gem 'therubyracer'
   gem 'jquery-rails', '2.2.1'
   gem 'handlebars-source', '1.0.0.rc4'
   gem 'hamlbars'
-  gem 'ember-rails', :github => 'emberjs/ember-rails'
+  gem 'ember-rails'
   gem 'neat'
   gem 'normalize-rails'
 end
