@@ -1,4 +1,4 @@
-#importer
+#importer-running
   .wait
   %h2
     = _('Almost done.')
