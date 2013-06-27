@@ -82,7 +82,6 @@ describe ProfilesController do
       let(:admin) { Fabricate(:admin) }
 
       before do
-        UserMailer.should_receive(:delay)
         controller.stub(:current_account) { admin }
       end
 
