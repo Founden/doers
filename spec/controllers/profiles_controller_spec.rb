@@ -82,7 +82,7 @@ describe ProfilesController do
       let(:admin) { Fabricate(:admin) }
 
       before do
-        SuckerPunch::Queue.any_instance.should_receive(:perform)
+        UserMailer.should_receive(:delay)
         controller.stub(:current_account) { admin }
       end
 

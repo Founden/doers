@@ -2,7 +2,8 @@ require 'spec_helper'
 
 describe UserMailer do
   let(:user) { Fabricate(:user) }
-  subject(:email) { ActionMailer::Base.deliveries.first }
+
+  subject(:email) { ActionMailer::Base.deliveries.last }
 
   before(:each) { ActionMailer::Base.deliveries.clear }
 
@@ -18,14 +19,14 @@ describe UserMailer do
     before { UserMailer.welcome(user).deliver }
 
     it_should_behave_like 'an email from us'
-    its(:body) { should match(user.nicename) }
+    its('body.encoded') { should match(user.nicename) }
   end
 
   context '#confirmed' do
     before { UserMailer.confirmed(user).deliver }
 
     it_should_behave_like 'an email from us'
-    its(:body) { should match(user.nicename) }
+    its('body.encoded') { should match(user.nicename) }
   end
 
   context '#startup_imported' do
@@ -34,7 +35,7 @@ describe UserMailer do
     before { UserMailer.startup_imported(project).deliver }
 
     it_should_behave_like 'an email from us'
-    its(:body) { should match(user.nicename) }
-    its(:body) { should match(project.title) }
+    its('body.encoded') { should match(user.nicename) }
+    its('body.encoded') { should match(project.title) }
   end
 end

@@ -4,8 +4,8 @@ class Api::V1::StartupsController < Api::V1::ApplicationController
   def create
     startup = params[:startup]
     if !startup[:angel_list_id].blank? and !current_account.importing
-      SuckerPunch::Queue.new(:import).
-        async.perform(current_account.id, startup[:angel_list_id])
+      Delayed::Job.enqueue(
+        ImportJob.new(current_account, startup[:angel_list_id]))
       render :json => {:startup => startup}
     else
       render :json => {:startup => startup}, :status => 403
