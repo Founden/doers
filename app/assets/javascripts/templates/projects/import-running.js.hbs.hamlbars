@@ -1,7 +1,8 @@
 #importer-running
-  .wait
-  %h2
-    = _('Almost done.')
-  %p
-    = _('While we get everything processed, feel free to navigate away from this page.')
-    = _('We will email you anyway.')
+
+  %header.header
+    %h1
+      = _('Almost done.')
+    %p.headline
+      = _('While we get everything processed, feel free to navigate away from this page.')
+      = _('We will email you anyway.')
