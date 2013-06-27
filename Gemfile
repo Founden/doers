@@ -12,8 +12,6 @@ gem 'oj'
 gem 'sanitize'
 gem 'active_model_serializers'
 gem 'paperclip'
-# Use sucker_punch until delayed_job is not released
-gem 'sucker_punch', :require => 'sucker_punch'
 gem 'delayed_job', '4.0.0.beta2'
 gem 'delayed_job_active_record', '4.0.0.beta3'
 
@@ -51,7 +49,6 @@ group :development do
   gem 'simplecov', :require => false
   gem 'pry-rails'
   gem 'letter_opener'
-  gem 'sucker_punch', :require => 'sucker_punch/testing/inline'
 end
 
 group :development, :test do
@@ -71,5 +68,4 @@ group :test do
   gem 'puffing-billy'
   gem 'database_cleaner'
   gem 'shoulda-matchers'
-  gem 'sucker_punch', :require => 'sucker_punch/testing'
 end
