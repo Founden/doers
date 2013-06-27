@@ -81,12 +81,12 @@ desc 'Starts the application'
 task :start => :environment do
   queue "cd #{app_path} ; bundle exec rackup -s puma " +
     "-p #{app_port} -P #{pid_file} -E #{rails_env} -D"
-  # queue "cd #{app_path} ; RAILS_ENV=#{rails_env} ./script/delayed_job start"
+  queue "cd #{app_path} ; RAILS_ENV=#{rails_env} ./bin/delayed_job start -i #{port}"
 end
 
 desc 'Stops the application'
 task :stop => :environment do
-  # queue "cd #{app_path} ; RAILS_ENV=#{rails_env} ./script/delayed_job stop"
+  queue "cd #{app_path} ; RAILS_ENV=#{rails_env} ./bin/delayed_job stop"
   queue %[kill -9 `cat #{pid_file}`]
 end
 
