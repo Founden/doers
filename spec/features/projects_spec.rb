@@ -59,8 +59,10 @@ feature 'Projects', :js, :slow, :vcr => {:cassette_name=>:angel_list_oauth2} do
     given(:startups) do
       MultiJson.load(Rails.root.join('spec/fixtures/angel_list_startups.json'))
     end
+    given(:startup) { startups['startup_roles'][3]['startup'] }
 
     background do
+      SuckerPunch::Queue.stub_chain(:new, :async, :perform)
       proxy.stub(/startup_roles/).and_return(:jsonp => startups)
     end
 
@@ -68,8 +70,15 @@ feature 'Projects', :js, :slow, :vcr => {:cassette_name=>:angel_list_oauth2} do
       visit root_path(:anchor => :dashboard)
 
       click_on('projects-import')
-
       expect(page).to have_css('.projects .project', :count => 2)
+
+      # Pick 3rd startup where role is `founder`
+      find('.startup-%d' % startup['id']).click
+      expect(page).to have_css('.projects .project.selected', :count => 1)
+
+      click_on('run-import')
+      expect(page).to_not have_css('#importer')
+      expect(page).to have_css('#importer-running')
     end
   end
 end
