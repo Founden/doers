@@ -6,6 +6,7 @@ class Api::V1::StartupsController < Api::V1::ApplicationController
     if !startup[:angel_list_id].blank? and !current_account.importing
       Delayed::Job.enqueue(
         ImportJob.new(current_account, startup[:angel_list_id]))
+      current_account.update_attributes(:importing => true)
       render :json => {:startup => startup}
     else
       render :json => {:startup => startup}, :status => 403

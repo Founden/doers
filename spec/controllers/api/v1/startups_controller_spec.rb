@@ -23,6 +23,11 @@ describe Api::V1::StartupsController do
 
     context 'when user has no imports' do
       its('response.response_code') { should eq(200) }
+
+      context 'its' do
+        subject { user }
+        its(:importing) { should be_true }
+      end
     end
 
     context 'when user has an import going' do
