@@ -15,13 +15,6 @@ describe UserMailer do
     its(:return_path) { should include(Doers::Config.contact_email) }
   end
 
-  context '#welcome' do
-    before { UserMailer.welcome(user).deliver }
-
-    it_should_behave_like 'an email from us'
-    its('body.encoded') { should match(user.nicename) }
-  end
-
   context '#confirmed' do
     before { UserMailer.confirmed(user).deliver }
 
