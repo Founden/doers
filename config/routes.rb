@@ -1,6 +1,9 @@
 Doers::Application.routes.draw do
   # Easy Auth endpoints
-  easy_auth_routes
+  # Allow only Angel List to avoid exceptions.
+  constraints(:provider => :angel_list) do
+    easy_auth_routes
+  end
 
   get 'sign_in' => 'sessions#index'
 
