@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'Projects', :js, :slow, :vcr => {:cassette_name=>:angel_list_oauth2} do
+feature 'Projects', :js, :slowa, :vcr => {:cassette_name=>:angel_list_oauth2} do
   background do
     sign_in_with_angel_list
   end
@@ -62,7 +62,7 @@ feature 'Projects', :js, :slow, :vcr => {:cassette_name=>:angel_list_oauth2} do
     given(:startup) { startups['startup_roles'][3]['startup'] }
 
     background do
-      SuckerPunch::Queue.stub_chain(:new, :async, :perform)
+      Delayed::Job.stub(:enqueue)
       proxy.stub(/startup_roles/).and_return(:jsonp => startups)
     end
 
@@ -77,6 +77,7 @@ feature 'Projects', :js, :slow, :vcr => {:cassette_name=>:angel_list_oauth2} do
       expect(page).to have_css('.projects .project.selected', :count => 1)
 
       click_on('run-import')
+
       expect(page).to_not have_css('#importer')
       expect(page).to have_css('#importer-running')
     end
