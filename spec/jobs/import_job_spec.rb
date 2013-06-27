@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-describe ImportWorker do
+describe ImportJob do
   let(:user) { Fabricate(:user, :importing => true) }
   let(:startup_id) { rand(10..20) }
   let(:access_token) { user.identities.first.token }
-  let(:import) { ImportWorker.new(user, startup_id) }
+  let(:import) { ImportJob.new(user, startup_id) }
 
   context '#perform' do
     before do

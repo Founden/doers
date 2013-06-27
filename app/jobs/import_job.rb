@@ -2,7 +2,7 @@ require 'net/http'
 require 'uri'
 
 # Angel List import job
-class ImportWorker < Struct.new(:user, :startup_id)
+class ImportJob < Struct.new(:user, :startup_id)
   attr_accessor :access_token, :project
 
   # Job starts here
