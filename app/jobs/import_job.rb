@@ -1,28 +1,20 @@
 require 'net/http'
 require 'uri'
 
-# Angel List import worker
-class ImportWorker
-  attr_accessor :access_token, :startup_id, :user, :project
-  include SuckerPunch::Worker
+# Angel List import job
+class ImportJob < Struct.new(:user, :startup_id)
+  attr_accessor :access_token, :project
 
-  # Worker tasks go here
-  def perform(user_id, startup_id)
-    self.startup_id = startup_id
-    ActiveRecord::Base.connection_pool.with_connection do
-      self.user = ::User.find(user_id)
-      self.access_token = user.identities.first.token
-      self.run
-      self.user.update_attributes(:importing => false)
-    end
-  end
+  # Job starts here
+  def perform
+    @access_token = user.identities.first.token
 
-  # Runs the import
-  def run
     if import_project
       import_project_comments
       ::UserMailer.startup_imported(project).deliver
     end
+
+    user.update_attributes(:importing => false)
   end
 
   # Generates startup url
@@ -57,7 +49,7 @@ class ImportWorker
     data = process_json(startup_url)
 
     if project.nil?
-      self.project = user.projects.create!(
+      @project = user.projects.create!(
         :title => data['name'],
         :description => data['high_concept'],
         :website => data['company_url'],
