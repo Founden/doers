@@ -1,20 +1,12 @@
 #importer
 
-  / #processingModal.reveal-modal.small.align-center
-  /   .wait
-  /   %h2
-  /     = _('Almost done.')
-  /   %p
-  /     = _('While we get everything processed, feel free to navigate away from this page.')
-  /     = _('We will email you anyway.')
-
   {{#view view.statusView}}
   %header.header
     {{#if view.hasSelections}}
     %h1
       = _('You have selected {{selectedStartups.length}} project(s)')
     .pull-right
-      %button.button.secondary{:_action => 'doImport'}
+      %button#run-import.button.secondary{:_action => 'doImport'}
         = _('Import selected')
     {{else}}
     %h1
