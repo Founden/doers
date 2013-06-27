@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe UserMailer do
   let(:user) { Fabricate(:user) }
-  subject(:email) { ActionMailer::Base.deliveries.first }
+  subject(:email) { ActionMailer::Base.deliveries.last }
 
   before(:each) { ActionMailer::Base.deliveries.clear }
 
