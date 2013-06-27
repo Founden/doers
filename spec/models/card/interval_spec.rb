@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe Card::Numerics do
-  let(:numerics_card) { Fabricate('card/numerics') }
+describe Card::Interval do
+  let(:interval_card) { Fabricate('card/interval') }
 
   it { should validate_presence_of(:title) }
   it { should validate_presence_of(:minimum) }
@@ -13,15 +13,15 @@ describe Card::Numerics do
   it { should validate_numericality_of(:selected) }
 
   context 'instance' do
-    subject { numerics_card }
+    subject { interval_card }
 
-    its(:minimum) { should be < numerics_card.maximum }
-    its(:maximum) { should be > numerics_card.minimum }
-    its(:selected) { should be <= numerics_card.maximum }
-    its(:selected) { should be >= numerics_card.minimum }
+    its(:minimum) { should be < interval_card.maximum }
+    its(:maximum) { should be > interval_card.minimum }
+    its(:selected) { should be <= interval_card.maximum }
+    its(:selected) { should be >= interval_card.minimum }
 
     context 'validates minimum, maximum and selected values' do
-      before { numerics_card.minimum = numerics_card.maximum }
+      before { interval_card.minimum = interval_card.maximum }
 
       it{ should_not be_valid }
     end
