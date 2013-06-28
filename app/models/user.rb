@@ -48,7 +48,7 @@ class User < ActiveRecord::Base
 
   # Creates a job to send the welcome email
   def send_welcome_email
-    SuckerPunch::Queue.new(:email).async.perform(:welcome, self.id)
+    UserMailer.delay.welcome(self)
   end
 
   # Create a job to send the confirmation email on validation
@@ -58,7 +58,7 @@ class User < ActiveRecord::Base
     _data = _data.last if _data.respond_to?(:last)
 
     if !_data.blank? and data[:confirmed].to_i > 0
-      SuckerPunch::Queue.new(:email).async.perform(:confirmed, self.id)
+      UserMailer.delay.confirmed(self)
     end
   end
 
