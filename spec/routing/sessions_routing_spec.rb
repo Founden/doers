@@ -21,5 +21,10 @@ describe SessionsController do
         'sessions#create', :identity => :oauth2, :provider => 'angel_list')
     end
 
+    it 'for random_provider sign_in' do
+      get('/sign_in/some_random_provider/angel_list').should_not route_to(
+        'sessions#create', :identity => :oauth2, :provider => 'random_provider')
+    end
+
   end
 end

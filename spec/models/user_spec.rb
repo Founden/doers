@@ -16,7 +16,7 @@ describe User do
     expect {
       Fabricate(:user)
     }.to change {
-      SuckerPunch::Queue.new(:email).jobs.size
+      ActionMailer::Base.deliveries.count
     }.by(1)
   end
 
@@ -53,7 +53,7 @@ describe User do
       expect {
         user.update_attributes(:confirmed => true)
       }.to change {
-        SuckerPunch::Queue.new(:email).jobs.size
+        ActionMailer::Base.deliveries.count
       }.by(1)
     end
 

@@ -4,6 +4,7 @@ describe Api::V1::StartupsController do
   let(:user) { Fabricate(:user) }
 
   before do
+    ImportJob.stub_chain(:new, :perform)
     controller.stub(:current_account) { user }
   end
 
@@ -21,10 +22,12 @@ describe Api::V1::StartupsController do
     end
 
     context 'when user has no imports' do
-      before do
-        SuckerPunch::Queue.stub_chain(:new, :async, :perform)
-      end
       its('response.response_code') { should eq(200) }
+
+      context 'its' do
+        subject { user }
+        its(:importing) { should be_true }
+      end
     end
 
     context 'when user has an import going' do
