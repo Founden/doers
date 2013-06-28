@@ -26,7 +26,6 @@ class User < ActiveRecord::Base
   validates_inclusion_of :interest, :in => INTERESTS.values, :allow_nil => true
 
   # Callbacks
-  after_commit :send_welcome_email, :on => :create
   after_commit :send_confirmation_email, :on => :update
 
   # Helper to generate the user name
@@ -45,11 +44,6 @@ class User < ActiveRecord::Base
   end
 
   private
-
-  # Creates a job to send the welcome email
-  def send_welcome_email
-    UserMailer.delay.welcome(self)
-  end
 
   # Create a job to send the confirmation email on validation
   def send_confirmation_email
