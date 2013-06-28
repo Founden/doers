@@ -12,14 +12,6 @@ describe User do
   it { should validate_uniqueness_of(:email) }
   it { should ensure_inclusion_of(:interest).in_array(User::INTERESTS.values) }
 
-  it 'sends a welcome email' do
-    expect {
-      Fabricate(:user)
-    }.to change {
-      ActionMailer::Base.deliveries.count
-    }.by(1)
-  end
-
   context 'unconfirmed' do
     subject { User.new }
 
@@ -49,12 +41,12 @@ describe User do
       its(:admin?) { should be_true }
     end
 
-    it 'sends a confirmation email' do
-      expect {
-        user.update_attributes(:confirmed => true)
-      }.to change {
-        ActionMailer::Base.deliveries.count
-      }.by(1)
+    context 'sends a confirmation email' do
+      before do
+        user.should_receive(:send_confirmation_email)
+      end
+
+      it { user.update_attributes(:confirmed => true) }
     end
 
     context '#nicename when #name is blank' do

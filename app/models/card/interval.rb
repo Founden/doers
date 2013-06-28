@@ -1,5 +1,5 @@
-# DOERS numeric [Card] STI class
-class Card::Numerics < Card
+# DOERS range [Card] STI class
+class Card::Interval < Card
   # Store accessors definition
   store_accessor :data, :minimum, :maximum, :selected
 

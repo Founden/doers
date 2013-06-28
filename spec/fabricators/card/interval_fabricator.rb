@@ -1,4 +1,4 @@
-Fabricator('card/numerics') do
+Fabricator('card/interval') do
   title { Faker::Lorem.sentence }
   minimum   { rand(0..50) }
   maximum   { rand(60..100) }
