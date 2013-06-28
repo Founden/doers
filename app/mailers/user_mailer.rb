@@ -3,13 +3,6 @@ class UserMailer < ActionMailer::Base
   default :from => Doers::Config.default_email,
     :return_path => Doers::Config.contact_email
 
-  # Sends a welcome email
-  def welcome(user)
-    @user = user
-    mail(:to => user.email,
-         :subject => _('Hello from %s.') % Doers::Config.app_name)
-  end
-
   # Sends a confirmation email
   def confirmed(user)
     @user = user
