@@ -21,7 +21,7 @@
                 = f.label :newsletter_allowed, _('Email me news sometimes')
                 = f.check_box :newsletter_allowed?
               .field
-                = f.label :name, _('Name'), :class => 'right inline'
+                = f.label :name, _('Name')
                 = f.text_field :name, :required => true
               .actions
-                = f.submit _('Save'), :class => 'button primary'
+                = f.submit _('Save'), :class => 'button'
