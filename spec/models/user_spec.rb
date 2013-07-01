@@ -41,6 +41,18 @@ describe User do
     its(:admin?) { should be_false }
     its(:importing) { should be_false }
 
+    context '#newsletter_allowed?' do
+      its(:newsletter_allowed?) { should be_true }
+
+      context 'when user opted against it' do
+        before do
+          user.update_attributes(:newsletter_allowed => false)
+        end
+
+        its(:newsletter_allowed?) { should be_false }
+      end
+    end
+
     context '#admin?' do
       before do
         user.update_attributes(:email => 'test@geekcelerator.com')
