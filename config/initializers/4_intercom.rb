@@ -37,10 +37,10 @@ IntercomRails.config do |config|
   #   :favorite_color => :favorite_color
   # }
   config.user.custom_data = {
-    # :angel_list_id => ,
-    :angel_list_id => :angel_list_id,
-    :interest => Proc.new { |u| User::INTERESTS.invert[u.interest] },
-    :confirmed => :confirmed
+    'Angel List ID' => :angel_list_id,
+    'Occupation/Interest' => Proc.new{ |u| User::INTERESTS.invert[u.interest] },
+    'Has Beta access' => :confirmed?,
+    'Wants newsletter' => :newsletter_allowed?,
   }
 
   # == User -> Company association
