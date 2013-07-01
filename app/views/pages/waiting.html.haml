@@ -18,4 +18,9 @@
     = form_for(current_account, :url => waiting_pages_path) do |f|
       %p
         = f.select :interest, User::INTERESTS
+
+      %p
+        = f.check_box :newsletter_allowed?
+        = f.label :newsletter_allowed, _('Please email me news sometimes.')
+
       = f.submit _('Save'), :class => 'button secondary'

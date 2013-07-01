@@ -55,18 +55,21 @@ describe ProfilesController do
   describe '#update' do
     let(:name) { Faker::Name.name }
     let(:email) { Faker::Internet.email }
+    let(:newsletter_allowed) { ['1', '0'].sample }
     let(:user_id) { user.id }
 
     before do
       controller.stub(:current_account) { user }
-      put(:update, :id => user_id,
-          :user => {:email => email, :name => name, :confirmed => true} )
+      put(:update, :id => user_id, :user => {
+        :email => email, :name => name, :confirmed => true,
+        :newsletter_allowed => newsletter_allowed } )
     end
 
     it 'updates user profile' do
       should render_template(:show)
       user.email.should eq(user.email)
       user.name.should eq(name)
+      user.newsletter_allowed?.should eq(newsletter_allowed)
     end
 
     context 'as a user updating a profile it does not own' do
@@ -75,6 +78,7 @@ describe ProfilesController do
       it 'updates own profile' do
         should render_template(:show)
         user.name.should eq(name)
+        user.newsletter_allowed?.should eq(newsletter_allowed)
       end
     end
 
@@ -93,6 +97,7 @@ describe ProfilesController do
         user.name.should eq(name)
         user.email.should eq(user.email)
         user.confirmed?.should be_true
+        user.newsletter_allowed?.should eq(newsletter_allowed)
       end
     end
   end
