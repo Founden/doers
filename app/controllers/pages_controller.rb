@@ -19,7 +19,7 @@ class PagesController < ApplicationController
 
   # Allowed params for [User] objects
   def user_params
-    params.require(:user).permit(:interest)
+    params.require(:user).permit(:interest, :newsletter_allowed)
   end
 
 end

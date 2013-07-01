@@ -37,6 +37,19 @@ describe PagesController do
         user.interest.should eq(interest.to_s)
       end
     end
+
+    context 'user updates newsletter option' do
+      let(:newsletter_allowed) { ['0', '1'].sample }
+
+      before do
+        post(:waiting, :user => {:newsletter_allowed => newsletter_allowed})
+      end
+
+      it 'updates interest and renders template' do
+        should render_template(:waiting)
+        user.newsletter_allowed?.should eq(newsletter_allowed)
+      end
+    end
   end
 
 end
