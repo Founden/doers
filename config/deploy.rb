@@ -111,11 +111,11 @@ task 'rbenv:prepare' do
   queue %[echo 'eval "$(rbenv init -)"' >> ~/.bash_profile]
 end
 
-desc 'Uses rbenv-build to install ruby-2.0.0-p0'
-task 'rbenv:install:2.0.0-p0' => :environment do
+desc 'Uses rbenv-build to install ruby-2.0.0-p247'
+task 'rbenv:install:2.0.0-p247' => :environment do
   invoke 'rbenv:prepare'
-  queue 'rbenv install 2.0.0-p0'
-  queue 'rbenv local 2.0.0-p0'
+  queue 'rbenv install 2.0.0-p247'
+  queue 'rbenv local 2.0.0-p247'
   queue 'gem install bundler'
   queue 'rbenv rehash'
 end
