@@ -14,20 +14,21 @@ GIT
       easy_auth-oauth2
 
 GIT
-  remote: git://github.com/nadarei/mina.git
-  revision: 8248fba1222ac4da7f73d422c9a71e99e23df957
-  specs:
-    mina (0.2.1)
-      open4
-      rake
-
-GIT
   remote: git://github.com/stas/easy_auth.git
   revision: 4cf8104ebad35a441ddfbc1e1fd41d09dd90fadc
   branch: rails4
   specs:
     easy_auth (0.3.0)
       rails (>= 4.0.0.beta1)
+
+GIT
+  remote: git://github.com/stas/mina.git
+  revision: 31a49200aa8d14c693822324b8f311cc23e6c269
+  branch: rbenv_and_ruby-build_support
+  specs:
+    mina (0.2.1)
+      open4
+      rake
 
 GEM
   remote: https://rubygems.org/
