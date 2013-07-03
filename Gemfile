@@ -45,7 +45,7 @@ group :development do
   gem 'cane', :require => false
   gem 'yard', :require => false
   gem 'erd', :require => false
-  gem 'mina', :require => false, :github => 'nadarei/mina'
+  gem 'mina', :require => false, :github => 'stas/mina', :branch => 'rbenv_and_ruby-build_support'
   gem 'simplecov', :require => false
   gem 'pry-rails'
   gem 'letter_opener'
