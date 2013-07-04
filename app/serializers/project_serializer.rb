@@ -4,6 +4,7 @@ class ProjectSerializer < ActiveModel::Serializer
   attributes :website
 
   has_one :user, :embed => :ids
+  has_many :boards, :embed => :ids
 
   # Get logo URL from attachment
   def logo_url
