@@ -1,9 +1,14 @@
 # API (v1) [Board] controller class
 class Api::V1::BoardsController < Api::V1::ApplicationController
+  
+  def index
+    boards = current_account.boards.where(:id => params[:ids])
+    render :json => boards
+  end
 
   # Shows available board
   def show
-    board = current_account.boards.find(params[:id])
+    board = Board.find(params[:id])
     render :json => board
   end
 

@@ -21,7 +21,7 @@ Doers::Application.routes.draw do
       resources(:users, :only => [:index, :show])
       resources(:projects)
       resources(:startups, :only => [:create])
-      resources(:boards, :except => [:index])
+      resources(:boards)
     end
   end
 
