@@ -5,3 +5,49 @@
       {{content.title}}
     .headline
       {{content.description}}
+      
+  .boards
+    - 1.upto(3) do
+      .board
+        %article
+          %h2 Persona
+          %p.description This is our main persona short description.
+          %ul.meta
+            %li
+              %span 
+                = _('Created by:')
+              = 'Stas Sușcov'
+            %li
+              %span
+                = _('Updated:')
+              = 'just now'
+            %li
+              %span
+                = _('Cards:')
+              = '10 default + none custom'
+          %footer
+            %span.comments-count
+              = '6'
+            %span.board-id
+              = _('ID:')
+              = '#01'
+        .board-branches
+          %h4
+            = _('Branched from')
+          %p.board-source
+            %a{:href => ''}
+              = 'Persona'
+            = _('by')
+            %a{:href => ''}
+              = 'Geekcelerator'
+          %h4 
+            = _('Branches')
+            = '(6)'
+          %ul
+            %li
+              = '#12'
+              %a{:href => '#'}
+                = 'European user'
+          %a{:href => '#'}
+            +
+            = _('Create branch')
