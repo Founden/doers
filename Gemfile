@@ -40,8 +40,7 @@ end
 
 group :development do
   gem 'quiet_assets'
-  # TODO: Enable when this is fixed: james2m/seedbank/#27
-  # gem 'seedbank'
+  gem 'seedbank', :github => 'james2m/seedbank'
   gem 'cane', :require => false
   gem 'yard', :require => false
   gem 'erd', :require => false
