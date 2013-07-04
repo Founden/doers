@@ -7,7 +7,7 @@
       {{content.description}}
       
   .boards
-    - 1.upto(3) do
+    - 1.upto(5) do
       .board
         %article
           %h2 Persona
