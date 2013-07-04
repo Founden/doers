@@ -14,6 +14,12 @@ GIT
       easy_auth-oauth2
 
 GIT
+  remote: git://github.com/james2m/seedbank.git
+  revision: c7a272751336f0d17103028f45b88eac62cbedd7
+  specs:
+    seedbank (0.3.0.pre2)
+
+GIT
   remote: git://github.com/stas/easy_auth.git
   revision: 4cf8104ebad35a441ddfbc1e1fd41d09dd90fadc
   branch: rails4
@@ -393,6 +399,7 @@ DEPENDENCIES
   rspec-rails (~> 2.14.0.rc1)
   sanitize
   sass-rails
+  seedbank!
   shoulda-matchers
   simplecov
   sprockets-rails
