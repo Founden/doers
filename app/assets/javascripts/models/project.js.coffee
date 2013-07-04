@@ -8,6 +8,7 @@ Doers.Project = DS.Model.extend
   logoUrl: DS.attr('string')
 
   user: DS.belongsTo('Doers.User')
+  boards: DS.hasMany('Doers.Board')
 
   slug: (->
     'project-' + @get('id')
