@@ -4,3 +4,7 @@ Fabricator(:project) do
   website     { sequence(:www) { Faker::Internet.uri(:https) } }
   user
 end
+
+Fabricator(:project_with_boards, :from => :project) do
+  boards(:count => 5)
+end
