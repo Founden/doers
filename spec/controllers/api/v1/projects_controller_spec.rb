@@ -22,8 +22,6 @@ describe Api::V1::ProjectsController do
   describe '#show' do
     let(:prj) { Fabricate(:project, :user => user) }
 
-    let!(:logo) { Fabricate(:logo, :project => prj, :user => user) }
-
     before { get(:show, :id => prj.id) }
 
     it 'serializes user project into a json' do
@@ -39,7 +37,7 @@ describe Api::V1::ProjectsController do
       api_project['updated_at'].should_not be_blank
       api_project['user_id'].should eq(user.id)
       api_project['website'].should eq(project.website)
-      api_project['logo_url'].should eq(logo.attachment.url)
+      api_project['logo_url'].should eq(project.logo.attachment.url)
       api_project['board_ids'].should be_empty
     end
 
