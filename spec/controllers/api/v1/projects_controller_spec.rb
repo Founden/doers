@@ -89,4 +89,20 @@ describe Api::V1::ProjectsController do
     end
   end
 
+  describe '#destroy' do
+    let(:project) { Fabricate(:project, :user => user) }
+    let(:project_id) { project.id }
+
+    before { delete(:destroy, :id => project_id) }
+
+    its('response.status') { should eq(204) }
+
+    context 'project is not owned by current user' do
+      let(:project_id) { rand(999..9999) }
+
+      its('response.status') { should eq(400) }
+    end
+
+  end
+
 end
