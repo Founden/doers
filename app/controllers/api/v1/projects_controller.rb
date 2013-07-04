@@ -32,7 +32,7 @@ class Api::V1::ProjectsController < Api::V1::ApplicationController
 
   # Handles project deletion
   def destroy
-    project = current_account.projects.where(params[:id]).first
+    project = current_account.projects.find_by(:id => params[:id])
     if project and project.destroy
       render :nothing => true, :status => 204
     else
