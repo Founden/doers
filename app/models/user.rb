@@ -48,6 +48,21 @@ class User < ActiveRecord::Base
     !Doers::Config.admin_regex.match(email).blank?
   end
 
+  # All available boards, including public and from shared projects
+  def all_boards
+    t = Board.arel_table
+    Board.where(
+      # Created or branched from
+      t[:author_id].eq(id).or(t[:user_id].eq(id)).or(
+        # Part of available projects
+        t[:project_id].in(project_ids)
+      ).or(
+        # Status is `public`
+        t[:status].eq(Board::STATES.last)
+      )
+    )
+  end
+
   private
 
   # Create a job to send the confirmation email on validation

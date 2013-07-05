@@ -5,3 +5,53 @@
       {{content.title}}
     .headline
       {{content.description}}
+
+  .boards
+    {{#each board in content.boards}}
+    .board
+      %h2 {{board.title}}
+      %p.description {{board.description}}
+      %ul.meta
+        %li
+          %span
+            = _('Created by:')
+          {{board.userNicename}}
+        %li
+          %span
+            = _('Updated:')
+          {{board.lastUpdate}}
+        %li
+          %span
+            = _('Cards:')
+          10 default + none custom
+      .board-branches
+        %h4
+          = _('Branched from')
+        %p.board-source
+          %a{:href => ''}
+            {{board.parentBoard.title}}
+          = _('by')
+          %a{:href => ''}
+            {{board.parentBoard.authorNicename}}
+        %h4
+          = _('Branches')
+          (6)
+        %ul
+          {{#each branch in board.branches}}
+          %li
+            = precede '#' do
+              {{branch.id}}
+            %a{:href => '#'}
+              {{branch.name}}
+          {{/each}}
+        %a{:href => '#'}
+          +
+          = _('Create branch')
+      %footer
+        %span.comments-count
+          6
+        %span.board-id
+          = _('ID:')
+          = precede '#' do
+            {{board.id}}
+    {{/each}}

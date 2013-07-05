@@ -1,8 +1,5 @@
-# Main user
-email = '%s@geekcelerator' % (ENV['USER'] || 'dev')
-user = Fabricate(:user)
+user = User.find_by(:email => ENV['EMAIL'])
+user.update_attribute(:confirmed, true )
 
 # Dummy users
-5.times {
-  Fabricate(:user)
-}
+5.times { Fabricate(:user) }
