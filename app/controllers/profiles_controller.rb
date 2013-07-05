@@ -26,8 +26,6 @@ class ProfilesController < ApplicationController
 
     if @profile.update_attributes(user_params)
       flash[:success] = _('Profile updated.')
-    else
-      flash[:alert] = _('Profile could not be updated. Try again.')
     end
     render :show
   end
