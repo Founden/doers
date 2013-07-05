@@ -34,22 +34,31 @@ describe Board do
     context 'can have branches' do
       let(:title) { Faker::Lorem.sentence }
       let(:user) { Fabricate(:user) }
-      let!(:branch) { board.branches.create(:title => title, :user => user) }
+      let(:project) { Fabricate(:project, :user => user) }
+      let!(:branch) { board.branches.create(
+        :title => title, :user => user, :project => project) }
 
       its('branches.count') { should eq(1) }
 
-      context 'parent board' do
+      context 'branch' do
         subject { branch }
 
         its(:parent_board) { should eq(board) }
-      end
 
-      context 'only with user present' do
-        let(:user) { nil }
+        context 'only with user present' do
+          let(:user) { nil }
+          let(:project) { Fabricate(:project) }
 
-        subject { branch }
+          its(:valid?) { should be_false }
+        end
 
-        its(:valid?) { should be_false }
+        context 'only with project present' do
+          let(:project) { nil }
+
+          subject { branch }
+
+          its(:valid?) { should be_false }
+        end
       end
 
     end
