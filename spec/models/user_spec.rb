@@ -55,10 +55,10 @@ describe User do
 
     context 'sends a confirmation email' do
       before do
-        user.should_receive(:send_confirmation_email)
+        UserMailer.should_receive(:confirmed)
       end
 
-      it { user.update_attributes(:confirmed => true) }
+      it { user.update_attributes(:confirmed => '1') }
     end
 
     context '#nicename when #name is blank' do
