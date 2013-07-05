@@ -174,7 +174,7 @@
         color: shade($white, 40%);
         border-top: 1px solid shade($white, 20%);
         padding: 20px;
-        background-color: shade(white, 5%);
+        background-color: shade($white, 5%);
         position: absolute;
         left: 0;
         bottom: 0;
@@ -216,7 +216,7 @@
         padding: 0 20px;
       
         .board-id {
-          color: shade(white, 20%);
+          color: shade($white, 20%);
         }
       
         .comments-count {
