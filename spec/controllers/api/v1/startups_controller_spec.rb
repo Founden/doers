@@ -10,9 +10,8 @@ describe Api::V1::StartupsController do
 
   describe '#create' do
     let(:startup) do
-      startup = MultiJson.load(
-        Rails.root.join('spec/fixtures/angel_list_startups.json')
-      )['startup_roles'].first['startup']
+      json = File.read Rails.root.join('spec/fixtures/angel_list_startups.json')
+      startup = json_to_ostruct(json)['startup_roles'].first['startup']
       startup['angel_list_id'] = startup['id']
       startup
     end
@@ -24,9 +23,10 @@ describe Api::V1::StartupsController do
     context 'when user has no imports' do
       its('response.response_code') { should eq(200) }
 
-      context 'its' do
-        subject { user }
-        its(:importing) { should be_true }
+      context '#importing' do
+        subject { user.importing }
+
+        it { should be_true }
       end
     end
 
