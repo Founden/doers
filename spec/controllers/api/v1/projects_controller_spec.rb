@@ -26,7 +26,7 @@ describe Api::V1::ProjectsController do
 
     it 'serializes user project into a json' do
       api_project = JSON.parse(response.body)['project']
-      api_project.keys.count.should eq(9)
+      api_project.keys.count.should eq(11)
 
       project = user.projects.first
 
@@ -35,7 +35,9 @@ describe Api::V1::ProjectsController do
       api_project['description'].should eq(project.description)
       api_project['status'].should eq(project.status)
       api_project['updated_at'].should_not be_blank
+      api_project['last_update'].should eq(project.updated_at.to_s(:pretty))
       api_project['user_id'].should eq(user.id)
+      api_project['user_nicename'].should eq(user.nicename)
       api_project['website'].should eq(project.website)
       api_project['logo_url'].should eq(project.logo.attachment.url)
       api_project['board_ids'].should be_empty
@@ -46,7 +48,7 @@ describe Api::V1::ProjectsController do
 
       it 'includes serialized boards into response' do
         api_project = JSON.parse(response.body)['project']
-        api_project.keys.count.should eq(9)
+        api_project.keys.count.should eq(11)
         api_project['board_ids'].size.should eq(prj.boards.count)
         api_project['board_ids'].should eq(prj.boards.map(&:id))
       end
@@ -59,7 +61,7 @@ describe Api::V1::ProjectsController do
 
     it 'creates a project and serializes it to json' do
       project = JSON.parse(response.body)['project']
-      project.keys.count.should eq(9)
+      project.keys.count.should eq(11)
 
       project['id'].should_not be_nil
       project['title'].should eq(prj_attrs['title'])
@@ -90,7 +92,7 @@ describe Api::V1::ProjectsController do
 
     it 'creates a project and serializes it to json' do
       project = JSON.parse(response.body)['project']
-      project.keys.count.should eq(9)
+      project.keys.count.should eq(11)
 
       project['id'].should eq(prj.id)
       project['title'].should eq(prj_attrs['title'])
