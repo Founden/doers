@@ -13,10 +13,9 @@ describe Api::V1::ProjectsController do
       get(:index)
     end
 
-    it 'serializes current user projects list into a json' do
-      projects = JSON.parse(response.body)['projects']
-      projects.count.should eq(2)
-    end
+    subject(:api_projects) { json_to_ostruct(response.body) }
+
+    its('projects.count') { should eq(2) }
   end
 
   describe '#show' do
@@ -24,34 +23,28 @@ describe Api::V1::ProjectsController do
 
     before { get(:show, :id => prj.id) }
 
-    it 'serializes user project into a json' do
-      api_project = JSON.parse(response.body)['project']
-      api_project.keys.count.should eq(11)
+    subject(:api_project) { json_to_ostruct(response.body, :project) }
 
-      project = user.projects.first
 
-      api_project['id'].should eq(project.id)
-      api_project['title'].should eq(project.title)
-      api_project['description'].should eq(project.description)
-      api_project['status'].should eq(project.status)
-      api_project['updated_at'].should_not be_blank
-      api_project['last_update'].should eq(project.updated_at.to_s(:pretty))
-      api_project['user_id'].should eq(user.id)
-      api_project['user_nicename'].should eq(user.nicename)
-      api_project['website'].should eq(project.website)
-      api_project['logo_url'].should eq(project.logo.attachment.url)
-      api_project['board_ids'].should be_empty
-    end
+    its('keys.count') { should eq(11) }
+    its(:id){ should eq(prj.id) }
+    its(:title) { should eq(prj.title) }
+    its(:description) { should eq(prj.description) }
+    its(:status) { should eq(prj.status) }
+    its(:updated_at) { should_not be_blank }
+    its(:last_update) { should eq(prj.updated_at.to_s(:pretty)) }
+    its(:user_id) { should eq(user.id) }
+    its(:user_nicename) { should eq(user.nicename) }
+    its(:website) { should eq(prj.website) }
+    its(:logo_url) { should eq(prj.logo.attachment.url) }
+    its(:board_ids) { should be_empty }
 
     context 'for a project with boards' do
       let(:prj) { Fabricate(:project_with_boards, :user => user) }
 
-      it 'includes serialized boards into response' do
-        api_project = JSON.parse(response.body)['project']
-        api_project.keys.count.should eq(11)
-        api_project['board_ids'].size.should eq(prj.boards.count)
-        api_project['board_ids'].should eq(prj.boards.map(&:id))
-      end
+      its('keys.count') { should eq(11) }
+      its('board_ids.size') { should eq(prj.boards.count) }
+      its(:board_ids) { should eq(prj.boards.map(&:id)) }
     end
   end
 
@@ -59,26 +52,24 @@ describe Api::V1::ProjectsController do
     let(:prj_attrs) { Fabricate.attributes_for(:project) }
     before { post(:create, :project => prj_attrs) }
 
-    it 'creates a project and serializes it to json' do
-      project = JSON.parse(response.body)['project']
-      project.keys.count.should eq(11)
+    subject(:api_project) { json_to_ostruct(response.body, :project) }
 
-      project['id'].should_not be_nil
-      project['title'].should eq(prj_attrs['title'])
-      project['description'].should eq(prj_attrs['description'])
-      project['status'].should eq(Project::STATES.first)
-      project['user_id'].should eq(user.id)
-      project['board_ids'].should be_empty
-    end
+    its('keys.count') { should eq(11) }
+    its(:id) { should_not be_nil }
+    its(:title) { should eq(prj_attrs['title']) }
+    its(:description) { should eq(prj_attrs['description']) }
+    its(:status) { should eq(Project::STATES.first) }
+    its(:user_id) { should eq(user.id) }
+    its(:board_ids) { should be_empty }
 
     context 'except on wrong arguments' do
       let( :prj_attrs ) { {:project => {:title => ''} } }
 
-      it 'returns errors' do
-        project = JSON.parse(response.body)
-        project.keys.count.should eq(1)
-        project['errors']['title'].should_not be_blank
-      end
+      subject(:api_project) { json_to_ostruct(response.body) }
+
+      its('keys.count') { should eq(1) }
+      its('errors.size') { should eq(1) }
+      its('errors.keys') { should include('title') }
     end
   end
 
@@ -90,17 +81,15 @@ describe Api::V1::ProjectsController do
 
     before { post(:update, :id => prj.id, :project => prj_attrs) }
 
-    it 'creates a project and serializes it to json' do
-      project = JSON.parse(response.body)['project']
-      project.keys.count.should eq(11)
+    subject(:api_project) { json_to_ostruct(response.body, :project) }
 
-      project['id'].should eq(prj.id)
-      project['title'].should eq(prj_attrs['title'])
-      project['description'].should eq(prj_attrs['description'])
-      project['status'].should eq(Project::STATES.last)
-      project['user_id'].should eq(user.id)
-      project['board_ids'].should be_empty
-    end
+    its('keys.count') { should eq(11) }
+    its(:id) { should eq(prj.id) }
+    its(:title) { should eq(prj_attrs['title']) }
+    its(:description) { should eq(prj_attrs['description']) }
+    its(:status) { should eq(Project::STATES.last) }
+    its(:user_id) { should eq(user.id) }
+    its(:board_ids) { should be_empty }
   end
 
   describe '#destroy' do
