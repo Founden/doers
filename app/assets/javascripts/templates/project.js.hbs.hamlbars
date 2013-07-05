@@ -5,7 +5,7 @@
       {{content.title}}
     .headline
       {{content.description}}
-      
+
   .boards
     {{#each board in content.boards}}
     .board
@@ -13,13 +13,13 @@
       %p.description {{board.description}}
       %ul.meta
         %li
-          %span 
+          %span
             = _('Created by:')
-          {{board.user.nicename}}
+          {{board.userNicename}}
         %li
           %span
             = _('Updated:')
-          {{board.updatedAt}}
+          {{board.lastUpdate}}
         %li
           %span
             = _('Cards:')
@@ -32,8 +32,8 @@
             {{board.parentBoard.title}}
           = _('by')
           %a{:href => ''}
-            {{board.parentBoard.author.nicename}}
-        %h4 
+            {{board.parentBoard.authorNicename}}
+        %h4
           = _('Branches')
           (6)
         %ul
