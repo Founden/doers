@@ -72,6 +72,37 @@ describe User do
 
       it { should_not be_valid }
     end
+
+    context '#all_boards' do
+      its(:all_boards) { should be_empty }
+
+      context 'when created a board' do
+        let!(:board) { Fabricate(:board, :author => user) }
+
+        its('all_boards.count') { should eq(1) }
+        its('all_boards.first.id') { should eq(board.id) }
+      end
+
+      context 'when there is a public board' do
+        let!(:board) { Fabricate(:board, :status => Board::STATES.last) }
+
+        its('all_boards.count') { should eq(1) }
+        its('all_boards.first.id') { should eq(board.id) }
+      end
+
+      context 'when branched a board' do
+        let!(:board) { Fabricate(:branched_board, :user => user) }
+
+        its('all_boards.count') { should eq(1) }
+        its('all_boards.first.id') { should eq(board.id) }
+      end
+
+      context 'when an owned project has boards' do
+        let!(:project) { Fabricate(:project_with_boards, :user => user) }
+
+        its('all_boards.count') { should eq(project.boards.count) }
+      end
+    end
   end
 
 end
