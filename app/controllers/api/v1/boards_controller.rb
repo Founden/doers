@@ -15,7 +15,7 @@ class Api::V1::BoardsController < Api::V1::ApplicationController
   # Handles board creation
   def create
     # TODO: handle project relationship
-    board = current_account.board.build(board_params)
+    board = current_account.boards.build(new_board_params)
     if board.save
       render :json => board
     else
@@ -42,8 +42,15 @@ class Api::V1::BoardsController < Api::V1::ApplicationController
 
   private
 
-    # Strong parameters for board object
+    # Strong parameters for creating a new board
+    def new_board_params
+      # TODO: Authorize if only parent board is public and project is owned
+      params.require(:board).
+        permit(:title, :description, :project_id, :parent_board_id)
+    end
+
+    # Strong parameters for updating a board
     def board_params
-      params.require(:board).permit(:title, :description, :status)
+      params.require(:board).permit(:title, :description)
     end
 end
