@@ -57,9 +57,10 @@ describe ProfilesController do
     let(:email) { Faker::Internet.email }
     let(:newsletter_allowed) { ['1', '0'].sample }
     let(:user_id) { user.id }
+    let(:current_account) { user }
 
     before do
-      controller.stub(:current_account) { user }
+      controller.stub(:current_account) { current_account }
       put(:update, :id => user_id, :user => {
         :email => email, :name => name, :confirmed => true,
         :newsletter_allowed => newsletter_allowed } )
@@ -84,10 +85,7 @@ describe ProfilesController do
 
     context 'as an administrative user' do
       let(:admin) { Fabricate(:admin) }
-
-      before do
-        controller.stub(:current_account) { admin }
-      end
+      let(:current_account) { admin }
 
       it 'updates any user profile' do
         should render_template(:show)
