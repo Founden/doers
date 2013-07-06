@@ -11,13 +11,12 @@ environment and just hack around.
 1. Close the repository
 2. Run `bundle install`
 3. Run migrations `bundle exec rake db:create db:migrate db:test:prepare`
-4. Install some seed data `rake db:seed:development`
-5. Run `rails s`
-6. Open your browser and navigate to `http://lvh.me:3000`
+4. Run `rails s`
+5. Open your browser and navigate to `http://lvh.me:3000` to login
+6. Install some seed data `rake db:seed:development EMAIL=your@email`
+7. Run `rails s` again
 
-You are all set now! Use you local system username (ex.: `ENV['USER']`) or `dev`
-and append `@lvh.me` to get the seeded user email account.
-Your password is `secret` (the same for any pre-seeded user).
+Password is `secret` for any pre-seeded user.
 
 # Deployments
 

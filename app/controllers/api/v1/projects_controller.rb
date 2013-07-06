@@ -30,6 +30,16 @@ class Api::V1::ProjectsController < Api::V1::ApplicationController
     render :json => project
   end
 
+  # Handles project deletion
+  def destroy
+    project = current_account.projects.find_by(:id => params[:id])
+    if project and project.destroy
+      render :nothing => true, :status => 204
+    else
+      render :nothing => true, :status => 400
+    end
+  end
+
   private
 
     # Strong parameters for project object
