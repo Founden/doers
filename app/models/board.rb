@@ -16,6 +16,8 @@ class Board < ActiveRecord::Base
   validates_presence_of :title
   # Require an author on initial creation
   validates_presence_of :author, :unless => :parent_board
+  # Require a project on `branch-ing`
+  validates_presence_of :project, :if => :parent_board
   # Require a user on `branch-ing`
   validates_presence_of :user, :if => :parent_board
   validates :status, :inclusion => {:in => STATES}
