@@ -54,8 +54,7 @@ group :development, :test do
   gem 'sqlite3'
   gem 'ffaker'
   gem 'fabrication'
-  gem 'rspec', '~> 2.14.0.rc1', :require => false
-  gem 'rspec-rails', '~> 2.14.0.rc1'
+  gem 'rspec-rails'
   gem 'guard-rspec', :require => false
   gem 'rb-inotify', :require => false
 end
