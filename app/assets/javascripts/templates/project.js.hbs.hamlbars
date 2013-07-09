@@ -9,7 +9,9 @@
   .boards
     {{#each board in content.boards}}
     .board{:bind => {:id => 'board.slug'}}
+      {{#linkTo board content board}}
       %h2 {{board.title}}
+      {{/linkTo}}
       %p.description {{board.description}}
       %ul.meta
         %li
