@@ -13,6 +13,8 @@ Doers.Board = DS.Model.extend
 
   branches: DS.hasMany('Doers.Board')
 
+  cards: DS.hasMany('Doers.Card')
+
   slug: (->
     'board-' + @get('id')
   ).property('id')
