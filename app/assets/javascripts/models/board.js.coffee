@@ -12,3 +12,7 @@ Doers.Board = DS.Model.extend
   parentBoard: DS.belongsTo('Doers.Board')
 
   branches: DS.hasMany('Doers.Board')
+
+  slug: (->
+    'board-' + @get('id')
+  ).property('id')

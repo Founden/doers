@@ -8,7 +8,7 @@
 
   .boards
     {{#each board in content.boards}}
-    .board
+    .board{:bind => {:id => 'board.slug'}}
       %h2 {{board.title}}
       %p.description {{board.description}}
       %ul.meta
