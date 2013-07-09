@@ -1,12 +1,10 @@
 require 'spec_helper'
 
-describe Card::Text do
-  let(:text_card) { Fabricate('card/text') }
-
+describe Card::Phrase do
   it { should validate_presence_of(:content) }
 
   context 'instance' do
-    subject { text_card }
+    subject(:phrase_card) { Fabricate('card/phrase') }
 
     its(:content) { should_not be_blank }
   end
