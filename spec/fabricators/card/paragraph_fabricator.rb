@@ -1,4 +1,4 @@
-Fabricator('card/text_area') do
+Fabricator('card/paragraph') do
   content { Faker::HTMLIpsum.fancy_string }
   title   { Faker::Lorem.sentence }
   user
