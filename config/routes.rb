@@ -22,6 +22,7 @@ Doers::Application.routes.draw do
       resources(:projects)
       resources(:startups, :only => [:create])
       resources(:boards)
+      resources(:cards, :only => [:index])
     end
   end
 
