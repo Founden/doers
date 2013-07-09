@@ -4,16 +4,16 @@ after 'development:boards' do
   user.projects.limit(2).each do |project|
     project.boards.each do |board|
       rand(2..5).times {
-        Fabricate('card/text',
+        Fabricate('card/phrase',
                   :project => project, :board => board, :user => user)
       }
-      Fabricate('card/text', :project => project, :board => board)
+      Fabricate('card/phrase', :project => project, :board => board)
 
       rand(1..3).times {
-        Fabricate('card/text_area',
+        Fabricate('card/paragraph',
                   :project => project, :board => board, :user => user)
       }
-      Fabricate('card/text_area', :project => project, :board => board)
+      Fabricate('card/paragraph', :project => project, :board => board)
 
       rand(1..3).times {
         Fabricate('card/timestamp',
