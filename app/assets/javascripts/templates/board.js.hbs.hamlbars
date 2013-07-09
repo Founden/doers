@@ -1,0 +1,8 @@
+{{content.title}}
+
+{{#each card in content.cards}}
+%p
+  -# {{log card}}
+  {{card.title}}
+  {{card.key}}
+{{/each}}
