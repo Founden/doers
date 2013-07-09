@@ -3,4 +3,5 @@ Fabricator('card/timestamp') do
   timestamp { DateTime.now.to_s }
   user
   board
+  project   { nil }
 end

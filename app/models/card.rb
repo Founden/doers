@@ -6,6 +6,7 @@ class Card < ActiveRecord::Base
   # Relationships
   belongs_to :user
   belongs_to :board
+  belongs_to :project
 
   # Validations
   validates_presence_of :title, :user, :board
