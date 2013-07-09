@@ -1,6 +1,6 @@
 # [Board] model serializer
 class BoardSerializer < ActiveModel::Serializer
-  attributes :id, :title, :status, :updated_at, :description
+  attributes :id, :title, :status, :updated_at, :description, :card_ids
   attributes :last_update, :author_nicename, :user_nicename
 
   has_one :user, :embed => :id
