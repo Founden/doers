@@ -1,4 +1,4 @@
-Fabricator('card/text') do
+Fabricator('card/phrase') do
   content { Faker::Lorem.sentence }
   title   { Faker::Lorem.sentence }
   user
