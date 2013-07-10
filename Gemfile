@@ -30,10 +30,13 @@ group :assets do
   gem 'coffee-rails'
   gem 'uglifier'
   gem 'therubyracer'
-  gem 'jquery-rails', '2.2.1'
-  gem 'handlebars-source', '1.0.0.rc4'
   gem 'hamlbars'
+
+  gem 'jquery-rails'
   gem 'ember-rails'
+  gem 'handlebars-source', '1.0.12'
+  gem 'ember-source', '1.0.0.rc6.2'
+
   gem 'neat'
   gem 'normalize-rails'
 end
