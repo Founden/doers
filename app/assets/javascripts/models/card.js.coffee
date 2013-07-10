@@ -1,7 +1,7 @@
 Doers.Card = DS.Model.extend
   title: DS.attr('string')
-  content: DS.attr('string')
-  key: DS.attr('string')
+  type: DS.attr('string')
+  position: DS.attr('number')
 
   updatedAt: DS.attr('date')
   lastUpdate: DS.attr('string')
@@ -12,5 +12,6 @@ Doers.Card = DS.Model.extend
   board: DS.belongsTo('Doers.Board')
 
   slug: (->
-    'card-' + @get('id')
-  ).property('id')
+    if type = @get('type')
+      'card-%@-%@'.fmt(type.toLowerCase(), @get('id'))
+  ).property('id', 'type')
