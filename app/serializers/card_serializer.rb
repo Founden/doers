@@ -1,7 +1,7 @@
 # [Card] model serializer
 class CardSerializer < ActiveModel::Serializer
   attributes :id, :title, :position, :updated_at
-  attributes :last_update, :user_nicename, :key
+  attributes :last_update, :user_nicename, :type
 
   has_one :user, :embed => :id
   has_one :project, :embed => :id
@@ -17,8 +17,8 @@ class CardSerializer < ActiveModel::Serializer
     object.user.nicename if object.user
   end
 
-  # Generates a key out of card type
-  def key
-    object.type.to_s.downcase.sub('card::', '')
+  # Generates it out of the card type
+  def type
+    object.type.to_s.sub('Card::', '')
   end
 end
