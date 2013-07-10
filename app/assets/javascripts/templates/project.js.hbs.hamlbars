@@ -31,8 +31,7 @@
           %a{:href => ''}
             {{board.parentBoard.title}}
           = _('by')
-          %a{:href => ''}
-            {{board.parentBoard.authorNicename}}
+          {{board.parentBoard.authorNicename}}
         %h4
           = _('Branches')
           (6)
