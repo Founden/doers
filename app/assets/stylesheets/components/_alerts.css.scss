@@ -1,37 +1,37 @@
 .alert-box {
-    @include row;
-    padding: 15px 10px;
-    position: relative;
-    background-color: rgba($white, 0.6);
+  @include row;
+  padding: 15px 10px;
+  position: relative;
+  background-color: rgba($white, 0.6);
 
-    p {
-        font-size: em(14, 12);
-        line-height: 1.5em;
-        margin: 0;
-        text-align: center;
+  p {
+    font-size: em(14, 12);
+    line-height: 1.5em;
+    margin: 0;
+    text-align: center;
+  }
+
+  .icon-close {
+    position: absolute;
+    right: 10px;
+    top: 15px;
+    cursor: pointer;
+    background-color: rgba($black, 0.1);
+    color: $white;
+    width: 21px;
+    height: 21px;
+    line-height: 21px;
+    text-align: center;
+    border-radius: 50%;
+    color: $black;
+    @include transition(background-color 0.2s);
+
+    &:hover {
+      background-color: rgba($black, 0.2);
     }
-    
-    .icon-close {
-      position: absolute;
-      right: 10px;
-      top: 15px;
-      cursor: pointer;
-      background-color: rgba($black, 0.1);
-      color: $white;
-      width: 21px;
-      height: 21px;
-      line-height: 21px;
-      text-align: center;
-      border-radius: 50%;
-      color: $black;
-      @include transition(background-color 0.2s);
-      
-      &:hover {
-        background-color: rgba($black, 0.2);
-      }
-      
-      &:before {
-        content: "×";
-      }
+
+    &:before {
+      content: "×";
     }
+  }
 }

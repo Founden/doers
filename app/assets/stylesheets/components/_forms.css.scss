@@ -1,48 +1,48 @@
 .form {
 
-    fieldset {
-        background-color: $white;
-        box-shadow: 0 1px rgba($black, 0.2);
-        padding: 20px;
-        border: 0;
-        margin: 0;
+  fieldset {
+    background-color: $white;
+    box-shadow: 0 1px rgba($black, 0.2);
+    padding: 20px;
+    border: 0;
+    margin: 0;
+  }
+
+  .field {
+    @include row;
+    margin-bottom: 20px;
+
+    label {
+      @include span-columns(2);
+      line-height: 1.5em;
+      padding: 8px 0;
+      text-align: right;
     }
 
-    .field {
-        @include row;
-        margin-bottom: 20px;
+    #{$all-text-inputs}, textarea {
+      @include span-columns(6);
+      border: 1px solid tint($black, 80%);
+      border-radius: 3px;
+      box-shadow: inset 0 1px 2px rgba($black, 0.1);
+      background-color: $white;
+      padding: 8px;
+      line-height: 1.5em;
+      outline: 0;
+      @include transition(all 0.2s);
 
-        label {
-            @include span-columns(2);
-            line-height: 1.5em;
-            padding: 8px 0;
-            text-align: right;
-        }
-
-        #{$all-text-inputs}, textarea {
-            @include span-columns(6);
-            border: 1px solid tint($black, 80%);
-            border-radius: 3px;
-            box-shadow: inset 0 1px 2px rgba($black, 0.1);
-            background-color: $white;
-            padding: 8px;
-            line-height: 1.5em;
-            outline: 0;
-            @include transition(all 0.2s);
-
-            &:focus {
-                border-color: tint($black, 70%);
-                background-color: shade($white, 1%);
-            }
-        }
+      &:focus {
+        border-color: tint($black, 70%);
+        background-color: shade($white, 1%);
+      }
     }
+  }
 
-    .actions {
-        @include shift(2);
+  .actions {
+    @include shift(2);
 
-        .button {
-            margin: 0 1em 0 0;
-        }
+    .button {
+      margin: 0 1em 0 0;
     }
+  }
 
 }
