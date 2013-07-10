@@ -1,5 +1,7 @@
 # [Card] model serializer
 class CardSerializer < ActiveModel::Serializer
+  root :card
+
   attributes :id, :title, :position, :updated_at
   attributes :last_update, :user_nicename, :type
 
