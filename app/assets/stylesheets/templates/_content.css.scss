@@ -57,7 +57,7 @@
   }
 
   .welcome {
-    @include span-columns(4);
+    @include row;
     background-color: $white;
     padding: 20px;
     box-shadow: 0 1px rgba($black, 0.2);
