@@ -1,13 +1,10 @@
 .alert-box {
-  @include row;
   padding: 15px 10px;
   position: relative;
-  background-color: rgba($white, 0.6);
+  background-color: $orange;
 
   p {
-    font-size: em(14, 12);
     line-height: 1.5em;
-    margin: 0;
     text-align: center;
   }
 

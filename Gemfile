@@ -34,7 +34,7 @@ group :assets do
   gem 'handlebars-source', '1.0.0.rc4'
   gem 'hamlbars'
   gem 'ember-rails'
-  gem 'neat'
+  gem 'bourbon'
   gem 'normalize-rails'
 end
 

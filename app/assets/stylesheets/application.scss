@@ -1,12 +1,8 @@
-@import 'core/vars';
-
 @import 'bourbon';
-@import 'neat';
-
-@import 'mixins/neat/*';
-
-@import 'core/fonts';
 @import 'normalize-rails/normalize';
+
+@import 'core/vars';
+@import 'core/fonts';
 @import 'core/base';
 
 @import 'components/buttons';
