@@ -1,16 +1,24 @@
 body {
-  font: 400 12px/1.5 "Open Sans" $helvetica;
-  @include linear-gradient(to right, shade($primary-color, 10%), $primary-color, $fallback: $blue);
-  color: $black;
-  padding: 45px 0 0 0;
+  font: 400 14px/1.5 'Lato', $helvetica;
+  background-color: $bw_9;
+  color: $bw_1;
 }
 
 a {
-  color: $black;
+  color: $bw_1;
   text-decoration: none;
   @include transition(color 0.2s);
 
   &:hover {
     text-decoration: none;
   }
+}
+
+ul, ol {
+  list-style: none;
+}
+
+h1, h2, h3, h4, h5, h6, p, ul, ol, fieldset {
+  margin: 0;
+  padding: 0;
 }

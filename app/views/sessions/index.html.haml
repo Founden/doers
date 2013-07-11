@@ -3,13 +3,11 @@
   %header.header
     %h1
       = _('Sign in to continue')
-    %p.headline
+    %p
       = _('You can use your Angel List account so we can sync with existing startups you have access to and help you win some time.')
 
-  %section.sing-in
+  .welcome
     %h2
       = _('Sign in or register with')
-    %a{:href => oauth2_sign_in_path(:provider => :angel_list), :class => 'button secondary'}
+    %a{:href => oauth2_sign_in_path(:provider => :angel_list), :class => 'button'}
       = _('Angel List')
-    %p
-      = _('Since we are in beta, feel free to report any feedback, we will be happy to read it.')
