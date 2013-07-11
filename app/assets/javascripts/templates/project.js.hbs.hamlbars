@@ -3,27 +3,26 @@
   %header.header
     %h1
       {{content.title}}
-    .headline
-      {{content.description}}
+    .buttons
+      {{#linkTo projects.new id='projects-add' class='button' title="#{_('Create a new project')}"}}
+      = _('Create new board')
+      {{/linkTo}}
 
   .boards
     {{#each board in content.boards}}
     .board
-      %h2 {{board.title}}
-      %p.description {{board.description}}
-      %ul.meta
-        %li
-          %span
-            = _('Created by:')
-          {{board.userNicename}}
-        %li
-          %span
-            = _('Updated:')
-          {{board.lastUpdate}}
-        %li
-          %span
-            = _('Cards:')
-          10 default + none custom
+      %a{:href => '#'}
+        %h2 {{board.title}}
+        %p.description {{board.description}}
+        %ul.meta
+          %li
+            %span
+              = _('Created by:')
+            {{board.userNicename}}
+          %li
+            %span
+              = _('Updated:')
+            {{board.lastUpdate}}
       .board-branches
         %h4
           = _('Branched from')
@@ -32,25 +31,4 @@
             {{board.parentBoard.title}}
           = _('by')
           {{board.parentBoard.authorNicename}}
-        %h4
-          = _('Branches')
-          (6)
-        %ul
-          {{#each branch in board.branches}}
-          %li
-            = precede '#' do
-              {{branch.id}}
-            %a{:href => '#'}
-              {{branch.name}}
-          {{/each}}
-        %a{:href => '#'}
-          +
-          = _('Create branch')
-      %footer
-        %span.comments-count
-          6
-        %span.board-id
-          = _('ID:')
-          = precede '#' do
-            {{board.id}}
     {{/each}}
