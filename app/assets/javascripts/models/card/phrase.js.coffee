@@ -1,2 +1,2 @@
-Doers.Phrase = Doers.Card.reopen
+Doers.Phrase = Ember.Mixin.create
   content: DS.attr('string')
