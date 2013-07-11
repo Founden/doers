@@ -3,6 +3,7 @@
   %header.header
     %h1
       = _('Almost done.')
-    %p.headline
+    %p
       = _('While we get everything processed, feel free to navigate away from this page.')
+      %br/
       = _('We will email you anyway.')

@@ -5,8 +5,8 @@
     {{#if view.hasSelections}}
     %h1
       = _('You have selected {{selectedStartups.length}} project(s)')
-    .pull-right
-      %button#run-import.button.secondary{:_action => 'doImport'}
+    .buttons
+      %button#run-import.button{:_action => 'doImport'}
         = _('Import selected')
     {{else}}
     %h1
