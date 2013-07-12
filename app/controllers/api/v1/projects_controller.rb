@@ -44,6 +44,6 @@ class Api::V1::ProjectsController < Api::V1::ApplicationController
 
     # Strong parameters for project object
     def project_params
-      params.require(:project).permit(:title, :description, :status)
+      params.require(:project).permit(:title, :description, :website)
     end
 end
