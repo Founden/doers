@@ -21,6 +21,12 @@ after 'development:boards' do
       }
       Fabricate('card/timestamp', :project => project, :board => board)
 
+      rand(1..3).times {
+        Fabricate('card/interval',
+                  :project => project, :board => board, :user => user)
+      }
+      Fabricate('card/interval', :project => project, :board => board)
+
       rand(2..5).times {
         Fabricate('card/number',
                   :project => project, :board => board, :user => user)
