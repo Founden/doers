@@ -1,18 +1,18 @@
 Doers.Board = DS.Model.extend
   title: DS.attr('string')
   description: DS.attr('string')
-  updatedAt: DS.attr('date')
-  lastUpdate: DS.attr('string')
-  userNicename: DS.attr('string')
-  authorNicename: DS.attr('string')
 
-  user: DS.belongsTo('Doers.User')
-  author: DS.belongsTo('Doers.User')
-  project: DS.belongsTo('Doers.Project')
   parentBoard: DS.belongsTo('Doers.Board')
+  project: DS.belongsTo('Doers.Project')
+  user: DS.belongsTo('Doers.User', readOnly: true)
+  author: DS.belongsTo('Doers.User', readOnly: true)
+
+  updatedAt: DS.attr('date', readOnly: true)
+  lastUpdate: DS.attr('string', readOnly: true)
+  userNicename: DS.attr('string', readOnly: true)
+  authorNicename: DS.attr('string', readOnly: true)
 
   branches: DS.hasMany('Doers.Board')
-
   cards: DS.hasMany('Doers.Card')
 
   slug: (->
