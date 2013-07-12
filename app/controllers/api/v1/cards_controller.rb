@@ -22,7 +22,7 @@ class Api::V1::CardsController < Api::V1::ApplicationController
     if klass and card.save
       render :json => card
     else
-      render :json => { :errors => card.errors.messages }
+      render :json => { :errors => card.errors.messages }, :status => 400
     end
   end
 
@@ -30,8 +30,11 @@ class Api::V1::CardsController < Api::V1::ApplicationController
   def update
     card = Card.find_by(
       :id => params[:id], :project_id => current_account.projects)
-    card.update_attributes(card_params)
-    render :json => card
+    if card.update_attributes(card_params)
+      render :json => card
+    else
+      render :json => { :errors => card.errors.messages }, :status => 400
+    end
   end
 
   # Handles card deletion
@@ -54,8 +57,8 @@ class Api::V1::CardsController < Api::V1::ApplicationController
 
     # Strong parameters for updating a card
     def card_params
-      params[:card] = params[:card].except(
-        :user_id, :project_id, :board_id, :type, :last_update, :user_nicename)
+      params[:card] = params[:card].
+        except(:user_id, :project_id, :board_id, :type)
       params.require(:card).permit!
     end
 end
