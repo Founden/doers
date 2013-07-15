@@ -31,13 +31,11 @@ group :assets do
   gem 'uglifier'
   gem 'therubyracer'
   gem 'hamlbars'
-
   gem 'jquery-rails'
   gem 'ember-rails'
   gem 'handlebars-source', '1.0.12'
   gem 'ember-source', '1.0.0.rc6.2'
-
-  gem 'neat'
+  gem 'bourbon'
   gem 'normalize-rails'
 end
 

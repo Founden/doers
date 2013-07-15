@@ -2,13 +2,12 @@
 
   .copyright {
     text-align: right;
-    color: rgba($white, 0.5);
-    font-size: em(11, 12);
-    line-height: 45px;
-    padding: 0 15px;
+    color: $bw_7;
+    font-size: 12px;
+    line-height: 90px;
 
     a {
-      color: $white;
+      color: $bw_5;
     }
   }
 }
