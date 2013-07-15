@@ -1,34 +1,25 @@
 %nav.top-bar{:role => :navigation}
+  .wrapper
+    %a{:href => root_path, :class => 'name'}
+      = Doers::Config.app_name
+      %span
+        = _('by')
+        = Doers::Config.app_owner
 
-  %a{:href => root_path, :class => 'name'}
-    = Doers::Config.app_name
-    %span
-      = _('by')
-      = Doers::Config.app_owner
-
-  %ul
-    - if account_signed_in?
-      - if current_account.confirmed?
+    %ul.menu
+      - if account_signed_in?
         %li
-          %a{:href => dashboard_pages_path}
-            = _('Your Startups')
-          %ul
-            %li
-              %a{:href => root_path(:anchor => 'projects/new')}
-                = _('Create a new one')
-            %li
-              %a{:href => root_path(:anchor => 'projects/import')}
-                = _('Import from Angel List')
-      %li
-        %a{:href => mine_profiles_path}
-          = gravatar_tag(current_user.email, {:class => 'avatar', :size => 24})
-          = _('Hello,')
-          = current_user.name
-        %ul
+          %a{:href => mine_profiles_path}
+            = gravatar_tag(current_user.email, {:class => 'avatar', :size => 30})
+            = _('You')
+        - if current_account.confirmed?
           %li
-            %a{:href => sign_out_path}
-              = _('Sign out')
-    - else
-      %li
-        %a{:href => sign_in_path}
-          = _('Sign In')
+            %a{:href => dashboard_pages_path}
+              = _('Your Startups')
+        %li
+          %a{:href => sign_out_path}
+            = _('Sign out')
+      - else
+        %li
+          %a{:href => sign_in_path}
+            = _('Sign In')
