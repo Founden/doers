@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130627092613) do
+ActiveRecord::Schema.define(version: 20130709155615) do
 
   create_table "assets", force: true do |t|
     t.integer  "project_id"
@@ -49,13 +49,15 @@ ActiveRecord::Schema.define(version: 20130627092613) do
   add_index "boards", ["user_id"], name: "index_boards_on_user_id"
 
   create_table "cards", force: true do |t|
-    t.integer "user_id"
-    t.integer "project_id"
-    t.integer "board_id"
-    t.integer "position"
-    t.string  "title"
-    t.string  "type"
-    t.text    "data"
+    t.integer  "user_id"
+    t.integer  "project_id"
+    t.integer  "board_id"
+    t.integer  "position"
+    t.string   "title"
+    t.string   "type"
+    t.text     "data"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "cards", ["board_id"], name: "index_cards_on_board_id"

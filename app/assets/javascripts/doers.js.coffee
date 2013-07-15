@@ -6,6 +6,7 @@
 #= require doers
 
 #= require_self
+#= require ./serializer
 #= require ./adapter
 #= require ./store
 #= require_tree ./models
@@ -36,4 +37,3 @@ window.Doers.initializer
     $.ajaxPrefilter (options, originalOptions, xhr)->
       token = $('meta[name="csrf-token"]').attr('content')
       xhr.setRequestHeader('X-CSRF-Token', token)
-

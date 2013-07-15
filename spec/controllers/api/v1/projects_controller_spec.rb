@@ -44,7 +44,7 @@ describe Api::V1::ProjectsController do
 
       its('keys.count') { should eq(11) }
       its('board_ids.size') { should eq(prj.boards.count) }
-      its(:board_ids) { should eq(prj.boards.map(&:id)) }
+      its(:board_ids) { should eq(prj.boards.map(&:id).sort) }
     end
   end
 
@@ -87,7 +87,7 @@ describe Api::V1::ProjectsController do
     its(:id) { should eq(prj.id) }
     its(:title) { should eq(prj_attrs['title']) }
     its(:description) { should eq(prj_attrs['description']) }
-    its(:status) { should eq(Project::STATES.last) }
+    its(:website) { should eq(prj_attrs['website']) }
     its(:user_id) { should eq(user.id) }
     its(:board_ids) { should be_empty }
   end

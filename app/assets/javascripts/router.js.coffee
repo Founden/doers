@@ -8,3 +8,5 @@ Doers.Router.map (match)->
     @route('import')
     @route('import-running')
     @resource 'project', {path: ':project_id'}
+    @resource 'boards', {path: ':project_id/boards'}, ->
+      @resource 'board', {path: ':board_id'}

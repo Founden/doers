@@ -30,10 +30,11 @@ group :assets do
   gem 'coffee-rails'
   gem 'uglifier'
   gem 'therubyracer'
-  gem 'jquery-rails', '2.2.1'
-  gem 'handlebars-source', '1.0.0.rc4'
   gem 'hamlbars'
+  gem 'jquery-rails'
   gem 'ember-rails'
+  gem 'handlebars-source', '1.0.12'
+  gem 'ember-source', '1.0.0.rc6.2'
   gem 'bourbon'
   gem 'normalize-rails'
 end
@@ -54,8 +55,7 @@ group :development, :test do
   gem 'sqlite3'
   gem 'ffaker'
   gem 'fabrication'
-  gem 'rspec', '~> 2.14.0.rc1', :require => false
-  gem 'rspec-rails', '~> 2.14.0.rc1'
+  gem 'rspec-rails'
   gem 'guard-rspec', :require => false
   gem 'rb-inotify', :require => false
 end

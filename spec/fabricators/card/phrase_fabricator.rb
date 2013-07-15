@@ -1,5 +1,5 @@
-Fabricator('card/number') do
-  content { rand(1.0..9999.999).to_f }
+Fabricator('card/phrase') do
+  content { Faker::Lorem.sentence }
   title   { Faker::Lorem.sentence }
   user
   board

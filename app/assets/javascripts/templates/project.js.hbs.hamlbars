@@ -10,19 +10,20 @@
 
   .boards
     {{#each board in content.boards}}
-    .board
-      %a{:href => '#'}
-        %h2 {{board.title}}
-        %p.description {{board.description}}
-        %ul.meta
-          %li
-            %span
-              = _('Created by:')
-            {{board.userNicename}}
-          %li
-            %span
-              = _('Updated:')
-            {{board.lastUpdate}}
+    .board{:bind => {:id => 'board.slug'}}
+      {{#linkTo board content board}}
+      %h2 {{board.title}}
+      %p.description {{board.description}}
+      %ul.meta
+        %li
+          %span
+            = _('Created by:')
+          {{board.userNicename}}
+        %li
+          %span
+            = _('Updated:')
+          {{board.lastUpdate}}
+      {{/linkTo}}
       .board-branches
         %h4
           = _('Branched from')
