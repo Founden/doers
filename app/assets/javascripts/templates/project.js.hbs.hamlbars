@@ -4,14 +4,14 @@
     %h1
       {{content.title}}
     .buttons
-      {{#linkTo projects.new id='projects-add' class='button' title="#{_('Create a new project')}"}}
+      {{#linkTo 'projects.new' id='projects-add' class='button' title="#{_('Create a new project')}"}}
       = _('Create new board')
       {{/linkTo}}
 
   .boards
     {{#each board in content.boards}}
     .board{:bind => {:id => 'board.slug'}}
-      {{#linkTo board content board}}
+      {{#linkTo 'board' content board}}
       %h2 {{board.title}}
       %p.description {{board.description}}
       %ul.meta
