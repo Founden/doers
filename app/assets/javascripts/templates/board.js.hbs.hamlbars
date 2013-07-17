@@ -1,0 +1,10 @@
+#board
+
+  %header.header
+    %h1
+      {{title}}
+
+  .cards
+    {{#each card in cards itemViewClass=view.cardView}}
+    %footer {{card.type}}
+    {{/each}}
