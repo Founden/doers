@@ -11,7 +11,7 @@
   .boards
     {{#each board in content.boards}}
     .board{:bind => {:id => 'board.slug'}}
-      {{#linkTo 'board' content board}}
+      {{#linkTo 'boards.show' content board}}
       %h2 {{board.title}}
       %p.description {{board.description}}
       %ul.meta
