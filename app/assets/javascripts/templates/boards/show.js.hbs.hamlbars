@@ -1,0 +1,6 @@
+{{title}}
+
+{{#each card in cards}}
+%p
+  {{card.slug}}
+{{/each}}
