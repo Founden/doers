@@ -184,6 +184,21 @@
         border-top-color: $blue;
       }
 
+      &.link {
+          border-top-color: $orange;
+      }
+
+      &.video, &.photo, &.map {
+          border-top-color: $green;
+      }
+
+      &.map {
+
+          img {
+              height: 300px;
+          }
+      }
+
       h2 {
         font-size: 21px;
         font-weight: 300;

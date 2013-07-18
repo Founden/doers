@@ -11,10 +11,11 @@ Doers.BoardsShowView = Ember.View.extend
 
     didInsertElement: ( ->
       if type = @get('content.type')
-        viewClassName = '%@View'.fmt(type.toLowerCase())
-        viewClass = @get(viewClassName).create
+        console.log type
+        cardTypeName = '%@View'.fmt(type.toLowerCase())
+        cardType = @get(cardTypeName).create
           content: @content
-        @pushObject(viewClass)
+        @pushObject(cardType)
     ).observes('content.type')
 
     phraseView: Ember.View.extend
@@ -31,3 +32,18 @@ Doers.BoardsShowView = Ember.View.extend
 
     numberView: Ember.View.extend
       templateName: 'cards/number'
+
+    linkView: Ember.View.extend
+      templateName: 'cards/link'
+
+    bookView: Ember.View.extend
+      templateName: 'cards/book'
+
+    mapView: Ember.View.extend
+      templateName: 'cards/map'
+
+    photoView: Ember.View.extend
+      templateName: 'cards/photo'
+
+    videoView: Ember.View.extend
+      templateName: 'cards/video'
