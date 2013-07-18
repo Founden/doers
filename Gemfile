@@ -47,7 +47,7 @@ group :development do
   gem 'erd', :require => false
   gem 'mina', :require => false, :github => 'stas/mina', :branch => 'rbenv_and_ruby-build_support'
   gem 'simplecov', :require => false
-  gem 'pry-rails'
+  gem 'pry-rails', :require => (ENV['TDDIUM'].nil?)
   gem 'letter_opener'
 end
 
