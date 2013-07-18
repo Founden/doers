@@ -1,0 +1,16 @@
+box: wercker/ubuntu12.04-ruby2.0.0
+services: 
+  - wercker/postgresql
+build:
+  steps:
+    - bundle-install
+    - rails-database-yml:
+      service: postgresql
+    - script:
+      name: DB Setup
+      code: |
+        bundle exec rake db:schema:load RAILS_ENV=test
+    - script:
+      name: RSpec
+      code: |
+        bundle exec rspec
