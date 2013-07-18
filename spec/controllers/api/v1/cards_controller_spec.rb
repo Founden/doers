@@ -94,6 +94,57 @@ describe Api::V1::CardsController do
         its(:maximum) { should eq(card.maximum) }
         its(:selected) { should eq(card.selected) }
       end
+
+      context 'book card keys' do
+        let(:card) {
+          Fabricate('card/book', :project => project, :board => board) }
+
+        its('keys.size') { should eq(15) }
+        its(:url) { should eq(card.url) }
+        its(:book_title) { should eq(card.book_title) }
+        its(:book_authors) { should eq(card.book_authors) }
+        its(:asset_id) { should eq(card.image.id) }
+      end
+
+      context 'photo card keys' do
+        let(:card) {
+          Fabricate('card/photo', :project => project, :board => board) }
+
+        its('keys.size') { should eq(12) }
+        its(:image_url) { should eq(card.image.attachment.url) }
+        its(:asset_id) { should eq(card.image.id) }
+      end
+
+      context 'video card keys' do
+        let(:card) {
+          Fabricate('card/video', :project => project, :board => board) }
+
+        its('keys.size') { should eq(14) }
+        its(:image_url) { should eq(card.image.attachment.url) }
+        its(:video_id) { should eq(card.video_id) }
+        its(:provider) { should eq(card.provider) }
+        its(:asset_id) { should eq(card.image.id) }
+      end
+
+      context 'map card keys' do
+        let(:card) {
+          Fabricate('card/map', :project => project, :board => board) }
+
+        its('keys.size') { should eq(14) }
+        its(:location) { should eq(card.location) }
+        its(:address) { should eq(card.address) }
+        its(:latitude) { should eq(card.latitude) }
+        its(:longitude) { should eq(card.longitude) }
+      end
+
+      context 'link card keys' do
+        let(:card) {
+          Fabricate('card/link', :project => project, :board => board) }
+
+        its('keys.size') { should eq(12) }
+        its(:url) { should eq(card.url) }
+        its(:excerpt) { should eq(card.excerpt) }
+      end
     end
   end
 

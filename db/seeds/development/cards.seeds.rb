@@ -32,6 +32,36 @@ after 'development:boards' do
                   :project => project, :board => board, :user => user)
       }
       Fabricate('card/number', :project => project, :board => board)
+
+      rand(1..3).times {
+        Fabricate('card/book',
+                  :project => project, :board => board, :user => user)
+      }
+      Fabricate('card/book', :project => project, :board => board)
+
+      rand(1..3).times {
+        Fabricate('card/photo',
+                  :project => project, :board => board, :user => user)
+      }
+      Fabricate('card/photo', :project => project, :board => board)
+
+      rand(1..3).times {
+        Fabricate('card/video',
+                  :project => project, :board => board, :user => user)
+      }
+      Fabricate('card/video', :project => project, :board => board)
+
+      rand(1..3).times {
+        Fabricate('card/link',
+                  :project => project, :board => board, :user => user)
+      }
+      Fabricate('card/link', :project => project, :board => board)
+
+      rand(1..3).times {
+        Fabricate('card/map',
+                  :project => project, :board => board, :user => user)
+      }
+      Fabricate('card/map', :project => project, :board => board)
     end
   end
 end
