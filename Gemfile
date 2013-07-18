@@ -69,5 +69,6 @@ group :test do
 end
 
 group :tddium_ignore do
+  gem 'pry'
   gem 'pry-rails'
 end
