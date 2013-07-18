@@ -7,6 +7,8 @@ describe User do
   it { should have_many(:boards).dependent('') }
   it { should have_many(:cards).dependent('') }
   it { should have_many(:comments).dependent(:destroy) }
+  it { should have_many(:assets).dependent(:destroy) }
+  it { should have_many(:images).dependent('') }
 
   it { should validate_presence_of(:email) }
   it { should validate_uniqueness_of(:email) }
