@@ -44,7 +44,7 @@ describe Api::V1::ProjectsController do
 
       its('keys.count') { should eq(11) }
       its('board_ids.size') { should eq(prj.boards.count) }
-      its(:board_ids) { should eq(prj.boards.map(&:id).sort) }
+      its('board_ids.sort') { should eq(prj.boards.map(&:id).sort) }
     end
   end
 
