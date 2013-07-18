@@ -4,13 +4,16 @@ services:
 build:
   steps:
     - bundle-install
+
     - rails-database-yml:
-      service: postgresql
+        service: postgresql
+
     - script:
-      name: DB Setup
-      code: |
-        bundle exec rake db:schema:load RAILS_ENV=test
+        name: DB Setup
+        code: |
+          bundle exec rake db:schema:load RAILS_ENV=test
+
     - script:
-      name: RSpec
-      code: |
-        bundle exec rspec
+        name: RSpec
+        code: |
+          bundle exec rspec
