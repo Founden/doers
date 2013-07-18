@@ -133,8 +133,10 @@ describe Api::V1::CardsController do
         its('keys.size') { should eq(14) }
         its(:location) { should eq(card.location) }
         its(:address) { should eq(card.address) }
-        its(:latitude) { should eq(card.latitude) }
-        its(:longitude) { should eq(card.longitude) }
+        its(:latitude) {
+          should satisfy { |l| l.round(3) == card.latitude.round(3) } }
+        its(:longitude) {
+          should satisfy { |l| l.round(3) == card.longitude.round(3) } }
       end
 
       context 'link card keys' do
