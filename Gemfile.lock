@@ -132,7 +132,7 @@ GEM
       railties (>= 3.1)
     ember-source (1.0.0.rc6.2)
       handlebars-source (= 1.0.12)
-    erd (0.3.0)
+    erd (0.3.1)
       nokogiri
       rails-erd (>= 0.4.5)
     erubis (2.7.0)
@@ -389,7 +389,6 @@ DEPENDENCIES
   party_foul
   pg
   poltergeist
-  pry
   pry-rails
   puffing-billy
   puma
