@@ -1,4 +1,4 @@
-guard 'rspec', :cli => '--tag ~slow ~no_ci' do
+guard 'rspec', :cli => '--tag ~slow --tag ~no_ci' do
   watch(%r{^spec/.+_spec\.rb$})
   watch(%r{^lib/(.+)\.rb$})     { |m| "spec/lib/#{m[1]}_spec.rb" }
   watch('spec/spec_helper.rb')  { "spec" }
