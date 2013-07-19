@@ -386,6 +386,7 @@ DEPENDENCIES
   party_foul
   pg
   poltergeist
+  pry
   pry-rails
   puffing-billy
   puma

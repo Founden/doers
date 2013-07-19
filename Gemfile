@@ -48,6 +48,8 @@ group :development do
   gem 'mina', :require => false, :github => 'stas/mina', :branch => 'rbenv_and_ruby-build_support'
   gem 'simplecov', :require => false
   gem 'letter_opener'
+  gem 'pry', :require => false
+  gem 'pry-rails', :require => false
 end
 
 group :development, :test do
@@ -66,9 +68,4 @@ group :test do
   gem 'puffing-billy'
   gem 'database_cleaner'
   gem 'shoulda-matchers'
-end
-
-group :tddium_ignore do
-  gem 'pry'
-  gem 'pry-rails'
 end
