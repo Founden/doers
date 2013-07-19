@@ -1,17 +1,10 @@
 #profile
-  .row
-    .large-8.large-offset-2.columns.panel
 
-      .row
-        .large-2.columns.align-center
-          = gravatar_tag(@profile.email, {:class => 'avatar', :size => 120})
+  %header.header
+    = gravatar_tag(@profile.email, {:class => 'avatar', :size => 42})
+    %h1
+      = @profile.nicename
 
-        .large-10.columns
-          %h2
-            = @profile.nicename
-
-          %hr
-
-          %h5.subheader
-            %span.icon-mail
-              = @profile.email
+  .profile
+    %p
+      = mail_to @profile.email, @profile.email
