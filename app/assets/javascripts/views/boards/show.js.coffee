@@ -11,7 +11,6 @@ Doers.BoardsShowView = Ember.View.extend
 
     didInsertElement: ( ->
       if type = @get('content.type')
-        console.log type
         cardTypeName = '%@View'.fmt(type.toLowerCase())
         cardType = @get(cardTypeName).create
           content: @content
