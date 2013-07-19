@@ -1,3 +1,7 @@
 %h2 {{view.content.title}}
-%p
-  %input{:type => :range, :bind => {:min => 'view.content.minimum', :max => 'view.content.maximum', :value => 'view.content.selected'}}
+%h3
+  {{view.content.minimum}}
+  &mdash;
+  {{view.content.selected}}
+  &mdash;
+  {{view.content.maximum}}
