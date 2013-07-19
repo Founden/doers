@@ -9,6 +9,7 @@
 #= require ./serializer
 #= require ./adapter
 #= require ./store
+#= require_tree ./mixins
 #= require_tree ./models
 #= require_tree ./controllers
 #= require_tree ./views
@@ -25,11 +26,6 @@ window.Doers ||= Ember.Application.create
   rootElement: '#doers-app'
   notificationsElement: '#notifications'
   errorDataAttr: 'error'
-  alert: (message, type)->
-    view = Doers.AlertView.create
-      message: message
-      type: type
-    view.appendTo(@get('notificationsElement'))
 
 window.Doers.initializer
   name: 'AjaxCSRFToken'
