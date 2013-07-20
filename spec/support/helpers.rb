@@ -15,6 +15,7 @@ module Doers::RSpecHelpers
   # @param [Symbol] root, the JSON root to use
   def json_to_ostruct(string, root=nil)
     json = ActiveSupport::JSON.decode(string)
+    return json if json.nil?
     ostruct = root ? OpenStruct.new(json[root.to_s]) : OpenStruct.new(json)
     ostruct.keys = root ? json[root.to_s].keys : json.keys
     ostruct
