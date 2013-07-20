@@ -1,6 +1,8 @@
 # [Asset] model serializer
 class AssetSerializer < ActiveModel::Serializer
-  attributes :id, :description, :updated_at, :type
+  root :asset
+
+  attributes :id, :description, :type, :assetable_type, :assetable_id
   attributes :attachment_url, :user_nicename
 
   has_one :user, :embed => :id
