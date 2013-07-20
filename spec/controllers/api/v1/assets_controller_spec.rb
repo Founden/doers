@@ -58,10 +58,10 @@ describe Api::V1::AssetsController do
       its(:attachment_url) { should eq(image.attachment.url) }
       its(:user_nicename) { should eq(image.user.nicename) }
       its(:user_id) { should eq(image.user.id) }
-      its(:board_id) { should eq(image.board_id) }
-      its(:project_id) { should eq(image.project_id) }
-      its(:assetable_type) { should eq(card.class) }
-      its(:asset_id) { should eq(card.id) }
+      its(:board_id) { should eq(image.board.id) }
+      its(:project_id) { should eq(image.project.id) }
+      its(:assetable_type) { should eq('Card') }
+      its(:assetable_id) { should eq(card.id) }
     end
   end
 
