@@ -150,6 +150,50 @@ describe Api::V1::CardsController do
     end
   end
 
+  describe '#create' do
+    let(:card_attrs) {}
+
+    before { post(:create, :card => card_attrs) }
+
+    context 'with wrong parameters' do
+
+      context 'on type' do
+        let(:card_attrs) { Fabricate.attributes_for(
+          'card/phrase', :user => user, :board => board) }
+
+        its('response.status') { should eq(400) }
+      end
+
+      context 'on attributes' do
+        let(:card_attrs) { Fabricate.attributes_for(
+          'card/phrase', :user => user, :type => 'Phrase', :board => nil) }
+
+        its('response.status') { should eq(400) }
+      end
+    end
+
+    context 'with valid parameters' do
+      let(:card_attrs) { Fabricate.attributes_for(
+        'card/phrase', :user => user, :board => board, :type => 'Phrase') }
+
+      subject(:api_card) { json_to_ostruct(response.body, :card) }
+
+      its('keys.size') { should eq(11) }
+      its(:id) { should_not be_blank }
+      its(:title) { should eq(card_attrs[:title]) }
+      its(:position) { should_not be_nil }
+      its(:type) { should eq(card_attrs[:type]) }
+      its(:last_update) { should_not be_blank }
+      its(:updated_at) { should_not be_blank }
+      its(:user_id) { should eq(user.id) }
+      its(:user_nicename) { should eq(user.nicename) }
+      its(:project_id) { should card_attrs[:project] }
+      its(:board_id) { should eq(board.id) }
+      its(:content) { should eq(card_attrs[:content]) }
+    end
+
+  end
+
   describe '#update' do
     let(:card) { Fabricate('card/phrase', :project => project, :board => board)}
     let(:card_attrs) { Fabricate.attributes_for('card/phrase') }
