@@ -1,0 +1,4 @@
+%h2 {{view.content.title}}
+%p
+  %a{:bind => {:href => 'view.content.url'}}
+    {{view.content.excerpt}}
