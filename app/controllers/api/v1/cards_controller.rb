@@ -16,9 +16,14 @@ class Api::V1::CardsController < Api::V1::ApplicationController
 
   # Handles card creation
   def create
-    card = current_account.cards.build(new_card_params)
-    klass = ('Cards::%s' % params[:card][:type]).constantize rescue false
-    card.type = klass
+    new_card_params[:user] = current_account
+    klass = ('Card::%s' % new_card_params[:type]).constantize rescue false
+
+    if !klass or klass == Card
+      render(:json => { :errors => {:type => true} }, :status => 400) and return
+    end
+
+    card = klass.new(new_card_params.except(:type))
     if klass and card.save
       render :json => card
     else
@@ -52,7 +57,8 @@ class Api::V1::CardsController < Api::V1::ApplicationController
 
     # Strong parameters for creating a new card
     def new_card_params
-      params.require(:card).permit(:title, :project_id, :board_id, :type)
+      params[:card] = params[:card].except(:user_id)
+      params.require(:card).permit!
     end
 
     # Strong parameters for updating a card
