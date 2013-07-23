@@ -6,7 +6,8 @@ Fabricator('card/video') do
   board
   project   { nil }
   after_create do |video_card, trans|
-    video_card.image = Fabricate.build(:image, :user => video_card.user,
-      :board => video_card.board, :assetable => video_card)
+    video_card.image = Fabricate.build(
+      :image, :user => video_card.user, :board => video_card.board,
+      :assetable => video_card, :project => video_card.project)
   end
 end
