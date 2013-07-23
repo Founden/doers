@@ -4,5 +4,6 @@
     %h1
       {{title}}
 
-  .cards
-    {{each card in cards itemViewClass=view.cardView contentBinding=card}}
+{{#if cards.isLoaded}}
+{{view view.cardsView contentBinding=cards}}
+{{/if}}
