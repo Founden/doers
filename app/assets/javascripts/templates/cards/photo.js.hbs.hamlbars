@@ -1,2 +1,2 @@
 %h2 {{view.content.title}}
-%img{:bind => {:src => 'view.content.imageUrl'}}
+%img{:bind => {:src => 'view.content.image.attachment'}}
