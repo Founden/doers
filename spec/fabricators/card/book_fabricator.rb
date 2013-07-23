@@ -7,7 +7,8 @@ Fabricator('card/book') do
   url           { Faker::Internet.http_url }
   project       { nil }
   after_create do |book_card, trans|
-    book_card.image = Fabricate.build(:image, :user => book_card.user,
-      :board => book_card.board, :assetable => book_card)
+    book_card.image = Fabricate.build(
+      :image, :user => book_card.user, :board => book_card.board,
+      :assetable => book_card, :project => book_card.project)
   end
 end

@@ -36,7 +36,7 @@ describe Api::V1::ProjectsController do
     its(:user_id) { should eq(user.id) }
     its(:user_nicename) { should eq(user.nicename) }
     its(:website) { should eq(prj.website) }
-    its(:logo_url) { should eq(prj.logo.attachment.url) }
+    its(:logo_id) { should eq(prj.logo.id) }
     its(:board_ids) { should be_empty }
 
     context 'for a project with boards' do

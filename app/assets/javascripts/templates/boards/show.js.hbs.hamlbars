@@ -1,6 +1,8 @@
-{{title}}
+#board
 
-{{#each card in cards}}
-%p
-  {{card.slug}}
-{{/each}}
+  %header.header
+    %h1
+      {{title}}
+
+  .cards
+    {{each card in cards itemViewClass=view.cardView contentBinding=card}}

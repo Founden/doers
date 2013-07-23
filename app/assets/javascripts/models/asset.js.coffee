@@ -1,5 +1,6 @@
 Doers.Asset = DS.Model.extend
   description: DS.attr('string')
+  attachment: DS.attr('string')
 
   board: DS.belongsTo('Doers.Board')
   project: DS.belongsTo('Doers.Project')
@@ -10,4 +11,3 @@ Doers.Asset = DS.Model.extend
   assetableType: DS.attr('string')
 
   userNicename: DS.attr('string', readOnly: true)
-  attachmentUrl: DS.attr('string', readOnly: true)

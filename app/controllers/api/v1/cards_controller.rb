@@ -33,9 +33,10 @@ class Api::V1::CardsController < Api::V1::ApplicationController
 
   # Handles card changes
   def update
-    card = Card.find_by(
+    klass = ('Card::%s' % card_params[:type]).constantize rescue Card
+    card = klass.find_by(
       :id => params[:id], :project_id => current_account.projects)
-    if card.update_attributes(card_params)
+    if card.update_attributes(card_params.except(:type))
       render :json => card
     else
       render :json => { :errors => card.errors.messages }, :status => 400
@@ -63,8 +64,7 @@ class Api::V1::CardsController < Api::V1::ApplicationController
 
     # Strong parameters for updating a card
     def card_params
-      params[:card] = params[:card].
-        except(:user_id, :project_id, :board_id, :type)
+      params[:card] = params[:card].except(:user_id, :project_id, :board_id)
       params.require(:card).permit!
     end
 end
