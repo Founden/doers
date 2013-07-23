@@ -8,7 +8,6 @@ Doers.AssetUploaderView = Ember.View.extend
   isError: false
   classNames: ['asset-upload']
   classNameBindings: ['isDragging:hover']
-  eventManager: Ember.Object.create
 
   doNothing: (event) ->
     event.preventDefault()
@@ -52,7 +51,7 @@ Doers.AssetUploaderView = Ember.View.extend
     assetAttribute = @get('assetAttribute')
 
     # TODO: update to below once Ember.js#2957 gets released
-    # klass = @get('controller.container').resolve('model:asset')
+    # klass = @get('container').resolve('model:asset')
     klass = Doers.Asset
     asset = klass.create
       description: attachmentDescription || self.get('content.title')
