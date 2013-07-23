@@ -1,6 +1,6 @@
 Doers.BoardsShowView = Ember.View.extend
-
   cardView: Ember.ContainerView.extend
+    isAdded: false
     classNames: ['card']
     classNameBindings: ['typeClassName']
 
@@ -9,10 +9,10 @@ Doers.BoardsShowView = Ember.View.extend
         @get('content.type').dasherize()
     ).property('content.type')
 
-    didInsertElement: ( ->
-      if type = @get('content.type')
-        cardTypeName = '%@View'.fmt(type.classify())
-        cardType = Doers.get(cardTypeName).create
-          content: @content
-        @pushObject(cardType)
+    addCardView: ( ->
+      if (type = @get('content.type')) and !@get('isAdded')
+        klass = @container.resolve('view:%@'.fmt(type.toLowerCase()))
+        view = @createChildView(klass, content: @get('content'))
+        @pushObject(view)
+        @set('isAdded', true)
     ).observes('content.type')

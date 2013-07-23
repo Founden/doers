@@ -17,8 +17,8 @@
     {{#each project in projects}}
     .project{:bind => {:id => 'project.slug'}}
       {{#linkTo 'projects.show' project}}
-      {{#if project.logoUrl}}
-      %img{:bind => {:title => 'project.title', :src => 'project.logoUrl'}}
+      {{#if project.logo.attachment}}
+      %img{:bind => {:title => 'project.title', :src => 'project.logo.attachment'}}
       {{/if}}
       %h3 {{project.title}}
       %p {{project.description}}

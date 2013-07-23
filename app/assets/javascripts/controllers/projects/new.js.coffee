@@ -4,10 +4,7 @@ Doers.ProjectsNewController = Ember.Controller.extend Doers.ControllerAlertMixin
       @get('store').commit()
       @get('target.router').transitionTo('dashboard')
     else
-      self = @
-      view.$().find('label').map ->
-        if message = $(@).data('error')
-          self.alert(message, 'alert')
+      @alertFromView(view)
 
   cancel: ->
     @get('content').deleteRecord()

@@ -232,6 +232,18 @@
         padding: 20px;
         color: $bw_7;
       }
+
+      .asset-upload {
+        border: 5px dashed $bw_9;
+        margin: 10px;
+        text-align: center;
+        color: $bw_9;
+
+        &:hover, &.hover {
+          border: 5px dashed $bw_5;
+          color: $bw_5;
+        }
+      }
     }
   }
 }
