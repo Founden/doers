@@ -9,20 +9,22 @@ class Api::V1::AssetsController < Api::V1::ApplicationController
 
   # Shows available asset
   def show
-    asset = Asset.find_by(
+    asset = Asset.find_by!(
       :id => params[:id], :project_id => current_account.projects)
     render :json => asset
   end
 
   # Updates available asset
   def update
-    asset = Asset.find_by(
+    asset = Asset.find_by!(
       :id => params[:id], :project_id => current_account.projects)
 
-    if asset.update_attributes(asset_params)
+    begin
+      asset.update_attributes(asset_params)
       render :json => asset
-    else
-      render :json => { :errors => asset.errors.messages }, :status => 400
+    rescue Exception => error
+      errors = !!error ? [error.message] : asset.errors.messages
+      render :json => { :errors => errors }, :status => 400
     end
   end
 
@@ -32,12 +34,13 @@ class Api::V1::AssetsController < Api::V1::ApplicationController
     maybe_link = new_asset_params[:attachment]
     new_asset_params[:attachment] = URI.parse(maybe_link) rescue maybe_link
 
-    # TODO: Handle different asset type when more are available
-    asset = current_account.images.build(new_asset_params)
-    if asset and asset.save
+    begin
+      # TODO: Handle different asset type when more are available
+      asset = current_account.images.create!(new_asset_params)
       render :json => asset
-    else
-      render :json => { :errors => asset.errors.messages }, :status => 400
+    rescue Exception => error
+      errors = !!error ? [error.message] : asset.errors.messages
+      render :json => { :errors => errors }, :status => 400
     end
   end
 
