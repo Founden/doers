@@ -37,10 +37,8 @@ describe Api::V1::CardsController do
     let(:card_id) { rand(99..999) }
 
     it 'wont find unavailable cards' do
-      get(:show, :id => card_id)
-
       expect {
-        patch(:update, :card => attrs, :id => card_id)
+        get(:show, :id => card_id)
       }.to raise_error
     end
 
@@ -120,7 +118,7 @@ describe Api::V1::CardsController do
         let(:card) {
           Fabricate('card/photo', :project => project, :board => board) }
 
-        its('keys.size') { should eq(12) }
+        its('keys.size') { should eq(11) }
         its(:image_id) { should eq(card.image.id) }
       end
 
@@ -164,12 +162,12 @@ describe Api::V1::CardsController do
     before { post(:create, :card => card_attrs) }
 
     context 'with wrong parameters' do
-
       context 'on type' do
         let(:card_attrs) { Fabricate.attributes_for(
           'card/phrase', :user => user, :board => board) }
 
         its('response.status') { should eq(400) }
+        its('response.body') { should match('errors') }
       end
 
       context 'on attributes' do
@@ -177,6 +175,7 @@ describe Api::V1::CardsController do
           'card/phrase', :user => user, :type => 'Phrase', :board => nil) }
 
         its('response.status') { should eq(400) }
+        its('response.body') { should match('errors') }
       end
     end
 
@@ -199,81 +198,134 @@ describe Api::V1::CardsController do
       its(:board_id) { should eq(board.id) }
       its(:content) { should eq(card_attrs[:content]) }
     end
-
   end
 
   describe '#update' do
-    let(:card) { Fabricate('card/phrase', :project => project, :board => board)}
-    let(:card_attrs) { Fabricate.attributes_for('card/phrase') }
-    let(:card_id) { card.id }
-
-    before { patch(:update, :id => card_id, :card => card_attrs) }
-
-    subject(:api_card) { json_to_ostruct(response.body, :card) }
-
-    it 'handles wrong attributes' do
-      attrs = Fabricate.attributes_for('card/phrase')
-      attrs['timestamp'] = DateTime.now
-
-      expect {
-        patch(:update, :card => attrs, :id => card_id)
-      }.to raise_error
-    end
+    let(:card_id) { rand(99..999) }
 
     it 'does nothing to a not owned card' do
       expect {
-        patch(:update, :card => card_attrs, :id => Fabricate(:card).id)
+        patch(:update, :card => {:title => ''}, :id => card_id)
       }.to raise_error
     end
 
-    context 'phrase card' do
-      its('keys.size') { should eq(11) }
-      its(:title) { should eq(card_attrs['title']) }
-      its(:content) { should eq(Sanitize.clean(card_attrs['content'])) }
-    end
+    context 'for available cards' do
+      let(:card_id) { card.id }
 
-    context 'paragraph card' do
-      let(:card) {
-        Fabricate('card/paragraph', :project => project, :board => board)}
-      let(:card_attrs) { Fabricate.attributes_for('card/paragraph') }
+      before { patch(:update, :id => card_id, :card => card_attrs) }
 
-      its('keys.size') { should eq(11) }
-      its(:title) { should eq(card_attrs['title']) }
-      its(:content) { should eq(Sanitize.clean(card_attrs['content'])) }
-    end
+      subject(:api_card) { json_to_ostruct(response.body, :card) }
 
-    context 'number card' do
-      let(:card) {
-        Fabricate('card/number', :project => project, :board => board)}
-      let(:card_attrs) { Fabricate.attributes_for('card/number') }
+      context 'phrase card' do
+        let(:card_attrs) { Fabricate.attributes_for('card/phrase') }
+        let(:card) {
+          Fabricate('card/phrase', :project => project, :board => board)}
 
-      its('keys.size') { should eq(11) }
-      its(:title) { should eq(card_attrs['title']) }
-      its(:content) { should eq(card_attrs['content'].round(3)) }
-    end
+        its('keys.size') { should eq(11) }
+        its(:title) { should eq(card_attrs['title']) }
+        its(:content) { should eq(Sanitize.clean(card_attrs['content'])) }
 
-    context 'timestamp card' do
-      let(:card) {
-        Fabricate('card/timestamp', :project => project, :board => board)}
-      let(:card_attrs) { Fabricate.attributes_for('card/timestamp') }
+        context 'handles wrong attributes' do
+          let(:card_attrs) { {:image_id => card.id} }
 
-      its('keys.size') { should eq(12) }
-      its(:title) { should eq(card_attrs['title']) }
-      its(:timestamp) { should eq(card_attrs['timestamp']) }
-      its(:parsed_timestamp) {
-        should eq(DateTime.parse(card_attrs['timestamp']).to_s(:pretty)) }
-    end
+          subject(:api_card) { json_to_ostruct(response.body) }
 
-    context 'interval card' do
-      let(:card) {
-        Fabricate('card/interval', :project => project, :board => board)}
-      let(:card_attrs) { Fabricate.attributes_for('card/interval') }
+          its(:errors) { should_not be_empty }
+        end
+      end
 
-      its('keys.size') { should eq(13) }
-      its(:title) { should eq(card_attrs['title']) }
-      its(:minimum) { should eq(card_attrs['minimum'].round(3)) }
-      its(:maximum) { should eq(card_attrs['maximum'].round(3)) }
-      its(:selected) { should eq(card_attrs['selected'].round(3)) }
+      context 'paragraph card' do
+        let(:card) {
+          Fabricate('card/paragraph', :project => project, :board => board)}
+        let(:card_attrs) { Fabricate.attributes_for('card/paragraph') }
+
+        its('keys.size') { should eq(11) }
+        its(:title) { should eq(card_attrs['title']) }
+        its(:content) { should eq(Sanitize.clean(card_attrs['content'])) }
+      end
+
+      context 'number card' do
+        let(:card) {
+          Fabricate('card/number', :project => project, :board => board)}
+        let(:card_attrs) { Fabricate.attributes_for('card/number') }
+
+        its('keys.size') { should eq(11) }
+        its(:title) { should eq(card_attrs['title']) }
+        its(:content) { should eq(card_attrs['content'].round(3)) }
+      end
+
+      context 'timestamp card' do
+        let(:card) {
+          Fabricate('card/timestamp', :project => project, :board => board)}
+        let(:card_attrs) { Fabricate.attributes_for('card/timestamp') }
+
+        its('keys.size') { should eq(12) }
+        its(:title) { should eq(card_attrs['title']) }
+        its(:timestamp) { should eq(card_attrs['timestamp']) }
+        its(:parsed_timestamp) {
+          should eq(DateTime.parse(card_attrs['timestamp']).to_s(:pretty)) }
+      end
+
+      context 'interval card' do
+        let(:card) {
+          Fabricate('card/interval', :project => project, :board => board)}
+        let(:card_attrs) { Fabricate.attributes_for('card/interval') }
+
+        its('keys.size') { should eq(13) }
+        its(:title) { should eq(card_attrs['title']) }
+        its(:minimum) { should eq(card_attrs['minimum'].round(3)) }
+        its(:maximum) { should eq(card_attrs['maximum'].round(3)) }
+        its(:selected) { should eq(card_attrs['selected'].round(3)) }
+      end
+
+      context 'photo card' do
+        let(:card) {
+          Fabricate('card/photo', :project => project, :board => board)}
+        let(:card_attrs) { Fabricate.attributes_for('card/photo') }
+
+        its('keys.size') { should eq(11) }
+        its(:title) { should eq(card_attrs['title']) }
+        its(:content) { should eq(Sanitize.clean(card_attrs['content'])) }
+        its(:image_id) { should eq(card.image.id) }
+      end
+
+      context 'video card' do
+        let(:card) {
+          Fabricate('card/video', :project => project, :board => board)}
+        let(:card_attrs) { Fabricate.attributes_for('card/video') }
+
+        its('keys.size') { should eq(13) }
+        its(:title) { should eq(card_attrs['title']) }
+        its(:content) { should eq(Sanitize.clean(card_attrs['content'])) }
+        its(:video_id) { should eq(card_attrs[:video_id]) }
+        its(:provider) { should eq(card_attrs[:provider]) }
+        its(:image_id) { should eq(card.image.id) }
+      end
+
+      context 'link card' do
+        let(:card) {
+          Fabricate('card/link', :project => project, :board => board)}
+        let(:card_attrs) { Fabricate.attributes_for('card/link') }
+
+        its('keys.size') { should eq(12) }
+        its(:title) { should eq(card_attrs['title']) }
+        its(:url) { should eq(card_attrs['url']) }
+        its(:excerpt) { should eq(Sanitize.clean(card_attrs['excerpt'])) }
+      end
+
+      context 'map card' do
+        let(:card) {
+          Fabricate('card/map', :project => project, :board => board)}
+        let(:card_attrs) { Fabricate.attributes_for('card/map') }
+
+        its('keys.size') { should eq(14) }
+        its(:title) { should eq(card_attrs['title']) }
+        its(:location) { should eq(card_attrs['location']) }
+        its(:address) { should eq(card_attrs['address']) }
+        its(:latitude) { should eq(card_attrs['latitude'].to_s) }
+        its(:longitude) { should eq(card_attrs['longitude'].to_s) }
+        its(:content) { should eq(Sanitize.clean(card_attrs['content'])) }
+      end
     end
   end
 
