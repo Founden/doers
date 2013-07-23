@@ -5,22 +5,19 @@ feature 'Cards', :js, :focus, :vcr => {:cassette_name=>:angel_list_oauth2} do
     sign_in_with_angel_list
   end
 
-  scenario 'have title' do
-    user    = User.first
-    project = Fabricate(:project, :user => user)
-    board   = Fabricate(:board, :user => user, :project => project)
-    card    = Fabricate('card/phrase', :project => project, :board => board, :user => user)
+  scenario 'user can access an existing card' do
+    project = Fabricate(:project_with_boards, :user => User.first)
+    board   = project.boards.first
 
     visit root_path(:anchor => 'projects/%d/boards/%d' % [project.id, board.id])
 
-    expect(page).to have_content(card.title)
+    expect(page).to have_css('#board .card', :count => board.cards.count)
   end
 
   scenario 'inherit class name from type' do
-    user    = User.first
-    project = Fabricate(:project, :user => user)
-    board   = Fabricate(:board, :user => user, :project => project)
-    card    = Fabricate('card/phrase', :project => project, :board => board, :user => user)
+    project = Fabricate(:project_with_boards, :user => User.first)
+    board   = project.boards.first
+    card    = board.cards.first
 
     visit root_path(:anchor => 'projects/%d/boards/%d' % [project.id, board.id])
 

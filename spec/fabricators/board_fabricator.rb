@@ -33,3 +33,12 @@ Fabricator(:solution_board, :class_name => Board) do
   description { Faker::Lorem.sentence }
   author(:fabricator => :user)
 end
+
+Fabricator(:board_with_cards, :from => :branched_board) do
+  transient :card_types => %w(book interval link map number paragraph photo phrase timestamp video)
+  after_create do |board, transients|
+    transients[:card_types].each do |type|
+      Fabricate('card/%s' % type, :project => board.project, :board => board, :user => board.user)
+    end
+  end
+end
