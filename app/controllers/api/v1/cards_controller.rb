@@ -9,7 +9,7 @@ class Api::V1::CardsController < Api::V1::ApplicationController
 
   # Shows available card
   def show
-    card = Card.find_by(
+    card = Card.find_by!(
       :id => params[:id], :project_id => current_account.projects)
     render :json => card
   end
@@ -34,12 +34,15 @@ class Api::V1::CardsController < Api::V1::ApplicationController
   # Handles card changes
   def update
     klass = ('Card::%s' % card_params[:type]).constantize rescue Card
-    card = klass.find_by(
+    card = klass.find_by!(
       :id => params[:id], :project_id => current_account.projects)
-    if card.update_attributes(card_params.except(:type))
+
+    begin
+      card.update_attributes(card_params.except(:type))
       render :json => card
-    else
-      render :json => { :errors => card.errors.messages }, :status => 400
+    rescue Exception => error
+      errors = error ? [error.message] : card.errors.messages
+      render :json => { :errors => errors }, :status => 400
     end
   end
 

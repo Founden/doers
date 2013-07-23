@@ -34,6 +34,16 @@ describe Api::V1::CardsController do
   end
 
   describe '#show' do
+    let(:card_id) { rand(99..999) }
+
+    it 'wont find unavailable cards' do
+      get(:show, :id => card_id)
+
+      expect {
+        patch(:update, :card => attrs, :id => card_id)
+      }.to raise_error
+    end
+
     context 'for available cards' do
       let(:card) {
         Fabricate('card/phrase', :project => project, :board => board) }
