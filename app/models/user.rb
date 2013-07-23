@@ -20,6 +20,8 @@ class User < ActiveRecord::Base
   has_many :boards
   has_many :cards
   has_many :comments, :dependent => :destroy
+  has_many :assets, :dependent => :destroy
+  has_many :images
 
   # Validations
   validates :email, :uniqueness => true, :presence => true
