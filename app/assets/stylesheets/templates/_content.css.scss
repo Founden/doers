@@ -149,7 +149,7 @@
 
       .board-branches {
         color: $bw_5;
-        border-top: 1px solid $bw_7;
+        border-top: 1px solid $bw_9;
         padding: 20px;
 
         h4 {
@@ -157,6 +157,97 @@
           font-weight: 400;
           font-size: 12px;
           margin: 0 0 0.5em 0;
+        }
+      }
+    }
+  }
+
+  .cards {
+    @include clearfix;
+
+    .card {
+      float: left;
+      width: 300px;
+      margin: 0 30px 30px 0;
+      background-color: $white;
+      position: relative;
+      overflow: hidden;
+      border-top: 5px solid $bw_7;
+
+      &:nth-of-type(3n) {
+        margin-right: 0;
+      }
+
+      &:nth-of-type(3n+1) {
+        clear: left;
+      }
+
+      &.timestamp {
+        border-top-color: $purple;
+      }
+
+      &.interval, &.number {
+        border-top-color: $blue;
+      }
+
+      &.link {
+          border-top-color: $orange;
+      }
+
+      &.video, &.photo, &.map {
+          border-top-color: $green;
+      }
+
+      &.map {
+
+          img {
+              height: 300px;
+          }
+      }
+
+      h2 {
+        font-size: 21px;
+        font-weight: 300;
+        color: $bw_3;
+        margin: 20px;
+      }
+
+      h3 {
+        font-size: 14px;
+        margin: 20px;
+      }
+
+      p {
+          margin: 20px;
+      }
+
+      time {
+          display: block;
+          margin: 20px;
+          font-size: 14px;
+          font-weight: 700;
+      }
+
+      img {
+        display: block;
+        width: 100%;
+      }
+
+      footer {
+        border-top: 1px solid $bw_9;
+        padding: 20px;
+        color: $bw_7;
+      }
+
+      .asset-upload {
+        border: 5px dashed $bw_9;
+        margin: 10px;
+        text-align: center;
+        color: $bw_9;
+
+        &:hover, &.hover {
+          border: 5px dashed $bw_5;
+          color: $bw_5;
         }
       }
     }

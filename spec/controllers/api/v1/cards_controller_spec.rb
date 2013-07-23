@@ -99,11 +99,11 @@ describe Api::V1::CardsController do
         let(:card) {
           Fabricate('card/book', :project => project, :board => board) }
 
-        its('keys.size') { should eq(15) }
+        its('keys.size') { should eq(14) }
         its(:url) { should eq(card.url) }
         its(:book_title) { should eq(card.book_title) }
         its(:book_authors) { should eq(card.book_authors) }
-        its(:asset_id) { should eq(card.image.id) }
+        its(:image_id) { should eq(card.image.id) }
       end
 
       context 'photo card keys' do
@@ -111,19 +111,17 @@ describe Api::V1::CardsController do
           Fabricate('card/photo', :project => project, :board => board) }
 
         its('keys.size') { should eq(12) }
-        its(:image_url) { should eq(card.image.attachment.url) }
-        its(:asset_id) { should eq(card.image.id) }
+        its(:image_id) { should eq(card.image.id) }
       end
 
       context 'video card keys' do
         let(:card) {
           Fabricate('card/video', :project => project, :board => board) }
 
-        its('keys.size') { should eq(14) }
-        its(:image_url) { should eq(card.image.attachment.url) }
+        its('keys.size') { should eq(13) }
+        its(:image_id) { should eq(card.image.id) }
         its(:video_id) { should eq(card.video_id) }
         its(:provider) { should eq(card.provider) }
-        its(:asset_id) { should eq(card.image.id) }
       end
 
       context 'map card keys' do
