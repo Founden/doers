@@ -17,17 +17,16 @@ class Api::V1::CardsController < Api::V1::ApplicationController
   # Handles card creation
   def create
     new_card_params[:user] = current_account
-    klass = ('Card::%s' % new_card_params[:type]).constantize rescue false
+    card = nil
 
-    if !klass or klass == Card
-      render(:json => { :errors => {:type => true} }, :status => 400) and return
-    end
-
-    card = klass.new(new_card_params.except(:type))
-    if klass and card.save
+    begin
+      klass = ('Card::%s' % new_card_params[:type]).constantize
+      raise _('Type is not allowed.') if !klass or klass.equal?(Card)
+      card = klass.create!(new_card_params.except(:type))
       render :json => card
-    else
-      render :json => { :errors => card.errors.messages }, :status => 400
+    rescue Exception => error
+      errors = error ? error.message : card.errors.messages
+      render :json => { :errors => errors }, :status => 400
     end
   end
 
