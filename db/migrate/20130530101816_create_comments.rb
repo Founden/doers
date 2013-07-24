@@ -6,6 +6,7 @@ class CreateComments < ActiveRecord::Migration
       t.references :board, index: true
       t.references :user, index: true
       t.text :content
+      t.hstore :data
 
       t.timestamps
     end
