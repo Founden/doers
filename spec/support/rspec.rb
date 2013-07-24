@@ -32,8 +32,9 @@ RSpec.configure do |config|
   config.run_all_when_everything_filtered = true
   config.treat_symbols_as_metadata_keys_with_true_values = true
 
-  # These tests should be ignored on CI services
+  # These tags should be ignored or ran on CI services
   if ENV['TDDIUM'] or ENV['WERCKER']
     config.filter_run_excluding :no_ci => true
+    config.filter_run :focus => false
   end
 end
