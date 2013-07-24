@@ -1,4 +1,4 @@
-#board
+#board{:bind => {:class => 'slug' }}
 
   %header.header
     %h1
