@@ -8,6 +8,22 @@ environment and just hack around.
 
 # Installation
 
+Doers needs at least Ruby 2.0.0 and PostgreSQL 9.2.
+
+To get the latest Ruby, consider using
+[rbenv](http://rbenv.org) and
+[ruby-build](https://github.com/sstephenson/ruby-build)
+
+To get the PostgreSQL on mac consider using
+[Postgres.app](http://postgresapp.com/) and on linux use the package manager
+Ex.:
+
+```bash
+$ sudo apt-get install postgresql
+```
+
+You will need to create two databases for the app `doers` and `doers_test`.
+
 1. Close the repository
 2. Run `bundle install`
 3. Run migrations `bundle exec rake db:create db:migrate db:test:prepare`
