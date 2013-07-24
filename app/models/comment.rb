@@ -1,7 +1,6 @@
 # DOERS [Comment] class
 class Comment < ActiveRecord::Base
-  # TODO: Change this to an hstore when in production
-  store :data, :coder => JSON
+
   store_accessor :data, :angel_list_id
   store_accessor :data, :angel_list_author_name, :angel_list_author_id
 
