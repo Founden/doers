@@ -54,7 +54,7 @@ describe Api::V1::CardsController do
       its(:id) { should eq(card.id) }
       its(:title) { should eq(card.title) }
       its(:position) { should eq(card.position) }
-      its(:type) { should eq(card.type.to_s.sub('Card::', '')) }
+      its(:type) { should eq(card.type.to_s.demodulize) }
       its(:last_update) { should eq(card.updated_at.to_s(:pretty)) }
       its(:updated_at) { should_not be_nil }
       its(:user_id) { should eq(card.user.id) }
