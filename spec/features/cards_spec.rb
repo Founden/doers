@@ -17,8 +17,10 @@ feature 'Cards', :js, :vcr => {:cassette_name=>:angel_list_oauth2} do
     end
 
     scenario 'are shown' do
-      expect(page).to have_css('#board.board-%d' % board.id, :count => 1)
-      expect(page).to have_css('.cards .card', :count => board.cards.count)
+      expect(page).to have_css('#board-%d' % board.id, :count => 1)
+
+      cards_classname = '#board-%d .cards .card' % board.id
+      expect(page).to have_css( cards_classname, :count => board.cards.count)
     end
   end
 

@@ -1,9 +1,10 @@
-#board{:bind => {:class => 'slug' }}
+#board
 
   %header.header
     %h1
       {{title}}
 
-{{#if cards.isLoaded}}
-{{view view.cardsView contentBinding=cards}}
-{{/if}}
+  %div{:bind => {:id => 'slug' }}
+    {{#if cards.isLoaded}}
+    {{view view.cardsView contentBinding=cards}}
+    {{/if}}
