@@ -43,8 +43,5 @@ module Doers
 
     # TODO: See @github:sprockets-rails/#36
     config.assets.precompile += %w( doers.js )
-
-    # HStore is not a native type, so we need SQL
-    config.active_record.schema_format = :sql
   end
 end
