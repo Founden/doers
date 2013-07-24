@@ -5,23 +5,21 @@ feature 'Cards', :js, :vcr => {:cassette_name=>:angel_list_oauth2} do
     sign_in_with_angel_list
   end
 
-  scenario 'user can access an existing card' do
-    project = Fabricate(:project_with_boards, :user => User.first)
-    board   = project.boards.first
+  context 'from an existing project board' do
+    given(:project) do
+      Fabricate(:project_with_boards_and_cards, :user => User.first)
+    end
+    given(:board) { project.boards.first }
+    given(:card) { board.cards.first }
 
-    visit root_path(:anchor => 'projects/%d/boards/%d' % [project.id, board.id])
+    background do
+      visit root_path(:anchor=>'projects/%d/boards/%d' % [project.id, board.id])
+    end
 
-    expect(page).to have_css('#board .card', :count => board.cards.count)
-  end
-
-  scenario 'inherit class name from type' do
-    project = Fabricate(:project_with_boards, :user => User.first)
-    board   = project.boards.first
-    card    = board.cards.first
-
-    visit root_path(:anchor => 'projects/%d/boards/%d' % [project.id, board.id])
-
-    expect(page).to have_css('#board .%s' % card.class.name.demodulize.downcase)
+    scenario 'are shown' do
+      expect(page).to have_css('#board.board-%d' % board.id, :count => 1)
+      expect(page).to have_css('.cards .card', :count => board.cards.count)
+    end
   end
 
 end
