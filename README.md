@@ -19,7 +19,7 @@ To get the PostgreSQL on mac consider using
 Ex.:
 
 ```bash
-$ sudo apt-get install postgresql
+$ sudo apt-get install postgresql-9.2 postgresql-contrib-9.2
 ```
 
 You will need to create two databases for the app `doers` and `doers_test`.

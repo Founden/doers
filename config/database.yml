@@ -2,7 +2,7 @@ postgresql: &postgresql
   adapter: postgresql
   encoding: unicode
   username: postgres
-  password: x
+  password:
   timeout: 5000
   pool: 5
 
