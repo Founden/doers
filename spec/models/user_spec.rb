@@ -1,8 +1,6 @@
 require 'spec_helper'
 
-describe User do
-  self.use_transactional_fixtures = false
-
+describe User, :use_truncation do
   let(:user) { Fabricate(:user) }
 
   it { should have_many(:projects).dependent(:destroy) }
