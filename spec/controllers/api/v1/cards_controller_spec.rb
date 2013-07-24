@@ -139,10 +139,8 @@ describe Api::V1::CardsController do
         its('keys.size') { should eq(14) }
         its(:location) { should eq(card.location) }
         its(:address) { should eq(card.address) }
-        its(:latitude) {
-          should satisfy { |l| l.round(3) == card.latitude.round(3) } }
-        its(:longitude) {
-          should satisfy { |l| l.round(3) == card.longitude.round(3) } }
+        its(:latitude) { should eq(card.latitude) }
+        its(:longitude) { should eq(card.longitude) }
       end
 
       context 'link card keys' do
@@ -251,7 +249,7 @@ describe Api::V1::CardsController do
 
         its('keys.size') { should eq(11) }
         its(:title) { should eq(card_attrs['title']) }
-        its(:content) { should eq(card_attrs['content'].round(3)) }
+        its(:content) { should eq(card_attrs['content']) }
       end
 
       context 'timestamp card' do
@@ -322,8 +320,8 @@ describe Api::V1::CardsController do
         its(:title) { should eq(card_attrs['title']) }
         its(:location) { should eq(card_attrs['location']) }
         its(:address) { should eq(card_attrs['address']) }
-        its(:latitude) { should eq(card_attrs['latitude'].to_s) }
-        its(:longitude) { should eq(card_attrs['longitude'].to_s) }
+        its(:latitude) { should eq(card_attrs['latitude']) }
+        its(:longitude) { should eq(card_attrs['longitude']) }
         its(:content) { should eq(Sanitize.clean(card_attrs['content'])) }
       end
     end
