@@ -3,10 +3,6 @@
   %header.header
     %h1
       {{content.title}}
-    .buttons
-      {{#linkTo 'projects.new' id='projects-add' class='button' title="#{_('Create a new project')}"}}
-      = _('Create new board')
-      {{/linkTo}}
 
   .boards
     {{#each board in content.boards}}

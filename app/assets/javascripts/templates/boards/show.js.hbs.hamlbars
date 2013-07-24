@@ -3,6 +3,44 @@
   %header.header
     %h1
       {{title}}
+    .buttons
+      %a.button
+        = _('Add new card')
+
+  .toolbar
+    .tabs
+      %ul
+        %li
+          %a{:href => ''}
+            Multimedia
+        %li.active
+          %a{:href => ''}
+            Generic
+        %li
+          %a{:href => ''}
+            Money
+        %li
+          %a{:href => ''}
+            Time units
+        %li
+          %a{:href => ''}
+            Dimensions
+        %li
+          %a{:href => ''}
+            Mass
+        %li
+          %a{:href => ''}
+            Bits &amp; bytes
+        %li
+          %a{:href => ''}
+            Speed
+
+    .templates
+      %ul
+        %li
+          %a{:href => ''}
+            %h4
+              = _('Age')
 
   .cards
     {{each card in cards itemViewClass=view.cardView contentBinding=card}}
