@@ -35,10 +35,13 @@ Fabricator(:solution_board, :class_name => Board) do
 end
 
 Fabricator(:board_with_cards, :from => :branched_board) do
-  transient :card_types => %w(book interval link map number paragraph photo phrase timestamp video)
+  transient   :card_types => %w(card/book card/interval card/link card/map
+    card/number card/paragraph card/photo card/phrase card/timestamp card/video)
+
   after_create do |board, transients|
     transients[:card_types].each do |type|
-      Fabricate('card/%s' % type, :project => board.project, :board => board, :user => board.user)
+      Fabricate(
+        type, :project => board.project, :board => board, :user => board.user)
     end
   end
 end
