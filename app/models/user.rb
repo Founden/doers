@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
 
   # TODO: Change this to an hstore when in production
   store :data, :coder => JSON
-  store_accessor :data, :angel_list_id, :confirmed, :interest, :company
+  store_accessor :data, :confirmed, :interest, :company
   store_accessor :data, :importing, :newsletter_allowed
 
   # Relationships

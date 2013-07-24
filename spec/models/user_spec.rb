@@ -28,7 +28,7 @@ describe User do
     its(:email) { should_not be_empty }
     its(:name) { should_not be_empty }
     its(:nicename) { should eq(user.name) }
-    its(:angel_list_id) { should eq(user.angel_list_id) }
+    its(:external_id) { should eq(user.external_id) }
     its(:interest) { should be_blank }
     its(:company) { should be_blank }
     its(:confirmed?) { should be_true }
