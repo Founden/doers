@@ -5,7 +5,7 @@ class CreateProjects < ActiveRecord::Migration
       t.text :description
       t.references :user, index: true
       t.string :status
-      t.string :data
+      t.hstore :data
 
       t.timestamps
     end
