@@ -4,7 +4,7 @@ require 'mina/git'
 require 'mina/rbenv'  # for rbenv support. (http://rbenv.org)
 # require 'mina/rvm'    # for rvm support. (http://rvm.io)
 
-set :codename, 'doers.geekcelerator.com'
+set :codename, 'app.doersapp.com'
 
 set :port, '8000'
 set :user, 'deployer'
