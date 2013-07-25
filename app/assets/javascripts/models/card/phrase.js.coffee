@@ -1,4 +1,2 @@
-Doers.PhraseMixin = Ember.Mixin.create
-  content: DS.attr('string')
-
+Doers.PhraseMixin = Ember.Mixin.create()
 Doers.Phrase = Doers.Card.extend(Doers.PhraseMixin)

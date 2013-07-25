@@ -1,6 +1,6 @@
 Doers.TimestampView = Ember.View.extend Doers.CardViewMixin,
   templateName: 'cards/timestamp'
   safeTimestamp: (->
-    if timestamp = @get('content.timestamp')
+    if timestamp = @get('content.content')
       timestamp.toString()
-  ).property('content.timestamp')
+  ).property('content.content')
