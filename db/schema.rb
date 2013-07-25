@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(version: 20130624164233) do
     t.string   "type"
     t.text     "content"
     t.hstore   "data"
+    t.string   "style"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

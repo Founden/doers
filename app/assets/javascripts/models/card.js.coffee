@@ -3,6 +3,7 @@ Doers.Card = DS.Model.extend
   title: DS.attr('string')
   position: DS.attr('number')
   type: DS.attr('string')
+  style: DS.attr('string')
 
   project: DS.belongsTo('Doers.Project')
   board: DS.belongsTo('Doers.Board')
