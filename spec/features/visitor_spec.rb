@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'Visitor', :js do
+feature 'Visitor', :js, :slow do
 
   scenario 'is asked to sign in before accessing a non-public page' do
     visit dashboard_pages_path
