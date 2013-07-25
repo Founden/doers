@@ -8,14 +8,15 @@ describe Api::V1::ProjectsController do
   end
 
   describe '#index' do
+    let(:user) { Fabricate(:user_with_projects, :projects_count => 2) }
+
     before do
-      2.times { Fabricate(:project, :user => user) }
       get(:index)
     end
 
     subject(:api_projects) { json_to_ostruct(response.body) }
 
-    its('projects.count') { should eq(2) }
+    its('projects.count') { should eq(user.projects.count) }
   end
 
   describe '#show' do
@@ -24,7 +25,6 @@ describe Api::V1::ProjectsController do
     before { get(:show, :id => prj.id) }
 
     subject(:api_project) { json_to_ostruct(response.body, :project) }
-
 
     its('keys.count') { should eq(11) }
     its(:id){ should eq(prj.id) }
