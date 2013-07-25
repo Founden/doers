@@ -137,8 +137,8 @@ describe Api::V1::CardsController do
           Fabricate('card/map', :project => project, :board => board) }
 
         its('keys.size') { should eq(14) }
-        its(:latitude) { should eq(card.latitude.to_s.to_f) }
-        its(:longitude) { should eq(card.longitude.to_s.to_f) }
+        its(:latitude) { should eq(card.latitude.to_f) }
+        its(:longitude) { should eq(card.longitude.to_f) }
         its(:content) { should eq(card.content) }
       end
 
