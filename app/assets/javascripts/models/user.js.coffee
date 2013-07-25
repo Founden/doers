@@ -1,5 +1,5 @@
 Doers.User = DS.Model.extend
-  angelListId: DS.attr('number', readOnly: true)
+  externalId: DS.attr('number', readOnly: true)
   nicename: DS.attr('string', readOnly: true)
   angelListToken: DS.attr('string', readOnly: true)
   importing: DS.attr('boolean', readOnly: true)
@@ -7,7 +7,7 @@ Doers.User = DS.Model.extend
 
   startupsUrl: ( ->
     'https://api.angel.co/1/startup_roles?v=1&user_id=' +
-      @get('angelListId') + '&access_token=' + @get('angelListToken')
+      @get('externalId') + '&access_token=' + @get('angelListToken')
   ).property('angelListToken')
 
 
