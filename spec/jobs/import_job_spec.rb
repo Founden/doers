@@ -79,7 +79,8 @@ describe ImportJob do
       let(:import_user) { import.user }
 
       before do
-        Fabricate(:project, :user => import_user, :external_id => startup['id'])
+        Fabricate(:imported_project,
+                  :user => import_user, :external_id => startup['id'])
         import.should_receive(:process_json).and_return(startup)
       end
 
@@ -117,7 +118,7 @@ describe ImportJob do
     subject(:comments) { import.project.comments }
 
     its(:count) { should eq(data.count) }
-    its('first.external_type') { should eq(project.external_type) }
+    its('first.external_type') { should eq(import.external_type) }
     its('first.author.nicename') { should eq(data.first['user']['name']) }
     its('first.author.email') { should match(data.first['user']['id'].to_s) }
   end

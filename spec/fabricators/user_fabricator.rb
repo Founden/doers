@@ -8,6 +8,16 @@ Fabricator(:user) do
     Fabricate(:angel_list_identity, :uid => attrs[:email]) }
 end
 
+Fabricator(:user_with_projects, :from => :user) do
+  transient :projects_count => 3
+
+  after_create do |user, transients|
+    transients[:projects_count].times do
+      Fabricate(:project, :user => user)
+    end
+  end
+end
+
 Fabricator(:admin, :from => :user) do
   email                   { 'test@geekcelerator.com' }
 end

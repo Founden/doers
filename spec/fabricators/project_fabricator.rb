@@ -3,11 +3,14 @@ Fabricator(:project) do
   description   { sequence(:description) { Faker::Lorem.paragraph } }
   website       { sequence(:www)         { Faker::Internet.uri(:https) } }
   user
-  external_id   { sequence(:external_id, 2000) }
-  external_type { Doers::Config.external_types.first }
   after_create do |project|
     Fabricate(:logo, :project => project, :user => project.user)
   end
+end
+
+Fabricator(:imported_project, :from => :project) do
+  external_id   { sequence(:external_id, 2000) }
+  external_type { Doers::Config.external_types.first }
 end
 
 Fabricator(:project_with_boards, :from => :project) do
