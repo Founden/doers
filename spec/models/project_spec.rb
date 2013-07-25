@@ -17,12 +17,13 @@ describe Project do
   it { should_not allow_value(Faker::Internet.domain_name).for(:website) }
 
   it { should ensure_inclusion_of(:status).in_array(Project::STATES) }
+  it { should ensure_inclusion_of(
+    :external_type).in_array(Doers::Config.external_types) }
 
   context 'instance' do
     subject { project }
 
     its(:status) { should eq(Project::STATES.first) }
-    its(:angel_list_id) { should be_nil }
 
     context 'sanitizes #content' do
       let(:content) { Faker::HTMLIpsum.body }
