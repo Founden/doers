@@ -31,8 +31,10 @@ ActiveRecord::Schema.define(version: 20130624164233) do
     t.datetime "attachment_updated_at"
   end
 
+  add_index "assets", ["assetable_id", "assetable_type"], name: "index_assets_on_assetable_id_and_assetable_type", using: :btree
   add_index "assets", ["board_id"], name: "index_assets_on_board_id", using: :btree
   add_index "assets", ["project_id"], name: "index_assets_on_project_id", using: :btree
+  add_index "assets", ["type"], name: "index_assets_on_type", using: :btree
   add_index "assets", ["user_id"], name: "index_assets_on_user_id", using: :btree
 
   create_table "boards", force: true do |t|
@@ -50,6 +52,7 @@ ActiveRecord::Schema.define(version: 20130624164233) do
   add_index "boards", ["author_id"], name: "index_boards_on_author_id", using: :btree
   add_index "boards", ["parent_board_id"], name: "index_boards_on_parent_board_id", using: :btree
   add_index "boards", ["project_id"], name: "index_boards_on_project_id", using: :btree
+  add_index "boards", ["status"], name: "index_boards_on_status", using: :btree
   add_index "boards", ["user_id"], name: "index_boards_on_user_id", using: :btree
 
   create_table "cards", force: true do |t|
@@ -59,13 +62,16 @@ ActiveRecord::Schema.define(version: 20130624164233) do
     t.integer  "position"
     t.string   "title"
     t.string   "type"
+    t.text     "content"
     t.hstore   "data"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "cards", ["board_id"], name: "index_cards_on_board_id", using: :btree
+  add_index "cards", ["position"], name: "index_cards_on_position", using: :btree
   add_index "cards", ["project_id"], name: "index_cards_on_project_id", using: :btree
+  add_index "cards", ["type"], name: "index_cards_on_type", using: :btree
   add_index "cards", ["user_id"], name: "index_cards_on_user_id", using: :btree
 
   create_table "comments", force: true do |t|
@@ -117,22 +123,30 @@ ActiveRecord::Schema.define(version: 20130624164233) do
     t.text     "description"
     t.integer  "user_id"
     t.string   "status"
+    t.string   "website"
     t.hstore   "data"
+    t.string   "external_id"
+    t.string   "external_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+  add_index "projects", ["external_id", "external_type"], name: "index_projects_on_external_id_and_external_type", using: :btree
+  add_index "projects", ["status"], name: "index_projects_on_status", using: :btree
   add_index "projects", ["user_id"], name: "index_projects_on_user_id", using: :btree
+  add_index "projects", ["website"], name: "index_projects_on_website", using: :btree
 
   create_table "users", force: true do |t|
-    t.integer  "external_id", limit: 8
     t.string   "name"
     t.string   "email"
     t.hstore   "data"
+    t.string   "external_id"
+    t.string   "external_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", using: :btree
+  add_index "users", ["external_id", "external_type"], name: "index_users_on_external_id_and_external_type", using: :btree
 
 end

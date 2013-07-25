@@ -1,4 +1,3 @@
-# This migration comes from easy_auth (originally 20120227014023)
 class CreateEasyAuthIdentities < ActiveRecord::Migration
   def change
     create_table :identities do |t|
