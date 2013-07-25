@@ -13,6 +13,8 @@ describe User, :use_truncation do
   it { should validate_presence_of(:email) }
   it { should validate_uniqueness_of(:email) }
   it { should ensure_inclusion_of(:interest).in_array(User::INTERESTS.values) }
+  it { should ensure_inclusion_of(
+    :external_type).in_array(Doers::Config.external_types) }
 
   context 'unconfirmed' do
     subject { User.new }

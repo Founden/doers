@@ -15,5 +15,6 @@ class Card < ActiveRecord::Base
   # Sanitize user input
   before_validation do
     self.title = Sanitize.clean(self.title)
+    self.content = Sanitize.clean(self.content) if self.content.is_a?(String)
   end
 end

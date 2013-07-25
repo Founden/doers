@@ -14,11 +14,20 @@ describe Card do
 
     its(:position) { should eq(0) }
 
-    context 'sanitizes #title' do
+    context 'sanitizes' do
       let(:content) { Faker::HTMLIpsum.body }
-      before { card.update_attributes(:title => content[0..250]) }
 
-      its(:title) { should eq(Sanitize.clean(content[0..250])) }
+      context '#title' do
+        before { card.update_attributes(:title => content[0..250]) }
+
+        its(:title) { should eq(Sanitize.clean(content[0..250])) }
+      end
+
+      context '#content' do
+        before { card.update_attributes(:content => content) }
+
+        its(:content) { should eq(Sanitize.clean(content)) }
+      end
     end
   end
 end
