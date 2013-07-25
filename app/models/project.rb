@@ -3,8 +3,6 @@ class Project < ActiveRecord::Base
   # Available :status values for a [Project]
   STATES = ['private', 'public', 'archived']
 
-  store_accessor :data, :angel_list_id, :website
-
   # Relationships
   belongs_to :user
   has_many :boards
@@ -18,6 +16,10 @@ class Project < ActiveRecord::Base
   validates :status, :inclusion => {:in => STATES}
   validates_format_of(
     :website, :with => URI::regexp(%w(http https)), :allow_blank => true)
+  validates :external_id,
+    :uniqueness => {:scope => [:external_type, :user_id]}, :allow_nil => true
+  validates_inclusion_of :external_type,
+    :in => Doers::Config.external_types, :if => :external_id
 
   # Callbacks
   after_initialize do

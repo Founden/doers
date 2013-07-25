@@ -21,11 +21,12 @@ Doers.User = DS.Model.extend
       jsonpCallback: '_cb'
       cache: true
       success: (response) ->
+        startups = self.get('startups')
         response.startup_roles.forEach ((role) ->
           if role.role == 'founder' || role.role == 'advisor'
             startup = role.startup
-            self.get('startups').addObject Doers.Startup.createRecord
-              angelListId: startup.id
+            startups.addObject Doers.Startup.createRecord
+              externalId: startup.id
               title: startup.name
               description: startup.product_desc
               website: startup.company_url

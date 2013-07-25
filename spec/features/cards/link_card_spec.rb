@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'Link', :js, :vcr => {:cassette_name=>:angel_list_oauth2} do
+feature 'Link', :js, :slow, :vcr => {:cassette_name=>:angel_list_oauth2} do
   background do
     sign_in_with_angel_list
   end
@@ -24,7 +24,7 @@ feature 'Link', :js, :vcr => {:cassette_name=>:angel_list_oauth2} do
       expect(page).to have_css(card_classname)
 
       expect(page).to have_content(card.title)
-      expect(page).to have_content(card.excerpt)
+      expect(page).to have_content(card.content)
       expect(page.source).to include(card.url)
     end
   end

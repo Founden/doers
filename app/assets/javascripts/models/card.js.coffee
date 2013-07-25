@@ -1,8 +1,10 @@
 Doers.Card = DS.Model.extend
   assetableType: 'Card'
   title: DS.attr('string')
+  content: DS.attr('string')
   position: DS.attr('number')
   type: DS.attr('string')
+  style: DS.attr('string')
 
   project: DS.belongsTo('Doers.Project')
   board: DS.belongsTo('Doers.Board')

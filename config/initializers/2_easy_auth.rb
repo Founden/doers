@@ -9,6 +9,6 @@ end
 
 module EasyAuth::Models::Identities::Oauth2::AngelList
   def account_attributes_map
-    { :email => 'email', :name => 'name', :angel_list_id => 'id' }
+    { :email => 'email', :name => 'name', :external_id => 'id' }
   end
 end

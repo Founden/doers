@@ -1,7 +1,7 @@
 Fabricator('card/map') do
-  location  { sequence(:location) { |lid| 'ClujCowork %s' % lid } }
-  address   { '23 Emil Isac str., Cluj-Napoca, Romania' }
-  title     { Faker::Lorem.sentence }
+  content   { sequence(:addres) { '%s, %s, %s' % [
+    Faker::Address.street_address,Faker::Address.city,Faker::Address.country] }}
+  title     { sequence(:location) { Faker::Address.neighborhood } }
   latitude  { Faker::Geolocation.lat }
   longitude { Faker::Geolocation.lng }
   user

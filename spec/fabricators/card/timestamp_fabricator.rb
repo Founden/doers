@@ -1,6 +1,6 @@
 Fabricator('card/timestamp') do
   title     { Faker::Lorem.sentence }
-  timestamp { DateTime.now.to_s }
+  content   { DateTime.now.to_s }
   user
   board
   project   { nil }
