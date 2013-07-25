@@ -59,18 +59,47 @@ describe ImportJob do
       )['startup_roles'].first['startup']
     end
 
-    before do
-      import.should_receive(:process_json).and_return(startup)
-      import.import_project
+    context 'creates a new project' do
+      before do
+        import.should_receive(:process_json).and_return(startup)
+        import.import_project
+      end
+
+      subject(:project) { import.project }
+
+      its(:external_id) { should eq(startup['id']) }
+      its(:external_type) { should eq(Doers::Config.external_types.first) }
+      its(:title) { should eq(startup['name']) }
+      its(:description) { should eq(startup['high_concept']) }
+      its(:website) { should eq(startup['company_url']) }
+      its(:logo) { should_not be_nil }
     end
 
-    subject(:project) { import.project }
+    context 'when a startup was imported once' do
+      let(:import_user) { import.user }
 
-    its(:angel_list_id) { should eq(startup['id']) }
-    its(:title) { should eq(startup['name']) }
-    its(:description) { should eq(startup['high_concept']) }
-    its(:website) { should eq(startup['company_url']) }
-    its(:logo) { should_not be_nil }
+      before do
+        Fabricate(:imported_project,
+                  :user => import_user, :external_id => startup['id'])
+        import.should_receive(:process_json).and_return(startup)
+      end
+
+      it 'raises an error' do
+        expect {
+          import.import_project
+        }.to raise_error
+      end
+
+      context 'if not the same user' do
+        let(:import_user) { Fabricate(:user) }
+
+        it 'does the import' do
+          expect {
+            import.import_project
+          }.to_not raise_error
+        end
+      end
+    end
   end
 
   context '#import_project_comments' do
@@ -89,6 +118,7 @@ describe ImportJob do
     subject(:comments) { import.project.comments }
 
     its(:count) { should eq(data.count) }
+    its('first.external_type') { should eq(import.external_type) }
     its('first.author.nicename') { should eq(data.first['user']['name']) }
     its('first.author.email') { should match(data.first['user']['id'].to_s) }
   end

@@ -1,6 +1,6 @@
 # [Card::Map] model serializer
 class Card::MapSerializer < CardSerializer
-  attributes :location, :address, :latitude, :longitude
+  attributes :latitude, :longitude
 
   # Manually typecast this until serializer supports it natively
   def latitude

@@ -10,23 +10,15 @@ Doers.ProjectsImportView = Ember.View.extend
   # Startup entry view
   startupView: Ember.View.extend
     classNames: ['project']
-    classNameBindings: ['startupId', 'selected']
-
-    startupId: ( ->
-      'startup-' + @get('startup.angelListId')
-    ).property('startup.angelListId')
-
-    selected: ( ->
-      @get('startup.isSelected')
-    ).property('startup.isSelected')
+    classNameBindings: ['content.slug', 'content.isSelected:selected']
 
     websiteText: ( ->
-      www = @get('startup.website')
-      if www
-        @get('startup.website').match('https?://(.*[^/])')[1]
+      if www = @get('content.website')
+        www.match('https?://(.*[^/])')[1]
       else
         'N/A'
-    ).property('startup')
+    ).property('content.website')
 
-    click: ->
-      @toggleProperty('startup.isSelected')
+    click: (event) ->
+      @toggleProperty('content.isSelected')
+      false

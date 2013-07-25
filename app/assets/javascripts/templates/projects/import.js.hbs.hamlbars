@@ -20,7 +20,7 @@
 
   .projects
     {{#each startup in content}}
-    {{#view view.startupView startupBinding=startup}}
+    {{#view view.startupView contentBinding=startup}}
     %a
       %img{:bind => {:src => 'startup.logoUrl', :alt => 'startup.title'}}/
       %h3 {{startup.title}}

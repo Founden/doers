@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'Video', :js, :vcr => {:cassette_name=>:angel_list_oauth2} do
+feature 'Video', :js, :slow, :vcr => {:cassette_name=>:angel_list_oauth2} do
   background do
     sign_in_with_angel_list
   end
@@ -25,8 +25,10 @@ feature 'Video', :js, :vcr => {:cassette_name=>:angel_list_oauth2} do
 
       expect(page).to have_content(card.title)
       expect(page.source).to include(card.image.attachment.url)
+    end
 
-      pending('video_id and provider to be tested')
+    scenario 'video_id and provider to be tested' do
+      pending 'TBD'
       # expect(page.source).to include(card.video_id)
       # expect(page.source).to include(card.provider)
     end
