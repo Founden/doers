@@ -24,8 +24,10 @@ class User < ActiveRecord::Base
   # Validations
   validates :email, :uniqueness => true, :presence => true
   validates_inclusion_of :interest, :in => INTERESTS.values, :allow_nil => true
-  validates_inclusion_of :external_type, :in => Doers::Config.external_types
-  validates :external_id, :uniqueness => {:scope => :external_type}
+  validates_inclusion_of :external_type,
+    :in => Doers::Config.external_types, :if => :external_id
+  validates :external_id,
+    :uniqueness => {:scope => :external_type}, :allow_nil => true
 
   # Callbacks
   after_commit :send_confirmation_email, :on => :update
