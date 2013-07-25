@@ -37,7 +37,7 @@ IntercomRails.config do |config|
   #   :favorite_color => :favorite_color
   # }
   config.user.custom_data = {
-    'Angel List ID' => :angel_list_id,
+    'Angel List ID' => :external_id,
     'Occupation/Interest' => Proc.new{ |u| User::INTERESTS.invert[u.interest] },
     'Has Beta access' => :confirmed?,
     'Wants newsletter' => :newsletter_allowed?,
