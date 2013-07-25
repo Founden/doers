@@ -350,6 +350,12 @@
           border: 5px dashed $bw_5;
           color: $bw_5;
         }
+
+        input[type="file"] {
+          width: 0;
+          height: 0;
+          float: left;
+        }
       }
     }
   }

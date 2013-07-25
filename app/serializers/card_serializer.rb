@@ -21,6 +21,6 @@ class CardSerializer < ActiveModel::Serializer
 
   # Generates it out of the card type
   def type
-    object.type.to_s.sub('Card::', '')
+    object.type.to_s.demodulize
   end
 end

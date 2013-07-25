@@ -8,13 +8,11 @@ describe Card do
   it { should belong_to(:project) }
   it { should validate_presence_of(:user) }
   it { should validate_presence_of(:board) }
-  it { should serialize(:data) }
 
   context 'instance' do
     subject { card }
 
     its(:position) { should eq(0) }
-    its(:data) { should be_empty }
 
     context 'sanitizes #title' do
       let(:content) { Faker::HTMLIpsum.body }

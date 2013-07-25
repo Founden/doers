@@ -14,9 +14,9 @@ gem 'active_model_serializers'
 gem 'paperclip'
 gem 'delayed_job', '4.0.0.beta2'
 gem 'delayed_job_active_record', '4.0.0.beta3'
+gem 'pg'
 
 group :production do
-  gem 'pg'
   gem 'puma'
   gem 'party_foul'
   gem 'aws-sdk'
@@ -52,7 +52,6 @@ group :development do
 end
 
 group :development, :test do
-  gem 'sqlite3'
   gem 'ffaker'
   gem 'fabrication'
   gem 'rspec-rails'

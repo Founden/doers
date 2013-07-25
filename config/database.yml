@@ -1,15 +1,19 @@
-sqlite: &sqlite
-  adapter: sqlite3
-  database: 'db/development.sqlite3'
+postgresql: &postgresql
+  adapter: postgresql
+  encoding: unicode
+  username: postgres
+  password:
   timeout: 5000
+  pool: 5
 
 production: &production
-  <<: *sqlite
-  database: 'db/production.sqlit3'
+  <<: *postgresql
+  database: doers
 
 development:
-  <<: *sqlite
+  <<: *postgresql
+  database: doers
 
 test:
-  <<: *sqlite
-  database: 'db/test.sqlite3'
+  <<: *postgresql
+  database: doers_test

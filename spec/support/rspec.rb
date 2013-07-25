@@ -13,7 +13,6 @@ RSpec.configure do |config|
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.
-  # FIXME: after_commit is funny
   config.use_transactional_fixtures = false
 
   # If true, the base class of anonymous controllers will be inferred
@@ -32,8 +31,9 @@ RSpec.configure do |config|
   config.run_all_when_everything_filtered = true
   config.treat_symbols_as_metadata_keys_with_true_values = true
 
-  # These tests should be ignored on CI services
+  # These tags should be ignored or ran on CI services
   if ENV['TDDIUM'] or ENV['WERCKER']
     config.filter_run_excluding :no_ci => true
+    config.filter_run :focus => false
   end
 end

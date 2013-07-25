@@ -9,7 +9,7 @@ class Api::V1::CardsController < Api::V1::ApplicationController
 
   # Shows available card
   def show
-    card = Card.find_by(
+    card = Card.find_by!(
       :id => params[:id], :project_id => current_account.projects)
     render :json => card
   end
@@ -17,29 +17,31 @@ class Api::V1::CardsController < Api::V1::ApplicationController
   # Handles card creation
   def create
     new_card_params[:user] = current_account
-    klass = ('Card::%s' % new_card_params[:type]).constantize rescue false
+    card = nil
 
-    if !klass or klass == Card
-      render(:json => { :errors => {:type => true} }, :status => 400) and return
-    end
-
-    card = klass.new(new_card_params.except(:type))
-    if klass and card.save
+    begin
+      klass = ('Card::%s' % new_card_params[:type]).safe_constantize
+      raise _('Type is not allowed.') if !klass or klass.equal?(Card)
+      card = klass.create!(new_card_params.except(:type))
       render :json => card
-    else
-      render :json => { :errors => card.errors.messages }, :status => 400
+    rescue Exception => error
+      errors = error ? error.message : card.errors.messages
+      render :json => { :errors => errors }, :status => 400
     end
   end
 
   # Handles card changes
   def update
-    klass = ('Card::%s' % card_params[:type]).constantize rescue Card
-    card = klass.find_by(
+    klass = ('Card::%s' % card_params[:type]).safe_constantize || Card
+    card = klass.find_by!(
       :id => params[:id], :project_id => current_account.projects)
-    if card.update_attributes(card_params.except(:type))
+
+    begin
+      card.update_attributes(card_params.except(:type))
       render :json => card
-    else
-      render :json => { :errors => card.errors.messages }, :status => 400
+    rescue Exception => error
+      errors = error ? [error.message] : card.errors.messages
+      render :json => { :errors => errors }, :status => 400
     end
   end
 
