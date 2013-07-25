@@ -20,7 +20,7 @@ class Api::V1::CardsController < Api::V1::ApplicationController
     card = nil
 
     begin
-      klass = ('Card::%s' % new_card_params[:type]).constantize
+      klass = ('Card::%s' % new_card_params[:type]).safe_constantize
       raise _('Type is not allowed.') if !klass or klass.equal?(Card)
       card = klass.create!(new_card_params.except(:type))
       render :json => card
@@ -32,7 +32,7 @@ class Api::V1::CardsController < Api::V1::ApplicationController
 
   # Handles card changes
   def update
-    klass = ('Card::%s' % card_params[:type]).constantize rescue Card
+    klass = ('Card::%s' % card_params[:type]).safe_constantize || Card
     card = klass.find_by!(
       :id => params[:id], :project_id => current_account.projects)
 

@@ -1,9 +1,14 @@
 require 'capybara/rspec'
 require 'capybara/poltergeist'
-require 'billy/rspec'
 
-Capybara.default_driver = :poltergeist_billy
-Capybara.javascript_driver = :poltergeist_billy
+if ENV['TDDIUM'] or ENV['WERCKER']
+  Capybara.default_driver = :poltergeist
+  Capybara.javascript_driver = :poltergeist
+else
+  require 'billy/rspec'
+  Capybara.default_driver = :poltergeist_billy
+  Capybara.javascript_driver = :poltergeist_billy
+end
 
 class ActiveRecord::Base
   mattr_accessor :shared_connection
