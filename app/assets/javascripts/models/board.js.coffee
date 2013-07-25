@@ -2,7 +2,7 @@ Doers.Board = DS.Model.extend
   title: DS.attr('string')
   description: DS.attr('string')
 
-  parentBoard: DS.belongsTo('Doers.Board')
+  parentBoard: DS.belongsTo('Doers.Board', {inverse: 'parentBoard'})
   project: DS.belongsTo('Doers.Project')
   user: DS.belongsTo('Doers.User', readOnly: true)
   author: DS.belongsTo('Doers.User', readOnly: true)
