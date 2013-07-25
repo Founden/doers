@@ -9,6 +9,8 @@ defaults: &defaults
   default_email: no-reply@doersapp.com
   contact_email: sos@doersapp.com
   admin_regex: !ruby/regexp '/geekcelerator\.com/i'
+  card_groups:
+    title: <%= ['Multimedia', 'Generic', 'Money', 'Time Units', 'Dimensions', 'Mass', 'Bits & Bytes', 'Speed'] %>
 
 development:
   <<: *defaults

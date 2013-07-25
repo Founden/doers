@@ -10,39 +10,13 @@
   .toolbar
     .tabs
       %ul
-        %li
-          %a{:href => ''}
-            Multimedia
-        %li.active
-          %a{:href => ''}
-            Generic
-        %li
-          %a{:href => ''}
-            Money
-        %li
-          %a{:href => ''}
-            Time units
-        %li
-          %a{:href => ''}
-            Dimensions
-        %li
-          %a{:href => ''}
-            Mass
-        %li
-          %a{:href => ''}
-            Bits &amp; bytes
-        %li
-          %a{:href => ''}
-            Speed
+        - Doers::Config.card_groups.title.each do |title|
+          %li
+            %a{:href => ''}
+              = _(title)
+    {{view view.cardTypesView}}
 
-    .templates
-      %ul
-        %li
-          %a{:href => ''}
-            %h4
-              = _('Age')
-
-  %div{:bind => {:id => 'slug' }}
+  %div{:bind => {:id => 'slug'}}
     {{#if cards.isLoaded}}
     {{view view.cardsView contentBinding=cards}}
     {{/if}}

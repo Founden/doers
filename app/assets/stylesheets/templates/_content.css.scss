@@ -146,7 +146,7 @@
           text-transform: uppercase;
           display: block;
           position: relative;
-          padding: 10px 30px 6px 30px;
+          padding: 10px 20px 6px 20px;
           margin-bottom: -1px;
           border-bottom: 4px solid transparent;
 
@@ -157,14 +157,26 @@
       }
     }
 
-    .templates {
+    .card-types {
       @include clearfix;
       border-bottom: 1px solid $bw_7;
 
-      li {
+      a {
         float: left;
-        width: 176px;
+        width: 134px;
         margin: 0 20px 20px 0;
+        text-align: center;
+        background-color: $white;
+        padding: 20px;
+        color: $bw_5;
+        cursor: pointer;
+        border: 1px dashed transparent;
+        @include transition(all 0.2s);
+
+        &:hover {
+          background-color: $bw_10;
+          border-color: $bw_7;
+        }
 
         &:nth-of-type(5n) {
           margin-right: 0;
@@ -172,33 +184,6 @@
 
         &:nth-of-type(5n+1) {
           clear: left;
-        }
-
-        a {
-          display: block;
-          text-align: center;
-          background-color: $white;
-          padding: 20px;
-          color: $bw_5;
-          font-size: 12px;
-          cursor: pointer;
-          border: 1px dashed transparent;
-          @include transition(all 0.2s);
-
-          &:hover {
-            background-color: $bw_10;
-            border-color: $bw_7;
-          }
-        }
-
-        h4 {
-          color: $bw_3;
-          font-weight: 400;
-          text-transform: uppercase;
-          font-size: 14px;
-          overflow: hidden;
-          white-space: nowrap;
-          text-overflow: ellipsis;
         }
       }
     }
@@ -265,6 +250,16 @@
 
   .cards {
     @include clearfix;
+
+    &.over {
+
+      &:before {
+        content: 'Drop it!';
+        width: 300px;
+        height: 300px;
+        margin: 0 30px 30px 0;
+      }
+    }
 
     .card {
       float: left;
