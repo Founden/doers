@@ -1,4 +1,4 @@
-Doers.MapView = Ember.View.extend
+Doers.MapView = Ember.View.extend Doers.CardViewMixin,
   templateName: 'cards/map'
 
   imageMap: Ember.View.extend

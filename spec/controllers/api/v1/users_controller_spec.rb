@@ -23,7 +23,7 @@ describe Api::V1::UsersController do
     its('keys.size') { should eq(5) }
     its(:id) { should eq(user.id) }
     its(:nicename) { should eq(user.nicename) }
-    its(:angel_list_id) { should eq(user.angel_list_id) }
+    its(:external_id) { should eq(user.external_id) }
     its(:angel_list_token) { should eq(user.identities.first.token) }
     its(:importing) { should be_false }
   end

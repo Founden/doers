@@ -7,7 +7,9 @@ class CreateCards < ActiveRecord::Migration
       t.integer :position
       t.string :title
       t.string :type
-      t.text :data
+      t.hstore :data
+
+      t.timestamps
     end
   end
 end

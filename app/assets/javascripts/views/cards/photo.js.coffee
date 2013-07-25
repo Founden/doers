@@ -1,4 +1,4 @@
-Doers.PhotoView = Ember.ContainerView.extend
+Doers.PhotoView = Ember.ContainerView.extend Doers.CardViewMixin,
   assetAttribute: 'image'
   childViews: ['uploadView', 'imageView']
   uploadView: Doers.AssetUploaderView.extend

@@ -42,5 +42,7 @@
             %h4
               = _('Age')
 
-  .cards
-    {{each card in cards itemViewClass=view.cardView contentBinding=card}}
+  %div{:bind => {:id => 'slug' }}
+    {{#if cards.isLoaded}}
+    {{view view.cardsView contentBinding=cards}}
+    {{/if}}

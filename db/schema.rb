@@ -11,7 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130709155615) do
+ActiveRecord::Schema.define(version: 20130624164233) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+  enable_extension "hstore"
 
   create_table "assets", force: true do |t|
     t.integer  "project_id"
@@ -27,9 +31,9 @@ ActiveRecord::Schema.define(version: 20130709155615) do
     t.datetime "attachment_updated_at"
   end
 
-  add_index "assets", ["board_id"], name: "index_assets_on_board_id"
-  add_index "assets", ["project_id"], name: "index_assets_on_project_id"
-  add_index "assets", ["user_id"], name: "index_assets_on_user_id"
+  add_index "assets", ["board_id"], name: "index_assets_on_board_id", using: :btree
+  add_index "assets", ["project_id"], name: "index_assets_on_project_id", using: :btree
+  add_index "assets", ["user_id"], name: "index_assets_on_user_id", using: :btree
 
   create_table "boards", force: true do |t|
     t.string   "title"
@@ -43,10 +47,10 @@ ActiveRecord::Schema.define(version: 20130709155615) do
     t.datetime "updated_at"
   end
 
-  add_index "boards", ["author_id"], name: "index_boards_on_author_id"
-  add_index "boards", ["parent_board_id"], name: "index_boards_on_parent_board_id"
-  add_index "boards", ["project_id"], name: "index_boards_on_project_id"
-  add_index "boards", ["user_id"], name: "index_boards_on_user_id"
+  add_index "boards", ["author_id"], name: "index_boards_on_author_id", using: :btree
+  add_index "boards", ["parent_board_id"], name: "index_boards_on_parent_board_id", using: :btree
+  add_index "boards", ["project_id"], name: "index_boards_on_project_id", using: :btree
+  add_index "boards", ["user_id"], name: "index_boards_on_user_id", using: :btree
 
   create_table "cards", force: true do |t|
     t.integer  "user_id"
@@ -55,14 +59,14 @@ ActiveRecord::Schema.define(version: 20130709155615) do
     t.integer  "position"
     t.string   "title"
     t.string   "type"
-    t.text     "data"
+    t.hstore   "data"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "cards", ["board_id"], name: "index_cards_on_board_id"
-  add_index "cards", ["project_id"], name: "index_cards_on_project_id"
-  add_index "cards", ["user_id"], name: "index_cards_on_user_id"
+  add_index "cards", ["board_id"], name: "index_cards_on_board_id", using: :btree
+  add_index "cards", ["project_id"], name: "index_cards_on_project_id", using: :btree
+  add_index "cards", ["user_id"], name: "index_cards_on_user_id", using: :btree
 
   create_table "comments", force: true do |t|
     t.integer  "parent_comment_id"
@@ -70,15 +74,15 @@ ActiveRecord::Schema.define(version: 20130709155615) do
     t.integer  "board_id"
     t.integer  "user_id"
     t.text     "content"
+    t.hstore   "data"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "data"
   end
 
-  add_index "comments", ["board_id"], name: "index_comments_on_board_id"
-  add_index "comments", ["parent_comment_id"], name: "index_comments_on_parent_comment_id"
-  add_index "comments", ["project_id"], name: "index_comments_on_project_id"
-  add_index "comments", ["user_id"], name: "index_comments_on_user_id"
+  add_index "comments", ["board_id"], name: "index_comments_on_board_id", using: :btree
+  add_index "comments", ["parent_comment_id"], name: "index_comments_on_parent_comment_id", using: :btree
+  add_index "comments", ["project_id"], name: "index_comments_on_project_id", using: :btree
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
   create_table "delayed_jobs", force: true do |t|
     t.integer  "priority",   default: 0, null: false
@@ -94,7 +98,7 @@ ActiveRecord::Schema.define(version: 20130709155615) do
     t.datetime "updated_at"
   end
 
-  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority"
+  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
   create_table "identities", force: true do |t|
     t.string   "uid"
@@ -106,28 +110,29 @@ ActiveRecord::Schema.define(version: 20130709155615) do
     t.datetime "updated_at"
   end
 
-  add_index "identities", ["uid"], name: "index_identities_on_uid"
+  add_index "identities", ["uid"], name: "index_identities_on_uid", using: :btree
 
   create_table "projects", force: true do |t|
     t.string   "title"
     t.text     "description"
     t.integer  "user_id"
     t.string   "status"
-    t.string   "data"
+    t.hstore   "data"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "projects", ["user_id"], name: "index_projects_on_user_id"
+  add_index "projects", ["user_id"], name: "index_projects_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
+    t.integer  "external_id", limit: 8
     t.string   "name"
     t.string   "email"
-    t.string   "data"
+    t.hstore   "data"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email"
+  add_index "users", ["email"], name: "index_users_on_email", using: :btree
 
 end
