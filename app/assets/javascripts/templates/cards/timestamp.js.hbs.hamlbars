@@ -1,2 +1,2 @@
 %h2 {{view.content.title}}
-%time{:bind => {:datetime => 'view.safeTimestamp'}} {{view.content.parsedTimestamp}}
+%time{:bind => {:datetime => 'view.safeTimestamp'}} {{view.content.timestamp}}

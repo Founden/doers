@@ -3,7 +3,7 @@ Doers.Project = DS.Model.extend
   description: DS.attr('string')
   website: DS.attr('string')
   status: DS.attr('string', readOnly: true)
-  angelListId: DS.attr('number', readOnly: true)
+  externalId: DS.attr('number', readOnly: true)
   updatedAt: DS.attr('date', readOnly: true)
   lastUpdate: DS.attr('string', readOnly: true)
   userNicename: DS.attr('string', readOnly: true)
