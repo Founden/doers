@@ -19,6 +19,8 @@ describe Project do
   it { should ensure_inclusion_of(:status).in_array(Project::STATES) }
   it { should ensure_inclusion_of(
     :external_type).in_array(Doers::Config.external_types) }
+  it { should validate_uniqueness_of(
+    :external_id).scoped_to(:external_type, :user_id) }
 
   context 'instance' do
     subject { project }
