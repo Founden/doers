@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'Timestamp', :js, :vcr =>{:cassette_name=>:angel_list_oauth2} do
+feature 'Timestamp', :js, :slow, :vcr => {:cassette_name=>:angel_list_oauth2} do
   background do
     sign_in_with_angel_list
   end
@@ -24,7 +24,7 @@ feature 'Timestamp', :js, :vcr =>{:cassette_name=>:angel_list_oauth2} do
       expect(page).to have_css(card_classname)
 
       expect(page).to have_content(card.title)
-      expect(page).to have_content(DateTime.parse(card.timestamp).to_s(:pretty))
+      expect(page).to have_content(DateTime.parse(card.content).to_s(:pretty))
     end
   end
 

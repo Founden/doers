@@ -1,9 +1,9 @@
 # [Card::Timestamp] model serializer
 class Card::TimestampSerializer < CardSerializer
-  attributes :timestamp, :parsed_timestamp
+  attributes :content, :timestamp
 
   # Localized timestamp
-  def parsed_timestamp
-    DateTime.parse(object.timestamp).to_s(:pretty)
+  def timestamp
+    DateTime.parse(object.content).to_s(:pretty)
   end
 end
