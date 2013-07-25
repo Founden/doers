@@ -15,14 +15,22 @@ describe Project do
   it { should allow_value(Faker::Internet.uri(:http)).for(:website) }
   it { should allow_value(Faker::Internet.uri(:https)).for(:website) }
   it { should_not allow_value(Faker::Internet.domain_name).for(:website) }
-
   it { should ensure_inclusion_of(:status).in_array(Project::STATES) }
+  it { should allow_value(nil).for(:external_id) }
 
   context 'instance' do
     subject { project }
 
     its(:status) { should eq(Project::STATES.first) }
-    its(:angel_list_id) { should be_nil }
+
+    context 'when imported' do
+      subject(:project) { Fabricate(:imported_project) }
+
+      it { should ensure_inclusion_of(
+        :external_type).in_array(Doers::Config.external_types) }
+      it { should validate_uniqueness_of(
+        :external_id).scoped_to(:external_type, :user_id) }
+    end
 
     context 'sanitizes #content' do
       let(:content) { Faker::HTMLIpsum.body }

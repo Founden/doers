@@ -14,7 +14,8 @@ feature 'Boards', :js, :slow, :vcr => {:cassette_name=>:angel_list_oauth2} do
 
     scenario 'are shown' do
       expect(page).to have_css('#project .board',:count => project.boards.count)
-      pending('test what details are shown')
     end
+
+    pending('test what details are shown')
   end
 end

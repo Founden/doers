@@ -63,7 +63,7 @@ describe Api::V1::CardsController do
       its(:board_id) { should eq(card.board.id) }
 
       context 'phrase card keys' do
-        its('keys.size') { should eq(11) }
+        its('keys.size') { should eq(12) }
         its(:content) { should eq(card.content) }
       end
 
@@ -71,7 +71,7 @@ describe Api::V1::CardsController do
         let(:card) {
           Fabricate('card/paragraph', :project => project, :board => board) }
 
-        its('keys.size') { should eq(11) }
+        its('keys.size') { should eq(12) }
         its(:content) { should eq(card.content) }
       end
 
@@ -79,7 +79,7 @@ describe Api::V1::CardsController do
         let(:card) {
           Fabricate('card/number', :project => project, :board => board) }
 
-        its('keys.size') { should eq(11) }
+        its('keys.size') { should eq(12) }
         its(:content) { should eq(card.content) }
       end
 
@@ -87,17 +87,17 @@ describe Api::V1::CardsController do
         let(:card) {
           Fabricate('card/timestamp', :project => project, :board => board) }
 
-        its('keys.size') { should eq(12) }
-        its(:timestamp) { should eq(card.timestamp) }
-        its(:parsed_timestamp) {
-          should eq(DateTime.parse(card.timestamp).to_s(:pretty)) }
+        its('keys.size') { should eq(13) }
+        its(:content) { should eq(card.content) }
+        its(:timestamp) {
+          should eq(DateTime.parse(card.content).to_s(:pretty)) }
       end
 
       context 'interval card keys' do
         let(:card) {
           Fabricate('card/interval', :project => project, :board => board) }
 
-        its('keys.size') { should eq(13) }
+        its('keys.size') { should eq(15) }
         its(:minimum) { should eq(card.minimum) }
         its(:maximum) { should eq(card.maximum) }
         its(:selected) { should eq(card.selected) }
@@ -107,7 +107,7 @@ describe Api::V1::CardsController do
         let(:card) {
           Fabricate('card/book', :project => project, :board => board) }
 
-        its('keys.size') { should eq(14) }
+        its('keys.size') { should eq(16) }
         its(:url) { should eq(card.url) }
         its(:book_title) { should eq(card.book_title) }
         its(:book_authors) { should eq(card.book_authors) }
@@ -118,7 +118,7 @@ describe Api::V1::CardsController do
         let(:card) {
           Fabricate('card/photo', :project => project, :board => board) }
 
-        its('keys.size') { should eq(11) }
+        its('keys.size') { should eq(13) }
         its(:image_id) { should eq(card.image.id) }
       end
 
@@ -126,7 +126,7 @@ describe Api::V1::CardsController do
         let(:card) {
           Fabricate('card/video', :project => project, :board => board) }
 
-        its('keys.size') { should eq(13) }
+        its('keys.size') { should eq(15) }
         its(:image_id) { should eq(card.image.id) }
         its(:video_id) { should eq(card.video_id) }
         its(:provider) { should eq(card.provider) }
@@ -137,19 +137,18 @@ describe Api::V1::CardsController do
           Fabricate('card/map', :project => project, :board => board) }
 
         its('keys.size') { should eq(14) }
-        its(:location) { should eq(card.location) }
-        its(:address) { should eq(card.address) }
-        its(:latitude) { should eq(card.latitude) }
-        its(:longitude) { should eq(card.longitude) }
+        its(:latitude) { should eq(card.latitude.to_f) }
+        its(:longitude) { should eq(card.longitude.to_f) }
+        its(:content) { should eq(card.content) }
       end
 
       context 'link card keys' do
         let(:card) {
           Fabricate('card/link', :project => project, :board => board) }
 
-        its('keys.size') { should eq(12) }
+        its('keys.size') { should eq(13) }
         its(:url) { should eq(card.url) }
-        its(:excerpt) { should eq(card.excerpt) }
+        its(:content) { should eq(card.content) }
       end
     end
   end
@@ -183,10 +182,11 @@ describe Api::V1::CardsController do
 
       subject(:api_card) { json_to_ostruct(response.body, :card) }
 
-      its('keys.size') { should eq(11) }
+      its('keys.size') { should eq(12) }
       its(:id) { should_not be_blank }
       its(:title) { should eq(card_attrs[:title]) }
       its(:position) { should_not be_nil }
+      its(:style) { should_not be_nil }
       its(:type) { should eq(card_attrs[:type]) }
       its(:last_update) { should_not be_blank }
       its(:updated_at) { should_not be_blank }
@@ -219,7 +219,7 @@ describe Api::V1::CardsController do
         let(:card) {
           Fabricate('card/phrase', :project => project, :board => board)}
 
-        its('keys.size') { should eq(11) }
+        its('keys.size') { should eq(12) }
         its(:title) { should eq(card_attrs['title']) }
         its(:content) { should eq(Sanitize.clean(card_attrs['content'])) }
 
@@ -237,7 +237,7 @@ describe Api::V1::CardsController do
           Fabricate('card/paragraph', :project => project, :board => board)}
         let(:card_attrs) { Fabricate.attributes_for('card/paragraph') }
 
-        its('keys.size') { should eq(11) }
+        its('keys.size') { should eq(12) }
         its(:title) { should eq(card_attrs['title']) }
         its(:content) { should eq(Sanitize.clean(card_attrs['content'])) }
       end
@@ -247,7 +247,7 @@ describe Api::V1::CardsController do
           Fabricate('card/number', :project => project, :board => board)}
         let(:card_attrs) { Fabricate.attributes_for('card/number') }
 
-        its('keys.size') { should eq(11) }
+        its('keys.size') { should eq(12) }
         its(:title) { should eq(card_attrs['title']) }
         its(:content) { should eq(card_attrs['content']) }
       end
@@ -257,11 +257,11 @@ describe Api::V1::CardsController do
           Fabricate('card/timestamp', :project => project, :board => board)}
         let(:card_attrs) { Fabricate.attributes_for('card/timestamp') }
 
-        its('keys.size') { should eq(12) }
+        its('keys.size') { should eq(13) }
         its(:title) { should eq(card_attrs['title']) }
-        its(:timestamp) { should eq(card_attrs['timestamp']) }
-        its(:parsed_timestamp) {
-          should eq(DateTime.parse(card_attrs['timestamp']).to_s(:pretty)) }
+        its(:content) { should eq(card_attrs['content']) }
+        its(:timestamp) {
+          should eq(DateTime.parse(card_attrs['content']).to_s(:pretty)) }
       end
 
       context 'interval card' do
@@ -269,7 +269,7 @@ describe Api::V1::CardsController do
           Fabricate('card/interval', :project => project, :board => board)}
         let(:card_attrs) { Fabricate.attributes_for('card/interval') }
 
-        its('keys.size') { should eq(13) }
+        its('keys.size') { should eq(15) }
         its(:title) { should eq(card_attrs['title']) }
         its(:minimum) { should eq(card_attrs['minimum'].round(3)) }
         its(:maximum) { should eq(card_attrs['maximum'].round(3)) }
@@ -281,7 +281,7 @@ describe Api::V1::CardsController do
           Fabricate('card/photo', :project => project, :board => board)}
         let(:card_attrs) { Fabricate.attributes_for('card/photo') }
 
-        its('keys.size') { should eq(11) }
+        its('keys.size') { should eq(13) }
         its(:title) { should eq(card_attrs['title']) }
         its(:content) { should eq(Sanitize.clean(card_attrs['content'])) }
         its(:image_id) { should eq(card.image.id) }
@@ -292,7 +292,7 @@ describe Api::V1::CardsController do
           Fabricate('card/video', :project => project, :board => board)}
         let(:card_attrs) { Fabricate.attributes_for('card/video') }
 
-        its('keys.size') { should eq(13) }
+        its('keys.size') { should eq(15) }
         its(:title) { should eq(card_attrs['title']) }
         its(:content) { should eq(Sanitize.clean(card_attrs['content'])) }
         its(:video_id) { should eq(card_attrs[:video_id]) }
@@ -305,10 +305,10 @@ describe Api::V1::CardsController do
           Fabricate('card/link', :project => project, :board => board)}
         let(:card_attrs) { Fabricate.attributes_for('card/link') }
 
-        its('keys.size') { should eq(12) }
+        its('keys.size') { should eq(13) }
         its(:title) { should eq(card_attrs['title']) }
         its(:url) { should eq(card_attrs['url']) }
-        its(:excerpt) { should eq(Sanitize.clean(card_attrs['excerpt'])) }
+        its(:content) { should eq(Sanitize.clean(card_attrs['content'])) }
       end
 
       context 'map card' do
@@ -318,11 +318,9 @@ describe Api::V1::CardsController do
 
         its('keys.size') { should eq(14) }
         its(:title) { should eq(card_attrs['title']) }
-        its(:location) { should eq(card_attrs['location']) }
-        its(:address) { should eq(card_attrs['address']) }
+        its(:content) { should eq(Sanitize.clean(card_attrs['content'])) }
         its(:latitude) { should eq(card_attrs['latitude']) }
         its(:longitude) { should eq(card_attrs['longitude']) }
-        its(:content) { should eq(Sanitize.clean(card_attrs['content'])) }
       end
     end
   end
