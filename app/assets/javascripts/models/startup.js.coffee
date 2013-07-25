@@ -5,3 +5,7 @@ Doers.Startup = DS.Model.extend
   website: null
   logoUrl: null
   isSelected: false
+
+  slug: (->
+    'startup-' + @get('externalId')
+  ).property('externalId')

@@ -12,7 +12,7 @@ describe Api::V1::StartupsController do
     let(:startup) do
       json = File.read Rails.root.join('spec/fixtures/angel_list_startups.json')
       startup = json_to_ostruct(json)['startup_roles'].first['startup']
-      startup['angel_list_id'] = startup['id']
+      startup['external_id'] = startup['id']
       startup
     end
 
@@ -21,7 +21,7 @@ describe Api::V1::StartupsController do
     end
 
     context 'when user has no imports' do
-      its('response.response_code') { should eq(200) }
+      its('response.status') { should eq(200) }
 
       context '#importing' do
         subject { user.importing }
@@ -33,7 +33,15 @@ describe Api::V1::StartupsController do
     context 'when user has an import going' do
       let(:user) { Fabricate(:user, :importing => true) }
 
-      its('response.response_code') { should eq(403) }
+      its('response.status') { should eq(200) }
+    end
+
+    context 'when a project like that exists' do
+      let(:user) do
+        Fabricate(:imported_project, :external_id => startup['id']).user
+      end
+
+      its('response.status') { should eq(400) }
     end
   end
 
