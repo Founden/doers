@@ -5,12 +5,11 @@ class CreateUsers < ActiveRecord::Migration
       t.string :email
       t.hstore :data
       t.string :external_id
-      t.string :external_type
 
       t.timestamps
     end
 
     add_index :users, :email
-    add_index :users, [:external_id, :external_type]
+    add_index :users, [:external_id]
   end
 end

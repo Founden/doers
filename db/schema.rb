@@ -142,12 +142,11 @@ ActiveRecord::Schema.define(version: 20130624164233) do
     t.string   "email"
     t.hstore   "data"
     t.string   "external_id"
-    t.string   "external_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", using: :btree
-  add_index "users", ["external_id", "external_type"], name: "index_users_on_external_id_and_external_type", using: :btree
+  add_index "users", ["external_id"], name: "index_users_on_external_id", using: :btree
 
 end
