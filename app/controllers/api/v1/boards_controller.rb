@@ -2,8 +2,12 @@
 class Api::V1::BoardsController < Api::V1::ApplicationController
   # Shows available board
   def index
-    board = current_account.all_boards.where(:id => params[:ids])
-    render :json => board
+    if params[:status]
+      boards = Board.where(:status => params[:status])
+    else
+      boards = current_account.all_boards.where(:id => params[:ids])
+    end
+    render :json => boards
   end
 
   # Shows available board
