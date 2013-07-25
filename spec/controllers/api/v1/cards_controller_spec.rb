@@ -271,9 +271,9 @@ describe Api::V1::CardsController do
 
         its('keys.size') { should eq(15) }
         its(:title) { should eq(card_attrs['title']) }
-        its(:minimum) { should eq(card_attrs['minimum'].round(3)) }
-        its(:maximum) { should eq(card_attrs['maximum'].round(3)) }
-        its(:selected) { should eq(card_attrs['selected'].round(3)) }
+        its(:minimum) { should eq(card_attrs['minimum']) }
+        its(:maximum) { should eq(card_attrs['maximum']) }
+        its(:selected) { should eq(card_attrs['selected']) }
       end
 
       context 'photo card' do
