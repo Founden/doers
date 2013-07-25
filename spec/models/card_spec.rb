@@ -8,6 +8,7 @@ describe Card do
   it { should belong_to(:project) }
   it { should validate_presence_of(:user) }
   it { should validate_presence_of(:board) }
+  it { should validates_inclusion_of(:style).in_array(Card::STYLES) }
 
   context 'instance' do
     subject { card }
