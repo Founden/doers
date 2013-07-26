@@ -44,4 +44,10 @@ module Doers
     # TODO: See @github:sprockets-rails/#36
     config.assets.precompile += %w( doers.js )
   end
+
+  # Our settings management class
+  class Config < ReadWriteSettings
+    source Rails.root.join('config', 'doers.yml').to_s
+    namespace Rails.env
+  end
 end
