@@ -52,10 +52,14 @@ class User < ActiveRecord::Base
   def all_boards
     t = Board.arel_table
     Board.where(
-      # Created or branched from
-      t[:author_id].eq(id).or(t[:user_id].eq(id)).or(
-        # Part of available projects
+      # User is the author
+      t[:author_id].eq(id).or(
+        # User branched a board
+        t[:user_id].eq(id)
+      ).or(
+        # Owns the project
         t[:project_id].in(project_ids)
+        # TODO: Is part of the project
       ).or(
         # Status is `public`
         t[:status].eq(Board::STATES.last)
