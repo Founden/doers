@@ -85,7 +85,9 @@ Doers::Application.configure do
   config.middleware.use('PartyFoul::Middleware')
 
   # Setup default url options for mail
-  config.action_mailer.default_url_options = {:host => 'beta.geekcelerator.com'}
+  config.action_mailer.default_url_options = {
+    :host => Doers::Config.app_id
+  }
 
   # Use Amazon AWS for mail delivery
   config.action_mailer.delivery_method = :amazon_ses
