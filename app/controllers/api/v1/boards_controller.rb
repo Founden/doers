@@ -2,7 +2,7 @@
 class Api::V1::BoardsController < Api::V1::ApplicationController
   # Shows available board
   def index
-    if params[:status]
+    if params[:status] and params[:status] == Board::STATES.last
       boards = Board.where(:status => params[:status])
     else
       boards = current_account.all_boards.where(:id => params[:ids])

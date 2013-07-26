@@ -13,7 +13,7 @@
         - Doers::Config.card_groups.title.each do |title|
           %li
             %a{:href => ''}
-              = _(title)
+              = title
     {{view view.cardTypesView}}
 
   %div{:bind => {:id => 'slug'}}

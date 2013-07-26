@@ -10,7 +10,7 @@ defaults: &defaults
   contact_email: sos@doersapp.com
   admin_regex: !ruby/regexp '/geekcelerator\.com/i'
   card_groups:
-    title: <%= ['Multimedia', 'Generic', 'Money', 'Time Units', 'Dimensions', 'Mass', 'Bits & Bytes', 'Speed'] %>
+    title: <%= ['Multimedia', 'Generic', 'Money', 'Time Units', 'Dimensions', 'Mass', 'Bits & Bytes', 'Speed'].map { |title| _(title) } %>
 
 development:
   <<: *defaults
