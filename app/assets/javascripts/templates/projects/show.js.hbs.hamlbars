@@ -3,10 +3,19 @@
   %header.header
     %h1
       {{content.title}}
-    .buttons
-      {{#linkTo 'projects.new' id='projects-add' class='button' title="#{_('Create a new project')}"}}
-      = _('Create new board')
-      {{/linkTo}}
+
+  .public-boards
+    {{#each board in publicBoards}}
+    .board{:bind => {:id => 'board.slug'}}
+      %a{:_action => 'createFork board'}
+        %h2 {{board.title}}
+        %ul.meta
+          %li
+            %span
+              = _('Created by:')
+            {{board.authorNicename}}
+
+    {{/each}}
 
   .boards
     {{#each board in content.boards}}
@@ -24,10 +33,10 @@
             = _('Updated:')
           {{board.lastUpdate}}
       {{/linkTo}}
-      .board-branches
+      %footer
         %h4
           = _('Branched from')
-        %p.board-source
+        %p
           %a{:href => ''}
             {{board.parentBoard.title}}
           = _('by')
