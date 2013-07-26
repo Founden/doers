@@ -49,7 +49,7 @@ class User < ActiveRecord::Base
   end
 
   # All available boards, including public and from shared projects
-  def all_boards
+  def accessible_boards
     t = Board.arel_table
     Board.where(
       # User is the author
