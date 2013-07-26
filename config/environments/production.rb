@@ -95,9 +95,9 @@ Doers::Application.configure do
   # Use Amazon S3 settings for Paperclip uploads
   config.paperclip_defaults = {
     :storage => :s3,
-    :s3_protocol => 'https',
+    :s3_protocol => Doers::Config.aws.s3.protocol,
     :s3_credentials => {
-      :bucket => 'doers-assets',
+      :bucket => Doers::Config.aws.s3.bucket,
       :access_key_id => AWS.config.credentials[:access_key_id],
       :secret_access_key => AWS.config.credentials[:secret_access_key]
     }
