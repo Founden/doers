@@ -63,6 +63,7 @@ Doers::Application.configure do
   # Precompile additional assets.
   # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
   # config.assets.precompile += %w( search.js )
+  config.assets.precompile += %w( doers.js )
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
@@ -85,7 +86,9 @@ Doers::Application.configure do
   config.middleware.use('PartyFoul::Middleware')
 
   # Setup default url options for mail
-  config.action_mailer.default_url_options = {:host => 'beta.geekcelerator.com'}
+  config.action_mailer.default_url_options = {
+    :host => Doers::Config.app_id
+  }
 
   # Use Amazon AWS for mail delivery
   config.action_mailer.delivery_method = :amazon_ses
@@ -93,9 +96,9 @@ Doers::Application.configure do
   # Use Amazon S3 settings for Paperclip uploads
   config.paperclip_defaults = {
     :storage => :s3,
-    :s3_protocol => 'https',
+    :s3_protocol => Doers::Config.aws.s3.protocol,
     :s3_credentials => {
-      :bucket => 'doers-assets',
+      :bucket => Doers::Config.aws.s3.bucket,
       :access_key_id => AWS.config.credentials[:access_key_id],
       :secret_access_key => AWS.config.credentials[:secret_access_key]
     }

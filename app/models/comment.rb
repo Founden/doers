@@ -1,8 +1,7 @@
 # DOERS [Comment] class
 class Comment < ActiveRecord::Base
-
-  store_accessor :data, :angel_list_id
-  store_accessor :data, :angel_list_author_name, :angel_list_author_id
+  store_accessor :data, :external_id, :external_type
+  store_accessor :data, :external_author_name, :external_author_id
 
   # Relationships
   belongs_to :project
@@ -13,6 +12,8 @@ class Comment < ActiveRecord::Base
 
   # Validations
   validates :content, :presence => true
+  validates_inclusion_of(
+    :external_type, :in => Doers::Config.external_types, :if => :external?)
 
   # Callbacks
   # Sanitize user input
@@ -24,13 +25,13 @@ class Comment < ActiveRecord::Base
   # @return OpenStruct to mock user fields
   def author
     user || OpenStruct.new({
-      :nicename => angel_list_author_name,
-      :email => "%s@%s" % [angel_list_author_id, Doers::Config.app_id]
+      :nicename => external_author_name,
+      :email => "%s@%s" % [external_author_id, Doers::Config.app_id]
     })
   end
 
   # Flags if the comment was imported
-  def imported?
-    !angel_list_id.blank?
+  def external?
+    !external_id.blank?
   end
 end

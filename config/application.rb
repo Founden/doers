@@ -40,8 +40,11 @@ module Doers
 
     # Handle Ember.js variant based on environment
     config.ember.variant = ::Rails.env if config.respond_to?(:ember)
+  end
 
-    # TODO: See @github:sprockets-rails/#36
-    config.assets.precompile += %w( doers.js )
+  # Our settings management class
+  class Config < ReadWriteSettings
+    source Rails.root.join('config', 'doers.yml').to_s
+    namespace Rails.env
   end
 end

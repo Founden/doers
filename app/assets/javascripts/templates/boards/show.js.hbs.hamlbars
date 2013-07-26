@@ -10,7 +10,7 @@
   .toolbar
     .tabs
       %ul
-        - Doers::Config.card_groups.title.each do |title|
+        - %w(Media Text).each do |title|
           %li
             %a{:href => ''}
               = title
