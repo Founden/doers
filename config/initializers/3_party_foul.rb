@@ -9,7 +9,7 @@ PartyFoul.configure do |config|
 
   # The API endpoint for GitHub. Unless you are hosting a private
   # instance of Enterprise GitHub you do not need to include this
-  config.endpoint               = 'https://api.github.com'
+  config.api_endpoint           = 'https://api.github.com'
 
   # The Web URL for GitHub. Unless you are hosting a private
   # instance of Enterprise GitHub you do not need to include this

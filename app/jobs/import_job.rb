@@ -29,6 +29,12 @@ class ImportJob < Struct.new(:user, :startup_id)
       startup_id, access_token]
   end
 
+  # Project external type
+  # For now just get the first available
+  def external_type
+    Doers::Config.external_types.first
+  end
+
   # Makes calls to the API and processes the returned JSON
   def process_json(url)
     uri = URI.parse(url)
@@ -53,7 +59,8 @@ class ImportJob < Struct.new(:user, :startup_id)
         :title => data['name'],
         :description => data['high_concept'],
         :website => data['company_url'],
-        :angel_list_id => data['id']
+        :external_id => data['id'],
+        :external_type => external_type
       )
       project.create_logo!(
         :user => user, :attachment => URI.parse(data['thumb_url']))
@@ -68,9 +75,10 @@ class ImportJob < Struct.new(:user, :startup_id)
 
     data.each do |comment|
       project.comments.create!({
-        :angel_list_id => comment['id'],
-        :angel_list_author_id => comment['user']['id'],
-        :angel_list_author_name => comment['user']['name'],
+        :external_id => comment['id'],
+        :external_type => external_type,
+        :external_author_id => comment['user']['id'],
+        :external_author_name => comment['user']['name'],
         :content => comment['comment'],
         :created_at => comment['created_at']
       })
