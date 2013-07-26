@@ -101,11 +101,17 @@ describe User, :use_truncation do
 
       context 'when an owned project has boards' do
         let!(:project) { Fabricate(:project_with_boards, :user => user) }
+        let!(:project_board) { Fabricate(:branched_board, :project => project) }
 
         its('all_boards.count') {
           should eq(project.boards.count +
-                    Board.where(:status => Board::STATES.last).count)
-        }
+                    Board.where(:status => Board::STATES.last).count) }
+
+        context 'the private boards should not be included' do
+          let!(:private_board) { Fabricate(:branched_board) }
+
+          its('all_boards') { should_not include(private_board) }
+        end
       end
     end
   end
