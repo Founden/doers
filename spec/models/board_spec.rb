@@ -1,8 +1,6 @@
 require 'spec_helper'
 
 describe Board do
-  let(:board) { Fabricate(:board) }
-
   it { should belong_to(:user) }
   it { should belong_to(:author) }
   it { should belong_to(:project) }
@@ -15,6 +13,8 @@ describe Board do
   it { should ensure_inclusion_of(:status).in_array(Board::STATES) }
 
   context 'instance' do
+    let(:board) { Fabricate(:board) }
+
     subject { board }
 
     its(:status) { should eq(Board::STATES.first) }
@@ -58,6 +58,26 @@ describe Board do
           subject { branch }
 
           its(:valid?) { should be_false }
+        end
+
+        context 'is not allowed to duplicate' do
+          let(:duplicate_branch) do
+            board.branches.build(
+              :title => title, :user => user, :project => project)
+          end
+
+          before do
+            # Make it a public board
+            board.update_attributes(:status => Board::STATES.last)
+            # Create first branch
+            branch
+          end
+
+          # Try to create the second branch
+          subject { duplicate_branch }
+
+          its(:valid?) { should be_false }
+          its(:has_public_parent_board?) { should be_true }
         end
       end
 
