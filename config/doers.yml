@@ -7,7 +7,7 @@ defaults: &defaults
       client_id: 645e9a49faf15df3cf67853f1ad255bd
       secret_key: d7534214ae71a6ae79a0aa4ba5f7e4ff
   default_email: no-reply@doersapp.com
-  contact_email: sos@doersapp.com
+  contact_email: support@doersapp.com
   admin_regex: !ruby/regexp '/geekcelerator\.com/i'
   external_types:
     - angel_list
