@@ -1,7 +1,7 @@
 defaults: &defaults
   app_name: DOERS
   app_owner: Geekcelerator
-  app_id: doersapp.com
+  app_id: app.doersapp.com
   oauth2_providers:
     angel_list:
       client_id: 645e9a49faf15df3cf67853f1ad255bd
