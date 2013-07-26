@@ -1,18 +1,19 @@
 # API (v1) [Board] controller class
 class Api::V1::BoardsController < Api::V1::ApplicationController
-  # Shows available board
+  # Shows available boards
   def index
-    if params[:status] and params[:status] == Board::STATES.last
-      boards = Board.where(:status => params[:status])
+    if params[:status]
+      boards = current_account.accessible_boards.where(
+        :status => params[:status])
     else
-      boards = current_account.all_boards.where(:id => params[:ids])
+      boards = current_account.accessible_boards.where(:id => params[:ids])
     end
     render :json => boards
   end
 
   # Shows available board
   def show
-    board = current_account.all_boards.find(params[:id])
+    board = current_account.accessible_boards.find(params[:id])
     render :json => board
   end
 
