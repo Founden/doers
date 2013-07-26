@@ -11,6 +11,10 @@ defaults: &defaults
   admin_regex: !ruby/regexp '/geekcelerator\.com/i'
   external_types:
     - angel_list
+  aws:
+    s3:
+      protocol: 'https'
+      bucket: 'app.doersapp.com'
 
 development:
   <<: *defaults
