@@ -1,4 +1,4 @@
-Doers.ImageMapView = Ember.View.extend
+Doers.CardImageMapView = Ember.View.extend
     tagName: 'img'
     classNames: ['image']
     attributeBindings: ['src']
