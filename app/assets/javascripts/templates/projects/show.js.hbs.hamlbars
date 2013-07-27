@@ -12,27 +12,23 @@
 
   .content
     .boards
+      {{#if content.boards}}
       {{#each board in content.boards}}
       .board{:bind => {:id => 'board.slug'}}
-        {{#linkTo 'boards.show' content board}}
-        %h2 {{board.title}}
-        %p.description {{board.description}}
-        %ul.meta
-          %li
-            %span
-              = _('Created by:')
-            {{board.userNicename}}
-          %li
-            %span
-              = _('Updated:')
-            {{board.lastUpdate}}
-        {{/linkTo}}
-        %footer
-          %h4
-            = _('Branched from')
-          %p
-            %a{:href => ''}
-              {{board.parentBoard.title}}
-            = _('by')
-            {{board.parentBoard.authorNicename}}
+        {{#with content as project}}
+        {{#with board}}
+        {{template 'partials/board'}}
+        {{/with}}
+        {{/with}}
       {{/each}}
+      {{else}}
+      %h4
+        = _("Looks like your project has no boards. Let's start with one of the featured boards below.")
+      .public-boards
+        {{#each puboard in controller.publicBoards}}
+        .board{:bind => {:id => 'puboard.slug'}}
+          {{#with puboard}}
+          {{template 'partials/public_board'}}
+          {{/with}}
+        {{/each}}
+      {{/if}}
