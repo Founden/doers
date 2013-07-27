@@ -216,7 +216,12 @@
         font-size: 21px;
         font-weight: 300;
         color: $bw_3;
-        margin: 20px;
+        padding: 20px;
+        outline: 0;
+
+        &.over {
+          background-color: tint($orange, 95%);
+        }
       }
 
       h3 {

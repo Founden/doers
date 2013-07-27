@@ -1,2 +1,3 @@
-Doers.BookView = Ember.View.extend Doers.CardViewMixin,
-  templateName: 'cards/book'
+Doers.BookView = Ember.ContainerView.extend Doers.CardViewMixin,
+  childViews: ['titleView']
+  titleView: Doers.CardTitleView

@@ -1,2 +1,4 @@
-Doers.LinkView = Ember.View.extend Doers.CardViewMixin,
-  templateName: 'cards/link'
+Doers.LinkView = Ember.ContainerView.extend Doers.CardViewMixin,
+  childViews: ['titleView']
+  titleView: Doers.CardTitleView
+

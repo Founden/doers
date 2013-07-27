@@ -1,2 +1,4 @@
-Doers.VideoView = Ember.View.extend Doers.CardViewMixin,
-  templateName: 'cards/video'
+Doers.VideoView = Ember.ContainerView.extend Doers.CardViewMixin,
+  childViews: ['titleView']
+  titleView: Doers.CardTitleView
+
