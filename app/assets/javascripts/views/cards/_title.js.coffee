@@ -2,6 +2,7 @@ Doers.CardTitleView = Ember.View.extend
   tagName: 'h2'
   template: Ember.Handlebars.compile('{{view.content.title}}')
   contentBinding: 'parentView.content'
+  classNames: ['title']
   classNameBindings: ['isEditing:over']
   attributeBindings: ['contenteditable']
   contenteditable: 'true'

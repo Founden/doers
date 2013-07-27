@@ -5,4 +5,6 @@ Doers.CardFooterView = Ember.View.extend
 
   editButton: Ember.View.extend
     tagName: 'a'
-    classNames: ['edit']
+
+    click: (event) ->
+      @toggleProperty('parentView.parentView.parentView.isEditing')

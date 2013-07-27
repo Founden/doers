@@ -1,5 +1,6 @@
 Doers.ImageMapView = Ember.View.extend
     tagName: 'img'
+    classNames: ['image']
     attributeBindings: ['src']
     src: ( ->
       latitude = @get('parentView.content.latitude')
