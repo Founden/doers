@@ -1,22 +1,15 @@
 #board
 
   %header.header
-    %h1
-      {{title}}
-    .buttons
-      %a.button
-        = _('Add new card')
+    .header-content
+      %h1
+        {{title}}
 
-  .toolbar
-    .tabs
-      %ul
-        - %w(Media Text).each do |title|
-          %li
-            %a{:href => ''}
-              = title
-    {{view view.cardTypesView}}
+  .content
+    .toolbar
+      {{view view.cardTypesView}}
 
-  %div{:bind => {:id => 'slug'}}
-    {{#if cards.isLoaded}}
-    {{view view.cardsView contentBinding=cards}}
-    {{/if}}
+    %div{:bind => {:id => 'slug'}}
+      {{#if cards.isLoaded}}
+      {{view view.cardsView contentBinding=cards}}
+      {{/if}}

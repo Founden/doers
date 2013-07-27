@@ -1,52 +1,10 @@
 .content {
-  margin: 40px 0 0 0;
 
-  .header {
-    @include clearfix;
-    margin: 0 0 30px 0;
+  .page {
+    padding: 0 330px 0 0;
 
-    h1 {
-      float: left;
-      font-size: 28px;
-      font-weight: 400;
-      color: $bw_5;
-      margin: 0 0 10px 0;
-    }
-
-    p {
-      clear: left;
-      font-size: 18px;
-      font-weight: 300;
-      color: $bw_5;
-    }
-
-    .avatar {
-      float: left;
-      margin: 0 10px 0 0;
-      border-radius: 50%;
-    }
-
-    .buttons {
-      float: right;
-
-      .button {
-        margin-left: 1em;
-      }
-    }
-  }
-
-  .welcome {
-    width: 660px;
-
-    h2 {
-      font-size: 16px;
-      font-weight: 700;
-      margin: 0 0 20px 0;
-    }
-
-    p {
-      font-size: 16px;
-      margin: 20px 0;
+    h2, p {
+      margin: 0 0 1em 0;
     }
   }
 
@@ -106,60 +64,12 @@
   .toolbar {
     @include clearfix;
     margin: 0 0 30px 0;
-
-    .tabs {
-      @include clearfix;
-      border-bottom: 1px solid $bw_7;
-      margin: 0 0 20px 0;
-
-      li {
-        float: left;
-
-        &.active {
-
-          a {
-            font-weight: 700;
-            border-bottom-color: $green;
-
-            &:hover {
-              border-bottom-color: $green;
-            }
-
-            &:before {
-              content: '';
-              width: 9px;
-              height: 9px;
-              position: absolute;
-              left: 50%;
-              bottom: -8px;
-              margin-left: -5px;
-              border-top: 1px solid $green;
-              border-left: 1px solid $green;
-              background-color: $bw_10;
-              @include transform(rotate(45deg));
-            }
-          }
-        }
-
-        a {
-          font-size: 12px;
-          text-transform: uppercase;
-          display: block;
-          position: relative;
-          padding: 10px 20px 6px 20px;
-          margin-bottom: -1px;
-          border-bottom: 4px solid transparent;
-
-          &:hover {
-            border-bottom-color: $bw_7;
-          }
-        }
-      }
-    }
+    display: none;
 
     .card-types {
       @include clearfix;
-      border-bottom: 1px solid $bw_7;
+      border-bottom: 1px solid $bw_9;
+      padding: 0 0 10px 0;
 
       a {
         float: left;
@@ -189,7 +99,7 @@
     }
   }
 
-  .boards, .public-boards {
+  .boards {
     @include clearfix;
 
     .board {
@@ -246,15 +156,6 @@
           margin: 0 0 0.5em 0;
         }
       }
-    }
-  }
-
-   .public-boards {
-    border-bottom: 1px solid $bw_9;
-    margin: 0 0 30px 0;
-
-    .board {
-      background-color: $bw_9;
     }
   }
 

@@ -1,44 +1,33 @@
 #project
 
   %header.header
-    %h1
-      {{content.title}}
+    .header-content
+      %h1
+        {{content.title}}
 
-  .public-boards
-    {{#each board in publicBoards}}
-    .board{:bind => {:id => 'board.slug'}}
-      %a{:_action => 'createFork board'}
+  .content
+    .boards
+      {{#each board in content.boards}}
+      .board{:bind => {:id => 'board.slug'}}
+        {{#linkTo 'boards.show' content board}}
         %h2 {{board.title}}
+        %p.description {{board.description}}
         %ul.meta
           %li
             %span
               = _('Created by:')
-            {{board.authorNicename}}
-
-    {{/each}}
-
-  .boards
-    {{#each board in content.boards}}
-    .board{:bind => {:id => 'board.slug'}}
-      {{#linkTo 'boards.show' content board}}
-      %h2 {{board.title}}
-      %p.description {{board.description}}
-      %ul.meta
-        %li
-          %span
-            = _('Created by:')
-          {{board.userNicename}}
-        %li
-          %span
-            = _('Updated:')
-          {{board.lastUpdate}}
-      {{/linkTo}}
-      %footer
-        %h4
-          = _('Branched from')
-        %p
-          %a{:href => ''}
-            {{board.parentBoard.title}}
-          = _('by')
-          {{board.parentBoard.authorNicename}}
-    {{/each}}
+            {{board.userNicename}}
+          %li
+            %span
+              = _('Updated:')
+            {{board.lastUpdate}}
+        {{/linkTo}}
+        %footer
+          %h4
+            = _('Branched from')
+          %p
+            %a{:href => ''}
+              {{board.parentBoard.title}}
+            = _('by')
+            {{board.parentBoard.authorNicename}}
+      {{/each}}
