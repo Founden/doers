@@ -98,6 +98,14 @@ describe Board do
         its(:user) { should eq(brancher) }
         its('cards.count') { should eq(board.cards.count) }
 
+        context 'if title is blank' do
+          let(:title) { }
+
+          its(:new_record?) { should be_true }
+          its(:errors) { should_not be_empty }
+          its(:valid?) { should be_false }
+        end
+
         context 'with all the parent board cards' do
           subject { branch.cards.map(&:type).sort }
 
@@ -132,13 +140,6 @@ describe Board do
         end
       end
 
-      context 'if title is blank' do
-        let(:title) { }
-
-        it do
-          expect { board.branch_for(brancher, project, params) }.to raise_error
-        end
-      end
     end
   end
 end
