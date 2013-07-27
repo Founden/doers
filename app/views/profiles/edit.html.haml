@@ -1,20 +1,22 @@
 #profile
 
   %header.header
-    %h1
-      = _('%s Profile') % @profile.nicename
+    .header-content
+      %h1
+        = _('%s Profile') % @profile.nicename
 
-  = form_for @profile,  :url => profile_path(@profile), :html => {:class => 'form'} do |f|
-    %fieldset
-      .field
-        = f.label :avatar
-        = gravatar_tag(@profile.email, {:class => 'avatar', :size => 70})
-      .field
-        = f.label :name, _('Name')
-        = f.text_field :name, :required => true
-      - if current_account.admin?
-        .field.checkbox
-          = f.check_box :confirmed?
-          = f.label :confirmed, _('Allow Beta')
-      .actions
-        = f.submit _('Save'), :class => 'button'
+  .content
+    = form_for @profile,  :url => profile_path(@profile), :html => {:class => 'form'} do |f|
+      %fieldset
+        .field
+          = f.label :avatar
+          = gravatar_tag(@profile.email, {:class => 'avatar', :size => 70})
+        .field
+          = f.label :name, _('Name')
+          = f.text_field :name, :required => true
+        - if current_account.admin?
+          .field.checkbox
+            = f.check_box :confirmed?
+            = f.label :confirmed, _('Allow Beta')
+        .actions
+          = f.submit _('Save'), :class => 'button'
