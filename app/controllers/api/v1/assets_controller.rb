@@ -59,7 +59,7 @@ class Api::V1::AssetsController < Api::V1::ApplicationController
 
     # Strong parameters for updating a new asset
     def asset_params
-      params[:asset] = params[:asset].except(
+      params[:asset].except!(
         :board_id, :type, :project_id, :assetable_id, :assetable_type)
       params.require(:asset).permit(:description, :attachment)
     end
