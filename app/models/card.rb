@@ -3,6 +3,9 @@ class Card < ActiveRecord::Base
   # Available card styles
   STYLES = %w(small medium large)
 
+  # Default scope: order by position
+  default_scope { order(:position) }
+
   # Relationships
   belongs_to :user
   belongs_to :board
@@ -11,6 +14,7 @@ class Card < ActiveRecord::Base
   # Validations
   validates_presence_of :title, :user, :board
   validates_inclusion_of :style, :in => STYLES
+  validates_numericality_of :position
 
   # Callbacks
   after_initialize do
