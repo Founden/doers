@@ -201,8 +201,14 @@
       }
 
       &.edit {
-        width: 100%;
-        margin-right: 0;
+        width: 960px;
+        position: fixed;
+        left: 50%;
+        top: 0;
+        margin: 200px 0 0 -480px;
+        z-index: 100;
+        box-shadow: 0 0 100px rgba($black, 0.2);
+        @include transition(margin-top 0.1s);
 
         .card-content {
           float: left;
@@ -219,16 +225,12 @@
         font-size: 21px;
         font-weight: 300;
         color: $bw_3;
-        padding: 20px;
-        outline: 0;
-
-        &.over {
-          background-color: tint($orange, 95%);
-        }
+        margin: 0 20px 20px 20px;
+        padding: 20px 0 0 0;
       }
 
       .text {
-        margin: 0 20px 20px 20px;
+        margin: 20px;
       }
 
       .image {
