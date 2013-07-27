@@ -36,6 +36,26 @@ class Board < ActiveRecord::Base
     self.description = Sanitize.clean(self.description)
   end
 
+  # Handles boards branching for a user an a project
+  # @param user [User] the branching user
+  # @param project [Project] the project to branch into
+  # @param params [Hash] the parameters like :title to include
+  # @return [Board] the new branch
+  def branch_for(user, project, params)
+    raise _('Board is not available') if !user.accessible_boards.include?(self)
+    raise _('Project is not available') if !user.projects.include?(project)
+
+    board = branches.create!(
+      :title => params[:title], :user => user, :project => project)
+    # Forking the cards
+    self.cards.each do |card|
+      attrs = card.attributes.except('id', 'created_at', 'updated_at').merge(
+        :user => user, :project => project)
+      board.cards.create(attrs)
+    end
+    board
+  end
+
   private
 
   # Checks if parent boards is public
