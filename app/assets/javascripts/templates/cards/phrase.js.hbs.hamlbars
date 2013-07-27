@@ -1,2 +1,2 @@
-%h2 {{view.content.title}}
+{{view view.titleView}}
 %h3 {{view.content.content}}

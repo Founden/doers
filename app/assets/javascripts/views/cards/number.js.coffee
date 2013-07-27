@@ -1,2 +1,4 @@
-Doers.NumberView = Ember.View.extend Doers.CardViewMixin,
-  templateName: 'cards/number'
+Doers.NumberView = Ember.ContainerView.extend Doers.CardViewMixin,
+  childViews: ['titleView']
+  titleView: Doers.CardTitleView
+

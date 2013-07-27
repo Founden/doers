@@ -1,2 +1,4 @@
-Doers.IntervalView = Ember.View.extend Doers.CardViewMixin,
-  templateName: 'cards/interval'
+Doers.IntervalView = Ember.ContainerView.extend Doers.CardViewMixin,
+  childViews: ['titleView']
+  titleView: Doers.CardTitleView
+

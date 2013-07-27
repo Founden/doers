@@ -1,2 +1,3 @@
-Doers.PhraseView = Ember.View.extend Doers.CardViewMixin,
-  templateName: 'cards/phrase'
+Doers.PhraseView = Ember.ContainerView.extend Doers.CardViewMixin,
+  childViews: ['titleView']
+  titleView: Doers.CardTitleView
