@@ -1,19 +1,21 @@
 #profile
 
   %header.header
-    %h1
-      = _('Your Profile')
+    .header-content
+      %h1
+        = _('Your Profile')
 
-  = form_for current_user, :url => profile_path(current_user), :html => { :class => 'form' } do |f|
-    %fieldset
-      .field
-        = f.label :avatar
-        = gravatar_tag(current_user.email, {:class => 'avatar', :size => 120})
-      .field.checkbox
-        = f.check_box :newsletter_allowed?
-        = f.label :newsletter_allowed, _('Email me news sometimes')
-      .field
-        = f.label :name, _('Name')
-        = f.text_field :name, :required => true
-      .actions
-        = f.submit _('Save'), :class => 'button'
+  .content
+    = form_for current_user, :url => profile_path(current_user), :html => { :class => 'form' } do |f|
+      %fieldset
+        .field
+          = f.label :avatar
+          = gravatar_tag(current_user.email, {:class => 'avatar', :size => 120})
+        .field.checkbox
+          = f.check_box :newsletter_allowed?
+          = f.label :newsletter_allowed, _('Email me news sometimes')
+        .field
+          = f.label :name, _('Name')
+          = f.text_field :name, :required => true
+        .actions
+          = f.submit _('Save'), :class => 'button'

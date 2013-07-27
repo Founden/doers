@@ -1,10 +1,9 @@
 #profile
 
   %header.header
-    = gravatar_tag(@profile.email, {:class => 'avatar', :size => 42})
-    %h1
-      = @profile.nicename
-
-  .profile
-    %p
-      = mail_to @profile.email, @profile.email
+    .header-content
+      = gravatar_tag(@profile.email, {:class => 'avatar', :size => 58})
+      %h1
+        = @profile.nicename
+      %p
+        = mail_to @profile.email, @profile.email

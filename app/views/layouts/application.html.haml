@@ -24,12 +24,8 @@
 
     = render('shared/topbar')
     = render('shared/alerts')
-
     .wrapper
-      .content{:role => :main}
-        = yield
-
-    %footer.footer{:role => :contentinfo}
+      = yield
       = render('shared/footer')
 
     = javascript_include_tag 'application'

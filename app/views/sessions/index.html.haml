@@ -1,13 +1,12 @@
 #sign-in
 
   %header.header
-    %h1
-      = _('Sign in to continue')
-    %p
-      = _('You can use your Angel List account so we can sync with existing startups you have access to and help you win some time.')
+    .header-content
+      %h1
+        = _('Sign in to continue')
+      %p
+        = _('You can use your Angel List account so we can sync with existing startups you have access to and help you win some time.')
 
-  .welcome
-    %h2
-      = _('Sign in or register with')
+  .content
     %a{:href => oauth2_sign_in_path(:provider => :angel_list), :class => 'button'}
-      = _('Angel List')
+      = _('Sign in with Angel List')

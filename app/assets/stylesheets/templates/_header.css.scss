@@ -1,0 +1,62 @@
+.header {
+  margin: 0 0 30px 0;
+  border-bottom: 1px solid $bw_9;
+  position: relative;
+
+  .header-content {
+    padding: 30px 330px 30px 0;
+
+    h1 {
+      font-size: 28px;
+      font-weight: 400;
+      color: $bw_5;
+    }
+
+    p {
+      margin: 10px 0 0 0;
+      font-size: 18px;
+      color: $bw_7;
+    }
+
+    .avatar {
+      float: left;
+      margin: 0 20px 0 0;
+      border-radius: 50%;
+    }
+  }
+
+  .tabs {
+    position: absolute;
+    right: 20px;
+    bottom: -1px;
+
+    li {
+      float: left;
+
+      &.active {
+
+        a {
+          border-color: $bw_9;
+          border-top-color: $green;
+          border-bottom-color: transparent;
+          background-color: $bw_10;
+        }
+      }
+    }
+
+    a {
+      display: block;
+      padding: 10px 20px;
+      text-transform: uppercase;
+      font-size: 12px;
+      color: $bw_5;
+      border: 1px solid transparent;
+      border-top-width: 2px;
+      border-bottom: none;
+
+      &:hover {
+        color: $bw_1;
+      }
+    }
+  }
+}
