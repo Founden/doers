@@ -107,34 +107,54 @@ describe Api::V1::BoardsController do
   end
 
   describe '#create' do
+    let(:board) { Fabricate(:persona_board) }
     let(:project) { Fabricate(:project, :user => user) }
-    let(:board_attrs) { Fabricate.attributes_for(
-        :branched_board, :project => project, :user => user) }
+    let(:title) { Faker::Lorem.sentence }
+    let(:attrs) { Fabricate.attributes_for(:branched_board,
+      :project => project, :user => user, :parent_board => board,:title=>title)}
 
-    before { post(:create, :board => board_attrs) }
+    context 'when parent board and project are available' do
+      before { post(:create, :board => attrs) }
 
-    subject(:api_board) { json_to_ostruct(response.body, :board) }
+      subject(:api_board) { json_to_ostruct(response.body, :board) }
 
-    its('keys.size') { should eq(14) }
-    its(:title) { should eq(board_attrs['title']) }
-    its(:description) { should eq(board_attrs['description']) }
-    its(:user_id) { should eq(user.id) }
-    its(:project_id) { should eq(project.id) }
-    its(:parent_board_id) { should eq(board_attrs['parent_board_id']) }
+      its('keys.size') { should eq(14) }
+      its(:title) { should eq(title) }
+      its(:description) { should be_nil }
+      its(:user_id) { should eq(user.id) }
+      its(:project_id) { should eq(project.id) }
+      its(:parent_board_id) { should eq(board.id) }
 
-    context 'ignores wrong attributes' do
-      pending
-    end
+      context 'when title is not set' do
+        let(:title) { nil }
 
-    context 'on missing attributes' do
-      subject(:api_board) { json_to_ostruct(response.body) }
+        subject { json_to_ostruct(response.body) }
 
-      context 'like project' do
-        let(:project) {}
-
-        its('errors.size') { should eq(1) }
+        its('errors.count') { should_not eq(0) }
+        it 'gives status 400' do
+          response.status.should eq(400)
+        end
       end
     end
+
+    context 'when parent board is not accessible' do
+      let(:board) { Fabricate(:board) }
+
+      it 'raises not found' do
+        expect{ post(:create, :board => attrs) }.to raise_error(
+          ActiveRecord::RecordNotFound)
+      end
+    end
+
+    context 'when project is not accessible' do
+      let(:board) { Fabricate(:board) }
+
+      it 'raises not found' do
+        expect{ post(:create, :board => attrs) }.to raise_error(
+          ActiveRecord::RecordNotFound)
+      end
+    end
+
   end
 
   describe '#update' do

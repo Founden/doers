@@ -29,21 +29,14 @@ describe Image do
     its(:description){ should_not match(/\<\>/) }
   end
 
-  context 'attachment must be downloaded' do
+  context 'attachment URL' do
     let(:image_url) { URI.parse('http://test.example.com/test.png') }
-    let(:image) { Fabricate.build(:image, :attachment => image_url) }
 
-    subject { image }
-
-    before do
-      stub_request(:get, image_url.to_s).to_return(
-        :body => File.read(Rails.root.join('spec/fixtures/test.png')),
-        :headers => { 'Content-Type' => 'image/png' }
-      )
-      image.save
+    it do
+      expect{
+        Fabricate.build(:image, :attachment => image_url)
+      }.to raise_error Errno::ENOENT
     end
-
-    its(:attachment) { should_not be_nil }
   end
 
 end
