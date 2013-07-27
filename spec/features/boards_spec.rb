@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'Boards', :js, :slow, :vcr => {:cassette_name=>:angel_list_oauth2} do
+feature 'Boards', :js, :slow, :vcr do
   background do
     sign_in_with_angel_list
   end
@@ -13,7 +13,8 @@ feature 'Boards', :js, :slow, :vcr => {:cassette_name=>:angel_list_oauth2} do
     end
 
     scenario 'are shown' do
-      expect(page).to have_css('#project .boards .board', :count => project.boards.count)
+      expect(page).to have_css(
+        '#project .boards .board', :count => project.boards.count)
     end
 
     pending('test what details are shown')
@@ -27,13 +28,15 @@ feature 'Boards', :js, :slow, :vcr => {:cassette_name=>:angel_list_oauth2} do
       visit root_path(:anchor => 'projects/%d' % project.id)
     end
 
-    scenario 'are shown' do
-      expect(page).to have_css('#project .public-boards .board', :count => boards.count)
+    it 'are shown' do
+      expect(page).to have_css(
+        '#project .public-boards .board', :count => boards.count)
     end
 
-    scenario 'can be forked' do
-      find('#board-%d a' % boards.first.id).click
-      expect(page).to have_content(boards.first.title)
+    scenario 'and once clicked create a new branch' do
+      pending
+      # find('#board-%d a' % boards.first.id).click
+      # expect(page).to have_content(boards.first.title)
     end
 
   end

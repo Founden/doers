@@ -75,37 +75,43 @@ describe User, :use_truncation do
       it { should_not be_valid }
     end
 
-    context '#all_boards' do
-      its(:all_boards) { should be_empty }
+    context '#accessible_boards' do
+      its(:accessible_boards) { should be_empty }
 
       context 'when created a board' do
         let!(:board) { Fabricate(:board, :author => user) }
 
-        its('all_boards.count') { should eq(1) }
-        its('all_boards.first.id') { should eq(board.id) }
+        its('accessible_boards.count') { should eq(1) }
+        its('accessible_boards.first.id') { should eq(board.id) }
       end
 
       context 'when there is a public board' do
         let!(:board) { Fabricate(:board, :status => Board::STATES.last) }
 
-        its('all_boards.count') { should eq(1) }
-        its('all_boards.first.id') { should eq(board.id) }
+        its('accessible_boards.count') { should eq(1) }
+        its('accessible_boards.first.id') { should eq(board.id) }
       end
 
       context 'when branched a board' do
         let!(:board) { Fabricate(:branched_board, :user => user) }
 
-        its('all_boards.count') { should eq(2) }
-        its(:all_boards) { should include(board) }
+        its('accessible_boards.count') { should eq(2) }
+        its(:accessible_boards) { should include(board) }
       end
 
       context 'when an owned project has boards' do
         let!(:project) { Fabricate(:project_with_boards, :user => user) }
+        let!(:project_board) { Fabricate(:branched_board, :project => project) }
 
-        its('all_boards.count') {
+        its('accessible_boards.count') {
           should eq(project.boards.count +
-                    Board.where(:status => Board::STATES.last).count)
-        }
+                    Board.where(:status => Board::STATES.last).count) }
+
+        context 'the private boards should not be included' do
+          let!(:private_board) { Fabricate(:branched_board) }
+
+          its('accessible_boards') { should_not include(private_board) }
+        end
       end
     end
   end
