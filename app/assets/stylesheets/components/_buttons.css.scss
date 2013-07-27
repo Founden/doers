@@ -2,11 +2,10 @@
   display: inline-block;
   background-color: $primary-color;
   color: $white;
-  padding: 0 1.5em;
+  padding: 9px 20px 11px 20px;
   border: 0;
+  line-height: 20px;
   border-radius: 3px;
-  font-weight: 600;
-  line-height: 3em;
   cursor: pointer;
   @include transition(background-color 0.2s);
 
