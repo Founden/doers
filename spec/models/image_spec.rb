@@ -28,15 +28,4 @@ describe Image do
 
     its(:description){ should_not match(/\<\>/) }
   end
-
-  context 'attachment URL' do
-    let(:image_url) { URI.parse('http://test.example.com/test.png') }
-
-    it do
-      expect{
-        Fabricate.build(:image, :attachment => image_url)
-      }.to raise_error Errno::ENOENT
-    end
-  end
-
 end
