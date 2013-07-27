@@ -161,24 +161,15 @@
 
   .cards {
     @include clearfix;
-
-    &.over {
-
-      &:before {
-        content: 'Drop it!';
-        width: 300px;
-        height: 300px;
-        margin: 0 30px 30px 0;
-      }
-    }
+    position: relative;
 
     .card {
+      @include clearfix;
       float: left;
       width: 300px;
       margin: 0 30px 30px 0;
       background-color: $white;
       position: relative;
-      overflow: hidden;
       border-top: 5px solid $bw_7;
 
       &:nth-of-type(3n) {
@@ -205,14 +196,21 @@
           border-top-color: $green;
       }
 
-      &.map {
-
-          img {
-              height: 300px;
-          }
+      &.map .image {
+        height: 300px;
       }
 
-      h2 {
+      &.edit {
+        width: 100%;
+        margin-right: 0;
+      }
+    }
+
+    .card-content {
+      width: 300px;
+      float: left;
+
+      .title {
         font-size: 21px;
         font-weight: 300;
         color: $bw_3;
@@ -224,44 +222,15 @@
         }
       }
 
-      h3 {
-        font-size: 14px;
-        margin: 20px;
-      }
-
-      p {
-          margin: 20px;
-      }
-
-      time {
-          display: block;
-          margin: 20px;
-          font-size: 14px;
-          font-weight: 700;
-      }
-
-      img {
+      .image {
         display: block;
         width: 100%;
-      }
-
-      footer {
-        border-top: 1px solid $bw_9;
-        padding: 20px;
-        color: $bw_7;
-
-        .avatar {
-          float: left;
-          width: 34px;
-          height: 34px;
-          border-radius: 50%;
-          margin: 4px 10px 4px 0;
-        }
       }
 
       .asset-upload {
         border: 2px dashed $bw_9;
         margin: 20px;
+        padding: 20px;
         text-align: center;
         color: $bw_7;
         cursor: pointer;
@@ -277,6 +246,29 @@
           float: left;
         }
       }
+
+      footer {
+        border-top: 1px solid $bw_9;
+        padding: 20px;
+        color: $bw_7;
+
+        .avatar {
+          float: left;
+          width: 34px;
+          height: 34px;
+          border-radius: 50%;
+          margin: 4px 10px 4px 0;
+        }
+      }
+    }
+
+    .card-edit {
+      float: right;
+      width: 620px;
+      min-height: 300px;
+      padding: 20px;
+      background-color: $bw_9;
+      box-shadow: inset 1px 0 1px rgba($black, 0.1);
     }
   }
 }

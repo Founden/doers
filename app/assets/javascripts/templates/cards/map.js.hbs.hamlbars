@@ -1,4 +1,0 @@
-%h2 {{view.content.title}}
-%h3 {{view.content.location}}
-%p {{view.content.address}}
-{{view view.imageMap}}
