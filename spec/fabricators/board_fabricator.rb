@@ -16,22 +16,30 @@ Fabricator(:branched_board, :class_name => Board) do
   end
 end
 
-Fabricator(:persona_board, :class_name => Board) do
+Fabricator(:public_board, :from => :board) do
+  transient   :card_types => %w(card/book card/interval card/link card/map
+    card/number card/paragraph card/photo card/phrase card/timestamp card/video)
+
+  status  { Board::STATES.last }
+
+  after_create do |board, transients|
+    transients[:card_types].each do |type|
+      Fabricate(
+        type, :board => board, :user => board.author)
+    end
+  end
+end
+
+Fabricator(:persona_board, :from => :public_board) do
   title       { sequence(:persona_title){|t| 'Persona board nr.%d' % t} }
-  description { Faker::Lorem.sentence }
-  author(:fabricator => :user)
 end
 
-Fabricator(:problem_board, :class_name => Board) do
+Fabricator(:problem_board, :from => :public_board) do
   title       { sequence(:problem_title){|t| 'Problem board nr.%d' % t} }
-  description { Faker::Lorem.sentence }
-  author(:fabricator => :user)
 end
 
-Fabricator(:solution_board, :class_name => Board) do
+Fabricator(:solution_board, :from => :public_board) do
   title       { sequence(:solution_title){|t| 'Solution board nr.%d' % t} }
-  description { Faker::Lorem.sentence }
-  author(:fabricator => :user)
 end
 
 Fabricator(:board_with_cards, :from => :branched_board) do

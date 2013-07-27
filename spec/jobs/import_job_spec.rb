@@ -41,12 +41,15 @@ describe ImportJob do
 
   context '#process_json' do
     let(:json) { ['a', 'b', 'c'].to_json }
+    let(:request) { OpenStruct.new(:body => json, :code => '200') }
 
     before do
-      stub_request(:get, import.startup_url).to_return(:body => json)
+      Net::HTTP.should_receive(:get_response).and_return(request)
     end
 
-    subject(:data) { import.process_json(import.startup_url) }
+    subject(:data) do
+      import.process_json(import.startup_url)
+    end
 
     its(:first) { should eq('a') }
     its(:size) { should eq(3) }

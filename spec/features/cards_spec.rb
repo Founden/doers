@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'Cards', :js, :slow, :vcr => {:cassette_name=>:angel_list_oauth2} do
+feature 'Cards', :js, :slow, :vcr do
   background do
     sign_in_with_angel_list
   end
