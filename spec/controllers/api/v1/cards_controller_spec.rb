@@ -214,6 +214,17 @@ describe Api::V1::CardsController do
 
       subject(:api_card) { json_to_ostruct(response.body, :card) }
 
+      context 'user is updated to latest user who did changes' do
+        let(:card_attrs) { Fabricate.attributes_for('card/phrase') }
+        let(:card) { Fabricate(
+          'card/phrase', :project => project, :board => board) }
+
+        subject(:api_card) { json_to_ostruct(response.body, :card) }
+
+        its(:user_id) { should eq(user.id) }
+        its(:user_id) { should_not eq(card.id) }
+      end
+
       context 'phrase card' do
         let(:card_attrs) { Fabricate.attributes_for('card/phrase') }
         let(:card) {

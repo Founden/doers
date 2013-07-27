@@ -36,7 +36,7 @@ class Api::V1::CardsController < Api::V1::ApplicationController
     card = klass.find_by!(
       :id => params[:id], :project_id => current_account.projects)
 
-    card_params = card_params.merge({:user => current_account})
+    card_params.merge!({:user => current_account})
     begin
       card.update_attributes(card_params.except(:type))
       render :json => card
