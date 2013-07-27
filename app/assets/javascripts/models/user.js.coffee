@@ -19,8 +19,6 @@ Doers.User = DS.Model.extend
     $.ajax
       url: url
       dataType: 'jsonp'
-      jsonpCallback: '_cb'
-      cache: true
       success: (response) ->
         startups = self.get('startups')
         response.startup_roles.forEach ((role) ->
