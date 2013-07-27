@@ -4,6 +4,7 @@ Doers.User = DS.Model.extend
   angelListToken: DS.attr('string', readOnly: true)
   importing: DS.attr('boolean', readOnly: true)
   startups: Ember.ArrayController.create()
+  avatarUrl: DS.attr('string', readOnly: true)
 
   startupsUrl: ( ->
     'https://api.angel.co/1/startup_roles?v=1&user_id=' +
