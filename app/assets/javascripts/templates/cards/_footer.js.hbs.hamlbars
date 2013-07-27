@@ -1,3 +1,4 @@
+%img{:class => 'avatar', :bind => {:src => 'view.content.user.avatarUrl'}}
 = _('Modified on')
 {{view.content.lastUpdate}}
 %br/

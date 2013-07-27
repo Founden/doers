@@ -249,6 +249,14 @@
         border-top: 1px solid $bw_9;
         padding: 20px;
         color: $bw_7;
+
+        .avatar {
+          float: left;
+          width: 34px;
+          height: 34px;
+          border-radius: 50%;
+          margin: 4px 10px 4px 0;
+        }
       }
 
       .asset-upload {
