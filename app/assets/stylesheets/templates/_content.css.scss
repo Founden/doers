@@ -252,17 +252,18 @@
       }
 
       .asset-upload {
-        border: 5px dashed $bw_9;
-        margin: 10px;
+        border: 2px dashed $bw_9;
+        margin: 20px;
         text-align: center;
-        color: $bw_9;
+        color: $bw_7;
+        cursor: pointer;
 
         &:hover, &.hover {
-          border: 5px dashed $bw_5;
+          border-color: $bw_7;
           color: $bw_5;
         }
 
-        input[type="file"] {
+        input[type='file'] {
           width: 0;
           height: 0;
           float: left;
