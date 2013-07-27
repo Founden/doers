@@ -4,6 +4,11 @@
     .header-content
       %h1
         {{content.title}}
+      %p
+        {{content.description}}
+      %small
+        %a{:bind => {:href => 'content.website'}}
+          {{website content.website}}
 
   .content
     .boards
