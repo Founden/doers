@@ -1,6 +1,7 @@
 Doers.CardViewMixin = Ember.Mixin.create
   classNames: ['card']
   classNameBindings: ['typeClassName', 'isEditing:edit']
+  childViews: ['contentView', 'editView']
   isEditing: false
 
   typeClassName: ( ->
