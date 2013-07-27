@@ -1,26 +1,25 @@
 #waiting
 
   %header.header
-    %h1
-      = _('Thank you %s for applying') % current_account.name
+    .header-content
+      %h1
+        = _('Thank you %s for applying') % current_account.name
 
-  .welcome
-    %h2
-      = _("You're on the list!")
-    %p
-      = _('To make sure we make the most of this beta testing phase, it might take a while for us to to get back to you.')
-      = _('We appreciate your patience.')
-      = _('We will email you as soon as we are able to grant you access on Doers.')
-    %p
-      = _('We are looking to have a diverse group of beta customers.')
-      = _('So in order to facilitate for us the process, please choose your status below:')
-
-    = form_for(current_account, :url => waiting_pages_path) do |f|
+  .content
+    .page
+      %h2
+        = _("You're on the list!")
       %p
-        = f.select :interest, User::INTERESTS
-
+        = _('To make sure we make the most of this beta testing phase, it might take a while for us to to get back to you.')
+        = _('We appreciate your patience.')
+        = _('We will email you as soon as we are able to grant you access on Doers.')
       %p
-        = f.check_box :newsletter_allowed?
-        = f.label :newsletter_allowed, _('Please email me news sometimes.')
-
-      = f.submit _('Save'), :class => 'button'
+        = _('We are looking to have a diverse group of beta customers.')
+        = _('So in order to facilitate for us the process, please choose your status below:')
+      = form_for(current_account, :url => waiting_pages_path) do |f|
+        %p
+          = f.select :interest, User::INTERESTS
+        %p
+          = f.check_box :newsletter_allowed?
+          = f.label :newsletter_allowed, _('Please email me news sometimes.')
+        = f.submit _('Save'), :class => 'button'
