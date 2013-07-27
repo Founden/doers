@@ -4,6 +4,10 @@ describe Api::V1::BoardsController do
 
   describe 'routing' do
 
+    it 'for showing available boards' do
+      get('/api/v1/boards').should route_to('api/v1/boards#index')
+    end
+
     it 'for showing one board' do
       get('/api/v1/boards/1').should route_to('api/v1/boards#show', :id => '1')
     end

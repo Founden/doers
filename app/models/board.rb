@@ -20,7 +20,11 @@ class Board < ActiveRecord::Base
   validates_presence_of :project, :if => :parent_board
   # Require a user on `branch-ing`
   validates_presence_of :user, :if => :parent_board
+  # Status should be one from our list
   validates :status, :inclusion => {:in => STATES}
+  # Do not create multiple branches of the same parent board
+  validates :parent_board_id,
+    :uniqueness => {:scope => :project_id}, :if => :has_public_parent_board?
 
   # Callbacks
   after_initialize do
@@ -30,5 +34,32 @@ class Board < ActiveRecord::Base
     # Sanitize user input
     self.title = Sanitize.clean(self.title)
     self.description = Sanitize.clean(self.description)
+  end
+
+  # Handles boards branching for a user an a project
+  # @param user [User] the branching user
+  # @param project [Project] the project to branch into
+  # @param params [Hash] the parameters like :title to include
+  # @return [Board] the new branch
+  def branch_for(user, project, params)
+    raise _('Board is not available') if !user.accessible_boards.include?(self)
+    raise _('Project is not available') if !user.projects.include?(project)
+
+    board = branches.create(
+      :title => params[:title], :user => user, :project => project)
+    # Forking the cards
+    self.cards.each do |card|
+      attrs = card.attributes.except('id', 'created_at', 'updated_at').merge(
+        :user => user, :project => project)
+      board.cards.create(attrs)
+    end unless board.new_record?
+    board
+  end
+
+  private
+
+  # Checks if parent boards is public
+  def has_public_parent_board?
+    self.parent_board && self.parent_board.status.eql?(STATES.last)
   end
 end

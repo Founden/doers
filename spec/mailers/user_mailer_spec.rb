@@ -28,7 +28,7 @@ describe UserMailer do
     before { UserMailer.startup_imported(project).deliver }
 
     it_should_behave_like 'an email from us'
-    its('body.encoded') { should match(user.nicename) }
+    its(:body) { should match(user.nicename) }
     its('body.encoded') { should match(project.title) }
   end
 end
