@@ -1,12 +1,8 @@
-%form{:class => 'form'}
+%form
   %fieldset
     .field
-      %label
-        = _('Title')
-      {{view Ember.TextField valueBinding='view.content.title' placeholder='Give it a nice title' required='true'}}
+      {{view Ember.TextField valueBinding='view.content.title' placeholder='Give it a nice title' autocomplete='false' required='true'}}
     .field
-      %label
-        = _('Content')
-      {{view Ember.TextArea valueBinding='view.content.content' placeholder='Give it a nice content' rows='4' required='true'}}
+      {{view Ember.TextArea valueBinding='view.content.content' placeholder='Give it a nice content' rows='10' required='true'}}
     .actions
       %input.button{:type => :submit, :value => _('Save'), :id => 'project-save'}

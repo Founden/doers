@@ -168,7 +168,7 @@
       float: left;
       width: 300px;
       margin: 0 30px 30px 0;
-      background-color: $white;
+      background-color: $bw_9;
       position: relative;
       border-top: 5px solid $bw_7;
 
@@ -203,12 +203,17 @@
       &.edit {
         width: 100%;
         margin-right: 0;
+
+        .card-content {
+          float: left;
+          width: 300px;
+          min-height: 400px;
+        }
       }
     }
 
     .card-content {
-      width: 300px;
-      float: left;
+      background-color: $white;
 
       .title {
         font-size: 21px;
@@ -220,6 +225,10 @@
         &.over {
           background-color: tint($orange, 95%);
         }
+      }
+
+      .text {
+        margin: 0 20px 20px 20px;
       }
 
       .image {
@@ -264,11 +273,42 @@
 
     .card-edit {
       float: right;
-      width: 620px;
-      min-height: 300px;
-      padding: 20px;
+      width: 660px;
+      min-height: 400px;
       background-color: $bw_9;
       box-shadow: inset 1px 0 1px rgba($black, 0.1);
+
+      fieldset {
+        border: 0;
+        padding: 40px 40px 80px 40px;
+      }
+
+      .field {
+        margin: 0 0 20px 0;
+      }
+
+      #{$all-text-inputs}, textarea {
+        border: 0;
+        padding: 0;
+        margin: 0;
+        font-size: 18px;
+        line-height: 1.5em;
+        outline: 0;
+        width: 100%;
+        background-color: transparent;
+        @include transition(all 0.2s);
+      }
+
+      textarea {
+        font-size: 14px;
+        resize: none;
+      }
+
+      .actions {
+        position: absolute;
+        right: 20px;
+        bottom: 20px;
+      }
     }
   }
 }
