@@ -6,7 +6,9 @@ feature 'Boards', :js, :slow, :vcr do
   end
 
   context 'from an existing project' do
-    given(:project) { Fabricate(:project_with_boards, :user => User.first) }
+    given(:user) { User.first }
+    given!(:project) { Fabricate(:project_with_boards, :user => user) }
+    given!(:public_board) {}
 
     background do
       visit root_path(:anchor => 'projects/%d' % project.id)
@@ -17,28 +19,27 @@ feature 'Boards', :js, :slow, :vcr do
         '#project .boards .board', :count => project.boards.count)
     end
 
-    pending('test what details are shown')
-  end
+    context 'when no boards are available' do
+      given(:public_board) { Fabricate(:public_board) }
+      given(:project) { Fabricate(:project, :user => user) }
 
-  context 'that are public' do
-    given(:project) { Fabricate(:project_with_boards, :user => User.first) }
-    given(:boards) { Board.where(:status => Board::STATES.last) }
+      scenario 'some public boards are shown' do
+        expect(page).to have_css('#project .public-boards .board', :count => 1)
+        expect(page).to have_content(public_board.title)
+      end
 
-    background do
-      visit root_path(:anchor => 'projects/%d' % project.id)
+      context 'on click' do
+        background do
+          find('#board-%d a' % public_board.id).click
+        end
+
+        scenario 'creates a branch for currrent project' do
+          expect(page).to have_content(public_board.title)
+          sleep(1)
+          expect(user.cards.count).to eq(public_board.cards.count)
+        end
+      end
     end
-
-    it 'are shown' do
-      expect(page).to have_css(
-        '#project .public-boards .board', :count => boards.count)
-    end
-
-    scenario 'and once clicked create a new branch' do
-      pending
-      # find('#board-%d a' % boards.first.id).click
-      # expect(page).to have_content(boards.first.title)
-    end
-
   end
 
 end
