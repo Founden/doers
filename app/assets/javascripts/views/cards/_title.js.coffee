@@ -12,5 +12,6 @@ Doers.CardTitleView = Ember.View.extend
 
   focusOut: (event) ->
     @set('content.title', @$().text())
-    @get('content').save()
+    @get('content').save().then =>
+      @get('content').reload()
     @set('isEditing', false)
