@@ -61,7 +61,6 @@ end
 
 group :test do
   gem 'vcr'
-  gem 'webmock'
   gem 'poltergeist'
   gem 'puffing-billy'
   gem 'database_cleaner'
