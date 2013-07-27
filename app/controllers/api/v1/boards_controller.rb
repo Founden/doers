@@ -19,12 +19,18 @@ class Api::V1::BoardsController < Api::V1::ApplicationController
 
   # Handles board creation
   def create
-    # TODO: handle project relationship
-    board = current_account.boards.build(new_board_params)
-    if board.save
-      render :json => board
+    # Lets raise 404 if parent board or project is not available
+    parent_board = current_account.accessible_boards.find_by!(
+      :id => create_params[:parent_board_id])
+    project = current_account.projects.find_by!(
+      :id => create_params[:project_id])
+
+    branch = parent_board.branch_for(current_account, project, create_params)
+    if branch.errors.empty?
+      render :json => branch
     else
-      render :json => { :errors => board.errors.messages }
+      errors = branch.errors.messages
+      render :json => { :errors => errors }, :status => 400
     end
   end
 
@@ -48,8 +54,7 @@ class Api::V1::BoardsController < Api::V1::ApplicationController
   private
 
     # Strong parameters for creating a new board
-    def new_board_params
-      # TODO: Authorize if only parent board is public and project is owned
+    def create_params
       params.require(:board).
         permit(:title, :description, :project_id, :parent_board_id)
     end
