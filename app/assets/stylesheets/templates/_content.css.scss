@@ -239,26 +239,6 @@
         width: 100%;
       }
 
-      .asset-upload {
-        border: 2px dashed $bw_9;
-        margin: 20px;
-        padding: 20px;
-        text-align: center;
-        color: $bw_7;
-        cursor: pointer;
-
-        &:hover, &.hover {
-          border-color: $bw_7;
-          color: $bw_5;
-        }
-
-        input[type='file'] {
-          width: 0;
-          height: 0;
-          float: left;
-        }
-      }
-
       footer {
         border-top: 1px solid $bw_9;
         padding: 20px;
@@ -305,6 +285,26 @@
 
       textarea {
         font-size: 14px;
+      }
+
+      .asset-upload {
+        border: 2px dashed $bw_7;
+        line-height: 200px;
+        text-align: center;
+        cursor: pointer;
+        color: $bw_7;
+        @include transition(all 0.2s);
+
+        &:hover, &.hover {
+          border-color: $bw_5;
+          color: $bw_5;
+        }
+
+        input[type='file'] {
+          width: 0;
+          height: 0;
+          float: left;
+        }
       }
 
       .actions {
