@@ -202,18 +202,19 @@
 
       &.edit {
         width: 960px;
+        height: 600px;
         position: fixed;
         left: 50%;
-        bottom: 0;
-        margin: 0 0 0 -480px;
+        top: 50%;
+        margin: -300px 0 0 -480px;
         z-index: 100;
         box-shadow: 0 0 100px rgba($black, 0.8);
-        @include transition(margin-top 0.1s);
+        overflow-y: scroll;
 
         .card-content {
           float: left;
           width: 300px;
-          min-height: 400px;
+          min-height: 600px;
         }
       }
     }
@@ -277,7 +278,7 @@
       float: right;
       position: relative;
       width: 660px;
-      min-height: 400px;
+      height: 600px;
       background-color: $bw_9;
       box-shadow: inset 1px 0 1px rgba($black, 0.1);
 
@@ -304,13 +305,15 @@
 
       textarea {
         font-size: 14px;
-        resize: none;
       }
 
       .actions {
+        position: absolute;
+        right: 40px;
+        bottom: 40px;
 
         .button {
-          margin-right: 1em;
+          margin-left: 1em;
         }
       }
     }
