@@ -24,6 +24,7 @@ Doers::Application.routes.draw do
       resources(:boards)
       resources(:cards)
       resources(:assets)
+      resources(:embeds, :only => [:index])
     end
   end
 
