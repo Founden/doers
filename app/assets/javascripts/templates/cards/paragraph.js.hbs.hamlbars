@@ -1,2 +1,0 @@
-%h2 {{view.content.title}}
-%p {{view.content.content}}

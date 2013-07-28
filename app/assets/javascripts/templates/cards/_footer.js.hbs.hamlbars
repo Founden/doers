@@ -1,0 +1,11 @@
+%img{:class => 'avatar', :bind => {:src => 'view.content.user.avatarUrl'}}
+= _('Modified on')
+{{view.content.lastUpdate}}
+%br/
+= _('by')
+{{view.content.user.nicename}}
+(
+{{#view view.editButton}}
+=  _('edit')
+{{/view}}
+)
