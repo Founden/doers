@@ -7,6 +7,7 @@ body {
 a {
   color: $bw_1;
   text-decoration: none;
+  cursor: pointer;
   @include transition(color 0.2s);
 
   &:hover {

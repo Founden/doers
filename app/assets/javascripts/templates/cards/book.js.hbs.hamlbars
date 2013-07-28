@@ -1,5 +1,0 @@
-%h2 {{view.content.title}}
-%a{:bind => {:href => 'view.content.url'}}
-  %h3 {{view.content.bookTitle}}
-  %p {{view.content.bookAuthors}}
-  %img{:bind => {:src => 'view.content.image.attachment'}}

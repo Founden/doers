@@ -1,7 +1,0 @@
-%h2 {{view.content.title}}
-%h3
-  {{view.content.minimum}}
-  &mdash;
-  {{view.content.selected}}
-  &mdash;
-  {{view.content.maximum}}
