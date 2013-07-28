@@ -1,4 +1,4 @@
-Doers.CardViewMixin = Ember.Mixin.create
+Doers.CardView = Ember.ContainerView.extend
   classNames: ['card']
   classNameBindings: ['typeClassName', 'isEditing:edit']
   childViews: ['contentView', 'editView']
