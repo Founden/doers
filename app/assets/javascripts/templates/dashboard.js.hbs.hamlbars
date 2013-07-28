@@ -25,6 +25,7 @@
         {{/if}}
         %h3 {{project.title}}
         %p {{project.description}}
+        %small {{website project.website}}
         {{/linkTo}}
       {{/each}}
     {{/if}}

@@ -1,0 +1,21 @@
+{{#linkTo 'boards.show' project board}}
+%h2 {{title}}
+%p.description {{description}}
+%ul.meta
+  %li
+    %span
+      = _('Created by:')
+    {{userNicename}}
+  %li
+    %span
+      = _('Updated:')
+    {{lastUpdate}}
+{{/linkTo}}
+%footer
+  %h4
+    = _('Branched from')
+  %p
+    %a{:href => ''}
+      {{parentBoard.title}}
+    = _('by')
+    {{parentBoard.authorNicename}}

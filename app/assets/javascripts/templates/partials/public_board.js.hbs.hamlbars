@@ -1,0 +1,27 @@
+%a{:_action => 'createFork puboard'}
+  %h2 {{title}}
+  %p.description {{description}}
+  %ul.meta
+    %li
+      %span
+        = _('Created by:')
+      {{authorNicename}}
+    %li
+      %span
+        = _('Updated:')
+      {{lastUpdate}}
+    %li
+      %span
+        = _('Cards available:')
+      {{cardsCount}}
+
+%footer
+  %h4
+    = _('Branched')
+  %p
+    {{puboard.branchesCount}}
+    {{#if puboard.branchesCount}}
+    = _('times')
+    {{else}}
+    = _('time')
+    {{/if}}
