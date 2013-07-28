@@ -8,9 +8,3 @@ Doers.CardViewMixin = Ember.Mixin.create
     if type = @get('content.type')
       @get('content.type').dasherize()
   ).property('content.type')
-
-  editView: Ember.View.extend
-    contentBinding: 'parentView.content'
-    templateName: 'cards/edit/phrase'
-    classNames: ['card-edit']
-    isVisibleBinding: 'parentView.isEditing'

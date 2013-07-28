@@ -6,4 +6,4 @@ Doers.PhraseView = Ember.ContainerView.extend Doers.CardViewMixin,
     titleView: Doers.CardTitleView
     textView: Doers.CardTextView
     footerView: Doers.CardFooterView
-    editView: Ember.View.extend Doers.EditCardViewMixin
+  editView: Ember.View.extend Doers.EditCardViewMixin
