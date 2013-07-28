@@ -204,10 +204,10 @@
         width: 960px;
         position: fixed;
         left: 50%;
-        top: 0;
-        margin: 200px 0 0 -480px;
+        bottom: 0;
+        margin: 0 0 0 -480px;
         z-index: 100;
-        box-shadow: 0 0 100px rgba($black, 0.2);
+        box-shadow: 0 0 100px rgba($black, 0.8);
         @include transition(margin-top 0.1s);
 
         .card-content {
@@ -275,6 +275,7 @@
 
     .card-edit {
       float: right;
+      position: relative;
       width: 660px;
       min-height: 400px;
       background-color: $bw_9;
@@ -282,7 +283,7 @@
 
       fieldset {
         border: 0;
-        padding: 40px 40px 80px 40px;
+        padding: 40px;
       }
 
       .field {
@@ -307,12 +308,9 @@
       }
 
       .actions {
-        position: absolute;
-        right: 20px;
-        bottom: 20px;
 
         .button {
-          margin-left: 1em;
+          margin-right: 1em;
         }
       }
     }
