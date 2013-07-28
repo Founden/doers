@@ -134,6 +134,9 @@ GEM
       nokogiri
       rails-erd (>= 0.4.5)
     erubis (2.7.0)
+    ethon (0.5.12)
+      ffi (>= 1.3.0)
+      mime-types (~> 1.18)
     eventmachine (1.0.3)
     eventmachine_httpserver (0.2.1)
     execjs (1.4.0)
@@ -224,6 +227,11 @@ GEM
       hashie (~> 2.0)
       multi_json (~> 1.3)
       netrc (~> 0.7.7)
+    oembedr (1.0.0)
+      faraday
+      faraday_middleware
+      multi_json
+      typhoeus
     oj (2.1.4)
     open4 (1.3.0)
     paperclip (3.5.0)
@@ -335,6 +343,8 @@ GEM
     treetop (1.4.14)
       polyglot
       polyglot (>= 0.3.1)
+    typhoeus (0.6.3)
+      ethon (~> 0.5.11)
     tzinfo (0.3.37)
     uglifier (2.1.2)
       execjs (>= 0.3.0)
@@ -376,6 +386,7 @@ DEPENDENCIES
   letter_opener
   mina!
   normalize-rails
+  oembedr
   oj
   paperclip
   party_foul
