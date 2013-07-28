@@ -12,8 +12,4 @@ Doers.PhotoView = Ember.ContainerView.extend Doers.CardViewMixin,
       assetAttribute: 'image'
     imageView: Doers.CardImageView.extend
       contentBinding: 'parentView.content'
-  editView: Ember.View.extend
-    contentBinding: 'parentView.content'
-    templateName: 'cards/edit/phrase'
-    classNames: ['card-edit']
-    isVisibleBinding: 'parentView.isEditing'
+  editView: Ember.View.extend Doers.EditCardViewMixin

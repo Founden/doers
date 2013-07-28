@@ -6,8 +6,4 @@ Doers.LinkView = Ember.ContainerView.extend Doers.CardViewMixin,
     titleView: Doers.CardTitleView
     textView: Doers.CardTextView
     footerView: Doers.CardFooterView
-  editView: Ember.View.extend
-    contentBinding: 'parentView.content'
-    templateName: 'cards/edit/phrase'
-    classNames: ['card-edit']
-    isVisibleBinding: 'parentView.isEditing'
+  editView: Ember.View.extend Doers.EditCardViewMixin
