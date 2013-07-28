@@ -1,16 +1,18 @@
-Doers.EditCardViewMixin = Ember.Mixin.create
+Doers.CardEditView = Ember.View.extend
   contentBinding: 'parentView.content'
+  isEditingBinding: 'parentView.isEditing'
+  isVisibleBinding: 'isEditing'
   classNames: ['card-edit']
-  isVisibleBinding: 'parentView.isEditing'
   templateName: 'cards/edit/phrase'
 
   saveButtonView: Ember.View.extend
+    contentBinding: 'parentView.content'
+    isEditingBinding: 'parentView.isEditing'
     tagNames: 'input'
     attributeBindings: ['type']
     type: 'submit'
-    contentBinding: 'parentView.content'
     classNames: ['button']
 
     click: ->
       @get('content').save().then =>
-        @set('parentView.parentView.isEditing', false)
+        @set('isEditing', false)

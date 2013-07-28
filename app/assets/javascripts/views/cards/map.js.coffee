@@ -1,10 +1,8 @@
-Doers.MapView = Ember.ContainerView.extend Doers.CardViewMixin,
-  contentView: Ember.ContainerView.extend
-    contentBinding: 'parentView.content'
-    classNames: ['card-content']
+Doers.MapView = Doers.CardView.extend
+  contentView: Doers.CardContentView.extend
     childViews: ['titleView', 'textView', 'imageMapView', 'footerView']
     titleView: Doers.CardTitleView
     textView: Doers.CardTextView
     imageMapView: Doers.CardImageMapView
     footerView: Doers.CardFooterView
-  editView: Ember.View.extend Doers.EditCardViewMixin
+  editView: Doers.CardEditView
