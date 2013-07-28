@@ -24,6 +24,8 @@ feature 'Projects', :js, :slow, :vcr do
 
       expect(page).to have_css('#projects .project')
       expect(page).to have_content(attrs[:title])
+      expect(page).to have_content(attrs[:description])
+      expect(page).to have_content(URI.parse(attrs[:website]).hostname)
     end
 
     scenario 'form submission with missing parameters shows an error' do

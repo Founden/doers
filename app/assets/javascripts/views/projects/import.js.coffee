@@ -12,13 +12,6 @@ Doers.ProjectsImportView = Ember.View.extend
     classNames: ['project']
     classNameBindings: ['content.slug', 'content.isSelected:selected']
 
-    websiteText: ( ->
-      if www = @get('content.website')
-        www.match('https?://(.*[^/])')[1]
-      else
-        'N/A'
-    ).property('content.website')
-
     click: (event) ->
       @toggleProperty('content.isSelected')
       false
