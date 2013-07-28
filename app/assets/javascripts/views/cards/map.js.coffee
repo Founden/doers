@@ -1,16 +1,10 @@
-Doers.MapView = Ember.View.extend Doers.CardViewMixin,
-  templateName: 'cards/map'
-
-  imageMap: Ember.View.extend
-    tagName: 'img'
-    attributeBindings: ['src']
-    src: ( ->
-      latitude = @get('parentView.content.latitude')
-      longitude = @get('parentView.content.longitude')
-      params = $.param
-        center: '%@,%@'.fmt(latitude, longitude)
-        zoom: 10
-        size: '300x300'
-        sensor: false
-      'http://maps.googleapis.com/maps/api/staticmap?%@'.fmt(params)
-    ).property()
+Doers.MapView = Ember.ContainerView.extend Doers.CardViewMixin,
+  contentView: Ember.ContainerView.extend
+    contentBinding: 'parentView.content'
+    classNames: ['card-content']
+    childViews: ['titleView', 'textView', 'imageMapView', 'footerView']
+    titleView: Doers.CardTitleView
+    textView: Doers.CardTextView
+    imageMapView: Doers.CardImageMapView
+    footerView: Doers.CardFooterView
+  editView: Ember.View.extend Doers.EditCardViewMixin
