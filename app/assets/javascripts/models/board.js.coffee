@@ -13,7 +13,9 @@ Doers.Board = DS.Model.extend
   authorNicename: DS.attr('string', readOnly: true)
 
   branches: DS.hasMany('Doers.Board')
+  branchesCount: DS.attr('number', readOnly: true)
   cards: DS.hasMany('Doers.Card')
+  cardsCount: DS.attr('number', readOnly: true)
 
   slug: (->
     'board-' + @get('id')

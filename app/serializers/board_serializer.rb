@@ -2,6 +2,7 @@
 class BoardSerializer < ActiveModel::Serializer
   attributes :id, :title, :status, :updated_at, :description, :card_ids
   attributes :last_update, :author_nicename, :user_nicename
+  attributes :branches_count, :cards_count
 
   has_one :user, :embed => :id
   has_one :author, :embed => :id
@@ -24,5 +25,15 @@ class BoardSerializer < ActiveModel::Serializer
   # If this card has a user, show the user nicename
   def user_nicename
     object.user.nicename if object.user
+  end
+
+  # Returns how many times this was branched
+  def branches_count
+    object.branches.count
+  end
+
+  # Returns the number of cards
+  def cards_count
+    object.cards.count
   end
 end
