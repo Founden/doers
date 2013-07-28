@@ -27,6 +27,6 @@
         %img{:bind => {:src => 'startup.logoUrl', :alt => 'startup.title'}}/
         %h3 {{startup.title}}
         %p {{startup.description}}
-        %p {{view.websiteText}}
+        %small {{website startup.website}}
       {{/view}}
       {{/each}}

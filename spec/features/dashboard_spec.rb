@@ -40,7 +40,10 @@ feature 'Dashboard', :js, :slow, :vcr do
     scenario 'includes project details' do
       user.projects.each do |prj|
         expect(page).to have_content(prj.title)
-        expect(page.source).to include(prj.logo.attachment.url)
+        expect(page).to have_content(prj.description)
+        expect(page).to have_content(URI.parse(prj.website).hostname)
+        expect(page.source).to include(
+          prj.logo.attachment.url.force_encoding('UTF-8'))
       end
     end
 
