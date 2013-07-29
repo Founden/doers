@@ -1,7 +1,17 @@
 %form
   %fieldset
     .field
-      {{view Ember.TextField valueBinding='view.content.title' placeholder='Give it a nice title' autocomplete='false' required='true'}}
+      {{input type='text' valueBinding='view.content.title' placeholder='Give it a nice title' autocomplete='false' required='true'}}
+    .field
+      .autocomplete
+        {{input type='text' valueBinding='view.content.bookTitle' placeholder='Search for a book' autocomplete='false'}}
+        %ul
+          {{#each result in view.content.results}}
+          %li{:_action => 'updateBook view.content result'}
+            {{result.volumeInfo.title}}
+            {{#if result.volumeInfo.authors}}({{result.volumeInfo.authors}}){{/if}}
+          {{/each}}
+
     .actions
       {{#view view.saveButtonView}}
       = _('Save')
