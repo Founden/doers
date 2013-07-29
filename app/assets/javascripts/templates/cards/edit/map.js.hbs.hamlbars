@@ -2,6 +2,11 @@
   %fieldset
     .field
       {{view Ember.TextField valueBinding='view.content.title' placeholder='Give it a nice title' autocomplete='false' required='true'}}
+    .field
+      {{#view view.addressView}}
+      {{view view.searchField placeholder='Type an address'}}
+      {{view view.searchResults}}
+      {{/view}}
     .actions
       {{#view view.saveButtonView}}
       = _('Save')
