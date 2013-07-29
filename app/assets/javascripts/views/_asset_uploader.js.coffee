@@ -37,7 +37,7 @@ Doers.AssetUploaderView = Ember.ContainerView.extend
     # TODO: update to below once Ember.js#2957 gets released
     # klass = @get('container').resolve('model:asset')
     klass = Doers.Asset
-    asset = klass.create
+    asset = klass.createRecord
       description: attachmentDescription || self.get('content.title')
       attachment: attachment
       project: self.get('content.project')
