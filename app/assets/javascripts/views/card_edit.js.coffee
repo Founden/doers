@@ -17,6 +17,4 @@ Doers.CardEditView = Ember.View.extend
     type: 'submit'
     classNames: ['button']
 
-    click: ->
-      @get('content').save().then =>
-        @set('isEditing', false)
+    clickBinding: 'controller.saveCard'

@@ -4,6 +4,7 @@ class EmbedSerializer < ActiveModel::Serializer
 
   attributes :title, :height, :width, :html, :type => :embed_type
   attributes :provider_name, :thumbnail_url, :author_url, :author_name
+  attributes :url => :embed_url
 
   # Overwrite serializer constructor
   def initialize(object, options={})

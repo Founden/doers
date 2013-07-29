@@ -146,8 +146,7 @@ describe Api::V1::CardsController do
         let(:card) {
           Fabricate('card/link', :project => project, :board => board) }
 
-        its('keys.size') { should eq(13) }
-        its(:url) { should eq(card.url) }
+        its('keys.size') { should eq(12) }
         its(:content) { should eq(card.content) }
       end
     end
@@ -316,9 +315,8 @@ describe Api::V1::CardsController do
           Fabricate('card/link', :project => project, :board => board)}
         let(:card_attrs) { Fabricate.attributes_for('card/link') }
 
-        its('keys.size') { should eq(13) }
+        its('keys.size') { should eq(12) }
         its(:title) { should eq(card_attrs['title']) }
-        its(:url) { should eq(card_attrs['url']) }
         its(:content) { should eq(Sanitize.clean(card_attrs['content'])) }
       end
 
