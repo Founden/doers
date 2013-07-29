@@ -1,21 +1,17 @@
 {{#linkTo 'boards.show' project board}}
 %h2 {{title}}
 %p.description {{description}}
+{{/linkTo}}
 %ul.meta
   %li
-    %span
-      = _('Created by:')
+    = _('Created by')
     {{userNicename}}
   %li
-    %span
-      = _('Updated:')
+    = _('Updated on')
     {{lastUpdate}}
-{{/linkTo}}
 %footer
-  %h4
-    = _('Branched from')
-  %p
-    %a{:href => ''}
-      {{parentBoard.title}}
-    = _('by')
-    {{parentBoard.authorNicename}}
+  = _('Branched from')
+  %a{:href => ''}
+    {{parentBoard.title}}
+  = _('by')
+  {{parentBoard.authorNicename}}

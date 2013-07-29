@@ -23,9 +23,9 @@
         {{#if project.logo.attachment}}
         %img{:bind => {:title => 'project.title', :src => 'project.logo.attachment'}}
         {{/if}}
-        %h3 {{project.title}}
+        %h2 {{project.title}}
         %p {{project.description}}
-        %small {{website project.website}}
+        %p {{website project.website}}
         {{/linkTo}}
       {{/each}}
     {{/if}}

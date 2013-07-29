@@ -6,7 +6,7 @@
         {{content.title}}
       %p
         {{content.description}}
-      %small
+      %p
         %a{:bind => {:href => 'content.website'}}
           {{website content.website}}
 
