@@ -1,0 +1,4 @@
+%strong
+  {{view.content.number}}
+%em
+  {{view.content.content}}
