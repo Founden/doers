@@ -5,4 +5,7 @@ Doers.MapView = Doers.CardView.extend
     textView: Doers.CardTextView
     imageMapView: Doers.CardImageMapView
     footerView: Doers.CardFooterView
-  editView: Doers.CardEditView
+  editView: Doers.CardEditView.extend
+    addressView: Doers.AddressAutocompleteView.extend
+      contentBinding: 'parentView.content'
+
