@@ -316,6 +316,37 @@
         }
       }
 
+      .autocomplete {
+        position: relative;
+
+        input {
+          font-size: 14px;
+        }
+
+        ul {
+          position: absolute;
+          left: 0;
+          top: 100%;
+          width: 100%;
+          margin-top: 10px;
+
+          li {
+            padding: 10px 15px;
+            background-color: shade($bw_9, 5%);
+            margin-bottom: 1px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            font-size: 12px;
+            cursor: pointer;
+
+            &:hover {
+              background-color: shade($bw_9, 10%);
+            }
+          }
+        }
+      }
+
       .actions {
         position: absolute;
         right: 40px;
