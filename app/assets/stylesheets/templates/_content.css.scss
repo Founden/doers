@@ -239,6 +239,11 @@
         width: 100%;
       }
 
+      iframe, img {
+        width: 100%;
+        height: auto;
+      }
+
       footer {
         border-top: 1px solid $bw_9;
         padding: 20px;
@@ -269,6 +274,10 @@
 
       .field {
         margin: 0 0 20px 0;
+
+        iframe, img {
+          width: 100%;
+        }
       }
 
       #{$all-text-inputs}, textarea {

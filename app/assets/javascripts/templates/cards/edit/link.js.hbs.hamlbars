@@ -1,7 +1,19 @@
 %form
   %fieldset
     .field
-      {{view Ember.TextField valueBinding='view.content.title' placeholder='Give it a nice title' autocomplete='false' required='true'}}
+      {{input valueBinding='view.content.content' placeholder='http://...' required='true' type='text'}}
+    .field
+      {{#if view.embed}}
+      %div
+        {{#if view.content.htmlContent}}
+        {{view.content.htmlContent}}
+        {{else}}
+        %img{:bind => {:src => 'view.embed.embedUrl'}}
+        {{/if}}
+      {{else}}
+      %em
+        = _('Provided link has no support for oEmbed.')
+      {{/if}}
     .actions
       {{#view view.saveButtonView}}
       = _('Save')
