@@ -16,6 +16,11 @@
     /[if lt IE 9]
       %script{ :src => 'http://html5shiv.googlecode.com/svn/trunk/html5.js' }
 
+    / Typekit
+    %script{ :src => '//use.typekit.net/tai6zic.js' }
+    :javascript
+      try{Typekit.load();}catch(e){}
+
     = stylesheet_link_tag 'application'
     = yield(:head_embed) if content_for?(:head_embed)
     = csrf_meta_tags
