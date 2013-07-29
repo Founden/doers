@@ -2,9 +2,9 @@ Doers.CardFooterView = Ember.View.extend
   tagName: 'footer'
   templateName: 'cards/_footer'
   contentBinding: 'parentView.content'
+  isEditingBinding: 'parentView.isEditing'
 
   editButton: Ember.View.extend
     tagName: 'a'
-
-    click: (event) ->
-      @toggleProperty('parentView.parentView.parentView.isEditing')
+    click: ->
+      @toggleProperty('parentView.isEditing')
