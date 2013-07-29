@@ -1,0 +1,18 @@
+{{#if view.embed}}
+{{#if view.embed.html}}
+{{view.content.htmlContent}}
+{{else}}
+%img{:bind => {:src => 'view.embed.embedUrl'}}
+{{/if}}
+%p.text
+  = _('From: ')
+  %a{:bind => {:href => 'view.content.content'}}
+    {{website view.content.content}}
+    {{#if view.embed.authorName}}
+    = _('by')
+    {{view.embed.authorName}}
+    {{/if}}
+{{else}}
+%p.text
+  = _('Provided link has no support for oEmbed.')
+{{/if}}

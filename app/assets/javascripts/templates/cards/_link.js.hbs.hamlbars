@@ -1,0 +1,2 @@
+%a{:bind => {:href => 'url'}}
+  {{website view.url}}

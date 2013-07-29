@@ -1,7 +1,9 @@
 Doers.LinkView = Doers.CardView.extend
   contentView: Doers.CardContentView.extend
-    childViews: ['titleView', 'textView', 'footerView']
+    childViews: ['titleView', 'embedView', 'footerView']
     titleView: Doers.CardTitleView
-    textView: Doers.CardTextView
+    embedView: Doers.CardEmbedView
     footerView: Doers.CardFooterView
-  editView: Doers.CardEditView
+    embedBinding: 'content.embed'
+  editView: Doers.CardEditView.extend
+    embedBinding: 'content.embed'
