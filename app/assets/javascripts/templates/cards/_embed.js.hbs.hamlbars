@@ -1,9 +1,10 @@
 {{#if view.embed}}
-{{#if view.embed.html}}
-{{view.content.htmlContent}}
-{{else}}
-%img{:bind => {:src => 'view.embed.embedUrl'}}
-{{/if}}
+%div
+  {{#if view.embed.html}}
+  {{view.content.htmlContent}}
+  {{else}}
+  %img{:bind => {:src => 'view.embed.embedUrl'}}
+  {{/if}}
 %p.text
   = _('From: ')
   %a{:bind => {:href => 'view.content.content'}}
