@@ -4,13 +4,12 @@ describe Card::Link do
   let(:link_card) { Fabricate('card/link') }
 
   it { should validate_presence_of(:content) }
-  it { should allow_value(Faker::Internet.uri(:http)).for(:url) }
-  it { should allow_value(Faker::Internet.uri(:https)).for(:url) }
-  it { should_not allow_value(Faker::Lorem.sentence).for(:url) }
+  it { should allow_value(Faker::Internet.uri(:http)).for(:content) }
+  it { should allow_value(Faker::Internet.uri(:https)).for(:content) }
 
   context 'instance' do
     subject { link_card }
 
-    its(:url) { should_not be_blank }
+    its(:content) { should_not be_blank }
   end
 end
