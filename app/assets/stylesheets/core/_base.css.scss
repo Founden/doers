@@ -1,5 +1,5 @@
 body {
-  font: 400 14px/1.5 'Lato', $helvetica;
+  font: 400 14px/1.5 'ff-tisa-sans-web-pro', $helvetica;
   background-color: $bw_10;
   color: $bw_1;
 }
@@ -22,4 +22,18 @@ ul, ol {
 h1, h2, h3, h4, h5, h6, p, ul, ol, fieldset {
   margin: 0;
   padding: 0;
+}
+
+h1, h2 {
+  font-family: 'ff-tisa-web-pro';
+}
+
+h1 {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+h2 {
+  font-size: 21px;
+  font-weight: 400;
 }
