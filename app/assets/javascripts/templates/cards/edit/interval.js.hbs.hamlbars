@@ -1,7 +1,21 @@
 %form
   %fieldset
     .field
-      {{view Ember.TextField valueBinding='view.content.title' placeholder='Give it a nice title' autocomplete='false' required='true'}}
+      {{input valueBinding='view.content.title' placeholder='Give it a nice title' autocomplete='false' required='true' type='text'}}
+    .field
+      {{textarea valueBinding='view.content.content' placeholder='What does it represent?' autocomplete='false' required='true'}}
+    .field
+      %small
+        = _('Minimum')
+      {{input valueBinding='view.content.minimum' required='true' type='text' type='number'}}
+    .field
+      %small
+        = _('Maximum')
+      {{input valueBinding='view.content.maximum' required='true' type='text' type='number'}}
+    .field
+      %small
+        = _('Selected')
+      {{input valueBinding='view.content.selected' required='true' type='text' type='number'}}
     .actions
       {{#view view.saveButtonView}}
       = _('Save')
