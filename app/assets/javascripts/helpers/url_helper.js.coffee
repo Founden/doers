@@ -1,3 +1,3 @@
 Ember.Handlebars.helper 'website', (value) ->
-  if value
-    value.match('https?://(.*[^/])')[1]
+  if value and (match = value.match('https?://(.*[^/])'))
+    match[1]
