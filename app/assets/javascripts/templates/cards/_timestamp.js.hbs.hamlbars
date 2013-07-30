@@ -1,3 +1,4 @@
-{{view.content.niceDateString}}
-= _('at')
-{{view.content.timeString}}
+{{#if view.content.timestamp}}
+{{datetime view.content.timestamp }}
+({{timeago view.content.timestamp}})
+{{/if}}

@@ -1,5 +1,11 @@
 # Ember.js App
 # ~~~~~~~~~~~~
+
+#= require moment
+#= require pickadate/picker
+#= require pickadate/picker.date
+#= require pickadate/picker.time
+
 #= require handlebars
 #= require ember
 #= require ember-data
