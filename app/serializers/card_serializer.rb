@@ -3,16 +3,11 @@ class CardSerializer < ActiveModel::Serializer
   root :card
 
   attributes :id, :title, :content, :position, :updated_at, :style
-  attributes :last_update, :user_nicename, :type
+  attributes :user_nicename, :type
 
   has_one :user, :embed => :id
   has_one :project, :embed => :id
   has_one :board, :embed => :id
-
-  # Creates a nice timestamp to indicate when it was last time updated
-  def last_update
-    object.updated_at.to_s(:pretty)
-  end
 
   # If this card has a user, show the user nicename
   def user_nicename

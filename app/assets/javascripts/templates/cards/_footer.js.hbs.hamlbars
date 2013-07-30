@@ -1,5 +1,5 @@
 %img{:class => 'avatar', :bind => {:src => 'view.content.user.avatarUrl'}}
-= _('Updated on')
+= _('Updated')
 {{view.content.lastUpdate}}
 %br/
 = _('by')
