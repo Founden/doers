@@ -221,11 +221,7 @@
         padding: 20px 0 0 0;
       }
 
-      h3 {
-        margin: 20px;
-      }
-
-      p {
+      .text {
         margin: 20px;
       }
 
@@ -237,6 +233,23 @@
       iframe, img {
         width: 100%;
         height: auto;
+      }
+
+      .book-content {
+        margin: 20px;
+        @include clearfix;
+
+        h3 {
+          font-weight: 700;
+          font-size: 16px;
+          margin: 0 0 10px 0;
+        }
+
+        img {
+          float: left;
+          width: 60px;
+          margin: 0 20px 0 0;
+        }
       }
 
       footer {
