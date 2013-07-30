@@ -1,7 +1,7 @@
 Doers.IntervalView = Doers.CardView.extend
   contentView: Doers.CardContentView.extend
-    childViews: ['titleView', 'textView', 'footerView']
+    childViews: ['titleView', 'intervalView', 'footerView']
     titleView: Doers.CardTitleView
-    textView: Doers.CardTextView
+    intervalView: Doers.CardIntervalView
     footerView: Doers.CardFooterView
   editView: Doers.CardEditView
