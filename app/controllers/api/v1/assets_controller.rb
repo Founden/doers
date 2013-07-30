@@ -16,13 +16,8 @@ class Api::V1::AssetsController < Api::V1::ApplicationController
 
   # Updates available asset
   def update
-    # Try a link, maybe it's a remote file
-    maybe_link = asset_params[:attachment]
-    attachment = URI.parse(maybe_link) rescue maybe_link
-
     asset = Asset.find_by!(
       :id => params[:id], :project_id => current_account.projects)
-
     begin
       asset.update_attributes(asset_params.merge(:attachment => attachment))
       render :json => asset
@@ -34,10 +29,6 @@ class Api::V1::AssetsController < Api::V1::ApplicationController
 
   # Creates an asset
   def create
-    # Try a link, maybe it's a remote file
-    maybe_link = new_asset_params[:attachment]
-    attachment = URI.parse(maybe_link) rescue maybe_link
-
     begin
       # TODO: Handle different asset type when more are available
       asset = current_account.images.create!(new_asset_params.merge(:attachment => attachment))
@@ -60,6 +51,17 @@ class Api::V1::AssetsController < Api::V1::ApplicationController
   end
 
   private
+
+    # Try a link, maybe it's a remote file
+    def attachment
+      if attachment = asset_params[:attachment]
+        link = URI.parse(attachment)
+        if link.scheme =~ /http|https/
+          attachment = link
+        end
+      end
+      attachment
+    end
 
     # Strong parameters for updating a new asset
     def asset_params
