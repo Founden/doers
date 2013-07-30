@@ -1,7 +1,7 @@
 Doers.VideoView = Doers.CardView.extend
   contentView: Doers.CardContentView.extend
-    childViews: ['titleView', 'textView', 'footerView']
+    childViews: ['titleView', 'videoContentView', 'footerView']
     titleView: Doers.CardTitleView
-    textView: Doers.CardTextView
+    videoContentView: Doers.CardVideoContentView
     footerView: Doers.CardFooterView
   editView: Doers.CardEditView
