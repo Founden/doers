@@ -87,10 +87,8 @@ describe Api::V1::CardsController do
         let(:card) {
           Fabricate('card/timestamp', :project => project, :board => board) }
 
-        its('keys.size') { should eq(13) }
+        its('keys.size') { should eq(12) }
         its(:content) { should eq(card.content) }
-        its(:timestamp) {
-          should eq(DateTime.parse(card.content).to_s(:pretty)) }
       end
 
       context 'interval card keys' do
@@ -267,11 +265,9 @@ describe Api::V1::CardsController do
           Fabricate('card/timestamp', :project => project, :board => board)}
         let(:card_attrs) { Fabricate.attributes_for('card/timestamp') }
 
-        its('keys.size') { should eq(13) }
+        its('keys.size') { should eq(12) }
         its(:title) { should eq(card_attrs['title']) }
         its(:content) { should eq(card_attrs['content']) }
-        its(:timestamp) {
-          should eq(DateTime.parse(card_attrs['content']).to_s(:pretty)) }
       end
 
       context 'interval card' do
