@@ -9,7 +9,7 @@ Doers.BoardsShowController = Ember.ObjectController.extend Doers.ControllerAlert
     book.set('bookTitle', data.title)
     book.set('bookAuthors', data.authors)
     book.set('url', data.infoLink)
-    book.set('selectedResult', true)
+    book.set('query', null)
     if data.imageLinks
       @createOrUpdateAsset(book, 'image', data.imageLinks.thumbnail)
 

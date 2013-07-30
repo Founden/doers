@@ -5,9 +5,10 @@ Doers.BookMixin = Ember.Mixin.create
   image: DS.belongsTo('Doers.Asset', readOnly: true)
   query: null
   results: null
-  selectedResult: false
+  isSearching: false
 
   queryChanged: ( ->
+    @set('isSearching', true)
     $.ajax
       url: 'https://www.googleapis.com/books/v1/volumes'
       dataType: 'jsonp'
@@ -15,7 +16,7 @@ Doers.BookMixin = Ember.Mixin.create
         q: @get('query')
       success: (response) =>
         @set('results', response.items)
-        @set('selectedResult', false)
+        @set('isSearching', false)
   ).observes('query')
 
 Doers.Book = Doers.Card.extend(Doers.BookMixin)
