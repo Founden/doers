@@ -4,13 +4,17 @@
       {{input type='text' valueBinding='view.content.title' placeholder='Give it a nice title' autocomplete='false' required='true'}}
     .field
       .autocomplete
-        {{input type='text' valueBinding='view.content.bookTitle' placeholder='Search for a book' autocomplete='false'}}
+        {{input type='text' valueBinding='view.content.query' placeholder='Search for a book' autocomplete='false'}}
+        {{#unless view.content.selectedResult}}
         %ul
           {{#each result in view.content.results}}
           %li{:_action => 'updateBook view.content result'}
             {{result.volumeInfo.title}}
-            {{#if result.volumeInfo.authors}}({{result.volumeInfo.authors}}){{/if}}
+            {{#if result.volumeInfo.authors}}
+            ({{result.volumeInfo.authors}})
+            {{/if}}
           {{/each}}
+        {{/unless}}
 
     .actions
       {{#view view.saveButtonView}}

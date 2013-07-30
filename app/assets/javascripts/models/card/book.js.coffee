@@ -3,16 +3,19 @@ Doers.BookMixin = Ember.Mixin.create
   bookTitle: DS.attr('string')
   bookAuthors: DS.attr('string')
   image: DS.belongsTo('Doers.Asset', readOnly: true)
+  query: null
   results: null
+  selectedResult: false
 
-  bookTitleChanged: ( ->
+  queryChanged: ( ->
     $.ajax
       url: 'https://www.googleapis.com/books/v1/volumes'
       dataType: 'jsonp'
       data:
-        q: @get('bookTitle')
+        q: @get('query')
       success: (response) =>
         @set('results', response.items)
-  ).observes('bookTitle')
+        @set('selectedResult', false)
+  ).observes('query')
 
 Doers.Book = Doers.Card.extend(Doers.BookMixin)
