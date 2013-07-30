@@ -3,33 +3,25 @@ Doers.TimestampMixin = Ember.Mixin.create
   timestamp: null
   dateString: null
   timeString: null
-  niceDateString: null
   timestampLoaded: false
-
-  leadingZeroesInDate: (date) ->
-    '%@-%@-%@'.fmt(
-      date.getFullYear(),
-      ('0' + date.getMonth()).slice(-2),
-      ('0' + date.getDate()).slice(-2)
-    )
+  dateFormat: 'DD-MM-YYYY'
+  timeFormat: 'HH:mm:ss'
 
   didLoad: ->
     if ts = new Date(@get('content'))
       @set('timestamp', ts)
-      @set('dateString', @leadingZeroesInDate(ts))
-      @set('timeString', ts.toLocaleTimeString())
-      @set('niceDateString', @get('timestamp').toDateString())
-      @set('timestampLoaded', true)
+      @set('dateString', moment(ts).format(@dateFormat))
+      @set('timeString', moment(ts).format(@timeFormat))
+      @timestampLoaded = true
 
   timestampChanged: ( ->
-    if @get('timestampLoaded')
-      @set('niceDateString', @get('timestamp').toDateString())
+    if @timestampLoaded
       @set('content', @get('timestamp').toString())
   ).observes('timestamp')
 
   # Updates the `timestamp` object to current date-time string
   dateTimeChanged: ( ->
-    if @get('timestampLoaded')
+    if @timestampLoaded
       time = @get('timeString') || '00:00:00'
       date = @get('dateString')
       timestampString = '%@ %@'.fmt(time, date)
