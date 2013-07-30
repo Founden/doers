@@ -1,0 +1,7 @@
+%strong
+  {{view.content.number}}
+%em
+  {{view.content.content}}
+{{#with view.content}}
+%input{:type => :range, :disabled => true, :bind => {:min => 'minimum', :max => 'maximum', :value => 'selected'}}
+{{/with}}
