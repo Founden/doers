@@ -39,6 +39,7 @@ group :assets do
   gem 'bourbon'
   gem 'normalize-rails'
   gem 'pickadate-rails'
+  gem 'momentjs-rails'
 end
 
 group :development do
