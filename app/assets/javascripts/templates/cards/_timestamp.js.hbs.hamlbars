@@ -1,0 +1,3 @@
+{{view.content.niceDateString}}
+= _('at')
+{{view.content.timeString}}
