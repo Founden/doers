@@ -207,6 +207,7 @@
           float: left;
           width: 300px;
           min-height: 600px;
+          box-shadow: 0 1px 1px rgba($black, 0.1);
         }
       }
     }
@@ -215,7 +216,6 @@
       background-color: $white;
 
       .title {
-        font-weight: 400;
         color: $bw_3;
         margin: 0 20px 20px 20px;
         padding: 20px 0 0 0;
@@ -233,6 +233,23 @@
       iframe, img {
         width: 100%;
         height: auto;
+      }
+
+      .book-content {
+        margin: 20px;
+        @include clearfix;
+
+        h3 {
+          font-weight: 700;
+          font-size: 16px;
+          margin: 0 0 10px 0;
+        }
+
+        img {
+          float: left;
+          width: 60px;
+          margin: 0 20px 0 0;
+        }
       }
 
       footer {
@@ -256,7 +273,6 @@
       width: 645px;
       height: 600px;
       background-color: $bw_9;
-      box-shadow: inset 1px 0 1px rgba($black, 0.1);
 
       fieldset {
         border: 0;
@@ -319,9 +335,11 @@
           top: 100%;
           width: 100%;
           margin-top: 10px;
+          height: 234px;
+          overflow-y: scroll;
 
           li {
-            padding: 10px 15px;
+            padding: 11px 15px 9px 15px;
             background-color: shade($bw_9, 5%);
             margin-bottom: 1px;
             text-overflow: ellipsis;
