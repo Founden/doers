@@ -2,6 +2,7 @@ require 'uri'
 
 # DOERS link [Card] model
 class Card::Link < Card
+  # List of allowed URI schemes
   ALLOWED_SCHEMES = %w(http https)
 
   # Validations

@@ -111,6 +111,23 @@ describe Api::V1::AssetsController do
         its(:project_id) { should eq(asset.project.id) }
         its(:assetable_type) { should eq(asset.assetable_type) }
         its(:assetable_id) { should eq(card.id) }
+
+        context 'with downloadable attachment URL' do
+          let(:image_url) { URI.parse('http://test.example.com/test.png') }
+          let(:image) do
+            test_file = Rails.root.join('spec', 'fixtures', 'test.png')
+            io = StringIO.new(test_file.read)
+            io.should_receive(:content_type).and_return('image/png')
+            io
+          end
+
+          let(:attrs) {
+            OpenURI.should_receive(:open_uri).and_return(image)
+            Fabricate.attributes_for(:image_to_upload, :attachment => image_url)
+          }
+
+          its('keys.size') { should eq(10) }
+        end
       end
     end
   end
@@ -154,6 +171,26 @@ describe Api::V1::AssetsController do
       its(:project_id) { should eq(project.id) }
       its(:assetable_type) { should eq(project.class.to_s) }
       its(:assetable_id) { should eq(project.id) }
+
+      context 'with downloadable attachment URL' do
+        let(:image_url) { URI.parse('http://test.example.com/test.png') }
+        let(:image) do
+          test_file = Rails.root.join('spec', 'fixtures', 'test.png')
+          io = StringIO.new(test_file.read)
+          io.should_receive(:content_type).and_return('image/png')
+          io
+        end
+
+        let(:asset_attrs) {
+          OpenURI.should_receive(:open_uri).and_return(image)
+
+          Fabricate.attributes_for(:image_to_upload, :user => user,
+            :project => project, :board => board, :attachment => image_url,
+            :assetable_type => project.class, :assetable_id => project.id)
+        }
+
+        its('keys.size') { should eq(10) }
+      end
     end
   end
 
