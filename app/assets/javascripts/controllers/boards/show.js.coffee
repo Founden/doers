@@ -4,17 +4,28 @@ Doers.BoardsShowController = Ember.ObjectController.extend Doers.ControllerAlert
     @get('content').save().then =>
       @set('isEditing', false)
 
+  updateVideo: (video, data) ->
+    # TODO: Set videoId
+    video.set('provider', 'youtube')
+    video.set('content', data.title.$t)
+    video.set('query', null)
+    if image = data.media$group.media$thumbnail[0].url
+      @createOrUpdateAsset(video, 'image', image)
+
   updateBook: (book, data) ->
     data = data.volumeInfo
     book.set('bookTitle', data.title)
     book.set('bookAuthors', data.authors)
     book.set('url', data.infoLink)
     book.set('query', null)
-    if data.imageLinks
-      @createOrUpdateAsset(book, 'image', data.imageLinks.thumbnail)
+    if image = data.imageLinks.thumbnail
+      @createOrUpdateAsset(book, 'image', image)
 
   createOrUpdateAsset: (object, attribute, url) ->
-    @updateAsset(object, attribute, url) || @createAsset(object, attribute, url)
+    if object.get(attribute)
+      @updateAsset(object, attribute, url)
+    else
+      @createAsset(object, attribute, url)
 
   createAsset: (object, attribute, url) ->
     asset = Doers.Asset.createRecord
@@ -27,8 +38,6 @@ Doers.BoardsShowController = Ember.ObjectController.extend Doers.ControllerAlert
       object.set(attribute, asset)
 
   updateAsset: (object, attribute, url) ->
-    if asset = object.get(attribute)
-      asset.set('attachment', url)
-      asset.save()
-    else
-      false
+    asset = object.get(attribute)
+    asset.set('attachment', url)
+    asset.save()

@@ -1,0 +1,3 @@
+%p.text
+  {{view.content.content}}
+%img{:class => 'image', :bind => {:src => 'view.content.image.attachment'}}
