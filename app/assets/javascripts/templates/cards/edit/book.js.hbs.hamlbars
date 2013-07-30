@@ -5,16 +5,24 @@
     .field
       .autocomplete
         {{input type='text' valueBinding='view.content.query' placeholder='Search for a book' autocomplete='false'}}
-        {{#unless view.content.selectedResult}}
+        {{#if view.content.query}}
         %ul
+          {{#if view.content.results}}
           {{#each result in view.content.results}}
           %li{:_action => 'updateBook view.content result'}
             {{result.volumeInfo.title}}
-            {{#if result.volumeInfo.authors}}
-            ({{result.volumeInfo.authors}})
-            {{/if}}
+            {{#if result.volumeInfo.authors}} ({{result.volumeInfo.authors}}) {{/if}}
           {{/each}}
-        {{/unless}}
+          {{else}}
+          {{#if view.content.isSearching}}
+          %li
+            = _('Searching...')
+          {{else}}
+          %li
+            = _('No book was found')
+          {{/if}}
+          {{/if}}
+        {{/if}}
 
     .actions
       {{#view view.saveButtonView}}
