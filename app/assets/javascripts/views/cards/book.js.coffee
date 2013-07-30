@@ -1,7 +1,7 @@
 Doers.BookView = Doers.CardView.extend
   contentView: Doers.CardContentView.extend
-    childViews: ['titleView', 'textView', 'footerView']
+    childViews: ['titleView', 'bookContentView', 'footerView']
     titleView: Doers.CardTitleView
-    textView: Doers.CardTextView
+    bookContentView: Doers.CardBookContentView
     footerView: Doers.CardFooterView
   editView: Doers.CardEditView
