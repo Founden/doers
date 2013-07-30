@@ -1,6 +1,11 @@
 @import 'bourbon';
 @import 'normalize-rails/normalize';
 
+// Remove this later
+@import 'pickadate/classic';
+@import 'pickadate/classic.date';
+@import 'pickadate/classic.time';
+
 @import 'core/vars';
 @import 'core/fonts';
 @import 'core/base';
