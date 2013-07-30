@@ -16,11 +16,15 @@ class Api::V1::AssetsController < Api::V1::ApplicationController
 
   # Updates available asset
   def update
+    # Try a link, maybe it's a remote file
+    maybe_link = asset_params[:attachment]
+    attachment = URI.parse(maybe_link) rescue maybe_link
+
     asset = Asset.find_by!(
       :id => params[:id], :project_id => current_account.projects)
 
     begin
-      asset.update_attributes(asset_params)
+      asset.update_attributes(asset_params.merge(:attachment => attachment))
       render :json => asset
     rescue Exception => error
       errors = !!error ? [error.message] : asset.errors.messages
@@ -32,11 +36,12 @@ class Api::V1::AssetsController < Api::V1::ApplicationController
   def create
     # Try a link, maybe it's a remote file
     maybe_link = new_asset_params[:attachment]
-    new_asset_params[:attachment] = URI.parse(maybe_link) rescue maybe_link
+    attachment = URI.parse(maybe_link) rescue maybe_link
 
     begin
       # TODO: Handle different asset type when more are available
-      asset = current_account.images.create!(new_asset_params)
+      asset = current_account.images.create!(
+        new_asset_params.merge(:attachment => attachment))
       render :json => asset
     rescue Exception => error
       errors = !!error ? [error.message] : asset.errors.messages
@@ -60,7 +65,7 @@ class Api::V1::AssetsController < Api::V1::ApplicationController
     # Strong parameters for updating a new asset
     def asset_params
       params[:asset].except!(
-        :board_id, :type, :project_id, :assetable_id, :assetable_type)
+        :board_id, :type, :project_id, :user_id, :assetable_id, :assetable_type)
       params.require(:asset).permit(:description, :attachment)
     end
 
