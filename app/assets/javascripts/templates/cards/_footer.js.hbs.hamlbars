@@ -4,6 +4,3 @@
 %br/
 = _('by')
 {{view.content.user.nicename}}
-{{#view view.editButton}}
-=  _('edit')
-{{/view}}

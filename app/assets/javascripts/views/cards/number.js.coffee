@@ -5,3 +5,4 @@ Doers.NumberView = Doers.CardView.extend
     numberView: Doers.CardNumberView
     footerView: Doers.CardFooterView
   editView: Doers.CardEditView
+  settingsView: Doers.CardSettingsView
