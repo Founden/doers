@@ -1,19 +1,19 @@
 %form
   %fieldset
     .field
-      {{input valueBinding='view.content.content' placeholder='http://...' required='true' type='text'}}
+      {{input valueBinding='view.content.title' placeholder='Give it a nice title' required='true' type='text'}}
     .field
-      {{#if view.embed}}
-      %div
-        {{#if view.content.htmlContent}}
-        {{view.content.htmlContent}}
-        {{else}}
-        %img{:bind => {:src => 'view.embed.embedUrl'}}
-        {{/if}}
-      {{else}}
+      {{input valueBinding='view.content.url' placeholder='http://...' required='true' type='text'}}
+    .field
       %em
-        = _('Provided link has no support for oEmbed.')
-      {{/if}}
+        {{#if view.embed}}
+        = _('Found:')
+        {{view.content.content}}
+        = _('at')
+        {{website view.content.url}}
+        {{else}}
+        = _('Provided link has no support for oEmbed. Try again.')
+        {{/if}}
     .actions
       {{#view view.saveButtonView}}
       = _('Save')
