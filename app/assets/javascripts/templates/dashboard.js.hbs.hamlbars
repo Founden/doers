@@ -19,8 +19,8 @@
         %img{:bind => {:title => 'project.title', :src => 'project.logo.attachment'}}
         {{/if}}
         %h2 {{project.title}}
-        %p {{project.description}}
-        %p {{website project.website}}
         {{/linkTo}}
+        %p {{project.description}}
+        %footer {{website project.website}}
       {{/each}}
     {{/if}}
