@@ -4,15 +4,10 @@
     .header-content
       %h1
         = _('Available Projects')
-    %ul.tabs
-      %li
-        {{#linkTo 'projects.import' id='projects-import' title="#{_('Import from Angel List')}"}}
-        = _('Import from Angel List')
-        {{/linkTo}}
-      %li
-        {{#linkTo 'projects.new' id='projects-add' title="#{_('Create a new project')}"}}
-        = _('Create a new project')
-        {{/linkTo}}
+    .buttons
+      {{#linkTo 'projects.import' id='projects-import' class='button' title="#{_('Import from Angel List')}"}}
+      = _('Import from Angel List')
+      {{/linkTo}}
 
   .content
     {{#if projects.length}}
