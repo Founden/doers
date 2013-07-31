@@ -2,7 +2,7 @@
   position: fixed;
   left: 0;
   top: 0;
-  width: 240px;
+  width: 210px;
   height: 100%;
   padding: 30px;
   background-color: $bw_1;
@@ -28,6 +28,7 @@
 
     a {
       display: block;
+      font-size: em(14);
       line-height: 24px;
       color: $bw_7;
 
@@ -37,7 +38,7 @@
 
       img {
         vertical-align: middle;
-        margin: -2px 5px 0 0;
+        margin: -4px 5px 0 0;
         border-radius: 50%;
       }
     }
