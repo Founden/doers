@@ -1,7 +1,29 @@
 %form
   %fieldset
     .field
-      {{view Ember.TextField valueBinding='view.content.title' placeholder='Give it a nice title' autocomplete='false' required='true'}}
+      {{input type='text' valueBinding='view.content.title' placeholder='Give it a nice title' autocomplete='false' required='true'}}
+    .field
+      .autocomplete
+        {{input type='text' valueBinding='view.content.query' placeholder='Search for a video' autocomplete='false'}}
+        {{#if view.content.query}}
+        %ul
+          {{#if view.content.results}}
+          {{#each result in view.content.results}}
+          %li{:_action => 'updateVideo view.content result'}
+            {{result.title.$t}}
+          {{/each}}
+          {{else}}
+          {{#if view.content.isSearching}}
+          %li
+            = _('Searching...')
+          {{else}}
+          %li
+            = _('No video was found')
+          {{/if}}
+          {{/if}}
+        {{/if}}
+
+
     .actions
       {{#view view.saveButtonView}}
       = _('Save')
