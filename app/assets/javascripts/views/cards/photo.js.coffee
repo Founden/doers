@@ -10,3 +10,4 @@ Doers.PhotoView = Doers.CardView.extend
     uploadView: Doers.AssetUploaderView.extend
       contentBinding: 'parentView.content'
       assetAttribute: 'image'
+  settingsView: Doers.CardSettingsView

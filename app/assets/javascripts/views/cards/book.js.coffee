@@ -5,3 +5,4 @@ Doers.BookView = Doers.CardView.extend
     bookContentView: Doers.CardBookContentView
     footerView: Doers.CardFooterView
   editView: Doers.CardEditView
+  settingsView: Doers.CardSettingsView

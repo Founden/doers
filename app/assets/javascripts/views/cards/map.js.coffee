@@ -8,4 +8,4 @@ Doers.MapView = Doers.CardView.extend
   editView: Doers.CardEditView.extend
     addressView: Doers.AddressAutocompleteView.extend
       contentBinding: 'parentView.content'
-
+  settingsView: Doers.CardSettingsView

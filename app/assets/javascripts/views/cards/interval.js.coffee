@@ -5,3 +5,4 @@ Doers.IntervalView = Doers.CardView.extend
     intervalView: Doers.CardIntervalView
     footerView: Doers.CardFooterView
   editView: Doers.CardEditView
+  settingsView: Doers.CardSettingsView
