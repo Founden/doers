@@ -37,3 +37,4 @@ Doers.CardSettingsView = Ember.View.extend
 
     click: (event) ->
       @set('content.style', @get('style'))
+      @set('parentView.isActive', false)
