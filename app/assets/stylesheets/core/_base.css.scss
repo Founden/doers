@@ -1,5 +1,5 @@
 body {
-  font: 400 14px/1.5 'ff-tisa-sans-web-pro', $helvetica;
+  font: 400 16px/1.5 'ff-tisa-sans-web-pro', $helvetica;
   background-color: $bw_10;
   color: $bw_1;
 }
@@ -29,11 +29,16 @@ h1, h2 {
 }
 
 h1 {
-  font-size: 28px;
+  font-size: em(28);
   font-weight: 400;
 }
 
 h2 {
-  font-size: 21px;
+  font-size: em(21);
+  font-weight: 700;
+}
+
+h3 {
+  font-size: 1em;
   font-weight: 700;
 }
