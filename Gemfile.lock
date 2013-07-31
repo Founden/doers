@@ -36,6 +36,16 @@ GIT
       open4
       rake
 
+GIT
+  remote: git://github.com/stas/oembedr.git
+  revision: 1a51c9f060f92b8512891f028e92c16045fcf6c3
+  specs:
+    oembedr (1.0.0)
+      faraday
+      faraday_middleware
+      multi_json
+      typhoeus
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -229,11 +239,6 @@ GEM
       hashie (~> 2.0)
       multi_json (~> 1.3)
       netrc (~> 0.7.7)
-    oembedr (1.0.0)
-      faraday
-      faraday_middleware
-      multi_json
-      typhoeus
     oj (2.1.4)
     open4 (1.3.0)
     paperclip (3.5.0)
@@ -391,7 +396,7 @@ DEPENDENCIES
   mina!
   momentjs-rails
   normalize-rails
-  oembedr
+  oembedr!
   oj
   paperclip
   party_foul

@@ -15,7 +15,7 @@ gem 'paperclip'
 gem 'delayed_job', '4.0.0.beta2'
 gem 'delayed_job_active_record', '4.0.0.beta3'
 gem 'pg'
-gem 'oembedr'
+gem 'oembedr', :github => 'stas/oembedr'
 
 group :production do
   gem 'puma'
