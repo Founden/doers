@@ -1,5 +1,7 @@
 # DOERS [Asset] STI model
 class Asset < ActiveRecord::Base
+  # List of allowed URI schemes
+  URI_REGEXP = URI.regexp %w(http https ftp)
   # List of allowed mime-types for image uploads
   IMAGE_TYPES = %w( image/jpeg image/png image/gif image/pjpeg image/x-png )
 

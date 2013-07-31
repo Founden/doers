@@ -2,4 +2,7 @@ Doers.CardImageView = Ember.View.extend
   tagName: 'img'
   classNames: ['image']
   attributeBindings: ['src']
-  srcBinding: 'content.image.attachment'
+  src: ( ->
+    @get('content.attachment') ||
+      @get('content.image.attachment')
+  ).property('content.attachment', 'content.image.attachment', 'content.attachmentDescription')
