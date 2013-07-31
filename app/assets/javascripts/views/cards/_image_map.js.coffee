@@ -9,7 +9,7 @@ Doers.CardImageMapView = Ember.View.extend
       params = $.param
         center: '%@,%@'.fmt(latitude, longitude)
         zoom: 12
-        size: '300x300'
+        size: '640x320'
         sensor: false
       'http://maps.googleapis.com/maps/api/staticmap?%@'.fmt(params)
     ).property('content.latitude', 'content.longitude')

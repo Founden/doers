@@ -1,10 +1,10 @@
 {{#if view.embed}}
-%div
-  {{#if view.embed.html}}
+{{#if view.embed.html}}
+%p.text
   {{view.content.htmlContent}}
-  {{else}}
-  %img{:bind => {:src => 'view.embed.embedUrl'}}
-  {{/if}}
+{{else}}
+%img{:bind => {:src => 'view.embed.embedUrl'}}
+{{/if}}
 %p.text
   {{view.content.content}}
 %p.text
