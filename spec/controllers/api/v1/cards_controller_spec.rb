@@ -229,14 +229,6 @@ describe Api::V1::CardsController do
         its('keys.size') { should eq(11) }
         its(:title) { should eq(card_attrs['title']) }
         its(:content) { should eq(Sanitize.clean(card_attrs['content'])) }
-
-        context 'handles wrong attributes' do
-          let(:card_attrs) { {:image_id => card.id} }
-
-          subject(:api_card) { json_to_ostruct(response.body) }
-
-          its(:errors) { should_not be_empty }
-        end
       end
 
       context 'paragraph card' do
