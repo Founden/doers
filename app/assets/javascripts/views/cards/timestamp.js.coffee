@@ -15,3 +15,4 @@ Doers.TimestampView = Doers.CardView.extend
         clear: false
       )
       @timepicker = timeInputs.pickatime()
+  settingsView: Doers.CardSettingsView
