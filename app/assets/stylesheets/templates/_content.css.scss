@@ -192,10 +192,6 @@
       &.video, &.photo, &.map {
           border-color: $green;
       }
-
-      &.map .image {
-        height: 240px;
-      }
     }
 
     .card-settings {
