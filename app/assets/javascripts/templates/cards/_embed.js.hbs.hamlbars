@@ -6,9 +6,11 @@
   %img{:bind => {:src => 'view.embed.embedUrl'}}
   {{/if}}
 %p.text
-  = _('From: ')
-  %a{:bind => {:href => 'view.content.content'}}
-    {{website view.content.content}}
+  {{view.content.content}}
+%p.text
+  = _('From ')
+  %a{:bind => {:href => 'view.content.url'}}
+    {{www_domain view.content.url}}
     {{#if view.embed.authorName}}
     = _('by')
     {{view.embed.authorName}}
