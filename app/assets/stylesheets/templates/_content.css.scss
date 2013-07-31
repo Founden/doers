@@ -154,22 +154,44 @@
   .cards {
     @include clearfix;
     position: relative;
+    margin-right: -30px;
 
     .card {
       @include clearfix;
       float: left;
       width: 300px;
       margin: 0 30px 30px 0;
-      background-color: $bw_9;
+      background-color: $white;
       position: relative;
       border-top: 5px solid $bw_7;
+      @include transition(width 0.2s);
 
-      &:nth-of-type(3n) {
+      &.medium {
+        width: 630px;
+      }
+
+      &.large {
+        width: 960px;
         margin-right: 0;
       }
 
-      &:nth-of-type(3n+1) {
-        clear: left;
+      &.edit {
+        width: 1200px;
+        height: 600px;
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        margin: -300px 0 0 -600px;
+        z-index: 100;
+        box-shadow: 0 0 0 600px rgba($black, 0.8);
+        overflow-y: scroll;
+
+        .card-content {
+          float: right;
+          width: 300px;
+          min-height: 600px;
+          box-shadow: 0 1px 1px rgba($black, 0.1);
+        }
       }
 
       &.timestamp {
@@ -191,29 +213,83 @@
       &.map .image {
         height: 300px;
       }
+    }
 
-      &.edit {
-        width: 960px;
-        height: 600px;
-        position: fixed;
-        left: 50%;
-        top: 50%;
-        margin: -300px 0 0 -480px;
-        z-index: 100;
-        box-shadow: 0 0 100px rgba($black, 0.8);
-        overflow-y: scroll;
+    .card-settings {
+      position: absolute;
+      right: 20px;
+      top: 14px;
 
-        .card-content {
+      &.active {
+
+        .dropdown {
+          display: block;
+        }
+      }
+
+      .dropdown-toggle {
+        display: block;
+        width: 8px;
+        height: 8px;
+        border-bottom: 2px solid $bw_7;
+        border-right: 2px solid $bw-7;
+        @include transform(rotate(45deg));
+        @include transition(border-color 0.2s);
+
+        &:hover {
+          border-color: $bw_3;
+        }
+      }
+
+      .dropdown {
+        position: absolute;
+        top: 200%;
+        right: -50%;
+        display: none;
+        background-color: $white;
+        border: 1px solid $bw_9;
+        box-shadow: 1px 1px rgba($black, 0.1);
+      }
+
+      .options {
+
+        li {
+          border-bottom: 1px solid $bw_9;
+          white-space: nowrap;
+          min-width: 120px;
+          padding: 10px 15px 6px 15px;
+          cursor: pointer;
+          @include transition(all 0.2s);
+
+          &:hover {
+            background-color: $bw_10;
+          }
+        }
+      }
+
+      .options-style {
+        @include clearfix;
+
+        li {
           float: left;
-          width: 300px;
-          min-height: 600px;
-          box-shadow: 0 1px 1px rgba($black, 0.1);
+          text-transform: uppercase;
+          text-align: center;
+          width: 33.33%;
+          padding: 10px 0 6px;
+          cursor: pointer;
+
+          &:hover {
+            background-color: $bw_10;
+          }
+
+          &.selected {
+            background-color: $bw_10;
+          }
         }
       }
     }
 
     .card-content {
-      background-color: $white;
 
       .title {
         color: $bw_3;
@@ -270,7 +346,7 @@
     .card-edit {
       float: right;
       position: relative;
-      width: 645px;
+      width: 900px;
       height: 600px;
       background-color: $bw_9;
 

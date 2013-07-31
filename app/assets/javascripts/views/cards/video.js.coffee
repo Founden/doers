@@ -5,3 +5,4 @@ Doers.VideoView = Doers.CardView.extend
     videoContentView: Doers.CardVideoContentView
     footerView: Doers.CardFooterView
   editView: Doers.CardEditView
+  settingsView: Doers.CardSettingsView

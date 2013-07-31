@@ -7,3 +7,4 @@ Doers.LinkView = Doers.CardView.extend
     embedBinding: 'content.embed'
   editView: Doers.CardEditView.extend
     embedBinding: 'content.embed'
+  settingsView: Doers.CardSettingsView
