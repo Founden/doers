@@ -1,5 +1,6 @@
 .alert-box {
-  padding: 15px 10px;
+  margin: 0 0 0 240px;
+  padding: 14px 0 10px 0;
   position: relative;
   background-color: $orange;
 
@@ -11,7 +12,7 @@
   .icon-close {
     position: absolute;
     right: 10px;
-    top: 15px;
+    top: 14px;
     cursor: pointer;
     background-color: rgba($black, 0.1);
     color: $white;
@@ -28,7 +29,7 @@
     }
 
     &:before {
-      content: "×";
+      content: "x";
     }
   }
 }

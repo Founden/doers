@@ -1,12 +1,19 @@
 .footer {
+  position: fixed;
+  left: 30px;
+  bottom: 30px;
 
   .copyright {
     text-align: right;
-    color: $bw_7;
-    line-height: 90px;
+    color: $bw_5;
+    font-size: em(12);
 
     a {
       color: $bw_5;
+
+      &:hover {
+        color: $white;
+      }
     }
   }
 }
