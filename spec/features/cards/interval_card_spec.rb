@@ -24,9 +24,9 @@ feature 'Interval', :js, :slow, :vcr do
       expect(page).to have_css(card_classname)
 
       expect(page).to have_content(card.title)
-      expect(page).to have_content('%g' % card.minimum)
-      expect(page).to have_content('%g' % card.maximum)
-      expect(page).to have_content('%g' % card.selected)
+      expect(page.source).to include('%g' % card.minimum)
+      expect(page.source).to include('%g' % card.maximum)
+      expect(page.source).to include('%g' % card.selected)
     end
   end
 
