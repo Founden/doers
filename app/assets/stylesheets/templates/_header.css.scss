@@ -10,8 +10,18 @@
       color: $bw_3;
     }
 
+    .header-links {
+      margin: 0.5em 0 0 0;
+      font-size: em(12);
+
+      a {
+        color: $bw_7;
+        border-bottom: 1px dotted $bw_7;
+      }
+    }
+
     p {
-      margin: 10px 0 0 0;
+      margin: 0.5em 0 0 0;
       color: $bw_7;
     }
 
