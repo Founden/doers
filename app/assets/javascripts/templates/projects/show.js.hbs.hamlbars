@@ -6,9 +6,9 @@
         {{content.title}}
       %p
         {{content.description}}
-      %p
-        %a{:bind => {:href => 'content.website'}}
-          {{website content.website}}
+        = surround '(', ')' do
+          %a{:bind => {:href => 'content.website'}}
+            {{website content.website}}
 
   .content
     .boards
