@@ -2,9 +2,9 @@
   display: inline-block;
   background-color: $primary-color;
   color: $white;
-  padding: 9px 20px;
-  line-height: 2em;
-  font-size: 14px;
+  padding: 12px 20px 8px 20px;
+  line-height: 1.5em;
+  font-size: em(14);
   border: 0;
   border-radius: 3px;
   cursor: pointer;
