@@ -16,7 +16,7 @@
           %a{:href => dashboard_pages_path}
             = _('Your projects')
         %li
-          %a{:href => root_path(:anchor => 'projects/new')}
+          %a#projects-add{:href => root_path(:anchor => 'projects/new')}
             = _('Create new porject')
         %li
           %a{:href => mine_profiles_path}
