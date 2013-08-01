@@ -1,5 +1,12 @@
 %form
   %fieldset
+    .actions
+      {{#view view.cancelButtonView}}
+      = _('Cancel')
+      {{/view}}
+      {{#view view.saveButtonView}}
+      = _('Save')
+      {{/view}}
     .field
       {{input valueBinding='view.content.title' placeholder='Give it a nice title' required='true' type='text'}}
     .field
@@ -14,7 +21,3 @@
         {{else}}
         = _('Provided link has no support for oEmbed. Try again.')
         {{/if}}
-    .actions
-      {{#view view.saveButtonView}}
-      = _('Save')
-      {{/view}}

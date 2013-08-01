@@ -148,11 +148,8 @@
       @include box-sizing(border-box);
       float: left;
       width: 320px;
-      overflow: hidden;
       background-color: $white;
       position: relative;
-      border-left: 5px solid $bw_7;
-      box-shadow: inset 0 1px $bw_9;
 
       &.medium {
         width: 640px;
@@ -163,37 +160,23 @@
       }
 
       &.edit {
-        width: 1200px;
-        height: 640px;
+        width: 100%;
+        height: 100%;
         position: fixed;
-        left: 50%;
-        top: 50%;
-        margin: -300px 0 0 -600px;
-        z-index: 100;
-        box-shadow: 0 0 0 600px rgba($black, 0.8);
+        left: 0;
+        top: 0;
+        z-index: 10;
+        background-color: $bw_9;
 
         .card-content {
           float: right;
           width: 320px;
-          height: 640px;
-          box-shadow: 0 -1px 1px rgba($black, 0.1);
+          margin: 20px;
         }
-      }
 
-      &.timestamp {
-        border-color: $purple;
-      }
-
-      &.interval, &.number {
-        border-color: $blue;
-      }
-
-      &.link {
-          border-color: $orange;
-      }
-
-      &.video, &.photo, &.map {
-          border-color: $green;
+        .card-settings {
+          display: none;
+        }
       }
     }
 
@@ -272,6 +255,10 @@
     }
 
     .card-content {
+      background-color: $white;
+      border-left: 5px solid $bw_7;
+      box-shadow: inset 0 -1px rgba($black, 0.1);
+      @include box-sizing(border-box);
 
       .title {
         color: $bw_3;
@@ -328,11 +315,11 @@
     }
 
     .card-edit {
-      float: right;
       position: relative;
-      width: 875px;
-      height: 640px;
-      background-color: $bw_9;
+      background-color: $white;
+      margin: 0 360px 0 0;
+      height: 100%;
+      @include box-sizing(border-box);
 
       fieldset {
         border: 0;
@@ -400,7 +387,7 @@
 
           li {
             padding: 10px 15px 6px 15px;
-            background-color: shade($bw_9, 5%);
+            background-color: $bw_10;
             margin-bottom: 1px;
             text-overflow: ellipsis;
             white-space: nowrap;
@@ -409,16 +396,17 @@
             cursor: pointer;
 
             &:hover {
-              background-color: shade($bw_9, 10%);
+              background-color: $bw_9;
             }
           }
         }
       }
 
       .actions {
-        position: absolute;
-        right: 40px;
-        bottom: 40px;
+        border-bottom: 1px solid $bw_9;
+        padding: 0 0 30px 0;
+        margin: 0 0 30px 0;
+        text-align: right;
 
         .button {
           margin-left: 1em;

@@ -1,5 +1,12 @@
 %form
   %fieldset
+    .actions
+      {{#view view.cancelButtonView}}
+      = _('Cancel')
+      {{/view}}
+      {{#view view.saveButtonView}}
+      = _('Save')
+      {{/view}}
     .field
       {{view Ember.TextField valueBinding='view.content.title' placeholder='Give it a nice title' autocomplete='false' required='true'}}
     .field

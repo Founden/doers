@@ -1,5 +1,12 @@
 %form
   %fieldset
+    .actions
+      {{#view view.cancelButtonView}}
+      = _('Cancel')
+      {{/view}}
+      {{#view view.saveButtonView}}
+      = _('Save')
+      {{/view}}
     .field
       {{input valueBinding='view.content.title' placeholder='Give it a nice title' autocomplete='false' required='true' type='text'}}
     .field
@@ -16,7 +23,3 @@
       %small
         = _('Selected')
       {{input valueBinding='view.content.selected' required='true' type='text' type='number'}}
-    .actions
-      {{#view view.saveButtonView}}
-      = _('Save')
-      {{/view}}
