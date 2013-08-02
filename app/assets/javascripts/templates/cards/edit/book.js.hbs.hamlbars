@@ -3,15 +3,15 @@
     .field
       {{input type='text' valueBinding='view.content.title' placeholder='Give it a nice title' autocomplete='false' required='true'}}
     .field
-      .autocomplete
+      .book-search
         {{input type='text' valueBinding='view.content.query' placeholder='Search for a book' autocomplete='false'}}
         {{#if view.content.query}}
         %ul
           {{#if view.content.results}}
-          {{#each result in view.content.results}}
-          %li{:_action => 'updateBook view.content result'}
-            {{result.volumeInfo.title}}
-            {{#if result.volumeInfo.authors}} ({{result.volumeInfo.authors}}) {{/if}}
+          {{#each book in view.content.results}}
+          %li{:_action => 'updateBook view.content book'}
+            {{book.volumeInfo.title}}
+            {{#if book.volumeInfo.authors}} ({{book.volumeInfo.authors}}) {{/if}}
           {{/each}}
           {{else}}
           {{#if view.content.isSearching}}
