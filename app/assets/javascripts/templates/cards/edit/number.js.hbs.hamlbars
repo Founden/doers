@@ -1,10 +1,10 @@
-%form
+%form{:bind => {:id => 'view.content.editSlug'}}
   %fieldset
-    .field
+    .field.title
       {{input valueBinding='view.content.title' placeholder='Give it a nice title' required='true' type='text'}}
-    .field
+    .field.content
       {{input valueBinding='view.content.content' placeholder='What does it represent?' required='true' type='text'}}
-    .field
+    .field.number
       {{input valueBinding='view.content.number' required='true' type='number'}}
     .actions
       {{#view view.saveButtonView}}

@@ -1,18 +1,18 @@
-%form
+%form{:bind => {:id => 'view.content.editSlug'}}
   %fieldset
-    .field
+    .field.title
       {{input valueBinding='view.content.title' placeholder='Give it a nice title' autocomplete='false' required='true' type='text'}}
-    .field
+    .field.content
       {{textarea valueBinding='view.content.content' placeholder='What does it represent?' autocomplete='false' required='true'}}
-    .field
+    .field.minimum
       %small
         = _('Minimum')
       {{input valueBinding='view.content.minimum' required='true' type='text' type='number'}}
-    .field
+    .field.maximum
       %small
         = _('Maximum')
       {{input valueBinding='view.content.maximum' required='true' type='text' type='number'}}
-    .field
+    .field.selected
       %small
         = _('Selected')
       {{input valueBinding='view.content.selected' required='true' type='text' type='number'}}
