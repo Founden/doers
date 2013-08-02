@@ -23,7 +23,7 @@ Doers.Card = DS.Model.extend
 
   slug: (->
     if type = @get('type')
-      'card-%@-%@'.fmt(type.toLowerCase(), @get('id'))
+      'card-' + @get('id')
   ).property('id', 'type')
 
   didUpdate: ->
