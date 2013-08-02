@@ -24,7 +24,7 @@ feature 'Timestamp', :js, :slow, :vcr do
       expect(page).to have_css(card_classname)
 
       expect(page).to have_content(card.title)
-      expect(page).to have_content(DateTime.parse(card.content).to_s(:pretty))
+      expect(page.source).to include(card.content)
     end
   end
 
