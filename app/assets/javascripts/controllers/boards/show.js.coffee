@@ -4,6 +4,12 @@ Doers.BoardsShowController = Ember.ObjectController.extend Doers.ControllerAlert
     @get('content').save().then =>
       @set('isEditing', false)
 
+  addCard: (type) ->
+    card = Doers.Card.createRecord
+      user: @get('content.author')
+      type: type
+    @get('content.cards').pushObject(card)
+
   updateVideo: (video, data) ->
     # TODO: Set videoId
     video.set('provider', 'youtube')

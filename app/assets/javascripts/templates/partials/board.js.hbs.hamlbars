@@ -1,4 +1,4 @@
-{{#linkTo 'boards.show' project board}}
+{{#linkTo 'boards.show' board}}
 %h2 {{title}}
 %p.description {{description}}
 {{/linkTo}}
