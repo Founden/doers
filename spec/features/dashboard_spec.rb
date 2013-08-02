@@ -11,11 +11,16 @@ feature 'Dashboard', :js, :slow, :vcr do
       visit root_path(:anchor => :dashboard)
     end
 
-    scenario 'is shown with add and import buttons' do
-      expect(page).to have_css('#projects-import')
-      expect(page).to have_css('#projects-add')
-
+    scenario 'has no projects listed' do
       expect(page).to have_css('.projects .project', :count => 0)
+    end
+
+    scenario 'has an import project button' do
+      expect(page).to have_css('#projects-import')
+    end
+
+    scenario 'has a create project button' do
+      expect(page).to have_css('#projects-add')
     end
   end
 
@@ -32,7 +37,7 @@ feature 'Dashboard', :js, :slow, :vcr do
       expect(page).to have_css('#projects-add')
     end
 
-    scenario 'includes projects list' do
+    scenario 'shows available projects' do
       expect(page).to have_css(
         '.projects .project', :count => user.projects.count)
     end
@@ -48,7 +53,7 @@ feature 'Dashboard', :js, :slow, :vcr do
     end
 
     scenario 'goes to the project boards when clicked one' do
-      find('#project-%d a' % user.projects.first.id).click
+      find('#project-%d a h2' % user.projects.first.id).click
 
       expect(page).to have_content(user.projects.first.title)
     end

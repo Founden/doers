@@ -38,7 +38,6 @@ group :assets do
   gem 'ember-source', '1.0.0.rc6.2'
   gem 'bourbon'
   gem 'normalize-rails'
-  gem 'pickadate-rails'
   gem 'momentjs-rails'
 end
 

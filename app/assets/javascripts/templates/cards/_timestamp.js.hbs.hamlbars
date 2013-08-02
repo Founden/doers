@@ -1,4 +1,5 @@
 {{#if view.content.timestamp}}
-{{datetime view.content.timestamp }}
+%time{:bind => {:datetime => 'view.content.content'}}
+  {{datetime view.content.timestamp }}
 ({{timeago view.content.timestamp}})
 {{/if}}

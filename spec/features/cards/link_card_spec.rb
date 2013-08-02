@@ -12,20 +12,28 @@ feature 'Link', :js, :slow, :vcr do
     end
     given(:board) { project.boards.first }
     given(:card) { board.cards.first }
+    given(:embed) do
+      { 'title' => Faker::Lorem.sentence, 'html' => Faker::Lorem.sentence }
+    end
+    given(:response) do
+      Faraday::Response.new({ :body => embed })
+    end
 
     background do
+      Oembedr.should_receive(:known_service?).and_return(true)
+      Oembedr.should_receive(:fetch).and_return(response)
       visit root_path(:anchor=>'projects/%d/boards/%d' % [project.id, board.id])
     end
 
     scenario 'is shown with details' do
       expect(page).to have_css('.cards .card', :count => 1)
 
-      card_classname = '.cards .%s' % card.class.name.demodulize.downcase
+      card_classname = '.card-%d' % card.id
       expect(page).to have_css(card_classname)
 
       expect(page).to have_content(card.title)
-      expect(page).to have_content(card.content)
-      expect(page.source).to include(card.url)
+      expect(page.source).to include(embed['title'])
+      expect(page.source).to include(embed['html'])
     end
   end
 
