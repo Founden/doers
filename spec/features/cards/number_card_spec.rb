@@ -26,6 +26,31 @@ feature 'Number', :js, :slow, :vcr do
       expect(page).to have_content(card.title)
       expect(page).to have_content(card.content)
     end
-  end
 
+    context 'when clicked on edit' do
+      let(:card_attrs) { Fabricate.attributes_for('card/number') }
+
+      background do
+        page.find('.card-%d .card-settings' % card.id).click
+        page.find('#dropdown-card-%d .toggle-editing' % card.id).click
+      end
+
+      scenario 'can edit card details in editing screen' do
+        edit_css = '#edit-card-%d' % card.id
+
+        within(edit_css) do
+          fill_in('title', :with => card_attrs[:title])
+          fill_in('content', :with => card_attrs[:content])
+          fill_in('number', :with => card_attrs[:number])
+        end
+        page.find(edit_css + ' .actions .button').click
+
+        expect(page).to_not have_css(edit_css)
+        expect(page).to have_content(card_attrs[:title])
+        expect(page).to have_content(card_attrs[:content])
+        expect(page).to have_content(card_attrs[:number])
+      end
+    end
+
+  end
 end
