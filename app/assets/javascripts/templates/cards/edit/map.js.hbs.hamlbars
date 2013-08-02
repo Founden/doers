@@ -7,10 +7,19 @@
       -# %small
       -#   = _('Zoom')
       -# {{input valueBinding='view.content.zoom' type='number'}}
-      {{#collection mapBinding='view.content' contentBinding='view.content.results' tagName='ul'}}
-      %a{:_action => 'updateMap view.parentView.map view.content'}
-        {{view.content.display_name}}
-      {{/collection}}
+
+      {{#if view.content.query}}
+      %ul
+        {{#if view.content.results}}
+        {{#each place in view.content.results}}
+        %li{:_action => 'updateMap view.content place'}
+          {{place.display_name}}
+        {{/each}}
+        {{else}}
+        %li
+          = _('Searching...')
+        {{/if}}
+      {{/if}}
     .actions
       {{#view view.saveButtonView}}
       = _('Save')
