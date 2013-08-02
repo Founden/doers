@@ -1,12 +1,16 @@
 %form
   %fieldset
     .field
-      {{view Ember.TextField valueBinding='view.content.title' placeholder='Give it a nice title' autocomplete='false' required='true'}}
-    .field
-      {{#view view.addressView}}
-      {{view view.searchField placeholder='Type an address'}}
-      {{view view.searchResults}}
-      {{/view}}
+      {{input valueBinding='view.content.title' placeholder='Give it a nice title' autocomplete='false' required='true' type='text'}}
+    .field.map-search
+      {{input valueBinding='view.content.query' placeholder='Type an address' type='text'}}
+      -# %small
+      -#   = _('Zoom')
+      -# {{input valueBinding='view.content.zoom' type='number'}}
+      {{#collection mapBinding='view.content' contentBinding='view.content.results' tagName='ul'}}
+      %a{:_action => 'updateMap view.parentView.map view.content'}
+        {{view.content.display_name}}
+      {{/collection}}
     .actions
       {{#view view.saveButtonView}}
       = _('Save')
