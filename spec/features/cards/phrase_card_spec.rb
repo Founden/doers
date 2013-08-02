@@ -27,8 +27,7 @@ feature 'Phrase', :js, :slow, :vcr do
     end
 
     context 'when clicked on edit' do
-      let(:title) { Faker::Lorem.sentence }
-      let(:content) { Faker::Lorem.sentence }
+      let(:card_attrs) { Fabricate('card/phrase') }
 
       background do
         page.find('.card-%d .card-settings' % card.id).click
@@ -39,14 +38,19 @@ feature 'Phrase', :js, :slow, :vcr do
         edit_css = '#edit-card-%d' % card.id
 
         within(edit_css) do
-          fill_in('title', :with => title)
-          fill_in('content', :with => content)
+          fill_in('title', :with => card_attrs[:title])
+          fill_in('content', :with => card_attrs[:content])
         end
         page.find(edit_css + ' .actions .button').click
 
         expect(page).to_not have_css(edit_css)
-        expect(page).to have_content(title)
-        expect(page).to have_content(content)
+
+        card.reload
+        expect(card.title).to eq(card_attrs[:title])
+        expect(card.content).to eq(card_attrs[:content])
+
+        expect(page).to have_content(card.title)
+        expect(page).to have_content(card.content)
       end
     end
   end
