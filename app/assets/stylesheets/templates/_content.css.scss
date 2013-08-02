@@ -54,7 +54,6 @@
   .toolbar {
     @include clearfix;
     margin: 0 0 30px 0;
-    display: none;
 
     .card-types {
       @include clearfix;
@@ -379,7 +378,7 @@
         }
       }
 
-      .autocomplete {
+      .map-search, .book-search, .video-search {
         position: relative;
 
         input {

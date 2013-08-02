@@ -1,8 +1,8 @@
-%form
+%form{:bind => {:id => 'view.content.editSlug'}}
   %fieldset
-    .field
+    .field.title
       {{view Ember.TextField valueBinding='view.content.title' placeholder='Give it a nice title' autocomplete='false' required='true'}}
-    .field
+    .field.content
       {{view Ember.TextArea valueBinding='view.content.content' placeholder='Give it a nice content' rows='10' required='true'}}
     .actions
       {{#view view.saveButtonView}}

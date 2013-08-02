@@ -15,6 +15,5 @@ Doers.BoardsShowView = Ember.View.extend
       tagName: 'a'
       template: Ember.Handlebars.compile("{{view.content}}")
       classNames: ['card-type']
-      attributeBindings: 'draggable'
-      draggable: 'true'
-      isDragging: false
+      click: (event) ->
+        @get('controller').addCard(@get('content'))
