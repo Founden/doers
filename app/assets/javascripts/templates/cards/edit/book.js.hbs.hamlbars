@@ -1,6 +1,6 @@
-%form
+%form{:bind => {:id => 'view.content.editSlug'}}
   %fieldset
-    .field
+    .field.title
       {{input type='text' valueBinding='view.content.title' placeholder='Give it a nice title' autocomplete='false' required='true'}}
     .field
       .book-search
