@@ -46,9 +46,15 @@ feature 'Number', :js, :slow, :vcr do
         page.find(edit_css + ' .actions .button').click
 
         expect(page).to_not have_css(edit_css)
-        expect(page).to have_content(card_attrs[:title])
-        expect(page).to have_content(card_attrs[:content])
-        expect(page).to have_content(card_attrs[:number])
+
+        card.reload
+        expect(card.title).to eq(card_attrs[:title])
+        expect(card.content).to eq(card_attrs[:content])
+        expect(card.number).to eq(card_attrs[:number])
+
+        expect(page).to have_content(card.title)
+        expect(page).to have_content(card.content)
+        expect(page).to have_content(card.number)
       end
     end
 
