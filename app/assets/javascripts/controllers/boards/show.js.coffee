@@ -10,6 +10,11 @@ Doers.BoardsShowController = Ember.ObjectController.extend Doers.ControllerAlert
       type: type
     @get('content.cards').pushObject(card)
 
+  updateMap: (map, data) ->
+    map.set('content', data.display_name)
+    map.set('latitude', data.lat)
+    map.set('longitude', data.lon)
+
   updateVideo: (video, data) ->
     # TODO: Set videoId
     video.set('provider', 'youtube')
