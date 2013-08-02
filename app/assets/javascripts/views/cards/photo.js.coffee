@@ -35,9 +35,10 @@ Doers.PhotoView = Doers.CardView.extend
             @set('content.attachment', result)
           reader.readAsDataURL(attachment)
 
-      contentSavedObserver: ( ->
-        @get('controller').updatePhoto(@get('content'))
-      ).observes('content.attachment')
+      attachmentObserver: ( ->
+        if @get('content.id')
+          @get('controller').updatePhoto(@get('content'))
+      ).observes('content.attachment', 'content.id')
 
       hiddenFileInputView: Ember.View.extend
         nameBinding: 'parentView.content.slug'

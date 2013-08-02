@@ -15,6 +15,8 @@ Doers.Card = DS.Model.extend
   updatedAt: DS.attr('date', readOnly: true)
   userNicename: DS.attr('string', readOnly: true)
 
+  isEditing: false
+
   init: ->
     setInterval ( =>
       @set('ticker', Date.now())
