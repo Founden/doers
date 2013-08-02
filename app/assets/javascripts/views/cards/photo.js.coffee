@@ -1,9 +1,9 @@
 Doers.PhotoView = Doers.CardView.extend
   contentView: Doers.CardContentView.extend
-    childViews: ['titleView', 'textView', 'imageView', 'footerView']
+    childViews: ['titleView', 'textView', 'photoView', 'footerView']
     titleView: Doers.CardTitleView
     textView: Doers.CardTextView
-    imageView: Doers.CardImageView.extend
+    photoView: Doers.CardPhotoView.extend
       contentBinding: 'parentView.content'
     footerView: Doers.CardFooterView
   editView: Doers.CardEditView.extend
