@@ -3,7 +3,7 @@
   %header.header
     .header-content
       %h1
-        = _('Create a new board')
+        = _('Create a new template board')
 
   .content
     %form{:class => 'form', :_action => 'save view on="submit"'}

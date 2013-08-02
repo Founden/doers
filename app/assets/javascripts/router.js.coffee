@@ -11,3 +11,4 @@ Doers.Router.map (match)->
   @resource 'boards', ->
     @route 'show', {path: ':board_id'}
     @route 'new'
+    @route 'yours'

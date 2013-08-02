@@ -20,8 +20,8 @@
             = _('Create new porject')
         - if current_account.admin?
           %li
-            %a#boards-add{:href => root_path(:anchor => 'boards/new')}
-              = _('Create template board')
+            %a#boards-add{:href => root_path(:anchor => 'boards/yours')}
+              = _('Template boards')
         %li
           %a{:href => mine_profiles_path}
             = _('Account settings')

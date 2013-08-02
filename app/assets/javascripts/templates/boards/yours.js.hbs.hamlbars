@@ -1,0 +1,36 @@
+#boards
+
+  %header.header
+    .header-content
+      %h1
+        = _('Template boards')
+    .buttons
+      {{#linkTo 'boards.new' class='button'}}
+      = _('Create template board')
+      {{/linkTo}}
+
+  .content
+    .boards
+      {{#each board in content}}
+      .board{:bind => {:id => 'board.slug'}}
+        {{#linkTo 'boards.show' board}}
+        %h2
+          {{board.title}}
+        {{/linkTo}}
+        %p.description {{board.description}}
+        %ul.meta
+          %li
+            = _('Updated on')
+            {{board.lastUpdate}}
+          %li
+            {{board.cardsCount}}
+            = _('cards available')
+        %footer
+          = _('Branched')
+          {{board.branchesCount}}
+          {{#if board.branchesCount}}
+          = _('times')
+          {{else}}
+          = _('time')
+          {{/if}}
+      {{/each}}
