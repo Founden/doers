@@ -1,11 +1,9 @@
 Doers.MapView = Doers.CardView.extend
   contentView: Doers.CardContentView.extend
-    childViews: ['titleView', 'textView', 'imageMapView', 'footerView']
+    childViews: ['titleView', 'textView', 'mapView', 'footerView']
     titleView: Doers.CardTitleView
     textView: Doers.CardTextView
-    imageMapView: Doers.CardImageMapView
+    mapView: Doers.CardMapView
     footerView: Doers.CardFooterView
-  editView: Doers.CardEditView.extend
-    addressView: Doers.AddressAutocompleteView.extend
-      contentBinding: 'parentView.content'
+  editView: Doers.CardEditView
   settingsView: Doers.CardSettingsView

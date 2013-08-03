@@ -15,6 +15,8 @@ Doers.Card = DS.Model.extend
   updatedAt: DS.attr('date', readOnly: true)
   userNicename: DS.attr('string', readOnly: true)
 
+  isEditing: false
+
   init: ->
     setInterval ( =>
       @set('ticker', Date.now())
@@ -22,9 +24,16 @@ Doers.Card = DS.Model.extend
     @_super()
 
   slug: (->
-    if type = @get('type')
-      'card-' + @get('id')
+    'card-' + @get('id')
   ).property('id', 'type')
+
+  dropdownSlug: ( ->
+    'dropdown-' + @get('slug')
+  ).property('slug')
+
+  editSlug: ( ->
+    'edit-' + @get('slug')
+  ).property('slug')
 
   didUpdate: ->
     @set('updatedAt', new Date())
