@@ -9,10 +9,9 @@ Doers.ProjectsShowController = Ember.Controller.extend Doers.ControllerAlertMixi
   createFork: (board) ->
     project = @get('content')
 
-    fork = Doers.Board.createRecord
+    branch = Doers.Board.createRecord
       title: board.get('title')
       parentBoard: board
       project: project
-    fork.save().then =>
-      @get('target.router').transitionTo('boards.show', project, fork)
-
+    branch.save().then =>
+      @get('target.router').transitionTo('boards.show', branch)

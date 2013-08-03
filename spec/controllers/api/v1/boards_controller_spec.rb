@@ -137,6 +137,21 @@ describe Api::V1::BoardsController do
           response.status.should eq(400)
         end
       end
+
+      context 'when user is admin?' do
+        let(:user) { Fabricate(:admin) }
+        let(:attrs) { Fabricate.attributes_for(
+          :board, :title=>title, :author => user) }
+
+        its('keys.size') { should eq(16) }
+        its(:title) { should eq(title) }
+        its(:description) { should_not be_nil }
+        its(:user_id) { should be_nil }
+        its(:author_id) { should eq(user.id) }
+        its(:project_id) { should be_nil }
+        its(:parent_board_id) { should be_nil }
+        its('card_ids.count') { should eq(0) }
+      end
     end
 
     context 'when parent board is not accessible' do
@@ -153,6 +168,15 @@ describe Api::V1::BoardsController do
 
       it 'raises not found' do
         expect{ post(:create, :board => attrs) }.to raise_error(
+          ActiveRecord::RecordNotFound)
+      end
+    end
+
+    context 'when user is not admin?' do
+      let(:attrs) { Fabricate.attributes_for(:board, :author => user) }
+
+      it 'gives status 404' do
+        expect { post(:create, :board => attrs) }.to raise_error(
           ActiveRecord::RecordNotFound)
       end
     end
