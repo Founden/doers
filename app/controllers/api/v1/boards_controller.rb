@@ -19,17 +19,23 @@ class Api::V1::BoardsController < Api::V1::ApplicationController
 
   # Handles board creation
   def create
-    # Lets raise 404 if parent board or project is not available
-    parent_board = current_account.accessible_boards.find_by!(
-      :id => create_params[:parent_board_id])
-    project = current_account.projects.find_by!(
-      :id => create_params[:project_id])
-
-    branch = parent_board.branch_for(current_account, project, create_params)
-    if branch.errors.empty?
-      render :json => branch
+    if current_account.admin?
+      new_params = create_params.except(:user_id, :project_id, :parent_board_id).
+        merge(:status => 'public', :author_id => current_account.id)
+      board = Board.create(new_params)
     else
-      errors = branch.errors.messages
+      # Lets raise 404 if parent board or project is not available
+      parent_board = current_account.accessible_boards.find_by!(
+        :id => create_params[:parent_board_id])
+      project = current_account.projects.find_by!(
+        :id => create_params[:project_id])
+      board = parent_board.branch_for(current_account, project, create_params)
+    end
+
+    if board.errors.empty?
+      render :json => board
+    else
+      errors = board.errors.messages
       render :json => { :errors => errors }, :status => 400
     end
   end

@@ -3,14 +3,14 @@ class Api::V1::CardsController < Api::V1::ApplicationController
   # Shows available cards
   def index
     cards = Card.where(
-      :id => params[:ids], :project_id => current_account.projects)
+      :id => params[:ids], :board_id => current_account.accessible_boards)
     render :json => cards
   end
 
   # Shows available card
   def show
     card = Card.find_by!(
-      :id => params[:id], :project_id => current_account.projects)
+      :id => params[:id], :board_id => current_account.accessible_boards)
     render :json => card
   end
 
@@ -34,7 +34,7 @@ class Api::V1::CardsController < Api::V1::ApplicationController
   def update
     klass = ('Card::%s' % card_params[:type]).safe_constantize || Card
     card = klass.find_by!(
-      :id => params[:id], :project_id => current_account.projects)
+      :id => params[:id], :board_id => current_account.accessible_boards)
 
     card_params.merge!({:user => current_account})
     begin
@@ -49,7 +49,7 @@ class Api::V1::CardsController < Api::V1::ApplicationController
   # Handles card deletion
   def destroy
     card = Card.find_by(
-      :id => params[:id], :project_id => current_account.projects)
+      :id => params[:id], :board_id => current_account.accessible_boards)
     if card and card.destroy
       render :nothing => true, :status => 204
     else

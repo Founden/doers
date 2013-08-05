@@ -23,11 +23,11 @@
   }
 
   &.gray {
-    background-color: $bw_9;
+    background-color: $bw_10;
     color: $bw_1;
 
     &:hover {
-      background-color: shade($bw_9, 5%);
+      background-color: shade($bw_10, 5%);
     }
   }
 }

@@ -1,4 +1,4 @@
-%form
+%form{:bind => {:id => 'view.content.editSlug'}}
   %fieldset
     .actions
       {{#view view.cancelButtonView}}
@@ -7,13 +7,13 @@
       {{#view view.saveButtonView}}
       = _('Save')
       {{/view}}
+    .field.title
+      {{input type='text' valueBinding='view.content.title' placeholder='Give it a nice title' autocomplete='false' required='true'}}
     .field
-      {{input valueBinding='view.content.title' placeholder='Give it a nice title' autocomplete='false' required='true' type='text'}}
-    .field
-      %small
+      %small.date
         = _('Select a date')
-      {{input valueBinding='view.content.dateString' required='true' type='date'}}
-    .field
+      {{input type='date' valueBinding='view.content.dateString' required='true'}}
+    .field.time
       %small
         = _('Select a time')
-      {{input valueBinding='view.content.timeString' required='true' type='time'}}
+      {{input type='time' valueBinding='view.content.timeString' required='true'}}

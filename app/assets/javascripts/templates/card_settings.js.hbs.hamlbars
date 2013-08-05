@@ -1,5 +1,5 @@
 {{view view.toggleButton}}
-.dropdown
+.dropdown{:bind => {:id => 'view.content.dropdownSlug'}}
   %ul.options
     {{#view view.editButton}}
     =  _('Edit')
