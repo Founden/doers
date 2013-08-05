@@ -28,10 +28,10 @@ feature 'Timestamp', :js, :slow, :vcr do
     end
 
     context 'when clicked on edit' do
-      let(:title) { Faker::Lorem.sentence }
-      let(:datetime) { DateTime.tomorrow.at_end_of_day }
-      let(:date) { datetime.to_s(:db).split(' ').first }
-      let(:time) { datetime.to_s(:db).split(' ').last }
+      given(:title) { Faker::Lorem.sentence }
+      given(:datetime) { DateTime.tomorrow.at_end_of_day }
+      given(:date) { datetime.to_s(:db).split(' ').first }
+      given(:time) { datetime.to_s(:db).split(' ').last }
 
       background do
         page.find('.card-%d .card-settings' % card.id).click
