@@ -21,7 +21,7 @@ Doers.BoardsShowController = Ember.ObjectController.extend Doers.ControllerAlert
   updateBook: (book, data) ->
     data = data.volumeInfo
     book.set('bookTitle', data.title)
-    book.set('bookAuthors', data.authors)
+    book.set('bookAuthors', data.authors.join(', '))
     book.set('url', data.infoLink)
     book.set('query', null)
     if thumbnailUrl = data.imageLinks.thumbnail
