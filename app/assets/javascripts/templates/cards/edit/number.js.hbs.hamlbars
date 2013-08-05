@@ -1,4 +1,4 @@
-%form
+%form{:bind => {:id => 'view.content.editSlug'}}
   %fieldset
     .actions
       {{#view view.cancelButtonView}}
@@ -7,9 +7,9 @@
       {{#view view.saveButtonView}}
       = _('Save')
       {{/view}}
-    .field
-      {{input valueBinding='view.content.title' placeholder='Give it a nice title' required='true' type='text'}}
-    .field
-      {{input valueBinding='view.content.content' placeholder='What does it represent?' required='true' type='text'}}
-    .field
-      {{input valueBinding='view.content.number' required='true' type='number'}}
+    .field.title
+      {{input type='text' valueBinding='view.content.title' placeholder='Give it a nice title' required='true'}}
+    .field.content
+      {{input type='text' valueBinding='view.content.content' placeholder='What does it represent?' required='true'}}
+    .field.number
+      {{input type='number' valueBinding='view.content.number' required='true'}}

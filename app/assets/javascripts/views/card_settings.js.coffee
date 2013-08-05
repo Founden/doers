@@ -14,12 +14,14 @@ Doers.CardSettingsView = Ember.View.extend
       @toggleProperty('parentView.isActive')
 
   editButton: Ember.View.extend
+    classNames: ['toggle-editing']
     tagName: 'li'
     click: (event) ->
       @toggleProperty('parentView.isEditing')
       @set('parentView.isActive', false)
 
   deleteButton: Ember.View.extend
+    classNames: ['delete']
     tagName: 'li'
 
   changeStyleButton: Ember.View.extend

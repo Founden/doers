@@ -12,9 +12,12 @@
           %a{:href => dashboard_pages_path}
             = _('Your projects')
         %li
-          %a{:href => root_path(:anchor => 'projects/new')}
+          %a#projects-add{:href => root_path(:anchor => 'projects/new')}
             = _('Create new porject')
-
+        - if current_account.admin?
+          %li
+            %a#boards-add{:href => root_path(:anchor => 'boards/yours')}
+              = _('Template boards')
     %ul.account
       %li
         %a{:href => profile_path(current_account)}

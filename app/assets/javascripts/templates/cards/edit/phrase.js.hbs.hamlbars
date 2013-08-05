@@ -1,4 +1,4 @@
-%form
+%form{:bind => {:id => 'view.content.editSlug'}}
   %fieldset
     .actions
       {{#view view.cancelButtonView}}
@@ -7,7 +7,7 @@
       {{#view view.saveButtonView}}
       = _('Save')
       {{/view}}
-    .field
-      {{view Ember.TextField valueBinding='view.content.title' placeholder='Give it a nice title' autocomplete='false' required='true'}}
-    .field
-      {{view Ember.TextArea valueBinding='view.content.content' placeholder='Give it a nice content' rows='10' required='true'}}
+    .field.title
+      {{input type='text' valueBinding='view.content.title' placeholder='Give it a nice title' autocomplete='false' required='true'}}
+    .field.content
+      {{textarea valueBinding='view.content.content' placeholder='Give it a nice content' rows='10' required='true'}}

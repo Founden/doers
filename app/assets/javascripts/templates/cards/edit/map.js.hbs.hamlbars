@@ -1,4 +1,4 @@
-%form
+%form{:bind => {:id => 'view.content.editSlug'}}
   %fieldset
     .actions
       {{#view view.cancelButtonView}}
@@ -7,10 +7,19 @@
       {{#view view.saveButtonView}}
       = _('Save')
       {{/view}}
-    .field
-      {{view Ember.TextField valueBinding='view.content.title' placeholder='Give it a nice title' autocomplete='false' required='true'}}
-    .field
-      {{#view view.addressView}}
-      {{view view.searchField placeholder='Type an address'}}
-      {{view view.searchResults}}
-      {{/view}}
+    .field.title
+      {{input type='text' valueBinding='view.content.title' placeholder='Give it a nice title' autocomplete='false' required='true'}}
+    .field.map-search
+      {{input type='text' valueBinding='view.content.query' placeholder='Type an address'}}
+      {{#if view.content.query}}
+      %ul
+        {{#if view.content.results}}
+        {{#each place in view.content.results}}
+        %li{:_action => 'updateMap view.content place'}
+          {{place.display_name}}
+        {{/each}}
+        {{else}}
+        %li
+          = _('Searching...')
+        {{/if}}
+      {{/if}}

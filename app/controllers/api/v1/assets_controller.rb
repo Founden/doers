@@ -3,25 +3,25 @@ class Api::V1::AssetsController < Api::V1::ApplicationController
   # Shows available assets
   def index
     assets = Asset.where(
-      :id => params[:ids], :project_id => current_account.projects)
+      :id => params[:ids], :board_id => current_account.accessible_boards)
     render :json => assets
   end
 
   # Shows available asset
   def show
     asset = Asset.find_by!(
-      :id => params[:id], :project_id => current_account.projects)
+      :id => params[:id], :board_id => current_account.accessible_boards)
     render :json => asset
   end
 
   # Updates available asset
   def update
     # Try a link, maybe it's a remote file
-    attchmnt= new_asset_params[:attachment]
+    attchmnt = new_asset_params[:attachment]
     attchmnt = URI.parse(attchmnt) if attchmnt.to_s.match(Asset::URI_REGEXP)
 
     asset = Asset.find_by!(
-      :id => params[:id], :project_id => current_account.projects)
+      :id => params[:id], :board_id => current_account.accessible_boards)
 
     begin
       asset.update_attributes(asset_params.merge(:attachment => attchmnt))
@@ -35,7 +35,7 @@ class Api::V1::AssetsController < Api::V1::ApplicationController
   # Creates an asset
   def create
     # Try a link, maybe it's a remote file
-    attchmnt= new_asset_params[:attachment]
+    attchmnt = new_asset_params[:attachment]
     attchmnt = URI.parse(attchmnt) if attchmnt.to_s.match(Asset::URI_REGEXP)
 
     begin
@@ -52,7 +52,7 @@ class Api::V1::AssetsController < Api::V1::ApplicationController
   # Destroys the asset
   def destroy
     asset = Asset.find_by(
-      :id => params[:id], :project_id => current_account.projects)
+      :id => params[:id], :board_id => current_account.accessible_boards)
     if asset and asset.destroy
       render :nothing => true, :status => 204
     else
