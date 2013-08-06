@@ -20,7 +20,7 @@ Doers::Application.routes.draw do
     namespace :v1 do
       resources(:users, :only => [:index, :show])
       resources(:projects)
-      resources(:startups, :only => [:create])
+      resources(:startups, :only => [:create, :index])
       resources(:boards)
       resources(:cards)
       resources(:assets)
