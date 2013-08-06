@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'Link', :js, :slow, :vcr do
+feature 'Link', :js, :slow do
   background do
     sign_in_with_angel_list
   end
@@ -20,8 +20,8 @@ feature 'Link', :js, :slow, :vcr do
     end
 
     background do
-      Oembedr.should_receive(:known_service?).and_return(true)
-      Oembedr.should_receive(:fetch).and_return(response)
+      Oembedr.should_receive(:known_service?).at_least(1).times.and_return(true)
+      Oembedr.should_receive(:fetch).at_least(1).times.and_return(response)
       visit root_path(:anchor=>'projects/%d/boards/%d' % [project.id, board.id])
     end
 
@@ -34,6 +34,36 @@ feature 'Link', :js, :slow, :vcr do
       expect(page).to have_content(card.title)
       expect(page.source).to include(embed['title'])
       expect(page.source).to include(embed['html'])
+    end
+
+    context 'when clicked on edit' do
+      given(:title) { Faker::Lorem.sentence }
+      given(:link) { Faker::Internet.http_url }
+
+      background do
+        page.find('.card-%d .card-settings' % card.id).click
+        page.find('#dropdown-card-%d .toggle-editing' % card.id).click
+      end
+
+      scenario 'can edit card details in editing screen' do
+        edit_css = '#edit-card-%d' % card.id
+
+        within(edit_css) do
+          fill_in('title', :with => title)
+          fill_in('url', :with => link)
+        end
+
+        sleep(1)
+        page.find(edit_css + ' .actions .button').click
+
+        expect(page).to_not have_css(edit_css)
+
+        card.reload
+        expect(card.title).to eq(title)
+
+        expect(page).to have_content(embed['title'])
+        expect(page.source).to include(embed['html'])
+      end
     end
   end
 

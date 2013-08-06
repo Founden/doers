@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'Phrase', :js, :slow, :vcr do
+feature 'Phrase', :js, :slow do
   background do
     sign_in_with_angel_list
   end
@@ -20,11 +20,38 @@ feature 'Phrase', :js, :slow, :vcr do
     scenario 'is shown with details' do
       expect(page).to have_css('.cards .card', :count => 1)
 
-      card_classname = '.cards .%s' % card.class.name.demodulize.downcase
-      expect(page).to have_css(card_classname)
+      expect(page).to have_css('.card-%d' % card.id)
 
       expect(page).to have_content(card.title)
       expect(page).to have_content(card.content)
+    end
+
+    context 'when clicked on edit' do
+      given(:card_attrs) { Fabricate('card/phrase') }
+
+      background do
+        page.find('.card-%d .card-settings' % card.id).click
+        page.find('#dropdown-card-%d .toggle-editing' % card.id).click
+      end
+
+      scenario 'can edit card details in editing screen' do
+        edit_css = '#edit-card-%d' % card.id
+
+        within(edit_css) do
+          fill_in('title', :with => card_attrs[:title])
+          fill_in('content', :with => card_attrs[:content])
+        end
+        page.find(edit_css + ' .actions .button').click
+
+        expect(page).to_not have_css(edit_css)
+
+        card.reload
+        expect(card.title).to eq(card_attrs[:title])
+        expect(card.content).to eq(card_attrs[:content])
+
+        expect(page).to have_content(card.title)
+        expect(page).to have_content(card.content)
+      end
     end
   end
 

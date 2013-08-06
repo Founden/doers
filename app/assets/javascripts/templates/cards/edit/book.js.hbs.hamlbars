@@ -1,10 +1,10 @@
 %form{:bind => {:id => 'view.content.editSlug'}}
   %fieldset
-    .field.title
-      {{input type='text' valueBinding='view.content.title' placeholder='Give it a nice title' autocomplete='false' required='true'}}
+    .field
+      {{input type='text' valueBinding='view.content.title' placeholder='Give it a nice title' autocomplete='false' required='true' name='title'}}
     .field
       .book-search
-        {{input type='text' valueBinding='view.content.query' placeholder='Search for a book' autocomplete='false'}}
+        {{input type='text' valueBinding='view.content.query' placeholder='Search for a book' autocomplete='false' name='book-title'}}
         {{#if view.content.query}}
         %ul
           {{#if view.content.results}}

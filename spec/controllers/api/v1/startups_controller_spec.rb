@@ -8,6 +8,14 @@ describe Api::V1::StartupsController do
     controller.stub(:current_account) { user }
   end
 
+  describe '#index' do
+
+    before { get(:index) }
+
+    its('response.body') { should be_blank }
+    its('response.status') { should eq(200) }
+  end
+
   describe '#create' do
     let(:startup) do
       json = File.read Rails.root.join('spec/fixtures/angel_list_startups.json')
