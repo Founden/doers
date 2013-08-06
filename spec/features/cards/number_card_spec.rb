@@ -50,7 +50,7 @@ feature 'Number', :js, :slow, :vcr do
         card.reload
         expect(card.title).to eq(card_attrs[:title])
         expect(card.content).to eq(card_attrs[:content])
-        expect(card.number).to eq(card_attrs[:number])
+        expect(card.number).to eq(card_attrs[:number].to_s)
 
         expect(page).to have_content(card.title)
         expect(page).to have_content(card.content)
