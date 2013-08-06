@@ -28,6 +28,45 @@ feature 'Map', :js, :slow, :vcr do
       expect(page.source).to include(card.longitude)
       expect(page.source).to include(card.latitude)
     end
+
+    context 'when clicked on edit' do
+      given(:title) { Faker::Lorem.sentence }
+      given(:locations) { MultiJson.load(
+        Rails.root.join('spec/fixtures/openstreetmap_london.json')) }
+      given(:place) { locations.first }
+      given(:place_title) { Faker::Address.country }
+
+      background do
+        proxy.stub(/nominatim/).and_return(
+          :jsonp => locations, :callback_param => 'json_callback'
+        )
+        page.find('.card-%d .card-settings' % card.id).click
+        page.find('#dropdown-card-%d .toggle-editing' % card.id).click
+      end
+
+      scenario 'can edit card details in editing screen' do
+        edit_css = '#edit-card-%d' % card.id
+
+        within(edit_css) do
+          fill_in('title', :with => title)
+          fill_in('place-name', :with => place_title)
+        end
+
+        page.find(edit_css + ' .map-search li').click
+        page.find(edit_css + ' .actions .button').click
+
+        expect(page).to_not have_css(edit_css)
+
+        card.reload
+        expect(card.title).to eq(title)
+        expect(card.latitude).to eq(place['lat'])
+        expect(card.longitude).to eq(place['lon'])
+
+        expect(page).to have_content(card.title)
+        expect(page.source).to include(card.latitude)
+        expect(page.source).to include(card.longitude)
+      end
+    end
   end
 
 end
