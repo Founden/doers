@@ -11,6 +11,9 @@
         = _('Select a time')
       {{input valueBinding='view.content.timeString' required='true' type='time' name='time'}}
     .actions
+      {{#view view.cancelButtonView}}
+      = _('Cancel')
+      {{/view}}
       {{#view view.saveButtonView}}
       = _('Save')
       {{/view}}

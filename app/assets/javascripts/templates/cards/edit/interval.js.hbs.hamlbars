@@ -17,6 +17,9 @@
         = _('Selected')
       {{input valueBinding='view.content.selected' required='true' type='number' name='selected'}}
     .actions
+      {{#view view.cancelButtonView}}
+      = _('Cancel')
+      {{/view}}
       {{#view view.saveButtonView}}
       = _('Save')
       {{/view}}

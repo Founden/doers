@@ -11,11 +11,11 @@
         .field
           %label{:for => :titleInput, 'data-error' => _('Name is missing.')}
             = _('Name')
-          {{view Ember.TextField valueBinding='content.title' id='titleInput' placeholder='Give it a nice name' required='true'}}
+          {{input type='text' valueBinding='content.title' id='titleInput' placeholder='Give it a nice name' required='true'}}
         .field
           %label{:for => :descriptionInput}
             = _('Description')
-          {{view Ember.TextArea valueBinding='content.description' id='descriptionInput' placeholder='What is this board about...' required='true' rows='6'}}
+          {{textarea valueBinding='content.description' id='descriptionInput' placeholder='What is this board about...' required='true' rows='6'}}
         .actions
           %input.button{:type => :submit, :value => _('Create'), :id => 'board-save'}
           %a.button.secondary{:_action => 'cancel'}

@@ -5,6 +5,9 @@
     .field.content
       {{textarea valueBinding='view.content.content' placeholder='Give it a nice content' rows='10' required='true' name='content'}}
     .actions
+      {{#view view.cancelButtonView}}
+      = _('Cancel')
+      {{/view}}
       {{#view view.saveButtonView}}
       = _('Save')
       {{/view}}
