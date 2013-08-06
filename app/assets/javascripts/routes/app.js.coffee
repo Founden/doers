@@ -1,3 +1,3 @@
 Doers.IndexRoute = Ember.Route.extend
   redirect: ->
-    this.transitionTo('dashboard')
+    this.transitionTo('projects')

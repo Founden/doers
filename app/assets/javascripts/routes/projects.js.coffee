@@ -1,3 +1,7 @@
+Doers.ProjectsRoute = Ember.Route.extend
+  model: ->
+    Doers.Project.find()
+
 Doers.ProjectsNewRoute = Ember.Route.extend
   model: ->
     Doers.Project.createRecord()
