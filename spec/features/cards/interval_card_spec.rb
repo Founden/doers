@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'Interval', :js, :slow, :vcr do
+feature 'Interval', :js, :slow do
   background do
     sign_in_with_angel_list
   end

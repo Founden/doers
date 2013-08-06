@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'Map', :js, :slow, :vcr do
+feature 'Map', :js do
   background do
     sign_in_with_angel_list
   end
