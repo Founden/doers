@@ -1,9 +1,9 @@
 %form{:bind => {:id => 'view.content.editSlug'}}
   %fieldset
-    .field.title
-      {{input valueBinding='view.content.title' placeholder='Give it a nice title' required='true' type='text'}}
-    .field.url
-      {{input valueBinding='view.content.url' placeholder='http://...' required='true' type='text'}}
+    .field
+      {{input valueBinding='view.content.title' placeholder='Give it a nice title' required='true' type='text' name='title'}}
+    .field
+      {{input valueBinding='view.content.url' placeholder='http://...' required='true' type='text' name='url'}}
     .field.oembed
       %em
         {{#if view.embed}}
