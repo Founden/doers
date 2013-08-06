@@ -40,7 +40,7 @@ Doers.PhotoView = Doers.CardView.extend
       ).observes('content.attachment')
 
       hiddenFileInputView: Ember.View.extend
-        nameBinding: 'parentView.content.slug'
+        name: 'image'
         attributeBindings: ['type', 'name']
         tagName: 'input'
         type: 'file'

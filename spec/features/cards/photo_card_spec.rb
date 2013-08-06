@@ -39,11 +39,10 @@ feature 'Photo', :js, :slow, :vcr do
       scenario 'can edit card details in editing screen' do
         old_image_url = card.image.attachment.url.force_encoding('UTF-8')
         edit_css = '#edit-card-%d' % card.id
-        file_input_name = 'card-%d' % card.id
 
         within(edit_css) do
           fill_in('title', :with => title)
-          attach_file(file_input_name, image_path)
+          attach_file('image', image_path)
         end
         page.find(edit_css + ' .actions .button').click
 
