@@ -55,7 +55,7 @@ feature 'Book', :js, :slow, :vcr do
           fill_in('book-title', :with => book['volumeInfo']['title'])
         end
 
-        sleep(0.2)
+        sleep(1)
         page.all(edit_css + ' .book-search li').first.click
         page.find(edit_css + ' .actions .button').click
 
