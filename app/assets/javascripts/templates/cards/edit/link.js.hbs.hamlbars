@@ -1,9 +1,16 @@
 %form{:bind => {:id => 'view.content.editSlug'}}
   %fieldset
+    .actions
+      {{#view view.cancelButtonView}}
+      = _('Cancel')
+      {{/view}}
+      {{#view view.saveButtonView}}
+      = _('Save')
+      {{/view}}
     .field.title
-      {{input valueBinding='view.content.title' placeholder='Give it a nice title' required='true' type='text'}}
+      {{input type='text' valueBinding='view.content.title' placeholder='Give it a nice title' required='true'}}
     .field.url
-      {{input valueBinding='view.content.url' placeholder='http://...' required='true' type='text'}}
+      {{input type='text' valueBinding='view.content.url' placeholder='http://...' required='true'}}
     .field.oembed
       %em
         {{#if view.embed}}
@@ -14,7 +21,3 @@
         {{else}}
         = _('Provided link has no support for oEmbed. Try again.')
         {{/if}}
-    .actions
-      {{#view view.saveButtonView}}
-      = _('Save')
-      {{/view}}

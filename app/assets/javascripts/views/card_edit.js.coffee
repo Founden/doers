@@ -12,9 +12,17 @@ Doers.CardEditView = Ember.View.extend
   saveButtonView: Ember.View.extend
     contentBinding: 'parentView.content'
     isEditingBinding: 'parentView.isEditing'
-    tagNames: 'input'
-    attributeBindings: ['type']
-    type: 'submit'
+    tagName: 'button'
     classNames: ['button']
-
+    isVisibleBinding: 'content.isDirty'
     clickBinding: 'controller.saveCard'
+
+  cancelButtonView: Ember.View.extend
+    contentBinding: 'parentView.content'
+    tagName: 'button'
+    classNames: ['button', 'gray']
+
+    click: (event) ->
+      @set('parentView.isEditing', false)
+      @get('content').rollback()
+

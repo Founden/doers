@@ -1,13 +1,16 @@
 %form{:bind => {:id => 'view.content.editSlug'}}
   %fieldset
+    .actions
+      {{#view view.cancelButtonView}}
+      = _('Cancel')
+      {{/view}}
+      {{#view view.saveButtonView}}
+      = _('Save')
+      {{/view}}
     .field.title
-      {{input valueBinding='view.content.title' placeholder='Give it a nice title' autocomplete='false' required='true' type='text'}}
+      {{input type='text' valueBinding='view.content.title' placeholder='Give it a nice title' autocomplete='false' required='true'}}
     .field.map-search
-      {{input valueBinding='view.content.query' placeholder='Type an address' type='text'}}
-      -# %small
-      -#   = _('Zoom')
-      -# {{input valueBinding='view.content.zoom' type='number'}}
-
+      {{input type='text' valueBinding='view.content.query' placeholder='Type an address'}}
       {{#if view.content.query}}
       %ul
         {{#if view.content.results}}
@@ -20,7 +23,3 @@
           = _('Searching...')
         {{/if}}
       {{/if}}
-    .actions
-      {{#view view.saveButtonView}}
-      = _('Save')
-      {{/view}}

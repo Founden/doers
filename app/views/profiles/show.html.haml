@@ -5,5 +5,5 @@
       = gravatar_tag(@profile.email, {:class => 'avatar', :size => 100})
       %h1
         = @profile.nicename
-      %p
+      %p.header-links
         = mail_to @profile.email, _('contact me')

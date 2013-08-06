@@ -1,16 +1,19 @@
 %form{:bind => {:id => 'view.content.editSlug'}}
   %fieldset
-    .field.title
-      {{input valueBinding='view.content.title' placeholder='Give it a nice title' autocomplete='false' required='true' type='text'}}
-    .field
-      %small.date
-        = _('Select a date')
-      {{input valueBinding='view.content.dateString' required='true' type='date'}}
-    .field.time
-      %small
-        = _('Select a time')
-      {{input valueBinding='view.content.timeString' required='true' type='time'}}
     .actions
+      {{#view view.cancelButtonView}}
+      = _('Cancel')
+      {{/view}}
       {{#view view.saveButtonView}}
       = _('Save')
       {{/view}}
+    .field.title
+      {{input type='text' valueBinding='view.content.title' placeholder='Give it a nice title' autocomplete='false' required='true'}}
+    .field
+      %small.date
+        = _('Select a date')
+      {{input type='date' valueBinding='view.content.dateString' required='true'}}
+    .field.time
+      %small
+        = _('Select a time')
+      {{input type='time' valueBinding='view.content.timeString' required='true'}}

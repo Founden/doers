@@ -5,7 +5,7 @@
   width: 210px;
   height: 100%;
   padding: 30px;
-  background-color: $bw_1;
+  background-color: $bw_5;
   @include box-sizing(border-box);
 
   .name {
@@ -15,32 +15,44 @@
 
     span {
       display: block;
-      color: $bw_5;
+      color: $bw_7;
       font-size: em(12);
     }
   }
 
-  .menu {
+  .menu, .account {
 
     li {
       margin: 0 0 10px 0;
+
+      &.separator {
+        width: 30px;
+        height: 1px;
+        background-color: $bw_7;
+      }
     }
 
     a {
       display: block;
       font-size: em(14);
       line-height: 24px;
-      color: $bw_7;
+      color: $bw_9;
 
       &:hover {
         color: $white;
       }
+    }
+  }
 
-      img {
-        vertical-align: middle;
-        margin: -4px 5px 0 0;
-        border-radius: 50%;
-      }
+  .account {
+    position: absolute;
+    left: 30px;
+    bottom: 78px;
+
+    .avatar {
+      display: block;
+      border-radius: 50%;
+      margin: 0 0 10px 0;
     }
   }
 }

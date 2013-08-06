@@ -1,22 +1,25 @@
 %form{:bind => {:id => 'view.content.editSlug'}}
   %fieldset
+    .actions
+      {{#view view.cancelButtonView}}
+      = _('Cancel')
+      {{/view}}
+      {{#view view.saveButtonView}}
+      = _('Save')
+      {{/view}}
     .field.title
-      {{input valueBinding='view.content.title' placeholder='Give it a nice title' autocomplete='false' required='true' type='text'}}
+      {{input type='text' valueBinding='view.content.title' placeholder='Give it a nice title' autocomplete='false' required='true'}}
     .field.content
       {{textarea valueBinding='view.content.content' placeholder='What does it represent?' autocomplete='false' required='true'}}
     .field.minimum
       %small
         = _('Minimum')
-      {{input valueBinding='view.content.minimum' required='true' type='text' type='number'}}
+      {{input type='number' valueBinding='view.content.minimum' required='true'}}
     .field.maximum
       %small
         = _('Maximum')
-      {{input valueBinding='view.content.maximum' required='true' type='text' type='number'}}
+      {{input type='number' valueBinding='view.content.maximum' required='true'}}
     .field.selected
       %small
         = _('Selected')
-      {{input valueBinding='view.content.selected' required='true' type='text' type='number'}}
-    .actions
-      {{#view view.saveButtonView}}
-      = _('Save')
-      {{/view}}
+      {{input type='number' valueBinding='view.content.selected' required='true'}}

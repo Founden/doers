@@ -1,5 +1,12 @@
 %form{:bind => {:id => 'view.content.editSlug'}}
   %fieldset
+    .actions
+      {{#view view.cancelButtonView}}
+      = _('Cancel')
+      {{/view}}
+      {{#view view.saveButtonView}}
+      = _('Save')
+      {{/view}}
     .field.title
       {{input type='text' valueBinding='view.content.title' placeholder='Give it a nice title' autocomplete='false' required='true'}}
     .field
@@ -11,7 +18,9 @@
           {{#each book in view.content.results}}
           %li{:_action => 'updateBook view.content book'}
             {{book.volumeInfo.title}}
-            {{#if book.volumeInfo.authors}} ({{book.volumeInfo.authors}}) {{/if}}
+            {{#if book.volumeInfo.authors}}
+            ({{book.volumeInfo.authors}})
+            {{/if}}
           {{/each}}
           {{else}}
           {{#if view.content.isSearching}}
@@ -23,8 +32,3 @@
           {{/if}}
           {{/if}}
         {{/if}}
-
-    .actions
-      {{#view view.saveButtonView}}
-      = _('Save')
-      {{/view}}
