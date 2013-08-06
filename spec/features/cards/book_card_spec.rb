@@ -52,7 +52,7 @@ feature 'Book', :js, :slow, :vcr do
 
         within(edit_css) do
           fill_in('title', :with => title)
-          fill_in('book-title', :with => book['volumeInfo']['title'])
+          fill_in('book-title', :with => title)
         end
 
         sleep(1)
