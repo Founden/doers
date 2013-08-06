@@ -1,6 +1,12 @@
 Doers.BoardsShowController = Ember.ObjectController.extend Doers.ControllerAlertMixin,
 
-  saveCard: ->
+  rollbackCard: (event) ->
+    event.preventDefault() if event instanceof jQuery.Event
+    @get('content').rollback() if @get('content.isDirty')
+    @set('content.isEditing', false)
+
+  saveCard: (event) ->
+    event.preventDefault() if event instanceof jQuery.Event
     @get('content').save().then =>
       @set('isEditing', false)
 

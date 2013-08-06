@@ -21,8 +21,4 @@ Doers.CardEditView = Ember.View.extend
     contentBinding: 'parentView.content'
     tagName: 'button'
     classNames: ['button', 'gray']
-
-    click: (event) ->
-      @set('parentView.isEditing', false)
-      @get('content').rollback()
-
+    clickBinding: 'controller.rollbackCard'
