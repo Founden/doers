@@ -23,8 +23,10 @@
           {{/if}}
         {{/if}}
 
-
     .actions
+      {{#view view.cancelButtonView}}
+      = _('Cancel')
+      {{/view}}
       {{#view view.saveButtonView}}
       = _('Save')
       {{/view}}

@@ -7,6 +7,9 @@
     .field
       {{input valueBinding='view.content.number' required='true' type='number' name='number'}}
     .actions
+      {{#view view.cancelButtonView}}
+      = _('Cancel')
+      {{/view}}
       {{#view view.saveButtonView}}
       = _('Save')
       {{/view}}

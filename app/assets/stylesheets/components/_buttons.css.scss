@@ -21,4 +21,13 @@
       background-color: shade($secondary-color, 5%);
     }
   }
+
+  &.gray {
+    background-color: $bw_10;
+    color: $bw_1;
+
+    &:hover {
+      background-color: shade($bw_10, 5%);
+    }
+  }
 }
