@@ -9,10 +9,10 @@ Doers.TimestampMixin = Ember.Mixin.create
   fullFormat: 'YYYY-MM-DD HH:mm:ss'
 
   didLoad: ->
-    if ts = new Date(@get('content'))
+    if ts = moment(@get('content'))
       @set('timestamp', ts)
-      @set('dateString', moment(ts).format(@dateFormat))
-      @set('timeString', moment(ts).format(@timeFormat))
+      @set('dateString', ts.format(@dateFormat))
+      @set('timeString', ts.format(@timeFormat))
       @timestampLoaded = true
 
   timestampChanged: ( ->
@@ -26,9 +26,9 @@ Doers.TimestampMixin = Ember.Mixin.create
     if @timestampLoaded
       time = @get('timeString') || '00:00:00'
       date = @get('dateString')
-      timestampString = '%@ %@'.fmt(time, date)
+      timestampString = '%@ %@'.fmt(date, time)
 
-      if ts = new Date(timestampString)
+      if ts = moment(timestampString)
         @set('timestamp', ts)
     ).observes('dateString', 'timeString')
 
