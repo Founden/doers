@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'Phrase', :js, :slow, :vcr do
+feature 'Phrase', :js, :slow do
   background do
     sign_in_with_angel_list
   end
