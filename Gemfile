@@ -51,6 +51,7 @@ group :development do
   gem 'simplecov', :require => false
   gem 'letter_opener'
   gem 'pry-rails'
+  gem 'brakeman', :require => false
 end
 
 group :development, :test do

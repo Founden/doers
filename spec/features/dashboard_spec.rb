@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'Dashboard', :js, :slow, :vcr do
+feature 'Dashboard', :js, :slow do
 
   background do
     sign_in_with_angel_list

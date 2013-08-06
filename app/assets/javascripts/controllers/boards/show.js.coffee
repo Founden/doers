@@ -23,13 +23,13 @@ Doers.BoardsShowController = Ember.ObjectController.extend Doers.ControllerAlert
     video.set('content', data.title.$t)
     video.set('query', null)
     if thumbnailUrl = data.media$group.media$thumbnail[0].url
-      asset_data = {attr: 'image', desc: data.title, url: thumbnailUrl}
+      asset_data = {attr: 'image', desc: data.title.$t, url: thumbnailUrl}
       @createOrUpdateAsset(video, asset_data)
 
   updateBook: (book, data) ->
     data = data.volumeInfo
     book.set('bookTitle', data.title)
-    book.set('bookAuthors', data.authors)
+    book.set('bookAuthors', data.authors.join(', '))
     book.set('url', data.infoLink)
     book.set('query', null)
     if thumbnailUrl = data.imageLinks.thumbnail

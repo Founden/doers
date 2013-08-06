@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'Timestamp', :js, :slow, :vcr do
+feature 'Timestamp', :js, :slow do
   background do
     sign_in_with_angel_list
   end
@@ -25,6 +25,38 @@ feature 'Timestamp', :js, :slow, :vcr do
 
       expect(page).to have_content(card.title)
       expect(page.source).to include(card.content)
+    end
+
+    context 'when clicked on edit' do
+      given(:title) { Faker::Lorem.sentence }
+      given(:datetime) { DateTime.tomorrow.at_end_of_day }
+      given(:date) { datetime.to_s(:db).split(' ').first }
+      given(:time) { datetime.to_s(:db).split(' ').last }
+
+      background do
+        page.find('.card-%d .card-settings' % card.id).click
+        page.find('#dropdown-card-%d .toggle-editing' % card.id).click
+      end
+
+      scenario 'can edit card details in editing screen' do
+        edit_css = '#edit-card-%d' % card.id
+
+        within(edit_css) do
+          fill_in('title', :with => title)
+          fill_in('date', :with => date)
+          fill_in('time', :with => time)
+        end
+        page.find(edit_css + ' .actions .button').click
+
+        expect(page).to_not have_css(edit_css)
+
+        card.reload
+        expect(card.title).to eq(title)
+        expect(DateTime.parse(card.content).to_s(:db)).to eq(datetime.to_s(:db))
+
+        expect(page).to have_content(title)
+        expect(page.source).to include(datetime.to_s(:db))
+      end
     end
   end
 

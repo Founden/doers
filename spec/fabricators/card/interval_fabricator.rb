@@ -1,5 +1,6 @@
 Fabricator('card/interval') do
   title     { Faker::Lorem.sentence }
+  content   { Faker::Lorem.sentence }
   minimum   { rand(0..50).to_f.round(3) }
   maximum   { rand(60..100).to_f.round(3) }
   selected  { |attr|

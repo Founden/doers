@@ -20,7 +20,8 @@ Doers.MapMixin = Ember.Mixin.create
     if query and query.length > 3
       $.ajax
         url: 'http://nominatim.openstreetmap.org/search'
-        dataType: 'json'
+        dataType: 'jsonp'
+        jsonp: 'json_callback'
         data:
           q: query
           format: 'json'

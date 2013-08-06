@@ -1,5 +1,10 @@
 # API (v1) startups controller class
 class Api::V1::StartupsController < Api::V1::ApplicationController
+  # Does nothing, makes Ember Data happy!
+  def index
+    render :nothing => true, :status => 200
+  end
+
   # Handles startups import
   def create
     startup = current_account.projects.find_by(

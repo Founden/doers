@@ -1,0 +1,68 @@
+{
+  "kind": "books#volumes",
+  "totalItems": 1,
+  "items": [
+    {
+    "kind": "books#volume",
+    "id": "l0UTIQAACAAJ",
+    "etag": "77YqSpWU23k",
+    "selfLink": "https://www.googleapis.com/books/v1/volumes/l0UTIQAACAAJ",
+    "volumeInfo": {
+      "title": "Batman: Killing Joke (DELUXE)",
+      "authors": [
+        "Brian Bolland",
+        "Alan Moore"
+      ],
+      "publisher": "DC Comics",
+      "publishedDate": "2008-03-19",
+      "description": "\"One bad day. According to the grinning engine of madness and mayhem known as The Joker, that's all that separates the sane from the psychotic. Freed once again from the confines of Arkham Asylum, he's out to prove his deranged point. And he's going to use Gotham's top cop, Commissioner Jim Gordon, and his brilliant and beautiful daughter Barbara to do it. Now Batman must race to stop his archnemesis before his reign of terror claims two of the Dark Knight's closest friends. Can he finally put an end to the cycle of bloodlust and lunacy that links thes two iconic foes before it leads to a fatal conclusion? And as the horrifying origin of the Clown Prince of Crime is finally revealed, will the thin line that separates Batman's nobility and The Joker's insanity snap once and for all? '' -- dust jacket.",
+      "industryIdentifiers": [
+        {
+        "type": "ISBN_10",
+        "identifier": "1401216676"
+      },
+      {
+        "type": "ISBN_13",
+        "identifier": "9781401216672"
+      }
+      ],
+      "pageCount": 64,
+      "printType": "BOOK",
+      "averageRating": 3,
+      "ratingsCount": 105,
+      "contentVersion": "preview-1.0.0",
+      "imageLinks": {
+        "smallThumbnail": "http://bks5.books.google.ro/books?id=l0UTIQAACAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api",
+        "thumbnail": "http://bks5.books.google.ro/books?id=l0UTIQAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+      },
+      "language": "en",
+      "previewLink": "http://books.google.ro/books?id=l0UTIQAACAAJ&dq=batman&hl=&cd=1&source=gbs_api",
+      "infoLink": "http://books.google.ro/books?id=l0UTIQAACAAJ&dq=batman&hl=&source=gbs_api",
+      "canonicalVolumeLink": "http://books.google.ro/books/about/Batman_Killing_Joke_DELUXE.html?hl=&id=l0UTIQAACAAJ"
+    },
+    "saleInfo": {
+      "country": "RO",
+      "saleability": "NOT_FOR_SALE",
+      "isEbook": false
+    },
+    "accessInfo": {
+      "country": "RO",
+      "viewability": "NO_PAGES",
+      "embeddable": false,
+      "publicDomain": false,
+      "textToSpeechPermission": "ALLOWED",
+      "epub": {
+        "isAvailable": false
+      },
+      "pdf": {
+        "isAvailable": false
+      },
+      "webReaderLink": "http://books.google.ro/books/reader?id=l0UTIQAACAAJ&hl=&printsec=frontcover&output=reader&source=gbs_api",
+      "accessViewStatus": "NONE"
+    },
+    "searchInfo": {
+      "textSnippet": "Now Batman must race to stop his archnemesis before his reign of terror claims two of the Dark Knight&#39;s closest friends."
+    }
+  }
+  ]
+}

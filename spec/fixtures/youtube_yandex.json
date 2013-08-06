@@ -1,0 +1,74 @@
+{
+    "feed": {
+        "entry": [{
+            "id": {
+                "$t": "http://gdata.youtube.com/feeds/api/videos/90YdQHjjieg"
+            },
+            "title": {
+                "$t": "Yandex Today",
+                "type": "text"
+            },
+            "content": {
+                "$t": "Yandex is the leading internet company in Russia, operating the most popular search engine with the most visited website. In Q1 2011, Yandex's share of the R...",
+                "type": "text"
+            },
+            "author": [{
+                "name": {
+                    "$t": "Yandex"
+                },
+                "uri": {
+                    "$t": "https://gdata.youtube.com/feeds/api/users/yandexmovie"
+                }
+            }],
+            "media$group": {
+                "media$content": [{
+                    "url": "https://www.youtube.com/v/90YdQHjjieg?version=3&f=videos&app=youtube_gdata",
+                    "type": "application/x-shockwave-flash",
+                    "medium": "video",
+                    "isDefault": "true",
+                    "expression": "full",
+                    "duration": 120,
+                    "yt$format": 5
+                }, {
+                    "url": "rtsp://v6.cache4.c.youtube.com/CiILENy73wIaGQnoieN4QB1G9xMYDSANFEgGUgZ2aWRlb3MM/0/0/0/video.3gp",
+                    "type": "video/3gpp",
+                    "medium": "video",
+                    "expression": "full",
+                    "duration": 120,
+                    "yt$format": 1
+                }, {
+                    "url": "rtsp://v6.cache4.c.youtube.com/CiILENy73wIaGQnoieN4QB1G9xMYESARFEgGUgZ2aWRlb3MM/0/0/0/video.3gp",
+                    "type": "video/3gpp",
+                    "medium": "video",
+                    "expression": "full",
+                    "duration": 120,
+                    "yt$format": 6
+                }],
+                "media$player": [{
+                    "url": "https://www.youtube.com/watch?v=90YdQHjjieg&feature=youtube_gdata_player"
+                }],
+                "media$thumbnail": [{
+                    "url": "https://i.ytimg.com/vi/90YdQHjjieg/0.jpg",
+                    "height": 360,
+                    "width": 480,
+                    "time": "00:01:00"
+                }, {
+                    "url": "https://i.ytimg.com/vi/90YdQHjjieg/1.jpg",
+                    "height": 90,
+                    "width": 120,
+                    "time": "00:00:30"
+                }, {
+                    "url": "https://i.ytimg.com/vi/90YdQHjjieg/2.jpg",
+                    "height": 90,
+                    "width": 120,
+                    "time": "00:01:00"
+                }, {
+                    "url": "https://i.ytimg.com/vi/90YdQHjjieg/3.jpg",
+                    "height": 90,
+                    "width": 120,
+                    "time": "00:01:30"
+                }]
+            }
+        }]
+    }
+}

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'Cards', :js, :slow, :vcr do
+feature 'Cards', :js, :slow do
   background do
     sign_in_with_angel_list
   end
