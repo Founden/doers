@@ -27,32 +27,35 @@ feature 'Photo', :js, :slow, :vcr do
       expect(page.source).to include(card.image.attachment.url)
     end
 
-    context 'when editing it' do
-      let(:card_css) do
-        '.card-%s-%d' % [card.class.name.demodulize.downcase, card.id]
-      end
+    context 'when clicked on edit' do
+      given(:title) { Faker::Lorem.sentence }
+      given(:image_path) { Rails.root.join('spec/fixtures/test.png') }
 
       background do
-        # edit_option = page.find(card_css + ' .dropdown-toggle').find('li').first
-        # edit_option.click
+        page.find('.card-%d .card-settings' % card.id).click
+        page.find('#dropdown-card-%d .toggle-editing' % card.id).click
       end
 
-      scenario 'can update the title' do
-        pending
-      end
+      scenario 'can edit card details in editing screen' do
+        old_image_url = card.image.attachment.url.force_encoding('UTF-8')
+        edit_css = '#edit-card-%d' % card.id
+        file_input_name = 'card-%d' % card.id
 
-      scenario 'updates image when dropping an image' do
-        pending
-        # file = Rails.root.join('spec/fixtures/test.png')
-        # card_name = 'card-%s-%d' % [card.class.name.demodulize.downcase, card.id]
+        within(edit_css) do
+          fill_in('title', :with => title)
+          attach_file(file_input_name, image_path)
+        end
+        page.find(edit_css + ' .actions .button').click
 
-        # old_image_url = card.image.attachment.url.force_encoding('UTF-8')
-        # page.attach_file(card_name, file)
+        expect(page).to_not have_css(edit_css)
 
-        # # Let it ajax
-        # sleep(0.5)
-        # expect(page.source).to_not include(old_image_url)
-        # expect(page.source).to match('data:image/png;base64')
+        card.reload
+        expect(card.title).to eq(title)
+
+        # Let it ajax
+        expect(page).to have_content(card.title)
+        expect(page.source).to_not include(old_image_url)
+        expect(page.source).to match('data:image/png;base64')
       end
     end
   end
