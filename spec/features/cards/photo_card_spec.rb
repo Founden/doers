@@ -14,7 +14,7 @@ feature 'Photo', :js, :slow do
     given(:card) { board.cards.first }
 
     background do
-      visit root_path(:anchor=>'projects/%d/boards/%d' % [project.id, board.id])
+      visit root_path(:anchor => 'boards/%d' % board.id)
     end
 
     scenario 'is shown with details' do
@@ -44,7 +44,7 @@ feature 'Photo', :js, :slow do
           fill_in('title', :with => title)
           attach_file('image', image_path)
         end
-        page.find(edit_css + ' .actions .button').click
+        page.find(edit_css + ' .actions .does-save').click
 
         expect(page).to_not have_css(edit_css)
 

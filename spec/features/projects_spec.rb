@@ -36,7 +36,7 @@ feature 'Projects', :js, :slow do
       click_on('project-save')
 
       expect(page).to have_css('#notifications .alert-box.alert')
-      expect(user.projects.count).to eq(0)
+      expect(user.projects.reload.count).to eq(0)
     end
   end
 end
