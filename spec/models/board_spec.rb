@@ -12,6 +12,14 @@ describe Board do
   it { should validate_presence_of(:title) }
   it { should ensure_inclusion_of(:status).in_array(Board::STATES) }
 
+  context 'public scope' do
+    let!(:branched_board) { Fabricate(:branched_board) }
+
+    subject { Board }
+
+    its('public.count') { should eq(Board.where(:status => 'public').count) }
+  end
+
   context 'instance' do
     let(:board) { Fabricate(:board) }
 
