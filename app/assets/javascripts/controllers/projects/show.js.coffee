@@ -1,10 +1,7 @@
 Doers.ProjectsShowController = Ember.Controller.extend Doers.ControllerAlertMixin,
-  publicBoards: null
-
-  publicBoardsObserver: ( ->
-    unless @get('content.boards').length > 0
-      @set('publicBoards', Doers.Board.find({status: 'public'}))
-  ).observes('content.boards')
+  publicBoards: ( ->
+    Doers.Board.find(status: 'public')
+  ).property()
 
   createFork: (board) ->
     project = @get('content')
