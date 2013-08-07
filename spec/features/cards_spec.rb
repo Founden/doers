@@ -13,7 +13,7 @@ feature 'Cards', :js, :slow do
     given(:card) { board.cards.first }
 
     background do
-      visit root_path(:anchor=>'projects/%d/boards/%d' % [project.id, board.id])
+      visit root_path(:anchor=>'boards/%d' % board.id)
     end
 
     scenario 'are shown' do

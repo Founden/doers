@@ -8,7 +8,7 @@ feature 'Dashboard', :js, :slow do
 
   context 'with no projects' do
     background do
-      visit root_path(:anchor => :dashboard)
+      visit root_path
     end
 
     scenario 'has no projects listed' do
@@ -29,7 +29,7 @@ feature 'Dashboard', :js, :slow do
 
     background do
       3.times { Fabricate(:project, :user => user) }
-      visit root_path(:anchor => :dashboard)
+      visit root_path
     end
 
     scenario 'is shown with add and import buttons' do

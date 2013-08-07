@@ -14,7 +14,7 @@ feature 'Interval', :js, :slow do
     given(:card) { board.cards.first }
 
     background do
-      visit root_path(:anchor=>'projects/%d/boards/%d' % [project.id, board.id])
+      visit root_path(:anchor=>'boards/%d' % board.id)
     end
 
     scenario 'is shown with details' do
@@ -48,7 +48,7 @@ feature 'Interval', :js, :slow do
           fill_in('maximum', :with => card_attrs[:maximum])
           fill_in('selected', :with => card_attrs[:selected])
         end
-        page.find(edit_css + ' .actions .button').click
+        page.find(edit_css + ' .actions .does-save').click
 
         expect(page).to_not have_css(edit_css)
 
