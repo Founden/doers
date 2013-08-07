@@ -12,10 +12,10 @@ class Api::V1::StartupsController < Api::V1::ApplicationController
 
     if !startup
       current_account.update_attributes(:importing => true)
-      job = Delayed::Job.enqueue(ImportJob.new(
-        current_account, startup_params[:external_id]))
+      Delayed::Job.enqueue(
+        ImportJob.new(current_account, startup_params[:external_id]))
 
-      render :json => {:job => job.id}, :status => 200
+      render :json => {:job => true}, :status => 200
     else
       error = _('Failed to import a duplicate.')
       render :json => {:errors => [error], :startup => startup}, :status => 400
