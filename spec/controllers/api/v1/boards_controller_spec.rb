@@ -153,10 +153,10 @@ describe Api::V1::BoardsController do
         end
       end
 
-      context 'when user is admin?' do
+      context 'when user is admin? and no project is set' do
         let(:user) { Fabricate(:admin) }
         let(:attrs) { Fabricate.attributes_for(
-          :board, :title=>title, :author => user) }
+          :board, :title=>title, :author => user, :project => nil) }
 
         its('keys.size') { should eq(16) }
         its(:title) { should eq(title) }
