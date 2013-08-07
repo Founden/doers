@@ -12,27 +12,32 @@ describe Api::V1::AssetsController do
   describe '#index' do
     let(:asset_ids) { [] }
 
-    before { get(:index, :ids => asset_ids) }
-
     subject(:api_asset) { json_to_ostruct(response.body) }
 
-    its('assets.size') { should eq(0) }
+    context 'when no assets are available' do
+      before { get(:index, :ids => asset_ids) }
+
+      its('assets.size') { should eq(0) }
+    end
 
     context 'when queried ids are available' do
       let(:card) { Fabricate(
         'card/photo', :user => user, :project => project, :board => board) }
-
       let(:asset_ids) { [card.image.id] }
+
+      before { get(:index, :ids => asset_ids) }
 
       its('assets.size') { should eq(1) }
     end
 
     context 'when queried ids are not available' do
       let(:card) { Fabricate('card/photo') }
-
       let(:asset_ids) { [card.image.id] }
 
-      its('assets.size') { should eq(0) }
+      it 'gives 404' do
+        expect{ get(:index, :ids => asset_ids) }.to raise_error(
+          ActiveRecord::RecordNotFound)
+      end
     end
   end
 
