@@ -8,4 +8,4 @@ Doers.BoardsNewController = Ember.Controller.extend Doers.ControllerAlertMixin,
 
   cancel: ->
     @get('content').deleteRecord()
-    @get('target.router').transitionTo('projects')
+    @get('target.router').transitionTo('projects.index')
