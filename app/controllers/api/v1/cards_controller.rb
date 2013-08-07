@@ -2,15 +2,15 @@
 class Api::V1::CardsController < Api::V1::ApplicationController
   # Shows available cards
   def index
-    cards = Card.where(
-      :id => params[:ids], :board_id => current_account.accessible_boards)
+    cards = Card.where(:id => params[:ids])
+    current_account.can?(:read, cards)
     render :json => cards
   end
 
   # Shows available card
   def show
-    card = Card.find_by!(
-      :id => params[:id], :board_id => current_account.accessible_boards)
+    card = Card.find_by!(:id => params[:id])
+    current_account.can?(:read, card)
     render :json => card
   end
 
@@ -22,6 +22,10 @@ class Api::V1::CardsController < Api::V1::ApplicationController
     begin
       klass = ('Card::%s' % new_card_params[:type]).safe_constantize
       raise _('Type is not allowed.') if !klass or klass.equal?(Card)
+
+      current_account.can?(
+        :write, Board.find_by(:id => new_card_params[:board_id]))
+
       card = klass.create!(new_card_params.except(:type))
       render :json => card
     rescue Exception => error
@@ -33,8 +37,8 @@ class Api::V1::CardsController < Api::V1::ApplicationController
   # Handles card changes
   def update
     klass = ('Card::%s' % card_params[:type]).safe_constantize || Card
-    card = klass.find_by!(
-      :id => params[:id], :board_id => current_account.accessible_boards)
+    card = klass.find_by!(:id => params[:id])
+    current_account.can?(:write, card)
 
     card_params.merge!({:user => current_account})
     begin
@@ -48,9 +52,10 @@ class Api::V1::CardsController < Api::V1::ApplicationController
 
   # Handles card deletion
   def destroy
-    card = Card.find_by(
-      :id => params[:id], :board_id => current_account.accessible_boards)
-    if card and card.destroy
+    card = Card.find_by(:id => params[:id])
+    can_destroy = current_account.can?(:write, card, :raise_error => false)
+
+    if card and can_destroy and card.destroy
       render :nothing => true, :status => 204
     else
       render :nothing => true, :status => 400

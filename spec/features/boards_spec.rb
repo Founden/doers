@@ -7,8 +7,8 @@ feature 'Boards', :js, :slow do
 
   context 'from an existing project' do
     given(:user) { User.first }
-    given!(:project) { Fabricate(:project_with_boards, :user => user) }
-    given!(:public_board) {}
+    given(:project) { Fabricate(:project_with_boards, :user => user) }
+    given!(:public_board) { Fabricate(:public_board) }
 
     background do
       visit root_path(:anchor => 'projects/%d' % project.id)
@@ -20,7 +20,6 @@ feature 'Boards', :js, :slow do
     end
 
     context 'when no boards are available' do
-      given(:public_board) { Fabricate(:public_board) }
       given(:project) { Fabricate(:project, :user => user) }
 
       scenario 'some public boards are shown' do
@@ -33,7 +32,7 @@ feature 'Boards', :js, :slow do
           find('#board-%d a' % public_board.id).click
         end
 
-        scenario 'creates a branch for currrent project' do
+        scenario 'creates a branch for current project' do
           expect(page).to have_content(public_board.title)
           sleep(1)
           expect(user.cards.count).to eq(public_board.cards.count)
