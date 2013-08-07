@@ -22,7 +22,7 @@ class Api::V1::BoardsController < Api::V1::ApplicationController
 
   # Handles board creation
   def create
-    if current_account.admin?
+    if current_account.admin? and create_params[:project_id].blank?
       new_params = create_params.except(:user_id, :project_id, :parent_board_id).
         merge(:status => 'public', :author_id => current_account.id)
       board = Board.create(new_params)
