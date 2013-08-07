@@ -3,6 +3,9 @@ class Board < ActiveRecord::Base
   # Available :status values for a [Board]
   STATES = ['private', 'public']
 
+  # Scopes
+  scope :public, proc{ where(:status => STATES.last) }
+
   # Relationships
   belongs_to :user
   belongs_to :author, :class_name => User
