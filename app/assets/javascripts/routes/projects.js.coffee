@@ -1,4 +1,4 @@
-Doers.ProjectsRoute = Ember.Route.extend
+Doers.ProjectsIndexRoute = Ember.Route.extend
   model: ->
     Doers.Project.find()
 
