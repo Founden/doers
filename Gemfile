@@ -12,10 +12,10 @@ gem 'oj'
 gem 'sanitize'
 gem 'active_model_serializers'
 gem 'paperclip'
-gem 'delayed_job', '4.0.0.beta2'
-gem 'delayed_job_active_record', '4.0.0.beta3'
+gem 'delayed_job'
+gem 'delayed_job_active_record'
 gem 'pg'
-gem 'oembedr', :github => 'stas/oembedr'
+gem 'oembedr'
 
 group :production do
   gem 'puma'
