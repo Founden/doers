@@ -11,14 +11,24 @@
 
   .content
     .projects
-      {{#each project in content}}
-      .project{:bind => {:id => 'project.slug'}}
-        {{#linkTo 'projects.show' project}}
-        {{#if project.logo.attachment}}
-        %img{:bind => {:title => 'project.title', :src => 'project.logo.attachment'}}
+      {{#each content itemController='projectItem'}}
+      .project{:bind => {:id => 'slug'}}
+        {{#linkTo 'projects.show' this}}
+        {{#if logo.attachment}}
+        %img{:bind => {:title => 'title', :src => 'logo.attachment'}}
         {{/if}}
-        %h2 {{project.title}}
+        %h2 {{title}}
         {{/linkTo}}
-        %p {{project.description}}
-        %footer {{website project.website}}
+        %p {{description}}
+        %footer {{website website}}
+        %a.delete-button{:_action => 'confirm'}
+        {{#if requiresConfirmation}}
+        .delete-confirmation
+          %p
+            = _('Are you sure you want to delete this project?')
+          %a.button.red{:_action => 'remove'}
+            = _('Delete')
+          %a.button.gray{:_action => 'cancel'}
+            = _('Cancel')
+        {{/if}}
       {{/each}}
