@@ -35,7 +35,7 @@ group :assets do
   gem 'jquery-rails'
   gem 'ember-rails'
   gem 'handlebars-source', '1.0.12'
-  gem 'ember-source', '1.0.0.rc6.2'
+  gem 'ember-source', '1.0.0.rc6.4'
   gem 'bourbon'
   gem 'normalize-rails'
   gem 'momentjs-rails'
