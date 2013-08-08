@@ -218,30 +218,52 @@ describe User, :use_truncation do
       end
     end
 
-    context '#boards_to(:read)' do
-      subject(:boards_to_read) { user.boards_to(:read) }
+    context '#boards_to' do
+      shared_examples 'its found' do
+        its(:count) { should eq(1) }
+        its('first.id') { should eq(board.id) }
+      end
 
-      it { boards_to_read.should be_empty }
+      let(:action) { :read }
+      subject(:boards_to) { user.boards_to(action) }
+
+      it { should be_empty }
 
       context 'when created a board' do
         let!(:board) { Fabricate(:board, :author => user) }
 
-        its(:count) { should eq(1) }
-        its('first.id') { should eq(board.id) }
+        it_should_behave_like 'its found'
+
+        context 'when action is set to :write' do
+          let(:action) { :write }
+
+          it_should_behave_like 'its found'
+        end
       end
 
       context 'when there is a public board' do
         let!(:board) { Fabricate(:board, :status => Board::STATES.last) }
 
-        its(:count) { should eq(1) }
-        its('first.id') { should eq(board.id) }
+        it_should_behave_like 'its found'
+
+        context 'when action is set to :write' do
+          let(:action) { :write }
+
+          it { should be_empty }
+        end
       end
 
       context 'when branched a board' do
         let!(:board) { Fabricate(:branched_board, :user => user) }
 
         its(:count) { should eq(2) }
-        it { boards_to_read.should include(board) }
+        it { should include(board) }
+
+        context 'when action is set to :write' do
+          let(:action) { :write }
+
+          it_should_behave_like 'its found'
+        end
       end
 
       context 'when an owned project has boards' do
@@ -249,16 +271,130 @@ describe User, :use_truncation do
         let!(:project_board) { Fabricate(:branched_board, :project => project) }
 
         its(:count) {
-          should eq(project.boards.count +
-                    Board.where(:status => Board::STATES.last).count) }
+          should eq(project.boards.count + Board.public.count) }
+
+        context 'when action is set to :write' do
+          let(:action) { :write }
+
+          its(:count) { should eq((user.boards + project.boards).uniq.count) }
+        end
 
         context 'the private boards should not be included' do
           let!(:private_board) { Fabricate(:branched_board) }
 
-          it { boards_to_read.should_not include(private_board) }
+          it { should_not include(private_board) }
+
+          context 'when action is set to :write' do
+            let(:action) { :write }
+
+            its(:count) { should eq(project.boards.count) }
+          end
+        end
+      end
+    end
+
+    context '#assets_to' do
+      shared_examples 'its found' do
+        its(:count) { should eq(1) }
+        its('first.id') { should eq(asset.id) }
+      end
+
+      let(:action) { :read }
+      subject(:assets_to) { user.assets_to(action) }
+
+      it { should be_empty }
+
+      context 'when user has an asset' do
+        let!(:asset) { Fabricate('card/photo', :user => user).image }
+
+        it_should_behave_like 'its found'
+
+        context 'when action is set to :write' do
+          let(:action) { :write }
+
+          it_should_behave_like 'its found'
+        end
+      end
+
+      context 'when user project has an asset' do
+        let!(:asset) { Fabricate(:project, :user => user).logo }
+
+        it_should_behave_like 'its found'
+
+        context 'when action is set to :write' do
+          let(:action) { :write }
+
+          it_should_behave_like 'its found'
+        end
+      end
+
+      context 'when there is a public board asset' do
+        let(:board) { Fabricate(:public_board, :card_types => %w(card/photo)) }
+        let!(:asset) { board.cards.first.image }
+
+        it_should_behave_like 'its found'
+
+        context 'when action is set to :write' do
+          let(:action) { :write }
+
+          it { should be_empty }
+        end
+      end
+    end
+
+    context '#cards_to' do
+      shared_examples 'its found' do
+        its(:count) { should eq(1) }
+        its('first.id') { should eq(card.id) }
+      end
+
+      let(:action) { :read }
+      subject(:cards_to) { user.cards_to(action) }
+
+      it { should be_empty }
+
+      context 'when user has a card' do
+        let!(:card) { Fabricate('card/phrase', :user => user) }
+
+        it_should_behave_like 'its found'
+
+        context 'when action is set to :write' do
+          let(:action) { :write }
+
+          it_should_behave_like 'its found'
+        end
+      end
+
+      context 'when user project has a card' do
+        let(:project) {Fabricate(:project, :user => user) }
+        let(:board) {Fabricate(:board, :user => user) }
+        let!(:card) { Fabricate(
+          'card/photo', :user => user, :project => project, :board => board) }
+
+        its(:count) { should eq(user.cards.count) }
+        its('first.id') { should eq(card.id) }
+
+        it_should_behave_like 'its found'
+
+        context 'when action is set to :write' do
+          let(:action) { :write }
+
+          it_should_behave_like 'its found'
+        end
+      end
+
+      context 'when there is a public board card' do
+        let(:board) { Fabricate(:public_board, :card_types => %w(card/phrase)) }
+        let!(:card) { board.cards.first }
+
+        it_should_behave_like 'its found'
+
+        context 'when action is set to :write' do
+          let(:action) { :write }
+
+          it { should be_empty }
         end
       end
     end
   end
-
 end
