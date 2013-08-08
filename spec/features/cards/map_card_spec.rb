@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'Map', :js do
+feature 'Map', :js, :slow do
   background do
     sign_in_with_angel_list
   end
@@ -14,7 +14,7 @@ feature 'Map', :js do
     given(:card) { board.cards.first }
 
     background do
-      visit root_path(:anchor=>'projects/%d/boards/%d' % [project.id, board.id])
+      visit root_path(:anchor=>'boards/%d' % board.id)
     end
 
     scenario 'is shown with details' do
@@ -53,7 +53,7 @@ feature 'Map', :js do
         end
 
         page.find(edit_css + ' .map-search li').click
-        page.find(edit_css + ' .actions .button').click
+        page.find(edit_css + ' .actions .does-save').click
 
         expect(page).to_not have_css(edit_css)
 

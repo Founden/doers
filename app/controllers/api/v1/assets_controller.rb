@@ -2,15 +2,15 @@
 class Api::V1::AssetsController < Api::V1::ApplicationController
   # Shows available assets
   def index
-    assets = Asset.where(
-      :id => params[:ids], :board_id => current_account.accessible_boards)
+    assets = Asset.where(:id => params[:ids])
+    current_account.can?(:read, assets)
     render :json => assets
   end
 
   # Shows available asset
   def show
-    asset = Asset.find_by!(
-      :id => params[:id], :board_id => current_account.accessible_boards)
+    asset = Asset.find_by!(:id => params[:id])
+    current_account.can?(:read, asset)
     render :json => asset
   end
 
@@ -20,8 +20,8 @@ class Api::V1::AssetsController < Api::V1::ApplicationController
     attchmnt = new_asset_params[:attachment]
     attchmnt = URI.parse(attchmnt) if attchmnt.to_s.match(Asset::URI_REGEXP)
 
-    asset = Asset.find_by!(
-      :id => params[:id], :board_id => current_account.accessible_boards)
+    asset = Asset.find_by!(:id => params[:id])
+    current_account.can?(:write, asset)
 
     begin
       asset.update_attributes(asset_params.merge(:attachment => attchmnt))
@@ -40,6 +40,7 @@ class Api::V1::AssetsController < Api::V1::ApplicationController
 
     begin
       # TODO: Handle different asset type when more are available
+      # TODO: Handle branch_id and assetable authorization
       asset = current_account.images.create!(
         new_asset_params.merge(:attachment => attchmnt))
       render :json => asset
@@ -51,9 +52,10 @@ class Api::V1::AssetsController < Api::V1::ApplicationController
 
   # Destroys the asset
   def destroy
-    asset = Asset.find_by(
-      :id => params[:id], :board_id => current_account.accessible_boards)
-    if asset and asset.destroy
+    asset = Asset.find_by(:id => params[:id])
+    can_destroy = current_account.can?(:write, asset, :raise_error => false)
+
+    if asset and can_destroy and asset.destroy
       render :nothing => true, :status => 204
     else
       render :nothing => true, :status => 400
