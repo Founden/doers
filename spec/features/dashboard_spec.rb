@@ -58,5 +58,14 @@ feature 'Dashboard', :js, :slow do
       expect(page).to have_content(user.projects.first.title)
     end
 
+    scenario 'confirms deletion and removes project when clicked on delete button' do
+      find('#project-%d .delete-button' % user.projects.first.id).click
+      expect(page).to have_css('.delete-confirmation')
+      find('.delete-confirmation .button.red').click
+      sleep(1)
+      expect(page).to have_css(
+        '.projects .project', :count => user.projects.count)
+    end
+
   end
 end
