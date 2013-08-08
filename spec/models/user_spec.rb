@@ -75,6 +75,149 @@ describe User, :use_truncation do
       it { should_not be_valid }
     end
 
+    context '#can?' do
+      let(:action) { :read }
+      let(:target) {}
+      let(:options) {}
+
+      subject(:can) { user.can?(action, target, options) }
+
+      context 'when target is nil' do
+        it { should be_true }
+      end
+
+      context 'when target is empty' do
+        it { should be_true }
+      end
+
+      context 'when target is an asset' do
+        context 'owned by the user' do
+          let(:target) { Fabricate(:project, :user => user).logo }
+          before { user.should_receive(:assets_to).and_call_original }
+
+          it { should be_true }
+
+          context 'or a set of assets owned by the user' do
+            let(:target) { Fabricate(:project, :user => user); user.assets }
+
+            it { should be_true }
+          end
+        end
+
+        context 'not owned by the user' do
+          let(:target) { Fabricate(:project).logo }
+          before { user.should_receive(:assets_to).and_call_original }
+
+          it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
+
+          context 'or a set of assets not owned by the user' do
+            let(:target) { Fabricate(:project); Asset.all }
+
+            it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
+          end
+
+          context 'and raise_error options is passed' do
+            let(:options) { {:raise_error => false} }
+            it { should be_false }
+          end
+        end
+      end
+
+      context 'when target is a board' do
+        context 'owned by the user' do
+          let(:target) { Fabricate(:board, :user => user) }
+          before { user.should_receive(:boards_to).and_call_original }
+
+          it { should be_true }
+
+          context 'or a set of boards owned by the user' do
+            let(:target) { Fabricate(:board, :user => user); user.boards }
+
+            it { should be_true }
+          end
+        end
+
+        context 'not owned by the user' do
+          let(:target) { Fabricate(:board) }
+          before { user.should_receive(:boards_to).and_call_original }
+
+          it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
+
+          context 'or a set of boards not owned by the user' do
+            let(:target) { Fabricate(:board); Board.all }
+
+            it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
+          end
+
+          context 'and raise_error options is passed' do
+            let(:options) { {:raise_error => false} }
+            it { should be_false }
+          end
+        end
+      end
+
+      context 'when target is a card' do
+        context 'owned by the user' do
+          let(:target) { Fabricate('card/phrase', :user => user) }
+          before { user.should_receive(:cards_to).and_call_original }
+
+          it { should be_true }
+
+          context 'or a set of cards owned by the user' do
+            let(:target) { Fabricate('card/phrase', :user => user); user.cards }
+
+            it { should be_true }
+          end
+        end
+
+        context 'not owned by the user' do
+          let(:target) { Fabricate('card/phrase') }
+          before { user.should_receive(:cards_to).and_call_original }
+
+          it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
+
+          context 'or a set of boards not owned by the user' do
+            let(:target) { Fabricate('card/phrase'); Card.all }
+
+            it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
+          end
+
+          context 'and raise_error options is passed' do
+            let(:options) { {:raise_error => false} }
+            it { should be_false }
+          end
+        end
+      end
+
+      context 'when target is an object with an user_id' do
+        let(:target) { Fabricate(:project, :user => user) }
+
+        it { should be_true }
+
+        context 'different from user id' do
+          let(:target) { Fabricate(:project) }
+
+          it { expect{ subject }.to raise_error(ActiveRecord::RecordNotFound) }
+
+          context 'and raise_error options is passed' do
+            let(:options) { {:raise_error => false} }
+            it { should be_false }
+          end
+        end
+      end
+
+      context 'when target is unknown' do
+        let(:target) { Object.new }
+
+        it { expect{ subject }.to raise_error(ActiveRecord::RecordNotFound) }
+
+        context 'and raise_error options is passed' do
+          let(:options) { {:raise_error => false} }
+          it { should be_false }
+        end
+      end
+    end
+
     context '#boards_to(:read)' do
       subject(:boards_to_read) { user.boards_to(:read) }
 
