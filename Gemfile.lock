@@ -139,7 +139,7 @@ GEM
       execjs (>= 1.2)
       handlebars-source
       railties (>= 3.1)
-    ember-source (1.0.0.rc6.2)
+    ember-source (1.0.0.rc6.4)
       handlebars-source (= 1.0.12)
     erd (0.3.2)
       nokogiri
@@ -399,7 +399,7 @@ DEPENDENCIES
   easy_auth-angel_list!
   easy_auth-oauth2!
   ember-rails
-  ember-source (= 1.0.0.rc6.2)
+  ember-source (= 1.0.0.rc6.4)
   erd
   fabrication
   ffaker
