@@ -30,4 +30,13 @@
       background-color: shade($bw_10, 5%);
     }
   }
+
+  &.red {
+    background-color: $red;
+    color: $white;
+
+    &:hover {
+      background-color: shade($red, 5%);
+    }
+  }
 }
