@@ -19,6 +19,15 @@ feature 'Boards', :js, :slow do
         '#project .boards .board', :count => project.boards.count)
     end
 
+    scenario 'confirms deletion and removes board when clicked on delete button' do
+      find('#board-%d .delete-button' % project.boards.first.id).click
+      expect(page).to have_css('.delete-confirmation')
+      find('.delete-confirmation .button.red').click
+      sleep(1)
+      expect(page).to have_css(
+        '.boards .board', :count => project.boards.count)
+    end
+
     context 'when no boards are available' do
       given(:project) { Fabricate(:project, :user => user) }
 

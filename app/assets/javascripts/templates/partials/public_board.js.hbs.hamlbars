@@ -1,4 +1,4 @@
-%a{:_action => 'createFork puboard'}
+%a{:_action => 'createFork this'}
   %h2 {{title}}
   %p.description {{description}}
 %ul.meta
