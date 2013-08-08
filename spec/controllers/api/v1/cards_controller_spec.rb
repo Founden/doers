@@ -172,6 +172,14 @@ describe Api::V1::CardsController do
         its('response.status') { should eq(400) }
         its('response.body') { should match('errors') }
       end
+
+      context 'on a not owned board_id' do
+        let(:card_attrs) { Fabricate.attributes_for(
+          'card/phrase', :user => user, :type => 'Phrase') }
+
+        its('response.status') { should eq(400) }
+        its('response.body') { should match('errors') }
+      end
     end
 
     context 'with valid parameters' do
@@ -189,7 +197,7 @@ describe Api::V1::CardsController do
       its(:updated_at) { should_not be_blank }
       its(:user_id) { should eq(user.id) }
       its(:user_nicename) { should eq(user.nicename) }
-      its(:project_id) { should card_attrs[:project] }
+      its(:project_id) { should eq(card_attrs[:project]) }
       its(:board_id) { should eq(board.id) }
       its(:content) { should eq(card_attrs[:content]) }
     end

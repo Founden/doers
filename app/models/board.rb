@@ -3,6 +3,9 @@ class Board < ActiveRecord::Base
   # Available :status values for a [Board]
   STATES = ['private', 'public']
 
+  # Scopes
+  scope :public, proc{ where(:status => STATES.last) }
+
   # Relationships
   belongs_to :user
   belongs_to :author, :class_name => User
@@ -42,7 +45,7 @@ class Board < ActiveRecord::Base
   # @param params [Hash] the parameters like :title to include
   # @return [Board] the new branch
   def branch_for(user, project, params)
-    raise _('Board is not available') if !user.accessible_boards.include?(self)
+    raise _('Board is not available') if !user.can?(:read, self)
     raise _('Project is not available') if !user.projects.include?(project)
 
     board = branches.create(

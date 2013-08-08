@@ -18,7 +18,7 @@ feature 'Projects', :js, :slow do
 
     context 'on import screen' do
       background do
-        visit root_path(:anchor => :dashboard)
+        visit root_path
         click_on('projects-import')
       end
 
@@ -46,7 +46,7 @@ feature 'Projects', :js, :slow do
 
     context 'on import screen' do
       background do
-        visit root_path(:anchor => :dashboard)
+        visit root_path
         click_on('projects-import')
       end
 

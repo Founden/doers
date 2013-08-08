@@ -9,7 +9,7 @@
     %ul.menu
       - if current_account.confirmed?
         %li
-          %a{:href => dashboard_pages_path}
+          %a{:href => root_path(:anchor => 'projects')}
             = _('Your projects')
         %li
           %a#projects-add{:href => root_path(:anchor => 'projects/new')}

@@ -22,7 +22,7 @@ feature 'Link', :js, :slow do
     background do
       Oembedr.should_receive(:known_service?).at_least(1).times.and_return(true)
       Oembedr.should_receive(:fetch).at_least(1).times.and_return(response)
-      visit root_path(:anchor=>'projects/%d/boards/%d' % [project.id, board.id])
+      visit root_path(:anchor=>'boards/%d' % board.id)
     end
 
     scenario 'is shown with details' do
@@ -54,7 +54,7 @@ feature 'Link', :js, :slow do
         end
 
         sleep(1)
-        page.find(edit_css + ' .actions .button').click
+        page.find(edit_css + ' .actions .does-save').click
 
         expect(page).to_not have_css(edit_css)
 
