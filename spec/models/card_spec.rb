@@ -52,14 +52,6 @@ describe Card do
         its(:title_hint) { should eq(Sanitize.clean(content[0..250])) }
       end
     end
-
-    context 'requires a title if title_hint is set' do
-      context 'when an instance has a title_hint' do
-        subject { Fabricate.build(:card, :title => nil) }
-
-        it { should_not be_valid }
-      end
-    end
   end
 
   context 'order defaults to Card#position' do
