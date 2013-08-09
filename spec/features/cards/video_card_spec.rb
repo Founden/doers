@@ -62,6 +62,7 @@ feature 'Video', :js, :slow do
         expect(card.title).to eq(title)
         expect(card.content).to eq(video['title']['$t'])
         expect(card.provider).to eq('youtube')
+        expect(video['id']['$t']).to match(card.video_id)
 
         expect(page).to have_content(card.title)
         expect(page).to have_content(card.content)

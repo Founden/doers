@@ -36,9 +36,18 @@ Doers.BoardsShowController = Ember.ObjectController.extend Doers.ControllerAlert
     video.set('provider', 'youtube')
     video.set('content', data.title.$t)
     video.set('query', null)
+
+    if videoId = data.id['$t'].match(/videos\/(.*)/)
+      video.set('videoId', videoId[1])
+
     if thumbnailUrl = data.media$group.media$thumbnail[0].url
       asset_data = {attr: 'image', desc: data.title.$t, url: thumbnailUrl}
-      @createOrUpdateAsset(video, asset_data)
+
+    if video.get('isNew')
+      video.save().then =>
+        @createOrUpdateAsset(video, asset_data)
+    else
+        @createOrUpdateAsset(video, asset_data)
 
   updateBook: (book, data) ->
     data = data.volumeInfo
