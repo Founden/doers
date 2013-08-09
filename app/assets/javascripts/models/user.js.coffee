@@ -17,6 +17,8 @@ Doers.User = DS.Model.extend
     url = @get('startupsUrl')
     self = @
 
+    startupClass = @store.container.resolve('model:startup')
+
     $.ajax
       url: url
       dataType: 'jsonp'
@@ -25,7 +27,7 @@ Doers.User = DS.Model.extend
         response.startup_roles.forEach ((role) ->
           if role.role == 'founder' || role.role == 'advisor'
             startup = role.startup
-            startups.addObject Doers.Startup.createRecord
+            startups.addObject startupClass.createRecord
               externalId: startup.id
               title: startup.name
               description: startup.product_desc

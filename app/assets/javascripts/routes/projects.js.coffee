@@ -1,10 +1,10 @@
 Doers.ProjectsIndexRoute = Ember.Route.extend
   model: ->
-    Doers.Project.find()
+    @container.resolve('model:project').find()
 
 Doers.ProjectsNewRoute = Ember.Route.extend
   model: ->
-    Doers.Project.createRecord()
+    @container.resolve('model:project').createRecord()
 
 Doers.ProjectsImportRoute = Ember.Route.extend
   model: ->

@@ -19,7 +19,7 @@ Doers.BoardsShowController = Ember.ObjectController.extend Doers.ControllerAlert
     card.save()
 
   addCard: (type) ->
-    klass = Doers.get(type)
+    klass = @container.resolve('model:' + type)
     card = klass.createRecord
       user: @get('content.author')
       type: type
@@ -32,7 +32,6 @@ Doers.BoardsShowController = Ember.ObjectController.extend Doers.ControllerAlert
     map.set('longitude', data.lon)
 
   updateVideo: (video, data) ->
-    # TODO: Set videoId
     video.set('provider', 'youtube')
     video.set('content', data.title.$t)
     video.set('query', null)
@@ -80,9 +79,7 @@ Doers.BoardsShowController = Ember.ObjectController.extend Doers.ControllerAlert
       @createAsset(object, data)
 
   createAsset: (object, data) ->
-    # TODO: update to below once Ember.js#2957 gets released
-    # klass = @get('container').resolve('model:asset')
-    klass = Doers.Asset
+    klass = @container.resolve('model:asset')
     asset = klass.createRecord
       attachment: data.url || data.data
       description: data.desc

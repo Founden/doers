@@ -1,6 +1,6 @@
 Doers.BoardsNewRoute = Ember.Route.extend
   model: ->
-    Doers.Board.createRecord()
+    @container.resolve('model:board').createRecord()
 
 Doers.BoardsYoursRoute = Ember.Route.extend
   model: ->
