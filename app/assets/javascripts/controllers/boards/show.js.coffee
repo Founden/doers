@@ -16,7 +16,7 @@ Doers.BoardsShowController = Ember.ObjectController.extend Doers.ControllerAlert
 
   changeCardStyle: (card, style) ->
     card.set('style', style)
-    card.get('store').commit()
+    card.save()
 
   addCard: (type) ->
     klass = Doers.get(type)
