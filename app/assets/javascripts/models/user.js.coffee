@@ -2,7 +2,8 @@ Doers.User = DS.Model.extend
   externalId: DS.attr('number', readOnly: true)
   nicename: DS.attr('string', readOnly: true)
   angelListToken: DS.attr('string', readOnly: true)
-  importing: DS.attr('boolean', readOnly: true)
+  isImporting: DS.attr('boolean', readOnly: true)
+  isAdmin: DS.attr('boolean', readOnly: true)
   startups: Ember.ArrayController.create()
   avatarUrl: DS.attr('string', readOnly: true)
 
