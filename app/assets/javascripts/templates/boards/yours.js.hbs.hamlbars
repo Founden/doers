@@ -11,26 +11,35 @@
 
   .content
     .boards
-      {{#each board in content}}
-      .board{:bind => {:id => 'board.slug'}}
-        {{#linkTo 'boards.show' board}}
-        %h2
-          {{board.title}}
+      {{#each content itemController='boardItem'}}
+      .board{:bind => {:id => 'slug'}}
+        {{#linkTo 'boards.show' this}}
+        %h2 {{title}}
         {{/linkTo}}
-        %p.description {{board.description}}
+        %p.description {{description}}
         %ul.meta
           %li
             = _('Updated on')
-            {{board.lastUpdate}}
+            {{lastUpdate}}
           %li
-            {{board.cardsCount}}
+            {{cardsCount}}
             = _('cards available')
         %footer
           = _('Branched')
-          {{board.branchesCount}}
-          {{#if board.branchesCount}}
+          {{branchesCount}}
+          {{#if branchesCount}}
           = _('times')
           {{else}}
           = _('time')
           {{/if}}
+        %a.delete-button{:_action => 'confirm'}
+        {{#if requiresConfirmation}}
+        .delete-confirmation
+          %p
+            = _('Are you sure you want to delete this board?')
+          %a.button.red{:_action => 'remove'}
+            = _('Delete')
+          %a.button.gray{:_action => 'cancel'}
+            = _('Cancel')
+        {{/if}}
       {{/each}}

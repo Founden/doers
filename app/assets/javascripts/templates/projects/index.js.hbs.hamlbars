@@ -19,7 +19,7 @@
         {{/if}}
         %h2 {{title}}
         {{/linkTo}}
-        %p {{description}}
+        %p.description {{description}}
         %footer {{website website}}
         %a.delete-button{:_action => 'confirm'}
         {{#if requiresConfirmation}}
