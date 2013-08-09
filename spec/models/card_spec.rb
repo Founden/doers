@@ -6,6 +6,9 @@ describe Card do
   it { should belong_to(:project) }
   it { should validate_presence_of(:user) }
   it { should validate_presence_of(:board) }
+  it { should validate_presence_of(:title_hint) }
+  it { should validate_presence_of(:question) }
+  it { should validate_presence_of(:help) }
   it { should ensure_inclusion_of(:style).in_array(Card::STYLES) }
   it { should validate_numericality_of(:position) }
 
@@ -29,6 +32,24 @@ describe Card do
         before { card.update_attributes(:content => content) }
 
         its(:content) { should eq(Sanitize.clean(content)) }
+      end
+
+      context '#question' do
+        before { card.update_attributes(:question => content[0..250]) }
+
+        its(:question) { should eq(Sanitize.clean(content[0..250])) }
+      end
+
+      context '#help' do
+        before { card.update_attributes(:help => content) }
+
+        its(:help) { should eq(Sanitize.clean(content)) }
+      end
+
+      context '#title_hint' do
+        before { card.update_attributes(:title_hint => content[0..250]) }
+
+        its(:title_hint) { should eq(Sanitize.clean(content[0..250])) }
       end
     end
   end
