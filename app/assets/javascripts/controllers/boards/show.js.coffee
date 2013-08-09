@@ -10,6 +10,14 @@ Doers.BoardsShowController = Ember.ObjectController.extend Doers.ControllerAlert
     @get('content').save().then =>
       @set('isEditing', false)
 
+  removeCard: (card) ->
+    card.deleteRecord()
+    card.get('store').commit()
+
+  changeCardStyle: (card, style) ->
+    card.set('style', style)
+    card.save()
+
   addCard: (type) ->
     klass = Doers.get(type)
     card = klass.createRecord
