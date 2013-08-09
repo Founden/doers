@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe Card::Timestamp do
-  it { should validate_presence_of(:title) }
   it { should validate_presence_of(:content) }
 
   context 'instance' do
