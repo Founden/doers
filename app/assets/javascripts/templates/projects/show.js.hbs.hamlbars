@@ -11,24 +11,16 @@
           {{website content.website}}
 
   .content
+    {{#if content.boards}}
     .boards
-      {{#if content.boards}}
-      {{#each board in content.boards}}
-      .board{:bind => {:id => 'board.slug'}}
-        {{#with content as project}}
-        {{#with board}}
-        {{template 'partials/board'}}
-        {{/with}}
-        {{/with}}
+      {{#each content.boards itemController='boardItem'}}
+      .board{:bind => {:id => 'slug'}}
+        {{partial 'partials/board'}}
       {{/each}}
-      {{else}}
-      %h4
-        = _("Looks like your project has no boards. Let's start with one of the featured boards below.")
-      .public-boards
-        {{#each puboard in controller.publicBoards}}
-        .board{:bind => {:id => 'puboard.slug'}}
-          {{#with puboard}}
-          {{template 'partials/public_board'}}
-          {{/with}}
-        {{/each}}
-      {{/if}}
+    {{else}}
+    .public-boards
+      {{#each publicBoards}}
+      .board{:bind => {:id => 'slug'}}
+        {{partial 'partials/public_board'}}
+      {{/each}}
+    {{/if}}
