@@ -16,7 +16,6 @@ class Card < ActiveRecord::Base
 
   # Validations
   validates_presence_of :title_hint, :user, :board, :question, :help
-  validates_presence_of :title, :if => :title_hint
   validates_inclusion_of :style, :in => STYLES
   validates_numericality_of :position
 
