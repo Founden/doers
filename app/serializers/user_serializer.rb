@@ -2,8 +2,8 @@
 class UserSerializer < ActiveModel::Serializer
   include GravatarHelper
 
-  attributes :id, :nicename, :external_id, :angel_list_token, :importing
-  attributes :avatar_url
+  attributes :id, :nicename, :external_id, :angel_list_token
+  attributes :avatar_url, :admin? => :is_admin, :importing => :isImporting
 
   # Angel List access token from available identities
   def angel_list_token

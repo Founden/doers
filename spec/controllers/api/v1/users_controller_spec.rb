@@ -22,12 +22,13 @@ describe Api::V1::UsersController do
 
     subject(:api_user) { json_to_ostruct(response.body, :user) }
 
-    its('keys.size') { should eq(6) }
+    its('keys.size') { should eq(7) }
     its(:id) { should eq(user.id) }
     its(:nicename) { should eq(user.nicename) }
     its(:external_id) { should eq(user.external_id) }
     its(:angel_list_token) { should eq(user.identities.first.token) }
-    its(:importing) { should be_false }
+    its(:isImporting) { should be_false }
     its(:avatar_url) { should eq(gravatar_uri(user.email)) }
+    its(:is_admin) { should eq(user.admin?) }
   end
 end
