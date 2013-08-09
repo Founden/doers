@@ -33,5 +33,5 @@ Doers.User = DS.Model.extend
               description: startup.product_desc
               website: startup.company_url
               logoUrl: startup.thumb_url
-        )
+        ) if response.startup_roles
   ).observes('startupsUrl')
