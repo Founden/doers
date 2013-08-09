@@ -3,6 +3,9 @@ Doers.Card = DS.Model.extend
   assetableType: 'Card'
 
   title: DS.attr('string')
+  titleHint: DS.attr('string')
+  question: DS.attr('string')
+  help: DS.attr('string')
   content: DS.attr('string')
   position: DS.attr('number')
   type: DS.attr('string')
