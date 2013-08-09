@@ -23,6 +23,9 @@ Doers.CardSettingsView = Ember.View.extend
   deleteButton: Ember.View.extend
     classNames: ['delete']
     tagName: 'li'
+    contentBinding: 'parentView.content'
+    click: (event) ->
+      @get('controller').removeCard(@get('content'))
 
   changeStyleButton: Ember.View.extend
     tagName: 'li'
@@ -38,5 +41,6 @@ Doers.CardSettingsView = Ember.View.extend
     ).property('style')
 
     click: (event) ->
-      @set('content.style', @get('style'))
+      controller = @get('controller')
+      controller.changeCardStyle(@get('content'), @get('style'))
       @set('parentView.isActive', false)
