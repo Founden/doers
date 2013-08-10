@@ -16,6 +16,7 @@
       {{#each content.boards itemController='boardItem'}}
       .board{:bind => {:id => 'slug'}}
         {{partial 'partials/board'}}
+        {{partial 'partials/delete_confirmation'}}
       {{/each}}
     {{else}}
     .public-boards
