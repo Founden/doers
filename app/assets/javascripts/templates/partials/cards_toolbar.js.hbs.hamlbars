@@ -1,0 +1,9 @@
+.toolbar
+  .card-types
+    - [_('Phrase'), _('Paragraph'), _('Number'), _('Interval'), _('Timestamp')].each do |card|
+      %a{:_action => 'addCard "%s"' % card}
+        = card
+
+    - [_('Book'), _('Link'), _('Map'), _('Photo'), _('Video')].each do |card|
+      %a{:_action => 'addCard "%s"' % card}
+        = card

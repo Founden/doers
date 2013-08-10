@@ -6,8 +6,7 @@
         {{title}}
 
   .content
-    .toolbar
-      {{view view.cardTypesView}}
+    {{partial 'partials/cards_toolbar'}}
 
     %div{:bind => {:id => 'slug'}}
       {{#if cards.isLoaded}}
