@@ -22,7 +22,8 @@ feature 'Projects', :js, :slow do
 
       click_on('project-save')
 
-      expect(page).to have_css('#projects .project')
+      sleep(1)
+      expect(page).to have_css('#project.project-%d' % user.projects.first.id)
       expect(page).to have_content(attrs[:title])
       expect(page).to have_content(attrs[:description])
       expect(page).to have_content(URI.parse(attrs[:website]).hostname)
