@@ -42,6 +42,12 @@ describe Api::V1::StartupsController do
       let(:user) { Fabricate(:user, :importing => true) }
 
       its('response.status') { should eq(200) }
+
+      context 'response json' do
+        subject { json_to_ostruct(response.body, 'startup') }
+
+        its(:external_id) { should eq(startup['external_id'].to_s) }
+      end
     end
 
     context 'when a project like that exists' do
