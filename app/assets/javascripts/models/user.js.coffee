@@ -12,8 +12,11 @@ Doers.User = DS.Model.extend
       @get('externalId') + '&access_token=' + @get('angelListToken')
   ).property('angelListToken')
 
+  didLoad: ->
+    @loadStartups()
+    @_super()
 
-  startupsUrlObserver: ( ->
+  loadStartups: ->
     url = @get('startupsUrl')
     self = @
 
@@ -34,4 +37,3 @@ Doers.User = DS.Model.extend
               website: startup.company_url
               logoUrl: startup.thumb_url
         ) if response.startup_roles
-  ).observes('startupsUrl')
