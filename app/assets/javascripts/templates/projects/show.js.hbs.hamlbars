@@ -1,4 +1,4 @@
-#project
+#project{:bind => {:class => 'content.slug'}}
 
   %header.header
     .header-content
