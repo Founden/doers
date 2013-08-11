@@ -1,5 +1,5 @@
-Doers.Startup = DS.Model.extend
-  externalId: DS.attr('number')
+Doers.StartupMixin = Ember.Mixin.create
+  id: null
   title: null
   description: null
   website: null
@@ -7,5 +7,12 @@ Doers.Startup = DS.Model.extend
   isSelected: false
 
   slug: (->
-    'startup-' + @get('externalId')
-  ).property('externalId')
+    'startup-' + @get('id')
+  ).property('id')
+
+# Use a simple object to not poluate `store`
+# and avoid errors on `store.commit()`
+Doers.AngelListStartup = Ember.Object.extend(Doers.StartupMixin)
+
+Doers.Startup = DS.Model.extend Doers.StartupMixin,
+  externalId: DS.attr('number')
