@@ -25,7 +25,7 @@ Doers.BoardsShowController = Ember.ObjectController.extend Doers.ControllerAlert
     card = klass.createRecord
       user: @get('content.author')
       type: type
-    @get('content.cards').pushObject(card)
+    @get('content.cards').unshiftObject(card)
     card.set('isEditing', true)
 
   updateMap: (map, data) ->
