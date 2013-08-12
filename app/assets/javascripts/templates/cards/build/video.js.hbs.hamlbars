@@ -1,0 +1,32 @@
+%form{:bind => {:id => 'view.content.editSlug'}}
+  %fieldset
+    .field
+      {{input type='text' valueBinding='view.content.title' placeholder='Give it a nice title' autocomplete='false' required='true' name='title'}}
+    .field
+      .video-search
+        {{input type='text' valueBinding='view.content.query' placeholder='Search for a video' autocomplete='false' name='video-title'}}
+        {{#if view.content.query}}
+        %ul
+          {{#if view.content.results}}
+          {{#each result in view.content.results}}
+          %li{:_action => 'updateVideo view.content result'}
+            {{result.title.$t}}
+          {{/each}}
+          {{else}}
+          {{#if view.content.isSearching}}
+          %li
+            = _('Searching...')
+          {{else}}
+          %li
+            = _('No video was found')
+          {{/if}}
+          {{/if}}
+        {{/if}}
+
+    .actions
+      {{#view view.cancelButtonView}}
+      = _('Cancel')
+      {{/view}}
+      {{#view view.saveButtonView}}
+      = _('Save')
+      {{/view}}
