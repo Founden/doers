@@ -1,6 +1,3 @@
-Doers.Router.reopen
-  rootURL: '/'
-
 Doers.Router.map (match)->
   @resource 'projects', ->
     @route('new')
@@ -10,4 +7,5 @@ Doers.Router.map (match)->
   @resource 'boards', ->
     @route 'show', {path: ':board_id'}
     @route 'new'
-    @route 'yours'
+    @route 'built'
+    @route 'build', {path: ':board_id/build'}

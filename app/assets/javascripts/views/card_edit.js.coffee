@@ -1,12 +1,16 @@
 Doers.CardEditView = Ember.View.extend
   contentBinding: 'parentView.content'
   isEditingBinding: 'parentView.isEditing'
+  isBuildingBinding: 'parentView.isBuilding'
   isVisibleBinding: 'isEditing'
   classNames: ['card-edit']
 
   templateName: ( ->
-    if type = @get('content.type')
-      'cards/edit/%@'.fmt(type.toLowerCase())
+    if @get('content.type') and type = @get('content.type').toLowerCase()
+      if @get('isBuilding')
+        'cards/build/%@'.fmt(type)
+      else
+        'cards/edit/%@'.fmt(type)
   ).property('content.type')
 
   saveButtonView: Ember.View.extend

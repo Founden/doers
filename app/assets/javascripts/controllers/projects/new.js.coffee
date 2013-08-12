@@ -1,8 +1,9 @@
 Doers.ProjectsNewController = Ember.Controller.extend Doers.ControllerAlertMixin,
   save: (view)->
-    if @get('content.title') and @get('content.website')
-      @get('store').commit()
-      @get('target.router').transitionTo('projects.index')
+    project = @get('content')
+    if project.get('title') and project.get('website')
+      project.save().then =>
+        @get('target.router').transitionTo('projects.show', project)
     else
       @alertFromView(view)
 

@@ -1,4 +1,4 @@
-#project
+#project{:bind => {:class => 'content.slug'}}
 
   %header.header
     .header-content
@@ -13,9 +13,10 @@
   .content
     {{#if content.boards}}
     .boards
-      {{#each content.boards itemController='boardItem'}}
+      {{#each content.boards}}
       .board{:bind => {:id => 'slug'}}
         {{partial 'partials/board'}}
+        {{partial 'partials/delete_confirmation'}}
       {{/each}}
     {{else}}
     .public-boards

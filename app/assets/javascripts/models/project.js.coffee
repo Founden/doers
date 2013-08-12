@@ -12,6 +12,8 @@ Doers.Project = DS.Model.extend
   logo: DS.belongsTo('Doers.Logo', readOnly: true)
   boards: DS.hasMany('Doers.Board')
 
+  deleteConfirmation: false
+
   slug: (->
     'project-' + @get('id')
   ).property('id')
