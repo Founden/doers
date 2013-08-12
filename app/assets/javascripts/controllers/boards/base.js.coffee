@@ -6,7 +6,9 @@ Doers.BoardsBaseController = Ember.ObjectController.extend
 
   saveCard: (event) ->
     event.preventDefault() if event instanceof jQuery.Event
+    currentUser = @container.resolve('user:current')
     @get('content').save().then =>
+      @set('content.user', currentUser)
       @set('isEditing', false)
 
   removeCard: (card) ->
