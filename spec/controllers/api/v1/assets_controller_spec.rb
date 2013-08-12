@@ -60,12 +60,11 @@ describe Api::V1::AssetsController do
 
       subject(:api_asset) { json_to_ostruct(response.body, :asset) }
 
-      its('keys.size') { should eq(10) }
+      its('keys.size') { should eq(9) }
       its(:id) { should eq(image.id) }
       its(:description) { should eq(image.description) }
       its(:type) { should eq(image.type) }
       its(:attachment) { should eq(image.attachment.url) }
-      its(:user_nicename) { should eq(image.user.nicename) }
       its(:user_id) { should eq(image.user.id) }
       its(:board_id) { should eq(image.board.id) }
       its(:project_id) { should eq(image.project.id) }
@@ -105,12 +104,11 @@ describe Api::V1::AssetsController do
 
         subject(:api_asset) { json_to_ostruct(response.body, :asset) }
 
-        its('keys.size') { should eq(10) }
+        its('keys.size') { should eq(9) }
         its(:id) { should eq(asset.id) }
         its(:description) { should eq(attrs[:description]) }
         its(:attachment_file_size) { should eq(attrs[:attachment_file_size]) }
         its(:type) { should eq(asset.type) }
-        its(:user_nicename) { should eq(asset.user.nicename) }
         its(:user_id) { should eq(asset.user.id) }
         its(:board_id) { should eq(asset.board.id) }
         its(:project_id) { should eq(asset.project.id) }
@@ -131,7 +129,7 @@ describe Api::V1::AssetsController do
             Fabricate.attributes_for(:image_to_upload, :attachment => image_url)
           }
 
-          its('keys.size') { should eq(10) }
+          its('keys.size') { should eq(9) }
         end
       end
     end
@@ -165,12 +163,11 @@ describe Api::V1::AssetsController do
 
       subject(:api_asset) { json_to_ostruct(response.body, :asset) }
 
-      its('keys.size') { should eq(10) }
+      its('keys.size') { should eq(9) }
       its(:id) { should_not be_nil }
       its(:description) { should eq(asset_attrs[:description]) }
       its(:type) { should eq(asset_attrs[:type].to_s) }
       its(:attachment) { should_not be_empty }
-      its(:user_nicename) { should eq(user.nicename) }
       its(:user_id) { should eq(user.id) }
       its(:board_id) { should eq(board.id) }
       its(:project_id) { should eq(project.id) }
@@ -194,7 +191,7 @@ describe Api::V1::AssetsController do
             :assetable_type => project.class, :assetable_id => project.id)
         }
 
-        its('keys.size') { should eq(10) }
+        its('keys.size') { should eq(9) }
       end
     end
   end

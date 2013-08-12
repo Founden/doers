@@ -6,7 +6,6 @@ Doers.Project = DS.Model.extend
   externalId: DS.attr('number', readOnly: true)
   updatedAt: DS.attr('date', readOnly: true)
   lastUpdate: DS.attr('string', readOnly: true)
-  userNicename: DS.attr('string', readOnly: true)
 
   user: DS.belongsTo('Doers.User', readOnly: true)
   logo: DS.belongsTo('Doers.Logo', readOnly: true)
