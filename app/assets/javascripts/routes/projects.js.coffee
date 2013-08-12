@@ -1,18 +1,20 @@
 Doers.ProjectsIndexRoute = Ember.Route.extend
   model: ->
-    Doers.Project.find()
+    @container.resolve('model:project').find()
 
 Doers.ProjectsNewRoute = Ember.Route.extend
   model: ->
-    Doers.Project.createRecord()
+    @container.resolve('model:project').createRecord()
+
+  events:
+    willTransition: (trainsition) ->
+      project = @get('controller.content')
+      project.deleteRecord() if project.get('isNew')
 
 Doers.ProjectsImportRoute = Ember.Route.extend
   model: ->
-    me = Doers.User.find('mine')
-    @set('user', me)
-    me.get('startups')
+    @get('currentUser.startups')
 
-  redirectIfImporting: ( ->
-    if @get('user.importing')
-      this.transitionTo('projects.import-running')
-  ).observes('user.importing')
+  redirect: ->
+    if @get('currentUser.isImporting')
+      @transitionTo('projects.import-running')

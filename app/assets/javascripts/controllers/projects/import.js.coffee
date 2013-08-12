@@ -4,6 +4,8 @@ Doers.ProjectsImportController = Ember.ArrayController.extend
   ).property('@each.isSelected')
 
   doImport: ->
+    startupClass = @container.resolve('model:startup')
     @get('selectedStartups').forEach (record) ->
-      record.save()
+      startupClass.createRecord(externalId: record.id).save()
+
     @get('target.router').transitionTo('projects.import-running')

@@ -1,7 +1,16 @@
 Doers.BoardsNewRoute = Ember.Route.extend
   model: ->
-    Doers.Board.createRecord()
+    @container.resolve('model:board').createRecord()
 
-Doers.BoardsYoursRoute = Ember.Route.extend
+Doers.BoardsBuiltRoute = Ember.Route.extend
   model: ->
-    Doers.Board.find(status: 'public')
+    @container.resolve('model:board').find(status: 'public')
+
+  redirect: ->
+    unless @get('currentUser.isAdmin')
+      @transitionTo('projects.index')
+
+Doers.BoardsBuildRoute = Ember.Route.extend
+  redirect: ->
+    unless @get('currentUser.isAdmin')
+      @transitionTo('projects.index')

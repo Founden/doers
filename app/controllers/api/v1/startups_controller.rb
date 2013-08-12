@@ -7,15 +7,14 @@ class Api::V1::StartupsController < Api::V1::ApplicationController
 
   # Handles startups import
   def create
-    startup = current_account.projects.find_by(
-      :external_id => startup_params[:external_id].to_s)
+    sid = startup_params[:external_id].to_s
+    startup = current_account.projects.find_by(:external_id => sid)
 
     if !startup
       current_account.update_attributes(:importing => true)
-      Delayed::Job.enqueue(
-        ImportJob.new(current_account, startup_params[:external_id]))
+      Delayed::Job.enqueue(ImportJob.new(current_account, sid))
 
-      render :json => {:job => true}, :status => 200
+      render :json => {:startup => {:external_id => sid}}, :status => 200
     else
       error = _('Failed to import a duplicate.')
       render :json => {:errors => [error], :startup => startup}, :status => 400

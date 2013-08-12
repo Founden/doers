@@ -1,0 +1,35 @@
+%form{:bind => {:id => 'view.content.editSlug'}}
+  %fieldset
+    .field
+      {{input type='text' valueBinding='view.content.title' placeholder='Give it a nice title' autocomplete='false' required='true' name='title'}}
+    .field
+      .book-search
+        {{input type='text' valueBinding='view.content.query' placeholder='Search for a book' autocomplete='false' name='book-title'}}
+        {{#if view.content.query}}
+        %ul
+          {{#if view.content.results}}
+          {{#each book in view.content.results}}
+          %li{:_action => 'updateBook view.content book'}
+            {{book.volumeInfo.title}}
+            {{#if book.volumeInfo.authors}}
+            ({{book.volumeInfo.authors}})
+            {{/if}}
+          {{/each}}
+          {{else}}
+          {{#if view.content.isSearching}}
+          %li
+            = _('Searching...')
+          {{else}}
+          %li
+            = _('No book was found')
+          {{/if}}
+          {{/if}}
+        {{/if}}
+
+    .actions
+      {{#view view.cancelButtonView}}
+      = _('Cancel')
+      {{/view}}
+      {{#view view.saveButtonView}}
+      = _('Save')
+      {{/view}}

@@ -11,7 +11,7 @@
 
   .content
     .projects
-      {{#each content itemController='projectItem'}}
+      {{#each content}}
       .project{:bind => {:id => 'slug'}}
         {{#linkTo 'projects.show' this}}
         {{#if logo.attachment}}
@@ -21,14 +21,6 @@
         {{/linkTo}}
         %p.description {{description}}
         %footer {{website website}}
-        %a.delete-button{:_action => 'confirm'}
-        {{#if requiresConfirmation}}
-        .delete-confirmation
-          %p
-            = _('Are you sure you want to delete this project?')
-          %a.button.red{:_action => 'remove'}
-            = _('Delete')
-          %a.button.gray{:_action => 'cancel'}
-            = _('Cancel')
-        {{/if}}
+
+        {{partial 'partials/delete_confirmation'}}
       {{/each}}
