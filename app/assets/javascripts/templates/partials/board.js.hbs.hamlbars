@@ -15,4 +15,3 @@
     {{parentBoard.title}}
   = _('by')
   {{parentBoard.authorNicename}}
-%a.delete-button{:_action => 'confirm'}
