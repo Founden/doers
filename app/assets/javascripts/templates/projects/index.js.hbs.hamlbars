@@ -11,7 +11,7 @@
 
   .content
     .projects
-      {{#each content itemController='projectItem'}}
+      {{#each content}}
       .project{:bind => {:id => 'slug'}}
         {{#linkTo 'projects.show' this}}
         {{#if logo.attachment}}
@@ -21,7 +21,6 @@
         {{/linkTo}}
         %p.description {{description}}
         %footer {{website website}}
-        %a.delete-button{:_action => 'confirm'}
 
         {{partial 'partials/delete_confirmation'}}
       {{/each}}
