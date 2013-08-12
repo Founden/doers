@@ -8,7 +8,7 @@ class Api::V1::UsersController < Api::V1::ApplicationController
 
   # Shows current user
   def show
-    user = User.find_by!(:id => params[:id])
-    render :json => user
+    user = User.find_by(:id => params[:id])
+    render :json => (user || current_account)
   end
 end
