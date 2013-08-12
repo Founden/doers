@@ -16,17 +16,17 @@ feature 'Projects', :js, :slow do
       proxy.stub(/startup_roles/).and_return(:jsonp => startups)
     end
 
-    context 'on import screen' do
+    context 'sees import screen' do
       background do
         visit root_path
         click_on('projects-import')
       end
 
-      scenario 'are listed' do
+      scenario 'with startups' do
         expect(page).to have_css('.projects .project', :count => 2)
       end
 
-      scenario 'after import shows importer running screen' do
+      scenario 'with an importer running message after import starts' do
         # Pick 3rd startup where role is `founder`
         find('.startup-%d' % startup['id']).click
         expect(page).to have_css('.projects .project.selected', :count => 1)
@@ -44,13 +44,13 @@ feature 'Projects', :js, :slow do
       proxy.stub(/startup_roles/).and_return(:jsonp => [])
     end
 
-    context 'on import screen' do
+    context 'sees import screen' do
       background do
         visit root_path
         click_on('projects-import')
       end
 
-      scenario 'none are listed' do
+      scenario 'empty' do
         expect(page).to have_css('.projects .project', :count => 0)
       end
     end

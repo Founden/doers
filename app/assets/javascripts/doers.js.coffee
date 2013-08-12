@@ -36,3 +36,23 @@ window.Doers.initializer
     $.ajaxPrefilter (options, originalOptions, xhr)->
       token = $('meta[name="csrf-token"]').attr('content')
       xhr.setRequestHeader('X-CSRF-Token', token)
+
+window.Doers.initializer
+  name: 'currentUser'
+  initialize: (container, application)->
+    # Create a separate namespace for `user`
+    container.optionsForType('user', {instantiate: false, singleton: true})
+
+    # Wait until all the promises are resolved
+    application.deferReadiness()
+
+    container.resolve('model:user').find('mine').then (user) ->
+      # Populate the `user:current` namespace
+      container.register('user:current', user)
+      # Inject the namespace into controllers and routes
+      container.typeInjection('route', 'currentUser', 'user:current')
+      container.injection(
+        'controller:application', 'currentUser', 'user:current')
+
+      # Continue the boot process
+      application.advanceReadiness()

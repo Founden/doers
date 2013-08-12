@@ -1,4 +1,4 @@
-#board
+#board.build
 
   %header.header
     .header-content
@@ -10,5 +10,5 @@
 
     %div{:bind => {:id => 'slug'}}
       {{#if cards.isLoaded}}
-      {{view view.cardsView contentBinding=cards}}
+      {{view view.buildCardsView contentBinding=cards}}
       {{/if}}

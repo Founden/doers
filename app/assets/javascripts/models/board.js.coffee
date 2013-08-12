@@ -17,6 +17,8 @@ Doers.Board = DS.Model.extend
   cards: DS.hasMany('Doers.Card')
   cardsCount: DS.attr('number', readOnly: true)
 
+  deleteConfirmation: false
+
   slug: (->
     'board-' + @get('id')
   ).property('id')

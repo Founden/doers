@@ -15,13 +15,3 @@
     {{parentBoard.title}}
   = _('by')
   {{parentBoard.authorNicename}}
-%a.delete-button{:_action => 'confirm'}
-{{#if requiresConfirmation}}
-.delete-confirmation
-  %p
-    = _('Are you sure you want to delete this board?')
-  %a.button.red{:_action => 'remove'}
-    = _('Delete')
-  %a.button.gray{:_action => 'cancel'}
-    = _('Cancel')
-{{/if}}

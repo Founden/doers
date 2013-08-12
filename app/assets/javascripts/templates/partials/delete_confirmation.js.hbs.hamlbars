@@ -1,0 +1,10 @@
+%a.delete-button{:_action => 'confirm this'}
+{{#if deleteConfirmation}}
+.delete-confirmation
+  %p
+    = _('Are you sure you want to delete this?')
+  %a.button.red{:_action => 'remove this'}
+    = _('Delete')
+  %a.button.gray{:_action => 'cancel this'}
+    = _('Cancel')
+{{/if}}
