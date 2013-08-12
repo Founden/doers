@@ -6,7 +6,6 @@ Doers.CardEditView = Ember.View.extend
   classNames: ['card-edit']
 
   templateName: ( ->
-    console.log @get('isBuilding')
     if @get('content.type') and type = @get('content.type').toLowerCase()
       if @get('isBuilding')
         'cards/build/%@'.fmt(type)
