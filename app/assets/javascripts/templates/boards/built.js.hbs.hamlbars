@@ -3,17 +3,17 @@
   %header.header
     .header-content
       %h1
-        = _('Template boards')
+        = _('Boards built by you')
     .buttons
       {{#linkTo 'boards.new' class='button'}}
-      = _('Create template board')
+      = _('Build a new board')
       {{/linkTo}}
 
   .content
     .boards
-      {{#each content itemController='boardItem'}}
+      {{#each content}}
       .board{:bind => {:id => 'slug'}}
-        {{#linkTo 'boards.show' this}}
+        {{#linkTo 'boards.build' this}}
         %h2 {{title}}
         {{/linkTo}}
         %p.description {{description}}
@@ -32,7 +32,6 @@
           {{else}}
           = _('time')
           {{/if}}
-        %a.delete-button{:_action => 'confirm'}
 
         {{partial 'partials/delete_confirmation'}}
 

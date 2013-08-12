@@ -2,7 +2,7 @@ Doers.BoardsNewController = Ember.Controller.extend Doers.ControllerAlertMixin,
   save: (view)->
     if @get('content.title')
       @get('content').save().then =>
-        @get('target.router').transitionTo('boards.show', @get('content'))
+        @get('target.router').transitionTo('boards.build', @get('content'))
     else
       @alertFromView(view)
 

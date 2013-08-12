@@ -2,7 +2,7 @@ Doers.BoardsNewRoute = Ember.Route.extend
   model: ->
     @container.resolve('model:board').createRecord()
 
-Doers.BoardsTemplatesRoute = Ember.Route.extend
+Doers.BoardsBuiltRoute = Ember.Route.extend
   model: ->
     @container.resolve('model:board').find(status: 'public')
 
