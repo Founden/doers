@@ -13,7 +13,8 @@ Doers.User = DS.Model.extend
   ).property('angelListToken')
 
   didLoad: ->
-    @loadStartups()
+    if @get('externalId')
+      @loadStartups()
     @_super()
 
   loadStartups: ->
