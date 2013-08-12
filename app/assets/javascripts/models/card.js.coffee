@@ -19,6 +19,7 @@ Doers.Card = DS.Model.extend
   userNicename: DS.attr('string', readOnly: true)
 
   isEditing: false
+  isBuilding: false
 
   init: ->
     setInterval ( =>

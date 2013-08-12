@@ -1,0 +1,14 @@
+#board.build
+
+  %header.header
+    .header-content
+      %h1
+        {{title}}
+
+  .content
+    {{partial 'partials/cards_toolbar'}}
+
+    %div{:bind => {:id => 'slug'}}
+      {{#if cards.isLoaded}}
+      {{view view.buildCardsView contentBinding=cards}}
+      {{/if}}
