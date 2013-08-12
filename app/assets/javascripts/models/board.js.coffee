@@ -9,8 +9,6 @@ Doers.Board = DS.Model.extend
 
   updatedAt: DS.attr('date', readOnly: true)
   lastUpdate: DS.attr('string', readOnly: true)
-  userNicename: DS.attr('string', readOnly: true)
-  authorNicename: DS.attr('string', readOnly: true)
 
   branches: DS.hasMany('Doers.Board')
   branchesCount: DS.attr('number', readOnly: true)
