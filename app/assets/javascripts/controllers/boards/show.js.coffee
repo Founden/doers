@@ -11,9 +11,9 @@ Doers.BoardsShowController = Ember.ObjectController.extend Doers.ControllerAlert
       @set('isEditing', false)
 
   removeCard: (card) ->
-    notNew = !card.get('isNew')
+    notNew = !!card.get('id')
     card.deleteRecord()
-    card.get('store').commit() if notNew
+    card.save() if notNew
     @get('content.cards').removeObject(card)
 
   changeCardStyle: (card, style) ->
