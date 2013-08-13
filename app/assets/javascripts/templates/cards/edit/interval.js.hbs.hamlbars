@@ -7,14 +7,14 @@
     .field
       {{input valueBinding='view.content.content' placeholder='What does it represent?' autocomplete='false' required='true' type='text' name='content'}}
     .field
-      %label
+      %label{:for => 'minimumInput'}
         = _('Minimum')
-      {{input valueBinding='view.content.minimum' required='true' type='number' name='minimum'}}
+      {{input valueBinding='view.content.minimum' id='minimumInput' required='true' type='number' name='minimum'}}
     .field
-      %label
+      %label{:for => 'maximumInput'}
         = _('Maximum')
-      {{input valueBinding='view.content.maximum' required='true' type='number' name='maximum'}}
+      {{input valueBinding='view.content.maximum' id='maximumInput' required='true' type='number' name='maximum'}}
     .field
-      %label
+      %label{:for =>'selectedInput'}
         = _('Selected')
-      {{input valueBinding='view.content.selected' required='true' type='number' name='selected'}}
+      {{input valueBinding='view.content.selected' id='selectedInput' required='true' type='number' name='selected'}}

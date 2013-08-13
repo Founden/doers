@@ -5,4 +5,4 @@
     .field
       {{input valueBinding='view.content.title' placeholderBinding='view.content.titleHint' autocomplete='false' required='true' type='text' name='title'}}
     .field.content
-      {{textarea valueBinding='view.content.content' placeholder='Give it a nice content' rows='10' required='true' name='content'}}
+      {{textarea valueBinding='view.content.content' placeholder='Give it a nice content' required='true' name='content'}}
