@@ -30,7 +30,6 @@ Doers.BoardsBaseController = Ember.ObjectController.extend
     card.set('isEditing', true)
 
   updateMap: (map, data) ->
-    map.set('content', data.display_name)
     map.set('latitude', data.lat)
     map.set('longitude', data.lon)
 
