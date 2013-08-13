@@ -19,6 +19,13 @@ Doers.BoardsBaseController = Ember.ObjectController.extend
     card.set('style', style)
     card.save()
 
+  addListItem: (card) ->
+    item = Ember.Object.create({label: null, checked: true})
+    card.get('items').pushObject(item)
+
+  removeListItem: (card, item) ->
+    card.get('items').removeObject(item)
+
   addCard: (type) ->
     klass = @container.resolve('model:' + type)
     card = klass.createRecord
