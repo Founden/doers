@@ -1,13 +1,6 @@
 %form{:bind => {:id => 'view.content.editSlug'}}
   %fieldset
-    .field
-      {{input valueBinding='view.content.title' placeholder='Give it a nice title' autocomplete='false' required='true' type='text' name='title'}}
+    {{partial 'partials/card_actions'}}
+    {{partial 'partials/card_build_fields'}}
     .field.content
-      {{textarea valueBinding='view.content.content' placeholder='Give it a nice content' rows='10' required='true' name='content'}}
-    .actions
-      {{#view view.cancelButtonView}}
-      = _('Cancel')
-      {{/view}}
-      {{#view view.saveButtonView}}
-      = _('Save')
-      {{/view}}
+      {{textarea valueBinding='view.content.content' placeholder='Give it a nice content' required='true' name='content'}}

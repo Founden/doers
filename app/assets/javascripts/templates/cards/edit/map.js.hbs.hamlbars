@@ -1,29 +1,23 @@
 %form{:bind => {:id => 'view.content.editSlug'}}
   %fieldset
+    {{partial 'partials/card_actions'}}
+    {{partial 'partials/card_help'}}
     .field
-      {{input valueBinding='view.content.title' placeholder='Give it a nice title' autocomplete='false' required='true' type='text' name='title'}}
-    .field.map-search
-      {{input valueBinding='view.content.query' placeholder='Type an address' type='text' name='place-name'}}
-      -# %small
-      -#   = _('Zoom')
-      -# {{input valueBinding='view.content.zoom' type='number'}}
-      {{#if view.content.query}}
-      %ul
-        {{#if view.content.results}}
-        {{#each place in view.content.results}}
-        %li{:_action => 'updateMap view.content place'}
-          {{place.display_name}}
-        {{/each}}
-        {{else}}
-        %li
-          = _('Searching...')
+      {{input valueBinding='view.content.title' placeholderBinding='view.content.titleHint' autocomplete='false' required='true' type='text' name='title'}}
+    .field
+      {{input valueBinding='view.content.content' placeholder='Give it a nice content' required='true' type='text' name='content'}}
+    .field
+      .map-search
+        {{input valueBinding='view.content.query' placeholder='Type an address' type='text' name='place-name'}}
+        {{#if view.content.query}}
+        %ul
+          {{#if view.content.results}}
+          {{#each place in view.content.results}}
+          %li{:_action => 'updateMap view.content place'}
+            {{place.display_name}}
+          {{/each}}
+          {{else}}
+          %li
+            = _('Searching...')
+          {{/if}}
         {{/if}}
-      {{/if}}
-
-    .actions
-      {{#view view.cancelButtonView}}
-      = _('Cancel')
-      {{/view}}
-      {{#view view.saveButtonView}}
-      = _('Save')
-      {{/view}}

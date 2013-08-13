@@ -1,7 +1,9 @@
 %form{:bind => {:id => 'view.content.editSlug'}}
   %fieldset
+    {{partial 'partials/card_actions'}}
+    {{partial 'partials/card_help'}}
     .field
-      {{input valueBinding='view.content.title' placeholder='Give it a nice title' required='true' type='text' name='title'}}
+      {{input valueBinding='view.content.title' placeholderBinding='view.content.titleHint' autocomplete='false' required='true' type='text' name='title'}}
     .field
       {{input valueBinding='view.content.url' placeholder='http://...' required='true' type='text' name='url'}}
     .field.oembed
@@ -14,10 +16,3 @@
         {{else}}
         = _('Provided link has no support for oEmbed. Try again.')
         {{/if}}
-    .actions
-      {{#view view.cancelButtonView}}
-      = _('Cancel')
-      {{/view}}
-      {{#view view.saveButtonView}}
-      = _('Save')
-      {{/view}}
