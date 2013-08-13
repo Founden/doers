@@ -64,12 +64,12 @@ describe Api::V1::CardsController do
       its(:project_id) { should eq(card.project.id) }
       its(:board_id) { should eq(card.board.id) }
 
-      context 'phrase card keys' do
+      context 'phrase card' do
         its('keys.size') { should eq(14) }
         its(:content) { should eq(card.content) }
       end
 
-      context 'paragraph card keys' do
+      context 'paragraph card' do
         let(:card) {
           Fabricate('card/paragraph', :project => project, :board => board) }
 
@@ -77,7 +77,7 @@ describe Api::V1::CardsController do
         its(:content) { should eq(card.content) }
       end
 
-      context 'number card keys' do
+      context 'number card' do
         let(:card) {
           Fabricate('card/number', :project => project, :board => board) }
 
@@ -86,7 +86,7 @@ describe Api::V1::CardsController do
         its(:content) { should eq(card.content) }
       end
 
-      context 'timestamp card keys' do
+      context 'timestamp card' do
         let(:card) {
           Fabricate('card/timestamp', :project => project, :board => board) }
 
@@ -94,7 +94,7 @@ describe Api::V1::CardsController do
         its(:content) { should eq(card.content) }
       end
 
-      context 'interval card keys' do
+      context 'interval card' do
         let(:card) {
           Fabricate('card/interval', :project => project, :board => board) }
 
@@ -104,7 +104,7 @@ describe Api::V1::CardsController do
         its(:selected) { should eq(card.selected) }
       end
 
-      context 'book card keys' do
+      context 'book card' do
         let(:card) {
           Fabricate('card/book', :project => project, :board => board) }
 
@@ -115,7 +115,7 @@ describe Api::V1::CardsController do
         its(:image_id) { should eq(card.image.id) }
       end
 
-      context 'photo card keys' do
+      context 'photo card' do
         let(:card) {
           Fabricate('card/photo', :project => project, :board => board) }
 
@@ -123,7 +123,7 @@ describe Api::V1::CardsController do
         its(:image_id) { should eq(card.image.id) }
       end
 
-      context 'video card keys' do
+      context 'video card' do
         let(:card) {
           Fabricate('card/video', :project => project, :board => board) }
 
@@ -133,7 +133,7 @@ describe Api::V1::CardsController do
         its(:provider) { should eq(card.provider) }
       end
 
-      context 'map card keys' do
+      context 'map card' do
         let(:card) {
           Fabricate('card/map', :project => project, :board => board) }
 
@@ -143,7 +143,7 @@ describe Api::V1::CardsController do
         its(:content) { should eq(card.content) }
       end
 
-      context 'link card keys' do
+      context 'link card' do
         let(:card) {
           Fabricate('card/link', :project => project, :board => board) }
 
