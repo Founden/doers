@@ -3,6 +3,8 @@
     {{partial 'partials/card_actions'}}
     {{partial 'partials/card_build_fields'}}
     .field
+      {{input valueBinding='view.content.content' placeholder='Give it a nice content' required='true' type='text' name='content'}}
+    .field
       .map-search
         {{input valueBinding='view.content.query' placeholder='Type an address' type='text' name='place-name'}}
         {{#if view.content.query}}
