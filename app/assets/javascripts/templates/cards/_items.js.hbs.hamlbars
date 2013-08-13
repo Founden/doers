@@ -1,0 +1,7 @@
+%ul
+  {{#each item in view.content.items}}
+  %li
+    %label
+      {{input type='checkbox' checkedBinding='item.checked'}}
+      {{item.label}}
+  {{/each}}
