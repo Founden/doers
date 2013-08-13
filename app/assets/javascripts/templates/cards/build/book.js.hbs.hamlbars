@@ -1,7 +1,7 @@
 %form{:bind => {:id => 'view.content.editSlug'}}
   %fieldset
-    .field
-      {{input type='text' valueBinding='view.content.title' placeholder='Give it a nice title' autocomplete='false' required='true' name='title'}}
+    {{partial 'partials/card_actions'}}
+    {{partial 'partials/card_build_fields'}}
     .field
       .book-search
         {{input type='text' valueBinding='view.content.query' placeholder='Search for a book' autocomplete='false' name='book-title'}}
@@ -25,11 +25,3 @@
           {{/if}}
           {{/if}}
         {{/if}}
-
-    .actions
-      {{#view view.cancelButtonView}}
-      = _('Cancel')
-      {{/view}}
-      {{#view view.saveButtonView}}
-      = _('Save')
-      {{/view}}
