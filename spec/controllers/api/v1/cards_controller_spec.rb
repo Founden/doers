@@ -151,6 +151,24 @@ describe Api::V1::CardsController do
         its(:url) { should eq(card.url) }
         its(:content) { should eq(card.content) }
       end
+
+      context 'list card' do
+        let(:card) {
+          Fabricate('card/list', :project => project, :board => board) }
+
+        its('keys.size') { should eq(15) }
+        its('items.size') { should eq(card.items.size) }
+        its(:content) { should eq(card.content) }
+
+        context 'items.first' do
+          let(:item) { card.items.first }
+
+          subject{ OpenStruct.new(item) }
+
+          its(:label) { should eq(item['label']) }
+          its(:checked) { should eq(item['checked']) }
+        end
+      end
     end
   end
 
@@ -334,6 +352,25 @@ describe Api::V1::CardsController do
         its(:content) { should eq(Sanitize.clean(card_attrs['content'])) }
         its(:latitude) { should eq(card_attrs['latitude']) }
         its(:longitude) { should eq(card_attrs['longitude']) }
+      end
+
+      context 'list card' do
+        let(:card) {
+          Fabricate('card/list', :project => project, :board => board) }
+        let(:card_attrs) { Fabricate.attributes_for('card/list') }
+
+        its('keys.size') { should eq(15) }
+        its('items.size') { should eq(card.items.size) }
+        its(:content) { should eq(card_attrs['content']) }
+
+        context 'items.first' do
+          let(:item) { card_attrs['items'].first }
+
+          subject{ OpenStruct.new(api_card.items.first) }
+
+          its(:label) { should eq(item['label']) }
+          its(:checked) { should eq(item['checked']) }
+        end
       end
     end
   end

@@ -2,8 +2,6 @@
 class Card::List < Card
   # Store accessors definition
   store_accessor :data, :items
-  # Serialize items into an array
-  serialize :items, ActiveSupport::JSON
 
   # Validations
   validates_presence_of :content
@@ -23,4 +21,22 @@ class Card::List < Card
     end
     self.items.reject!{ |item| !item.is_a?(Hash) }
   end
+  # Custom serialization hooks to avoid double `to_s` since we are using hstore
+  after_save :decode_items
+  before_save :encode_items
+  after_find :decode_items
+
+  private
+
+    # Callback to decode `items` from a JSON string
+    def decode_items
+      self.items =
+        ActiveSupport::JSON.decode(self.items) if self.items.is_a?(String)
+    end
+
+    # Callback to encode `items` to a JSON
+    def encode_items
+      self.items =
+        ActiveSupport::JSON.encode(self.items) rescue self.items.to_json
+    end
 end
