@@ -30,8 +30,9 @@ class Card::List < Card
 
     # Callback to decode `items` from a JSON string
     def decode_items
-      self.items =
-        ActiveSupport::JSON.decode(self.items) if self.items.is_a?(String)
+      if self.items.is_a?(String)
+        self.items = ActiveSupport::JSON.decode(self.items) rescue self.items
+      end
     end
 
     # Callback to encode `items` to a JSON
