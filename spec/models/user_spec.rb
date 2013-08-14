@@ -5,6 +5,7 @@ describe User, :use_truncation do
 
   it { should have_many(:projects).dependent(:destroy) }
   it { should have_many(:boards).dependent('') }
+  it { should have_many(:authored_boards).dependent('') }
   it { should have_many(:cards).dependent('') }
   it { should have_many(:comments).dependent(:destroy) }
   it { should have_many(:assets).dependent(:destroy) }
