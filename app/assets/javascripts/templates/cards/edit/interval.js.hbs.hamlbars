@@ -1,25 +1,20 @@
 %form{:bind => {:id => 'view.content.editSlug'}}
   %fieldset
+    {{partial 'partials/card_actions'}}
+    {{partial 'partials/card_help'}}
     .field
-      {{input valueBinding='view.content.title' placeholder='Give it a nice title' autocomplete='false' required='true' type='text' name='title'}}
+      {{input valueBinding='view.content.title' placeholderBinding='view.content.titleHint' autocomplete='false' required='true' type='text' name='title'}}
     .field
-      {{textarea valueBinding='view.content.content' placeholder='What does it represent?' autocomplete='false' required='true' name='content'}}
+      {{input valueBinding='view.content.content' placeholder='What does it represent?' autocomplete='false' required='true' type='text' name='content'}}
     .field
-      %small
+      %label
         = _('Minimum')
       {{input valueBinding='view.content.minimum' required='true' type='number' name='minimum'}}
     .field
-      %small
+      %label
         = _('Maximum')
       {{input valueBinding='view.content.maximum' required='true' type='number' name='maximum'}}
     .field
-      %small
+      %label
         = _('Selected')
       {{input valueBinding='view.content.selected' required='true' type='number' name='selected'}}
-    .actions
-      {{#view view.cancelButtonView}}
-      = _('Cancel')
-      {{/view}}
-      {{#view view.saveButtonView}}
-      = _('Save')
-      {{/view}}

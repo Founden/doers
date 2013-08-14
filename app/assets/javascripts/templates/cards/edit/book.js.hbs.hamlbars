@@ -1,10 +1,12 @@
 %form{:bind => {:id => 'view.content.editSlug'}}
   %fieldset
+    {{partial 'partials/card_actions'}}
+    {{partial 'partials/card_help'}}
     .field
-      {{input type='text' valueBinding='view.content.title' placeholder='Give it a nice title' autocomplete='false' required='true' name='title'}}
+      {{input valueBinding='view.content.title' placeholderBinding='view.content.titleHint' autocomplete='false' required='true' type='text' name='title'}}
     .field
       .book-search
-        {{input type='text' valueBinding='view.content.query' placeholder='Search for a book' autocomplete='false' name='book-title'}}
+        {{input valueBinding='view.content.query' placeholder='Search for a book' autocomplete='false' type='text' name='book-title'}}
         {{#if view.content.query}}
         %ul
           {{#if view.content.results}}
@@ -25,11 +27,3 @@
           {{/if}}
           {{/if}}
         {{/if}}
-
-    .actions
-      {{#view view.cancelButtonView}}
-      = _('Cancel')
-      {{/view}}
-      {{#view view.saveButtonView}}
-      = _('Save')
-      {{/view}}
