@@ -10,7 +10,7 @@ feature 'Projects', :js, :slow do
     given(:user) { User.first }
 
     background do
-      visit root_path(:anchor => 'projects/new')
+      visit root_path(:anchor => '/projects/new')
     end
 
     scenario 'form submission creates a new project' do

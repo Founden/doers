@@ -11,7 +11,7 @@ feature 'Boards', :js, :slow do
     given!(:public_board) { Fabricate(:public_board) }
 
     background do
-      visit root_path(:anchor => 'projects/%d' % project.id)
+      visit root_path(:anchor => '/projects/%d' % project.id)
     end
 
     scenario 'are shown' do
