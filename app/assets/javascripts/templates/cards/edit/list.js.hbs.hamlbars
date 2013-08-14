@@ -13,7 +13,7 @@
           %li
             {{input type='checkbox' checkedBinding='item.checked' name='checkbox'}}
             {{input type='text' valueBinding='item.label' placeholder='Your new item' name='label'}}
-            %a.icon-remove{:_action => 'removeListItem view.content item'}
+            %a.icon-remove.does-remove{:_action => 'removeListItem view.content item'}
           {{/each}}
-        %a.button.secondary{:_action => 'addListItem view.content'}
+        %a.button.secondary.does-add{:_action => 'addListItem view.content'}
           = _('New item')

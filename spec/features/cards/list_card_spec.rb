@@ -91,7 +91,7 @@ feature 'List', :js, :slow do
         edit_css = '#edit-card-%d' % card.id
         edit_item = page.all(edit_css + ' li').first
 
-        edit_item.find('a.removes-item').click
+        edit_item.find('a.does-remove').click
         page.find(edit_css + ' .actions .does-save').click
 
         expect(page).to_not have_css(edit_css)
@@ -105,7 +105,7 @@ feature 'List', :js, :slow do
         initial_list_size = card.items.size
         edit_css = '#edit-card-%d' % card.id
 
-        page.find(edit_css + ' a.adds-item').click
+        page.find(edit_css + ' a.does-add').click
         # Pick the before-last item
         edit_item = page.all(edit_css + ' li')[card.items.size]
 
