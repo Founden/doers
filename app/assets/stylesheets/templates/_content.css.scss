@@ -252,7 +252,7 @@
         padding: 20px 0 0 0;
       }
 
-      .text {
+      .text, ul {
         margin: 20px;
       }
 
@@ -384,6 +384,57 @@
             &:hover {
               background-color: $bw_9;
             }
+          }
+        }
+      }
+
+      .checklist {
+        width: 50%;
+
+        ul {
+          margin: 0 0 20px 0;
+        }
+
+        li {
+          @include clearfix;
+          padding: 5px 10px;
+          background-color: $bw_10;
+          margin: 0 0 1px 0;
+          position: relative;
+        }
+
+        input[type=checkbox] {
+          float: left;
+          margin: 4px 10px 0 0;
+        }
+
+        input[type=text] {
+          float: left;
+          width: 90%;
+          font-size: 16px;
+        }
+
+        .icon-remove {
+          position: absolute;
+          right: -34px;
+          top: 0;
+          cursor: pointer;
+          background-color: $bw_9;
+          color: $white;
+          width: 34px;
+          height: 34px;
+          line-height: 34px;
+          text-align: center;
+          color: $black;
+          @include transition(background-color 0.2s);
+
+          &:hover {
+            background-color: $red;
+            color: $white;
+          }
+
+          &:before {
+            content: "x";
           }
         }
       }

@@ -4,7 +4,7 @@
   color: $white;
   padding: 12px 20px 8px 20px;
   line-height: 1.5em;
-  font-size: em(14);
+  font-size: 14px;
   border: 0;
   border-radius: 3px;
   cursor: pointer;
@@ -38,5 +38,9 @@
     &:hover {
       background-color: shade($red, 5%);
     }
+  }
+
+  &.small {
+    padding: 10px 15px 6px 15px;
   }
 }
