@@ -14,7 +14,7 @@ feature 'Number', :js, :slow do
     given(:card) { board.cards.first }
 
     background do
-      visit root_path(:anchor=>'boards/%d' % board.id)
+      visit root_path(:anchor => '/boards/%d' % board.id)
     end
 
     scenario 'is shown with details' do
