@@ -1,8 +1,8 @@
 Doers.ListMixin = Ember.Mixin.create
-  items: DS.attr('list_items')
+  items: DS.attr(
+    'list_items', defaultValue: Ember.ArrayProxy.create(content: []))
 
   didLoad: ->
-    @set('items', Ember.ArrayProxy.create(content: [])) unless @get('items')
     @get('items').contentArrayDidChange = =>
       @send('becomeDirty')
 
