@@ -16,6 +16,7 @@ class User < ActiveRecord::Base
   # Relationships
   has_many :projects, :dependent => :destroy
   has_many :boards
+  has_many :authored_boards, :foreign_key => :author_id, :class_name => Board
   has_many :cards
   has_many :comments, :dependent => :destroy
   has_many :assets, :dependent => :destroy
