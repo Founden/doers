@@ -9,4 +9,4 @@ Doers.DeleteConfirmationMixin = Ember.Mixin.create
     notNew = !!record.get('id')
     record.deleteRecord()
     record.save() if notNew
-    @get('content').removeObject(record)
+    @get('content').removeObject(record) if @get('content').removeObject
