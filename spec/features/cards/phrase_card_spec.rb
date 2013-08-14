@@ -27,7 +27,7 @@ feature 'Phrase', :js, :slow do
     end
 
     context 'when clicked on edit' do
-      given(:card_attrs) { Fabricate('card/phrase') }
+      given(:card_attrs) { Fabricate.attributes_for('card/phrase') }
 
       background do
         page.find('.card-%d .card-settings' % card.id).click
