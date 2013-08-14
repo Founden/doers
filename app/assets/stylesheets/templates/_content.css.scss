@@ -217,7 +217,7 @@
         background-color: $bw_10;
 
         .card-content {
-          float: right;
+          float: left;
           width: 320px;
           margin: 20px;
         }
@@ -303,7 +303,7 @@
     .card-edit {
       position: relative;
       background-color: $white;
-      margin: 0 360px 0 0;
+      margin: 0 0 0 360px;
       height: 100%;
       @include box-sizing(border-box);
 
@@ -312,8 +312,33 @@
         padding: 30px;
       }
 
+      .help {
+        background-color: $bw_10;
+        border-left: 5px solid $orange;
+        padding: 20px;
+        margin: 0 0 30px 0;
+
+        h3 {
+          font-size: em(18);
+        }
+
+        p {
+          color: $bw_3;
+        }
+      }
+
       .field {
         margin: 0 0 20px 0;
+
+        label {
+          display: block;
+          font-size: em(11);
+          color: $bw_7;
+          margin: 0 0 5px 0;
+          padding: 0 0 5px 0;
+          text-transform: uppercase;
+          border-bottom: 1px solid $bw_10;
+        }
 
         iframe, img {
           width: 100%;
@@ -321,6 +346,7 @@
       }
 
       #{$all-text-inputs}, textarea {
+        @include box-sizing(border-box);
         border: 0;
         padding: 0;
         margin: 0;
@@ -328,11 +354,11 @@
         outline: 0;
         width: 100%;
         background-color: transparent;
-        @include transition(all 0.2s);
       }
 
-      #{$all-text-inputs} {
-        font-size: em(21);
+      textarea {
+        height: 120px;
+        resize: none;
       }
 
       .asset-upload {
@@ -357,10 +383,6 @@
 
       .map-search, .book-search, .video-search {
         position: relative;
-
-        input {
-          font-size: 1em;
-        }
 
         ul {
           position: relative;

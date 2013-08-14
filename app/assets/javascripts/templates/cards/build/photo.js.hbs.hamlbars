@@ -1,13 +1,8 @@
 %form{:bind => {:id => 'view.content.editSlug'}}
   %fieldset
+    {{partial 'partials/card_actions'}}
+    {{partial 'partials/card_build_fields'}}
     .field
-      {{view Ember.TextField valueBinding='view.content.title' placeholder='Give it a nice title' autocomplete='false' required='true' name='title'}}
+      {{input valueBinding='view.content.content' placeholder='Give it a nice content' required='true' type='text' name='content'}}
     .field
       {{view view.uploadView}}
-    .actions
-      {{#view view.cancelButtonView}}
-      = _('Cancel')
-      {{/view}}
-      {{#view view.saveButtonView}}
-      = _('Save')
-      {{/view}}

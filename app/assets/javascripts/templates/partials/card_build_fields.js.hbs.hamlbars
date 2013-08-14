@@ -1,0 +1,8 @@
+.field
+  {{input valueBinding='view.content.question' placeholder='Question' autocomplete='false' required='true' type='text' name='title'}}
+.field
+  {{input valueBinding='view.content.help' placeholder='Help' autocomplete='false' required='true' type='text' name='title'}}
+.field
+  {{input valueBinding='view.content.title' placeholder='Title' autocomplete='false' required='true' type='text' name='title'}}
+.field
+  {{input valueBinding='view.content.titleHint' placeholder='Title hint' autocomplete='false' required='true' type='text' name='title'}}
