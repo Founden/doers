@@ -4,7 +4,7 @@
 %ul.meta
   %li
     = _('Created by')
-    {{authorNicename}}
+    {{author.nicename}}
   %li
     = _('Updated on')
     {{lastUpdate}}

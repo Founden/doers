@@ -4,8 +4,8 @@
 {{/linkTo}}
 %ul.meta
   %li
-    = _('Created by')
-    {{userNicename}}
+    = _('Branched by')
+    {{user.nicename}}
   %li
     = _('Updated on')
     {{lastUpdate}}
@@ -14,4 +14,4 @@
   %a{:href => ''}
     {{parentBoard.title}}
   = _('by')
-  {{parentBoard.authorNicename}}
+  {{parentBoard.author.nicename}}
