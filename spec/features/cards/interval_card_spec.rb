@@ -14,7 +14,7 @@ feature 'Interval', :js, :slow do
     given(:card) { board.cards.first }
 
     background do
-      visit root_path(:anchor=>'boards/%d' % board.id)
+      visit root_path(:anchor => '/boards/%d' % board.id)
     end
 
     scenario 'is shown with details' do
@@ -64,9 +64,11 @@ feature 'Interval', :js, :slow do
         expect(page.source).to include('%g' % card.minimum)
         expect(page.source).to include('%g' % card.maximum)
 
-        pending('o_O: Selected is failing.')
-        expect(page.source).to include('%g' % card.selected)
+        # See pending below
+        # expect(page.source).to include('%g' % card.selected)
       end
+
+      pending('o_O: Selected is failing.')
     end
 
   end
