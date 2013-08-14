@@ -1,5 +1,6 @@
-%em
+%p.text
   {{view.content.content}}
 {{#with view.content}}
-%input{:type => :range, :disabled => true, :bind => {:min => 'minimum', :max => 'maximum', :value => 'selected'}}
+%p.text
+  %input{:type => :range, :disabled => true, :bind => {:min => 'minimum', :max => 'maximum', :value => 'selected'}}
 {{/with}}

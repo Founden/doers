@@ -16,7 +16,6 @@ Doers.Card = DS.Model.extend
   user: DS.belongsTo('Doers.User', readOnly: true)
 
   updatedAt: DS.attr('date', readOnly: true)
-  userNicename: DS.attr('string', readOnly: true)
 
   isEditing: false
   isBuilding: false

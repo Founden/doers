@@ -1,4 +1,4 @@
-%strong
+%p.text
   {{view.content.number}}
-%em
+%p.text
   {{view.content.content}}

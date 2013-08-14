@@ -1,25 +1,18 @@
 %form{:bind => {:id => 'view.content.editSlug'}}
   %fieldset
+    {{partial 'partials/card_actions'}}
+    {{partial 'partials/card_build_fields'}}
     .field
-      {{input valueBinding='view.content.title' placeholder='Give it a nice title' autocomplete='false' required='true' type='text' name='title'}}
+      {{input valueBinding='view.content.content' placeholder='What does it represent?' autocomplete='false' required='true' type='text' name='content'}}
     .field
-      {{textarea valueBinding='view.content.content' placeholder='What does it represent?' autocomplete='false' required='true' name='content'}}
-    .field
-      %small
+      %label{:for => 'minimumInput'}
         = _('Minimum')
-      {{input valueBinding='view.content.minimum' required='true' type='number' name='minimum'}}
+      {{input valueBinding='view.content.minimum' id='minimumInput' required='true' type='number' name='minimum'}}
     .field
-      %small
+      %label{:for => 'maximumInput'}
         = _('Maximum')
-      {{input valueBinding='view.content.maximum' required='true' type='number' name='maximum'}}
+      {{input valueBinding='view.content.maximum' id='maximumInput' required='true' type='number' name='maximum'}}
     .field
-      %small
+      %label{:for =>'selectedInput'}
         = _('Selected')
-      {{input valueBinding='view.content.selected' required='true' type='number' name='selected'}}
-    .actions
-      {{#view view.cancelButtonView}}
-      = _('Cancel')
-      {{/view}}
-      {{#view view.saveButtonView}}
-      = _('Save')
-      {{/view}}
+      {{input valueBinding='view.content.selected' id='selectedInput' required='true' type='number' name='selected'}}
