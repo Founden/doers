@@ -5,6 +5,7 @@ describe User, :use_truncation do
 
   it { should have_many(:projects).dependent(:destroy) }
   it { should have_many(:boards).dependent('') }
+  it { should have_many(:authored_boards).dependent('') }
   it { should have_many(:cards).dependent('') }
   it { should have_many(:comments).dependent(:destroy) }
   it { should have_many(:assets).dependent(:destroy) }
@@ -328,6 +329,34 @@ describe User, :use_truncation do
         end
       end
 
+      context 'when there is a created board asset' do
+        let(:board) { Fabricate(:board, :author => user) }
+        let!(:asset) { Fabricate(
+          :image, :user => user, :board => board, :assetable => board) }
+
+        it_should_behave_like 'its found'
+
+        context 'when action is set to :write' do
+          let(:action) { :write }
+
+          it_should_behave_like 'its found'
+        end
+      end
+
+      context 'when there is a branched board asset' do
+        let(:board) { Fabricate(:board, :user => user) }
+        let!(:asset) { Fabricate(
+          :image, :user => user, :board => board, :assetable => board) }
+
+        it_should_behave_like 'its found'
+
+        context 'when action is set to :write' do
+          let(:action) { :write }
+
+          it_should_behave_like 'its found'
+        end
+      end
+
       context 'when there is a public board asset' do
         let(:board) { Fabricate(:public_board, :card_types => %w(card/photo)) }
         let!(:asset) { board.cards.first.image }
@@ -393,6 +422,32 @@ describe User, :use_truncation do
           let(:action) { :write }
 
           it { should be_empty }
+        end
+      end
+
+      context 'when there is a created board card' do
+        let(:board) { Fabricate(:board, :author => user) }
+        let!(:card) { Fabricate('card/phrase', :user => user, :board => board) }
+
+        it_should_behave_like 'its found'
+
+        context 'when action is set to :write' do
+          let(:action) { :write }
+
+          it_should_behave_like 'its found'
+        end
+      end
+
+      context 'when there is a branched board asset' do
+        let(:board) { Fabricate(:board, :user => user) }
+        let!(:card) { Fabricate('card/phrase', :user => user, :board => board) }
+
+        it_should_behave_like 'its found'
+
+        context 'when action is set to :write' do
+          let(:action) { :write }
+
+          it_should_behave_like 'its found'
         end
       end
     end
