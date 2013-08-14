@@ -5,6 +5,15 @@ Doers.RESTAdapter = DS.RESTAdapter.extend
   serializer: Doers.RESTSerializer
 
 Doers.RESTAdapter.registerTransform 'list_items',
+  listItemClass: Ember.Object.extend
+    list: null
+    label: null
+    checked: null
+    itemChanged: ( ->
+      if list = @get('list')
+        list.contentArrayDidChange()
+    ).observes('label', 'checked')
+
   serialize: (list) ->
     items = []
     list.forEach (item) ->
@@ -12,8 +21,10 @@ Doers.RESTAdapter.registerTransform 'list_items',
     items
 
   deserialize: (items) ->
-    list = Ember.ArrayController.create()
+    list = Ember.ArrayProxy.create(content: [])
     if Ember.isArray(items)
-      items.forEach (item) ->
-        list.addObject Ember.Object.create(item)
+      items.forEach (item) =>
+        listItem = @listItemClass.create(item)
+        listItem.set('list', list)
+        list.addObject listItem
     list
