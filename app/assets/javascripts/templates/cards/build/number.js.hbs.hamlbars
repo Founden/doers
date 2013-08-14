@@ -1,15 +1,8 @@
 %form{:bind => {:id => 'view.content.editSlug'}}
   %fieldset
-    .field
-      {{input valueBinding='view.content.title' placeholder='Give it a nice title' required='true' type='text' name='title'}}
+    {{partial 'partials/card_actions'}}
+    {{partial 'partials/card_build_fields'}}
     .field
       {{input valueBinding='view.content.content' placeholder='What does it represent?' required='true' type='text' name='content'}}
     .field
       {{input valueBinding='view.content.number' required='true' type='number' name='number'}}
-    .actions
-      {{#view view.cancelButtonView}}
-      = _('Cancel')
-      {{/view}}
-      {{#view view.saveButtonView}}
-      = _('Save')
-      {{/view}}
