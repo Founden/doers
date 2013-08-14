@@ -86,8 +86,11 @@ class User < ActiveRecord::Base
     query =
       # User is the owner
       table[:user_id].eq(self.id).or(
-        # User board has it
-        table[:board_id].in(self.board_ids)
+        # User created its board
+        table[:board_id].in(self.board_ids).or(
+          # User branched the board
+          table[:board_id].in(self.authored_boards.pluck('id'))
+        )
       ).or(
         # User project has it
         table[:project_id].in(self.project_ids)
@@ -136,8 +139,11 @@ class User < ActiveRecord::Base
     query =
       # User is the owner
       table[:user_id].eq(self.id).or(
-        # User board has it
-        table[:board_id].in(self.board_ids)
+        # User created its board
+        table[:board_id].in(self.board_ids).or(
+          # User branched the board
+          table[:board_id].in(self.authored_boards.pluck('id'))
+        )
       ).or(
         # User project has it
         table[:project_id].in(self.project_ids)
