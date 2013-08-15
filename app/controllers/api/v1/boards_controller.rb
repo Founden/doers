@@ -2,15 +2,9 @@
 class Api::V1::BoardsController < Api::V1::ApplicationController
   # Shows available boards
   def index
-    # TODO: Handle other board states
-    if params[:status]
-      boards = Board.public
-      render :json => boards
-    else
-      boards = Board.where(:id => params[:ids])
-      current_account.can?(:read, boards)
-      render :json => boards
-    end
+    boards = Board.where(:id => params[:ids])
+    current_account.can?(:read, boards)
+    render :json => boards
   end
 
   # Shows available board

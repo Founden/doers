@@ -13,8 +13,8 @@
     = _('cards available')
 %footer
   = _('Branched')
-  {{puboard.branchesCount}}
-  {{#if puboard.branchesCount}}
+  {{branchesCount}}
+  {{#if branchesCount}}
   = _('times')
   {{else}}
   = _('time')
