@@ -9,5 +9,3 @@ Doers.Asset = DS.Model.extend
   # TODO: Materialize these polymorphic definitions
   assetableId: DS.attr('number')
   assetableType: DS.attr('string')
-
-  userNicename: DS.attr('string', readOnly: true)
