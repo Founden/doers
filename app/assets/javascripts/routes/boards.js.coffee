@@ -4,7 +4,7 @@ Doers.BoardsNewRoute = Ember.Route.extend
 
 Doers.BoardsBuiltRoute = Ember.Route.extend
   model: ->
-    @container.resolve('model:board').find(status: 'public')
+    @get('currentUser.authoredBoards')
 
   redirect: ->
     unless @get('currentUser.isAdmin')
