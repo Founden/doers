@@ -64,7 +64,7 @@ describe Api::V1::CardsController do
       its(:board_id) { should eq(card.board.id) }
 
       context 'phrase card' do
-        its('keys.size') { should eq(14) }
+        its('keys.size') { should eq(13) }
         its(:content) { should eq(card.content) }
       end
 
@@ -155,8 +155,8 @@ describe Api::V1::CardsController do
         let(:card) {
           Fabricate('card/list', :project => project, :board => board) }
 
-        its('keys.size') { should eq(15) }
-        its('items.size') { should eq(card.items.size) }
+        its('keys.size') { should eq(14) }
+        its('items.size') { should eq(card.reload.items.size) }
         its(:content) { should eq(card.content) }
 
         context 'items.first' do
@@ -357,8 +357,8 @@ describe Api::V1::CardsController do
           Fabricate('card/list', :project => project, :board => board) }
         let(:card_attrs) { Fabricate.attributes_for('card/list') }
 
-        its('keys.size') { should eq(15) }
-        its('items.size') { should eq(card.items.size) }
+        its('keys.size') { should eq(14) }
+        its('items.size') { should eq(card.reload.items.size) }
         its(:content) { should eq(card_attrs['content']) }
 
         context 'items.first' do
