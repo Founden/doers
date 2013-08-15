@@ -1,7 +1,4 @@
 Doers.ProjectsShowController = Ember.Controller.extend Doers.ControllerAlertMixin, Doers.DeleteConfirmationMixin,
-  publicBoards: ( ->
-    @container.resolve('model:board').find(status: 'public')
-  ).property()
 
   createFork: (board) ->
     project = @get('content')

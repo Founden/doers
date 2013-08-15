@@ -20,7 +20,7 @@
       {{/each}}
     {{else}}
     .public-boards
-      {{#each publicBoards}}
+      {{#each controller.currentUser.publicBoards}}
       .board{:bind => {:id => 'slug'}}
         {{partial 'partials/public_board'}}
       {{/each}}
