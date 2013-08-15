@@ -9,7 +9,6 @@ describe Api::V1::BoardsController do
 
   describe '#index' do
     let(:board_ids) { [] }
-    let(:status) { }
 
     subject(:api_boards) { json_to_ostruct(response.body) }
 
@@ -28,48 +27,14 @@ describe Api::V1::BoardsController do
       end
     end
 
-    context 'when queried public boards' do
-      let(:status) { Board::STATES.last }
-
-      before { get(:index, :status => status) }
-
-      its('boards.size') { should eq(0) }
-
-      context 'and a public board exists' do
-        let(:status) { Fabricate(:public_board).status }
-
-        its('boards.size') { should eq(1) }
-      end
-    end
-
-    context 'when queried private boards' do
-      let(:status) { Board::STATES.first }
-
-      before { get(:index, :status => status) }
-
-      its('boards.size') { should eq(0) }
-    end
-
     context 'when queried ids are available' do
       let(:boards) { Fabricate(:project_with_boards, :user => user).boards }
       let(:board_ids) { boards.map(&:id) }
 
-      before { get(:index, :ids => board_ids, :status => status) }
+      before { get(:index, :ids => board_ids) }
 
       its('boards.size') { should_not eq(0) }
       its('boards.size') { should eq(boards.count) }
-
-      context 'when queried public boards' do
-        let(:status) { 'public' }
-
-        its('boards.size') { should eq(3) }
-      end
-
-      context 'when queried private boards' do
-        let(:status) { 'private' }
-
-        its('boards.size') { should eq(boards.count) }
-      end
     end
   end
 

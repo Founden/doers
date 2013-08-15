@@ -19,13 +19,15 @@ describe Api::V1::UsersController do
     include GravatarHelper
 
     let(:user_id) { user.id }
+    # Some data to make sure nothing brakes
+    let!(:board) { Fabricate(:branched_board, :user => user) }
 
     before { get(:show, :id => user_id) }
 
     subject(:api_user) { json_to_ostruct(response.body, :user) }
 
     shared_examples 'shows current user details' do
-      its('keys.size') { should eq(7) }
+      its('keys.size') { should eq(11) }
       its(:id) { should eq(user.id) }
       its(:nicename) { should eq(user.nicename) }
       its('external_id.to_i') { should eq(user.external_id) }
@@ -33,6 +35,10 @@ describe Api::V1::UsersController do
       its(:is_importing) { should be_false }
       its(:is_admin) { should eq(user.admin?) }
       its(:avatar_url) { should eq(gravatar_uri(user.email)) }
+      its('project_ids.size') { should eq(user.project_ids.count) }
+      its('public_board_ids.size') { should eq(Board.public.count) }
+      its('board_ids.size') { should eq(user.boards.count) }
+      its('authored_board_ids.size') { should eq(user.authored_boards.count) }
     end
 
     context 'if user owns the profile' do
@@ -51,7 +57,7 @@ describe Api::V1::UsersController do
       its('keys.size') { should eq(5) }
       its(:id) { should eq(some_user.id) }
       its(:nicename) { should eq(some_user.nicename) }
-      its(:importing) { should be_false }
+      its(:is_importing) { should be_false }
       its(:avatar_url) { should eq(gravatar_uri(some_user.email)) }
     end
   end

@@ -7,6 +7,11 @@ Doers.User = DS.Model.extend
   startups: Ember.ArrayController.create()
   avatarUrl: DS.attr('string', readOnly: true)
 
+  projects: DS.hasMany('Doers.Project', readOnly: true, inverse: 'user')
+  authoredBoards: DS.hasMany('Doers.Board', readOnly: true, inverse: 'author')
+  publicBoards: DS.hasMany('Doers.Board', readOnly: true)
+  boards: DS.hasMany('Doers.Board', readOnly: true, inverse: 'user')
+
   startupsUrl: ( ->
     'https://api.angel.co/1/startup_roles?v=1&user_id=' +
       @get('externalId') + '&access_token=' + @get('angelListToken')

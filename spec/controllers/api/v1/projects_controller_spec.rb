@@ -8,15 +8,32 @@ describe Api::V1::ProjectsController do
   end
 
   describe '#index' do
+    let(:project_ids) { [] }
     let(:user) { Fabricate(:user_with_projects, :projects_count => 2) }
-
-    before do
-      get(:index)
-    end
 
     subject(:api_projects) { json_to_ostruct(response.body) }
 
-    its('projects.count') { should eq(user.projects.count) }
+    context 'when no project ids are queried' do
+      before { get(:index, :ids => project_ids) }
+
+      its('projects.count') { should eq(0) }
+    end
+
+    context 'when project ids are queried' do
+      let(:project_ids) { user.projects.pluck('id') }
+
+      before { get(:index, :ids => project_ids) }
+
+      its('projects.count') { should eq(user.projects.count) }
+    end
+
+    context 'when project ids are not available' do
+      it 'raises not found' do
+        expect{
+          get(:index, :ids => [rand(99..100)])
+        }.to raise_error ActiveRecord::RecordNotFound
+      end
+    end
   end
 
   describe '#show' do
