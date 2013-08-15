@@ -3,7 +3,7 @@ class Api::V1::ProjectsController < Api::V1::ApplicationController
 
   # Lists available projects
   def index
-    projects = current_account.projects
+    projects = current_account.projects.find(params[:ids])
     render :json => projects
   end
 
