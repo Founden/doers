@@ -7,9 +7,9 @@ Doers.Project = DS.Model.extend
   updatedAt: DS.attr('date', readOnly: true)
   lastUpdate: DS.attr('string', readOnly: true)
 
-  user: DS.belongsTo('Doers.User', readOnly: true)
-  logo: DS.belongsTo('Doers.Logo', readOnly: true)
-  boards: DS.hasMany('Doers.Board')
+  user: DS.belongsTo('Doers.User', readOnly: true, inverse: 'projects')
+  logo: DS.belongsTo('Doers.Logo', readOnly: true, inverse: 'user')
+  boards: DS.hasMany('Doers.Board', inverse: 'project')
 
   deleteConfirmation: false
 
