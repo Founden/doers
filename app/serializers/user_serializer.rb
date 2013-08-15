@@ -4,6 +4,16 @@ class UserSerializer < ActiveModel::Serializer
 
   attributes :id, :nicename, :external_id, :angel_list_token
   attributes :avatar_url, :admin? => :is_admin, :importing => :is_importing
+  attributes :public_board_ids
+
+  has_many :projects, :embed => :id
+  has_many :authored_boards, :embed => :id
+  has_many :boards, :embed => :id
+
+  # Returns available public boards
+  def public_board_ids
+    Board.public.pluck('id')
+  end
 
   # Angel List access token from available identities
   def angel_list_token
@@ -22,4 +32,8 @@ class UserSerializer < ActiveModel::Serializer
   end
   alias_method :include_external_id?, :is_current_user?
   alias_method :include_angel_list_token?, :is_current_user?
+  alias_method :include_projects?, :is_current_user?
+  alias_method :include_authored_boards?, :is_current_user?
+  alias_method :include_public_board_ids?, :is_current_user?
+  alias_method :include_boards?, :is_current_user?
 end
