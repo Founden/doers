@@ -20,3 +20,21 @@ Doers.Board = DS.Model.extend
   slug: (->
     'board-' + @get('id')
   ).property('id')
+
+  cardsOrderChanged: ->
+    cards = @get('cards')
+    source = cards.filterProperty('moveSource', true).get('firstObject')
+    target = cards.filterProperty('moveTarget', true).get('firstObject')
+
+    if target and source
+      targetAt = cards.indexOf(target)
+      sourceAt = cards.indexOf(source)
+
+      source.set('position', targetAt)
+      sourceStyle = source.get('style')
+      source.set('style', target.get('style'))
+      target.set('position', sourceAt)
+      target.set('style', sourceStyle)
+
+    cards.setEach('moveSource', false)
+    cards.setEach('moveTarget', false)
