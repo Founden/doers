@@ -1,4 +1,4 @@
-Doers.BoardsBaseController = Ember.ObjectController.extend
+Doers.CardsController = Ember.ArrayController.extend
   rollbackCard: (event) ->
     event.preventDefault() if event instanceof jQuery.Event
     @get('content').rollback() if @get('content.isDirty')
@@ -15,7 +15,7 @@ Doers.BoardsBaseController = Ember.ObjectController.extend
     notNew = !!card.get('id')
     card.deleteRecord()
     card.save() if notNew
-    @get('content.cards').removeObject(card)
+    @get('content').removeObject(card)
 
   changeCardStyle: (card, style) ->
     card.set('style', style)
@@ -33,7 +33,7 @@ Doers.BoardsBaseController = Ember.ObjectController.extend
     card = klass.createRecord
       user: @get('content.author')
       type: type
-    @get('content.cards').unshiftObject(card)
+    @get('content').unshiftObject(card)
     card.set('isEditing', true)
 
   updateMap: (map, data) ->
