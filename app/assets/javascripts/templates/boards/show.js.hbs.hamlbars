@@ -3,12 +3,12 @@
   %header.header
     .header-content
       %h1
-        {{title}}
+        {{board.title}}
 
   .content
     {{partial 'partials/cards_toolbar'}}
 
     %div{:bind => {:id => 'slug'}}
-      {{#if cards.isLoaded}}
-      {{view view.cardsView contentBinding=cards}}
+      {{#if content.isLoaded}}
+      {{view view.cardsView contentBinding=arrangedContent}}
       {{/if}}
