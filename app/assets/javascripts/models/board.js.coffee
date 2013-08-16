@@ -30,11 +30,15 @@ Doers.Board = DS.Model.extend
       targetAt = cards.indexOf(target)
       sourceAt = cards.indexOf(source)
 
-      source.set('position', targetAt)
       sourceStyle = source.get('style')
-      source.set('style', target.get('style'))
+
       target.set('position', sourceAt)
+      source.set('position', targetAt)
+      source.set('style', target.get('style'))
       target.set('style', sourceStyle)
+
+      source.save() if source.get('id')
+      target.save() if source.get('id')
 
     cards.setEach('moveSource', false)
     cards.setEach('moveTarget', false)
