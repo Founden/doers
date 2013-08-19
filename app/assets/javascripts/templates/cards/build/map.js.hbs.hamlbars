@@ -15,7 +15,12 @@
             {{place.display_name}}
           {{/each}}
           {{else}}
+          {{#if view.content.isSearching}}
           %li
             = _('Searching...')
+          {{else}}
+          %li
+            = _('No address found')
+          {{/if}}
           {{/if}}
         {{/if}}
