@@ -53,8 +53,3 @@ Doers.Card = DS.Model.extend
     if board
       board.cardsOrderChanged()
   ).observes('moveTarget')
-
-  # Extract card type from attribute or constructor
-  detectedType: ( ->
-    (@get('type') || ('' + @constructor).split('.')[1]).toLowerCase()
-  ).property('type')
