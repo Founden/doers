@@ -55,20 +55,17 @@ feature 'Interval', :js, :slow do
         card.reload
         expect(card.title).to eq(card_attrs[:title])
         expect(card.content).to eq(card_attrs[:content])
+
         expect(card.minimum).to eq('%g' % card_attrs[:minimum])
         expect(card.maximum).to eq('%g' % card_attrs[:maximum])
         expect(card.selected).to eq('%g' % card_attrs[:selected])
 
         expect(page).to have_content(card_attrs[:title])
         expect(page).to have_content(card_attrs[:content])
-        expect(page.source).to include('%g' % card.minimum)
-        expect(page.source).to include('%g' % card.maximum)
-
-        # See pending below
-        # expect(page.source).to include('%g' % card.selected)
+        expect(page).to have_content(card_attrs[:minimum])
+        expect(page).to have_content(card_attrs[:maximum])
+        expect(page).to have_content(card_attrs[:selected])
       end
-
-      pending('o_O: Selected is failing.')
     end
 
   end
