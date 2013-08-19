@@ -301,6 +301,39 @@
         }
       }
 
+      .interval {
+        @include clearfix;
+        position: relative;
+        margin: 20px;
+        color: $blue;
+
+        .interval-min {
+          float: left;
+        }
+
+        .interval-max {
+          float: right;
+        }
+
+        .interval-range {
+          clear: both;
+          background-color: $bw_10;
+        }
+
+        .interval-scale {
+          @include box-sizing(border-box);
+          padding: 10px 10px 8px 10px;
+          background-color: $blue;
+          border-right: 2px solid shade($blue, 10%);
+          text-align: right;
+          font-size: em(12);
+          max-width: 100%;
+          min-width: 0%;
+          white-space: nowrap;
+          color: $white;
+        }
+      }
+
       footer {
         border-top: 1px solid $bw_10;
         font-size: em(12);
