@@ -1,7 +1,7 @@
 Doers.CardsController = Ember.ArrayController.extend
   rollbackCard: (event) ->
     event.preventDefault() if event instanceof jQuery.Event
-    @get('content').rollback() if @get('content.isDirty')
+    @get('content').rollback() if @get('content.isDirty') and @get('content.id')
     @set('content.isEditing', false)
 
   saveCard: (event) ->
