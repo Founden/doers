@@ -1,6 +1,12 @@
 %p.text
   {{view.content.content}}
-{{#with view.content}}
-%p.text
-  %input{:type => :range, :disabled => true, :bind => {:min => 'minimum', :max => 'maximum', :value => 'selected'}}
-{{/with}}
+.interval
+  {{#with view.content}}
+  .interval-min
+    {{minimum}}
+  .interval-max
+    {{maximum}}
+  .interval-range
+    .interval-scale{:bind => {:style => 'view.width'}}
+      {{selected}}
+  {{/with}}
