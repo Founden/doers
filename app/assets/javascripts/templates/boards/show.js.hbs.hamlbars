@@ -8,9 +8,7 @@
         {{board.description}}
 
   .content
-    {{partial 'partials/cards_toolbar'}}
-
-    %div{:bind => {:id => 'slug'}}
+    %div{:bind => {:id => 'board.slug'}}
       {{#if content.isLoaded}}
       {{collection view.cardsView contentBinding=arrangedContent}}
       {{else}}
