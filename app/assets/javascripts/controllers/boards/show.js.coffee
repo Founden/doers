@@ -1,2 +1,3 @@
 Doers.BoardsShowController =
-  Doers.BoardsBaseController.extend Doers.ControllerAlertMixin
+  Doers.CardsController.extend Doers.ControllerAlertMixin,
+  sortProperties: ['position']

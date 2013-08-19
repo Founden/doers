@@ -3,6 +3,6 @@ Doers.BoardsShowView = Ember.View.extend
     classNames: ['cards']
 
     createChildView: (view, attrs) ->
-      type = attrs.content.get('type').toLowerCase()
+      type = attrs.content.get('type')
       view = @container.resolve('view:%@'.fmt(type)) || view
       @_super(view, attrs)
