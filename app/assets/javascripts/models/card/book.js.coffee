@@ -8,6 +8,10 @@ Doers.BookMixin = Ember.Mixin.create
   isSearching: false
 
   queryChanged: ( ->
+    Ember.run.debounce(@, 'search', 200)
+  ).observes('query')
+
+  search: ->
     @set('isSearching', true)
     $.ajax
       url: 'https://www.googleapis.com/books/v1/volumes'
@@ -17,6 +21,7 @@ Doers.BookMixin = Ember.Mixin.create
       success: (response) =>
         @set('results', response.items)
         @set('isSearching', false)
-  ).observes('query')
+      failure: =>
+        @set('results', null)
 
 Doers.Book = Doers.Card.extend(Doers.BookMixin)

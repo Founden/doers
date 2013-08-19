@@ -7,6 +7,10 @@ Doers.VideoMixin = Ember.Mixin.create
   isSearching: false
 
   queryChanged: ( ->
+    Ember.run.debounce(@, 'search', 200)
+  ).observes('query')
+
+  search: ->
     @set('isSearching', true)
     $.ajax
       url: 'https://gdata.youtube.com/feeds/api/videos'
@@ -17,6 +21,7 @@ Doers.VideoMixin = Ember.Mixin.create
       success: (response) =>
         @set('results', response.feed.entry)
         @set('isSearching', false)
-  ).observes('query')
+      failure: =>
+        @set('results', null)
 
 Doers.Video = Doers.Card.extend(Doers.VideoMixin)
