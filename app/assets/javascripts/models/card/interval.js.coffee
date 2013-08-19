@@ -3,4 +3,11 @@ Doers.IntervalMixin = Ember.Mixin.create
   maximum: DS.attr('number')
   selected: DS.attr('number')
 
+  percent: ( ->
+    min = @get('minimum')
+    max = @get('maximum')
+    value = @get('selected')
+    Math.floor((value - min) / (max - min) * 100)
+  ).property('minimum', 'maximum', 'selected')
+
 Doers.Interval = Doers.Card.extend(Doers.IntervalMixin)
