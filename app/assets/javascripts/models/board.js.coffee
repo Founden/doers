@@ -26,19 +26,36 @@ Doers.Board = DS.Model.extend
     source = cards.filterProperty('moveSource', true).get('firstObject')
     target = cards.filterProperty('moveTarget', true).get('firstObject')
 
-    if target and source
-      targetAt = cards.indexOf(target)
-      sourceAt = cards.indexOf(source)
+    if target and source and (target.get('id') != source.get('id'))
+      targetAt = target.get('position')
+      sourceAt = source.get('position')
+      diff = targetAt - sourceAt
 
-      sourceStyle = source.get('style')
+      # If we need to shift some cards in between
+      if Math.abs(diff) != 1
+        # Shift/Unshift any cards which position is affected
+        cards.forEach (card) ->
+          cardAt = card.get('position')
+          # If source is before target (all goes desc order)
+          if diff < 0 and cardAt < sourceAt and cardAt >= targetAt
+            card.incrementProperty('position')
+          # If source is after target (all goes desc order)
+          if diff > 0 and cardAt > sourceAt and cardAt < targetAt
+            card.decrementProperty('position')
 
-      target.set('position', sourceAt)
-      source.set('position', targetAt)
-      source.set('style', target.get('style'))
-      target.set('style', sourceStyle)
+        # Set source after target
+        if diff < 0
+          source.set('position', targetAt)
+        else
+          source.set('position', targetAt - 1)
+
+      else
+        source.set('position', targetAt)
+        target.set('position', sourceAt)
+
+      # Set source after target
+      source.set('moveSource', false)
+      target.set('moveTarget', false)
 
       source.save() if source.get('id')
       target.save() if source.get('id')
-
-    cards.setEach('moveSource', false)
-    cards.setEach('moveTarget', false)
