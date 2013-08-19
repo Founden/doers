@@ -1,4 +1,4 @@
-Doers.CardView = Ember.ContainerView.extend
+Doers.CardView = Ember.ContainerView.extend Doers.MovableMixin,
   classNames: ['card']
   classNameBindings: [
     'typeClassName', 'isEditing:edit', 'content.style', 'content.slug']

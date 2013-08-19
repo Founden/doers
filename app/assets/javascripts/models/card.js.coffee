@@ -20,6 +20,9 @@ Doers.Card = DS.Model.extend
   isEditing: false
   isBuilding: false
 
+  moveSource: false
+  moveTarget: false
+
   init: ->
     setInterval ( =>
       @set('ticker', Date.now())
@@ -44,3 +47,9 @@ Doers.Card = DS.Model.extend
   lastUpdate: ( ->
     moment(@get('updatedAt')).fromNow()
   ).property('updatedAt', 'ticker')
+
+  needsRepositioning: ( ->
+    board = @get('board')
+    if board
+      board.cardsOrderChanged()
+  ).observes('moveTarget')
