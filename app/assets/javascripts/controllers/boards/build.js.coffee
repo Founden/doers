@@ -1,2 +1,4 @@
 Doers.BoardsBuildController =
-  Doers.BoardsBaseController.extend Doers.ControllerAlertMixin
+  Doers.CardsController.extend Doers.ControllerAlertMixin,
+  sortProperties: ['position']
+  sortAscending: false

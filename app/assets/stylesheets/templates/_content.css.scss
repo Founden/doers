@@ -199,6 +199,26 @@
       background-color: $white;
       position: relative;
 
+      &.drag-handler {
+        &.moving {
+          opacity: 0.6;
+        }
+
+        .title {
+          @include user-select(none);
+          cursor: move;
+        }
+      }
+
+      &.drop-handler {
+        .card-content {
+          border-right: 5px solid $green;
+        }
+        .card-settings, .card-content * {
+          opacity: 0.1;
+        }
+      }
+
       &.medium {
         width: 640px;
       }
