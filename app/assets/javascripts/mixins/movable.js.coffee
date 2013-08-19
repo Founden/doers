@@ -20,6 +20,8 @@ Doers.MovableMixin = Ember.Mixin.create
       @set('isDroppable', true)
 
   dragStart: (event) ->
+    if event.dataTransfer and event.dataTransfer.setData
+      event.dataTransfer.setData('text/plain', @get('id'));
     @becameDraggable()
 
   dragEnd: (event) ->

@@ -54,8 +54,8 @@ Doers.Board = DS.Model.extend
         target.set('position', sourceAt)
 
       # Set source after target
-      source.set('moveSource', false)
-      target.set('moveTarget', false)
+      cards.setEach('moveSource', false)
+      cards.setEach('moveTarget', false)
 
       source.save() if source.get('id')
       target.save() if source.get('id')
