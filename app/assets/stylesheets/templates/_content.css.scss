@@ -212,10 +212,10 @@
 
       &.drop-handler {
         .card-content {
-          border: 1px dotted $bw_9;
+          border-right: 5px solid $green;
         }
         .card-settings, .card-content * {
-          opacity: 0;
+          opacity: 0.1;
         }
       }
 
