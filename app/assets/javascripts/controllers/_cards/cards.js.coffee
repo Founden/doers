@@ -31,7 +31,7 @@ Doers.CardsController = Ember.ArrayController.extend
   addCard: (type) ->
     klass = @container.resolve('model:' + type)
     card = klass.createRecord
-      user: @get('content.author')
+      user: @get('board.author')
       type: type
       position: @get('content.length') + 1
     @get('content').unshiftObject(card)
