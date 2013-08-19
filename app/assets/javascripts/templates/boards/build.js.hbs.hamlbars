@@ -4,11 +4,21 @@
     .header-content
       %h1
         {{board.title}}
+      %p
+        {{board.description}}
 
   .content
     {{partial 'partials/cards_toolbar'}}
 
     %div{:bind => {:id => 'slug'}}
       {{#if content.isLoaded}}
+      {{#if content.length}}
       {{collection view.buildCardsView contentBinding=arrangedContent}}
+      {{else}}
+      %em
+        = _('No cards available. Did you add any?')
+      {{/if}}
+      {{else}}
+      %em
+        = _('Loading...')
       {{/if}}
