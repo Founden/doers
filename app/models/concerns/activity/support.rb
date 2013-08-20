@@ -5,11 +5,11 @@ module Activity::Support
   private
 
     # Generates activity slug based on current model and transaction type
-    def activity_slug
+    def activity_slug(postfix=nil)
       slug = 'update'
       slug = 'create' if self.transaction_record_state(:new_record)
       slug = 'destroy' if destroyed?
-      (slug + ' ' + self.class.name).parameterize
+      [slug, self.class.name, postfix].join(' ').parameterize
     end
 
     # Generates activity attributes based on current model attributes
@@ -26,8 +26,9 @@ module Activity::Support
     end
 
     # Activity generation hook
-    def generate_activity
+    def generate_activity(append_to_slug=nil)
       activity = self.activities.build(activity_params)
+      activity.slug = activity_slug(append_to_slug) unless append_to_slug.nil?
       activity.save!
     end
 end
