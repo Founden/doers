@@ -11,7 +11,7 @@ describe Project, :use_truncation do
       its(:size) { should eq(1) }
       its('first.user') { should eq(project.user) }
       its('first.trackable') { should eq(project) }
-      its('first.slug') { should match('create-project') }
+      its('first.slug') { should eq('create-project') }
     end
 
     context 'on update' do
@@ -21,7 +21,7 @@ describe Project, :use_truncation do
       its('last.user') { should eq(project.user) }
       its('last.project') { should eq(project) }
       its('last.trackable') { should eq(project) }
-      its('last.slug') { should match('update-project') }
+      its('last.slug') { should eq('update-project') }
     end
 
     context 'on delete' do
@@ -34,7 +34,7 @@ describe Project, :use_truncation do
       its('last.project_id') { should_not be_nil }
       its('last.trackable_id') { should_not be_nil }
       its('last.trackable_type') { should eq(Project.name) }
-      its('last.slug') { should match('destroy-project') }
+      its('last.slug') { should eq('destroy-project') }
     end
   end
 end
