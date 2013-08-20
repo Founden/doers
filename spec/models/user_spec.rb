@@ -10,6 +10,7 @@ describe User, :use_truncation do
   it { should have_many(:comments).dependent(:destroy) }
   it { should have_many(:assets).dependent(:destroy) }
   it { should have_many(:images).dependent('') }
+  it { should have_many(:activities).dependent('') }
 
   it { should validate_presence_of(:email) }
   it { should validate_uniqueness_of(:email) }
