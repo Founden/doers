@@ -1,8 +1,8 @@
 # DOERS [Activity] class
 class Activity < ActiveRecord::Base
   # Some dynamic attributes
-  store_accessor :data, :user_name, :project_name, :board_name
-  store_accessor :data, :trackable_name
+  store_accessor :data, :user_name, :project_title, :board_title
+  store_accessor :data, :trackable_title
 
   # Relationships
   belongs_to :project
@@ -15,4 +15,14 @@ class Activity < ActiveRecord::Base
   validates_presence_of :trackable_id
   validates_presence_of :trackable_type
   validates_presence_of :slug
+
+  # Callbacks
+  after_validation do
+    self.user_name = self.user.nicename if self.user
+    self.project_title = self.project.title if self.project
+    self.board_title = self.board.title if self.board
+    if tracked = self.trackable
+      self.trackable_title = tracked.title if tracked.respond_to?(:title)
+    end
+  end
 end
