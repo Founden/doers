@@ -10,7 +10,7 @@ describe User, :use_truncation do
       its(:size) { should eq(1) }
       its('first.user') { should eq(user) }
       its('first.trackable') { should eq(user) }
-      its('first.slug') { should match('create-user') }
+      its('first.slug') { should eq('create-user') }
     end
 
     context 'on update' do
