@@ -2,6 +2,8 @@
 class User < ActiveRecord::Base
   # Include support for authentication
   include EasyAuth::Models::Account
+  # Include [Activity] generations support
+  include Activity::Support
 
   INTERESTS = {
     _('Founder') => 'founder',
@@ -21,12 +23,14 @@ class User < ActiveRecord::Base
   has_many :comments, :dependent => :destroy
   has_many :assets, :dependent => :destroy
   has_many :images
+  has_many :activities
 
   # Validations
   validates :email, :uniqueness => true, :presence => true
   validates_inclusion_of :interest, :in => INTERESTS.values, :allow_nil => true
 
   # Callbacks
+  after_commit :generate_activity, :on => :create
   after_commit :send_confirmation_email, :on => :update
 
   # Helper to generate the user name
