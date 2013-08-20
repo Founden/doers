@@ -4,6 +4,8 @@ describe Card do
   it { should belong_to(:user) }
   it { should belong_to(:board) }
   it { should belong_to(:project) }
+  it { should have_many(:activities).dependent('') }
+
   it { should validate_presence_of(:user) }
   it { should validate_presence_of(:board) }
   it { should validate_presence_of(:title_hint) }
