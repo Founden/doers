@@ -10,6 +10,7 @@ Doers.Project = DS.Model.extend
   user: DS.belongsTo('Doers.User', readOnly: true, inverse: 'projects')
   logo: DS.belongsTo('Doers.Logo', readOnly: true, inverse: 'user')
   boards: DS.hasMany('Doers.Board', inverse: 'project')
+  activities: DS.hasMany('Doers.Activity', readOnly: true, inverse: 'project')
 
   deleteConfirmation: false
 
