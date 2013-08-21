@@ -8,6 +8,7 @@ class CardSerializer < ActiveModel::Serializer
   has_one :user, :embed => :id
   has_one :project, :embed => :id
   has_one :board, :embed => :id
+  has_many :activities, :embed => :id
 
   # Generates it out of the card type
   def type
