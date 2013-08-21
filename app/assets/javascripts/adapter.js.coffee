@@ -4,6 +4,8 @@ Doers.RESTAdapter = DS.RESTAdapter.extend
   namespace: 'api/v1'
   serializer: Doers.RESTSerializer
 
+Doers.RESTAdapter.configure('plurals', {activity: 'activities'})
+
 Doers.RESTAdapter.registerTransform 'list_items',
   listItemClass: Ember.Object.extend
     list: null

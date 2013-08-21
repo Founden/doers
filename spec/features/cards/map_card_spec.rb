@@ -52,6 +52,7 @@ feature 'Map', :js, :slow do
           fill_in('place-name', :with => place_title)
         end
 
+        sleep(0.3)
         page.find(edit_css + ' .map-search li').click
         page.find(edit_css + ' .actions .does-save').click
 

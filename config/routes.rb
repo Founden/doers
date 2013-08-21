@@ -25,6 +25,7 @@ Doers::Application.routes.draw do
       resources(:cards)
       resources(:assets)
       resources(:embeds, :only => [:index])
+      resources(:activities, :except => [:create, :update])
     end
   end
 

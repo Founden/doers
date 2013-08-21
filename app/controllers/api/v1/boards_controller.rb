@@ -22,10 +22,10 @@ class Api::V1::BoardsController < Api::V1::ApplicationController
       board = Board.create(new_params)
     else
       # Lets raise 404 if parent board or project is not available
-      parent_board = current_account.boards_to(:read).find_by!(
-        :id => create_params[:parent_board_id])
-      project = current_account.projects.find_by!(
-        :id => create_params[:project_id])
+      parent_board = Board.find_by!(:id => create_params[:parent_board_id])
+      project = Project.find_by!(:id => create_params[:project_id])
+      current_account.can?(:read, parent_board)
+      current_account.can?(:write, project)
       board = parent_board.branch_for(current_account, project, create_params)
     end
 
