@@ -8,6 +8,7 @@ describe Board do
   it { should have_many(:branches).dependent('') }
   it { should have_many(:cards).dependent(:destroy) }
   it { should have_many(:comments).dependent(:destroy) }
+  it { should have_many(:activities).dependent('') }
   it { should validate_presence_of(:author) }
   it { should validate_presence_of(:title) }
   it { should ensure_inclusion_of(:status).in_array(Board::STATES) }
