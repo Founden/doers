@@ -18,6 +18,8 @@ module User::Authorization
       !boards_to(action).where(:id => target).empty?
     when /Card/
       !cards_to(action).where(:id => target).empty?
+    when 'Activity'
+      !activities_to(action).where(:id => target).empty?
     else
       # Just check if we are the owners
       target.respond_to?(:user_id) and target.user_id == self.id
@@ -109,5 +111,29 @@ module User::Authorization
     end
 
     Card.where(query)
+  end
+
+  # Available activities for user, `action` can be :read or :write
+  def activities_to(action)
+    table = Activity.arel_table
+
+    # User is the owner
+    query = table[:user_id].eq(self.id)
+
+    if action.to_sym != :write
+      query = query.or(
+        # User created its board
+        table[:board_id].in(self.board_ids).or(
+          # User branched the board
+          table[:board_id].in(self.authored_boards.pluck('id'))
+        )
+      ).or(
+        # User project has it
+        table[:project_id].in(self.project_ids)
+        # TODO: Is part of the project
+      )
+    end
+
+    Activity.where(query)
   end
 end
