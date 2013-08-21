@@ -10,12 +10,41 @@ describe User do
 
     subject(:can) { user.can?(action, target, options) }
 
+    shared_examples 'is writable' do
+      context 'writable mode' do
+        let(:action) { :write }
+
+        it { should be_true }
+      end
+    end
+
+    shared_examples 'is not writable' do
+      context 'writable mode' do
+        let(:options) { {:raise_error => false} }
+        let(:action) { :write }
+
+        it { should be_false }
+      end
+    end
+
+    shared_examples 'no error is raised' do
+      context 'and raise_error options is passed' do
+        let(:options) { {:raise_error => false} }
+        it { should be_false }
+      end
+    end
+
     context 'when target is nil' do
       it { should be_true }
+      it_behaves_like 'is writable'
     end
 
     context 'when target is empty' do
+      let(:target) { [] }
+
       it { should be_true }
+
+      it_behaves_like 'is writable'
     end
 
     context 'when target is an asset' do
@@ -24,11 +53,13 @@ describe User do
         before { user.should_receive(:assets_to).and_call_original }
 
         it { should be_true }
+        it_behaves_like 'is writable'
 
         context 'or a set of assets owned by the user' do
           let(:target) { Fabricate(:project, :user => user); user.assets }
 
           it { should be_true }
+          it_behaves_like 'is writable'
         end
       end
 
@@ -37,16 +68,14 @@ describe User do
         before { user.should_receive(:assets_to).and_call_original }
 
         it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
+        it_behaves_like 'is not writable'
+        it_behaves_like 'no error is raised'
 
         context 'or a set of assets not owned by the user' do
           let(:target) { Fabricate(:project); Asset.all }
 
           it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
-        end
-
-        context 'and raise_error options is passed' do
-          let(:options) { {:raise_error => false} }
-          it { should be_false }
+          it_behaves_like 'is not writable'
         end
       end
 
@@ -59,6 +88,7 @@ describe User do
         before { user.should_receive(:assets_to).and_call_original }
 
         it { should be_true }
+        it_behaves_like 'is writable'
 
         context 'or a set of such' do
           let(:target) do
@@ -68,6 +98,7 @@ describe User do
           end
 
           it { should be_true }
+          it_behaves_like 'is writable'
         end
       end
 
@@ -77,6 +108,8 @@ describe User do
         before { user.should_receive(:assets_to).and_call_original }
 
         it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
+        it_behaves_like 'is not writable'
+        it_behaves_like 'no error is raised'
 
         context 'or a set of such' do
           let(:target) do
@@ -85,11 +118,7 @@ describe User do
           end
 
           it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
-        end
-
-        context 'and raise_error options is passed' do
-          let(:options) { {:raise_error => false} }
-          it { should be_false }
+          it_behaves_like 'is not writable'
         end
       end
 
@@ -99,6 +128,7 @@ describe User do
         before { user.should_receive(:assets_to).and_call_original }
 
         it { should be_true }
+        it_behaves_like 'is writable'
 
         context 'or a set of such' do
           let(:target) do
@@ -107,6 +137,7 @@ describe User do
           end
 
           it { should be_true }
+          it_behaves_like 'is writable'
         end
       end
 
@@ -116,6 +147,8 @@ describe User do
         before { user.should_receive(:assets_to).and_call_original }
 
         it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
+        it_behaves_like 'is not writable'
+        it_behaves_like 'no error is raised'
 
         context 'or a set of such' do
           let(:target) do
@@ -124,11 +157,7 @@ describe User do
           end
 
           it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
-        end
-
-        context 'and raise_error options is passed' do
-          let(:options) { {:raise_error => false} }
-          it { should be_false }
+          it_behaves_like 'is not writable'
         end
       end
     end
@@ -139,11 +168,13 @@ describe User do
         before { user.should_receive(:boards_to).and_call_original }
 
         it { should be_true }
+        it_behaves_like 'is writable'
 
         context 'or a set of boards owned by the user' do
           let(:target) { Fabricate(:board, :user => user); user.boards }
 
           it { should be_true }
+          it_behaves_like 'is writable'
         end
       end
 
@@ -152,16 +183,14 @@ describe User do
         before { user.should_receive(:boards_to).and_call_original }
 
         it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
+        it_behaves_like 'is not writable'
+        it_behaves_like 'no error is raised'
 
         context 'or a set of boards not owned by the user' do
           let(:target) { Fabricate(:board); Board.all }
 
           it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
-        end
-
-        context 'and raise_error options is passed' do
-          let(:options) { {:raise_error => false} }
-          it { should be_false }
+          it_behaves_like 'is not writable'
         end
       end
 
@@ -173,6 +202,7 @@ describe User do
         before { user.should_receive(:boards_to).and_call_original }
 
         it { should be_true }
+        it_behaves_like 'is writable'
 
         context 'or a set of such' do
           let(:target) do
@@ -182,6 +212,7 @@ describe User do
           end
 
           it { should be_true }
+          it_behaves_like 'is writable'
         end
       end
 
@@ -191,6 +222,8 @@ describe User do
         before { user.should_receive(:boards_to).and_call_original }
 
         it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
+        it_behaves_like 'is not writable'
+        it_behaves_like 'no error is raised'
 
         context 'or a set of such' do
           let(:target) do
@@ -199,11 +232,7 @@ describe User do
           end
 
           it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
-        end
-
-        context 'and raise_error options is passed' do
-          let(:options) { {:raise_error => false} }
-          it { should be_false }
+          it_behaves_like 'is not writable'
         end
       end
     end
@@ -214,11 +243,13 @@ describe User do
         before { user.should_receive(:cards_to).and_call_original }
 
         it { should be_true }
+        it_behaves_like 'is writable'
 
         context 'or a set of cards owned by the user' do
           let(:target) { Fabricate('card/phrase', :user => user); user.cards }
 
           it { should be_true }
+          it_behaves_like 'is writable'
         end
       end
 
@@ -227,16 +258,14 @@ describe User do
         before { user.should_receive(:cards_to).and_call_original }
 
         it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
+        it_behaves_like 'is not writable'
+        it_behaves_like 'no error is raised'
 
         context 'or a set of boards not owned by the user' do
           let(:target) { Fabricate('card/phrase'); Card.all }
 
           it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
-        end
-
-        context 'and raise_error options is passed' do
-          let(:options) { {:raise_error => false} }
-          it { should be_false }
+          it_behaves_like 'is not writable'
         end
       end
 
@@ -249,6 +278,7 @@ describe User do
         before { user.should_receive(:cards_to).and_call_original }
 
         it { should be_true }
+        it_behaves_like 'is writable'
 
         context 'or a set of such' do
           let(:target) do
@@ -258,6 +288,7 @@ describe User do
           end
 
           it { should be_true }
+          it_behaves_like 'is writable'
         end
       end
 
@@ -267,6 +298,8 @@ describe User do
         before { user.should_receive(:cards_to).and_call_original }
 
         it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
+        it_behaves_like 'is not writable'
+        it_behaves_like 'no error is raised'
 
         context 'or a set of such' do
           let(:target) do
@@ -275,11 +308,7 @@ describe User do
           end
 
           it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
-        end
-
-        context 'and raise_error options is passed' do
-          let(:options) { {:raise_error => false} }
-          it { should be_false }
+          it_behaves_like 'is not writable'
         end
       end
 
@@ -289,6 +318,7 @@ describe User do
         before { user.should_receive(:cards_to).and_call_original }
 
         it { should be_true }
+        it_behaves_like 'is writable'
 
         context 'or a set of such' do
           let(:target) do
@@ -297,6 +327,7 @@ describe User do
           end
 
           it { should be_true }
+          it_behaves_like 'is writable'
         end
       end
 
@@ -306,6 +337,8 @@ describe User do
         before { user.should_receive(:cards_to).and_call_original }
 
         it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
+        it_behaves_like 'is not writable'
+        it_behaves_like 'no error is raised'
 
         context 'or a set of such' do
           let(:target) do
@@ -314,11 +347,7 @@ describe User do
           end
 
           it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
-        end
-
-        context 'and raise_error options is passed' do
-          let(:options) { {:raise_error => false} }
-          it { should be_false }
+          it_behaves_like 'is not writable'
         end
       end
     end
@@ -327,16 +356,14 @@ describe User do
       let(:target) { Fabricate(:project, :user => user) }
 
       it { should be_true }
+      it_behaves_like 'is writable'
 
       context 'different from user id' do
         let(:target) { Fabricate(:project) }
 
         it { expect{ subject }.to raise_error(ActiveRecord::RecordNotFound) }
-
-        context 'and raise_error options is passed' do
-          let(:options) { {:raise_error => false} }
-          it { should be_false }
-        end
+        it_behaves_like 'is not writable'
+        it_behaves_like 'no error is raised'
       end
     end
 
@@ -344,11 +371,8 @@ describe User do
       let(:target) { Object.new }
 
       it { expect{ subject }.to raise_error(ActiveRecord::RecordNotFound) }
-
-      context 'and raise_error options is passed' do
-        let(:options) { {:raise_error => false} }
-        it { should be_false }
-      end
+      it_behaves_like 'is not writable'
+      it_behaves_like 'no error is raised'
     end
 
     context 'when target is an activity', :use_truncation do
@@ -357,11 +381,13 @@ describe User do
         before { user.should_receive(:activities_to).and_call_original }
 
         it { should be_true }
+        it_behaves_like 'is writable'
 
         context 'or a set of cards owned by the user' do
           let(:target) { user.activities }
 
           it { should be_true }
+          it_behaves_like 'is writable'
         end
       end
 
@@ -370,16 +396,14 @@ describe User do
         before { user.should_receive(:activities_to).and_call_original }
 
         it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
+        it_behaves_like 'is not writable'
+        it_behaves_like 'no error is raised'
 
         context 'or a set of boards not owned by the user' do
           let(:target) { Fabricate(:user).activities }
 
           it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
-        end
-
-        context 'and raise_error options is passed' do
-          let(:options) { {:raise_error => false} }
-          it { should be_false }
+          it_behaves_like 'is not writable'
         end
       end
 
@@ -389,6 +413,7 @@ describe User do
         before { user.should_receive(:activities_to).and_call_original }
 
         it { should be_true }
+        it_behaves_like 'is writable'
 
         context 'or a set of such' do
           let(:target) do
@@ -397,6 +422,7 @@ describe User do
           end
 
           it { should be_true }
+          it_behaves_like 'is writable'
         end
       end
 
@@ -406,6 +432,8 @@ describe User do
         before { user.should_receive(:activities_to).and_call_original }
 
         it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
+        it_behaves_like 'is not writable'
+        it_behaves_like 'no error is raised'
 
         context 'or a set of such' do
           let(:target) do
@@ -413,11 +441,7 @@ describe User do
           end
 
           it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
-        end
-
-        context 'and raise_error options is passed' do
-          let(:options) { {:raise_error => false} }
-          it { should be_false }
+          it_behaves_like 'is not writable'
         end
       end
 
@@ -427,6 +451,7 @@ describe User do
         before { user.should_receive(:activities_to).and_call_original }
 
         it { should be_true }
+        it_behaves_like 'is writable'
 
         context 'or a set of such' do
           let(:target) do
@@ -434,6 +459,7 @@ describe User do
           end
 
           it { should be_true }
+          it_behaves_like 'is writable'
         end
       end
 
@@ -443,6 +469,8 @@ describe User do
         before { user.should_receive(:activities_to).and_call_original }
 
         it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
+        it_behaves_like 'is not writable'
+        it_behaves_like 'no error is raised'
 
         context 'or a set of such' do
           let(:target) do
@@ -450,11 +478,7 @@ describe User do
           end
 
           it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
-        end
-
-        context 'and raise_error options is passed' do
-          let(:options) { {:raise_error => false} }
-          it { should be_false }
+          it_behaves_like 'is not writable'
         end
       end
     end
