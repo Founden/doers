@@ -1,5 +1,7 @@
 # DOERS [Project] [Board] class
 class Board < ActiveRecord::Base
+  # Include [Activity] generations support
+  include Activity::Support
   # Available :status values for a [Board]
   STATES = ['private', 'public']
 
@@ -14,6 +16,7 @@ class Board < ActiveRecord::Base
   has_many :branches, :class_name => Board, :foreign_key => :parent_board_id
   has_many :cards, :dependent => :destroy
   has_many :comments, :dependent => :destroy
+  has_many :activities
 
   # Validations
   validates_presence_of :title
@@ -38,6 +41,7 @@ class Board < ActiveRecord::Base
     self.title = Sanitize.clean(self.title)
     self.description = Sanitize.clean(self.description)
   end
+  after_commit :generate_activity, :on => [:create, :destroy]
 
   # Handles boards branching for a user an a project
   # @param user [User] the branching user
