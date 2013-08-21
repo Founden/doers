@@ -1,5 +1,8 @@
 # DOERS [Project] class
 class Project < ActiveRecord::Base
+  # Include [Activity] generations support
+  include Activity::Support
+
   # Available :status values for a [Project]
   STATES = ['private', 'public', 'archived']
 
@@ -9,6 +12,7 @@ class Project < ActiveRecord::Base
   has_many :cards, :through => :boards
   has_many :comments, :dependent => :destroy
   has_one :logo, :dependent => :destroy
+  has_many :activities
 
   # Validations
   validates :user, :presence => true
@@ -30,4 +34,5 @@ class Project < ActiveRecord::Base
     self.title = Sanitize.clean(self.title)
     self.description = Sanitize.clean(self.description)
   end
+  after_commit :generate_activity
 end

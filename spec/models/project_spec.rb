@@ -8,6 +8,7 @@ describe Project do
   it { should have_many(:cards).through(:boards).dependent('') }
   it { should have_many(:comments).dependent(:destroy) }
   it { should have_one(:logo).dependent(:destroy) }
+  it { should have_many(:activities).dependent('') }
 
   it { should validate_presence_of(:user) }
   it { should validate_presence_of(:title) }
