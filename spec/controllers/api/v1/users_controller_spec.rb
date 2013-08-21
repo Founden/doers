@@ -27,7 +27,7 @@ describe Api::V1::UsersController do
     subject(:api_user) { json_to_ostruct(response.body, :user) }
 
     shared_examples 'shows current user details' do
-      its('keys.size') { should eq(11) }
+      its('keys.size') { should eq(12) }
       its(:id) { should eq(user.id) }
       its(:nicename) { should eq(user.nicename) }
       its('external_id.to_i') { should eq(user.external_id) }
@@ -39,6 +39,7 @@ describe Api::V1::UsersController do
       its('public_board_ids.size') { should eq(Board.public.count) }
       its('board_ids.size') { should eq(user.boards.count) }
       its('authored_board_ids.size') { should eq(user.authored_boards.count) }
+      its('activity_ids.size') { should eq(user.activities.count) }
     end
 
     context 'if user owns the profile' do

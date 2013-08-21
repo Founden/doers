@@ -1,5 +1,8 @@
 # DOERS [Board] [Card] class
 class Card < ActiveRecord::Base
+  # Include [Activity] generations support
+  include Activity::Support
+
   # Available card styles
   STYLES = %w(small medium large)
 
@@ -13,6 +16,7 @@ class Card < ActiveRecord::Base
   belongs_to :user
   belongs_to :board
   belongs_to :project
+  has_many :activities, :as => :trackable
 
   # Validations
   validates_presence_of :title_hint, :user, :board, :question, :help
@@ -32,5 +36,5 @@ class Card < ActiveRecord::Base
     self.help = Sanitize.clean(self.help)
     self.title_hint = Sanitize.clean(self.title_hint)
   end
-
+  after_commit :generate_activity
 end
