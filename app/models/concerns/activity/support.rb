@@ -1,6 +1,5 @@
 # Support for [Activity] generation on callbacks
 module Activity::Support
-  extend ActiveSupport::Concern
 
   private
 
