@@ -10,6 +10,7 @@ Doers.Board = DS.Model.extend
   updatedAt: DS.attr('date', readOnly: true)
   lastUpdate: DS.attr('string', readOnly: true)
 
+  activities: DS.hasMany('Doers.Activity', readOnly: true, inverse: 'board')
   branches: DS.hasMany('Doers.Board', inverse: 'parentBoard')
   branchesCount: DS.attr('number', readOnly: true)
   cards: DS.hasMany('Doers.Card', inverse: 'board')

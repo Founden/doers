@@ -10,6 +10,7 @@ class BoardSerializer < ActiveModel::Serializer
 
   has_many :branches, :embed => :ids
   has_many :cards, :embed => :ids
+  has_many :activities, :embed => :id
 
   # Creates a nice timestamp to indicate when it was last time updated
   def last_update
