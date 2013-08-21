@@ -49,6 +49,88 @@ describe User do
           it { should be_false }
         end
       end
+
+      context 'within one of the user projects' do
+        let(:project) { Fabricate(:project_with_boards, :user => user) }
+        let(:board) { project.boards.first }
+        let(:target) do
+          Fabricate('card/photo', :board => board, :project => project).image
+        end
+        before { user.should_receive(:assets_to).and_call_original }
+
+        it { should be_true }
+
+        context 'or a set of such' do
+          let(:target) do
+            2.times {
+              Fabricate('card/photo', :board => board, :project => project) }
+            Asset.where(:project_id => project.id)
+          end
+
+          it { should be_true }
+        end
+      end
+
+      context 'within a project not owned by the user' do
+        let(:project) { Fabricate(:project) }
+        let(:target) { Fabricate('card/photo', :project => project).image }
+        before { user.should_receive(:assets_to).and_call_original }
+
+        it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
+
+        context 'or a set of such' do
+          let(:target) do
+            2.times { Fabricate('card/photo', :project => project) }
+            Asset.where(:project_id => project.id)
+          end
+
+          it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
+        end
+
+        context 'and raise_error options is passed' do
+          let(:options) { {:raise_error => false} }
+          it { should be_false }
+        end
+      end
+
+      context 'within a board owned by the user' do
+        let(:board) { Fabricate(:board, :user => user) }
+        let(:target) { Fabricate('card/photo', :board => board).image }
+        before { user.should_receive(:assets_to).and_call_original }
+
+        it { should be_true }
+
+        context 'or a set of such' do
+          let(:target) do
+            2.times { Fabricate('card/photo', :board => board) }
+            Asset.where(:board_id => board.id)
+          end
+
+          it { should be_true }
+        end
+      end
+
+      context 'within a board not owned by the user' do
+        let(:board) { Fabricate(:board) }
+        let(:target) { Fabricate('card/photo', :board => board).image }
+        before { user.should_receive(:assets_to).and_call_original }
+
+        it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
+
+        context 'or a set of such' do
+          let(:target) do
+            2.times { Fabricate('card/photo', :board => board) }
+            Asset.where(:board_id => board.id)
+          end
+
+          it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
+        end
+
+        context 'and raise_error options is passed' do
+          let(:options) { {:raise_error => false} }
+          it { should be_false }
+        end
+      end
     end
 
     context 'when target is a board' do
@@ -73,6 +155,48 @@ describe User do
 
         context 'or a set of boards not owned by the user' do
           let(:target) { Fabricate(:board); Board.all }
+
+          it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
+        end
+
+        context 'and raise_error options is passed' do
+          let(:options) { {:raise_error => false} }
+          it { should be_false }
+        end
+      end
+
+      context 'within one of the user projects' do
+        let(:project) { Fabricate(:project, :user => user) }
+        let(:target) do
+          Fabricate(:board, :project => project)
+        end
+        before { user.should_receive(:boards_to).and_call_original }
+
+        it { should be_true }
+
+        context 'or a set of such' do
+          let(:target) do
+            2.times {
+              Fabricate(:board, :project => project) }
+            Board.where(:project_id => project.id)
+          end
+
+          it { should be_true }
+        end
+      end
+
+      context 'within a project not owned by the user' do
+        let(:project) { Fabricate(:project) }
+        let(:target) { Fabricate(:board, :project => project) }
+        before { user.should_receive(:boards_to).and_call_original }
+
+        it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
+
+        context 'or a set of such' do
+          let(:target) do
+            2.times { Fabricate(:board, :project => project) }
+            Board.where(:project_id => project.id)
+          end
 
           it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
         end
@@ -115,6 +239,88 @@ describe User do
           it { should be_false }
         end
       end
+
+      context 'within one of the user projects' do
+        let(:project) { Fabricate(:project_with_boards, :user => user) }
+        let(:board) { project.boards.first }
+        let(:target) do
+          Fabricate('card/phrase', :board => board, :project => project)
+        end
+        before { user.should_receive(:cards_to).and_call_original }
+
+        it { should be_true }
+
+        context 'or a set of such' do
+          let(:target) do
+            2.times {
+              Fabricate('card/phrase', :board => board, :project => project) }
+            Card.where(:project_id => project.id)
+          end
+
+          it { should be_true }
+        end
+      end
+
+      context 'within a project not owned by the user' do
+        let(:project) { Fabricate(:project) }
+        let(:target) { Fabricate('card/phrase', :project => project) }
+        before { user.should_receive(:cards_to).and_call_original }
+
+        it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
+
+        context 'or a set of such' do
+          let(:target) do
+            2.times { Fabricate('card/phrase', :project => project) }
+            Card.where(:project_id => project.id)
+          end
+
+          it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
+        end
+
+        context 'and raise_error options is passed' do
+          let(:options) { {:raise_error => false} }
+          it { should be_false }
+        end
+      end
+
+      context 'within a board owned by the user' do
+        let(:board) { Fabricate(:board, :user => user) }
+        let(:target) { Fabricate('card/phrase', :board => board) }
+        before { user.should_receive(:cards_to).and_call_original }
+
+        it { should be_true }
+
+        context 'or a set of such' do
+          let(:target) do
+            2.times { Fabricate('card/phrase', :board => board) }
+            Card.where(:board_id => board.id)
+          end
+
+          it { should be_true }
+        end
+      end
+
+      context 'within a board not owned by the user' do
+        let(:board) { Fabricate(:board) }
+        let(:target) { Fabricate('card/phrase', :board => board) }
+        before { user.should_receive(:cards_to).and_call_original }
+
+        it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
+
+        context 'or a set of such' do
+          let(:target) do
+            2.times { Fabricate('card/phrase', :board => board) }
+            Card.where(:board_id => board.id)
+          end
+
+          it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
+        end
+
+        context 'and raise_error options is passed' do
+          let(:options) { {:raise_error => false} }
+          it { should be_false }
+        end
+      end
     end
 
     context 'when target is an object with an user_id' do
@@ -144,237 +350,112 @@ describe User do
         it { should be_false }
       end
     end
-  end
 
-  context '#boards_to' do
-    shared_examples 'its found' do
-      its(:count) { should eq(1) }
-      its('first.id') { should eq(board.id) }
-    end
+    context 'when target is an activity', :use_truncation do
+      context 'owned by the user' do
+        let(:target) { user.activities.first }
+        before { user.should_receive(:activities_to).and_call_original }
 
-    let(:action) { :read }
-    subject(:boards_to) { user.boards_to(action) }
+        it { should be_true }
 
-    it { should be_empty }
+        context 'or a set of cards owned by the user' do
+          let(:target) { user.activities }
 
-    context 'when created a board' do
-      let!(:board) { Fabricate(:board, :author => user) }
-
-      it_should_behave_like 'its found'
-
-      context 'when action is set to :write' do
-        let(:action) { :write }
-
-        it_should_behave_like 'its found'
-      end
-    end
-
-    context 'when there is a public board' do
-      let!(:board) { Fabricate(:board, :status => Board::STATES.last) }
-
-      it_should_behave_like 'its found'
-
-      context 'when action is set to :write' do
-        let(:action) { :write }
-
-        it { should be_empty }
-      end
-    end
-
-    context 'when branched a board' do
-      let!(:board) { Fabricate(:branched_board, :user => user) }
-
-      its(:count) { should eq(2) }
-      it { should include(board) }
-
-      context 'when action is set to :write' do
-        let(:action) { :write }
-
-        it_should_behave_like 'its found'
-      end
-    end
-
-    context 'when an owned project has boards' do
-      let!(:project) { Fabricate(:project_with_boards, :user => user) }
-      let!(:project_board) { Fabricate(:branched_board, :project => project) }
-
-      its(:count) {
-        should eq(project.boards.count + Board.public.count) }
-
-      context 'when action is set to :write' do
-        let(:action) { :write }
-
-        its(:count) { should eq((user.boards + project.boards).uniq.count) }
-      end
-
-      context 'the private boards should not be included' do
-        let!(:private_board) { Fabricate(:branched_board) }
-
-        it { should_not include(private_board) }
-
-        context 'when action is set to :write' do
-          let(:action) { :write }
-
-          its(:count) { should eq(project.boards.count) }
+          it { should be_true }
         end
       end
-    end
-  end
 
-  context '#assets_to' do
-    shared_examples 'its found' do
-      its(:count) { should eq(1) }
-      its('first.id') { should eq(asset.id) }
-    end
+      context 'not owned by the user' do
+        let(:target) { Fabricate(:user).activities.first }
+        before { user.should_receive(:activities_to).and_call_original }
 
-    let(:action) { :read }
-    subject(:assets_to) { user.assets_to(action) }
+        it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
 
-    it { should be_empty }
+        context 'or a set of boards not owned by the user' do
+          let(:target) { Fabricate(:user).activities }
 
-    context 'when user has an asset' do
-      let!(:asset) { Fabricate('card/photo', :user => user).image }
+          it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
+        end
 
-      it_should_behave_like 'its found'
-
-      context 'when action is set to :write' do
-        let(:action) { :write }
-
-        it_should_behave_like 'its found'
+        context 'and raise_error options is passed' do
+          let(:options) { {:raise_error => false} }
+          it { should be_false }
+        end
       end
-    end
 
-    context 'when user project has an asset' do
-      let!(:asset) { Fabricate(:project, :user => user).logo }
+      context 'within one of the user projects' do
+        let(:project) { Fabricate(:project, :user => user) }
+        let(:target) { project.activities.first }
+        before { user.should_receive(:activities_to).and_call_original }
 
-      it_should_behave_like 'its found'
+        it { should be_true }
 
-      context 'when action is set to :write' do
-        let(:action) { :write }
+        context 'or a set of such' do
+          let(:target) do
+            Fabricate(:project, :user => user)
+            user.activities
+          end
 
-        it_should_behave_like 'its found'
+          it { should be_true }
+        end
       end
-    end
 
-    context 'when there is a created board asset' do
-      let(:board) { Fabricate(:board, :author => user) }
-      let!(:asset) { Fabricate(
-        :image, :user => user, :board => board, :assetable => board) }
+      context 'within a project not owned by the user' do
+        let(:project) { Fabricate(:project) }
+        let(:target) { project.activities.first }
+        before { user.should_receive(:activities_to).and_call_original }
 
-      it_should_behave_like 'its found'
+        it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
 
-      context 'when action is set to :write' do
-        let(:action) { :write }
+        context 'or a set of such' do
+          let(:target) do
+            project.activities
+          end
 
-        it_should_behave_like 'its found'
+          it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
+        end
+
+        context 'and raise_error options is passed' do
+          let(:options) { {:raise_error => false} }
+          it { should be_false }
+        end
       end
-    end
 
-    context 'when there is a branched board asset' do
-      let(:board) { Fabricate(:board, :user => user) }
-      let!(:asset) { Fabricate(
-        :image, :user => user, :board => board, :assetable => board) }
+      context 'within a board owned by the user' do
+        let(:board) { Fabricate(:board, :user => user) }
+        let(:target) { board.activities.first }
+        before { user.should_receive(:activities_to).and_call_original }
 
-      it_should_behave_like 'its found'
+        it { should be_true }
 
-      context 'when action is set to :write' do
-        let(:action) { :write }
+        context 'or a set of such' do
+          let(:target) do
+            board.activities
+          end
 
-        it_should_behave_like 'its found'
+          it { should be_true }
+        end
       end
-    end
 
-    context 'when there is a public board asset' do
-      let(:board) { Fabricate(:public_board, :card_types => %w(card/photo)) }
-      let!(:asset) { board.cards.first.image }
+      context 'within a board not owned by the user' do
+        let(:board) { Fabricate(:board) }
+        let(:target) { board.activities.first }
+        before { user.should_receive(:activities_to).and_call_original }
 
-      it_should_behave_like 'its found'
+        it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
 
-      context 'when action is set to :write' do
-        let(:action) { :write }
+        context 'or a set of such' do
+          let(:target) do
+            board.activities
+          end
 
-        it { should be_empty }
-      end
-    end
-  end
+          it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
+        end
 
-  context '#cards_to' do
-    shared_examples 'its found' do
-      its(:count) { should eq(1) }
-      its('first.id') { should eq(card.id) }
-    end
-
-    let(:action) { :read }
-    subject(:cards_to) { user.cards_to(action) }
-
-    it { should be_empty }
-
-    context 'when user has a card' do
-      let!(:card) { Fabricate('card/phrase', :user => user) }
-
-      it_should_behave_like 'its found'
-
-      context 'when action is set to :write' do
-        let(:action) { :write }
-
-        it_should_behave_like 'its found'
-      end
-    end
-
-    context 'when user project has a card' do
-      let(:project) {Fabricate(:project, :user => user) }
-      let(:board) {Fabricate(:board, :user => user) }
-      let!(:card) { Fabricate(
-        'card/photo', :user => user, :project => project, :board => board) }
-
-      its(:count) { should eq(user.cards.count) }
-      its('first.id') { should eq(card.id) }
-
-      it_should_behave_like 'its found'
-
-      context 'when action is set to :write' do
-        let(:action) { :write }
-
-        it_should_behave_like 'its found'
-      end
-    end
-
-    context 'when there is a public board card' do
-      let(:board) { Fabricate(:public_board, :card_types => %w(card/phrase)) }
-      let!(:card) { board.cards.first }
-
-      it_should_behave_like 'its found'
-
-      context 'when action is set to :write' do
-        let(:action) { :write }
-
-        it { should be_empty }
-      end
-    end
-
-    context 'when there is a created board card' do
-      let(:board) { Fabricate(:board, :author => user) }
-      let!(:card) { Fabricate('card/phrase', :user => user, :board => board) }
-
-      it_should_behave_like 'its found'
-
-      context 'when action is set to :write' do
-        let(:action) { :write }
-
-        it_should_behave_like 'its found'
-      end
-    end
-
-    context 'when there is a branched board asset' do
-      let(:board) { Fabricate(:board, :user => user) }
-      let!(:card) { Fabricate('card/phrase', :user => user, :board => board) }
-
-      it_should_behave_like 'its found'
-
-      context 'when action is set to :write' do
-        let(:action) { :write }
-
-        it_should_behave_like 'its found'
+        context 'and raise_error options is passed' do
+          let(:options) { {:raise_error => false} }
+          it { should be_false }
+        end
       end
     end
   end
