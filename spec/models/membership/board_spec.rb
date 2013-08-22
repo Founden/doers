@@ -1,8 +1,17 @@
 require 'spec_helper'
 
 describe Membership::Board do
-  it { should belong_to(:board) }
   it { should validate_presence_of(:board) }
+
+  context 'of an user to his own board' do
+    let(:board) { Fabricate(:board, :user => user) }
+    let(:membership) do
+      Fabricate.attributes_for(
+        'membership/board', :board => project, :user => user)
+    end
+
+    it { should_not be_valid }
+  end
 
   context '#activities', :use_truncation do
     let(:membership) { Fabricate('membership/board') }
