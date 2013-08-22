@@ -3,14 +3,17 @@ require 'spec_helper'
 describe User do
   let(:user) { Fabricate(:user) }
 
-  it { should have_many(:projects).dependent(:destroy) }
-  it { should have_many(:boards).dependent('') }
+  it { should have_many(:created_projects).dependent(:destroy) }
+  it { should have_many(:shared_projects).through(:memberships) }
+  it { should have_many(:branched_boards).dependent('') }
   it { should have_many(:authored_boards).dependent('') }
+  it { should have_many(:shared_boards).through(:memberships) }
   it { should have_many(:cards).dependent('') }
   it { should have_many(:comments).dependent(:destroy) }
   it { should have_many(:assets).dependent(:destroy) }
   it { should have_many(:images).dependent('') }
   it { should have_many(:activities).dependent('') }
+  it { should have_many(:memberships).dependent(:destroy) }
 
   it { should validate_presence_of(:email) }
   it { should validate_uniqueness_of(:email) }
@@ -36,6 +39,18 @@ describe User do
     its(:confirmed?) { should be_true }
     its(:admin?) { should be_false }
     its(:importing) { should be_false }
+
+    context '#projects' do
+      let(:project) { Fabricate(:project, :user => user) }
+
+      its(:projects) { should include(project) }
+    end
+
+    context '#boards' do
+      let(:board) { Fabricate(:board, :user => user) }
+
+      its(:boards) { should include(board) }
+    end
 
     context '#newsletter_allowed?' do
       its(:newsletter_allowed?) { should be_true }
