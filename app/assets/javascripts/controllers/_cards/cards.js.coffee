@@ -40,6 +40,7 @@ Doers.CardsController = Ember.ArrayController.extend
   updateMap: (map, data) ->
     map.set('latitude', data.lat)
     map.set('longitude', data.lon)
+    map.set('query', null)
 
   updateVideo: (video, data) ->
     video.set('provider', 'youtube')
@@ -50,13 +51,16 @@ Doers.CardsController = Ember.ArrayController.extend
       video.set('videoId', videoId[1])
 
     if thumbnailUrl = data.media$group.media$thumbnail[0].url
-      asset_data = {attr: 'image', desc: data.title.$t, url: thumbnailUrl}
+      asset_data =
+        attr: 'image',
+        desc: data.title.$t,
+        url: thumbnailUrl
 
     if video.get('isNew')
       video.save().then =>
         @createOrUpdateAsset(video, asset_data)
     else
-        @createOrUpdateAsset(video, asset_data)
+      @createOrUpdateAsset(video, asset_data)
 
   updateBook: (book, data) ->
     data = data.volumeInfo
@@ -64,8 +68,17 @@ Doers.CardsController = Ember.ArrayController.extend
     book.set('bookAuthors', data.authors.join(', '))
     book.set('url', data.infoLink)
     book.set('query', null)
+
     if thumbnailUrl = data.imageLinks.thumbnail
-      asset_data = {attr: 'image', desc: data.title, url: thumbnailUrl}
+      asset_data =
+        attr: 'image',
+        desc: data.title,
+        url: thumbnailUrl
+
+    if book.get('isNew')
+      book.save().then =>
+        @createOrUpdateAsset(book, asset_data)
+    else
       @createOrUpdateAsset(book, asset_data)
 
   updatePhoto: (photo) ->
@@ -98,7 +111,7 @@ Doers.CardsController = Ember.ArrayController.extend
       assetableType: object.get('assetableType')
       assetableId: object.get('id')
     asset.save().then =>
-      object.set(attribute, asset)
+      object.set(data.attr, asset)
 
   updateAsset: (object, data) ->
     asset = object.get(data.attr)
