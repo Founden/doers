@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe User, :use_truncation do
+describe User do
   let(:user) { Fabricate(:user) }
 
   it { should have_many(:projects).dependent(:destroy) }
@@ -57,7 +57,7 @@ describe User, :use_truncation do
       its(:admin?) { should be_true }
     end
 
-    context 'sends a confirmation email' do
+    context 'sends a confirmation email', :use_truncation do
       before do
         UserMailer.should_receive(:confirmed)
       end
