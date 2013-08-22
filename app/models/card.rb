@@ -19,7 +19,7 @@ class Card < ActiveRecord::Base
   has_many :activities, :as => :trackable
 
   # Validations
-  validates_presence_of :title_hint, :user, :board, :question, :help
+  validates_presence_of :user, :board
   validates_inclusion_of :style, :in => STYLES
   validates_numericality_of :position
 

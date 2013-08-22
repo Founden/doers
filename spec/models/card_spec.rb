@@ -8,9 +8,6 @@ describe Card do
 
   it { should validate_presence_of(:user) }
   it { should validate_presence_of(:board) }
-  it { should validate_presence_of(:title_hint) }
-  it { should validate_presence_of(:question) }
-  it { should validate_presence_of(:help) }
   it { should ensure_inclusion_of(:style).in_array(Card::STYLES) }
   it { should validate_numericality_of(:position) }
 
