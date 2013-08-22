@@ -9,6 +9,7 @@
 #= require doers
 
 #= require_self
+#= require_tree ./initializers
 #= require ./serializer
 #= require ./adapter
 #= require ./store
@@ -21,7 +22,6 @@
 #= require_tree ./routes
 #= require ./router
 
-
 # Disable Ember.js version logging
 Ember.LOG_VERSION = false
 
@@ -30,26 +30,4 @@ window.Doers ||= Ember.Application.create
   notificationsElement: '#notifications'
   errorDataAttr: 'error'
 
-window.Doers.initializer
-  name: 'AjaxCSRFToken'
-  initialize: (container, application)->
-    $.ajaxPrefilter (options, originalOptions, xhr)->
-      token = $('meta[name="csrf-token"]').attr('content')
-      xhr.setRequestHeader('X-CSRF-Token', token)
 
-window.Doers.initializer
-  name: 'currentUser'
-  initialize: (container, application)->
-    # Wait until all the promises are resolved
-    application.deferReadiness()
-
-    container.resolve('model:user').find('mine').then (user) ->
-      # Register the `user:current` namespace
-      container.register(
-        'user:current', user, {instantiate: false, singleton: true})
-      # Inject the namespace into controllers and routes
-      container.injection('route', 'currentUser', 'user:current')
-      container.injection('controller', 'currentUser', 'user:current')
-
-      # Continue the boot process
-      application.advanceReadiness()
