@@ -6,6 +6,8 @@ class Membership < ActiveRecord::Base
   # Relationships
   belongs_to :creator, :class_name => User
   belongs_to :user
+  belongs_to :board
+  belongs_to :project
   has_many :activities, :as => :trackable
 
   # Validations
