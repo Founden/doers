@@ -43,7 +43,7 @@ describe Api::V1::ProjectsController do
 
     subject(:api_project) { json_to_ostruct(response.body, :project) }
 
-    its('keys.count') { should eq(11) }
+    its('keys.count') { should eq(12) }
     its(:id){ should eq(prj.id) }
     its(:title) { should eq(prj.title) }
     its(:description) { should eq(prj.description) }
@@ -55,11 +55,12 @@ describe Api::V1::ProjectsController do
     its(:logo_id) { should eq(prj.logo.id) }
     its(:board_ids) { should be_empty }
     its('activity_ids.size') { should eq(prj.activities.count) }
+    its('member_ids.size') { should eq(prj.members.count) }
 
     context 'for a project with boards' do
       let(:prj) { Fabricate(:project_with_boards, :user => user) }
 
-      its('keys.count') { should eq(11) }
+      its('keys.count') { should eq(12) }
       its('board_ids.size') { should eq(prj.boards.count) }
       its('board_ids.sort') { should eq(prj.boards.map(&:id).sort) }
     end
@@ -71,7 +72,7 @@ describe Api::V1::ProjectsController do
 
     subject(:api_project) { json_to_ostruct(response.body, :project) }
 
-    its('keys.count') { should eq(11) }
+    its('keys.count') { should eq(12) }
     its(:id) { should_not be_nil }
     its(:title) { should eq(prj_attrs['title']) }
     its(:description) { should eq(prj_attrs['description']) }
@@ -100,7 +101,7 @@ describe Api::V1::ProjectsController do
 
     subject(:api_project) { json_to_ostruct(response.body, :project) }
 
-    its('keys.count') { should eq(11) }
+    its('keys.count') { should eq(12) }
     its(:id) { should eq(prj.id) }
     its(:title) { should eq(prj_attrs['title']) }
     its(:description) { should eq(prj_attrs['description']) }
