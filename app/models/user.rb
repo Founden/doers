@@ -18,14 +18,19 @@ class User < ActiveRecord::Base
   store_accessor :data, :importing, :newsletter_allowed
 
   # Relationships
-  has_many :projects, :dependent => :destroy
-  has_many :boards
-  has_many :authored_boards, :foreign_key => :author_id, :class_name => Board
   has_many :cards
   has_many :comments, :dependent => :destroy
   has_many :assets, :dependent => :destroy
   has_many :images
   has_many :activities
+  has_many :memberships, :dependent => :destroy
+
+  has_many :branched_boards, :class_name => Board
+  has_many :authored_boards, :foreign_key => :author_id, :class_name => Board
+  has_many :shared_boards, :through => :memberships, :source => :board
+
+  has_many :created_projects, :class_name => Project, :dependent => :destroy
+  has_many :shared_projects, :through => :memberships, :source => :project
 
   # Validations
   validates :email, :uniqueness => true, :presence => true
@@ -34,6 +39,16 @@ class User < ActiveRecord::Base
   # Callbacks
   after_commit :generate_activity, :on => :create
   after_commit :send_confirmation_email, :on => :update
+
+  # All user projects
+  def projects
+    Project.where(:id => (shared_project_ids + created_project_ids))
+  end
+
+  # All user boards
+  def boards
+    Board.where(:id => (shared_board_ids + branched_board_ids))
+  end
 
   # Helper to generate the user name
   def nicename
