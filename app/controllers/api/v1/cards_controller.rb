@@ -36,17 +36,16 @@ class Api::V1::CardsController < Api::V1::ApplicationController
 
   # Handles card changes
   def update
-    klass = ('Card::%s' % card_params[:type]).safe_constantize || Card
-    card = klass.find_by!(:id => params[:id])
-    current_account.can?(:write, card)
+    klass = ('Card::%s' % card_params[:type].to_s.camelize).safe_constantize
 
-    card_params.merge!({:user => current_account})
-    begin
+    if klass
+      card = klass.find_by!(:id => params[:id])
+      current_account.can?(:write, card)
+      card_params.merge!({:user => current_account})
       card.update_attributes(card_params.except(:type))
       render :json => card
-    rescue Exception => error
-      errors = error ? [error.message] : card.errors.messages
-      render :json => { :errors => errors }, :status => 400
+    else
+      render :nothing => true, :status => 400
     end
   end
 

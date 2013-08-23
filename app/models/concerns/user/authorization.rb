@@ -39,15 +39,20 @@ module User::Authorization
     query =
       # User is the owner
       table[:user_id].eq(self.id).or(
-        # User created its board
-        table[:board_id].in(self.board_ids).or(
-          # User branched the board
-          table[:board_id].in(self.authored_boards.pluck('id'))
+        # User branched the board
+        table[:board_id].in(self.branched_board_ids).or(
+          # User created its board
+          table[:board_id].in(self.authored_board_ids)
+        ).or(
+          # Somebody shared its board
+          table[:board_id].in(self.shared_board_ids)
         )
       ).or(
         # User project has it
-        table[:project_id].in(self.project_ids)
-        # TODO: Is part of the project
+        table[:project_id].in(self.created_project_ids).or(
+          # Somebody shared the project
+          table[:project_id].in(self.shared_project_ids)
+        )
       )
 
     if action.to_sym != :write
@@ -70,9 +75,11 @@ module User::Authorization
         # User branched a board
         table[:user_id].eq(self.id)
       ).or(
-        # Owns the project
-        table[:project_id].in(self.project_ids)
-        # TODO: Is part of the project
+        # User project has it
+        table[:project_id].in(self.created_project_ids).or(
+          # Somebody shared the project
+          table[:project_id].in(self.shared_project_ids)
+        )
       )
 
     if action.to_sym != :write
@@ -92,15 +99,20 @@ module User::Authorization
     query =
       # User is the owner
       table[:user_id].eq(self.id).or(
-        # User created its board
-        table[:board_id].in(self.board_ids).or(
-          # User branched the board
-          table[:board_id].in(self.authored_boards.pluck('id'))
+        # User branched the board
+        table[:board_id].in(self.branched_board_ids).or(
+          # User created the board
+          table[:board_id].in(self.authored_board_ids)
+        ).or(
+          # Somebody shared its board
+          table[:board_id].in(self.shared_board_ids)
         )
       ).or(
         # User project has it
-        table[:project_id].in(self.project_ids)
-        # TODO: Is part of the project
+        table[:project_id].in(self.created_project_ids).or(
+          # Somebody shared the project
+          table[:project_id].in(self.shared_project_ids)
+        )
       )
 
     if action.to_sym != :write
@@ -122,15 +134,20 @@ module User::Authorization
 
     if action.to_sym != :write
       query = query.or(
-        # User created its board
-        table[:board_id].in(self.board_ids).or(
-          # User branched the board
-          table[:board_id].in(self.authored_boards.pluck('id'))
+        # User branched the board
+        table[:board_id].in(self.branched_board_ids).or(
+          # User created the board
+          table[:board_id].in(self.authored_board_ids)
+        ).or(
+          # Somebody shared its board
+          table[:board_id].in(self.shared_board_ids)
         )
       ).or(
         # User project has it
-        table[:project_id].in(self.project_ids)
-        # TODO: Is part of the project
+        table[:project_id].in(self.created_project_ids).or(
+          # Somebody shared the project
+          table[:project_id].in(self.shared_project_ids)
+        )
       )
     end
 
