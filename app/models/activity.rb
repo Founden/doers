@@ -21,8 +21,5 @@ class Activity < ActiveRecord::Base
     self.user_name = self.user.nicename if self.user
     self.project_title = self.project.title if self.project
     self.board_title = self.board.title if self.board
-    if tracked = self.trackable
-      self.trackable_title = tracked.title if tracked.respond_to?(:title)
-    end
   end
 end

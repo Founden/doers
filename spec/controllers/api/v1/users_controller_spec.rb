@@ -27,7 +27,7 @@ describe Api::V1::UsersController do
     subject(:api_user) { json_to_ostruct(response.body, :user) }
 
     shared_examples 'shows current user details' do
-      its('keys.size') { should eq(12) }
+      its('keys.size') { should eq(14) }
       its(:id) { should eq(user.id) }
       its(:nicename) { should eq(user.nicename) }
       its('external_id.to_i') { should eq(user.external_id) }
@@ -35,10 +35,14 @@ describe Api::V1::UsersController do
       its(:is_importing) { should be_false }
       its(:is_admin) { should eq(user.admin?) }
       its(:avatar_url) { should eq(gravatar_uri(user.email)) }
-      its('project_ids.size') { should eq(user.project_ids.count) }
+      its('created_project_ids.size') {
+        should eq(user.created_project_ids.count) }
+      its('shared_project_ids.size') {
+        should eq(user.created_project_ids.count) }
       its('public_board_ids.size') { should eq(Board.public.count) }
-      its('board_ids.size') { should eq(user.boards.count) }
+      its('branched_board_ids.size') { should eq(user.branched_boards.count) }
       its('authored_board_ids.size') { should eq(user.authored_boards.count) }
+      its('shared_board_ids.size') { should eq(user.shared_boards.count) }
       its('activity_ids.size') { should eq(user.activities.count) }
     end
 

@@ -55,7 +55,7 @@ class ImportJob < Struct.new(:user, :startup_id)
     data = process_json(startup_url)
 
     if project.nil?
-      @project = user.projects.create!(
+      @project = user.created_projects.create!(
         :title => data['name'],
         :description => data['high_concept'],
         :website => data['company_url'],

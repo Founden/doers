@@ -14,14 +14,17 @@ module Activity::Support
     # Generates activity attributes based on current model attributes
     def activity_params
       params = self.attributes.slice(
-        'user_id', 'project_id', 'board_id', 'author_id')
-      params[:slug] = activity_slug
-      params[:trackable_id] = self.id
-      params[:trackable_type] = self.class.name
-
+        'user_id', 'project_id', 'board_id', 'author_id', 'creator_id', 'title')
+      params['slug'] = activity_slug
+      params['trackable_id'] = self.id
+      params['trackable_type'] = self.class.name
       params['user_id'] = params['author_id'] if params['user_id'].nil?
-      params.delete('author_id')
-      params
+      params['trackable_title'] = params['title']
+      if self.is_a?(Membership)
+        params['user_id'] = params['creator_id']
+        params['trackable_title'] = self.user.nicename
+      end
+      params.except('author_id', 'creator_id', 'title')
     end
 
     # Activity generation hook
