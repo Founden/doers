@@ -7,10 +7,11 @@ Doers.User = DS.Model.extend
   startups: Ember.ArrayController.create()
   avatarUrl: DS.attr('string', readOnly: true)
 
-  projects: DS.hasMany('Doers.Project', readOnly: true, inverse: 'user')
+  createdProjects: DS.hasMany('Doers.Project', readOnly: true, inverse: 'user')
+  sharedProjects: DS.hasMany('Doers.Project', readOnly: true, inverse: 'user')
   authoredBoards: DS.hasMany('Doers.Board', readOnly: true, inverse: 'author')
+  branchedBoards: DS.hasMany('Doers.Board', readOnly: true, inverse: 'user')
   publicBoards: DS.hasMany('Doers.Board', readOnly: true)
-  boards: DS.hasMany('Doers.Board', readOnly: true, inverse: 'user')
   activities: DS.hasMany('Doers.Activity', readOnly: true, inverse: 'user')
 
   startupsUrl: ( ->

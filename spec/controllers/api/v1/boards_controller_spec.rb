@@ -47,7 +47,7 @@ describe Api::V1::BoardsController do
 
       subject(:api_board) { json_to_ostruct(response.body, :board) }
 
-      its('keys.size') { should eq(15) }
+      its('keys.size') { should eq(16) }
       its(:id) { should eq(board.id) }
       its(:title) { should eq(board.title) }
       its(:status) { should eq(Board::STATES.first) }
@@ -63,11 +63,12 @@ describe Api::V1::BoardsController do
       its(:branches_count) { should eq(board.branches.count) }
       its(:cards_count) { should eq(board.cards.count) }
       its('activity_ids.size') { should eq(board.activities.count) }
+      its('member_ids.size') { should eq(board.members.count) }
 
       context 'for #parent_board' do
         let(:board_id) { board.parent_board.id }
 
-        its('keys.size') { should eq(15) }
+        its('keys.size') { should eq(16) }
 
         its(:user_id) { should be_nil }
         its(:author_id) { should eq(board.parent_board.author.id) }
@@ -97,7 +98,7 @@ describe Api::V1::BoardsController do
 
       subject(:api_board) { json_to_ostruct(response.body, :board) }
 
-      its('keys.size') { should eq(15) }
+      its('keys.size') { should eq(16) }
       its(:title) { should eq(title) }
       its(:description) { should be_nil }
       its(:user_id) { should eq(user.id) }
@@ -120,7 +121,7 @@ describe Api::V1::BoardsController do
         let(:attrs) { Fabricate.attributes_for(
           :board, :title=>title, :author => user, :project => nil) }
 
-        its('keys.size') { should eq(15) }
+        its('keys.size') { should eq(16) }
         its(:title) { should eq(title) }
         its(:description) { should_not be_nil }
         its(:user_id) { should be_nil }
@@ -169,7 +170,7 @@ describe Api::V1::BoardsController do
 
     subject(:api_board) { json_to_ostruct(response.body, :board) }
 
-    its('keys.size') { should eq(15) }
+    its('keys.size') { should eq(16) }
     its(:title) { should eq(board_attrs['title']) }
     its(:description) { should eq(board_attrs['description']) }
     its(:user_id) { should eq(user.id) }
@@ -179,7 +180,7 @@ describe Api::V1::BoardsController do
     context 'ignores wrong attributes' do
       let(:board_attrs) { Fabricate.attributes_for(:branched_board) }
 
-      its('keys.size') { should eq(15) }
+      its('keys.size') { should eq(16) }
       its(:title) { should eq(board_attrs['title']) }
       its(:description) { should eq(board_attrs['description']) }
       its(:user_id) { should eq(user.id) }

@@ -15,7 +15,7 @@ class Api::V1::ProjectsController < Api::V1::ApplicationController
 
   # Handles project creation
   def create
-    project = current_account.projects.build(project_params)
+    project = current_account.created_projects.build(project_params)
     if project.save
       render :json => project
     else

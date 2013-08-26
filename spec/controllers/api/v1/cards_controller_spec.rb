@@ -235,6 +235,14 @@ describe Api::V1::CardsController do
       }.to raise_error
     end
 
+    context 'type is wrong' do
+      before { patch(:update, :card => {:type => 'wrong'}, :id => rand(10)) }
+      subject { response }
+
+      its(:body) { should be_blank }
+      its(:status) { should eq(400) }
+    end
+
     context 'for available cards' do
       let(:card_id) { card.id }
 
