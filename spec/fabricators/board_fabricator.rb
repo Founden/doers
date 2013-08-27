@@ -3,6 +3,10 @@ Fabricator(:board) do
   title       { Faker::Lorem.sentence }
   description { Faker::Lorem.sentence }
   after_create do |board, trans|
+    rand(1..5).times do
+      board.tag_names << Faker::Lorem.word
+    end
+    board.save
     board.cover = Fabricate(
       :cover, :user => (board.author || board.user), :board => board)
   end

@@ -69,12 +69,14 @@ describe Api::V1::BoardsController do
       context 'for #parent_board' do
         let(:board_id) { board.parent_board.id }
 
-        its('keys.size') { should eq(17) }
+        its('keys.size') { should eq(18) }
 
         its(:user_id) { should be_nil }
         its(:author_id) { should eq(board.parent_board.author.id) }
         its(:project_id) { should be_nil }
         its(:parent_board_id) { should be_nil }
+        its('collections.sort') {
+          should eq(board.parent_board.tag_names.map(&:titleize).sort) }
       end
     end
 
@@ -122,7 +124,7 @@ describe Api::V1::BoardsController do
         let(:attrs) { Fabricate.attributes_for(
           :board, :title=>title, :author => user, :project => nil) }
 
-        its('keys.size') { should eq(17) }
+        its('keys.size') { should eq(18) }
         its(:title) { should eq(title) }
         its(:description) { should_not be_nil }
         its(:user_id) { should be_nil }
@@ -130,6 +132,7 @@ describe Api::V1::BoardsController do
         its(:project_id) { should be_nil }
         its(:parent_board_id) { should be_nil }
         its('card_ids.count') { should eq(0) }
+        its(:collections) { should be_empty }
       end
     end
 
