@@ -20,6 +20,8 @@ class Board < ActiveRecord::Base
   has_many :activities
   has_many :memberships, :dependent => :destroy
   has_many :members, :through => :memberships, :source => :user
+  # Tagging support
+  has_many_tags
 
   # Validations
   validates_presence_of :title

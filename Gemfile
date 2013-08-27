@@ -16,6 +16,7 @@ gem 'delayed_job'
 gem 'delayed_job_active_record'
 gem 'pg'
 gem 'oembedr'
+gem 'gutentag'
 
 group :production do
   gem 'puma'

@@ -12,6 +12,7 @@ describe Board do
   it { should have_many(:activities).dependent('') }
   it { should have_many(:memberships).dependent(:destroy) }
   it { should have_many(:members) }
+  it { should have_many(:tags) }
   it { should validate_presence_of(:author) }
   it { should validate_presence_of(:title) }
   it { should ensure_inclusion_of(:status).in_array(Board::STATES) }
@@ -29,6 +30,7 @@ describe Board do
 
     subject { board }
 
+    it { should respond_to(:tag_names) }
     its(:status) { should eq(Board::STATES.first) }
 
     context 'sanitizes #content' do
