@@ -63,7 +63,7 @@ describe Api::V1::AssetsController do
       its('keys.size') { should eq(9) }
       its(:id) { should eq(image.id) }
       its(:description) { should eq(image.description) }
-      its(:type) { should eq(image.type) }
+      its(:type) { should eq(image.type.to_s.demodulize) }
       its(:attachment) { should eq(image.attachment.url) }
       its(:user_id) { should eq(image.user.id) }
       its(:board_id) { should eq(image.board.id) }
@@ -108,7 +108,7 @@ describe Api::V1::AssetsController do
         its(:id) { should eq(asset.id) }
         its(:description) { should eq(attrs[:description]) }
         its(:attachment_file_size) { should eq(attrs[:attachment_file_size]) }
-        its(:type) { should eq(asset.type) }
+        its(:type) { should eq(asset.type.to_s.demodulize) }
         its(:user_id) { should eq(asset.user.id) }
         its(:board_id) { should eq(asset.board.id) }
         its(:project_id) { should eq(asset.project.id) }
@@ -157,7 +157,7 @@ describe Api::V1::AssetsController do
 
     context 'with valid parameters' do
       let(:asset_attrs) { Fabricate.attributes_for(:image_to_upload,
-        :user => user, :project => project, :board => board,
+        :user => user, :project => project, :board => board, :type => 'Image',
         :assetable_type => project.class, :assetable_id => project.id)
       }
 
@@ -166,13 +166,29 @@ describe Api::V1::AssetsController do
       its('keys.size') { should eq(9) }
       its(:id) { should_not be_nil }
       its(:description) { should eq(asset_attrs[:description]) }
-      its(:type) { should eq(asset_attrs[:type].to_s) }
+      its(:type) { should eq(asset_attrs[:type].to_s.demodulize) }
       its(:attachment) { should_not be_empty }
       its(:user_id) { should eq(user.id) }
       its(:board_id) { should eq(board.id) }
       its(:project_id) { should eq(project.id) }
       its(:assetable_type) { should eq(project.class.to_s) }
       its(:assetable_id) { should eq(project.id) }
+
+      context 'for logo' do
+        let(:asset_attrs) { Fabricate.attributes_for(:image_to_upload,
+          :user => user, :project => project, :type => 'Logo',
+          :assetable_type => project.class, :assetable_id => project.id)
+        }
+
+        its('keys.size') { should eq(9) }
+      end
+
+      context 'for cover' do
+        let(:asset_attrs) { Fabricate.attributes_for(:image_to_upload,
+          :user => user, :board => board, :type => 'Cover') }
+
+        its('keys.size') { should eq(9) }
+      end
 
       context 'with downloadable attachment URL' do
         let(:image_url) { URI.parse('http://test.example.com/test.png') }

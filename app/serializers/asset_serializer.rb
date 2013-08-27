@@ -8,5 +8,10 @@ class AssetSerializer < ActiveModel::Serializer
   has_one :user, :embed => :id
   has_one :project, :embed => :id
   has_one :board, :embed => :id
+
+  # Serve just asset type
+  def type
+    object.type.to_s.demodulize
+  end
 end
 

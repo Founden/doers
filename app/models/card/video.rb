@@ -3,7 +3,8 @@ class Card::Video < Card
   PROVIDERS = %w(youtube)
 
   # Relationships
-  has_one :image, :dependent => :destroy, :as => :assetable
+  has_one(:image, :dependent => :destroy,
+          :as => :assetable, :class_name => Asset::Image)
 
   # Store accessors definition
   store_accessor :data, :video_id, :provider
