@@ -6,6 +6,7 @@ Doers.Board = DS.Model.extend
   project: DS.belongsTo('Doers.Project', inverse: 'boards')
   user: DS.belongsTo('Doers.User', readOnly: true, inverse: 'branchedBoards')
   author: DS.belongsTo('Doers.User', readOnly: true, inverse: 'authoredBoards')
+  cover: DS.belongsTo('Doers.Asset', inverse: 'board')
 
   updatedAt: DS.attr('date', readOnly: true)
   lastUpdate: DS.attr('string', readOnly: true)

@@ -2,6 +2,10 @@ Fabricator(:board) do
   author(:fabricator => :user)
   title       { Faker::Lorem.sentence }
   description { Faker::Lorem.sentence }
+  after_create do |board, trans|
+    board.cover = Fabricate(
+      :cover, :user => (board.author || board.user), :board => board)
+  end
 end
 
 Fabricator(:branched_board, :class_name => Board) do

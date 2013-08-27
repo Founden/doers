@@ -5,6 +5,7 @@ describe Board do
   it { should belong_to(:author) }
   it { should belong_to(:project) }
   it { should belong_to(:parent_board) }
+  it { should have_one(:cover).dependent(:destroy) }
   it { should have_many(:branches).dependent('') }
   it { should have_many(:cards).dependent(:destroy) }
   it { should have_many(:comments).dependent(:destroy) }
