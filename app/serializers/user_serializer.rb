@@ -6,9 +6,11 @@ class UserSerializer < ActiveModel::Serializer
   attributes :avatar_url, :admin? => :is_admin, :importing => :is_importing
   attributes :public_board_ids
 
-  has_many :projects, :embed => :id
+  has_many :created_projects, :embed => :id
+  has_many :shared_projects, :embed => :id
   has_many :authored_boards, :embed => :id
-  has_many :boards, :embed => :id
+  has_many :branched_boards, :embed => :id
+  has_many :shared_boards, :embed => :id
   has_many :activities, :embed => :id
 
   # Returns available public boards
@@ -33,9 +35,11 @@ class UserSerializer < ActiveModel::Serializer
   end
   alias_method :include_external_id?, :is_current_user?
   alias_method :include_angel_list_token?, :is_current_user?
-  alias_method :include_projects?, :is_current_user?
-  alias_method :include_authored_boards?, :is_current_user?
+  alias_method :include_created_projects?, :is_current_user?
+  alias_method :include_shared_projects?, :is_current_user?
   alias_method :include_public_board_ids?, :is_current_user?
-  alias_method :include_boards?, :is_current_user?
+  alias_method :include_authored_boards?, :is_current_user?
+  alias_method :include_shared_boards?, :is_current_user?
+  alias_method :include_branched_boards?, :is_current_user?
   alias_method :include_activities?, :is_current_user?
 end

@@ -17,6 +17,8 @@ class Board < ActiveRecord::Base
   has_many :cards, :dependent => :destroy
   has_many :comments, :dependent => :destroy
   has_many :activities
+  has_many :memberships, :dependent => :destroy
+  has_many :members, :through => :memberships, :source => :user
 
   # Validations
   validates_presence_of :title
