@@ -29,15 +29,10 @@ feature 'Projects', :js, :slow do
       expect(page).to have_content(URI.parse(attrs[:website]).hostname)
     end
 
-    scenario 'form submission with missing parameters shows an error' do
-      within('#project-new') do
-        fill_in :titleInput, :with => title
-      end
-
+    scenario 'with missing parameters creates a project with default values' do
       click_on('project-save')
-
-      expect(page).to have_css('#notifications .alert-box.alert')
-      expect(user.projects.reload.count).to eq(0)
+      sleep(1)
+      expect(user.projects.reload.count).to eq(1)
     end
   end
 end
