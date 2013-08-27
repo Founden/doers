@@ -30,3 +30,13 @@ Doers.RESTAdapter.registerTransform 'list_items',
         listItem.set('list', list)
         list.addObject listItem
     list
+
+Doers.RESTAdapter.registerTransform 'array',
+  serialize: (value) ->
+    if Ember.typeOf(value) == 'array'
+      value
+    else
+      []
+
+  deserialize: (array) ->
+    array
