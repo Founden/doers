@@ -38,18 +38,20 @@ Doers.Board = DS.Model.extend
         # Shift/Unshift any cards which position is affected
         cards.forEach (card) ->
           cardAt = card.get('position')
-          # If source is before target (all goes desc order)
-          if diff < 0 and cardAt < sourceAt and cardAt >= targetAt
-            card.incrementProperty('position')
-          # If source is after target (all goes desc order)
-          if diff > 0 and cardAt > sourceAt and cardAt < targetAt
+          # If source is before target
+          if diff > 0 and cardAt < targetAt and cardAt > sourceAt
             card.decrementProperty('position')
+          # If source is after target (all goes desc order)
+          if diff < 0 and cardAt >= targetAt and cardAt < sourceAt
+            card.incrementProperty('position')
+          if diff == 0
+            card.set('position', cards.indexOf(card))
 
         # Set source after target
-        if diff < 0
-          source.set('position', targetAt)
-        else
+        if diff > 0
           source.set('position', targetAt - 1)
+        else
+          source.set('position', targetAt)
 
       else
         source.set('position', targetAt)
