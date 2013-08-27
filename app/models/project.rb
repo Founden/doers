@@ -11,7 +11,7 @@ class Project < ActiveRecord::Base
   has_many :boards
   has_many :cards, :through => :boards
   has_many :comments, :dependent => :destroy
-  has_one :logo, :dependent => :destroy
+  has_one :logo, :dependent => :destroy, :class_name => Asset::Logo
   has_many :activities
   has_many :memberships, :dependent => :destroy
   has_many :members, :through => :memberships, :source => :user

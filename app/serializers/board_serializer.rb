@@ -7,6 +7,7 @@ class BoardSerializer < ActiveModel::Serializer
   has_one :author, :embed => :id
   has_one :project, :embed => :id
   has_one :parent_board, :embed => :id
+  has_one :cover, :embed => :id
 
   has_many :branches, :embed => :ids
   has_many :cards, :embed => :ids
