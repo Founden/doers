@@ -212,7 +212,7 @@
 
       &.drop-handler {
         .card-content {
-          border-right: 5px solid $green;
+          border-left: 5px solid $green;
         }
         .card-settings, .card-content * {
           opacity: 0.1;
