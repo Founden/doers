@@ -1,5 +1,10 @@
 # DOERS range [Card] STI class
 class Card::Interval < Card
+  # Relationships
+  belongs_to :parent_card, :class_name => Card::Interval
+  has_many(:versions, :class_name => Card::Interval,
+           :dependent => :destroy, :foreign_key => :parent_card_id)
+
   # Store accessors definition
   store_accessor :data, :minimum, :maximum, :selected
 
