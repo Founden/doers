@@ -8,6 +8,7 @@ Doers.Board = DS.Model.extend
   author: DS.belongsTo('Doers.User', readOnly: true, inverse: 'authoredBoards')
   cover: DS.belongsTo('Doers.Asset', inverse: 'board')
 
+  collections: DS.attr('array', readOnly: true, defaultValue: [])
   updatedAt: DS.attr('date', readOnly: true)
   lastUpdate: DS.attr('string', readOnly: true)
 
