@@ -60,7 +60,7 @@ class Board < ActiveRecord::Base
     # Forking the cards
     self.cards.each do |card|
       attrs = card.attributes.except('id', 'created_at', 'updated_at')
-      attrs.merge!(:user => user, :project => project)
+      attrs.merge!(:user => user, :project => project, :parent_card => card)
       board.cards.create(attrs)
     end unless board.new_record?
     board

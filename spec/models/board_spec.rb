@@ -119,9 +119,15 @@ describe Board do
         end
 
         context 'with all the parent board cards' do
-          subject { branch.cards.map(&:type).sort }
+          subject { branch.cards.pluck('type').sort }
 
-          it { should eq(board.cards.map(&:type).sort) }
+          it { should eq(board.cards.pluck('type').sort) }
+        end
+
+        context 'with all the cards parent' do
+          subject { board.card_ids.sort }
+
+          it { should eq(branch.cards.pluck('parent_card_id').sort) }
         end
       end
 
