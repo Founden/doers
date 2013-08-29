@@ -13,12 +13,15 @@ class Board < ActiveRecord::Base
   belongs_to :author, :class_name => User
   belongs_to :project
   belongs_to :parent_board, :class_name => Board
+  has_one :cover, :class_name => Asset::Cover, :dependent => :destroy
   has_many :branches, :class_name => Board, :foreign_key => :parent_board_id
   has_many :cards, :dependent => :destroy
   has_many :comments, :dependent => :destroy
   has_many :activities
   has_many :memberships, :dependent => :destroy
   has_many :members, :through => :memberships, :source => :user
+  # Tagging support
+  has_many_tags
 
   # Validations
   validates_presence_of :title
@@ -59,7 +62,7 @@ class Board < ActiveRecord::Base
     # Forking the cards
     self.cards.each do |card|
       attrs = card.attributes.except('id', 'created_at', 'updated_at')
-      attrs.merge!(:user => user, :project => project)
+      attrs.merge!(:user => user, :project => project, :parent_card => card)
       board.cards.create(attrs)
     end unless board.new_record?
     board

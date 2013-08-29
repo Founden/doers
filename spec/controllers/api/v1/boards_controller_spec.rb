@@ -47,7 +47,7 @@ describe Api::V1::BoardsController do
 
       subject(:api_board) { json_to_ostruct(response.body, :board) }
 
-      its('keys.size') { should eq(16) }
+      its('keys.size') { should eq(17) }
       its(:id) { should eq(board.id) }
       its(:title) { should eq(board.title) }
       its(:status) { should eq(Board::STATES.first) }
@@ -55,6 +55,7 @@ describe Api::V1::BoardsController do
       its(:description) { should eq(board.description) }
       its(:last_update) { should eq(board.updated_at.to_s(:pretty)) }
       its(:user_id) { should eq(board.user.id) }
+      its(:cover_id) { should be_blank }
       its(:author_id) { should be_nil }
       its(:project_id) { should eq(board.project.id) }
       its(:parent_board_id) { should eq(board.parent_board.id) }
@@ -68,12 +69,14 @@ describe Api::V1::BoardsController do
       context 'for #parent_board' do
         let(:board_id) { board.parent_board.id }
 
-        its('keys.size') { should eq(16) }
+        its('keys.size') { should eq(18) }
 
         its(:user_id) { should be_nil }
         its(:author_id) { should eq(board.parent_board.author.id) }
         its(:project_id) { should be_nil }
         its(:parent_board_id) { should be_nil }
+        its('collections.sort') {
+          should eq(board.parent_board.tag_names.map(&:titleize).sort) }
       end
     end
 
@@ -98,7 +101,7 @@ describe Api::V1::BoardsController do
 
       subject(:api_board) { json_to_ostruct(response.body, :board) }
 
-      its('keys.size') { should eq(16) }
+      its('keys.size') { should eq(17) }
       its(:title) { should eq(title) }
       its(:description) { should be_nil }
       its(:user_id) { should eq(user.id) }
@@ -121,7 +124,7 @@ describe Api::V1::BoardsController do
         let(:attrs) { Fabricate.attributes_for(
           :board, :title=>title, :author => user, :project => nil) }
 
-        its('keys.size') { should eq(16) }
+        its('keys.size') { should eq(18) }
         its(:title) { should eq(title) }
         its(:description) { should_not be_nil }
         its(:user_id) { should be_nil }
@@ -129,6 +132,7 @@ describe Api::V1::BoardsController do
         its(:project_id) { should be_nil }
         its(:parent_board_id) { should be_nil }
         its('card_ids.count') { should eq(0) }
+        its(:collections) { should be_empty }
       end
     end
 
@@ -170,7 +174,7 @@ describe Api::V1::BoardsController do
 
     subject(:api_board) { json_to_ostruct(response.body, :board) }
 
-    its('keys.size') { should eq(16) }
+    its('keys.size') { should eq(17) }
     its(:title) { should eq(board_attrs['title']) }
     its(:description) { should eq(board_attrs['description']) }
     its(:user_id) { should eq(user.id) }
@@ -180,7 +184,7 @@ describe Api::V1::BoardsController do
     context 'ignores wrong attributes' do
       let(:board_attrs) { Fabricate.attributes_for(:branched_board) }
 
-      its('keys.size') { should eq(16) }
+      its('keys.size') { should eq(17) }
       its(:title) { should eq(board_attrs['title']) }
       its(:description) { should eq(board_attrs['description']) }
       its(:user_id) { should eq(user.id) }

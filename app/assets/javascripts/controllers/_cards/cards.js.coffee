@@ -33,8 +33,8 @@ Doers.CardsController = Ember.ArrayController.extend
     card = klass.createRecord
       user: @get('board.author')
       type: type
-      position: @get('content.length') + 1
-    @get('content').unshiftObject(card)
+      position: @get('content.length')
+    @get('content').pushObject(card)
     card.set('isEditing', true)
 
   updateMap: (map, data) ->

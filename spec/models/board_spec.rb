@@ -5,12 +5,14 @@ describe Board do
   it { should belong_to(:author) }
   it { should belong_to(:project) }
   it { should belong_to(:parent_board) }
+  it { should have_one(:cover).dependent(:destroy) }
   it { should have_many(:branches).dependent('') }
   it { should have_many(:cards).dependent(:destroy) }
   it { should have_many(:comments).dependent(:destroy) }
   it { should have_many(:activities).dependent('') }
   it { should have_many(:memberships).dependent(:destroy) }
   it { should have_many(:members) }
+  it { should have_many(:tags) }
   it { should validate_presence_of(:author) }
   it { should validate_presence_of(:title) }
   it { should ensure_inclusion_of(:status).in_array(Board::STATES) }
@@ -28,6 +30,7 @@ describe Board do
 
     subject { board }
 
+    it { should respond_to(:tag_names) }
     its(:status) { should eq(Board::STATES.first) }
 
     context 'sanitizes #content' do
@@ -118,9 +121,15 @@ describe Board do
         end
 
         context 'with all the parent board cards' do
-          subject { branch.cards.map(&:type).sort }
+          subject { branch.cards.pluck('type').sort }
 
-          it { should eq(board.cards.map(&:type).sort) }
+          it { should eq(board.cards.pluck('type').sort) }
+        end
+
+        context 'with all the cards parent' do
+          subject { board.card_ids.sort }
+
+          it { should eq(branch.cards.pluck('parent_card_id').sort) }
         end
       end
 
