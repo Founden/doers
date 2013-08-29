@@ -1,20 +1,8 @@
 @import 'bourbon';
 @import 'normalize-rails/normalize';
-// TODO: Rewrite nprogress CSS
-@import 'nprogress';
 
 @import 'core/vars';
-@import 'core/fonts';
 @import 'core/base';
 
-@import 'components/buttons';
-@import 'components/forms';
-@import 'components/alerts';
-@import 'components/dropdown';
-
-@import 'layouts/wrapper';
-
-@import 'templates/topbar';
-@import 'templates/header';
-@import 'templates/content';
-@import 'templates/footer';
+@import 'templates/main_nav';
+@import 'templates/main_content';
