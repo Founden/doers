@@ -1,0 +1,65 @@
+.main-nav {
+  @include box-sizing(border-box);
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 280px;
+  height: 100%;
+  background-color: $black;
+  color: $white;
+}
+
+.main-nav-logo {
+  display: block;
+  @include hide-text;
+  background: image-url('logo.png') no-repeat 0 0;
+  width: 116px;
+  height: 28px;
+  margin: 30px;
+}
+
+.main-nav-list-item {
+  @include clearfix;
+  position: relative;
+  border-top: 1px solid rgba($white, 0.1);
+
+  &:last-child {
+    border-bottom: 1px solid rgba($white, 0.1);
+  }
+}
+
+.main-nav-list-item-btn {
+  display: block;
+  padding: 15px 30px;
+  color: $white;
+  font-weight: 700;
+  font-size: em(14);
+}
+
+.main-nav-list-item-account {
+  padding: 15px 30px 15px 87px;
+}
+
+.main-nav-list-item-account-name {
+  font-weight: 700;
+}
+
+.main-nav-list-item-account-image {
+  position: absolute;
+  left: 30px;
+  top: 15px;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+}
+
+.main-nav-list-item-account-actions {
+  margin: 0;
+  font-size: em(12);
+  color: rgba($white, 0.6);
+
+  a {
+    color: rgba($white, 0.6);
+    border-bottom: 1px solid rgba($white, 0.2);
+  }
+}

@@ -1,0 +1,23 @@
+.main-nav
+  %a{:href => root_path, :class => 'main-nav-logo'}
+    = Doers::Config.app_name
+  - if account_signed_in?
+    %ul.main-nav-list
+      %li.main-nav-list-item.main-nav-list-item-account
+        = gravatar_tag(current_user.email, {:size => 42, :class => 'main-nav-list-item-account-image'})
+        .main-nav-list-item-account-name
+          = current_account.nicename
+        .main-nav-list-item-account-actions
+          %a{:href => sign_out_path}
+            = _('sign out')
+      - if current_account.confirmed?
+        %li.main-nav-list-item
+          %a{:href => root_path(:anchor => '/projects'), :class => 'main-nav-list-item-btn'}
+            = _('Your projects')
+        %li.main-nav-list-item
+          %a#projects-add{:href => root_path(:anchor => '/projects/new'), :class => 'main-nav-list-item-btn'}
+            = _('Create new porject')
+        - if current_account.admin?
+          %li.main-nav-list-item
+            %a#boards-add{:href => '#', :class => 'main-nav-list-item-btn'}
+              = _('Collaborators')
