@@ -1,29 +1,20 @@
 require 'spec_helper'
 
-feature 'Cards', :js, :slow do
+feature 'Board', :js, :slow do
   background do
     sign_in_with_angel_list
   end
 
-  context 'from an existing project board' do
-    given(:project) do
-      Fabricate(:project_with_boards_and_cards, :user => User.first)
+  context 'building' do
+    given(:board) do
+      Fabricate(:persona_board, :user => User.first)
     end
-    given(:board) { project.boards.first }
-    given(:card) { board.cards.first }
 
     background do
-      visit root_path(:anchor => '/boards/%d' % board.id)
+      visit root_path(:anchor => '/boards/%d/build' % board.id)
     end
 
-    scenario 'are shown' do
-      expect(page).to have_css('#board-%d' % board.id, :count => 1)
-
-      cards_classname = '#board-%d .cards .card' % board.id
-      expect(page).to have_css(cards_classname, :count => board.cards.count)
-    end
-
-    context 'can not be repositioned' do
+    context 'UI allows cards to be repositioned' do
       background do
         # Update every card position
         board.cards.each do |card|
@@ -43,10 +34,9 @@ feature 'Cards', :js, :slow do
         # source.drag_to(target)
 
         sleep(1)
-        expect(order).to eq(
+        expect(order).to_not eq(
           board.cards.reload.pluck('id', 'position').flatten)
       end
     end
   end
-
 end

@@ -29,7 +29,7 @@ class UserSerializer < ActiveModel::Serializer
     gravatar_uri(object.email)
   end
 
-  # Method to use for aliasing what attribtues can be included
+  # Method to use for aliasing what attributes can be included
   def is_current_user?
     current_account.id.eql?(object.id)
   end

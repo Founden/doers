@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Image, :use_truncation do
+describe Asset::Image, :use_truncation do
   let(:user) { Fabricate(:user) }
   let!(:image) { Fabricate('card/photo', :user => user).image }
 

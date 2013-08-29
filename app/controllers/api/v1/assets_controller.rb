@@ -39,10 +39,16 @@ class Api::V1::AssetsController < Api::V1::ApplicationController
     attchmnt = URI.parse(attchmnt) if attchmnt.to_s.match(Asset::URI_REGEXP)
 
     begin
-      # TODO: Handle different asset type when more are available
-      # TODO: Handle branch_id and assetable authorization
-      asset = current_account.images.create!(
-        new_asset_params.merge(:attachment => attchmnt))
+      klass = ('Asset::%s' % new_asset_params[:type]).safe_constantize
+      raise _('Type is not allowed.') if !klass or klass.equal?(Asset)
+
+      asset = klass.new(
+        new_asset_params.except(:type).merge(:attachment => attchmnt))
+      target = asset.assetable || asset.board || asset.project
+      current_account.can?(:write, target)
+      asset.user = current_account
+      asset.save!
+
       render :json => asset
     rescue Exception => error
       errors = !!error ? [error.message] : asset.errors.messages

@@ -9,11 +9,11 @@
     %form{:class => 'form', :_action => 'save view on="submit"'}
       %fieldset
         .field
-          %label{:for => :titleInput, 'data-error' => _('Name is missing.')}
+          %label{:for => :titleInput}
             = _('Name')
           {{view Ember.TextField valueBinding='content.title' id='titleInput' placeholder='Give it a nice name' required='true'}}
         .field
-          %label{:for => :wwwInput, 'data-error' => _('Website is missing.')}
+          %label{:for => :wwwInput}
             = _('Website')
           {{view Ember.TextField valueBinding='content.website' id='wwwInput' placeholder='http://...' required='true'}}
         .field
