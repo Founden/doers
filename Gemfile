@@ -39,6 +39,7 @@ group :assets do
   gem 'bourbon'
   gem 'normalize-rails'
   gem 'momentjs-rails'
+  gem 'nprogress-rails'
 end
 
 group :development do

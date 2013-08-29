@@ -1,4 +1,6 @@
 #= require jquery
+#= require nprogress
+#= require nprogress-ajax
 
 #= require_self
 
@@ -14,8 +16,17 @@
         e.preventDefault()
         $(@).parents('.alert-box').remove()
 
+    Progress:
+      setup: ->
+        NProgress.configure
+          # showSpinner: false
+          ease: 'ease'
+          speed: 500
+          # trickle: false
+
     setup: ->
       @Notifications.setup()
+      @Progress.setup()
 
   Doers.setup()
 
