@@ -1,5 +1,7 @@
 @import 'bourbon';
 @import 'normalize-rails/normalize';
+// TODO: Rewrite nprogress CSS
+@import 'nprogress';
 
 @import 'core/vars';
 @import 'core/fonts';
