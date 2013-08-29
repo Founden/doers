@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130822105149) do
+ActiveRecord::Schema.define(version: 20130827202659) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -86,6 +86,7 @@ ActiveRecord::Schema.define(version: 20130822105149) do
     t.datetime "updated_at"
     t.string   "question"
     t.text     "help"
+    t.integer  "parent_card_id"
   end
 
   add_index "cards", ["board_id"], name: "index_cards_on_board_id", using: :btree
@@ -171,6 +172,26 @@ ActiveRecord::Schema.define(version: 20130822105149) do
   add_index "projects", ["status"], name: "index_projects_on_status", using: :btree
   add_index "projects", ["user_id"], name: "index_projects_on_user_id", using: :btree
   add_index "projects", ["website"], name: "index_projects_on_website", using: :btree
+
+  create_table "taggings", force: true do |t|
+    t.integer  "tag_id",        null: false
+    t.integer  "taggable_id",   null: false
+    t.string   "taggable_type", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "taggings", ["tag_id"], name: "index_taggings_on_tag_id", using: :btree
+  add_index "taggings", ["taggable_type", "taggable_id", "tag_id"], name: "unique_taggings", unique: true, using: :btree
+  add_index "taggings", ["taggable_type", "taggable_id"], name: "index_taggings_on_taggable_type_and_taggable_id", using: :btree
+
+  create_table "tags", force: true do |t|
+    t.string   "name",       null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
 
   create_table "users", force: true do |t|
     t.string   "name"

@@ -175,6 +175,8 @@ GEM
     guard-rspec (3.0.2)
       guard (>= 1.8)
       rspec (~> 2.13)
+    gutentag (0.3.0)
+      activerecord (>= 3.2.0)
     haml (4.0.3)
       tilt
     haml-rails (0.4)
@@ -406,6 +408,7 @@ DEPENDENCIES
   ffaker
   gettext_i18n_rails
   guard-rspec
+  gutentag
   haml-rails
   hamlbars
   handlebars-source (= 1.0.12)

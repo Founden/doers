@@ -1,12 +1,13 @@
 # [Board] model serializer
 class BoardSerializer < ActiveModel::Serializer
   attributes :id, :title, :status, :updated_at, :description, :card_ids
-  attributes :branches_count, :cards_count, :last_update
+  attributes :branches_count, :cards_count, :last_update, :collections
 
   has_one :user, :embed => :id
   has_one :author, :embed => :id
   has_one :project, :embed => :id
   has_one :parent_board, :embed => :id
+  has_one :cover, :embed => :id
 
   has_many :branches, :embed => :ids
   has_many :cards, :embed => :ids
@@ -26,5 +27,15 @@ class BoardSerializer < ActiveModel::Serializer
   # Returns the number of cards
   def cards_count
     object.cards.count
+  end
+
+  # Returns collection/tag names
+  def collections
+    object.tags.pluck('name').map(&:titleize)
+  end
+
+  # Hide collections for non public boards
+  def include_collections?
+    object.status.eql?(Board::STATES.last)
   end
 end
