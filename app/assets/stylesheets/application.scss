@@ -1,8 +1,11 @@
 @import 'bourbon';
 @import 'normalize-rails/normalize';
 
+@import 'mixins/keyframes';
+
 @import 'core/vars';
 @import 'core/base';
+@import 'core/animations';
 
 @import 'templates/main_nav';
 @import 'templates/main_content';
