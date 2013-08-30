@@ -1,17 +1,33 @@
-#board
+.board{:bind => {:id => 'board.slug'}}
+  .content-wrap
+    %h1.board-title
+      {{board.title}}
+    .board-description
+      {{board.description}}
+    %ul.board-collaborators.collaborators
+      %li.collaborators-user
+        %img.collaborators-user-image{:bind => {:src => 'board.user.avatarUrl'}}
+      %li.collaborators-user
+        %a.collaborators-user-add{:href => '#'}
+    .board-status
+      .board-status-user
+        %img.board-status-user-image{:bind => {:src => 'board.user.avatarUrl'}}
+        = _('Updated')
+        {{board.lastUpdate}}
+        = _('by')
+        {{board.user.nicename}}
+      .board-status-progress-wrap
+        .board-status-progress
+          .board-status-progress-bar
+          .board-status-progress-cards
+            1 / {{board.cardsCount}}
+      .board-status-view
+        %a.board-status-view-btn
+          = _('View mode')
 
-  %header.header
-    .header-content
-      %h1
-        {{board.title}}
-      %p
-        {{board.description}}
-
-  .content
-    %div{:bind => {:id => 'board.slug'}}
-      {{#if content.isLoaded}}
-      {{collection view.cardsView contentBinding=arrangedContent}}
-      {{else}}
-      %em
-        = _('Loading...')
-      {{/if}}
+.content-wrap
+  {{#if content.isLoaded}}
+  {{collection view.cardsView contentBinding=arrangedContent}}
+  {{else}}
+  = _('Loading...')
+  {{/if}}

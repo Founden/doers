@@ -1,20 +1,21 @@
-.main-content-wrap
+.content-wrap
 
   .project{:bind => {:id => 'content.slug'}}
     %h1.project-title
       {{content.title}}
     .project-description
       {{content.description}}
-    %ul.project-users
-      %li.project-users-item
-        %img.project-users-item-image{:bind => {:src => 'content.user.avatarUrl'}}
-      %li.project-users-item
-        %a.project-users-item-add{:href => '#'}
+    %ul.project-collaborators.collaborators
+      %li.collaborators-user
+        %img.collaborators-user-image{:bind => {:src => 'content.user.avatarUrl'}}
+      %li.collaborators-user
+        %a.collaborators-user-add{:href => '#'}
 
   {{#if content.boards}}
   .boards
     {{#each content.boards}}
     .board-item{:bind => {:id => 'slug'}}
+      {{#linkTo 'boards.show' this}}
       .board-item-cover
         %h3.board-item-cover-title
           {{title}}
@@ -23,9 +24,10 @@
       .board-item-user
         %img.board-item-user-image{:bind => {:src => 'user.avatarUrl'}}
         %span.board-item-user-activity
-        = _('updated')
+        = _('Updated')
         {{lastUpdate}}
         = _('by')
         {{user.nicename}}
+      {{/linkTo}}
     {{/each}}
   {{/if}}

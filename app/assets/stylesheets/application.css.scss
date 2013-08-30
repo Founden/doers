@@ -7,8 +7,11 @@
 @import 'core/base';
 @import 'core/animations';
 
+@import 'components/collaborators';
+
 @import 'templates/main_nav';
-@import 'templates/main_content';
+@import 'templates/content';
 
 @import 'modules/project';
 @import 'modules/boards';
+@import 'modules/board';
