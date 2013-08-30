@@ -52,19 +52,29 @@
   background: $green;
 }
 
-.boards-item-author {
+.boards-item-user {
   position: relative;
-  padding: 15px 20px 15px 77px;
+  padding: 15px 20px 15px 66px;
   font-size: em(12);
   color: tint($black, 50%);
   background: $white;
 }
 
-.boards-item-author-image {
+.boards-item-user-image {
   position: absolute;
   left: 20px;
   top: 15px;
-  width: 42px;
-  height: 42px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
+}
+
+.boards-item-user-activity {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: $red;
 }
