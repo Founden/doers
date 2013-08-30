@@ -14,15 +14,15 @@
   {{#if content.boards}}
   .boards
     {{#each content.boards}}
-    .boards-item{:bind => {:id => 'slug'}}
-      .boards-item-cover
-        %h3.boards-item-cover-title
+    .board-item{:bind => {:id => 'slug'}}
+      .board-item-cover
+        %h3.board-item-cover-title
           {{title}}
-      .boards-item-progress
-        .boards-item-progress-bar
-      .boards-item-user
-        %img.boards-item-user-image{:bind => {:src => 'user.avatarUrl'}}
-        %span.boards-item-user-activity
+      .board-item-progress
+        .board-item-progress-bar
+      .board-item-user
+        %img.board-item-user-image{:bind => {:src => 'user.avatarUrl'}}
+        %span.board-item-user-activity
         = _('updated')
         {{lastUpdate}}
         = _('by')
