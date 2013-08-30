@@ -9,7 +9,7 @@ Doers.ProjectsImportView = Ember.View.extend
 
   # Startup entry view
   startupView: Ember.View.extend
-    classNames: ['project']
+    classNames: ['project-item']
     classNameBindings: ['content.slug', 'content.isSelected:selected']
 
     click: (event) ->

@@ -1,10 +1,8 @@
-#importer-running
+.content-wrap
 
-  %header.header
-    .header-content
-      %h1
-        = _('Almost done.')
-      %p
-        = _('While we get everything processed, feel free to navigate away from this page.')
-        %br/
-        = _('We will email you anyway.')
+  .dashboard
+    %h1.dashboard-title
+      = _('Importing projects...')
+    .dashboard-description
+      = _('While we get everything processed, feel free to navigate away from this page.')
+
