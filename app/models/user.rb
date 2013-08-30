@@ -19,8 +19,8 @@ class User < ActiveRecord::Base
 
   # Relationships
   has_many :cards
-  has_many :comments, :dependent => :destroy
-  has_many :assets, :dependent => :destroy
+  has_many :comments
+  has_many :assets
   has_many :images, :class_name => Asset::Image
   has_many :activities
   has_many :memberships, :dependent => :destroy
