@@ -2,6 +2,7 @@ Fabricator(:board) do
   author(:fabricator => :user)
   title       { Faker::Lorem.sentence }
   description { Faker::Lorem.sentence }
+  team
   after_create do |board, trans|
     rand(1..5).times do
       board.tag_names << Faker::Lorem.word

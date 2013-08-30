@@ -1,5 +1,5 @@
 Fabricator(:team) do
-  title       Faker::Company.name
+  title       { sequence(:team_title){ Faker::Company.name } }
   description Faker::Company.catch_phrase
   website     Faker::Internet.http_url
   after_create do |team, trans|
