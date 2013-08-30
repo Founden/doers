@@ -1,12 +1,15 @@
 .main-content-wrap
 
   .project{:bind => {:id => 'content.slug'}}
-    .project-header
-      %h1.project-header-title
-        {{content.title}}
-      .project-header-description
-        {{content.description}}
-      %ul.project-header-collaborators
+    %h1.project-title
+      {{content.title}}
+    .project-description
+      {{content.description}}
+    %ul.project-users
+      %li.project-users-item
+        %img.project-users-item-image{:bind => {:src => 'content.user.avatarUrl'}}
+      %li.project-users-item
+        %a.project-users-item-add{:href => '#'}
 
   {{#if content.boards}}
   .boards
