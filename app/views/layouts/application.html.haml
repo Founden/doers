@@ -28,8 +28,7 @@
   %body
     = render('shared/main_nav')
     .main-content
-      .main-content-wrap
-        = yield
+      = yield
 
     = javascript_include_tag 'application'
     = yield(:footer_embed) if content_for?(:footer_embed)
