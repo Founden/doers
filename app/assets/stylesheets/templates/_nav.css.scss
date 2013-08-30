@@ -1,4 +1,4 @@
-.main-nav {
+.nav {
   @include box-sizing(border-box);
   position: fixed;
   left: 0;
@@ -10,7 +10,7 @@
   box-shadow: 2px 0 rgba($black, 0.1);
 }
 
-.main-nav-logo {
+.nav-logo {
   display: block;
   @include hide-text;
   background: image-url('logo.png') no-repeat 0 0;
@@ -19,7 +19,7 @@
   margin: 30px;
 }
 
-.main-nav-list-item {
+.nav-list-item {
   @include clearfix;
   position: relative;
   border-top: 1px solid rgba($white, 0.1);
@@ -29,7 +29,7 @@
   }
 }
 
-.main-nav-list-item-btn {
+.nav-list-item-btn {
   display: block;
   padding: 15px 30px;
   color: $white;
@@ -37,15 +37,15 @@
   font-size: em(14);
 }
 
-.main-nav-list-item-account {
+.nav-list-item-account {
   padding: 15px 30px 15px 87px;
 }
 
-.main-nav-list-item-account-name {
+.nav-list-item-account-name {
   font-weight: 700;
 }
 
-.main-nav-list-item-account-image {
+.nav-list-item-account-image {
   position: absolute;
   left: 30px;
   top: 15px;
@@ -54,7 +54,7 @@
   border-radius: 50%;
 }
 
-.main-nav-list-item-account-actions {
+.nav-list-item-account-actions {
   margin: 0;
   font-size: em(12);
   color: rgba($white, 0.6);

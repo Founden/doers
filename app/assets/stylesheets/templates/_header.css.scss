@@ -1,0 +1,68 @@
+.header {
+  @include clearfix;
+  overflow: hidden;
+  background: $white;
+}
+
+.header-user {
+  @include box-sizing(border-box);
+  position: relative;
+  float: left;
+  width: 20%;
+  padding: 15px 15px 15px 61px;
+  font-size: em(12);
+  color: $gray-5;
+  border-right: 1px solid $gray-1;
+}
+
+.header-user-image {
+  position: absolute;
+  left: 15px;
+  top: 15px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+}
+
+.header-progress-wrap {
+  @include box-sizing(border-box);
+  float: left;
+  width: 60%;
+  padding: 15px;
+  border-right: 1px solid $gray-1;
+}
+
+.header-progress {
+  width: 100%;
+  background: $gray-1;
+  line-height: 36px;
+  height: 36px;
+  position: relative;
+}
+
+.header-progress-bar {
+  width: 50%;
+  height: 100%;
+  background: $green;
+}
+
+.header-progress-cards {
+  position: absolute;
+  left: 10px;
+  top: 0;
+  color: $white;
+  font-weight: 700;
+}
+
+.header-view-mode {
+  @include box-sizing(border-box);
+  float: left;
+  width: 20%;
+}
+
+.header-view-mode-btn {
+  display: block;
+  padding: 15px;
+  font-size: em(14);
+  line-height: 36px;
+}

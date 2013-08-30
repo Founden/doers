@@ -1,6 +1,6 @@
 .project {
   text-align: center;
-  padding: 60px 0;
+  margin: 60px 0;
 }
 
 .project-title {
@@ -13,11 +13,4 @@
   font-size: em(28);
   line-height: 1.25em;
   font-weight: 300;
-}
-
-.project-collaborators {
-  width: 60%;
-  margin: 2em auto 0 auto;
-  padding: 2em 0 0 0;
-  border-top: 1px solid tint($black, 70%);
 }

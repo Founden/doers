@@ -8,11 +8,10 @@
   float: left;
   width: 215px;
   margin: 0 20px 20px 0;
-  border: 1px solid tint($black, 60%);
+  border: 1px solid $gray-4;
   border-radius: 3px;
-  background: tint($black, 90%);
-  box-shadow: 0 1px 1px rgba($black, 0.1);
-  @include animation(sort 1s);
+  background: $white;
+  box-shadow: 0 1px 1px $gray-3;
 
   &:nth-of-type(4n) {
     margin-right: 0;
@@ -48,7 +47,7 @@
 
 .board-item-progress {
   height: 5px;
-  background: tint($black, 80%);
+  background: $gray-2;
 }
 
 .board-item-progress-bar {
@@ -59,15 +58,15 @@
 
 .board-item-user {
   position: relative;
-  padding: 15px 20px 15px 66px;
+  padding: 15px 15px 15px 61px;
   font-size: em(12);
-  color: tint($black, 50%);
-  background: $white;
+  color: $gray-6;
+  @include linear-gradient($white, $gray-1);
 }
 
 .board-item-user-image {
   position: absolute;
-  left: 20px;
+  left: 15px;
   top: 15px;
   width: 36px;
   height: 36px;

@@ -1,5 +1,9 @@
 .collaborators {
   @include clearfix;
+  width: 60%;
+  margin: 2em auto 0 auto;
+  padding: 2em 0 0 0;
+  border-top: 1px solid $gray-2;
   text-align: center;
 }
 

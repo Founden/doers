@@ -1,31 +1,32 @@
-.board{:bind => {:id => 'board.slug'}}
-  .content-wrap
+.header
+  .header-user
+    %img.header-user-image{:bind => {:src => 'board.user.avatarUrl'}}
+    = _('Updated')
+    {{board.lastUpdate}}
+    = _('by')
+    {{board.user.nicename}}
+  .header-progress-wrap
+    .header-progress
+      .header-progress-bar
+      .header-progress-cards
+        1 / {{board.cardsCount}}
+  .header-view-mode
+    %a.header-view-mode-btn
+      = _('View mode')
+
+.content-wrap
+
+  .board{:bind => {:id => 'board.slug'}}
     %h1.board-title
       {{board.title}}
     .board-description
       {{board.description}}
-    %ul.board-collaborators.collaborators
+    %ul.collaborators
       %li.collaborators-user
         %img.collaborators-user-image{:bind => {:src => 'board.user.avatarUrl'}}
       %li.collaborators-user
         %a.collaborators-user-add{:href => '#'}
-    .board-status
-      .board-user
-        %img.board-user-image{:bind => {:src => 'board.user.avatarUrl'}}
-        = _('Updated')
-        {{board.lastUpdate}}
-        = _('by')
-        {{board.user.nicename}}
-      .board-progress-wrap
-        .board-progress
-          .board-progress-bar
-          .board-progress-cards
-            1 / {{board.cardsCount}}
-      .board-view-mode
-        %a.board-view-mode-btn
-          = _('View mode')
 
-.content-wrap
   {{#if content.isLoaded}}
   {{collection view.cardsView contentBinding=arrangedContent}}
   {{/if}}
