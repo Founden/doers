@@ -1,8 +1,8 @@
 .boards {
-  @include animation(fade-in 0.4s, slide-down 0.4s);
+  @include clearfix;
 }
 
-.boards-item {
+.board-item {
   @include box-sizing(border-box);
   overflow: hidden;
   float: left;
@@ -12,6 +12,7 @@
   border-radius: 3px;
   background: tint($black, 90%);
   box-shadow: 0 1px 1px rgba($black, 0.1);
+  @include animation(sort 1s);
 
   &:nth-of-type(4n) {
     margin-right: 0;
@@ -24,19 +25,19 @@
   &.completed {
     background: $green;
 
-    .boards-item-cover-title {
+    .board-item-cover-title {
       color: $white;
     }
   }
 }
 
-.boards-item-cover {
+.board-item-cover {
   position: relative;
   padding: 20px;
   height: 180px;
 }
 
-.boards-item-cover-title {
+.board-item-cover-title {
   position: absolute;
   left: 20px;
   bottom: 20px;
@@ -45,18 +46,18 @@
   font-weight: 600;
 }
 
-.boards-item-progress {
+.board-item-progress {
   height: 5px;
   background: tint($black, 80%);
 }
 
-.boards-item-progress-bar {
+.board-item-progress-bar {
   width: 50%;
   height: 100%;
   background: $green;
 }
 
-.boards-item-user {
+.board-item-user {
   position: relative;
   padding: 15px 20px 15px 66px;
   font-size: em(12);
@@ -64,7 +65,7 @@
   background: $white;
 }
 
-.boards-item-user-image {
+.board-item-user-image {
   position: absolute;
   left: 20px;
   top: 15px;
@@ -73,7 +74,7 @@
   border-radius: 50%;
 }
 
-.boards-item-user-activity {
+.board-item-user-activity {
   position: absolute;
   left: 10px;
   bottom: 10px;
