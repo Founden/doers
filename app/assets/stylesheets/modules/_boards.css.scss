@@ -16,6 +16,14 @@
   &:nth-of-type(4n+1) {
     clear: left;
   }
+
+  &.completed {
+    background: $green;
+
+    .boards-item-cover-title {
+      color: $white;
+    }
+  }
 }
 
 .boards-item-cover {
