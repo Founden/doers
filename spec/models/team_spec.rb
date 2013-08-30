@@ -5,6 +5,12 @@ describe Team do
   it { should have_many(:boards) }
   it { should have_many(:users).through(:boards) }
 
+  %w(website angel_list).each do |attr|
+    it { should allow_value(Faker::Internet.uri(:http)).for(attr) }
+    it { should allow_value(Faker::Internet.uri(:https)).for(attr) }
+    it { should_not allow_value(Faker::Lorem.sentence).for(attr) }
+  end
+
   context 'instance' do
     subject(:team) { Fabricate(:team) }
 
