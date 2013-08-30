@@ -1,0 +1,93 @@
+.board {
+  padding: 80px 0 40px 0;
+  background: $blue;
+  color: $white;
+  text-align: center;
+}
+
+.board-title {
+  font-size: em(36);
+  line-height: 1.25em;
+  margin: 0 0 1em 0;
+}
+
+.board-description {
+  font-size: em(24);
+  line-height: 1.25em;
+}
+
+.board-collaborators {
+  width: 60%;
+  margin: 3em auto;
+}
+
+.board-status {
+  @include clearfix;
+  overflow: hidden;
+  border-radius: 3px;
+  background: $white;
+  text-align: left;
+}
+
+.board-status-user {
+  @include box-sizing(border-box);
+  position: relative;
+  float: left;
+  width: 25%;
+  padding: 15px 15px 15px 61px;
+  font-size: em(12);
+  color: tint($black, 50%);
+  border-right: 1px solid tint($black, 90%);
+}
+
+.board-status-user-image {
+  position: absolute;
+  left: 15px;
+  top: 15px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+}
+
+.board-status-progress-wrap {
+  @include box-sizing(border-box);
+  float: left;
+  width: 55%;
+  padding: 15px;
+  border-right: 1px solid tint($black, 90%);
+}
+
+.board-status-progress {
+  width: 100%;
+  background: tint($black, 80%);
+  line-height: 36px;
+  height: 36px;
+  position: relative;
+}
+
+.board-status-progress-bar {
+  width: 50%;
+  height: 100%;
+  background: $green;
+}
+
+.board-status-progress-cards {
+  position: absolute;
+  left: 10px;
+  top: 0;
+  font-weight: 700;
+}
+
+.board-status-view {
+  @include box-sizing(border-box);
+  float: left;
+  width: 20%;
+}
+
+.board-status-view-btn {
+  display: block;
+  padding: 15px;
+  font-size: em(14);
+  line-height: 36px;
+  @include linear-gradient($white, tint($black, 90%));
+}

@@ -1,0 +1,25 @@
+.collaborators {
+  @include clearfix;
+  text-align: center;
+}
+
+.collaborators-user {
+  display: inline-block;
+  margin: 0 5px;
+}
+
+.collaborators-user-image {
+  display: block;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+}
+
+.collaborators-user-add {
+  @include box-sizing(border-box);
+  display: block;
+  width: 48px;
+  height: 48px;
+  border: 4px solid $black;
+  border-radius: 50%;
+}
