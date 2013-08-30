@@ -1,27 +1,27 @@
-#project{:bind => {:class => 'content.slug'}}
+.main-content-wrap
 
-  %header.header
-    .header-content
-      %h1
+  .project{:bind => {:id => 'content.slug'}}
+    .project-header
+      %h1.project-header-title
         {{content.title}}
-      %p
+      .project-header-description
         {{content.description}}
-      %p.header-links
-        %a{:bind => {:href => 'content.website'}}
-          {{website content.website}}
+      %ul.project-header-collaborators
 
-  .content
-    {{#if content.boards}}
-    .boards
-      {{#each content.boards}}
-      .board{:bind => {:id => 'slug'}}
-        {{partial 'partials/board'}}
-        {{partial 'partials/delete_confirmation'}}
-      {{/each}}
-    {{else}}
-    .public-boards
-      {{#each controller.currentUser.publicBoards}}
-      .board{:bind => {:id => 'slug'}}
-        {{partial 'partials/public_board'}}
-      {{/each}}
-    {{/if}}
+  {{#if content.boards}}
+  .boards
+    {{#each content.boards}}
+    .boards-item{:bind => {:id => 'slug'}}
+      .boards-item-cover
+        %h3.boards-item-cover-title
+          {{title}}
+      .boards-item-progress
+        .boards-item-progress-bar
+      .boards-item-author
+        %img.boards-item-author-image{:bind => {:src => 'user.avatarUrl'}}
+        = _('updated')
+        {{lastUpdate}}
+        = _('by')
+        {{user.nicename}}
+    {{/each}}
+  {{/if}}

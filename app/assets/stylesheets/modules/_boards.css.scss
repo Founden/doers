@@ -1,0 +1,62 @@
+.boards-item {
+  @include box-sizing(border-box);
+  overflow: hidden;
+  float: left;
+  width: 215px;
+  margin: 0 20px 20px 0;
+  border: 1px solid tint($black, 60%);
+  border-radius: 3px;
+  background: tint($black, 90%);
+  box-shadow: 0 1px 1px rgba($black, 0.1);
+
+  &:nth-of-type(4n) {
+    margin-right: 0;
+  }
+
+  &:nth-of-type(4n+1) {
+    clear: left;
+  }
+}
+
+.boards-item-cover {
+  position: relative;
+  padding: 20px;
+  height: 180px;
+}
+
+.boards-item-cover-title {
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
+  font-size: em(24);
+  line-height: 1.25em;
+  font-weight: 600;
+}
+
+.boards-item-progress {
+  height: 5px;
+  background: tint($black, 80%);
+}
+
+.boards-item-progress-bar {
+  width: 50%;
+  height: 100%;
+  background: $green;
+}
+
+.boards-item-author {
+  position: relative;
+  padding: 15px 20px 15px 77px;
+  font-size: em(12);
+  color: tint($black, 50%);
+  background: $white;
+}
+
+.boards-item-author-image {
+  position: absolute;
+  left: 20px;
+  top: 15px;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+}
