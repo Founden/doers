@@ -1,0 +1,56 @@
+.cards {
+  @include clearfix;
+}
+
+.card-item {
+  @include box-sizing(border-box);
+  float: left;
+  position: relative;
+  overflow: hidden;
+  width: 300px;
+  height: 300px;
+  margin: 0 10px 10px 0;
+  padding: 15px 20px;
+  border: 1px solid tint($black, 60%);
+  border-radius: 3px;
+  background: $white;
+  box-shadow: 0 1px 1px rgba($black, 0.1);
+
+  &:nth-of-type(3n) {
+    margin-right: 0;
+  }
+
+  &:nth-of-type(3n+1) {
+    clear: left;
+  }
+}
+
+.card-item-title {
+  font-size: em(20);
+  line-height: 1.25em;
+  margin: 0 0 0.5em 0;
+  font-weight: 600;
+}
+
+.card-item-user {
+  @include box-sizing(border-box);
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 15px 15px 15px 61px;
+  border-top: 1px solid tint($black, 90%);
+  @include linear-gradient($white, tint($black, 95%));
+  box-shadow: 0 0 30px 30px $white;
+  font-size: em(12);
+  color: tint($black, 50%);
+}
+
+.card-item-user-image {
+  position: absolute;
+  left: 15px;
+  top: 15px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+}

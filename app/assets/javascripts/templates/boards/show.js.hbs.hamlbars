@@ -10,24 +10,22 @@
       %li.collaborators-user
         %a.collaborators-user-add{:href => '#'}
     .board-status
-      .board-status-user
-        %img.board-status-user-image{:bind => {:src => 'board.user.avatarUrl'}}
+      .board-user
+        %img.board-user-image{:bind => {:src => 'board.user.avatarUrl'}}
         = _('Updated')
         {{board.lastUpdate}}
         = _('by')
         {{board.user.nicename}}
-      .board-status-progress-wrap
-        .board-status-progress
-          .board-status-progress-bar
-          .board-status-progress-cards
+      .board-progress-wrap
+        .board-progress
+          .board-progress-bar
+          .board-progress-cards
             1 / {{board.cardsCount}}
-      .board-status-view
-        %a.board-status-view-btn
+      .board-view-mode
+        %a.board-view-mode-btn
           = _('View mode')
 
 .content-wrap
   {{#if content.isLoaded}}
   {{collection view.cardsView contentBinding=arrangedContent}}
-  {{else}}
-  = _('Loading...')
   {{/if}}
