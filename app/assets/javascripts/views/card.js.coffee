@@ -1,5 +1,5 @@
 Doers.CardView = Ember.ContainerView.extend
-  classNames: ['card']
+  classNames: ['card-item']
   classNameBindings: [
     'typeClassName', 'isEditing:edit', 'content.style', 'content.slug']
   childViews: ['settingsView', 'contentView', 'editView']

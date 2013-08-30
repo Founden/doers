@@ -1,15 +1,15 @@
-{{view view.toggleButton}}
-.dropdown{:bind => {:id => 'view.content.dropdownSlug'}}
-  %ul.options
-    {{#view view.editButton}}
-    =  _('Edit')
-    {{/view}}
-    {{#view view.deleteButton}}
-    = _('Remove')
-    {{/view}}
-  %ul.options-style
-    {{#each style in view.styles}}
-    {{#view view.changeStyleButton styleBinding='style'}}
-    {{view.styleChar}}
-    {{/view}}
-    {{/each}}
+/ {{view view.toggleButton}}
+/ .dropdown{:bind => {:id => 'view.content.dropdownSlug'}}
+/   %ul.options
+/     {{#view view.editButton}}
+/     =  _('Edit')
+/     {{/view}}
+/     {{#view view.deleteButton}}
+/     = _('Remove')
+/     {{/view}}
+/   %ul.options-style
+/     {{#each style in view.styles}}
+/     {{#view view.changeStyleButton styleBinding='style'}}
+/     {{view.styleChar}}
+/     {{/view}}
+/     {{/each}}
