@@ -1,3 +1,7 @@
+.boards {
+  @include animation(fade-in 0.4s, slide-down 0.4s);
+}
+
 .boards-item {
   @include box-sizing(border-box);
   overflow: hidden;
