@@ -17,8 +17,9 @@
           {{title}}
       .boards-item-progress
         .boards-item-progress-bar
-      .boards-item-author
-        %img.boards-item-author-image{:bind => {:src => 'user.avatarUrl'}}
+      .boards-item-user
+        %img.boards-item-user-image{:bind => {:src => 'user.avatarUrl'}}
+        %span.boards-item-user-activity
         = _('updated')
         {{lastUpdate}}
         = _('by')
