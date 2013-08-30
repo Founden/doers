@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 20130827202659) do
 
   add_index "activities", ["board_id"], name: "index_activities_on_board_id", using: :btree
   add_index "activities", ["project_id"], name: "index_activities_on_project_id", using: :btree
+  add_index "activities", ["slug"], name: "index_activities_on_slug", using: :btree
   add_index "activities", ["trackable_id", "trackable_type"], name: "index_activities_on_trackable_id_and_trackable_type", using: :btree
   add_index "activities", ["user_id"], name: "index_activities_on_user_id", using: :btree
 
@@ -90,6 +91,7 @@ ActiveRecord::Schema.define(version: 20130827202659) do
   end
 
   add_index "cards", ["board_id"], name: "index_cards_on_board_id", using: :btree
+  add_index "cards", ["parent_card_id"], name: "index_cards_on_parent_card_id", using: :btree
   add_index "cards", ["position"], name: "index_cards_on_position", using: :btree
   add_index "cards", ["project_id"], name: "index_cards_on_project_id", using: :btree
   add_index "cards", ["type"], name: "index_cards_on_type", using: :btree
