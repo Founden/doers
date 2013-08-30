@@ -5,7 +5,7 @@
       {{content.title}}
     .project-description
       {{content.description}}
-    %ul.project-collaborators.collaborators
+    %ul.collaborators
       %li.collaborators-user
         %img.collaborators-user-image{:bind => {:src => 'content.user.avatarUrl'}}
       %li.collaborators-user

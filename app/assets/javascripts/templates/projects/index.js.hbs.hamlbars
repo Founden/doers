@@ -1,26 +1,19 @@
-#projects
+.content-wrap
 
-  %header.header
-    .header-content
-      %h1
-        = _('Available Projects')
-    .buttons
-      {{#linkTo 'projects.import' id='projects-import' class='button' title="#{_('Import from Angel List')}"}}
-      = _('Import from Angel List')
+  .dashboard
+    %h1.dashboard-title
+      = _('Your projects')
+    {{#linkTo 'projects.import' id='projects-import' title="#{_('Import from Angel List')}"}}
+    = _('Import from Angel List')
+    {{/linkTo}}
+
+  .projects
+    {{#each content}}
+    .project-item{:bind => {:id => 'slug'}}
+      {{#linkTo 'projects.show' this}}
+      %h2.project-item-title
+        {{title}}
+      .project-item-description
+        {{description}}
       {{/linkTo}}
-
-  .content
-    .projects
-      {{#each content}}
-      .project{:bind => {:id => 'slug'}}
-        {{#linkTo 'projects.show' this}}
-        {{#if logo.attachment}}
-        %img{:bind => {:title => 'title', :src => 'logo.attachment'}}
-        {{/if}}
-        %h2 {{title}}
-        {{/linkTo}}
-        %p.description {{description}}
-        %footer {{website website}}
-
-        {{partial 'partials/delete_confirmation'}}
-      {{/each}}
+    {{/each}}

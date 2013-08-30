@@ -1,32 +1,29 @@
-#importer
+.content-wrap
 
-  %header.header
+  .dashboard
     {{#view view.statusView}}
-    .header-content
-      {{#if view.hasSelections}}
-      %h1
-        = _('You have selected {{selectedStartups.length}} project(s)')
-      .buttons
-        %button#run-import.button{:_action => 'doImport'}
-          = _('Import selected')
+    {{#if view.hasSelections}}
+    %h1.dashboard-title
+      = _('You have selected {{selectedStartups.length}} project(s)')
+    %a#run-import{:_action => 'doImport'}
+      = _('Import selected')
+    {{else}}
+    %h1.dashboard-title
+      {{#if content.length}}
+      = _('Select projects to import')
       {{else}}
-      %h1
-        {{#if content.length}}
-        = _('Select projects to import')
-        {{else}}
-        = _('Loading projects from Angel List... {{content.length}} found')
-        {{/if}}
+      = _('Loading projects from Angel List')
       {{/if}}
+    {{/if}}
     {{/view}}
 
-  .content
-    .projects
-      {{#each startup in content}}
-      {{#view view.startupView contentBinding=startup}}
-      %img{:bind => {:src => 'startup.logoUrl', :alt => 'startup.title'}}/
-      %h2 {{startup.title}}
-      %p.description {{startup.description}}
-      %footer
-        {{website startup.website}}
-      {{/view}}
-      {{/each}}
+  .projects
+    {{#each content}}
+    {{#view view.startupView contentBinding=this}}
+    %h2.project-item-title
+      {{title}}
+    .project-item-description
+      {{description}}
+    {{/view}}
+    {{/each}}
+
