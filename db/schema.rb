@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130827202659) do
+ActiveRecord::Schema.define(version: 20130829142115) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 20130827202659) do
 
   add_index "activities", ["board_id"], name: "index_activities_on_board_id", using: :btree
   add_index "activities", ["project_id"], name: "index_activities_on_project_id", using: :btree
+  add_index "activities", ["slug"], name: "index_activities_on_slug", using: :btree
   add_index "activities", ["trackable_id", "trackable_type"], name: "index_activities_on_trackable_id_and_trackable_type", using: :btree
   add_index "activities", ["user_id"], name: "index_activities_on_user_id", using: :btree
 
@@ -64,12 +65,14 @@ ActiveRecord::Schema.define(version: 20130827202659) do
     t.string   "status"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "team_id"
   end
 
   add_index "boards", ["author_id"], name: "index_boards_on_author_id", using: :btree
   add_index "boards", ["parent_board_id"], name: "index_boards_on_parent_board_id", using: :btree
   add_index "boards", ["project_id"], name: "index_boards_on_project_id", using: :btree
   add_index "boards", ["status"], name: "index_boards_on_status", using: :btree
+  add_index "boards", ["team_id"], name: "index_boards_on_team_id", using: :btree
   add_index "boards", ["user_id"], name: "index_boards_on_user_id", using: :btree
 
   create_table "cards", force: true do |t|
@@ -90,6 +93,7 @@ ActiveRecord::Schema.define(version: 20130827202659) do
   end
 
   add_index "cards", ["board_id"], name: "index_cards_on_board_id", using: :btree
+  add_index "cards", ["parent_card_id"], name: "index_cards_on_parent_card_id", using: :btree
   add_index "cards", ["position"], name: "index_cards_on_position", using: :btree
   add_index "cards", ["project_id"], name: "index_cards_on_project_id", using: :btree
   add_index "cards", ["type"], name: "index_cards_on_type", using: :btree
@@ -192,6 +196,17 @@ ActiveRecord::Schema.define(version: 20130827202659) do
   end
 
   add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
+
+  create_table "teams", force: true do |t|
+    t.string   "title"
+    t.string   "description"
+    t.string   "slug"
+    t.hstore   "data"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "teams", ["slug"], name: "index_teams_on_slug", unique: true, using: :btree
 
   create_table "users", force: true do |t|
     t.string   "name"

@@ -9,8 +9,8 @@ describe User do
   it { should have_many(:authored_boards).dependent('') }
   it { should have_many(:shared_boards).through(:memberships) }
   it { should have_many(:cards).dependent('') }
-  it { should have_many(:comments).dependent(:destroy) }
-  it { should have_many(:assets).dependent(:destroy) }
+  it { should have_many(:comments) }
+  it { should have_many(:assets) }
   it { should have_many(:images).dependent('') }
   it { should have_many(:activities).dependent('') }
   it { should have_many(:memberships).dependent(:destroy) }

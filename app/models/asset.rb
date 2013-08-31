@@ -21,7 +21,3 @@ class Asset < ActiveRecord::Base
     self.description = Sanitize.clean(self.description)
   end
 end
-
-require_relative 'asset/logo'
-require_relative 'asset/image'
-require_relative 'asset/cover'
