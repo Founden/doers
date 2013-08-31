@@ -1,6 +1,6 @@
 Fabricator(:project) do
   title         { sequence(:title)       { Faker::Company.name } }
-  description   { sequence(:description) { Faker::Lorem.paragraph } }
+  description   { sequence(:description) { Faker::Company.catch_phrase } }
   website       { sequence(:www)         { Faker::Internet.uri(:https) } }
   user
   after_create do |project|

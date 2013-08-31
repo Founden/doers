@@ -110,6 +110,7 @@ Doers.CardsController = Ember.ArrayController.extend
       board: object.get('board')
       assetableType: object.get('assetableType')
       assetableId: object.get('id')
+      type: 'Image'
     asset.save().then =>
       object.set(data.attr, asset)
 
