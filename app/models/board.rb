@@ -19,8 +19,10 @@ class Board < ActiveRecord::Base
   has_many :cards, :dependent => :destroy
   has_many :comments, :dependent => :destroy
   has_many :activities
-  has_many :memberships, :dependent => :destroy
+  has_many(
+    :memberships, :dependent => :destroy, :class_name => Membership::Board)
   has_many :members, :through => :memberships, :source => :user
+  has_many :invitations, :dependent => :destroy, :as => :invitable
   # Tagging support
   has_many_tags
 

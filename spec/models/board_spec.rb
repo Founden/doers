@@ -14,6 +14,7 @@ describe Board do
   it { should have_many(:memberships).dependent(:destroy) }
   it { should have_many(:members) }
   it { should have_many(:tags) }
+  it { should have_many(:invitations).dependent(:destroy) }
   it { should validate_presence_of(:author) }
   it { should validate_presence_of(:title) }
   it { should ensure_inclusion_of(:status).in_array(Board::STATES) }
@@ -100,7 +101,7 @@ describe Board do
     context '#branch_for' do
       let(:brancher) { Fabricate(:user_with_projects, :projects_count => 1) }
       let(:project) { brancher.projects.first }
-      let(:board) { Fabricate(:persona_board) }
+      let(:board) { Fabricate(:public_board) }
       let(:title) { Faker::Lorem.sentence }
       let(:params) { {:title => title} }
 
