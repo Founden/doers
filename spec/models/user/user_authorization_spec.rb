@@ -124,7 +124,7 @@ describe User do
 
       context 'within a board owned by the user' do
         let(:board) { Fabricate(:board, :user => user) }
-        let(:target) { Fabricate('card/photo', :board => board).image }
+        let(:target) { board.cover }
         before { user.should_receive(:assets_to).and_call_original }
 
         it { should be_true }
@@ -143,7 +143,7 @@ describe User do
 
       context 'within a board not owned by the user' do
         let(:board) { Fabricate(:board) }
-        let(:target) { Fabricate('card/photo', :board => board).image }
+        let(:target) { board.cover }
         before { user.should_receive(:assets_to).and_call_original }
 
         it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
