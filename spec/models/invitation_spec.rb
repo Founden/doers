@@ -32,6 +32,13 @@ describe Invitation do
   context 'instance' do
     let(:invitation) { Fabricate(:invitation) }
 
+    context 'sends an email on creation', :use_truncation do
+      before { UserMailer.should_receive(:invite) }
+      subject { invitation }
+
+      it { should be_valid }
+    end
+
     context '#activities', :use_truncation do
       subject { invitation.activities }
 

@@ -76,7 +76,7 @@ Fabricator(:board_with_cards, :from => :branched_board) do
       Fabricate(:board_invitation, :user => board.user, :invitable => board)
     end
     [0, 1, 2].sample.times do
-      Fabricate(:invitee, :user => board.user, :invitable => board)
+      Fabricate(:board_invitee, :user => board.user, :invitable => board)
     end
   end
 end

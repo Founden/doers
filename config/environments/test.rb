@@ -31,6 +31,9 @@ Doers::Application.configure do
   # ActionMailer::Base.deliveries array.
   config.action_mailer.delivery_method = :test
 
+  # Setup default url options for mail
+  config.action_mailer.default_url_options = { :host => 'lvh.me' }
+
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
 end
