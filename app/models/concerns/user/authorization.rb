@@ -22,6 +22,9 @@ module User::Authorization
       !cards_to(action).where(:id => target).empty?
     when 'Activity'
       !activities_to(action).where(:id => target).empty?
+    when /Membership/
+      # Just check if we are the creators or users of it
+      target.creator_id == self.id or target.user_id == self.id
     else
       # Just check if we are the owners
       target.respond_to?(:user_id) and target.user_id == self.id
