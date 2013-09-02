@@ -24,6 +24,7 @@ class User < ActiveRecord::Base
   has_many :images, :class_name => Asset::Image
   has_many :activities
   has_many :memberships, :dependent => :destroy
+  has_many :invitations, :dependent => :destroy
 
   has_many :branched_boards, :class_name => Board
   has_many :authored_boards, :foreign_key => :author_id, :class_name => Board

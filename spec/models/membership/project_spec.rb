@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe Membership::Project do
+  it { should have_many(:invitations) }
   it { should validate_presence_of(:project) }
 
   context 'of an user to his own project' do
