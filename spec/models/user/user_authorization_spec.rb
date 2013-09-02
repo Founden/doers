@@ -124,7 +124,7 @@ describe User do
 
       context 'within a board owned by the user' do
         let(:board) { Fabricate(:board, :user => user) }
-        let(:target) { Fabricate('card/photo', :board => board).image }
+        let(:target) { board.cover }
         before { user.should_receive(:assets_to).and_call_original }
 
         it { should be_true }
@@ -143,7 +143,7 @@ describe User do
 
       context 'within a board not owned by the user' do
         let(:board) { Fabricate(:board) }
-        let(:target) { Fabricate('card/photo', :board => board).image }
+        let(:target) { board.cover }
         before { user.should_receive(:assets_to).and_call_original }
 
         it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
@@ -348,6 +348,71 @@ describe User do
 
           it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
           it_behaves_like 'is not writable'
+        end
+      end
+    end
+
+    context 'when target is a team' do
+      let(:team) { Fabricate(:team) }
+      let(:target) { team }
+
+      it { should be_true }
+      it_behaves_like 'is not writable'
+
+      context 'or a set of such' do
+        let(:target) { Team.where(:id => team.id) }
+
+        it { should be_true }
+        it_behaves_like 'is not writable'
+      end
+
+      context 'or a team banner' do
+        let(:target) { team.banner }
+
+        it { should be_true }
+        it_behaves_like 'is not writable'
+
+        context 'or a set of such' do
+          let(:target) { Asset::Banner.where(:assetable => team) }
+
+          it { should be_true }
+          it_behaves_like 'is not writable'
+        end
+      end
+    end
+
+    context 'when target is a membership' do
+      let(:target) { Fabricate('membership/project') }
+
+      it { expect{ subject }.to raise_error(ActiveRecord::RecordNotFound) }
+      it_behaves_like 'is not writable'
+      it_behaves_like 'no error is raised'
+
+      context 'created by user' do
+        let(:target) { Fabricate('membership/project', :creator => user) }
+
+        it { should be_true }
+        it_behaves_like 'is writable'
+
+        context 'or a set of such' do
+          let(:target) { Membership.where(:creator_id => user.id) }
+
+          it { should be_true }
+          it_behaves_like 'is writable'
+        end
+      end
+
+      context 'of the user' do
+        let(:target) { Fabricate('membership/project', :user => user) }
+
+        it { should be_true }
+        it_behaves_like 'is writable'
+
+        context 'or a set of such' do
+          let(:target) { Membership.where(:user_id => user.id) }
+
+          it { should be_true }
+          it_behaves_like 'is writable'
         end
       end
     end
