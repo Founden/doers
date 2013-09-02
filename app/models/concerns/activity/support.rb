@@ -24,6 +24,11 @@ module Activity::Support
         params['user_id'] = params['creator_id']
         params['trackable_title'] = self.user.nicename
       end
+      if self.is_a?(Invitation)
+        params['trackable_title'] = self.email
+        params['project_id'] =self.invitable_id if self.invitable.is_a?(Project)
+        params['board_id'] = self.invitable_id if self.invitable.is_a?(Board)
+      end
       params.except('author_id', 'creator_id', 'title')
     end
 
