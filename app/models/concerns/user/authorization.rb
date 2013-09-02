@@ -12,7 +12,9 @@ module User::Authorization
     klass = target.respond_to?(:model) ? target.model : target.class
 
     can = case klass.to_s
-    when /Asset|Image|Logo|Cover/
+    when /Team|Banner/
+      action.to_sym != :write
+    when /Image|Logo|Cover|Asset/
       !assets_to(action).where(:id => target).empty?
     when 'Board'
       !boards_to(action).where(:id => target).empty?

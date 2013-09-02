@@ -352,6 +352,35 @@ describe User do
       end
     end
 
+    context 'when target is a team' do
+      let(:team) { Fabricate(:team) }
+      let(:target) { team }
+
+      it { should be_true }
+      it_behaves_like 'is not writable'
+
+      context 'or a set of such' do
+        let(:target) { Team.where(:id => team.id) }
+
+        it { should be_true }
+        it_behaves_like 'is not writable'
+      end
+
+      context 'or a team banner' do
+        let(:target) { team.banner }
+
+        it { should be_true }
+        it_behaves_like 'is not writable'
+
+        context 'or a set of such' do
+          let(:target) { Asset::Banner.where(:assetable => team) }
+
+          it { should be_true }
+          it_behaves_like 'is not writable'
+        end
+      end
+    end
+
     context 'when target is an object with an user_id' do
       let(:target) { Fabricate(:project, :user => user) }
 
