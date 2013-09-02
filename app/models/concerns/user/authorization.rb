@@ -12,7 +12,9 @@ module User::Authorization
     klass = target.respond_to?(:model) ? target.model : target.class
 
     can = case klass.to_s
-    when /Asset|Image|Logo/
+    when /Team|Banner/
+      action.to_sym != :write
+    when /Image|Logo|Cover|Asset/
       !assets_to(action).where(:id => target).empty?
     when 'Board'
       !boards_to(action).where(:id => target).empty?
@@ -20,6 +22,9 @@ module User::Authorization
       !cards_to(action).where(:id => target).empty?
     when 'Activity'
       !activities_to(action).where(:id => target).empty?
+    when /Membership/
+      # Just check if we are the creators or users of it
+      target.creator_id == self.id or target.user_id == self.id
     else
       # Just check if we are the owners
       target.respond_to?(:user_id) and target.user_id == self.id
