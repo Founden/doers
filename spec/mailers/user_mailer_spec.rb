@@ -11,8 +11,10 @@ describe UserMailer do
   shared_examples 'an email from us' do
     its(:subject) { should include(Doers::Config.app_name) }
     its(:to) { should include(user.email) }
-    its(:from) { should include(Doers::Config.default_email) }
-    its(:return_path) { should include(Doers::Config.contact_email) }
+    its(:from) { should include(
+      Mail::Address.new(Doers::Config.default_email).address) }
+    its(:return_path) { should include(
+      Mail::Address.new(Doers::Config.contact_email).address) }
   end
 
   context '#confirmed' do
