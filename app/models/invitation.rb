@@ -26,4 +26,12 @@ class Invitation < ActiveRecord::Base
     self.membership_type ||= self.invitable.memberships.klass if self.invitable
   end
   after_commit :generate_activity, :on => [:create]
+  after_commit :email_invite, :on => [:create]
+
+  private
+
+    # Emails the invitation
+    def email_invite
+      UserMailer.delay.invite(self)
+    end
 end
