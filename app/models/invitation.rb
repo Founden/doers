@@ -23,7 +23,8 @@ class Invitation < ActiveRecord::Base
   validates_inclusion_of(:invitable_type, :in => ALLOWED_INVITABLES)
   # Callbacks
   before_validation do
-    self.membership_type ||= self.invitable.memberships.klass if self.invitable
+    self.membership_type ||=
+      self.invitable.memberships.klass.name if self.invitable
   end
   after_commit :generate_activity, :on => [:create]
   after_commit :email_invite, :on => [:create]
