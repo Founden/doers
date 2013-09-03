@@ -39,6 +39,34 @@ describe Invitation do
       it { should be_valid }
     end
 
+    context 'validations' do
+      let(:invitable) { }
+      let(:user) { Fabricate(:user) }
+
+      subject(:invitation) {
+        Fabricate.build(:invitation, :user => user, :invitable => invitable) }
+
+      context 'invitable is not included in user projects' do
+        let(:invitable) { Fabricate(:project) }
+        it { should_not be_valid }
+
+        context 'and when included' do
+          let(:user) { invitable.user }
+          it { should be_valid }
+        end
+      end
+
+      context 'invitable is not included in user boards' do
+        let(:invitable) { Fabricate(:board) }
+        it { should_not be_valid }
+
+        context 'and when included' do
+          let(:user) { invitable.author }
+          it { should be_valid }
+        end
+      end
+    end
+
     context '#activities', :use_truncation do
       subject { invitation.activities }
 
