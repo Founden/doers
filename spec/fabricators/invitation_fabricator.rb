@@ -26,7 +26,7 @@ Fabricator(:project_invitee, :from => :project_invitation) do
   after_create do |inv, trans|
     invitee = User.find_by(:email => inv.email)
     inv.membership_id = Fabricate('membership/project',
-      :creator => inv.user, :user => invitee, :board => inv.invitable).id
+      :creator => inv.user, :user => invitee, :project => inv.invitable).id
     inv.save
   end
 end
