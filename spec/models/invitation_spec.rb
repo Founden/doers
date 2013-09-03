@@ -18,7 +18,7 @@ describe Invitation do
   it { should_not allow_value(Faker::Lorem.word).for(:invitable_type) }
 
   context 'when invitable is present and membership type is missing' do
-    subject{ Fabricate.build(:project_invitation, :membership => nil) }
+    subject{ Fabricate.build(:project_invitation, :membership_type => '') }
     it { should_not be_valid }
   end
 
