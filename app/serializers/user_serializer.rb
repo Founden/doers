@@ -12,6 +12,7 @@ class UserSerializer < ActiveModel::Serializer
   has_many :branched_boards, :embed => :id
   has_many :shared_boards, :embed => :id
   has_many :activities, :embed => :id
+  has_many :invitations, :embed => :id
 
   # Returns available public boards
   def public_board_ids
@@ -42,4 +43,5 @@ class UserSerializer < ActiveModel::Serializer
   alias_method :include_shared_boards?, :is_current_user?
   alias_method :include_branched_boards?, :is_current_user?
   alias_method :include_activities?, :is_current_user?
+  alias_method :include_invitations?, :is_current_user?
 end
