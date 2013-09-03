@@ -5,19 +5,29 @@ end
 
 Fabricator(:project_invitation, :from => :invitation) do
   membership_type Membership::Project.name
-  invitable(:fabricator => :project)
+  invitable { |attrs| Fabricate(:project, :user => attrs[:user]) }
 end
 
 Fabricator(:board_invitation, :from => :invitation) do
   membership_type Membership::Board.name
-  invitable(:fabricator => :board)
+  invitable { |attrs|
+    prj = Fabricate(:project, :user => attrs[:user])
+    Fabricate(:branched_board, :user => attrs[:user], :project => prj)
+  }
+end
+
+Fabricator(:public_board_invitation, :from => :invitation) do
+  membership_type Membership::Board.name
+  invitable { |attrs| Fabricate(:public_board, :author => attrs[:user]) }
 end
 
 Fabricator(:project_invitee, :from => :project_invitation) do
   email { Fabricate(:user).email }
   after_create do |inv, trans|
     invitee = User.find_by(:email => inv.email)
-    Fabricate('membership/project', :creator => inv.user, :user => invitee)
+    inv.membership_id = Fabricate('membership/project',
+      :creator => inv.user, :user => invitee, :board => inv.invitable).id
+    inv.save
   end
 end
 
@@ -25,6 +35,8 @@ Fabricator(:board_invitee, :from => :board_invitation) do
   email { Fabricate(:user).email }
   after_create do |inv, trans|
     invitee = User.find_by(:email => inv.email)
-    Fabricate('membership/board', :creator => inv.user, :user => invitee)
+    inv.membership_id = Fabricate('membership/board',
+      :creator => inv.user, :user => invitee, :board => inv.invitable).id
+    inv.save
   end
 end
