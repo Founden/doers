@@ -65,7 +65,7 @@ describe Api::V1::BoardsController do
       its(:branches_count) { should eq(board.branches.count) }
       its(:cards_count) { should eq(board.cards.count) }
       its('activity_ids.size') { should eq(board.activities.count) }
-      its('member_ids.size') { should eq(board.members.count) }
+      its('membership_ids.size') { should eq(board.memberships.count) }
 
       context 'for #parent_board' do
         let(:board_id) { board.parent_board.id }
