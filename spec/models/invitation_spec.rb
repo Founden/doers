@@ -9,12 +9,14 @@ describe Invitation do
   it { should validate_presence_of(:email) }
   it { should validate_uniqueness_of(:email) }
 
-  it { should allow_value('Membership::Project').for(:membership_type) }
-  it { should allow_value('Membership::Board').for(:membership_type) }
+  Invitation::ALLOWED_MEMBERSHIPS.each do |membership_type|
+    it { should allow_value(membership_type).for(:membership_type) }
+  end
   it { should_not allow_value(Faker::Lorem.word).for(:membership_type) }
 
-  it { should allow_value('Project').for(:invitable_type) }
-  it { should allow_value('Board').for(:invitable_type) }
+  Invitation::ALLOWED_INVITABLES.each do |invitable_type|
+    it { should allow_value(invitable_type).for(:invitable_type) }
+  end
   it { should_not allow_value(Faker::Lorem.word).for(:invitable_type) }
 
   context 'when invitable is present and membership type is missing' do
@@ -24,7 +26,7 @@ describe Invitation do
 
   context 'when membership type is present and invitable is missing' do
     subject do
-      Fabricate.build(:invitation, :membership_type => Membership::Board.name)
+      Fabricate.build(:invitation, :membership_type => BoardMembership.name)
     end
     it { should_not be_valid }
   end

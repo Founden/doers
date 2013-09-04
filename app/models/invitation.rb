@@ -4,7 +4,7 @@ class Invitation < ActiveRecord::Base
   include Activity::Support
 
   # Allowed memberships
-  ALLOWED_MEMBERSHIPS = %w(Membership::Project Membership::Board) + [nil]
+  ALLOWED_MEMBERSHIPS = %w(ProjectMembership BoardMembership) + [nil]
   # Allowed memberships
   ALLOWED_INVITABLES = %w(Project Board) + [nil]
 
