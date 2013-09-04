@@ -8,11 +8,7 @@ class Membership < ActiveRecord::Base
   belongs_to :user
   belongs_to :board
   belongs_to :project
-  has_many :activities, :as => :trackable
 
   # Validations
   validates_presence_of :user, :creator
-
-  # Callbacks
-  after_commit :generate_activity, :on => [:create, :destroy]
 end

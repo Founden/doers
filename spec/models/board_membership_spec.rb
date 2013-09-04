@@ -1,13 +1,14 @@
 require 'spec_helper'
 
 describe BoardMembership do
-  it { should have_many(:invitations) }
+  it { should have_many(:activities).dependent('') }
+  it { should have_many(:invitations).dependent('') }
   it { should validate_presence_of(:board) }
 
   context 'of an user to his own board' do
     let(:board) { Fabricate(:board) }
-    let(:membership) do
-      Fabricate.attributes_for(
+    subject(:membership) do
+      Fabricate.build(
         :board_membership, :board => board, :user => board.author)
     end
 
