@@ -28,6 +28,7 @@ Doers::Application.routes.draw do
       resources(:embeds, :only => [:index])
       resources(:activities, :except => [:create, :update])
       resources(:invitations, :except => [:update])
+      resources(:memberships, :only => [:index, :show, :destroy])
     end
   end
 
