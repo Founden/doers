@@ -55,7 +55,7 @@ describe Api::V1::ProjectsController do
     its(:logo_id) { should eq(prj.logo.id) }
     its(:board_ids) { should be_empty }
     its('activity_ids.size') { should eq(prj.activities.count) }
-    its('member_ids.size') { should eq(prj.members.count) }
+    its('membership_ids.size') { should eq(prj.memberships.count) }
 
     context 'for a project with boards' do
       let(:prj) { Fabricate(:project_with_boards, :user => user) }
