@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Membership::Board do
+describe BoardMembership do
   it { should have_many(:invitations) }
   it { should validate_presence_of(:board) }
 

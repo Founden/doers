@@ -70,7 +70,7 @@ describe Api::V1::InvitationsController do
         its(:project_id) { should be_nil }
         its(:board_id) { should eq(invite.invitable.id) }
         its(:membership_id) { should be_nil }
-        its(:membership_type) { should eq(Membership::Board.name.parameterize) }
+        its(:membership_type) { should eq(BoardMembership.name.parameterize) }
       end
 
       context 'of project' do
@@ -80,7 +80,7 @@ describe Api::V1::InvitationsController do
         its(:project_id) { should eq(invite.invitable.id) }
         its(:board_id) { should be_nil }
         its(:membership_id) { should be_nil }
-        its(:membership_type) {should eq(Membership::Project.name.parameterize)}
+        its(:membership_type) {should eq(ProjectMembership.name.parameterize)}
       end
 
       context 'with invitee' do
@@ -89,7 +89,7 @@ describe Api::V1::InvitationsController do
         its('keys.size') { should eq(8) }
         its(:board_id) { should eq(invite.invitable.id) }
         its(:membership_id) { should eq(invite.membership.id) }
-        its(:membership_type) {should eq(Membership::Board.name.parameterize)}
+        its(:membership_type) {should eq(BoardMembership.name.parameterize)}
       end
     end
   end
