@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'board' # Fix the autoload shit
 
 describe BoardMembership do
   it { should have_many(:activities).dependent('') }
