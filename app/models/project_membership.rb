@@ -1,5 +1,5 @@
 # DOERS [Membership] class for project collaborators
-class Membership::Project < Membership
+class ProjectMembership < Membership
   # Relationships
   has_many :invitations, :as => :membership
 

@@ -8,7 +8,8 @@ module Activity::Support
       slug = 'update'
       slug = 'create' if self.transaction_record_state(:new_record)
       slug = 'destroy' if destroyed?
-      [slug, self.class.name, postfix].join(' ').parameterize
+      [slug, self.class.name.underscore.split('_'), postfix].
+        flatten.join(' ').parameterize
     end
 
     # Generates activity attributes based on current model attributes

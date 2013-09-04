@@ -16,7 +16,3 @@ class Membership < ActiveRecord::Base
   # Callbacks
   after_commit :generate_activity, :on => [:create, :destroy]
 end
-
-# This is due to avoid auto-loading-thinga-magic rails shits
-require_relative 'membership/board'
-require_relative 'membership/project'

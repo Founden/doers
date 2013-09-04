@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Membership::Project do
+describe ProjectMembership do
   it { should have_many(:invitations) }
   it { should validate_presence_of(:project) }
 
@@ -8,14 +8,14 @@ describe Membership::Project do
     let(:project) { Fabricate(:project, :user => user) }
     let(:membership) do
       Fabricate.attributes_for(
-        'membership/project', :project => project, :user => user)
+        :project_membership, :project => project, :user => user)
     end
 
     it { should_not be_valid }
   end
 
   context '#activities', :use_truncation do
-    let(:membership) { Fabricate('membership/project') }
+    let(:membership) { Fabricate(:project_membership) }
 
     subject { membership.activities }
 
@@ -27,7 +27,7 @@ describe Membership::Project do
       its('first.trackable') { should eq(membership) }
       its('first.trackable_type') { should eq(Membership.name) }
       its('first.trackable_title') { should eq(membership.user.nicename) }
-      its('first.slug') { should eq('create-membership-project') }
+      its('first.slug') { should eq('create-project-membership') }
     end
 
     context 'on update' do
@@ -46,7 +46,7 @@ describe Membership::Project do
       its('last.trackable_id') { should eq(membership.id) }
       its('last.trackable_type') { should eq(Membership.name) }
       its('last.trackable_title') { should eq(membership.user.nicename) }
-      its('last.slug') { should eq('destroy-membership-project') }
+      its('last.slug') { should eq('destroy-project-membership') }
     end
   end
 end
