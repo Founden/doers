@@ -1,14 +1,15 @@
 require 'spec_helper'
 
 describe ProjectMembership do
-  it { should have_many(:invitations) }
+  it { should have_many(:activities).dependent('') }
+  it { should have_many(:invitations).dependent('') }
   it { should validate_presence_of(:project) }
 
   context 'of an user to his own project' do
-    let(:project) { Fabricate(:project, :user => user) }
-    let(:membership) do
-      Fabricate.attributes_for(
-        :project_membership, :project => project, :user => user)
+    let(:project) { Fabricate(:project) }
+    subject(:membership) do
+      Fabricate.build(
+        :project_membership, :project => project, :user => project.user)
     end
 
     it { should_not be_valid }

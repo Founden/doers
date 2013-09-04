@@ -2,10 +2,14 @@
 class ProjectMembership < Membership
   # Relationships
   has_many :invitations, :as => :membership
+  has_many :activities, :as => :trackable
 
   # Validations
   validates_presence_of :project
-  validates_exclusion_of :project, :in => :user_project_ids
+  validates_exclusion_of :project_id, :in => :user_project_ids
+
+  # Callbacks
+  after_commit :generate_activity, :on => [:create, :destroy]
 
   private
     # Membership user project ids
