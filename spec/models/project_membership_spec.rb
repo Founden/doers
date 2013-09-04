@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'project' # Fix the autoload shit
 
 describe ProjectMembership do
   it { should have_many(:activities).dependent('') }
