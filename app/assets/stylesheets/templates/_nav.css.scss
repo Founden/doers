@@ -3,7 +3,8 @@
   position: fixed;
   left: 0;
   top: 0;
-  width: 280px;
+  z-index: 20;
+  width: 240px;
   height: 100%;
   background-color: $black;
   color: $white;
@@ -16,7 +17,7 @@
   background: image-url('logo.png') no-repeat 0 0;
   width: 116px;
   height: 28px;
-  margin: 34px 30px;
+  margin: 36px 30px;
 }
 
 .nav-list-item {
