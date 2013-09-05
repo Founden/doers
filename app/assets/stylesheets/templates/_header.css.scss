@@ -1,8 +1,37 @@
 .header {
   @include clearfix;
   overflow: hidden;
+  border-bottom: 1px solid $gray-3;
   background: $white;
-  border-bottom: 1px solid $gray-2;
+}
+
+.header-root {
+  float: left;
+  position: relative;
+  padding: 30px 40px 30px 30px;
+  background: $gray-1 image-url('header-arrow.png') no-repeat right center;
+  color: $gray-4;
+  font-size: em(18);
+  line-height: 40px;
+  font-weight: 600;
+}
+
+.header-title {
+  float: left;
+  padding: 30px;
+  font-size: em(18);
+  line-height: 40px;
+  font-weight: 600;
+}
+
+.header-actions {
+  float: right;
+  padding: 27px 30px;
+
+  .button {
+    float: left;
+    margin: 0 0 0 10px;
+  }
 }
 
 .header-user {
