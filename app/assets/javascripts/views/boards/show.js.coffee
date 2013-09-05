@@ -1,8 +1,19 @@
 Doers.BoardsShowView = Ember.View.extend
+
   cardsView: Ember.CollectionView.extend
     classNames: ['cards']
 
-    createChildView: (view, attrs) ->
-      type = attrs.content.get('type')
-      view = @container.resolve('view:%@'.fmt(type)) || view
-      @_super(view, attrs)
+    itemViewClass: Ember.View.extend
+      classNames: ['card-item']
+      classNameBindings: 'classType'
+      templateNameBinding: 'templateType'
+
+      classType: ( ->
+        if type = @get('content.type')
+          'card-item-%@'.fmt(@get('content.type').dasherize())
+      ).property('content.type')
+
+      templateType: ( ->
+        if type = @get('content.type')
+          'cards/%@'.fmt(@get('content.type').underscore())
+      ).property('content.type')

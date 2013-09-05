@@ -1,0 +1,7 @@
+.card-item-user
+  %img{:class => 'card-item-user-image', :bind => {:src => 'view.content.user.avatarUrl'}}
+  = _('Updated')
+  {{view.content.lastUpdate}}
+  %br/
+  = _('by')
+  {{view.content.user.nicename}}
