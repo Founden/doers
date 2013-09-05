@@ -21,40 +21,36 @@
 
   .board-list
     {{#each content.boards}}
-    {{#view view.boardItemView contentBinding=this}}
-    {{#linkTo 'boards.show' this}}
-    .board-item-cover
-      %h3.board-item-cover-title
-        {{title}}
-    .board-item-progress
-      .board-item-progress-bar
-    {{#if isNew}}
-    .board-item-user
-      %img.board-item-user-image{:bind => {:src => 'author.avatarUrl'}}
-      = _('By')
-      {{author.nicename}}
-      .board-item-user-company
-        = _('Company name')
-    .board-item-remove-btn{:_action => 'removeBranch this'}
-      &times;
-    {{else}}
-    .board-item-user
-      %img.board-item-user-image{:bind => {:src => 'user.avatarUrl'}}
-      %span.board-item-user-activity
-      = _('Updated')
-      {{lastUpdate}}
-      = _('by')
-      {{user.nicename}}
-    {{/if}}
-    {{/linkTo}}
-    {{/view}}
+    .board-item{:bind => {:id => 'slug'}}
+      {{#linkTo 'boards.show' id}}
+      .board-item-cover
+        %h3.board-item-cover-title
+          {{title}}
+      .board-item-progress
+        .board-item-progress-bar
+      {{#if isNew}}
+      .board-item-user
+        %img.board-item-user-image{:bind => {:src => 'author.avatarUrl'}}
+        = _('By')
+        {{author.nicename}}
+        .board-item-user-company
+          = _('Company name')
+      {{else}}
+      .board-item-user
+        %img.board-item-user-image{:bind => {:src => 'user.avatarUrl'}}
+        %span.board-item-user-activity
+        = _('Updated')
+        {{lastUpdate}}
+        = _('by')
+        {{user.nicename}}
+      {{/if}}
+      {{/linkTo}}
     {{/each}}
 
   .bucket
     .bucket-header
-      .bucket-title{:_action => 'edit'}
+      .bucket-title
         = _('Public boards')
-    {{#if isEditing}}
     .board-list
       {{#each currentUser.publicBoards}}
       .board-item{:bind => {:id => 'slug'}}
@@ -75,4 +71,3 @@
           .board-item-branch-count
             250
       {{/each}}
-    {{/if}}
