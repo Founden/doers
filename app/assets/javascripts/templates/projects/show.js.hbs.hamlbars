@@ -1,7 +1,6 @@
 .header
-  {{#linkTo 'projects'}}
-  .header-root
-    = _('Projects')
+  {{#linkTo 'projects' class='header-root'}}
+  = _('Projects')
   {{/linkTo}}
   .header-title
     {{content.title}}
