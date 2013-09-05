@@ -1,0 +1,78 @@
+.card {
+  @include box-sizing(border-box);
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  padding: 40px 0 40px 240px;
+  background: rgba($black, 0.8);
+}
+
+.card-wrap {
+  position: relative;
+  @extend .content-wrap;
+}
+
+.card-edit {
+  position: relative;
+  width: 550px;
+  height: 100%;
+  background: $white;
+  border-radius: 3px;
+}
+
+.card-edit-actions {
+  padding: 20px;
+  text-align: right;
+}
+
+.card-edit-help {
+  padding: 20px 30px;
+  margin: 0 0 20px 0;
+  background: $gray-1;
+  border-top: 1px solid $gray-2;
+  border-bottom: 1px solid $gray-2;
+  box-shadow: -5px 0 $green;
+}
+
+.card-edit-help-question {
+  font-weight: 600;
+}
+
+.card-edit-help-description {
+  font-size: em(12);
+  color: $gray-6;
+}
+
+.card-edit-field {
+  margin: 20px 30px;
+
+  #{$all-text-inputs}, textarea {
+    @include box-sizing(border-box);
+    border: 0;
+    outline: 0;
+    width: 100%;
+  }
+}
+
+.card-edit-field-title {
+  font-size: em(18);
+  font-weight: 700;
+}
+
+.card-edit-field-text {
+  font-size: em(14);
+  color: $gray-6;
+  resize: none;
+}
+
+.card-activity {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 380px;
+  height: 100%;
+  background: $white;
+  border-radius: 3px;
+}

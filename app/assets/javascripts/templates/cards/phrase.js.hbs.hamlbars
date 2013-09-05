@@ -1,2 +1,4 @@
 {{partial 'cards/components/title'}}
+.card-item-text
+  {{view.content.content}}
 {{partial 'cards/components/user'}}
