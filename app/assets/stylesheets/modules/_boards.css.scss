@@ -1,25 +1,23 @@
-.boards {
+.board-list {
   @include clearfix;
+  position: relative;
+  margin: 0 0 20px 0;
 }
 
 .board-item {
   @include box-sizing(border-box);
+  position: relative;
   overflow: hidden;
+  left: auto;
+  top: auto;
   float: left;
   width: 215px;
-  margin: 0 20px 20px 0;
+  margin: 0 10px 20px 10px;
   border: 1px solid $gray-4;
   border-radius: 3px;
   background: $white;
   box-shadow: 0 1px 1px $gray-3;
-
-  &:nth-of-type(4n) {
-    margin-right: 0;
-  }
-
-  &:nth-of-type(4n+1) {
-    clear: left;
-  }
+  @include animation(fade 0.5s);
 
   &.completed {
     background: $green;
@@ -28,18 +26,55 @@
       color: $white;
     }
   }
+
+  &.stacked {
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    &:nth-of-type(1) {
+      position: relative;
+    }
+
+    &:nth-of-type(2) {
+      left: -2px;
+      top: -2px;
+    }
+
+    &:nth-of-type(3) {
+      left: -4px;
+      top: -4px;
+    }
+  }
+}
+
+.board-item-remove-btn {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  z-index: 1;
+  width: 24px;
+  line-height: 24px;
+  font-size: em(24);
+  font-weight: 700;
+  text-align: center;
+  cursor: pointer;
+
+  &:hover {
+    color: $red;
+  }
 }
 
 .board-item-cover {
   position: relative;
-  padding: 20px;
-  height: 180px;
+  height: 220px;
 }
 
 .board-item-cover-title {
   position: absolute;
-  left: 20px;
-  bottom: 20px;
+  left: 0;
+  bottom: 0;
+  padding: 20px;
   font-size: em(24);
   line-height: 1.25em;
   font-weight: 600;
@@ -58,7 +93,8 @@
 
 .board-item-user {
   position: relative;
-  padding: 15px 15px 15px 61px;
+  padding: 15px 15px 15px 66px;
+  min-height: 36px;
   font-size: em(12);
   color: $gray-6;
   @include linear-gradient($white, $gray-1);
@@ -66,10 +102,10 @@
 
 .board-item-user-image {
   position: absolute;
-  left: 15px;
-  top: 15px;
-  width: 36px;
-  height: 36px;
+  left: 12px;
+  top: 12px;
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
 }
 
@@ -77,8 +113,55 @@
   position: absolute;
   left: 10px;
   bottom: 10px;
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
   background: $red;
+}
+
+.board-item-user-company {
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.board-item-branch {
+  @include clearfix;
+  line-height: 44px;
+  border-top: 1px solid $gray-2;
+  @include linear-gradient($white, $gray-1);
+  cursor: pointer;
+
+  &:hover {
+
+    .board-item-branch-icon {
+      border-right-color: shade($green, 10%);
+      @include linear-gradient($green, shade($green, 10%));
+      color: $white;
+    }
+  }
+}
+
+.board-item-branch-icon {
+  float: left;
+  width: 44px;
+  border-right: 1px solid $gray-2;
+  text-align: center;
+  font-size: em(30);
+  line-height: 44px;
+  font-weight: 700;
+  color: $green;
+}
+
+.board-item-branch-btn {
+  float: left;
+  margin: 0 0 0 15px;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.board-item-branch-count {
+  float: right;
+  margin: 0 15px 0 0;
+  font-size: em(14);
+  color: $gray-6;
 }
