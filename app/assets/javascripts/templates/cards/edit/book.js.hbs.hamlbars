@@ -1,29 +1,32 @@
-%form{:bind => {:id => 'view.content.editSlug'}}
-  %fieldset
-    {{partial 'partials/card_actions'}}
-    {{partial 'partials/card_help'}}
-    .field
-      {{input valueBinding='view.content.title' placeholderBinding='view.content.titleHint' autocomplete='false' required='true' type='text' name='title'}}
-    .field
-      .book-search
-        {{input valueBinding='view.content.query' placeholder='Search for a book' autocomplete='false' type='text' name='book-title'}}
-        {{#if view.content.query}}
-        %ul
-          {{#if view.content.results}}
-          {{#each book in view.content.results}}
-          %li{:_action => 'updateBook view.content book'}
-            {{book.volumeInfo.title}}
-            {{#if book.volumeInfo.authors}}
-            ({{book.volumeInfo.authors}})
-            {{/if}}
-          {{/each}}
-          {{else}}
-          {{#if view.content.isSearching}}
-          %li
-            = _('Searching...')
-          {{else}}
-          %li
-            = _('No book was found')
-          {{/if}}
-          {{/if}}
-        {{/if}}
+.card-wrap
+
+  .card-edit
+    {{partial 'cards/edit/components/actions'}}
+    {{partial 'cards/edit/components/help'}}
+
+    {{#with view.content}}
+    .card-edit-field
+      {{input class='card-edit-field-title' valueBinding='title' placeholderBinding='titleHint' type='text' name='title'}}
+    .card-edit-field
+      {{input class='card-edit-field-query' valueBinding='query' placeholder='Search for a book...' autocomplete='false' type='text' name='query'}}
+    {{#if query}}
+    %ul.card-edit-search-results
+      {{#if results}}
+      {{#each book in results}}
+      %li{:_action => 'updateBook this book'}
+        {{book.volumeInfo.title}}
+      {{/each}}
+      {{else}}
+      {{#if isSearching}}
+      %li
+        = _('Searching...')
+      {{else}}
+      %li
+        = _('No search results.')
+      {{/if}}
+      {{/if}}
+    {{/if}}
+    {{/with}}
+
+  {{partial 'cards/edit/components/activity'}}
+
