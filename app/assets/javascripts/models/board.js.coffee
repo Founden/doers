@@ -17,6 +17,7 @@ Doers.Board = DS.Model.extend
   branches: DS.hasMany('Doers.Board', inverse: 'parentBoard')
   branchesCount: DS.attr('number', readOnly: true)
   cards: DS.hasMany('Doers.Card', inverse: 'board')
+  memberships: DS.hasMany('Doers.Membership', readOnly: true, inverse: 'board')
   cardsCount: DS.attr('number', readOnly: true)
 
   deleteConfirmation: false

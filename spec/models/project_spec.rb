@@ -1,8 +1,6 @@
 require 'spec_helper'
 
 describe Project do
-  let(:project) { Fabricate(:project) }
-
   it { should belong_to(:user) }
   it { should have_many(:boards).dependent('') }
   it { should have_many(:cards).through(:boards).dependent('') }
@@ -11,6 +9,7 @@ describe Project do
   it { should have_many(:activities).dependent('') }
   it { should have_many(:memberships).dependent(:destroy) }
   it { should have_many(:members) }
+  it { should have_many(:invitations).dependent(:destroy) }
 
   it { should validate_presence_of(:user) }
   it { should validate_presence_of(:title) }
@@ -22,7 +21,7 @@ describe Project do
   it { should allow_value(nil).for(:external_id) }
 
   context 'instance' do
-    subject { project }
+    subject(:project) { Fabricate(:project) }
 
     its(:status) { should eq(Project::STATES.first) }
 

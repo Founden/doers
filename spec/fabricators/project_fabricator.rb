@@ -8,6 +8,17 @@ Fabricator(:project) do
   end
 end
 
+Fabricator(:project_with_invitations, :from => :project) do
+  after_create do |project|
+    [0, 1, 2].sample.times do
+      Fabricate(:project_invitation,:user => project.user,:invitable => project)
+    end
+    [0, 1, 2].sample.times do
+      Fabricate(:project_invitee, :user => project.user, :invitable => project)
+    end
+  end
+end
+
 Fabricator(:imported_project, :from => :project) do
   external_id   { sequence(:external_id, 2000) }
   external_type { Doers::Config.external_types.first }
@@ -23,7 +34,7 @@ Fabricator(:project_with_boards, :from => :project) do
   }
 end
 
-Fabricator(:project_with_boards_and_cards, :from => :project) do
+Fabricator(:project_with_boards_and_cards, :from => :project_with_invitations) do
   transient :boards_count => 1
   transient :card_types
 

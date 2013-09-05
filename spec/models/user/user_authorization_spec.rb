@@ -382,14 +382,14 @@ describe User do
     end
 
     context 'when target is a membership' do
-      let(:target) { Fabricate('membership/project') }
+      let(:target) { Fabricate(:project_membership) }
 
       it { expect{ subject }.to raise_error(ActiveRecord::RecordNotFound) }
       it_behaves_like 'is not writable'
       it_behaves_like 'no error is raised'
 
       context 'created by user' do
-        let(:target) { Fabricate('membership/project', :creator => user) }
+        let(:target) { Fabricate(:project_membership, :creator => user) }
 
         it { should be_true }
         it_behaves_like 'is writable'
@@ -403,7 +403,7 @@ describe User do
       end
 
       context 'of the user' do
-        let(:target) { Fabricate('membership/project', :user => user) }
+        let(:target) { Fabricate(:project_membership, :user => user) }
 
         it { should be_true }
         it_behaves_like 'is writable'
