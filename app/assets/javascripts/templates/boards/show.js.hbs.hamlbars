@@ -34,6 +34,11 @@
       %li.collaborators-user
         %a.collaborators-user-add{:href => '#'}
 
-  {{#if content.isLoaded}}
-  {{collection view.cardsView contentBinding=arrangedContent}}
+  .cards
+    {{#each arrangedContent}}
+    {{view view.cardItemView contentBinding=this}}
+    {{/each}}
+
+  {{#if view.selectedCard}}
+  {{view view.cardEditView}}
   {{/if}}

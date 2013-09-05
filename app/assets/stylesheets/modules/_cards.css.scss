@@ -16,13 +16,19 @@
   border-radius: 3px;
   background: $white;
   box-shadow: 0 1px 1px $gray-3;
+  cursor: pointer;
 }
 
 .card-item-title {
+  margin: 0 0 0.5em 0;
   font-size: em(20);
   line-height: 1.25em;
-  margin: 0 0 0.5em 0;
   font-weight: 600;
+}
+
+.card-item-text {
+  margin: 0 0 1em 0;
+  color: $gray-6;
 }
 
 .card-item-user {

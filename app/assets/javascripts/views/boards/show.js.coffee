@@ -1,28 +1,37 @@
 Doers.BoardsShowView = Ember.View.extend
 
-  cardView: Ember.View.extend
-    classNames: ['card']
-    templateNameBinding: 'templateType'
+  selectedCard: null
 
-    templateType: ( ->
+  cardItemView: Ember.View.extend
+    classNames: ['card-item']
+
+    templateName: ( ->
       if type = @get('content.type')
-        'cards/edit/%@'.fmt(@get('content.type').underscore())
+        'cards/%@'.fmt(@get('content.type'))
     ).property('content.type')
 
-  cardsView: Ember.CollectionView.extend
-    classNames: ['cards']
+    templateNameDidChange: ( ->
+      @rerender()
+    ).observes('templateName')
 
-    itemViewClass: Ember.View.extend
-      classNames: ['card-item']
-      classNameBindings: 'classType'
-      templateNameBinding: 'templateType'
+    click: (event) ->
+      @set('parentView.selectedCard', @get('content'))
+      @set('content.isEditing', true)
 
-      classType: ( ->
-        if type = @get('content.type')
-          'card-item-%@'.fmt(@get('content.type').dasherize())
-      ).property('content.type')
+  cardEditView: Ember.View.extend
+    classNames: ['card']
+    contentBinding: 'parentView.selectedCard'
+    isVisibleBinding: 'content.isEditing'
 
-      templateType: ( ->
-        if type = @get('content.type')
-          'cards/%@'.fmt(@get('content.type').underscore())
-      ).property('content.type')
+    templateName: ( ->
+      if type = @get('content.type')
+        'cards/edit/phrase'.fmt(@get('content.type'))
+    ).property('content.type')
+
+    templateNameDidChange: ( ->
+      @rerender()
+    ).observes('templateName')
+
+    closeView: Ember.View.extend
+      click: (event) ->
+        @set('parentView.content.isEditing', false)

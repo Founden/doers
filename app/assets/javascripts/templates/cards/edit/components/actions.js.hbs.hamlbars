@@ -1,0 +1,4 @@
+.card-edit-actions
+  {{#view view.closeView class='button'}}
+  = _('Done')
+  {{/view}}
