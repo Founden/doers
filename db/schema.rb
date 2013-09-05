@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130829142115) do
+ActiveRecord::Schema.define(version: 20130902112423) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -142,6 +142,23 @@ ActiveRecord::Schema.define(version: 20130829142115) do
   end
 
   add_index "identities", ["uid"], name: "index_identities_on_uid", using: :btree
+
+  create_table "invitations", force: true do |t|
+    t.string   "email"
+    t.integer  "user_id"
+    t.integer  "membership_id"
+    t.string   "membership_type"
+    t.integer  "invitable_id"
+    t.string   "invitable_type"
+    t.hstore   "data"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "invitations", ["email"], name: "index_invitations_on_email", unique: true, using: :btree
+  add_index "invitations", ["invitable_id", "invitable_type"], name: "index_invitations_on_invitable_id_and_invitable_type", using: :btree
+  add_index "invitations", ["membership_id", "membership_type"], name: "index_invitations_on_membership_id_and_membership_type", using: :btree
+  add_index "invitations", ["user_id"], name: "index_invitations_on_user_id", using: :btree
 
   create_table "memberships", force: true do |t|
     t.integer  "creator_id"
