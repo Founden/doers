@@ -1,0 +1,19 @@
+= _('Hello again %s.') % @invitation.user.nicename
+\
+\
+- if invitable = @invitation.invitable
+  - if @invitation.for_project?
+    = _('%s joined %s project on %s.') % [@user.nicename, invitable.title, Doers::Config.app_name]
+  - else
+    = _('%s joined %s board on %s.') % [@user.nicename, invitable.title, Doers::Config.app_name]
+- else
+  = _('%s joined %s.') % [@user.nicename, Doers::Config.app_name]
+
+\
+= _('To catch up, visit %s') % root_url
+\
+= _('Thank you.')
+\
+\
+= _('Your %s team.') % Doers::Config.app_name
+= Doers::Config.app_id
