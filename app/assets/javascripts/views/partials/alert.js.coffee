@@ -1,5 +1,5 @@
 Doers.AlertView = Ember.View.extend
-  templateName: 'shared/alert'
+  templateName: 'partials/alert'
   classNames: ['alert-box']
   classNameBindings: ['type']
   type: null
