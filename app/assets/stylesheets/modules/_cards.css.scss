@@ -1,5 +1,6 @@
 .cards {
   @include clearfix;
+  margin: 0 5px;
 }
 
 .card-item {
@@ -9,20 +10,12 @@
   overflow: hidden;
   width: 300px;
   height: 300px;
-  margin: 0 10px 10px 0;
+  margin: 0 5px 10px 5px;
   padding: 20px;
   border: 1px solid $gray-4;
   border-radius: 3px;
   background: $white;
   box-shadow: 0 1px 1px $gray-3;
-
-  &:nth-of-type(3n) {
-    margin-right: 0;
-  }
-
-  &:nth-of-type(3n+1) {
-    clear: left;
-  }
 }
 
 .card-item-title {
@@ -38,7 +31,7 @@
   left: 0;
   bottom: 0;
   width: 100%;
-  padding: 15px 15px 15px 61px;
+  padding: 15px 15px 15px 66px;
   border-top: 1px solid $gray-2;
   @include linear-gradient($white, $gray-1);
   font-size: em(12);
@@ -46,10 +39,9 @@
 }
 
 .card-item-user-image {
-  position: absolute;
-  left: 15px;
-  top: 15px;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
+  @extend .board-item-user-image;
+}
+
+.card-item-user-activity {
+  @extend .board-item-user-activity;
 }
