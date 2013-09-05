@@ -2,6 +2,9 @@
 class SessionsController < ApplicationController
   include EasyAuth::Controllers::Sessions
 
+  # Skip authentication check to make sure we can log out
+  skip_before_filter :require_confirmation, :only => [:destroy]
+
   # Show available authentication options
   def index
   end
