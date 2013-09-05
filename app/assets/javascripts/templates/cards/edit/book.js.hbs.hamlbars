@@ -13,7 +13,7 @@
     %ul.card-edit-search-results
       {{#if results}}
       {{#each book in results}}
-      %li{:_action => 'updateBook this book'}
+      %li{:_action => 'updateBook view.content book'}
         {{book.volumeInfo.title}}
       {{/each}}
       {{else}}
