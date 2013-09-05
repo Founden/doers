@@ -1,2 +1,2 @@
-{{partial cards/components/title}}
-{{partial cards/components/user}}
+{{partial 'cards/components/title'}}
+{{partial 'cards/components/user'}}
