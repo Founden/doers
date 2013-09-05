@@ -4,10 +4,16 @@ Doers.BoardsShowView = Ember.View.extend
 
   cardItemView: Ember.View.extend
     classNames: ['card-item']
+    classNameBindings: ['classType']
+
+    classType: ( ->
+      if type = @get('content.type')
+        'card-item-%@'.fmt(@get('content.type').dasherize())
+    ).property('content.type')
 
     templateName: ( ->
       if type = @get('content.type')
-        'cards/%@'.fmt(@get('content.type'))
+        'cards/%@'.fmt(@get('content.type').underscore())
     ).property('content.type')
 
     templateNameDidChange: ( ->
@@ -25,7 +31,7 @@ Doers.BoardsShowView = Ember.View.extend
 
     templateName: ( ->
       if type = @get('content.type')
-        'cards/edit/phrase'.fmt(@get('content.type'))
+        'cards/edit/%@'.fmt(@get('content.type').underscore())
     ).property('content.type')
 
     templateNameDidChange: ( ->
