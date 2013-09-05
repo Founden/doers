@@ -1,14 +1,14 @@
 .projects {
   @include clearfix;
+  margin: 60px 0;
 }
 
 .project-item {
-  padding: 0 0 30px 0;
-  margin: 0 0 30px 0;
   border-bottom: 1px solid $gray-2;
 }
 
 .project-item-title {
+  padding: 15px 0;
   font-size: em(24);
-  margin: 0 0 0.5em 0;
+  font-weight: 600;
 }
