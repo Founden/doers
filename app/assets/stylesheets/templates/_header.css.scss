@@ -1,100 +1,73 @@
 .header {
   @include clearfix;
-  overflow: hidden;
-  border-bottom: 1px solid $gray-3;
+  box-shadow: 0 1px $gray-3;
   background: $white;
 }
 
 .header-root {
   float: left;
-  position: relative;
-  padding: 27px 45px 27px 30px;
+  padding: 0 45px 0 30px;
+  line-height: 98px;
   background: $gray-1 image-url('header-arrow.png') no-repeat right center;
-  color: $gray-4;
   font-size: em(18);
-  line-height: 45px;
   font-weight: 600;
+  color: $gray-4;
 }
 
 .header-title {
   float: left;
-  padding: 27px 45px 27px 30px;
+  padding: 0 45px 0 30px;
+  line-height: 98px;
   background: image-url('header-arrow.png') no-repeat right center;
   font-size: em(18);
-  line-height: 45px;
   font-weight: 600;
 }
 
-.header-actions {
-  float: right;
-  padding: 27px 30px;
-
-  .button {
-    float: left;
-    margin: 0 0 0 10px;
-  }
-}
-
 .header-user {
-  @include box-sizing(border-box);
-  position: relative;
   float: left;
-  width: 20%;
-  padding: 30px 30px 30px 76px;
-  font-size: em(12);
+  padding: 28px 30px;
+  position: relative;
+  font-size: em(14);
   color: $gray-5;
-  border-right: 1px solid $gray-1;
 }
 
 .header-user-image {
-  position: absolute;
-  left: 30px;
-  top: 30px;
-  width: 36px;
-  height: 36px;
+  float: left;
+  width: 48px;
+  height: 48px;
+  margin: -3px 12px -3px -3px;
   border-radius: 50%;
 }
 
 .header-progress-wrap {
-  @include box-sizing(border-box);
   float: left;
-  width: 60%;
-  padding: 30px;
-  border-right: 1px solid $gray-1;
+  width: 250px;
+  padding: 28px 30px;
+  min-width: 200px;
+}
+
+.header-progress-cards {
+  font-size: em(14);
+  font-weight: 700;
 }
 
 .header-progress {
   position: relative;
   overflow: hidden;
   width: 100%;
-  height: 36px;
-  line-height: 36px;
-  background: $gray-2;
-  border-radius: 3px;
+  height: 5px;
+  margin: 8px 0;
+  background: $gray-1;
 }
 
 .header-progress-bar {
   width: 50%;
   height: 100%;
-  @include linear-gradient($green, shade($green, 10%));
+  background-color: $green;
 }
 
-.header-progress-cards {
-  position: absolute;
-  left: 10px;
-  top: 0;
-  color: $white;
-  font-weight: 700;
-}
-
-.header-view-mode {
-  @include box-sizing(border-box);
-  float: left;
-  width: 20%;
-}
-
-.header-view-mode-btn {
-  display: block;
-  padding: 30px;
-  line-height: 36px;
+.header-actions {
+  float: right;
+  text-align: right;
+  padding: 25px 30px;
 }

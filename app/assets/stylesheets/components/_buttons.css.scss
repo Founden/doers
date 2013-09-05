@@ -1,7 +1,7 @@
 .button {
   display: inline-block;
   padding: 0 20px;
-  line-height: 43px;
+  line-height: 46px;
   border: 1px solid $green;
   @include linear-gradient($green, shade($green, 10%));
   border-radius: 3px;

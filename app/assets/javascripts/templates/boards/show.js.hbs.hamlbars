@@ -1,17 +1,24 @@
 .header
+  {{#linkTo 'projects' class='header-root'}}
+  = _('Projects')
+  {{/linkTo}}
+  {{#linkTo 'projects.show' board.project class='header-title'}}
+  {{board.project.title}}
+  {{/linkTo}}
   .header-user
     %img.header-user-image{:bind => {:src => 'board.user.avatarUrl'}}
     = _('Updated')
     {{board.lastUpdate}}
+    %br/
     = _('by')
     {{board.user.nicename}}
   .header-progress-wrap
+    .header-progress-cards
+      1 / {{board.cardsCount}}
     .header-progress
       .header-progress-bar
-      .header-progress-cards
-        1 / {{board.cardsCount}}
-  .header-view-mode
-    %a.header-view-mode-btn
+  .header-actions
+    .button
       = _('View mode')
 
 .content-wrap
