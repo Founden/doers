@@ -73,6 +73,18 @@ describe User do
       its(:admin?) { should be_true }
     end
 
+    context '#claim_invitation' do
+      let!(:invite) { Fabricate(:project_invitation, :email => user.email) }
+
+      its(:claim_invitation) { should eq(invite) }
+
+      context 'creates the membership' do
+        before { user.claim_invitation }
+
+        its(:shared_projects) { should include(invite.invitable) }
+      end
+    end
+
     context 'sends a confirmation email', :use_truncation do
       before do
         UserMailer.should_receive(:confirmed)
@@ -91,6 +103,17 @@ describe User do
       subject { Fabricate.build(:user, :email => user.email) }
 
       it { should_not be_valid }
+    end
+  end
+
+  context '#before_create', :use_truncation do
+    let(:user) { Fabricate.build(:user) }
+    let!(:invitation) { Fabricate(:invitation, :email => user.email) }
+
+    it 'sends an email to inviter' do
+      UserMailer.should_receive(:invitation_claimed).and_call_original
+      user.save
+      user.email.should eq(invitation.email)
     end
   end
 end
