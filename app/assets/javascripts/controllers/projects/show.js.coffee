@@ -1,11 +1,18 @@
-Doers.ProjectsShowController = Ember.Controller.extend Doers.ControllerAlertMixin, Doers.DeleteConfirmationMixin,
+Doers.ProjectsShowController = Ember.Controller.extend
 
-  createFork: (board) ->
+  isEditing: false
+
+  edit: ->
+    @toggleProperty('isEditing', true)
+
+  createBranch: (board) ->
     project = @get('content')
-
     branch = @container.resolve('model:board').createRecord
       title: board.get('title')
+      author: board.get('author')
       parentBoard: board
       project: project
-    branch.save().then =>
-      @get('target.router').transitionTo('boards.show', branch)
+
+  removeBranch: (board) ->
+    @get('content.boards').removeObject(board)
+
