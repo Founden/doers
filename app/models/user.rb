@@ -38,6 +38,7 @@ class User < ActiveRecord::Base
   validates_inclusion_of :interest, :in => INTERESTS.values, :allow_nil => true
 
   # Callbacks
+  before_create :notify_invitation_creator
   after_commit :generate_activity, :on => :create
   after_commit :send_confirmation_email, :on => :update
 
@@ -71,7 +72,25 @@ class User < ActiveRecord::Base
     !Doers::Config.admin_regex.match(email).blank?
   end
 
+  # Claims available invitations and builds memberships
+  def claim_invitation
+    invite = Invitation.find_by(:email => self.email)
+    if invite and invite.invitable and invite.membership_id.blank?
+      self.update_attribute(:confirmed, 1)
+      invite.membership = invite.invitable.memberships.create(
+        :creator => invite.user, :user => self)
+      invite.save
+      invite
+    end
+  end
+
   private
+
+  def notify_invitation_creator
+    if invitation = Invitation.find_by(:email => self.email)
+      UserMailer.delay.invitation_claimed(invitation, self)
+    end
+  end
 
   # Create a job to send the confirmation email on validation
   def send_confirmation_email
