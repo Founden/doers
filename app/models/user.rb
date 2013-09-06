@@ -23,15 +23,19 @@ class User < ActiveRecord::Base
   has_many :assets
   has_many :images, :class_name => Asset::Image
   has_many :activities
-  has_many :memberships, :dependent => :destroy
+  has_many(:created_memberships, :dependent => :destroy,
+           :foreign_key => :creator_id, :class_name => Membership)
+  has_many(:accepted_memberships, :dependent => :destroy,
+           :class_name => Membership)
   has_many :invitations, :dependent => :destroy
 
   has_many :branched_boards, :class_name => Board
   has_many :authored_boards, :foreign_key => :author_id, :class_name => Board
-  has_many :shared_boards, :through => :memberships, :source => :board
+  has_many :shared_boards, :through => :accepted_memberships, :source => :board
 
   has_many :created_projects, :class_name => Project, :dependent => :destroy
-  has_many :shared_projects, :through => :memberships, :source => :project
+  has_many(
+    :shared_projects, :through => :accepted_memberships, :source => :project)
 
   # Validations
   validates :email, :uniqueness => true, :presence => true
@@ -50,6 +54,11 @@ class User < ActiveRecord::Base
   # All user boards
   def boards
     Board.where(:id => (shared_board_ids + branched_board_ids))
+  end
+
+  # All user memberships
+  def memberships
+    Membership.where(:id => (created_membership_ids + accepted_membership_ids))
   end
 
   # Helper to generate the user name
