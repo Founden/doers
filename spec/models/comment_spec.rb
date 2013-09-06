@@ -46,9 +46,10 @@ describe Comment do
   end
 
   context '#activities', :use_truncation do
-    subject(:comment) { Fabricate(:card_comment) }
 
-    context 'first' do
+    context 'first on a card comment' do
+      let(:comment) { Fabricate(:card_comment) }
+
       subject { comment.commentable.activities.reload.first }
 
       its(:slug) { should eq('create-comment') }
@@ -56,11 +57,27 @@ describe Comment do
     end
 
     context 'first for a comment with parent comment' do
-      let(:with_parent) { Fabricate(:card_comment, :parent_comment => comment) }
-      subject { with_parent.commentable.activities.reload.first }
+      let(:comment) { Fabricate(:card_comment_with_parent) }
+      subject { comment.commentable.activities.reload.first }
 
       its(:slug) { should_not eq('create-comment') }
       its(:comment_id) { should be_blank }
+    end
+
+    context 'first for a board comment' do
+      let(:comment) { Fabricate(:board_comment) }
+      subject { comment.board.activities.reload.first }
+
+      its(:slug) { should eq('create-comment') }
+      its(:comment_id) { should eq(comment.id.to_s) }
+    end
+
+    context 'first for a project comment' do
+      let(:comment) { Fabricate(:board_comment, :board => nil) }
+      subject { comment.project.activities.reload.first }
+
+      its(:slug) { should eq('create-comment') }
+      its(:comment_id) { should eq(comment.id.to_s) }
     end
   end
 
