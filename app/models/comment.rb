@@ -1,5 +1,8 @@
 # DOERS [Comment] class
 class Comment < ActiveRecord::Base
+  # Include [Activity] generations support
+  include Activity::Support
+
   store_accessor :data, :external_id, :external_type
   store_accessor :data, :external_author_name, :external_author_id
 
@@ -8,6 +11,7 @@ class Comment < ActiveRecord::Base
   belongs_to :board
   belongs_to :user
   belongs_to :parent_comment, :class_name => Comment
+  belongs_to :commentable, :polymorphic => true
   has_many :comments, :foreign_key => :parent_comment_id, :dependent => :destroy
 
   # Validations
@@ -20,6 +24,8 @@ class Comment < ActiveRecord::Base
   before_validation do
     self.content = Sanitize.clean(self.content)
   end
+  after_commit(
+    :generate_activity, :on => [:create], :unless => :parent_comment_id)
 
   # Handles user name in case the comment was imported
   # @return OpenStruct to mock user fields
@@ -33,5 +39,20 @@ class Comment < ActiveRecord::Base
   # Flags if the comment was imported
   def external?
     !external_id.blank?
+  end
+
+  # Target to use when generating activities
+  def activity_owner
+    self.commentable || self.board || self.project
+  end
+
+  # Target to use when generating activities
+  def activity_target
+    self.commentable || self
+  end
+
+  # Target to use when generating activities
+  def activity_title
+    self.activity_owner.title
   end
 end
