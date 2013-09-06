@@ -35,6 +35,19 @@ describe UserMailer do
     its(:to) { should include(user.email) }
   end
 
+  context '#Invitation_claimed' do
+    let(:invitation) { Fabricate(:project_invitee) }
+    let(:user) { User.find_by(:email => invitation.email) }
+
+    before { UserMailer.invitation_claimed(invitation, user).deliver }
+
+    it_should_behave_like 'an email from us'
+    its('body.encoded') { should match(invitation.user.nicename) }
+    its('body.encoded') { should match(user.nicename) }
+    its('body.encoded') { should match(invitation.invitable.title) }
+    its(:to) { should include(invitation.user.email) }
+  end
+
   context '#invite' do
     shared_examples 'an invitation from us' do
       its(:to) { should include(invitation.email) }

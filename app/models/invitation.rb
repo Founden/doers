@@ -33,6 +33,21 @@ class Invitation < ActiveRecord::Base
   after_commit :generate_activity, :on => [:create]
   after_commit :email_invite, :on => [:create]
 
+  # Sugaring to check if invitation is claimed
+  def claimer
+    User.find_by(:email => self.email)
+  end
+
+  # Sugaring to help validation of an invitable project
+  def for_project?
+    self.invitable.is_a?(Project)
+  end
+
+  # Sugaring to help validation of an invitable board
+  def for_board?
+    self.invitable.is_a?(Board)
+  end
+
   private
 
     # Emails the invitation
@@ -48,15 +63,5 @@ class Invitation < ActiveRecord::Base
     # Board ids user branched/authored
     def user_board_ids
       self.user.branched_board_ids + self.user.authored_board_ids + [nil]
-    end
-
-    # Sugaring to help validation of an invitable project
-    def for_project?
-      self.invitable.is_a?(Project)
-    end
-
-    # Sugaring to help validation of an invitable board
-    def for_board?
-      self.invitable.is_a?(Board)
     end
 end

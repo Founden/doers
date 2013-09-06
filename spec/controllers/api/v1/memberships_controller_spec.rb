@@ -15,6 +15,14 @@ describe Api::V1::MembershipsController do
 
     its(:memberships) { should be_empty }
 
+    context 'for created memberships' do
+      let(:memb_ids) do
+        3.times.collect{ Fabricate(:project_membership, :creator => user).id }
+      end
+
+      its('memberships.size') { should eq(user.memberships.count) }
+    end
+
     context 'for owned memberships' do
       let(:memb_ids) do
         3.times.collect{ Fabricate(:project_membership, :user => user).id }
