@@ -1,19 +1,18 @@
 require 'spec_helper'
 
 describe User do
-  let(:user) { Fabricate(:user) }
-
   it { should have_many(:created_projects).dependent(:destroy) }
-  it { should have_many(:shared_projects).through(:memberships) }
+  it { should have_many(:shared_projects).through(:accepted_memberships) }
   it { should have_many(:branched_boards).dependent('') }
   it { should have_many(:authored_boards).dependent('') }
-  it { should have_many(:shared_boards).through(:memberships) }
+  it { should have_many(:shared_boards).through(:accepted_memberships) }
   it { should have_many(:cards).dependent('') }
   it { should have_many(:comments) }
   it { should have_many(:assets) }
   it { should have_many(:images).dependent('') }
   it { should have_many(:activities).dependent('') }
-  it { should have_many(:memberships).dependent(:destroy) }
+  it { should have_many(:created_memberships).dependent(:destroy) }
+  it { should have_many(:accepted_memberships).dependent(:destroy) }
   it { should have_many(:invitations).dependent(:destroy) }
 
   it { should validate_presence_of(:email) }
@@ -27,7 +26,7 @@ describe User do
   end
 
   context 'instance' do
-    subject { user }
+    subject(:user) { Fabricate(:user) }
 
     it { should be_valid }
     its('identities.first.uid') { should eq(user.email) }
@@ -53,6 +52,12 @@ describe User do
       its(:boards) { should include(board) }
     end
 
+    context '#memberships' do
+      let(:membership) { Fabricate(:project_membership, :user => user) }
+
+      its(:memberships) { should include(membership) }
+    end
+
     context '#newsletter_allowed?' do
       its(:newsletter_allowed?) { should be_true }
 
@@ -73,6 +78,18 @@ describe User do
       its(:admin?) { should be_true }
     end
 
+    context '#claim_invitation' do
+      let!(:invite) { Fabricate(:project_invitation, :email => user.email) }
+
+      its(:claim_invitation) { should eq(invite) }
+
+      context 'creates the membership' do
+        before { user.claim_invitation }
+
+        its(:shared_projects) { should include(invite.invitable) }
+      end
+    end
+
     context 'sends a confirmation email', :use_truncation do
       before do
         UserMailer.should_receive(:confirmed)
@@ -91,6 +108,17 @@ describe User do
       subject { Fabricate.build(:user, :email => user.email) }
 
       it { should_not be_valid }
+    end
+  end
+
+  context '#before_create', :use_truncation do
+    let(:user) { Fabricate.build(:user) }
+    let!(:invitation) { Fabricate(:invitation, :email => user.email) }
+
+    it 'sends an email to inviter' do
+      UserMailer.should_receive(:invitation_claimed).and_call_original
+      user.save
+      user.email.should eq(invitation.email)
     end
   end
 end

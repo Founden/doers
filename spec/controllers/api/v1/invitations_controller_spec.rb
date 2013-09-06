@@ -140,6 +140,42 @@ describe Api::V1::InvitationsController do
       its(:membership_id) { should be_blank }
       its(:membership_type) { should_not be_blank }
     end
+
+    context 'when email is registered and no invitable set' do
+      let(:invitee) { Fabricate(:user) }
+      let(:invite_attrs) do
+        Fabricate.attributes_for(:invitation, :email => invitee.email)
+      end
+
+      subject(:api_invite) { json_to_ostruct(response.body) }
+
+      its('keys.size') { should eq(1) }
+      its(:errors) { should_not be_empty }
+    end
+
+    context 'when email is registered' do
+      let(:invitee) { Fabricate(:user) }
+      let(:project) { Fabricate(:project, :user => user) }
+      let(:invite_attrs) do
+        Fabricate.attributes_for(:invitation, :email => invitee.email).merge(
+          {:invitable_id => project.id, :invitable_type => 'Project'} )
+      end
+
+      subject(:api_invite) { json_to_ostruct(response.body, :invitation) }
+
+      its('keys.size') { should eq(8) }
+      its(:id) { should be_nil }
+      its(:email) { should eq(invitee.email) }
+      its(:user_id) { should eq(user.id) }
+      its(:project_id) { should eq(project.id) }
+      its(:board_id) { should be_nil }
+      its(:membership_id) { should eq(project.memberships.first.id) }
+      its(:membership_type) { should_not eq(project.memberships.first.id) }
+
+      it 'it creates a membership' do
+        project.members.should include(invitee)
+      end
+    end
   end
 
   describe '#destroy' do

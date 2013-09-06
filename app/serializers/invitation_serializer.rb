@@ -3,10 +3,9 @@ class InvitationSerializer < ActiveModel::Serializer
   include GravatarHelper
 
   attributes :id, :email, :project_id, :board_id, :membership_type
-  attributes :avatar_url
+  attributes :avatar_url, :membership_id
 
   has_one :user, :embed => :id
-  has_one :membership, :embed => :id
 
   # Handles serialization of membership type
   def membership_type
