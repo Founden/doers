@@ -5,9 +5,20 @@
   border: 1px solid $green;
   @include linear-gradient(tint($green, 10%), shade($green, 10%));
   border-radius: 3px;
-  box-shadow: 0 1px 1px $gray-3;
+  box-shadow: 0 1px 0 rgba($black, 0.1);
   font-size: 14px;
   font-weight: 600;
   color: $white;
   cursor: pointer;
+  outline: 0;
+
+  &.secondary {
+    @include linear-gradient($white, $gray-1);
+    border-color: $gray-4;
+    color: $black;
+
+    &:focus {
+      border-color: $green;
+    }
+  }
 }
