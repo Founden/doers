@@ -12,6 +12,7 @@
     @include box-sizing(border-box);
     border: 0;
     outline: 0;
+    margin: 0;
     width: 100%;
     resize: none;
   }
@@ -25,7 +26,6 @@
 .card-edit {
   position: relative;
   width: 570px;
-  height: 100%;
   background: $white;
   border-radius: 3px;
 }
@@ -47,11 +47,12 @@
 }
 
 .card-edit-help-question {
+  font-size: em(18);
   font-weight: 600;
 }
 
 .card-edit-help-description {
-  font-size: em(12);
+  font-size: em(14);
   color: $gray-6;
 }
 
@@ -60,8 +61,7 @@
 }
 
 .card-edit-field-title {
-  font-size: em(18);
-  font-weight: 700;
+  font: 500 em(21) $museo;
 }
 
 .card-edit-field-text {
@@ -94,14 +94,13 @@
   right: 0;
   top: 0;
   width: 360px;
-  height: 100%;
+  max-height: 100%;
   background: $white;
   border-radius: 3px;
 }
 
 .card-activity-list {
   background: $gray-1;
-  font-size: em(12);
 }
 
 .card-comment {
@@ -110,6 +109,7 @@
   margin: 15px 0;
   border-top: 1px solid $gray-2;
   border-bottom: 1px solid $gray-2;
+  font-size: em(14);
 
   &:first-of-type {
     margin-top: 0;
@@ -132,13 +132,15 @@
 }
 
 .card-comment-date {
-  color: $gray-6;
   margin: 0 0 0.5em 0;
+  font-size: em(12);
+  color: $gray-6;
 }
 
 .card-activity-update {
-  color: $gray-6;
   margin: 0 30px;
+  color: $gray-6;
+  font-size: em(12);
 
   &:last-of-type {
     padding-bottom: 15px;
@@ -152,8 +154,8 @@
 }
 
 .card-comment-new-text {
-  padding: 20px 60px;
-  font-size: em(12);
+  padding: 18px 60px;
+  font-size: em(14);
 }
 
 .card-comment-new-actions {

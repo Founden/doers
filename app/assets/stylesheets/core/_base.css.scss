@@ -1,12 +1,15 @@
 body {
   -webkit-font-smoothing: antialiased;
-  font: 400 16px/1.5 $source-sans-pro;
   background-color: $gray-1;
-  color: $black;
 
   &.overlayed {
     overflow: hidden;
   }
+}
+
+body, input, textarea {
+  font: 400 16px/1.5 $source-sans-pro;
+  color: $black;
 }
 
 a {
