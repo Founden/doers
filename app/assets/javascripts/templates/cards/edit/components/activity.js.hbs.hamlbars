@@ -1,1 +1,26 @@
 .card-activity
+
+  %ul.card-activity-list
+    {{#each activities}}
+    %li.card-comment
+      %img{:class => 'card-comment-user-image', :bind => {:src => 'user.avatarUrl'}}
+      .card-comment-date
+        {{lastUpdate}}
+      .card-comment-content
+        %strong
+          {{user.nicename}}:
+        = Faker::Lorem.paragraph
+    %li.card-activity-update
+      %strong
+        {{user.nicename}}
+      = _('updated the card.')
+      {{lastUpdate}}
+    {{/each}}
+
+  .card-comment-new
+    %img{:class => 'card-comment-user-image', :bind => {:src => 'view.content.user.avatarUrl'}}
+    {{textarea class='card-comment-new-text' placeholder='Write a comment...' rows='4' name='comment'}}
+    .card-comment-new-actions
+      %button.button.secondary
+        = _('Comment')
+      = _('Tab + Enter to Submit.')
