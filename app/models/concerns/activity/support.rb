@@ -8,7 +8,7 @@ module Activity::Support
       slug = 'update'
       slug = 'create' if self.transaction_record_state(:new_record)
       slug = 'destroy' if destroyed?
-      [slug, self.class.name.underscore.split('_'), postfix].
+      [slug, self.class.name.underscore.split('_'), postfix].compact.
         flatten.join(' ').parameterize
     end
 
@@ -36,7 +36,7 @@ module Activity::Support
     # Activity generation hook
     def generate_activity(append_to_slug=nil)
       activity = self.activities.build(activity_params)
-      activity.slug = activity_slug(append_to_slug) unless append_to_slug.nil?
+      activity.slug = activity_slug(append_to_slug)
       activity.save!
     end
 end
