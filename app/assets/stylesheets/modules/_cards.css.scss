@@ -17,6 +17,15 @@
   background: $white;
   box-shadow: 0 1px 1px $gray-3;
   cursor: pointer;
+
+  &.moving {
+    opacity: 0.8;
+  }
+
+  &.drop-handler {
+    @include transition(opacity 0.2s);
+    opacity: 0;
+  }
 }
 
 .card-item-title {
