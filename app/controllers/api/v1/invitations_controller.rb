@@ -15,11 +15,22 @@ class Api::V1::InvitationsController < Api::V1::ApplicationController
   # Handles invitation creation
   def create
     invitation = current_account.invitations.build(invitation_params)
+    user = User.find_by(:email => invitation_params[:email])
 
-    if invitation.save
-      render :json => invitation
+    if user
+      if invitable = invitation.invitable
+        invitation.membership = invitable.memberships.create(
+          :creator => current_account, :user => user)
+        render :json => invitation
+      else
+        render :json => { :errors => [_('Email is registered.')] }
+      end
     else
-      render :json => { :errors => invitation.errors.messages }
+      if invitation.save
+        render :json => invitation
+      else
+        render :json => { :errors => invitation.errors.messages }
+      end
     end
   end
 
