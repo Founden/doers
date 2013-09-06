@@ -18,6 +18,7 @@ describe SessionsController do
 
   describe '#create' do
     let(:params) {  }
+    let!(:invitation) { }
     before { get(:create, params) }
 
     context 'for denied authentication' do
@@ -37,6 +38,18 @@ describe SessionsController do
 
       it { should redirect_to(root_path) }
       its('flash.keys') { should include(:notice) }
+
+      context '#after_successful_sign_in' do
+        let(:invitation) {
+          Fabricate(:board_invitation, :email => 'doer@geekcelerator.com') }
+        let(:invitable) { invitation.invitable }
+
+        it 'redirects to shared project' do
+          anchor = '/%s/%d' % [invitable.class.name.downcase.pluralize,invitable.id]
+          should redirect_to(root_path(:anchor => anchor))
+        end
+      end
+
     end
   end
 end
