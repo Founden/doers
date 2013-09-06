@@ -17,6 +17,14 @@ class UserMailer < ActionMailer::Base
       project.title, Doers::Config.app_name])
   end
 
+  # Sends a notice to the invitation creator
+  def invitation_claimed(invitation, user)
+    @invitation = invitation
+    @user = user
+    mail(:to => invitation.user.email, :subject => _('%s joined %s.') % [
+      @user.nicename, Doers::Config.app_name])
+  end
+
   # Sends an invitation for a project/board or just to join
   def invite(invitation)
     @invitable = invitation.invitable

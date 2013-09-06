@@ -32,7 +32,17 @@ describe Invitation do
   end
 
   context 'instance' do
-    let(:invitation) { Fabricate(:invitation) }
+    subject(:invitation) { Fabricate(:invitation) }
+
+    context '#claimer' do
+      its(:claimer) { should be_blank }
+
+      context 'when #email is registered' do
+        let(:invitation) { Fabricate(:project_invitee) }
+
+        its(:claimer) { should eq(invitation.membership.user) }
+      end
+    end
 
     context 'sends an email on creation', :use_truncation do
       before { UserMailer.should_receive(:invite) }

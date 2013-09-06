@@ -2,17 +2,10 @@ require 'spec_helper'
 
 describe SessionsController do
 
-  describe 'private methods' do
-    let(:user_attr) { Fabricate.build(:user, :id => 1) }
-    before do
-      controller.should_receive(:current_account).and_return(user_attr)
-    end
-
+  describe '#after_successful_sign_in_url' do
     it 'returns after redirect location' do
-      controller.send(:after_successful_sign_in_url).should eq(
-        profile_path(user_attr))
+      controller.send(:after_successful_sign_in_url).should eq(root_path)
     end
-
   end
 
   describe '#index' do
@@ -25,6 +18,7 @@ describe SessionsController do
 
   describe '#create' do
     let(:params) {  }
+    let!(:invitation) { }
     before { get(:create, params) }
 
     context 'for denied authentication' do
@@ -42,8 +36,20 @@ describe SessionsController do
         {:provider => :angel_list, :identity => :oauth2, :code => 'DUMMY_CODE'}
       end
 
-      it { should redirect_to(profile_path(User.first)) }
+      it { should redirect_to(root_path) }
       its('flash.keys') { should include(:notice) }
+
+      context '#after_successful_sign_in' do
+        let(:invitation) {
+          Fabricate(:board_invitation, :email => 'doer@geekcelerator.com') }
+        let(:invitable) { invitation.invitable }
+
+        it 'redirects to shared project' do
+          anchor = '/%s/%d' % [invitable.class.name.downcase.pluralize,invitable.id]
+          should redirect_to(root_path(:anchor => anchor))
+        end
+      end
+
     end
   end
 end
