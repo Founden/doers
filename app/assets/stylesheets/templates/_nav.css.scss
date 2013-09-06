@@ -32,10 +32,18 @@
 
 .nav-list-item-btn {
   display: block;
+  position: relative;
   padding: 15px 30px;
   color: $white;
   font-weight: 700;
   font-size: em(14);
+
+  .icon {
+    float: right;
+    font-size: 24px;
+    height: 29px;
+    margin-top: -4px;
+  }
 }
 
 .nav-list-item-account {

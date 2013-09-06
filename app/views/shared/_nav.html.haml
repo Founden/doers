@@ -14,10 +14,12 @@
         %li.nav-list-item
           %a{:href => root_path(:anchor => '/projects'), :class => 'nav-list-item-btn'}
             = _('Your projects')
+            %span.icon.icon-project
         %li.nav-list-item
           %a#projects-add{:href => root_path(:anchor => '/projects/new'), :class => 'nav-list-item-btn'}
             = _('Create new porject')
-        - if current_account.admin?
-          %li.nav-list-item
-            %a#boards-add{:href => '#', :class => 'nav-list-item-btn'}
-              = _('Collaborators')
+            %span.icon.icon-project-new
+        %li.nav-list-item
+          %a{:href => '#', :class => 'nav-list-item-btn'}
+            = _('Collaborators')
+            %span.icon.icon-collaborator
