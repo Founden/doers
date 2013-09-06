@@ -1,3 +1,5 @@
+@charset 'utf-8';
+
 @import 'bourbon';
 @import 'normalize-rails/normalize';
 
@@ -10,6 +12,7 @@
 @import 'components/bucket';
 @import 'components/buttons';
 @import 'components/collaborators';
+@import 'components/icons';
 
 @import 'templates/nav';
 @import 'templates/content';
