@@ -7,6 +7,14 @@
   height: 100%;
   padding: 40px 0 40px 280px;
   background: rgba($black, 0.8);
+
+  #{$all-text-inputs}, textarea {
+    @include box-sizing(border-box);
+    border: 0;
+    outline: 0;
+    width: 100%;
+    resize: none;
+  }
 }
 
 .card-wrap {
@@ -16,24 +24,26 @@
 
 .card-edit {
   position: relative;
-  width: 550px;
+  width: 570px;
   height: 100%;
   background: $white;
   border-radius: 3px;
 }
 
 .card-edit-actions {
-  padding: 20px;
+  padding: 15px 20px;
+  margin: 0 0 20px 0;
+  border-bottom: 1px solid $gray-1;
   text-align: right;
 }
 
 .card-edit-help {
   padding: 20px 30px;
-  margin: 0 0 20px 0;
   background: $gray-1;
   border-top: 1px solid $gray-2;
   border-bottom: 1px solid $gray-2;
   box-shadow: -5px 0 $green;
+  border-radius: 0 3px 0 0;
 }
 
 .card-edit-help-question {
@@ -47,13 +57,6 @@
 
 .card-edit-field {
   margin: 20px 30px;
-
-  #{$all-text-inputs}, textarea {
-    @include box-sizing(border-box);
-    border: 0;
-    outline: 0;
-    width: 100%;
-  }
 }
 
 .card-edit-field-title {
@@ -64,7 +67,6 @@
 .card-edit-field-text {
   font-size: em(14);
   color: $gray-6;
-  resize: none;
 }
 
 .card-edit-search-results {
@@ -88,10 +90,79 @@
 
 .card-activity {
   position: absolute;
+  overflow-y: scroll;
   right: 0;
   top: 0;
-  width: 380px;
+  width: 360px;
   height: 100%;
   background: $white;
   border-radius: 3px;
+}
+
+.card-activity-list {
+  background: $gray-1;
+  font-size: em(12);
+}
+
+.card-comment {
+  position: relative;
+  padding: 20px 60px;
+  margin: 15px 0;
+  border-top: 1px solid $gray-2;
+  border-bottom: 1px solid $gray-2;
+
+  &:first-of-type {
+    margin-top: 0;
+    border-top: 0;
+  }
+
+  &:last-of-type {
+    margin-bottom: 0;
+    border-bottom: 0;
+  }
+}
+
+.card-comment-user-image {
+  position: absolute;
+  left: 20px;
+  top: 16px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+}
+
+.card-comment-date {
+  color: $gray-6;
+  margin: 0 0 0.5em 0;
+}
+
+.card-activity-update {
+  color: $gray-6;
+  margin: 0 30px;
+
+  &:last-of-type {
+    padding-bottom: 15px;
+  }
+}
+
+.card-comment-new {
+  position: relative;
+  border-top: 1px solid $gray-3;
+  background: $white;
+}
+
+.card-comment-new-text {
+  padding: 20px 60px;
+  font-size: em(12);
+}
+
+.card-comment-new-actions {
+  padding: 15px 20px;
+  border-top: 1px solid $gray-1;
+  color: $gray-5;
+  font-size: em(14);
+
+  .button {
+    margin: 0 1em 0 0;
+  }
 }

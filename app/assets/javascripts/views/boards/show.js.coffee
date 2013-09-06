@@ -2,7 +2,7 @@ Doers.BoardsShowView = Ember.View.extend
 
   selectedCard: null
 
-  cardItemView: Ember.View.extend
+  cardItemView: Ember.View.extend Doers.MovableMixin,
     classNames: ['card-item']
     classNameBindings: ['classType']
 
@@ -23,6 +23,7 @@ Doers.BoardsShowView = Ember.View.extend
     click: (event) ->
       @set('parentView.selectedCard', @get('content'))
       @set('content.isEditing', true)
+      $('body').addClass('overlayed')
 
   cardEditView: Ember.View.extend
     classNames: ['card']
@@ -41,3 +42,4 @@ Doers.BoardsShowView = Ember.View.extend
     closeView: Ember.View.extend
       click: (event) ->
         @set('parentView.content.isEditing', false)
+        $('body').removeClass('overlayed')

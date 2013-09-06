@@ -1,14 +1,11 @@
+{{#with view.content}}
 .card-wrap
-
+  {{partial 'cards/edit/components/activity'}}
   .card-edit
-    {{partial 'cards/edit/components/actions'}}
     {{partial 'cards/edit/components/help'}}
-
-    {{#with view.content}}
+    {{partial 'cards/edit/components/actions'}}
     .card-edit-field
       {{input class='card-edit-field-title' valueBinding='title' placeholderBinding='titleHint' type='text' name='title'}}
     .card-edit-field
       {{textarea class='card-edit-field-text' placeholder='Type your content...' valueBinding='content' rows='10' name='content'}}
-    {{/with}}
-
-  {{partial 'cards/edit/components/activity'}}
+{{/with}}
