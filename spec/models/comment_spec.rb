@@ -6,6 +6,7 @@ describe Comment do
   it { should belong_to(:user) }
   it { should belong_to(:board) }
   it { should belong_to(:project) }
+  it { should belong_to(:commentable) }
 
   it { should validate_presence_of(:content) }
   it { should_not ensure_inclusion_of(
@@ -41,6 +42,25 @@ describe Comment do
         :external_type).in_array(Doers::Config.external_types) }
       its(:external?) { should be_true }
       its('author.nicename') { should eq(comment.external_author_name) }
+    end
+  end
+
+  context '#activities', :use_truncation do
+    subject(:comment) { Fabricate(:card_comment) }
+
+    context 'first' do
+      subject { comment.commentable.activities.reload.first }
+
+      its(:slug) { should eq('create-comment') }
+      its(:comment_id) { should eq(comment.id.to_s) }
+    end
+
+    context 'first for a comment with parent comment' do
+      let(:with_parent) { Fabricate(:card_comment, :parent_comment => comment) }
+      subject { with_parent.commentable.activities.reload.first }
+
+      its(:slug) { should_not eq('create-comment') }
+      its(:comment_id) { should be_blank }
     end
   end
 
