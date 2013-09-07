@@ -17,6 +17,7 @@ class Card < ActiveRecord::Base
   belongs_to :board
   belongs_to :project
   has_many :activities, :as => :trackable
+  has_many :comments, :as => :commentable, :dependent => :destroy
 
   # Validations
   validates_presence_of :user, :board

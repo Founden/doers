@@ -48,6 +48,11 @@ class Invitation < ActiveRecord::Base
     self.invitable.is_a?(Board)
   end
 
+  # Target to use when generating activities
+  def activity_title
+    self.email
+  end
+
   private
 
     # Emails the invitation
