@@ -547,5 +547,73 @@ describe User do
         end
       end
     end
+
+    context 'when target is a comment'  do
+      context 'owned by the user' do
+        let(:comment) { Fabricate(:comment, :user => user) }
+        let(:target) { comment }
+        before { user.should_receive(:comments_to).and_call_original }
+
+        it { should be_true }
+        it_behaves_like 'is writable'
+
+        context 'or a set of such owned by the user' do
+          let(:target) { comment.user.comments }
+
+          it { should be_true }
+          it_behaves_like 'is writable'
+        end
+      end
+
+      context 'not owned by the user' do
+        let(:target) { Fabricate(:comment) }
+        before { user.should_receive(:comments_to).and_call_original }
+
+        it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
+        it_behaves_like 'is not writable'
+        it_behaves_like 'no error is raised'
+
+        context 'or a set of boards not owned by the user' do
+          let(:target) { Fabricate(:comment).user.comments }
+
+          it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
+          it_behaves_like 'is not writable'
+        end
+      end
+
+      context 'within one of the user projects' do
+        let(:project) { Fabricate(:project_membership, :user => user).project }
+        let(:target) { Fabricate(:comment, :project => project) }
+        before { user.should_receive(:comments_to).and_call_original }
+
+        it { should be_true }
+        it_behaves_like 'is not writable'
+
+        context 'or a set of such' do
+          let(:target) { Fabricate(:comment, :project => project).user.comments}
+
+          it { should be_true }
+          it_behaves_like 'is not writable'
+        end
+      end
+
+      context 'within a board owned by the user' do
+        let(:board) { Fabricate(:board_membership, :user => user).board }
+        let(:target) { Fabricate(:comment, :board => board) }
+        before { user.should_receive(:comments_to).and_call_original }
+
+        it { should be_true }
+        it_behaves_like 'is not writable'
+
+        context 'or a set of such' do
+          let(:target) do
+            Fabricate(:comment, :board => board).user.comments
+          end
+
+          it { should be_true }
+          it_behaves_like 'is not writable'
+        end
+      end
+    end
   end
 end
