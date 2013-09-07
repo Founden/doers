@@ -15,6 +15,7 @@ Doers.Card = DS.Model.extend
   board: DS.belongsTo('Doers.Board')
   user: DS.belongsTo('Doers.User', readOnly: true)
   activities: DS.hasMany('Doers.Activity', readOnly: true, inverse: 'trackable', polymorphic: true)
+  comments: DS.hasMany('Doers.Comment', readOnly: true, inverse: 'card')
 
   updatedAt: DS.attr('date', readOnly: true)
 
