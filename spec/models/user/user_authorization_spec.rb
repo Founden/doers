@@ -448,7 +448,7 @@ describe User do
         it { should be_true }
         it_behaves_like 'is writable'
 
-        context 'or a set of cards owned by the user' do
+        context 'or a set of such owned by the user' do
           let(:target) { user.activities }
 
           it { should be_true }
