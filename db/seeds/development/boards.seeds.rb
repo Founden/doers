@@ -17,6 +17,15 @@ after 'development:projects' do
     persona.branch_for(user, project, {:title => persona.title} )
     problem.branch_for(user, project, {:title => problem.title} )
   end
+  # Add some comments
+  user.boards.each do |board|
+    board.cards.each do |card|
+      [0, 2, 4].sample.times do
+        Fabricate(:comment, :user => user, :project => board.project,
+          :board => board, :commentable => card)
+      end
+    end
+  end
 
   # Other project boards
   projects = Project.all - user.projects
