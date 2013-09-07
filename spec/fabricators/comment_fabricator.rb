@@ -1,8 +1,9 @@
 Fabricator(:comment) do
+  content     { Faker::HTMLIpsum.fancy_string }
   user
-  project
-  board
-  content { Faker::HTMLIpsum.fancy_string }
+  project     { |attrs| Fabricate(:project, :user => attrs[:user]) }
+  board       { |attrs| Fabricate(
+    :board, :project => attrs[:project], :author => attrs[:user]) }
 end
 
 Fabricator(:comment_with_parent, :from => :comment) do
