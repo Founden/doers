@@ -23,7 +23,6 @@ Doers.BoardsShowView = Ember.View.extend
     click: (event) ->
       @set('parentView.selectedCard', @get('content'))
       @set('content.isEditing', true)
-      $('body').addClass('overlayed')
 
   cardEditView: Ember.View.extend
     classNames: ['card']
@@ -39,9 +38,8 @@ Doers.BoardsShowView = Ember.View.extend
       @rerender()
     ).observes('templateName')
 
-    closeView: Ember.View.extend
-      click: (event) ->
-        @set('parentView.content.isEditing', false)
-        $('body').removeClass('overlayed')
+    saveButtonView: Ember.View.extend
+      contentBinding: 'parentView.content'
+      clickBinding: 'controller.save'
 
     uploadView: Doers.UploaderView
