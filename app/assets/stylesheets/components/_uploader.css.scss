@@ -1,0 +1,19 @@
+.uploader {
+  padding: 20px;
+  border: 2px dashed $gray-3;
+  line-height: 5em;
+  text-align: center;
+  cursor: pointer;
+  color: $gray-5;
+
+  input {
+    width: 0;
+    height: 0;
+    float: left;
+  }
+
+  &.hover, &:hover {
+    border-color: $gray-4;
+    color: $gray-6;
+  }
+}
