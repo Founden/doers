@@ -6,7 +6,7 @@
     %span.icon.icon-angel
     = _('Import from Angel List')
     {{/linkTo}}
-    %a{:href => root_path(:anchor => '/projects/new'), :class => 'button'}
+    %a#projects-add.button{:href => root_path(:anchor => '/projects/new')}
       %span.icon.icon-plus
       = _('Create project')
 
