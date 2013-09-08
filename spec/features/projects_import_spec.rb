@@ -23,18 +23,18 @@ feature 'Projects', :js, :slow do
       end
 
       scenario 'with startups' do
-        expect(page).to have_css('.projects .project', :count => 2)
+        expect(page).to have_css('.startup-item', :count => 2)
       end
 
       scenario 'with an importer running message after import starts' do
-        # Pick 3rd startup where role is `founder`
         find('.startup-%d' % startup['id']).click
-        expect(page).to have_css('.projects .project.selected', :count => 1)
+        expect(page).to have_css('.startup-item.selected', :count => 1)
 
-        click_on('run-import')
+        find('#run-import').click
 
-        expect(page).to_not have_css('#importer')
-        expect(page).to have_css('#importer-running')
+        expect(page).to_not have_css('.startup-list')
+        expect(page).to have_css('.dashboard-title')
+        expect(page).to have_css('.dashboard-description')
       end
     end
   end
