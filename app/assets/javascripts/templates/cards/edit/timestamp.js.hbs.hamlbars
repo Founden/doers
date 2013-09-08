@@ -1,14 +1,14 @@
-%form{:bind => {:id => 'view.content.editSlug'}}
-  %fieldset
-    {{partial 'partials/card_actions'}}
-    {{partial 'partials/card_help'}}
-    .field
-      {{input valueBinding='view.content.title' placeholderBinding='view.content.titleHint' autocomplete='false' required='true' type='text' name='title'}}
-    .field
-      %label
-        = _('Select a date')
-      {{input valueBinding='view.content.dateString' required='true' type='date' name='date'}}
-    .field
-      %label
-        = _('Select a time')
-      {{input valueBinding='view.content.timeString' required='true' type='time' name='time'}}
+{{#with view.content}}
+.card-wrap
+  {{partial 'cards/edit/components/activity'}}
+  .card-edit
+    {{partial 'cards/edit/components/help'}}
+    {{partial 'cards/edit/components/actions'}}
+    .card-edit-field
+      {{input class='card-edit-field-title' valueBinding='title' placeholderBinding='titleHint' type='text' name='title'}}
+    .card-edit-field
+      {{input class='card-edit-field-number' valueBinding='dateString' placeholder='Date' type='text' name='date'}}
+    .card-edit-field
+      {{input class='card-edit-field-number' valueBinding='timeString' placeholder='Time' type='text' name='time'}}
+{{/with}}
+
