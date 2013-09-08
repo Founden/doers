@@ -17,9 +17,6 @@
       1 / {{board.cardsCount}}
     .header-progress
       .header-progress-bar
-  .header-actions
-    .button
-      = _('View mode')
 
 .content-wrap
 
