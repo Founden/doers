@@ -1,5 +1,5 @@
 Doers.Project = DS.Model.extend
-  title: DS.attr('string', defaultValue: 'Untitled')
+  title: DS.attr('string')
   description: DS.attr('string')
   website: DS.attr('string')
   status: DS.attr('string', readOnly: true)
