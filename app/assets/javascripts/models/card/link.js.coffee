@@ -4,10 +4,13 @@ Doers.LinkMixin = Ember.Mixin.create
   embed: null
 
   urlChanged: ( ->
+    Ember.run.debounce(@, 'search', 200)
+  ).observes('url')
+
+  search: ->
     url = @get('url')
     if url and url.match('https?://(.*[^/])') and url.length > 11
       @set('result', Doers.Embed.find({url: url}))
-  ).observes('url')
 
   resultChaned: ( ->
     result = @get('result')
