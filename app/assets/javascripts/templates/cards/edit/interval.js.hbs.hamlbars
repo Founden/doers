@@ -1,20 +1,18 @@
-%form{:bind => {:id => 'view.content.editSlug'}}
-  %fieldset
-    {{partial 'partials/card_actions'}}
-    {{partial 'partials/card_help'}}
-    .field
-      {{input valueBinding='view.content.title' placeholderBinding='view.content.titleHint' autocomplete='false' required='true' type='text' name='title'}}
-    .field
-      {{input valueBinding='view.content.content' placeholder='What does it represent?' autocomplete='false' required='true' type='text' name='content'}}
-    .field
-      %label
-        = _('Minimum')
-      {{input valueBinding='view.content.minimum' required='true' type='number' name='minimum'}}
-    .field
-      %label
-        = _('Maximum')
-      {{input valueBinding='view.content.maximum' required='true' type='number' name='maximum'}}
-    .field
-      %label
-        = _('Selected')
-      {{input valueBinding='view.content.selected' required='true' type='number' name='selected'}}
+{{#with view.content}}
+.card-wrap
+  {{partial 'cards/edit/components/activity'}}
+  .card-edit
+    {{partial 'cards/edit/components/help'}}
+    {{partial 'cards/edit/components/actions'}}
+    .card-edit-field
+      {{input class='card-edit-field-title' valueBinding='title' placeholderBinding='titleHint' type='text' name='title'}}
+    .card-edit-field
+      {{input class='card-edit-field-number' valueBinding='minimum' placeholder='Min' type='text' name='minimum'}}
+    .card-edit-field
+      {{input class='card-edit-field-number' valueBinding='selected' placeholder='Value' type='text' name='selected'}}
+    .card-edit-field
+      {{input class='card-edit-field-number' valueBinding='maximum' placeholder='Max' type='text' name='maximum'}}
+    .card-edit-field
+      {{input valueBinding='content' placeholder='What does it represent?' type='text' name='content'}}
+{{/with}}
+
