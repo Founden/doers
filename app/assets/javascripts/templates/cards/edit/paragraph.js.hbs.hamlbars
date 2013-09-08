@@ -1,8 +1,11 @@
-%form{:bind => {:id => 'view.content.editSlug'}}
-  %fieldset
-    {{partial 'partials/card_actions'}}
-    {{partial 'partials/card_help'}}
-    .field
-      {{input valueBinding='view.content.title' placeholderBinding='view.content.titleHint' autocomplete='false' required='true' type='text' name='title'}}
-    .field.content
-      {{textarea valueBinding='view.content.content' placeholder='Give it a nice content' required='true' rows='10' name='content'}}
+{{#with view.content}}
+.card-wrap
+  {{partial 'cards/edit/components/activity'}}
+  .card-edit
+    {{partial 'cards/edit/components/help'}}
+    {{partial 'cards/edit/components/actions'}}
+    .card-edit-field
+      {{input class='card-edit-field-title' valueBinding='title' placeholderBinding='titleHint' type='text' name='title'}}
+    .card-edit-field
+      {{textarea class='card-edit-field-text' placeholder='Type your content...' valueBinding='content' rows='10' name='content'}}
+{{/with}}
