@@ -17,6 +17,10 @@
 .header-title {
   float: left;
   padding: 0 45px 0 30px;
+  max-width: 6em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   line-height: 98px;
   background: image-url('header-arrow.png') no-repeat right center;
   font-size: em(18);
