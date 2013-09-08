@@ -1,9 +1,7 @@
-Doers.PhotoView = Ember.View.extend
-
-  uploadView: Ember.ContainerView.extend
+Doers.UploaderView = Ember.ContainerView.extend
     assetAttribute: 'image'
     contentBinding: 'parentView.content'
-    classNames: ['asset-upload']
+    classNames: ['uploader']
     childViews: ['hiddenFileInputView', 'dropAreaView']
 
     doNothing: (event) ->
@@ -47,7 +45,7 @@ Doers.PhotoView = Ember.View.extend
       ).observes('parentView.isAttaching')
 
     dropAreaView: Ember.View.extend
-      templateName: 'partials/asset_uploader'
+      templateName: 'partials/uploader'
       isDragging: false
       isVisible: true
       isError: false

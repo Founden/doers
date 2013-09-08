@@ -43,3 +43,5 @@ Doers.BoardsShowView = Ember.View.extend
       click: (event) ->
         @set('parentView.content.isEditing', false)
         $('body').removeClass('overlayed')
+
+    uploadView: Doers.UploaderView
