@@ -27,9 +27,9 @@
   border-radius: 50%;
   vertical-align: top;
 
-  .icon {
-    color: $green;
-    font-size: 24px;
+  .icon:before {
     line-height: 42px;
+    font-size: 24px;
+    color: $green;
   }
 }

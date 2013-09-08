@@ -6,10 +6,11 @@
   {{#view view.statusView}}
   {{#if view.hasSelections}}
   .header-title
-    = _('You have selected {{selectedStartups.length}} project(s)')
+    = _('You have selected {{selectedStartups.length}} projects')
   .header-actions
     .button#run-import{:_action => 'doImport'}
-      = _('Import selected')
+      %span.icon.icon-angel
+      = _('Import')
   {{else}}
   .header-title
     {{#if content.length}}
@@ -22,9 +23,12 @@
 
 .content-wrap
 
-  .projects
+  .project-list
+    .project-list-title
+      = _('Angel List projects')
     {{#each content}}
     {{#view view.startupView contentBinding=this}}
+    .icon.icon-checkmark
     %h3.project-item-title
       {{title}}
     {{/view}}
