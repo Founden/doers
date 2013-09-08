@@ -7,5 +7,5 @@
     .card-edit-field
       {{input class='card-edit-field-title' valueBinding='title' placeholderBinding='titleHint' type='text' name='title'}}
     .card-edit-field
-      {{textarea class='card-edit-field-text' placeholder='Type your content...' valueBinding='content' rows='10' name='content'}}
+      {{input placeholder='Type your content...' valueBinding='content' type='text' name='content'}}
 {{/with}}
