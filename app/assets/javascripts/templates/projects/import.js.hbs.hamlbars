@@ -3,29 +3,28 @@
   .header-root
     = _('Projects')
   {{/linkTo}}
-  {{#view view.statusView}}
-  {{#if view.hasSelections}}
   .header-title
-    = _('You have selected {{selectedStartups.length}} projects')
+    = _('Import')
+  {{#if view.hasSelections}}
   .header-actions
     .button#run-import{:_action => 'doImport'}
       %span.icon.icon-angel
       = _('Import')
-  {{else}}
-  .header-title
-    {{#if content.length}}
-    = _('Select projects to import')
-    {{else}}
-    = _('Loading projects from Angel List')
-    {{/if}}
   {{/if}}
-  {{/view}}
 
 .content-wrap
 
   .project-list
     .project-list-title
-      = _('Angel List projects')
+      {{#if view.hasSelections}}
+      = _('Projects to import ({{selectedStartups.length}})')
+      {{else}}
+      {{#if content.length}}
+      = _('Select projects to import')
+      {{else}}
+      = _('Loading projects from Angel List')
+      {{/if}}
+      {{/if}}
     {{#each content}}
     {{#view view.startupView contentBinding=this}}
     .icon.icon-checkmark
@@ -33,4 +32,3 @@
       {{title}}
     {{/view}}
     {{/each}}
-
