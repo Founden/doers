@@ -19,6 +19,7 @@ describe Activity, :use_truncation do
 
     its(:user_name) { should eq(user.nicename) }
     its(:trackable_title) { should be_nil }
+    its(:comment_id) { should be_nil }
 
     context 'and title' do
       let(:project) { Fabricate(:project, :user => user) }
