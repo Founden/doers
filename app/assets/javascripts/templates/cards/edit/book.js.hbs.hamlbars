@@ -1,14 +1,13 @@
+{{#with view.content}}
 .card-wrap
-
+  {{partial 'cards/edit/components/activity'}}
   .card-edit
-    {{partial 'cards/edit/components/actions'}}
     {{partial 'cards/edit/components/help'}}
-
-    {{#with view.content}}
+    {{partial 'cards/edit/components/actions'}}
     .card-edit-field
       {{input class='card-edit-field-title' valueBinding='title' placeholderBinding='titleHint' type='text' name='title'}}
     .card-edit-field
-      {{input class='card-edit-field-query' valueBinding='query' placeholder='Search for a book...' autocomplete='false' type='text' name='query'}}
+      {{input valueBinding='query' placeholder='Search for a book...' type='text' name='query'}}
     {{#if query}}
     %ul.card-edit-search-results
       {{#if results}}
@@ -26,7 +25,4 @@
       {{/if}}
       {{/if}}
     {{/if}}
-    {{/with}}
-
-  {{partial 'cards/edit/components/activity'}}
-
+{{/with}}
