@@ -12,11 +12,18 @@
 
 .content-wrap
 
-  .projects
+  .project-list
+    .project-list-title
+      = _('Mine')
     {{#each content}}
-    .project-item{:bind => {:id => 'slug'}}
-      {{#linkTo 'projects.show' this}}
-      %h3.project-item-title
-        {{title}}
-      {{/linkTo}}
+    {{#linkTo 'projects.show' this class='project-item'}}
+    %h3.project-item-title
+      {{title}}
+    .project-item-count
+      23
+      %span.icon.icon-user
+    .project-item-count
+      12
+      %span.icon.icon-board
+    {{/linkTo}}
     {{/each}}
