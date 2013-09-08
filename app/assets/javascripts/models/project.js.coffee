@@ -6,6 +6,8 @@ Doers.Project = DS.Model.extend
   externalId: DS.attr('number', readOnly: true)
   updatedAt: DS.attr('date', readOnly: true)
   lastUpdate: DS.attr('string', readOnly: true)
+  boardsCount: DS.attr('number', readOnly: true)
+  membersCount: DS.attr('number', readOnly: true)
 
   user: DS.belongsTo('Doers.User', readOnly: true, inverse: 'createdProjects')
   logo: DS.belongsTo('Doers.Logo', readOnly: true, inverse: 'user')
