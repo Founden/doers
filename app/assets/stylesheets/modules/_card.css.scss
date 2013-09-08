@@ -21,34 +21,33 @@
 
 .card-wrap {
   position: relative;
+  height: 100%;
   @extend .content-wrap;
 }
 
 .card-edit {
   position: relative;
+  overflow: hidden;
   width: 570px;
+  height: 100%;
   background: $white;
   border-radius: 3px;
 }
 
 .card-edit-actions {
   padding: 15px 20px;
+  border-bottom: 1px solid $gray-2;
   margin: 0 0 20px 0;
-  border-bottom: 1px solid $gray-1;
   text-align: right;
 }
 
 .card-edit-help {
   padding: 20px 30px;
   background: $gray-1;
-  border-top: 1px solid $gray-2;
   border-bottom: 1px solid $gray-2;
-  box-shadow: -5px 0 $green;
-  border-radius: 0 3px 0 0;
 }
 
 .card-edit-help-question {
-  font-size: em(18);
   font-weight: 600;
 }
 
