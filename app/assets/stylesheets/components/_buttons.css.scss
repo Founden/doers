@@ -1,8 +1,8 @@
 .button {
   display: inline-block;
-  padding: 0 20px;
+  padding: 0 15px;
   line-height: 40px;
-  border: 1px solid $green;
+  border: 1px solid rgba($black, 0.1);
   @include linear-gradient(tint($green, 10%), shade($green, 10%));
   border-radius: 3px;
   box-shadow: 0 1px 0 rgba($black, 0.1);
@@ -12,9 +12,20 @@
   cursor: pointer;
   outline: 0;
 
+  .icon {
+    float: left;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 10px 0 0;
+    margin: 0 15px 0 -5px;
+    border-right: 1px solid rgba($black, 0.1);
+    font-size: 24px;
+    color: inherit;
+  }
+
   &.secondary {
+    border-color: $gray-3;
     @include linear-gradient($white, $gray-1);
-    border-color: $gray-4;
     color: $black;
 
     &:focus {

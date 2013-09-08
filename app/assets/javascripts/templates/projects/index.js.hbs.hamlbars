@@ -2,9 +2,13 @@
   .header-root
     = _('Projects')
   .header-actions
-    {{#linkTo 'projects.import' id='projects-import' class='button'}}
+    {{#linkTo 'projects.import' id='projects-import' class='button secondary'}}
+    %span.icon.icon-angel
     = _('Import from Angel List')
     {{/linkTo}}
+    %a{:href => root_path(:anchor => '/projects/new'), :class => 'button'}
+      %span.icon.icon-plus
+      = _('Create project')
 
 .content-wrap
 

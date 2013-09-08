@@ -22,5 +22,6 @@
     {{textarea class='card-comment-new-text' placeholder='Write a comment...' rows='4' name='comment'}}
     .card-comment-new-actions
       %button.button.secondary
+        %span.icon.icon-comment
         = _('Comment')
       = _('Tab + Enter to Submit.')
