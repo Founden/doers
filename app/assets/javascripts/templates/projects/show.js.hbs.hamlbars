@@ -15,8 +15,8 @@
     %ul.collaborators
       %li.collaborators-user
         %img.collaborators-user-image{:bind => {:src => 'content.user.avatarUrl'}}
-      %li.collaborators-user
-        %a.collaborators-user-add{:href => '#'}
+      %li.collaborators-add-btn
+        %span.icon.icon-plus
 
   .board-list
     {{#each content.boards}}
@@ -37,7 +37,7 @@
       {{else}}
       .board-item-user
         %img.board-item-user-image{:bind => {:src => 'user.avatarUrl'}}
-        %span.board-item-user-activity
+        %span.icon.icon-comment
         = _('Updated')
         {{lastUpdate}}
         = _('by')
@@ -63,10 +63,8 @@
           .board-item-user-company
             = _('Company name')
         .board-item-branch{:_action => 'createBranch this'}
-          .board-item-branch-icon
-            &plus;
-          .board-item-branch-btn
-            = _('Use')
+          .icon.icon-plus
+          = _('Use board')
           .board-item-branch-count
-            250
+            {{branchesCount}}
       {{/each}}

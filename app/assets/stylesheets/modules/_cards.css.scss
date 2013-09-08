@@ -41,22 +41,15 @@
 }
 
 .card-item-user {
+  @extend .board-item-user;
   @include box-sizing(border-box);
   position: absolute;
   left: 0;
   bottom: 0;
   width: 100%;
-  padding: 15px 15px 15px 66px;
   border-top: 1px solid $gray-2;
-  @include linear-gradient($white, $gray-1);
-  font-size: em(12);
-  color: $gray-6;
 }
 
 .card-item-user-image {
   @extend .board-item-user-image;
-}
-
-.card-item-user-activity {
-  @extend .board-item-user-activity;
 }

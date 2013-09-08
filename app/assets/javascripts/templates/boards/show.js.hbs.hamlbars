@@ -31,8 +31,8 @@
     %ul.collaborators
       %li.collaborators-user
         %img.collaborators-user-image{:bind => {:src => 'board.user.avatarUrl'}}
-      %li.collaborators-user
-        %a.collaborators-user-add{:href => '#'}
+      %li.collaborators-add-btn
+        %span.icon.icon-plus
 
   .cards
     {{#each arrangedContent}}
