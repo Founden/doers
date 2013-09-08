@@ -2,7 +2,7 @@
 class Activity < ActiveRecord::Base
   # Some dynamic attributes
   store_accessor :data, :user_name, :project_title, :board_title
-  store_accessor :data, :trackable_title
+  store_accessor :data, :trackable_title, :comment_id
 
   # Relationships
   belongs_to :project
