@@ -13,14 +13,13 @@ feature 'Projects', :js, :slow do
       visit root_path(:anchor => '/projects/new')
     end
 
-    scenario 'form submission creates a new project' do
-      within('#project-new') do
-        fill_in :titleInput, :with => attrs[:title]
-        fill_in :wwwInput, :with => attrs[:website]
-        fill_in :descriptionInput, :with => attrs[:description]
+    scenario 'with a title and description set, creates a new project' do
+      within('.project') do
+        fill_in :title, :with => attrs[:title]
+        fill_in :description, :with => attrs[:description]
       end
 
-      click_on('project-save')
+      click_on('create-project')
 
       sleep(1)
       expect(page).to have_css('#project-%d' % user.projects.first.id)
@@ -28,10 +27,12 @@ feature 'Projects', :js, :slow do
       expect(page).to have_content(attrs[:description])
     end
 
-    scenario 'with missing parameters creates a project with default values' do
-      click_on('project-save')
-      sleep(1)
-      expect(user.projects.reload.count).to eq(1)
+    scenario 'with missing title wont show create button' do
+      within('.project') do
+        fill_in :title, :with => ''
+        fill_in :description, :with => attrs[:description]
+      end
+      expect(page).to_not have_css('#create-project')
     end
   end
 end
