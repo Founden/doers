@@ -47,7 +47,7 @@ describe Api::V1::BoardsController do
 
       subject(:api_board) { json_to_ostruct(response.body, :board) }
 
-      its('keys.size') { should eq(18) }
+      its('keys.size') { should eq(19) }
       its(:id) { should eq(board.id) }
       its(:title) { should eq(board.title) }
       its(:status) { should eq(Board::STATES.first) }
@@ -114,7 +114,7 @@ describe Api::V1::BoardsController do
 
       subject(:api_board) { json_to_ostruct(response.body, :board) }
 
-      its('keys.size') { should eq(18) }
+      its('keys.size') { should eq(19) }
       its(:title) { should eq(title) }
       its(:description) { should be_nil }
       its(:user_id) { should eq(user.id) }
@@ -189,7 +189,7 @@ describe Api::V1::BoardsController do
 
     subject(:api_board) { json_to_ostruct(response.body, :board) }
 
-    its('keys.size') { should eq(18) }
+    its('keys.size') { should eq(19) }
     its(:title) { should eq(board_attrs['title']) }
     its(:description) { should eq(board_attrs['description']) }
     its(:user_id) { should eq(user.id) }
@@ -200,7 +200,7 @@ describe Api::V1::BoardsController do
     context 'ignores wrong attributes' do
       let(:board_attrs) { Fabricate.attributes_for(:branched_board) }
 
-      its('keys.size') { should eq(18) }
+      its('keys.size') { should eq(19) }
       its(:title) { should eq(board_attrs['title']) }
       its(:description) { should eq(board_attrs['description']) }
       its(:user_id) { should eq(user.id) }
