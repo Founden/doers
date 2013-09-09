@@ -16,10 +16,11 @@ feature 'Boards', :js, :slow do
 
     scenario 'are shown' do
       expect(page).to have_css(
-        '#project .boards .board', :count => project.boards.count)
+        '.board-list .board-item', :count => project.boards.count)
     end
 
-    scenario 'confirms deletion and removes board when clicked on delete button' do
+    scenario 'confirms deletion and removes board when clicked on delete' do
+      pending
       find('#board-%d .delete-button' % project.boards.first.id).click
       expect(page).to have_css('.delete-confirmation')
       find('.delete-confirmation .button.red').click
@@ -32,19 +33,20 @@ feature 'Boards', :js, :slow do
       given(:project) { Fabricate(:project, :user => user) }
 
       scenario 'some public boards are shown' do
-        expect(page).to have_css('#project .public-boards .board', :count => 1)
+        expect(page).to have_css('.board-list .board-item', :count => 0)
+        expect(page).to have_css('.public-board-list .board-item', :count => 1)
         expect(page).to have_content(public_board.title)
       end
 
       context 'on click' do
         background do
-          find('#board-%d a' % public_board.id).click
+          find('#board-%d .board-item-branch' % public_board.id).click
         end
 
         scenario 'creates a branch for current project' do
-          expect(page).to have_content(public_board.title)
+          expect(page).to have_css('.board-list .board-item', :count => 1)
           sleep(1)
-          expect(user.cards.count).to eq(public_board.cards.count)
+          expect(user.boards.first.cards.count).to eq(public_board.cards.count)
         end
       end
     end

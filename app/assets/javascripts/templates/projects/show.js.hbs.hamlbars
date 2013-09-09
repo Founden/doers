@@ -19,29 +19,32 @@
         %span.icon.icon-plus
 
   .board-list
-    {{#each content.boards}}
-    .board-item{:bind => {:id => 'slug'}}
-      {{#linkTo 'boards.show' id}}
+    {{#each board in content.boards}}
+    .board-item{:bind => {:id => 'board.slug'}}
+      {{#linkTo 'boards.show' board.id}}
       .board-item-cover
         %h3.board-item-cover-title
-          {{title}}
+          {{board.title}}
+
+      -# TODO: Add progress to boards
       .board-item-progress
         .board-item-progress-bar
-      {{#if isNew}}
+      {{#if board.isNew}}
       .board-item-user
-        %img.board-item-user-image{:bind => {:src => 'author.avatarUrl'}}
+        %img.board-item-user-image{:bind => {:src => 'board.author.avatarUrl'}}
         = _('By')
-        {{author.nicename}}
+        {{board.author.nicename}}
+        -# TODO: Add team to boards
         .board-item-user-company
           = _('Company name')
       {{else}}
       .board-item-user
-        %img.board-item-user-image{:bind => {:src => 'user.avatarUrl'}}
+        %img.board-item-user-image{:bind => {:src => 'board.user.avatarUrl'}}
         %span.icon.icon-comment
         = _('Updated')
-        {{lastUpdate}}
+        {{board.lastUpdate}}
         = _('by')
-        {{user.nicename}}
+        {{board.user.nicename}}
       {{/if}}
       {{/linkTo}}
     {{/each}}
@@ -50,21 +53,21 @@
     .bucket-header
       .bucket-title
         = _('Public boards')
-    .board-list
-      {{#each currentUser.publicBoards}}
-      .board-item{:bind => {:id => 'slug'}}
+    .public-board-list
+      {{#each board in currentUser.publicBoards}}
+      .board-item{:bind => {:id => 'board.slug'}}
         .board-item-cover
           %h3.board-item-cover-title
-            {{title}}
+            {{board.title}}
         .board-item-user
-          %img.board-item-user-image{:bind => {:src => 'author.avatarUrl'}}
+          %img.board-item-user-image{:bind => {:src => 'board.author.avatarUrl'}}
           = _('By')
-          {{author.nicename}}
+          {{board.author.nicename}}
           .board-item-user-company
             = _('Company name')
-        .board-item-branch{:_action => 'createBranch this'}
+        .board-item-branch{:_action => 'createBranch board'}
           .icon.icon-plus
           = _('Use board')
           .board-item-branch-count
-            {{branchesCount}}
+            {{board.branchesCount}}
       {{/each}}
