@@ -1,4 +1,4 @@
-.board-list, .public-board-list {
+.board-list {
   @include clearfix;
   position: relative;
   margin: 0 0 20px 0;
@@ -153,4 +153,13 @@
   text-align: right;
   font-weight: 400;
   color: $gray-6;
+}
+
+.public-board-list {
+  @extend .board-list;
+}
+
+.template-board-list {
+  @extend .board-list;
+  margin-top: 60px;
 }
