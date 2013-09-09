@@ -1,5 +1,6 @@
 Fabricator('card/map') do
-  title      { sequence(:location) { Faker::Address.neighborhood } }
+  transient  :public_board
+  title      { |attrs| Faker::Lorem.sentence unless attrs[:public_board] }
   title_hint { Faker::Lorem.sentence }
   latitude   { Faker::Geolocation.lat.round(10) }
   longitude  { Faker::Geolocation.lng.round(10) }
