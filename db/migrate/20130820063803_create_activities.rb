@@ -15,5 +15,6 @@ class CreateActivities < ActiveRecord::Migration
     add_index :activities, :project_id
     add_index :activities, :board_id
     add_index :activities, [:trackable_id, :trackable_type]
+    add_index :activities, :slug
   end
 end

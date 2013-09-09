@@ -7,6 +7,7 @@ Doers.Board = DS.Model.extend
   project: DS.belongsTo('Doers.Project', inverse: 'boards')
   user: DS.belongsTo('Doers.User', readOnly: true, inverse: 'branchedBoards')
   author: DS.belongsTo('Doers.User', readOnly: true, inverse: 'authoredBoards')
+  team: DS.belongsTo('Doers.Team', readOnly: true, inverse: 'boards')
   cover: DS.belongsTo('Doers.Asset', inverse: 'board')
 
   collections: DS.attr('array', readOnly: true, defaultValue: [])
@@ -17,6 +18,7 @@ Doers.Board = DS.Model.extend
   branches: DS.hasMany('Doers.Board', inverse: 'parentBoard')
   branchesCount: DS.attr('number', readOnly: true)
   cards: DS.hasMany('Doers.Card', inverse: 'board')
+  memberships: DS.hasMany('Doers.Membership', readOnly: true, inverse: 'board')
   cardsCount: DS.attr('number', readOnly: true)
 
   deleteConfirmation: false

@@ -16,4 +16,29 @@ class UserMailer < ActionMailer::Base
     mail(:to => project.user.email, :subject => _('%s imported to %s.') % [
       project.title, Doers::Config.app_name])
   end
+
+  # Sends a notice to the invitation creator
+  def invitation_claimed(invitation, user)
+    @invitation = invitation
+    @user = user
+    mail(:to => invitation.user.email, :subject => _('%s joined %s.') % [
+      @user.nicename, Doers::Config.app_name])
+  end
+
+  # Sends an invitation for a project/board or just to join
+  def invite(invitation)
+    @invitable = invitation.invitable
+    @user = invitation.user
+    # TODO: UPDATE the registration URL
+    @registration_url = root_url
+
+    view = 'invite'
+    # invite_project or invite_board if available
+    view += ('_%s' % invitation.invitable_type.parameterize) if @invitable
+
+    title = @invitable.nil? ? Doers::Config.app_name : @invitable.title
+    subject = _('%s invites you to work on %s.') % [invitation.user.name, title]
+
+    mail(:to => invitation.email, :subject => subject, :template_name => view)
+  end
 end

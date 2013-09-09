@@ -58,13 +58,14 @@ describe Api::V1::BoardsController do
       its(:cover_id) { should be_blank }
       its(:author_id) { should be_nil }
       its(:project_id) { should eq(board.project.id) }
+      its(:team_id) { should be_blank }
       its(:parent_board_id) { should eq(board.parent_board.id) }
       its(:branch_ids) { should be_empty }
       its(:card_ids) { should be_empty }
       its(:branches_count) { should eq(board.branches.count) }
       its(:cards_count) { should eq(board.cards.count) }
       its('activity_ids.size') { should eq(board.activities.count) }
-      its('member_ids.size') { should eq(board.members.count) }
+      its('membership_ids.size') { should eq(board.memberships.count) }
       its(:progress) { should eq(0) }
 
       context '#progress' do
@@ -80,10 +81,11 @@ describe Api::V1::BoardsController do
       context 'for #parent_board' do
         let(:board_id) { board.parent_board.id }
 
-        its('keys.size') { should eq(18) }
+        its('keys.size') { should eq(19) }
 
         its(:user_id) { should be_nil }
         its(:author_id) { should eq(board.parent_board.author.id) }
+        its(:team_id) { should eq(board.parent_board.team.id) }
         its(:project_id) { should be_nil }
         its(:parent_board_id) { should be_nil }
         its('collections.sort') {
@@ -136,13 +138,14 @@ describe Api::V1::BoardsController do
         let(:attrs) { Fabricate.attributes_for(
           :board, :title=>title, :author => user, :project => nil) }
 
-        its('keys.size') { should eq(18) }
+        its('keys.size') { should eq(19) }
         its(:title) { should eq(title) }
         its(:description) { should_not be_nil }
         its(:user_id) { should be_nil }
         its(:author_id) { should eq(user.id) }
         its(:project_id) { should be_nil }
         its(:parent_board_id) { should be_nil }
+        its(:team_id) { should be_blank }
         its('card_ids.count') { should eq(0) }
         its(:collections) { should be_empty }
       end
