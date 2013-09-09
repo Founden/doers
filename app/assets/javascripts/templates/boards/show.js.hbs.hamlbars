@@ -13,9 +13,9 @@
     = _('by')
     {{board.user.nicename}}
   .header-actions
-    %button.button
-      %span.icon.icon-view
-      = _('View mode')
+    {{#view view.deleteButtonView class='button compact secondary' confirmMessage='Are you shure you want to delete?'}}
+    %span.icon.icon-trash
+    {{/view}}
   .header-progress-wrap
     .header-progress-cards
       1 / {{board.cardsCount}}
