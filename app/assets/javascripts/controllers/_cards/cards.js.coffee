@@ -1,6 +1,6 @@
 Doers.CardsController = Ember.ArrayController.extend
 
-  save: () ->
+  save: ->
     @set('content.isEditing', false)
     @get('content').save().then =>
       currentUser = @container.resolve('user:current')
@@ -13,7 +13,6 @@ Doers.CardsController = Ember.ArrayController.extend
       type: type
       position: @get('content.length')
     @get('content').pushObject(card)
-    card.set('content.isEditing', true)
 
   removeCard: (card) ->
     notNew = !!card.get('id')

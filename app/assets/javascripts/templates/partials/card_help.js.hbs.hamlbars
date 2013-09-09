@@ -1,3 +1,0 @@
-.help
-  %h3 {{view.content.question}}
-  %p {{view.content.help}}
