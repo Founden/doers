@@ -37,4 +37,14 @@
       border-color: $green;
     }
   }
+
+  &.compact {
+    padding: 0 10px;
+
+    .icon:before {
+      margin: 0;
+      padding: 0;
+      border: 0;
+    }
+  }
 }
