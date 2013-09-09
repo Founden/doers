@@ -10,7 +10,7 @@
         %strong
           {{user.nicename}}:
         = Faker::Lorem.paragraph
-    %li.card-activity-update
+    %li.card-activity-log
       %strong
         {{user.nicename}}
       = _('updated the card.')
@@ -18,7 +18,6 @@
     {{/each}}
 
   .card-comment-new
-    %img{:class => 'card-comment-user-image', :bind => {:src => 'view.content.user.avatarUrl'}}
     {{textarea class='card-comment-new-text' placeholder='Write a comment...' rows='4' name='comment'}}
     .card-comment-new-actions
       %button.button.secondary

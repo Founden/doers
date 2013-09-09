@@ -35,10 +35,13 @@
 }
 
 .card-edit-actions {
+  @include box-sizing(border-box);
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
   padding: 15px 20px;
-  border-bottom: 1px solid $gray-2;
-  margin: 0 0 20px 0;
-  text-align: right;
+  border-top: 1px solid $gray-1;
 }
 
 .card-edit-help {
@@ -92,43 +95,34 @@
 }
 
 .card-activity {
+  @include box-sizing(border-box);
   position: absolute;
-  overflow-y: scroll;
+  overflow: hidden;
   right: 0;
   top: 0;
   width: 360px;
-  max-height: 100%;
-  background: $white;
+  height: 100%;
+  padding: 0 0 198px 0;
+  background: $gray-1;
   border-radius: 3px;
 }
 
 .card-activity-list {
-  background: $gray-1;
+  overflow-x: scroll;
+  height: 100%;
 }
 
 .card-comment {
   position: relative;
-  padding: 20px 60px;
-  margin: 15px 0;
-  border-top: 1px solid $gray-2;
-  border-bottom: 1px solid $gray-2;
+  margin: 20px 0;
+  padding: 0 60px;
   font-size: em(14);
-
-  &:first-of-type {
-    margin-top: 0;
-    border-top: 0;
-  }
-
-  &:last-of-type {
-    margin-bottom: 0;
-    border-bottom: 0;
-  }
 }
 
 .card-comment-user-image {
   position: absolute;
-  left: 20px;
-  top: 16px;
+  left: 18px;
+  top: -3px;
   width: 24px;
   height: 24px;
   border-radius: 50%;
@@ -140,24 +134,27 @@
   color: $gray-6;
 }
 
-.card-activity-update {
+.card-activity-log {
   margin: 0 30px;
   color: $gray-6;
   font-size: em(12);
 
   &:last-of-type {
-    padding-bottom: 15px;
+    margin-bottom: 20px;
   }
 }
 
 .card-comment-new {
-  position: relative;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
   border-top: 1px solid $gray-3;
   background: $white;
 }
 
 .card-comment-new-text {
-  padding: 18px 60px;
+  padding: 20px;
   font-size: em(14);
 }
 
