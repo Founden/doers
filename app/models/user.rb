@@ -19,24 +19,30 @@ class User < ActiveRecord::Base
 
   # Relationships
   has_many :cards
-  has_many :comments, :dependent => :destroy
-  has_many :assets, :dependent => :destroy
+  has_many :comments
+  has_many :assets
   has_many :images, :class_name => Asset::Image
   has_many :activities
-  has_many :memberships, :dependent => :destroy
+  has_many(:created_memberships, :dependent => :destroy,
+           :foreign_key => :creator_id, :class_name => Membership)
+  has_many(:accepted_memberships, :dependent => :destroy,
+           :class_name => Membership)
+  has_many :invitations, :dependent => :destroy
 
   has_many :branched_boards, :class_name => Board
   has_many :authored_boards, :foreign_key => :author_id, :class_name => Board
-  has_many :shared_boards, :through => :memberships, :source => :board
+  has_many :shared_boards, :through => :accepted_memberships, :source => :board
 
   has_many :created_projects, :class_name => Project, :dependent => :destroy
-  has_many :shared_projects, :through => :memberships, :source => :project
+  has_many(
+    :shared_projects, :through => :accepted_memberships, :source => :project)
 
   # Validations
   validates :email, :uniqueness => true, :presence => true
   validates_inclusion_of :interest, :in => INTERESTS.values, :allow_nil => true
 
   # Callbacks
+  before_create :notify_invitation_creator
   after_commit :generate_activity, :on => :create
   after_commit :send_confirmation_email, :on => :update
 
@@ -48,6 +54,11 @@ class User < ActiveRecord::Base
   # All user boards
   def boards
     Board.where(:id => (shared_board_ids + branched_board_ids))
+  end
+
+  # All user memberships
+  def memberships
+    Membership.where(:id => (created_membership_ids + accepted_membership_ids))
   end
 
   # Helper to generate the user name
@@ -70,7 +81,25 @@ class User < ActiveRecord::Base
     !Doers::Config.admin_regex.match(email).blank?
   end
 
+  # Claims available invitations and builds memberships
+  def claim_invitation
+    invite = Invitation.find_by(:email => self.email)
+    if invite and invite.invitable and invite.membership_id.blank?
+      self.update_attribute(:confirmed, 1)
+      invite.membership = invite.invitable.memberships.create(
+        :creator => invite.user, :user => self)
+      invite.save
+      invite
+    end
+  end
+
   private
+
+  def notify_invitation_creator
+    if invitation = Invitation.find_by(:email => self.email)
+      UserMailer.delay.invitation_claimed(invitation, self)
+    end
+  end
 
   # Create a job to send the confirmation email on validation
   def send_confirmation_email

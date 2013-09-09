@@ -13,13 +13,15 @@ class Board < ActiveRecord::Base
   belongs_to :author, :class_name => User
   belongs_to :project
   belongs_to :parent_board, :class_name => Board
+  belongs_to :team
   has_one :cover, :class_name => Asset::Cover, :dependent => :destroy
   has_many :branches, :class_name => Board, :foreign_key => :parent_board_id
   has_many :cards, :dependent => :destroy
   has_many :comments, :dependent => :destroy
   has_many :activities
-  has_many :memberships, :dependent => :destroy
+  has_many(:memberships, :dependent => :destroy, :class_name => BoardMembership)
   has_many :members, :through => :memberships, :source => :user
+  has_many :invitations, :dependent => :destroy, :as => :invitable
   # Tagging support
   has_many_tags
 

@@ -8,15 +8,13 @@ class Membership < ActiveRecord::Base
   belongs_to :user
   belongs_to :board
   belongs_to :project
-  has_many :activities, :as => :trackable
+  has_one :invitation
 
   # Validations
   validates_presence_of :user, :creator
 
-  # Callbacks
-  after_commit :generate_activity, :on => [:create, :destroy]
+  # Target to use when generating activities
+  def activity_title
+    self.user.nicename
+  end
 end
-
-# This is due to avoid auto-loading-thinga-magic rails shits
-require_relative 'membership/board'
-require_relative 'membership/project'

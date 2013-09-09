@@ -124,7 +124,7 @@ describe User do
 
       context 'within a board owned by the user' do
         let(:board) { Fabricate(:board, :user => user) }
-        let(:target) { Fabricate('card/photo', :board => board).image }
+        let(:target) { board.cover }
         before { user.should_receive(:assets_to).and_call_original }
 
         it { should be_true }
@@ -143,7 +143,7 @@ describe User do
 
       context 'within a board not owned by the user' do
         let(:board) { Fabricate(:board) }
-        let(:target) { Fabricate('card/photo', :board => board).image }
+        let(:target) { board.cover }
         before { user.should_receive(:assets_to).and_call_original }
 
         it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
@@ -352,6 +352,71 @@ describe User do
       end
     end
 
+    context 'when target is a team' do
+      let(:team) { Fabricate(:team) }
+      let(:target) { team }
+
+      it { should be_true }
+      it_behaves_like 'is not writable'
+
+      context 'or a set of such' do
+        let(:target) { Team.where(:id => team.id) }
+
+        it { should be_true }
+        it_behaves_like 'is not writable'
+      end
+
+      context 'or a team banner' do
+        let(:target) { team.banner }
+
+        it { should be_true }
+        it_behaves_like 'is not writable'
+
+        context 'or a set of such' do
+          let(:target) { Asset::Banner.where(:assetable => team) }
+
+          it { should be_true }
+          it_behaves_like 'is not writable'
+        end
+      end
+    end
+
+    context 'when target is a membership' do
+      let(:target) { Fabricate(:project_membership) }
+
+      it { expect{ subject }.to raise_error(ActiveRecord::RecordNotFound) }
+      it_behaves_like 'is not writable'
+      it_behaves_like 'no error is raised'
+
+      context 'created by user' do
+        let(:target) { Fabricate(:project_membership, :creator => user) }
+
+        it { should be_true }
+        it_behaves_like 'is writable'
+
+        context 'or a set of such' do
+          let(:target) { Membership.where(:creator_id => user.id) }
+
+          it { should be_true }
+          it_behaves_like 'is writable'
+        end
+      end
+
+      context 'of the user' do
+        let(:target) { Fabricate(:project_membership, :user => user) }
+
+        it { should be_true }
+        it_behaves_like 'is writable'
+
+        context 'or a set of such' do
+          let(:target) { Membership.where(:user_id => user.id) }
+
+          it { should be_true }
+          it_behaves_like 'is writable'
+        end
+      end
+    end
+
     context 'when target is an object with an user_id' do
       let(:target) { Fabricate(:project, :user => user) }
 
@@ -383,7 +448,7 @@ describe User do
         it { should be_true }
         it_behaves_like 'is writable'
 
-        context 'or a set of cards owned by the user' do
+        context 'or a set of such owned by the user' do
           let(:target) { user.activities }
 
           it { should be_true }
@@ -478,6 +543,74 @@ describe User do
           end
 
           it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
+          it_behaves_like 'is not writable'
+        end
+      end
+    end
+
+    context 'when target is a comment'  do
+      context 'owned by the user' do
+        let(:comment) { Fabricate(:comment, :user => user) }
+        let(:target) { comment }
+        before { user.should_receive(:comments_to).and_call_original }
+
+        it { should be_true }
+        it_behaves_like 'is writable'
+
+        context 'or a set of such owned by the user' do
+          let(:target) { comment.user.comments }
+
+          it { should be_true }
+          it_behaves_like 'is writable'
+        end
+      end
+
+      context 'not owned by the user' do
+        let(:target) { Fabricate(:comment) }
+        before { user.should_receive(:comments_to).and_call_original }
+
+        it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
+        it_behaves_like 'is not writable'
+        it_behaves_like 'no error is raised'
+
+        context 'or a set of boards not owned by the user' do
+          let(:target) { Fabricate(:comment).user.comments }
+
+          it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
+          it_behaves_like 'is not writable'
+        end
+      end
+
+      context 'within one of the user projects' do
+        let(:project) { Fabricate(:project_membership, :user => user).project }
+        let(:target) { Fabricate(:comment, :project => project) }
+        before { user.should_receive(:comments_to).and_call_original }
+
+        it { should be_true }
+        it_behaves_like 'is not writable'
+
+        context 'or a set of such' do
+          let(:target) { Fabricate(:comment, :project => project).user.comments}
+
+          it { should be_true }
+          it_behaves_like 'is not writable'
+        end
+      end
+
+      context 'within a board owned by the user' do
+        let(:board) { Fabricate(:board_membership, :user => user).board }
+        let(:target) { Fabricate(:comment, :board => board) }
+        before { user.should_receive(:comments_to).and_call_original }
+
+        it { should be_true }
+        it_behaves_like 'is not writable'
+
+        context 'or a set of such' do
+          let(:target) do
+            Fabricate(:comment, :board => board).user.comments
+          end
+
+          it { should be_true }
           it_behaves_like 'is not writable'
         end
       end

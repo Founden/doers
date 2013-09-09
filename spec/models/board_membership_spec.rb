@@ -1,20 +1,23 @@
 require 'spec_helper'
+require 'board' # Fix the autoload shit
 
-describe Membership::Board do
+describe BoardMembership do
+  it { should have_many(:activities).dependent('') }
+  it { should have_many(:invitations).dependent('') }
   it { should validate_presence_of(:board) }
 
   context 'of an user to his own board' do
-    let(:board) { Fabricate(:board, :user => user) }
-    let(:membership) do
-      Fabricate.attributes_for(
-        'membership/board', :board => project, :user => user)
+    let(:board) { Fabricate(:board) }
+    subject(:membership) do
+      Fabricate.build(
+        :board_membership, :board => board, :user => board.author)
     end
 
     it { should_not be_valid }
   end
 
   context '#activities', :use_truncation do
-    let(:membership) { Fabricate('membership/board') }
+    let(:membership) { Fabricate(:board_membership) }
 
     subject { membership.activities }
 
@@ -26,7 +29,7 @@ describe Membership::Board do
       its('first.trackable') { should eq(membership) }
       its('first.trackable_type') { should eq(Membership.name) }
       its('first.trackable_title') { should eq(membership.user.nicename) }
-      its('first.slug') { should eq('create-membership-board') }
+      its('first.slug') { should eq('create-board-membership') }
     end
 
     context 'on update' do
@@ -45,7 +48,7 @@ describe Membership::Board do
       its('first.trackable_id') { should eq(membership.id) }
       its('first.trackable_type') { should eq(Membership.name) }
       its('first.trackable_title') { should eq(membership.user.nicename) }
-      its('last.slug') { should eq('destroy-membership-board') }
+      its('last.slug') { should eq('destroy-board-membership') }
     end
   end
 end
