@@ -4,6 +4,10 @@
   {{/linkTo}}
   .header-title
     {{content.title}}
+  .header-actions
+    {{#view view.deleteButtonView class='button compact secondary' confirmMessage='Are you shure you want to delete?'}}
+    %span.icon.icon-trash
+    {{/view}}
 
 .content-wrap
 

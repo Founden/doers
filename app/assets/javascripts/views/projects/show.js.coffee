@@ -7,3 +7,5 @@ Doers.ProjectsShowView = Ember.View.extend
   descriptionView: Ember.TextArea.extend
     focusOut: (event) ->
       @get('controller').update()
+
+  deleteButtonView: Doers.DeleteButtonView

@@ -8,6 +8,8 @@ Doers.BoardsShowView = Ember.View.extend
     focusOut: (event) ->
       @get('controller').update()
 
+  deleteButtonView: Doers.DeleteButtonView
+
   cardsView: Ember.CollectionView.extend
     classNames: ['cards']
     createChildView: (view, attrs) ->
