@@ -37,16 +37,17 @@ class BoardSerializer < ActiveModel::Serializer
 
   # Returns collection/tag names
   def progress
-    object.cards.pluck('title').reject(&:blank?).count
+    completed_count = object.cards.pluck('title').reject(&:blank?).count
+    cards_count > 0 ? ( completed_count.to_f / cards_count) * 100 : 0
   end
 
   # Hide collections for non public boards
   def include_collections?
-    object.status.eql?(Board::STATES.last)
+    object.project_id.blank?
   end
 
   # Hide progress for non public boards
   def include_progress?
-    object.status.eql?(Board::STATES.first)
+    !object.project_id.blank?
   end
 end

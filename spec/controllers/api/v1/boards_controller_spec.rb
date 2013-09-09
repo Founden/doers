@@ -65,7 +65,17 @@ describe Api::V1::BoardsController do
       its(:cards_count) { should eq(board.cards.count) }
       its('activity_ids.size') { should eq(board.activities.count) }
       its('member_ids.size') { should eq(board.members.count) }
-      its(:progress) { should eq(board.cards.reject(&:blank?).count) }
+      its(:progress) { should eq(0) }
+
+      context '#progress' do
+        let(:board_id) do
+          Fabricate('card/phrase', :board => board,
+                    :project => board.project, :user => board.user)
+          board.id
+        end
+
+        its(:progress) { should eq(100) }
+      end
 
       context 'for #parent_board' do
         let(:board_id) { board.parent_board.id }

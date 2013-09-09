@@ -26,9 +26,8 @@
         %h3.board-item-cover-title
           {{board.title}}
 
-      -# TODO: Add progress to boards
       .board-item-progress
-        .board-item-progress-bar
+        {{view Doers.ProgressBar classNames='board-item-progress-bar' widthBinding='board.progress'}}
       {{#if board.isNew}}
       .board-item-user
         %img.board-item-user-image{:bind => {:src => 'board.author.avatarUrl'}}
