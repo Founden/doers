@@ -5,6 +5,7 @@ Doers.BoardsBuildView = Ember.View.extend
     createChildView: (view, attrs) ->
       attrs.content.set('isBuilding', true)
       type = attrs.content.get('type')
-      view = @container.resolve('view:%@'.fmt(type)) || view
+      view = @container.resolve('view:card-edit')
       view.reopen(Doers.MovableMixin)
+      attrs.templateName = 'cards/build/%@'.fmt(type.underscore())
       @_super(view, attrs)

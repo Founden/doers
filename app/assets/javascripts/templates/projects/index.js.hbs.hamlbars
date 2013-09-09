@@ -6,7 +6,7 @@
     %span.icon.icon-angel
     = _('Import from Angel List')
     {{/linkTo}}
-    %a{:href => root_path(:anchor => '/projects/new'), :class => 'button'}
+    %a#projects-add.button{:href => root_path(:anchor => '/projects/new')}
       %span.icon.icon-project
       = _('Create project')
 
@@ -15,15 +15,16 @@
   .project-list
     .project-list-title
       = _('Mine')
-    {{#each content}}
-    {{#linkTo 'projects.show' this class='project-item'}}
-    %h3.project-item-title
-      {{title}}
-    .project-item-count
-      23
-      %span.icon.icon-user
-    .project-item-count
-      12
-      %span.icon.icon-board
-    {{/linkTo}}
+    {{#each project in content}}
+    .project-item{:bind => {:id => 'project.slug'}}
+      {{#linkTo 'projects.show' project}}
+      %h3.project-item-title
+        {{project.title}}
+      .project-item-count
+        {{project.boardsCount}}
+        %span.icon.icon-user
+      .project-item-count
+        {{project.membersCount}}
+        %span.icon.icon-board
+      {{/linkTo}}
     {{/each}}
