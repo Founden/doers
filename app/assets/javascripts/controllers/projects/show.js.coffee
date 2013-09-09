@@ -5,9 +5,11 @@ Doers.ProjectsShowController = Ember.Controller.extend
       @get('content').save()
 
   destroy: ->
-    @get('content').deleteRecord()
-    @get('content.store').commit()
-    @get('target.router').transitionTo('projects.index')
+    project = @get('content')
+    project.one 'didDelete', =>
+      @get('target.router').transitionTo('projects.index')
+    project.deleteRecord()
+    project.get('store').commit()
 
   createBranch: (board) ->
     project = @get('content')
@@ -17,4 +19,3 @@ Doers.ProjectsShowController = Ember.Controller.extend
       parentBoard: board
       project: project
     branch.save()
-
