@@ -25,10 +25,8 @@
 .content-wrap
 
   .board{:bind => {:id => 'board.slug'}}
-    %h1.board-title
-      {{board.title}}
-    .board-description
-      {{board.description}}
+    {{view view.titleView class='board-title' valueBinding='board.title' placeholder='Add board name' type='text' name='title'}}
+    {{view view.descriptionView class='board-description' valueBinding='board.description' placeholder='Add board description.' name='description'}}
     %ul.collaborators
       %li.collaborators-user
         %img.collaborators-user-image{:bind => {:src => 'board.user.avatarUrl'}}

@@ -1,12 +1,10 @@
 .board {
-  text-align: center;
-  margin: 60px 0;
+  @extend .project;
 }
 
 .board-title {
+  @extend .project-title;
   font-size: em(36);
-  line-height: 1.25em;
-  margin: 0 0 0.5em 0;
 }
 
 .board-description {
