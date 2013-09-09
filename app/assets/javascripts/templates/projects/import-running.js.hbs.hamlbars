@@ -2,7 +2,7 @@
 
   .dashboard
     %h1.dashboard-title
-      = _('Importing projects...')
+      = _('Your startups are being imported...')
     .dashboard-description
       = _('While we get everything processed, feel free to navigate away from this page.')
 
