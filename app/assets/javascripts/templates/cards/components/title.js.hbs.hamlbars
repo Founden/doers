@@ -1,2 +1,2 @@
 %h3.card-item-title
-  {{view.content.title}}
+  {{title}}
