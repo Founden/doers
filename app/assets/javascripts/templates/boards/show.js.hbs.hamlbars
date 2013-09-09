@@ -37,10 +37,9 @@
 
   {{#if content.isLoaded}}
   {{collection view.cardsView contentBinding='arrangedContent'}}
-  {{/if}}
-
   {{#if selectedCardView}}
   {{#with selectedCardView}}
   {{view editView contentBinding='content' templateNameBinding='editTemplateName'}}
   {{/with}}
+  {{/if}}
   {{/if}}
