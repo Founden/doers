@@ -8,10 +8,8 @@
 .content-wrap
 
   .project{:bind => {:id => 'content.slug'}}
-    %h1.project-title
-      {{content.title}}
-    .project-description
-      {{content.description}}
+    {{view view.titleView class='project-title' valueBinding='content.title' placeholder='Add project name' type='text' name='title'}}
+    {{view view.descriptionView class='project-description' valueBinding='content.description' placeholder='Add project description.' name='description'}}
     %ul.collaborators
       %li.collaborators-user
         %img.collaborators-user-image{:bind => {:src => 'content.user.avatarUrl'}}
