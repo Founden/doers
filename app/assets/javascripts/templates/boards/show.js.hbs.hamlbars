@@ -32,10 +32,12 @@
         %span.icon.icon-plus
 
   .cards
-    {{#each arrangedContent}}
-    {{view view.cardItemView contentBinding=this}}
-    {{/each}}
+    {{#if content.isLoaded}}
+    {{collection view.cardsView contentBinding='arrangedContent'}}
+    {{/if}}
 
-  {{#if view.selectedCard}}
-  {{view view.cardEditView}}
+  {{#if selectedCardView}}
+  {{#with selectedCardView}}
+  {{view editView contentBinding='content' templateNameBinding='editTemplateName'}}
+  {{/with}}
   {{/if}}
