@@ -1,6 +1,7 @@
 Doers.Board = DS.Model.extend
   title: DS.attr('string')
   description: DS.attr('string')
+  progress: DS.attr('number', readOnly: true)
 
   parentBoard: DS.belongsTo('Doers.Board', inverse: 'branches')
   project: DS.belongsTo('Doers.Project', inverse: 'boards')
@@ -23,6 +24,19 @@ Doers.Board = DS.Model.extend
   slug: (->
     'board-' + @get('id')
   ).property('id')
+
+  completedCardsCount: ( ->
+    # TODO: Make this smarter
+    count = 0
+    @get('cards').map (c)->
+      if !!c.get('title')
+        count++
+    count
+  ).property('cards.@each.title')
+
+  completedCardsProgress: ( ->
+    (@get('completedCardsCount') / @get('cardsCount')) * 100
+  ).property('completedCardsCount')
 
   cardsOrderChanged: ->
     cards = @get('cards')

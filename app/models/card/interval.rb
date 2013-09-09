@@ -9,7 +9,7 @@ class Card::Interval < Card
   store_accessor :data, :minimum, :maximum, :selected
 
   # Validations
-  validates_presence_of :title, :minimum, :maximum
+  validates_presence_of :minimum, :maximum
   validates_numericality_of :minimum, :less_than => :maximum
   validates_numericality_of :maximum, :greater_than => :minimum
   validates_numericality_of(

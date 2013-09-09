@@ -1,5 +1,6 @@
 Fabricator('card/book') do
-  title        { Faker::Lorem.sentence }
+  transient    :public_board
+  title        { |attrs| Faker::Lorem.sentence unless attrs[:public_board] }
   title_hint   { Faker::Lorem.sentence }
   user
   board
