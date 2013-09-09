@@ -79,20 +79,19 @@ describe Api::V1::MembershipsController do
   end
 
   describe '#destroy' do
-    # let(:invite) { Fabricate(:invitation) }
-    # let(:invite_id) { invite.id }
+    let(:membership) { Fabricate(:project_membership) }
+    let(:memb_id) { membership.id }
 
-    # before { delete(:destroy, :id => invite_id) }
+    before { delete(:destroy, :id => memb_id) }
 
-    # its('response.status') { should eq(400) }
-    # its('response.body') { should be_blank }
+    its('response.status') { should eq(400) }
+    its('response.body') { should be_blank }
 
-    # context 'for an available invite' do
-    #   let(:invite) { Fabricate('invitation', :user => user) }
-    #   let(:invite_id) { invite.id }
+    context 'for an available membership' do
+      let(:membership) { Fabricate(:project_membership, :user => user) }
 
-    #   its('response.status') { should eq(204) }
-    #   its('response.body') { should be_blank }
-    # end
+      its('response.status') { should eq(204) }
+      its('response.body') { should be_blank }
+    end
   end
 end
