@@ -24,8 +24,12 @@ Doers::Application.routes.draw do
       resources(:boards)
       resources(:cards)
       resources(:assets)
+      resources(:teams, :only => [:index, :show])
       resources(:embeds, :only => [:index])
       resources(:activities, :except => [:create, :update])
+      resources(:invitations, :except => [:update])
+      resources(:memberships, :only => [:index, :show, :destroy])
+      resources(:comments, :except => [:update])
     end
   end
 

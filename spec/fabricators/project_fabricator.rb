@@ -1,10 +1,21 @@
 Fabricator(:project) do
   title         { sequence(:title)       { Faker::Company.name } }
-  description   { sequence(:description) { Faker::Lorem.paragraph } }
+  description   { sequence(:description) { Faker::Company.catch_phrase } }
   website       { sequence(:www)         { Faker::Internet.uri(:https) } }
   user
   after_create do |project|
     Fabricate(:logo, :project => project, :user => project.user)
+  end
+end
+
+Fabricator(:project_with_invitations, :from => :project) do
+  after_create do |project|
+    [0, 1, 2].sample.times do
+      Fabricate(:project_invitation,:user => project.user,:invitable => project)
+    end
+    [0, 1, 2].sample.times do
+      Fabricate(:project_invitee, :user => project.user, :invitable => project)
+    end
   end
 end
 
@@ -23,7 +34,7 @@ Fabricator(:project_with_boards, :from => :project) do
   }
 end
 
-Fabricator(:project_with_boards_and_cards, :from => :project) do
+Fabricator(:project_with_boards_and_cards, :from => :project_with_invitations) do
   transient :boards_count => 1
   transient :card_types
 

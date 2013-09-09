@@ -13,8 +13,10 @@ class Project < ActiveRecord::Base
   has_many :comments, :dependent => :destroy
   has_one :logo, :dependent => :destroy, :class_name => Asset::Logo
   has_many :activities
-  has_many :memberships, :dependent => :destroy
   has_many :members, :through => :memberships, :source => :user
+  has_many :invitations, :dependent => :destroy, :as => :invitable
+  has_many(
+    :memberships, :dependent => :destroy, :class_name => ProjectMembership)
 
   # Validations
   validates :user, :presence => true
