@@ -25,10 +25,10 @@
       = _('Loading projects from Angel List')
       {{/if}}
       {{/if}}
-    {{#each content}}
-    {{#view view.startupView contentBinding=this}}
+    {{#each startup in content}}
+    {{#view view.startupView contentBinding=startup}}
     .icon.icon-checkmark
-    %h3.project-item-title
-      {{title}}
+    %h3.startup-item-title
+      {{startup.title}}
     {{/view}}
     {{/each}}
