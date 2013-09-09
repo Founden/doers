@@ -35,10 +35,9 @@
       %li.collaborators-add-btn
         %span.icon.icon-plus
 
-  .cards
-    {{#if content.isLoaded}}
-    {{collection view.cardsView contentBinding='arrangedContent'}}
-    {{/if}}
+  {{#if content.isLoaded}}
+  {{collection view.cardsView contentBinding='arrangedContent'}}
+  {{/if}}
 
   {{#if selectedCardView}}
   {{#with selectedCardView}}
