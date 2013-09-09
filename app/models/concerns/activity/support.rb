@@ -1,5 +1,18 @@
 # Support for [Activity] generation on callbacks
 module Activity::Support
+  # Target to use when generating activities
+  def activity_owner
+    self
+  end
+
+  # Target to use when generating activities
+  def activity_target
+    self
+  end
+
+  # Target to use when generating activities
+  def activity_title
+  end
 
   private
 
@@ -8,7 +21,8 @@ module Activity::Support
       slug = 'update'
       slug = 'create' if self.transaction_record_state(:new_record)
       slug = 'destroy' if destroyed?
-      [slug, self.class.name, postfix].join(' ').parameterize
+      [slug, self.class.name.underscore.split('_'), postfix].compact.
+        flatten.join(' ').parameterize
     end
 
     # Generates activity attributes based on current model attributes
@@ -16,21 +30,27 @@ module Activity::Support
       params = self.attributes.slice(
         'user_id', 'project_id', 'board_id', 'author_id', 'creator_id', 'title')
       params['slug'] = activity_slug
-      params['trackable_id'] = self.id
-      params['trackable_type'] = self.class.name
+      params['trackable_id'] = self.activity_target.id
+      params['trackable_type'] = self.activity_target.class.name
       params['user_id'] = params['author_id'] if params['user_id'].nil?
-      params['trackable_title'] = params['title']
+      params['trackable_title'] = self.activity_title || params['title']
       if self.is_a?(Membership)
         params['user_id'] = params['creator_id']
-        params['trackable_title'] = self.user.nicename
+      end
+      if self.is_a?(Invitation)
+        params['project_id'] =self.invitable_id if self.invitable.is_a?(Project)
+        params['board_id'] = self.invitable_id if self.invitable.is_a?(Board)
+      end
+      if self.is_a?(Comment)
+        params['comment_id'] = self.id
       end
       params.except('author_id', 'creator_id', 'title')
     end
 
     # Activity generation hook
     def generate_activity(append_to_slug=nil)
-      activity = self.activities.build(activity_params)
-      activity.slug = activity_slug(append_to_slug) unless append_to_slug.nil?
+      activity = self.activity_owner.activities.build(activity_params)
+      activity.slug = activity_slug(append_to_slug)
       activity.save!
     end
 end

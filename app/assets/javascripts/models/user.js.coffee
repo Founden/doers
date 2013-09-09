@@ -13,6 +13,7 @@ Doers.User = DS.Model.extend
   branchedBoards: DS.hasMany('Doers.Board', readOnly: true, inverse: 'user')
   publicBoards: DS.hasMany('Doers.Board', readOnly: true)
   activities: DS.hasMany('Doers.Activity', readOnly: true, inverse: 'user')
+  invitations: DS.hasMany('Doers.Invitation', readOnly: true, inverse: 'user')
 
   startupsUrl: ( ->
     'https://api.angel.co/1/startup_roles?v=1&user_id=' +

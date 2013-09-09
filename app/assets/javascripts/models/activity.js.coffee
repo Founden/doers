@@ -5,6 +5,7 @@ Doers.Activity = DS.Model.extend
   user: DS.belongsTo('Doers.User', readOnly: true, inverse: 'activities')
   project: DS.belongsTo('Doers.User', readOnly: true, inverse: 'activities')
   board: DS.belongsTo('Doers.User', readOnly: true, inverse: 'activities')
+  comment: DS.belongsTo('Doers.Comment', readOnly: true)
   # This one can go pretty crazy since it can represent:
   #   user, card, asset or other objects
   #   so we better load it when we really need it

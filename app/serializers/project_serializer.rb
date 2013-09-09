@@ -7,7 +7,7 @@ class ProjectSerializer < ActiveModel::Serializer
   has_one :logo, :embed => :id
   has_many :boards, :embed => :ids
   has_many :activities, :embed => :id
-  has_many :members, :embed => :id
+  has_many :memberships, :embed => :id
 
   # Creates a nice timestamp to indicate when it was last time updated
   def last_update

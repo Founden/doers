@@ -5,7 +5,7 @@ class CreateMemberships < ActiveRecord::Migration
       t.references :user, index: true
       t.references :project, index: true
       t.references :board, index: true
-      t.string :type
+      t.string :type, :index => true
       t.hstore :data
 
       t.timestamps

@@ -12,7 +12,9 @@ module User::Authorization
     klass = target.respond_to?(:model) ? target.model : target.class
 
     can = case klass.to_s
-    when /Asset|Image|Logo/
+    when /Team|Banner/
+      action.to_sym != :write
+    when /Image|Logo|Cover|Asset/
       !assets_to(action).where(:id => target).empty?
     when 'Board'
       !boards_to(action).where(:id => target).empty?
@@ -20,6 +22,11 @@ module User::Authorization
       !cards_to(action).where(:id => target).empty?
     when 'Activity'
       !activities_to(action).where(:id => target).empty?
+    when 'Comment'
+      !comments_to(action).where(:id => target).empty?
+    when /Membership/
+      # Just check if we are the creators or users of it
+      target.creator_id == self.id or target.user_id == self.id
     else
       # Just check if we are the owners
       target.respond_to?(:user_id) and target.user_id == self.id
@@ -152,5 +159,34 @@ module User::Authorization
     end
 
     Activity.where(query)
+  end
+
+  # Available comments for user, `action` can be :read or :write
+  def comments_to(action)
+    table = Comment.arel_table
+
+    # User is the owner
+    query = table[:user_id].eq(self.id)
+
+    if action.to_sym != :write
+      query = query.or(
+        # User branched the board
+        table[:board_id].in(self.branched_board_ids).or(
+          # User created the board
+          table[:board_id].in(self.authored_board_ids)
+        ).or(
+          # Somebody shared its board
+          table[:board_id].in(self.shared_board_ids)
+        )
+      ).or(
+        # User project has it
+        table[:project_id].in(self.created_project_ids).or(
+          # Somebody shared the project
+          table[:project_id].in(self.shared_project_ids)
+        )
+      )
+    end
+
+    Comment.where(query)
   end
 end
