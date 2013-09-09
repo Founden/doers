@@ -7,39 +7,38 @@ after 'development:projects' do
   solution = Fabricate(:solution_board, :status => Board::STATES.last)
   # My boards
   user.projects.limit(2).each do |project|
-    Fabricate(:branched_board, :user => user, :parent_board => persona,
-              :project => project)
-    Fabricate(:branched_board, :user => user, :parent_board => problem,
-              :project => project)
-    Fabricate(:branched_board, :user => user, :parent_board => solution,
-              :project => project)
+    persona.branch_for(user, project, {:title => persona.title} )
+    problem.branch_for(user, project, {:title => problem.title} )
+    solution.branch_for(user, project, {:title => solution.title} )
   end
   user.projects.limit(2).offset(2).each do |project|
-    Fabricate(:branched_board, :user => user, :parent_board => persona,
-              :project => project)
-    Fabricate(:branched_board, :user => user, :parent_board => problem,
-              :project => project)
   end
   user.projects.offset(4).each do |project|
-    Fabricate(:branched_board, :user => user, :parent_board => persona,
-              :project => project)
+    persona.branch_for(user, project, {:title => persona.title} )
+    problem.branch_for(user, project, {:title => problem.title} )
+  end
+  # Add some comments
+  user.boards.each do |board|
+    board.cards.each do |card|
+      [0, 2, 4].sample.times do
+        Fabricate(:comment, :user => user, :project => board.project,
+          :board => board, :commentable => card)
+      end
+    end
   end
 
   # Other project boards
   projects = Project.all - user.projects
   # - with persona board
   projects.sample(10).each do |project|
-    Fabricate(:branched_board, :user => project.user, :parent_board => persona,
-              :project => project)
+    persona.branch_for(project.user, project, {:title => persona.title } )
   end
   # - with problem board
   projects.sample(5).each do |project|
-    Fabricate(:branched_board, :user => project.user, :parent_board => problem,
-              :project => project)
+    problem.branch_for(project.user, project, {:title => problem.title} )
   end
   # - with solution board
   projects.sample(5).each do |project|
-    Fabricate(:branched_board, :user => project.user, :parent_board => solution,
-              :project => project)
+    solution.branch_for(project.user, project, {:title => solution.title} )
   end
 end
