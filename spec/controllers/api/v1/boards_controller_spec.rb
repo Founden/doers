@@ -47,7 +47,7 @@ describe Api::V1::BoardsController do
 
       subject(:api_board) { json_to_ostruct(response.body, :board) }
 
-      its('keys.size') { should eq(17) }
+      its('keys.size') { should eq(18) }
       its(:id) { should eq(board.id) }
       its(:title) { should eq(board.title) }
       its(:status) { should eq(Board::STATES.first) }
@@ -65,6 +65,7 @@ describe Api::V1::BoardsController do
       its(:cards_count) { should eq(board.cards.count) }
       its('activity_ids.size') { should eq(board.activities.count) }
       its('member_ids.size') { should eq(board.members.count) }
+      its(:progress) { should eq(board.cards.reject(&:blank?).count) }
 
       context 'for #parent_board' do
         let(:board_id) { board.parent_board.id }
@@ -101,12 +102,13 @@ describe Api::V1::BoardsController do
 
       subject(:api_board) { json_to_ostruct(response.body, :board) }
 
-      its('keys.size') { should eq(17) }
+      its('keys.size') { should eq(18) }
       its(:title) { should eq(title) }
       its(:description) { should be_nil }
       its(:user_id) { should eq(user.id) }
       its(:project_id) { should eq(project.id) }
       its(:parent_board_id) { should eq(board.id) }
+      its(:progress) { should eq(0) }
 
       context 'when title is not set' do
         let(:title) { nil }
@@ -174,17 +176,18 @@ describe Api::V1::BoardsController do
 
     subject(:api_board) { json_to_ostruct(response.body, :board) }
 
-    its('keys.size') { should eq(17) }
+    its('keys.size') { should eq(18) }
     its(:title) { should eq(board_attrs['title']) }
     its(:description) { should eq(board_attrs['description']) }
     its(:user_id) { should eq(user.id) }
     its(:project_id) { should eq(board.project.id) }
     its(:parent_board_id) { should eq(board.parent_board.id) }
+    its(:progress) { should eq(0) }
 
     context 'ignores wrong attributes' do
       let(:board_attrs) { Fabricate.attributes_for(:branched_board) }
 
-      its('keys.size') { should eq(17) }
+      its('keys.size') { should eq(18) }
       its(:title) { should eq(board_attrs['title']) }
       its(:description) { should eq(board_attrs['description']) }
       its(:user_id) { should eq(user.id) }
