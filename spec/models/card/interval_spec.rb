@@ -3,7 +3,6 @@ require 'spec_helper'
 describe Card::Interval do
   it { should belong_to(:parent_card) }
   it { should have_many(:versions).dependent(:destroy) }
-  it { should validate_presence_of(:title) }
   it { should validate_presence_of(:minimum) }
   it { should validate_presence_of(:maximum) }
 

@@ -18,9 +18,9 @@
     {{/view}}
   .header-progress-wrap
     .header-progress-cards
-      1 / {{board.cardsCount}}
+      {{board.completedCardsCount}} / {{board.cardsCount}}
     .header-progress
-      .header-progress-bar
+      {{view Doers.ProgressBar classNames='header-progress-bar' widthBinding='board.completedCardsProgress'}}
 
 .content-wrap
 
