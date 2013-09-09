@@ -7,7 +7,7 @@
     = _('Import from Angel List')
     {{/linkTo}}
     %a{:href => root_path(:anchor => '/projects/new'), :class => 'button'}
-      %span.icon.icon-plus
+      %span.icon.icon-project
       = _('Create project')
 
 .content-wrap

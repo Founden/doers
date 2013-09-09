@@ -12,6 +12,10 @@
     %br/
     = _('by')
     {{board.user.nicename}}
+  .header-actions
+    %button.button
+      %span.icon.icon-view
+      = _('View mode')
   .header-progress-wrap
     .header-progress-cards
       1 / {{board.cardsCount}}
