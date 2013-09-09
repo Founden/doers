@@ -1,5 +1,5 @@
 .header
-  {{#linkTo 'boards.built' class='header-root'}}
+  {{#linkTo 'boards' class='header-root'}}
   = _('Template boards')
   {{/linkTo}}
   .header-title

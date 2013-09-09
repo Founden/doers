@@ -10,6 +10,6 @@ Doers.BoardsBuildController =
   destroy: ->
     board = @get('board')
     board.one 'didDelete', =>
-      @get('target.router').transitionTo('boards.built')
+      @get('target.router').transitionTo('boards')
     board.deleteRecord()
     board.get('store').commit()
