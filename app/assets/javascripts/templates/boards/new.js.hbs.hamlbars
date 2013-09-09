@@ -1,22 +1,22 @@
-#board-new
+.header
+  {{#linkTo 'boards.built' class='header-root'}}
+  = _('Template boards')
+  {{/linkTo}}
+  .header-title
+    {{content.title}}
 
-  %header.header
-    .header-content
-      %h1
-        = _('Create a new template board')
+.content-wrap
 
-  .content
-    %form{:class => 'form', :_action => 'save view on="submit"'}
-      %fieldset
-        .field
-          %label{:for => :titleInput, 'data-error' => _('Name is missing.')}
-            = _('Name')
-          {{input type='text' valueBinding='content.title' id='titleInput' placeholder='Give it a nice name' required='true'}}
-        .field
-          %label{:for => :descriptionInput}
-            = _('Description')
-          {{textarea valueBinding='content.description' id='descriptionInput' placeholder='What is this board about...' required='true' rows='6'}}
-        .actions
-          %input.button{:type => :submit, :value => _('Create'), :id => 'board-save'}
-          %a.button.secondary{:_action => 'cancel'}
-            = _('Cancel')
+  .board
+    {{input class='board-title' valueBinding='content.title' placeholder='Your board name...' type='text' name='title'}}
+    {{textarea class='board-description' valueBinding='content.description' placeholder='...and its description.' name='description'}}
+    .board-actions
+      {{#if content.title}}
+      %button#create-board.button{:_action => 'save'}
+        %span.icon.icon-board
+        = _('Create board')
+      {{else}}
+      %button.button{:disabled => true}
+        %span.icon.icon-ellipsis
+        = _('Create board')
+      {{/if}}
