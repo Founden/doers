@@ -1,8 +1,0 @@
-%form{:bind => {:id => 'view.content.editSlug'}}
-  %fieldset
-    {{partial 'partials/card_actions'}}
-    {{partial 'partials/card_build_fields'}}
-    .field
-      {{input valueBinding='view.content.content' placeholder='What does it represent?' required='true' type='text' name='content'}}
-    .field
-      {{input valueBinding='view.content.number' required='true' type='number' name='number'}}

@@ -14,3 +14,35 @@
 .board-description {
   @extend .project-description;
 }
+
+.board-actions {
+  @extend .project-actions;
+}
+
+.board-toolbar {
+  @include box-sizing(border-box);
+  display: table;
+  width: 100%;
+  background: $white;
+  border: 1px solid $gray-2;
+  border-radius: 3px;
+  box-shadow: 0 1px 0 rgba($black, 0.1);
+}
+
+.board-toolbar-btn {
+  display: table-cell;
+  padding: 20px;
+  border-right: 1px solid $gray-1;
+  font-size: em(12);
+  text-transform: uppercase;
+  text-align: center;
+  cursor: pointer;
+
+  &:last-of-type {
+    border-right: 0;
+  }
+
+  &:hover {
+    background: $gray-1;
+  }
+}
