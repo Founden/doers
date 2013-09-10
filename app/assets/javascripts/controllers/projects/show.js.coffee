@@ -1,4 +1,5 @@
 Doers.ProjectsShowController = Ember.Controller.extend
+  inviteEmail: ''
 
   update: ->
     if @get('content.title')
@@ -19,3 +20,17 @@ Doers.ProjectsShowController = Ember.Controller.extend
       parentBoard: board
       project: project
     branch.save()
+
+  invite: ->
+    project = @get('content')
+    klass = @container.resolve('model:invitation')
+    if email = @get('inviteEmail')
+      invitation = klass.createRecord
+        email: email
+        project: project
+        invitableId: project.get('id')
+        invitableType: 'Project'
+      invitation.save().then =>
+        @set('inviteEmail', '')
+        if membership = invitation.get('membership')
+          project.get('memberships').pushObject(membership)

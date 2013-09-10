@@ -27,7 +27,7 @@
   .board{:bind => {:id => 'board.slug'}}
     {{view view.titleView class='board-field board-title' valueBinding='board.title' placeholder='Add board name' type='text' name='title'}}
     {{view view.descriptionView class='board-field board-description' valueBinding='board.description' placeholder='Add board description.' name='description'}}
-    {{view Doers.MembersView contentBinding='board'}}
+    -# TODO: Add collaborator faces
 
   {{#if content.isLoaded}}
   {{collection view.cardsView contentBinding='arrangedContent'}}
