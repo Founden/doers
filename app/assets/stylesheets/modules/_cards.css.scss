@@ -9,9 +9,8 @@
   position: relative;
   overflow: hidden;
   width: 300px;
-  height: 300px;
+  height: 350px;
   margin: 0 5px 10px 5px;
-  padding: 20px;
   border: 1px solid $gray-4;
   border-radius: 3px;
   background: $white;
@@ -26,13 +25,6 @@
     @include transition(opacity 0.2s);
     opacity: 0;
   }
-}
-
-.card-item-title {
-  margin: 0 0 0.5em 0;
-  font-size: em(21);
-  line-height: 1.25em;
-  font-weight: 500;
 }
 
 .card-item-user {
@@ -82,7 +74,106 @@
   @extend .board-item-user-image;
 }
 
-.card-item-text {
-  margin: 0 0 1em 0;
+.card-item-title {
+  margin: 1em 20px 0 20px;
+  font-size: em(18);
+  line-height: 1.25em;
+}
+
+.card-item-description {
+  margin: 0.5em 20px 0 20px;
+  max-height: 42px;
+  overflow: hidden;
+  font-size: em(14);
   color: $gray-6;
+}
+
+.card-item-text {
+  margin: 0.5em 20px 0 20px;
+  font-size: em(14);
+  color: $gray-6;
+}
+
+.card-item-image {
+  max-height: 170px;
+  overflow: hidden;
+
+  img {
+    display: block;
+    width: 100%;
+  }
+}
+
+.card-item-embed {
+  @include clearfix;
+  margin: 0 20px;
+  padding: 20px 0;
+  border-bottom: 1px solid $gray-2;
+  font-size: em(14);
+  color: $gray-6;
+}
+
+.card-item-embed-image {
+  float: left;
+  height: 80px;
+  margin: 0 15px 0 0;
+}
+
+.card-item-embed-title {
+  font-weight: 600;
+}
+
+.card-item-nr {
+  text-align: center;
+  margin: 30px;
+
+  h3 {
+    font-size: em(36);
+    font-weight: 300;
+  }
+
+  span {
+    text-transform: uppercase;
+    font-size: em(12);
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+}
+
+.card-item-date {
+  @extend .card-item-nr;
+}
+
+.card-item-interval {
+  margin: 30px 40px;
+  @include clearfix;
+  position: relative;
+  border-bottom: 1px solid $gray-2;
+}
+
+.card-item-interval-min {
+  float: left;
+  margin: 20px 0 10px 0;
+  color: $gray-4;
+}
+
+.card-item-interval-max {
+  @extend .card-item-interval-min;
+  float: right;
+}
+
+.card-item-interval-value {
+  @include box-sizing(border-box);
+  position: absolute;
+  max-width: 100%;
+
+  h3 {
+    position: absolute;
+    right: -50px;
+    top: 0;
+    width: 100px;
+    font-size: em(36);
+    font-weight: 300;
+    text-align: center;
+  }
 }

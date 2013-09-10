@@ -1,4 +1,11 @@
 {{#with view.content}}
+.card-item-embed
+  %img.card-item-embed-image{:bind => {:src => 'embed.thumbnailUrl'}}
+  .card-item-embed-title
+    {{embed.title}}
+  .card-item-embed-author
+    = _('By')
+    {{embed.authorName}}
 {{partial 'cards/components/title'}}
 {{partial 'cards/components/user'}}
 {{partial 'cards/components/question'}}
