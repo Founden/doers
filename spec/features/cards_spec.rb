@@ -23,6 +23,26 @@ feature 'Cards', :js, :slow do
       expect(page).to have_css(cards_classname, :count => board.cards.count)
     end
 
+    scenario 'activity is shown' do
+      page.find('.card-%d .card-item-title' % card.id).click
+      expect(page).to have_css(
+        '.card-%d .card-activity .card-activity-log' % card.id,
+        :count => card.activities.count)
+    end
+
+    scenario 'handles comments' do
+      content = Faker::Lorem.sentence
+      page.find('.card-%d .card-item-title' % card.id).click
+      within('.card-%d .card-comment-new' % card.id) do
+        fill_in :comment, :with => content
+      end
+      page.find('.card-%d .card-comment-new-actions .button' % card.id).click
+
+      expect(page).to have_css(
+        '.card-%d .card-activity .card-comment' % card.id, :count => 1)
+      expect(card.comments.count).to eq(1)
+    end
+
     context 'can not be repositioned' do
       background do
         # Update every card position
@@ -32,7 +52,6 @@ feature 'Cards', :js, :slow do
       end
 
       scenario 'when dragged and dropped' do
-        pending
         order = board.cards.pluck('id', 'position').flatten
 
         target = page.first('.card-item')
