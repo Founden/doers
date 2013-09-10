@@ -23,8 +23,8 @@ feature 'Projects', :js, :slow do
 
       sleep(1)
       expect(page).to have_css('#project-%d' % user.projects.first.id)
-      expect(page).to have_content(attrs[:title])
-      expect(page).to have_content(attrs[:description])
+      expect(page).to have_field(:title, :with =>  attrs[:title])
+      expect(page).to have_field(:description, :with => attrs[:description])
     end
 
     scenario 'with missing title wont show create button' do
