@@ -1,8 +1,0 @@
-.field
-  {{textarea valueBinding='view.content.question' placeholder='Question' rows='2' name='question'}}
-.field
-  {{textarea valueBinding='view.content.help' placeholder='Help' rows='2' name='help'}}
-.field
-  {{input valueBinding='view.content.title' placeholder='Title' autocomplete='false' type='text' name='title'}}
-.field
-  {{input valueBinding='view.content.titleHint' placeholder='Title hint' autocomplete='false' type='text' name='title-hint'}}

@@ -15,16 +15,17 @@
 .content-wrap
 
   .project-list
-    .project-list-title
-      {{#if view.hasSelections}}
-      = _('Projects to import ({{selectedStartups.length}})')
-      {{else}}
-      {{#if content.length}}
-      = _('Select projects to import')
-      {{else}}
-      = _('Loading projects from Angel List')
-      {{/if}}
-      {{/if}}
+    .project-list-header
+      .project-list-title
+        {{#if view.hasSelections}}
+        = _('Projects to import ({{selectedStartups.length}})')
+        {{else}}
+        {{#if content.length}}
+        = _('Select projects to import')
+        {{else}}
+        = _('Loading projects from Angel List')
+        {{/if}}
+        {{/if}}
     {{#each startup in content}}
     {{#view view.startupView contentBinding=startup}}
     .icon.icon-checkmark
