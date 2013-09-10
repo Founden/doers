@@ -12,8 +12,8 @@
 .content-wrap
 
   .board{:bind => {:id => 'board.slug'}}
-    {{input class='board-title' valueBinding='board.title' placeholder='Add board name' type='text' name='title'}}
-    {{textarea class='board-description' valueBinding='board.description' placeholder='Add board description.' name='description'}}
+    {{input class='board-field board-title' valueBinding='board.title' placeholder='Add board name' type='text' name='title'}}
+    {{textarea class='board-field board-description' valueBinding='board.description' placeholder='Add board description.' name='description'}}
     .board-toolbar
       - [_('Paragraph'), _('Number'), _('Interval'), _('Timestamp')].each do |card|
         .board-toolbar-btn{:_action => 'addCard "%s"' % card}
