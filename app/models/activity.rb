@@ -4,6 +4,9 @@ class Activity < ActiveRecord::Base
   store_accessor :data, :user_name, :project_title, :board_title
   store_accessor :data, :trackable_title, :comment_id
 
+  # Default scope: order by last update
+  default_scope { order(:updated_at) }
+
   # Relationships
   belongs_to :project
   belongs_to :board
