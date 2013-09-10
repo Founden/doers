@@ -1,7 +1,7 @@
 %ul.member-list
-  {{#each member in content.memberships}}
+  {{#each member in view.content.memberships}}
   %li.member-item
-    %img.member-item-image{:bind => {:src => 'member.user.avatarUrl'}}
+    %img.member-item-image{:bind => {:src => 'member.user.avatarUrl', :title => 'member.user.nicename'}}
   {{/each}}
   {{#view view.addItemView}}
   {{#view view.addButtonView}}
@@ -9,8 +9,8 @@
   {{/view}}
   {{#if view.isActive}}
   .member-item-add-form
-    {{input placeholder='Email address' type='email' name='email'}}
-    %button.button.compact
+    {{input placeholder='Email address' type='email' name='email' valueBinding='controller.inviteEmail'}}
+    %button.button.compact{:_action => 'invite'}
       %span.icon.icon-mail
   {{/if}}
   {{/view}}
