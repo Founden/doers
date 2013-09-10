@@ -1,7 +1,7 @@
 .nav
   %a{:href => root_path, :class => 'nav-logo'}
     = Doers::Config.app_name
-  - if account_signed_in?
+  - if account_signed_in? and current_account.confirmed?
     %ul.nav-list
       %li.nav-list-item.nav-list-item-account
         = gravatar_tag(current_user.email, {:size => 42, :class => 'nav-list-item-account-image'})
