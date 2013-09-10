@@ -11,9 +11,7 @@ feature 'Board', :js, :slow do
     end
 
     background do
-      # TODO: Update the URL
-      # visit root_path(:anchor => '/boards/%d/build' % board.id)
-      visit root_path(:anchor => '/boards/%d' % board.id)
+      visit root_path(:anchor => '/boards/%d/build' % board.id)
     end
 
     context 'UI allows cards to be repositioned' do

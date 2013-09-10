@@ -19,7 +19,9 @@
           %a{:href => root_path(:anchor => '/projects/new'), :class => 'nav-list-item-btn'}
             = _('Create new porject')
             %span.icon.icon-project
+      - if current_account.admin?
         %li.nav-list-item
-          %a{:href => '#', :class => 'nav-list-item-btn'}
-            = _('Collaborators')
-            %span.icon.icon-user
+          %a{:href => root_path(:anchor => '/boards'), :class => 'nav-list-item-btn'}
+            = _('Template boards')
+            %span.icon.icon-board
+
