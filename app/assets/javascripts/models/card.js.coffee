@@ -35,12 +35,8 @@ Doers.Card = DS.Model.extend
     'card-' + @get('id')
   ).property('id', 'type')
 
-  dropdownSlug: ( ->
-    'dropdown-' + @get('slug')
-  ).property('slug')
-
   editSlug: ( ->
-    'edit-' + @get('slug')
+    'card-edit-' + @get('id')
   ).property('slug')
 
   didUpdate: ->

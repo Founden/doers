@@ -18,45 +18,39 @@ feature 'Map', :js, :slow do
     end
 
     scenario 'is shown with details' do
-      expect(page).to have_css('.cards .card', :count => 1)
-
-      expect(page).to have_css('.card-%d' % card.id)
+      expect(page).to have_css('.cards .card-item', :count => 1)
 
       expect(page).to have_content(card.title)
-      expect(page).to have_content(card.content)
       expect(page.source).to match(/maps\.googleapis\.com/)
       expect(page.source).to include(card.longitude)
       expect(page.source).to include(card.latitude)
     end
 
-    context 'when clicked on edit' do
+    context 'when clicked' do
       given(:title) { Faker::Lorem.sentence }
       given(:locations) { MultiJson.load(
         Rails.root.join('spec/fixtures/openstreetmap_london.json')) }
       given(:place) { locations.first }
-      given(:place_title) { Faker::Address.country }
 
       background do
         proxy.stub(/nominatim/).and_return(
           :jsonp => locations, :callback_param => 'json_callback'
         )
-        page.find('.card-%d .card-settings' % card.id).click
-        page.find('#dropdown-card-%d .toggle-editing' % card.id).click
+        page.find('.card-%d' % card.id).click
       end
 
       scenario 'can edit card details in editing screen' do
-        edit_css = '#edit-card-%d' % card.id
 
-        within(edit_css) do
+        within('.card-edit') do
           fill_in('title', :with => title)
-          fill_in('place-name', :with => place_title)
+          fill_in('query', :with => title)
         end
 
-        sleep(0.3)
-        page.find(edit_css + ' .map-search li').click
-        page.find(edit_css + ' .actions .does-save').click
-
-        expect(page).to_not have_css(edit_css)
+        sleep(1)
+        page.all('.card-edit-search-results li').first.click
+        page.find('.save-card').click
+        sleep(1)
+        expect(page).to_not have_css('.card-edit')
 
         card.reload
         expect(card.title).to eq(title)

@@ -14,6 +14,6 @@ class Card::IntervalSerializer < CardSerializer
 
   # Manually type cast it until serializer supports it natively
   def selected
-    object.selected.to_i
+    object.selected.to_f
   end
 end
