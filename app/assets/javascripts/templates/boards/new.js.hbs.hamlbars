@@ -8,8 +8,8 @@
 .content-wrap
 
   .board
-    {{input class='board-title' valueBinding='content.title' placeholder='Your board name...' type='text' name='title'}}
-    {{textarea class='board-description' valueBinding='content.description' placeholder='...and its description.' name='description'}}
+    {{input class='board-field board-title' valueBinding='content.title' placeholder='Your board name...' type='text' name='title'}}
+    {{textarea class='board-field board-description' valueBinding='content.description' placeholder='...and its description.' name='description'}}
     .board-actions
       {{#if content.title}}
       %button#create-board.button{:_action => 'save'}
