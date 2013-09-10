@@ -1,26 +1,37 @@
 .card-activity
 
   %ul.card-activity-list
-    {{#each activities}}
+    {{#each activity in activities}}
+    {{#if activity.comment}}
     %li.card-comment
-      %img{:class => 'card-comment-user-image', :bind => {:src => 'user.avatarUrl'}}
+      %img{:class => 'card-comment-user-image', :bind => {:src => 'activity.comment.user.avatarUrl'}}
       .card-comment-date
-        {{lastUpdate}}
+        {{activity.comment.updatedAt}}
       .card-comment-content
         %strong
-          {{user.nicename}}:
-        = Faker::Lorem.paragraph
+          {{activity.comment.user.nicename}}:
+        {{activity.comment.content}}
+    {{else}}
     %li.card-activity-log
       %strong
-        {{user.nicename}}
+        {{activity.user.nicename}}
+
+      {{#if activity.isCardCreation}}
+      = _('created the card.')
+      {{/if}}
+      {{#if activity.isCardUpdate}}
       = _('updated the card.')
-      {{lastUpdate}}
+      {{/if}}
+      {{activity.lastUpdate}}
+    {{/if}}
     {{/each}}
 
   .card-comment-new
-    {{textarea class='card-comment-new-text' placeholder='Write a comment...' rows='4' name='comment'}}
+    {{textarea class='card-comment-new-text' placeholder='Write a comment...' rows='4' name='comment' valueBinding='controller.commentContent'}}
+    {{#if controller.commentContent.length}}
     .card-comment-new-actions
-      %button.button.secondary
+      %button.button.secondary{:_action => 'addComment this'}
         %span.icon.icon-comment
         = _('Comment')
       = _('Tab + Enter to Submit.')
+    {{/if}}
