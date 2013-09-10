@@ -25,13 +25,9 @@
 .content-wrap
 
   .board{:bind => {:id => 'board.slug'}}
-    {{view view.titleView class='board-title' valueBinding='board.title' placeholder='Add board name' type='text' name='title'}}
-    {{view view.descriptionView class='board-description' valueBinding='board.description' placeholder='Add board description.' name='description'}}
-    %ul.collaborators
-      %li.collaborators-user
-        %img.collaborators-user-image{:bind => {:src => 'board.user.avatarUrl'}}
-      %li.collaborators-add-btn
-        %span.icon.icon-plus
+    {{view view.titleView class='board-field board-title' valueBinding='board.title' placeholder='Add board name' type='text' name='title'}}
+    {{view view.descriptionView class='board-field board-description' valueBinding='board.description' placeholder='Add board description.' name='description'}}
+    {{view Doers.MembersView contentBinding='board'}}
 
   {{#if content.isLoaded}}
   {{collection view.cardsView contentBinding='arrangedContent'}}

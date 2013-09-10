@@ -2,6 +2,10 @@
   @extend .project;
 }
 
+.board-field {
+  @extend .project-field;
+}
+
 .board-title {
   @extend .project-title;
   font-size: em(36);
