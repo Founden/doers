@@ -14,6 +14,7 @@
   .board{:bind => {:id => 'board.slug'}}
     {{input class='board-field board-title' valueBinding='board.title' placeholder='Add board name' type='text' name='title'}}
     {{textarea class='board-field board-description' valueBinding='board.description' placeholder='Add board description.' name='description'}}
+    {{view Doers.MembersView contentBinding='board'}}
     .board-toolbar
       - [_('Paragraph'), _('Number'), _('Interval'), _('Timestamp')].each do |card|
         .board-toolbar-btn{:_action => 'addCard "%s"' % card}
