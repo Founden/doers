@@ -1,6 +1,6 @@
 .header
   .header-root
-    = _('Template boards')
+    = _('Your boards')
   .header-actions
     {{#linkTo 'boards.new' class='button'}}
     %span.icon.icon-board

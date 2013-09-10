@@ -61,7 +61,7 @@
           = _('By')
           {{board.author.nicename}}
           .board-item-user-company
-            = _('Company name')
+            {{board.team.title}}
         .board-item-branch{:_action => 'createBranch board'}
           .icon.icon-plus
           = _('Use board')
