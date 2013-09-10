@@ -1,4 +1,13 @@
 {{#with view.content}}
+.card-item-interval
+  .card-item-interval-min
+    {{minimum}}
+  {{#view Doers.ProgressBar classNames='card-item-interval-value' widthBinding='progress'}}
+  %h3
+    {{selected}}
+  {{/view}}
+  .card-item-interval-max
+    {{maximum}}
 {{partial 'cards/components/title'}}
 {{partial 'cards/components/user'}}
 {{partial 'cards/components/question'}}

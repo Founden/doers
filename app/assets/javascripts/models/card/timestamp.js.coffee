@@ -4,8 +4,8 @@ Doers.TimestampMixin = Ember.Mixin.create
   dateString: null
   timeString: null
   timestampLoaded: false
-  dateFormat: 'YYYY-MM-DD'
-  timeFormat: 'HH:mm:ss'
+  dateFormat: 'DD MMM YYYY'
+  timeFormat: 'HH:MM A'
   fullFormat: 'YYYY-MM-DD HH:mm:ss'
 
   didLoad: ->

@@ -1,4 +1,11 @@
 {{#with view.content}}
+.card-item-embed
+  %img.card-item-embed-image{:bind => {:src => 'image.attachment'}}
+  .card-item-embed-title
+    {{bookTitle}}
+  .card-item-embed-author
+    = _('By')
+    {{bookAuthors}}
 {{partial 'cards/components/title'}}
 {{partial 'cards/components/user'}}
 {{partial 'cards/components/question'}}

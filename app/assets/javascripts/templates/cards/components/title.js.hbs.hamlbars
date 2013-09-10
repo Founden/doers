@@ -1,2 +1,2 @@
-%h3.card-item-title
+.card-item-title
   {{title}}

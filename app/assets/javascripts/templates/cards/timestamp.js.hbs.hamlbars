@@ -1,4 +1,9 @@
 {{#with view.content}}
+.card-item-date
+  %h3
+    {{dateString}}
+  %span
+    {{timeString}}
 {{partial 'cards/components/title'}}
 {{partial 'cards/components/user'}}
 {{partial 'cards/components/question'}}
