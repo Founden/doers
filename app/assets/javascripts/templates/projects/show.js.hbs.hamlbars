@@ -12,13 +12,9 @@
 .content-wrap
 
   .project{:bind => {:id => 'content.slug'}}
-    {{view view.titleView class='project-title' valueBinding='content.title' placeholder='Add project name' type='text' name='title'}}
-    {{view view.descriptionView class='project-description' valueBinding='content.description' placeholder='Add project description.' name='description'}}
-    %ul.collaborators
-      %li.collaborators-user
-        %img.collaborators-user-image{:bind => {:src => 'content.user.avatarUrl'}}
-      %li.collaborators-add-btn
-        %span.icon.icon-plus
+    {{view view.titleView class='project-field project-title' valueBinding='content.title' placeholder='Add project name' type='text' name='title'}}
+    {{view view.descriptionView class='project-field project-description' valueBinding='content.description' placeholder='Add project description.' name='description'}}
+    {{view Doers.MembersView contentBinding='content'}}
 
   .board-list
     {{#each board in content.boards}}
