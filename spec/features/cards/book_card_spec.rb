@@ -18,19 +18,15 @@ feature 'Book', :js, :slow do
     end
 
     scenario 'is shown with details' do
-      expect(page).to have_css('.cards .card', :count => 1)
-
-      card_classname = '.cards .%s' % card.class.name.demodulize.downcase
-      expect(page).to have_css(card_classname)
+      expect(page).to have_css('.cards .card-item', :count => 1)
 
       expect(page).to have_content(card.title)
-      expect(page.source).to include(card.url)
       expect(page).to have_content(card.book_title)
       expect(page).to have_content(card.book_authors)
       expect(page.source).to include(card.image.attachment.url)
     end
 
-    context 'when clicked on edit' do
+    context 'when clicked' do
       given(:title) { Faker::Lorem.sentence }
       given(:books) do
         MultiJson.load(Rails.root.join('spec/fixtures/google_books.json'))
@@ -43,23 +39,21 @@ feature 'Book', :js, :slow do
       background do
         OpenURI.should_receive(:open_uri).and_return(image)
         proxy.stub(/volumes/).and_return(:jsonp => books)
-        page.find('.card-%d .card-settings' % card.id).click
-        page.find('#dropdown-card-%d .toggle-editing' % card.id).click
+        page.find('.card-%d' % card.id).click
       end
 
       scenario 'can edit card details in editing screen' do
-        edit_css = '#edit-card-%d' % card.id
 
-        within(edit_css) do
+        within('.card-edit') do
           fill_in('title', :with => title)
-          fill_in('book-title', :with => title)
+          fill_in('query', :with => title)
         end
 
         sleep(1)
-        page.all(edit_css + ' .book-search li').first.click
-        page.find(edit_css + ' .actions .does-save').click
-
-        expect(page).to_not have_css(edit_css)
+        page.all('.card-edit-search-results li').first.click
+        page.find('.save-card').click
+        sleep(1)
+        expect(page).to_not have_css('.card-edit')
 
         card.reload
         expect(card.title).to eq(title)

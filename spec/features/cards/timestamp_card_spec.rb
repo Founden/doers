@@ -18,44 +18,44 @@ feature 'Timestamp', :js, :slow do
     end
 
     scenario 'is shown with details' do
-      expect(page).to have_css('.cards .card', :count => 1)
-
-      card_classname = '.cards .%s' % card.class.name.demodulize.downcase
-      expect(page).to have_css(card_classname)
+      expect(page).to have_css('.cards .card-item', :count => 1)
 
       expect(page).to have_content(card.title)
-      expect(page.source).to include(card.content)
+      expect(page).to have_content(card.content.to_date.strftime('%d %b %Y'))
+      expect(page).to have_content(card.content.to_time.strftime('%H:%M'))
     end
 
-    context 'when clicked on edit' do
+    context 'when clicked' do
       given(:title) { Faker::Lorem.sentence }
       given(:datetime) { DateTime.tomorrow.at_end_of_day }
       given(:date) { datetime.to_s(:db).split(' ').first }
       given(:time) { datetime.to_s(:db).split(' ').last }
 
       background do
-        page.find('.card-%d .card-settings' % card.id).click
-        page.find('#dropdown-card-%d .toggle-editing' % card.id).click
+        page.find('.card-%d' % card.id).click
       end
 
       scenario 'can edit card details in editing screen' do
-        edit_css = '#edit-card-%d' % card.id
 
-        within(edit_css) do
+        within('.card-edit') do
+
           fill_in('title', :with => title)
           fill_in('date', :with => date)
           fill_in('time', :with => time)
         end
-        page.find(edit_css + ' .actions .does-save').click
 
-        expect(page).to_not have_css(edit_css)
+        page.find('.save-card').click
+        sleep(1)
+        expect(page).to_not have_css('.card-edit')
 
         card.reload
         expect(card.title).to eq(title)
+
         expect(DateTime.parse(card.content).to_s(:db)).to eq(datetime.to_s(:db))
 
-        expect(page).to have_content(title)
-        expect(page.source).to include(datetime.to_s(:db))
+        expect(page).to have_content(card.title)
+        expect(page).to have_content(date)
+        expect(page).to have_content(time)
       end
     end
   end

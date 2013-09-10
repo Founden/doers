@@ -18,34 +18,31 @@ feature 'Number', :js, :slow do
     end
 
     scenario 'is shown with details' do
-      expect(page).to have_css('.cards .card', :count => 1)
-
-      card_classname = '.cards .%s' % card.class.name.demodulize.downcase
-      expect(page).to have_css(card_classname)
+      expect(page).to have_css('.cards .card-item', :count => 1)
 
       expect(page).to have_content(card.title)
-      expect(page).to have_content(card.content)
+      expect(page).to have_content(card.number)
+      expect(page).to have_content(card.content.upcase)
     end
 
-    context 'when clicked on edit' do
+    context 'when clicked' do
       let(:card_attrs) { Fabricate.attributes_for('card/number') }
 
       background do
-        page.find('.card-%d .card-settings' % card.id).click
-        page.find('#dropdown-card-%d .toggle-editing' % card.id).click
+        page.find('.card-%d' % card.id).click
       end
 
       scenario 'can edit card details in editing screen' do
-        edit_css = '#edit-card-%d' % card.id
 
-        within(edit_css) do
+        within('.card-edit') do
           fill_in('title', :with => card_attrs[:title])
-          fill_in('content', :with => card_attrs[:content])
           fill_in('number', :with => card_attrs[:number])
+          fill_in('content', :with => card_attrs[:content])
         end
-        page.find(edit_css + ' .actions .does-save').click
 
-        expect(page).to_not have_css(edit_css)
+        page.find('.save-card').click
+        sleep(1)
+        expect(page).to_not have_css('.card-edit')
 
         card.reload
         expect(card.title).to eq(card_attrs[:title])
@@ -53,10 +50,10 @@ feature 'Number', :js, :slow do
         expect(card.number).to eq(card_attrs[:number].to_s)
 
         expect(page).to have_content(card.title)
-        expect(page).to have_content(card.content)
         expect(page).to have_content(card.number)
+        expect(page).to have_content(card.content.upcase)
       end
     end
-
   end
+
 end
