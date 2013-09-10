@@ -1,7 +1,7 @@
 Doers.Invitation = DS.Model.extend
   email: DS.attr('string')
-  invitable_id: DS.attr('number')
-  invitable_type: DS.attr('string')
+  invitableId: DS.attr('number')
+  invitableType: DS.attr('string')
   avatarUrl: DS.attr('string', readOnly: true)
 
   user: DS.belongsTo('Doers.User', readOnly: true, inverse: 'invitations')
