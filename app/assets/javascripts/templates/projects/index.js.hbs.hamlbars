@@ -13,18 +13,25 @@
 .content-wrap
 
   .project-list
-    .project-list-title
-      = _('Mine')
+    .project-list-header
+      .project-list-title
+        = _('Mine')
+      .project-list-title-boards
+        = _('Boards')
+      .project-list-title-users
+        = _('Collaborators')
     {{#each project in content}}
     .project-item{:bind => {:id => 'project.slug'}}
       {{#linkTo 'projects.show' project}}
       %h3.project-item-title
         {{project.title}}
-      .project-item-count
-        {{project.boardsCount}}
-        %span.icon.icon-user
-      .project-item-count
-        {{project.membersCount}}
-        %span.icon.icon-board
       {{/linkTo}}
+      .project-item-boards
+        {{project.boardsCount}}
+        %span.icon.icon-board
+      .project-item-users
+        {{log project.memberships}}
+        {{#each membership in project.memberships}}
+        %img.project-item-user-image{:bind => {:src => 'membership.user.avatarUrl'}}
+        {{/each}}
     {{/each}}
