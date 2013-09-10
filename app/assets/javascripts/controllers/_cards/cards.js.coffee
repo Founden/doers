@@ -1,4 +1,5 @@
 Doers.CardsController = Ember.ArrayController.extend
+  commentContent: ''
 
   save: ->
     @set('content.isEditing', false)
@@ -109,3 +110,20 @@ Doers.CardsController = Ember.ArrayController.extend
     asset.set('attachment', data.url || data.data)
     asset.set('description', data.desc || asset.get('description'))
     asset.save()
+
+  addComment: (card) ->
+    klass = @container.resolve('model:comment')
+    activityKlass = @container.resolve('model:activity')
+    content = @get('commentContent')
+
+    if content and content.length > 1
+      comment = klass.createRecord
+        content: content
+        commentableId: card.get('id')
+        board: card.get('board')
+        project: card.get('project')
+      comment.save().then =>
+        @set('commentContent', '')
+        card.get('activities').pushObject activityKlass.createRecord
+          comment: comment
+          lastUpdate: comment.get('updatedAt')
