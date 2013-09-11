@@ -47,7 +47,7 @@ describe Api::V1::BoardsController do
 
       subject(:api_board) { json_to_ostruct(response.body, :board) }
 
-      its('keys.size') { should eq(18) }
+      its('keys.size') { should eq(19) }
       its(:id) { should eq(board.id) }
       its(:title) { should eq(board.title) }
       its(:status) { should eq(Board::STATES.first) }
@@ -66,6 +66,17 @@ describe Api::V1::BoardsController do
       its(:cards_count) { should eq(board.cards.count) }
       its('activity_ids.size') { should eq(board.activities.count) }
       its('membership_ids.size') { should eq(board.memberships.count) }
+      its(:progress) { should eq(0) }
+
+      context '#progress' do
+        let(:board_id) do
+          Fabricate('card/phrase', :board => board,
+                    :project => board.project, :user => board.user)
+          board.id
+        end
+
+        its(:progress) { should eq(100) }
+      end
 
       context 'for #parent_board' do
         let(:board_id) { board.parent_board.id }
@@ -103,12 +114,13 @@ describe Api::V1::BoardsController do
 
       subject(:api_board) { json_to_ostruct(response.body, :board) }
 
-      its('keys.size') { should eq(18) }
+      its('keys.size') { should eq(19) }
       its(:title) { should eq(title) }
       its(:description) { should be_nil }
       its(:user_id) { should eq(user.id) }
       its(:project_id) { should eq(project.id) }
       its(:parent_board_id) { should eq(board.id) }
+      its(:progress) { should eq(0) }
 
       context 'when title is not set' do
         let(:title) { nil }
@@ -177,17 +189,18 @@ describe Api::V1::BoardsController do
 
     subject(:api_board) { json_to_ostruct(response.body, :board) }
 
-    its('keys.size') { should eq(18) }
+    its('keys.size') { should eq(19) }
     its(:title) { should eq(board_attrs['title']) }
     its(:description) { should eq(board_attrs['description']) }
     its(:user_id) { should eq(user.id) }
     its(:project_id) { should eq(board.project.id) }
     its(:parent_board_id) { should eq(board.parent_board.id) }
+    its(:progress) { should eq(0) }
 
     context 'ignores wrong attributes' do
       let(:board_attrs) { Fabricate.attributes_for(:branched_board) }
 
-      its('keys.size') { should eq(18) }
+      its('keys.size') { should eq(19) }
       its(:title) { should eq(board_attrs['title']) }
       its(:description) { should eq(board_attrs['description']) }
       its(:user_id) { should eq(user.id) }

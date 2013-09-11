@@ -1,0 +1,5 @@
+.card-edit-actions
+  {{#view view.saveButtonView class='button save-card'}}
+  %span.icon.icon-checkmark
+  = _('Save')
+  {{/view}}

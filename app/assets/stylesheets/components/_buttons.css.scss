@@ -1,42 +1,50 @@
 .button {
   display: inline-block;
-  background-color: $primary-color;
-  color: $white;
-  padding: 12px 20px 8px 20px;
-  line-height: 1.5em;
-  font-size: 14px;
-  border: 0;
+  padding: 0 15px;
+  line-height: 40px;
+  border: 1px solid rgba($black, 0.1);
+  @include linear-gradient(tint($green, 10%), shade($green, 10%));
   border-radius: 3px;
+  box-shadow: 0 1px 0 rgba($black, 0.1);
+  font-size: 14px;
+  font-weight: 600;
+  color: $white;
   cursor: pointer;
-  @include transition(background-color 0.2s);
+  outline: 0;
 
-  &:hover {
-    background-color: shade($primary-color, 5%);
+  .icon:before {
+    vertical-align: top;
+    line-height: 40px;
+    padding: 0 10px 0 0;
+    margin: 0 15px 0 -5px;
+    border-right: 1px solid rgba($black, 0.1);
+    font-size: 24px;
+  }
+
+  &:disabled {
+    background: transparent;
+    color: $gray-4;
+    border-color: $gray-3;
+    box-shadow: none;
   }
 
   &.secondary {
-    background-color: $secondary-color;
+    border-color: $gray-3;
+    @include linear-gradient($white, $gray-1);
+    color: $black;
 
-    &:hover {
-      background-color: shade($secondary-color, 5%);
+    &:focus {
+      border-color: $green;
     }
   }
 
-  &.gray {
-    background-color: $bw_10;
-    color: $bw_1;
+  &.compact {
+    padding: 0 10px;
 
-    &:hover {
-      background-color: shade($bw_10, 5%);
-    }
-  }
-
-  &.red {
-    background-color: $red;
-    color: $white;
-
-    &:hover {
-      background-color: shade($red, 5%);
+    .icon:before {
+      margin: 0;
+      padding: 0;
+      border: 0;
     }
   }
 }

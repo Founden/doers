@@ -1,4 +1,0 @@
-%p.text
-  {{view.content.number}}
-%p.text
-  {{view.content.content}}

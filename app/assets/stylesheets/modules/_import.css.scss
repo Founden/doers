@@ -1,0 +1,15 @@
+.startup-list {
+  @extend .project-list;
+}
+
+.startup-list-title {
+  @extend .project-list-title;
+}
+
+.startup-item {
+  @extend .project-item;
+}
+
+.startup-item-title {
+  @extend .project-item-title;
+}

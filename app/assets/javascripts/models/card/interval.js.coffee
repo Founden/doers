@@ -3,7 +3,7 @@ Doers.IntervalMixin = Ember.Mixin.create
   maximum: DS.attr('number')
   selected: DS.attr('number')
 
-  percent: ( ->
+  progress: ( ->
     min = @get('minimum')
     max = @get('maximum')
     value = @get('selected')

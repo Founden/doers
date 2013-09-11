@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
 
   INTERESTS = {
     _('Founder') => 'founder',
+    _('Investor') => 'investor',
     _('Advisor') => 'advisor',
     _('Domain Expert') => 'expert',
     _('Running an Accelerator') => 'owner'

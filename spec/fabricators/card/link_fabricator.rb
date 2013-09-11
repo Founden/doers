@@ -1,7 +1,8 @@
 Fabricator('card/link') do
+  transient  :public_board
+  title      { |attrs| Faker::Lorem.sentence unless attrs[:public_board] }
   url        { Faker::Internet.uri(Card::Link::ALLOWED_SCHEMES.sample) }
   content    { Faker::Lorem.paragraph }
-  title      { Faker::Lorem.sentence }
   title_hint { Faker::Lorem.sentence }
   user
   board

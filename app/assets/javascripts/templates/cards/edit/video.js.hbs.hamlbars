@@ -1,26 +1,28 @@
-%form{:bind => {:id => 'view.content.editSlug'}}
-  %fieldset
-    {{partial 'partials/card_actions'}}
-    {{partial 'partials/card_help'}}
-    .field
-      {{input valueBinding='view.content.title' placeholderBinding='view.content.titleHint' autocomplete='false' required='true' type='text' name='title'}}
-    .field
-      .video-search
-        {{input type='text' valueBinding='view.content.query' placeholder='Search for a video' autocomplete='false' name='video-title'}}
-        {{#if view.content.query}}
-        %ul
-          {{#if view.content.results}}
-          {{#each result in view.content.results}}
-          %li{:_action => 'updateVideo view.content result'}
-            {{result.title.$t}}
-          {{/each}}
-          {{else}}
-          {{#if view.content.isSearching}}
-          %li
-            = _('Searching...')
-          {{else}}
-          %li
-            = _('No video was found')
-          {{/if}}
-          {{/if}}
-        {{/if}}
+{{#with view.content}}
+.card-wrap
+  {{partial 'cards/edit/components/activity'}}
+  .card-edit
+    {{partial 'cards/edit/components/help'}}
+    {{partial 'cards/edit/components/actions'}}
+    .card-edit-field
+      {{input class='card-edit-field-title' valueBinding='title' placeholderBinding='titleHint' type='text' name='title'}}
+    .card-edit-field
+      {{input valueBinding='query' placeholder='Search for a video...' type='text' name='query'}}
+    {{#if query}}
+    %ul.card-edit-search-results
+      {{#if results}}
+      {{#each video in results}}
+      %li{:_action => 'updateVideo view.content video'}
+        {{video.title.$t}}
+      {{/each}}
+      {{else}}
+      {{#if isSearching}}
+      %li
+        = _('Searching...')
+      {{else}}
+      %li
+        = _('No search results.')
+      {{/if}}
+      {{/if}}
+    {{/if}}
+{{/with}}

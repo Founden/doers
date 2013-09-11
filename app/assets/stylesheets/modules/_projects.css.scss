@@ -1,0 +1,98 @@
+.project-list {
+  margin: 60px 0 0 0;
+}
+
+.project-list-header {
+  @include clearfix;
+  border-bottom: 1px solid $gray-3;
+}
+
+.project-list-title {
+  float: left;
+  padding: 10px 15px;
+  font-size: em(12);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: $gray-5;
+}
+
+.project-list-title-users {
+  @extend .project-list-title;
+  float: right;
+  font-weight: 400;
+}
+
+.project-list-title-boards {
+  @extend .project-list-title;
+  float: right;
+  width: 10%;
+  text-align: right;
+  font-weight: 400;
+}
+
+.project-item {
+  @include clearfix;
+  display: block;
+  border-bottom: 1px solid $gray-2;
+
+  .icon-checkmark {
+    float: left;
+    width: 24px;
+    height: 24px;
+    margin: 15px 0 15px 15px;
+    border: 1px solid $gray-2;
+    border-radius: 3px;
+    background: $white;
+
+    &:before {
+      display: none;
+      font-size: 24px;
+      color: $green;
+    }
+  }
+
+  &.selected {
+
+    .icon-checkmark:before {
+      display: block;
+    }
+  }
+}
+
+.project-item-title {
+  float: left;
+  font-size: em(18);
+  line-height: 24px;
+  padding: 15px;
+}
+
+.project-item-users {
+  float: right;
+  padding: 15px;
+}
+
+.project-item-user-image {
+  float: right;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  margin: 0 5px 0 0;
+}
+
+.project-item-boards {
+  float: right;
+  padding: 15px;
+  width: 10%;
+  text-align: right;
+  font-size: em(20);
+  line-height: 24px;
+  font-weight: 600;
+
+  .icon:before {
+    vertical-align: top;
+    font-size: 24px;
+    line-height: 24px;
+    color: $gray-3;
+  }
+}

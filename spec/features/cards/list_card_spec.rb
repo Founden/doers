@@ -1,6 +1,7 @@
 require 'spec_helper'
 
-feature 'List', :js, :slow do
+feature 'List', :js, :slow, :pending do
+
   background do
     sign_in_with_angel_list
   end
