@@ -1,21 +1,29 @@
-#waiting
+.header
+  .header-root
+    = _('Beta Application')
 
-  %header.header
-    .header-content
-      %h1
-        = _('Thank you %s for applying') % current_account.name
+.content-wrap
 
-  .content
-    .page
-      %h2
-        = _("You're on the list!")
+  .waiting
+    .waiting-title
+      = _("You're on the list!")
+    .waiting-description
+      = _('Thank you %s for applying') % current_account.name
+    .waiting-content
       %p
         = _('To make sure we make the most of this beta testing phase, it might take a while for us to to get back to you.')
+      %p
         = _('We appreciate your patience.')
         = _('We will email you as soon as we are able to grant you access on Doers.')
+
+      %hr
+
       %p
         = _('We are looking to have a diverse group of beta customers.')
+      %p
         = _('So in order to facilitate for us the process, please choose your status below:')
+
+    .waiting-actions
       = form_for(current_account, :url => waiting_pages_path) do |f|
         %p
           = f.select :interest, User::INTERESTS
