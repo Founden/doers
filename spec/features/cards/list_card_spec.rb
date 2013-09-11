@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'List', :js, :slow do
+feature 'List', :js, :slow, :pending do
 
   background do
     sign_in_with_angel_list
@@ -19,7 +19,6 @@ feature 'List', :js, :slow do
     end
 
     scenario 'is shown with details' do
-      pending
       expect(page).to have_css('.cards .card', :count => 1)
 
       expect(page).to have_css('.card-%d' % card.id)
@@ -43,7 +42,6 @@ feature 'List', :js, :slow do
       end
 
       scenario 'can edit card details in editing screen' do
-        pending
         edit_css = '#edit-card-%d' % card.id
 
         within(edit_css) do
@@ -63,7 +61,6 @@ feature 'List', :js, :slow do
       end
 
       scenario 'can update card items' do
-        pending
         edit_css = '#edit-card-%d' % card.id
         edit_item = page.all(edit_css + ' li').first
 
@@ -89,7 +86,6 @@ feature 'List', :js, :slow do
       end
 
       scenario 'can remove list items in editing screen' do
-        pending
         initial_list_size = card.items.size
         first_item = card.items.first
 
@@ -107,7 +103,6 @@ feature 'List', :js, :slow do
       end
 
       scenario 'can add a new card item' do
-        pending
         initial_list_size = card.items.size
         edit_css = '#edit-card-%d' % card.id
 
