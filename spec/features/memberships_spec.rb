@@ -7,16 +7,19 @@ feature 'Memberships', :js, :slow do
 
   shared_examples 'member is added' do
     scenario 'adds an user to memberships' do
+      member = Fabricate(:user)
       expect(page).to have_css('.member-list .member-item', :count => 0)
 
       page.find('.member-item-add').click
       within('.member-item-add-form') do
-        fill_in :email, :with => Fabricate(:user).email
+        fill_in :email, :with => member.email
       end
       page.find('.member-item-add-form .button').click
       page.find('.member-item-add.active').click
 
       expect(page).to have_css('.member-list .member-item', :count => 1)
+      sleep(1)
+      expect(member.accepted_memberships.reload.count).to_not eq(0)
     end
   end
 
