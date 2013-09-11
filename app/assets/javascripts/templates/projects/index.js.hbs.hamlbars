@@ -1,26 +1,37 @@
-#projects
+.header
+  .header-root
+    = _('Projects')
+  .header-actions
+    {{#linkTo 'projects.import' id='projects-import' class='button secondary'}}
+    %span.icon.icon-angel
+    = _('Import from Angel List')
+    {{/linkTo}}
+    %a#projects-add.button{:href => root_path(:anchor => '/projects/new')}
+      %span.icon.icon-project
+      = _('Create project')
 
-  %header.header
-    .header-content
-      %h1
-        = _('Available Projects')
-    .buttons
-      {{#linkTo 'projects.import' id='projects-import' class='button' title="#{_('Import from Angel List')}"}}
-      = _('Import from Angel List')
+.content-wrap
+
+  .project-list
+    .project-list-header
+      .project-list-title
+        = _('Mine')
+      .project-list-title-boards
+        = _('Boards')
+      .project-list-title-users
+        = _('Collaborators')
+    {{#each project in content}}
+    .project-item{:bind => {:id => 'project.slug'}}
+      {{#linkTo 'projects.show' project}}
+      %h3.project-item-title
+        {{project.title}}
       {{/linkTo}}
-
-  .content
-    .projects
-      {{#each content}}
-      .project{:bind => {:id => 'slug'}}
-        {{#linkTo 'projects.show' this}}
-        {{#if logo.attachment}}
-        %img{:bind => {:title => 'title', :src => 'logo.attachment'}}
-        {{/if}}
-        %h2 {{title}}
-        {{/linkTo}}
-        %p.description {{description}}
-        %footer {{website website}}
-
-        {{partial 'partials/delete_confirmation'}}
-      {{/each}}
+      .project-item-boards
+        {{project.boardsCount}}
+        %span.icon.icon-board
+      .project-item-users
+        {{log project.memberships}}
+        {{#each membership in project.memberships}}
+        %img.project-item-user-image{:bind => {:src => 'membership.user.avatarUrl'}}
+        {{/each}}
+    {{/each}}

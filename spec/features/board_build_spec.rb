@@ -25,8 +25,8 @@ feature 'Board', :js, :slow do
       scenario 'when dragged and dropped' do
         order = board.cards.pluck('id', 'position').flatten
 
-        target = page.first('.card')
-        source = page.all('.card .title').last
+        target = page.first('.card-item')
+        source = page.all('.card-item').last
 
         page.execute_script('$("#%s").trigger("dragstart")' % source['id'])
         page.execute_script('$("#%s").trigger("drop")' % target['id'])

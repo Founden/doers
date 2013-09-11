@@ -1,0 +1,3 @@
+%p
+  {{view.message}}
+{{view view.closeIcon classNames='icon-close'}}

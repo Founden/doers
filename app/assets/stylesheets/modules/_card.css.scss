@@ -1,0 +1,170 @@
+.card {
+  @include box-sizing(border-box);
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  padding: 40px 0 40px 280px;
+  background: rgba($black, 0.8);
+
+  #{$all-text-inputs}, textarea {
+    @include box-sizing(border-box);
+    border: 0;
+    outline: 0;
+    margin: 0;
+    width: 100%;
+    resize: none;
+    background: transparent;
+  }
+}
+
+.card-wrap {
+  position: relative;
+  height: 100%;
+  @extend .content-wrap;
+}
+
+.card-edit {
+  position: relative;
+  overflow: hidden;
+  width: 570px;
+  height: 100%;
+  background: $white;
+  border-radius: 3px;
+}
+
+.card-edit-actions {
+  @include box-sizing(border-box);
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 15px 20px;
+  border-top: 1px solid $gray-1;
+}
+
+.card-edit-help {
+  padding: 20px 30px;
+  background: $gray-1;
+  border-bottom: 1px solid $gray-2;
+}
+
+.card-edit-help-question {
+  font-weight: 600;
+}
+
+.card-edit-help-description {
+  font-size: em(14);
+  color: $gray-6;
+}
+
+.card-edit-field {
+  margin: 20px 30px;
+}
+
+.card-edit-field-title {
+  font: 500 em(21) $museo;
+}
+
+.card-edit-field-text {
+  color: $gray-6;
+}
+
+.card-edit-field-number {
+  font-size: em(21);
+}
+
+.card-edit-search-results {
+  margin: 20px 30px;
+
+  li {
+    padding: 5px 10px;
+    margin: 0 0 1px 0;
+    background-color: $gray-1;
+    font-size: em(14);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $gray-2;
+    }
+  }
+}
+
+.card-activity {
+  @include box-sizing(border-box);
+  position: absolute;
+  overflow: hidden;
+  right: 0;
+  top: 0;
+  width: 360px;
+  height: 100%;
+  padding: 0 0 198px 0;
+  background: $gray-1;
+  border-radius: 3px;
+}
+
+.card-activity-list {
+  overflow-x: scroll;
+  height: 100%;
+}
+
+.card-comment {
+  position: relative;
+  margin: 20px 0;
+  padding: 0 60px;
+  font-size: em(14);
+}
+
+.card-comment-user-image {
+  position: absolute;
+  left: 18px;
+  top: -3px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+}
+
+.card-comment-date {
+  margin: 0 0 0.5em 0;
+  font-size: em(12);
+  color: $gray-6;
+}
+
+.card-activity-log {
+  margin: 0 30px;
+  color: $gray-6;
+  font-size: em(12);
+
+  &:last-of-type {
+    margin-bottom: 20px;
+  }
+}
+
+.card-comment-new {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  border-top: 1px solid $gray-3;
+  background: $white;
+}
+
+.card-comment-new-text {
+  padding: 20px;
+  font-size: em(14);
+}
+
+.card-comment-new-actions {
+  padding: 15px 20px;
+  border-top: 1px solid $gray-1;
+  color: $gray-5;
+  font-size: em(14);
+
+  .button {
+    margin: 0 1em 0 0;
+  }
+}

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130906105048) do
+ActiveRecord::Schema.define(version: 20130909202228) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -210,12 +210,14 @@ ActiveRecord::Schema.define(version: 20130906105048) do
   add_index "taggings", ["taggable_type", "taggable_id"], name: "index_taggings_on_taggable_type_and_taggable_id", using: :btree
 
   create_table "tags", force: true do |t|
-    t.string   "name",       null: false
+    t.string   "name",                       null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "taggings_count", default: 0, null: false
   end
 
   add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
+  add_index "tags", ["taggings_count"], name: "index_tags_on_taggings_count", using: :btree
 
   create_table "teams", force: true do |t|
     t.string   "title"

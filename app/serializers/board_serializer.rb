@@ -2,6 +2,7 @@
 class BoardSerializer < ActiveModel::Serializer
   attributes :id, :title, :status, :updated_at, :description, :card_ids
   attributes :branches_count, :cards_count, :last_update, :collections
+  attributes :progress
 
   has_one :user, :embed => :id
   has_one :author, :embed => :id
@@ -35,8 +36,19 @@ class BoardSerializer < ActiveModel::Serializer
     object.tags.pluck('name').map(&:titleize)
   end
 
+  # Returns collection/tag names
+  def progress
+    completed_count = object.cards.pluck('title').reject(&:blank?).count
+    cards_count > 0 ? ( completed_count.to_f / cards_count) * 100 : 0
+  end
+
   # Hide collections for non public boards
   def include_collections?
-    object.status.eql?(Board::STATES.last)
+    object.project_id.blank?
+  end
+
+  # Hide progress for non public boards
+  def include_progress?
+    !object.project_id.blank?
   end
 end

@@ -1,0 +1,27 @@
+.nav
+  %a{:href => root_path, :class => 'nav-logo'}
+    = Doers::Config.app_name
+  - if account_signed_in? and current_account.confirmed?
+    %ul.nav-list
+      %li.nav-list-item.nav-list-item-account
+        = gravatar_tag(current_user.email, {:size => 42, :class => 'nav-list-item-account-image'})
+        .nav-list-item-account-name
+          = current_account.nicename
+        .nav-list-item-account-actions
+          %a{:href => sign_out_path}
+            = _('sign out')
+      - if current_account.confirmed?
+        %li.nav-list-item
+          %a{:href => root_path(:anchor => '/projects'), :class => 'nav-list-item-btn'}
+            = _('Your projects')
+            %span.icon.icon-directory
+        %li.nav-list-item
+          %a{:href => root_path(:anchor => '/projects/new'), :class => 'nav-list-item-btn'}
+            = _('Create new porject')
+            %span.icon.icon-project
+      - if current_account.admin?
+        %li.nav-list-item
+          %a{:href => root_path(:anchor => '/boards'), :class => 'nav-list-item-btn'}
+            = _('Your boards')
+            %span.icon.icon-board
+

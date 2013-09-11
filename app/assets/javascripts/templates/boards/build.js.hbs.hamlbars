@@ -1,24 +1,36 @@
-#board.build
+.header
+  {{#linkTo 'boards' class='header-root'}}
+  = _('Template boards')
+  {{/linkTo}}
+  .header-title
+    {{board.title}}
+  .header-actions
+    {{#view view.deleteButtonView class='button compact secondary' confirmMessage='Are you shure you want to delete?'}}
+    %span.icon.icon-trash
+    {{/view}}
 
-  %header.header
-    .header-content
-      %h1
-        {{board.title}}
-      %p
-        {{board.description}}
+.content-wrap
 
-  .content
-    {{partial 'partials/cards_toolbar'}}
+  .board{:bind => {:id => 'board.slug'}}
+    {{input class='board-field board-title' valueBinding='board.title' placeholder='Add board name' type='text' name='title'}}
+    {{textarea class='board-field board-description' valueBinding='board.description' placeholder='Add board description.' name='description'}}
+    {{view Doers.MembersView contentBinding='board'}}
+    .board-toolbar
+      - [_('Paragraph'), _('Number'), _('Interval'), _('Timestamp')].each do |card|
+        .board-toolbar-btn{:_action => 'addCard "%s"' % card}
+          = card
+      - [_('Book'), _('Link'), _('Map'), _('Photo'), _('Video')].each do |card|
+        .board-toolbar-btn{:_action => 'addCard "%s"' % card}
+          = card
+      - [_('List')].each do |card|
+        .board-toolbar-btn{:_action => 'addCard "%s"' % card}
+          = card
 
-    %div{:bind => {:id => 'board.slug'}}
-      {{#if content.isLoaded}}
-      {{#if content.length}}
-      {{collection view.buildCardsView contentBinding=arrangedContent}}
-      {{else}}
-      %em
-        = _('No cards available. Did you add any?')
-      {{/if}}
-      {{else}}
-      %em
-        = _('Loading...')
-      {{/if}}
+  {{#if content.isLoaded}}
+  {{collection view.cardsView contentBinding='arrangedContent'}}
+  {{#if selectedCardView}}
+  {{#with selectedCardView}}
+  {{view editView contentBinding='content' templateNameBinding='editTemplateName'}}
+  {{/with}}
+  {{/if}}
+  {{/if}}

@@ -5,7 +5,6 @@ Doers.Router.map (match)->
     @route('import')
     @route('import-running')
   @resource 'boards', ->
-    @route 'show', {path: ':board_id'}
     @route 'new'
-    @route 'built'
+    @route 'show', {path: ':board_id'}
     @route 'build', {path: ':board_id/build'}

@@ -18,41 +18,38 @@ feature 'Phrase', :js, :slow do
     end
 
     scenario 'is shown with details' do
-      expect(page).to have_css('.cards .card', :count => 1)
-
-      expect(page).to have_css('.card-%d' % card.id)
+      expect(page).to have_css('.cards .card-item', :count => 1)
 
       expect(page).to have_content(card.title)
       expect(page).to have_content(card.content)
     end
 
-    context 'when clicked on edit' do
-      given(:card_attrs) { Fabricate.attributes_for('card/phrase') }
+    context 'when clicked' do
+      let(:title) { Faker::Lorem.sentence }
+      let(:content) { Faker::Lorem.sentence }
 
       background do
-        page.find('.card-%d .card-settings' % card.id).click
-        page.find('#dropdown-card-%d .toggle-editing' % card.id).click
+        page.find('.card-%d' % card.id).click
       end
 
       scenario 'can edit card details in editing screen' do
-        edit_css = '#edit-card-%d' % card.id
 
-        within(edit_css) do
-          fill_in('title', :with => card_attrs[:title])
-          fill_in('content', :with => card_attrs[:content])
+        within('.card-edit') do
+          fill_in('title', :with => title)
+          fill_in('content', :with => content)
         end
-        page.find(edit_css + ' .actions .does-save').click
 
-        expect(page).to_not have_css(edit_css)
+        page.find('.save-card').click
+        sleep(1)
+        expect(page).to_not have_css('.card-edit')
 
         card.reload
-        expect(card.title).to eq(card_attrs[:title])
-        expect(card.content).to eq(card_attrs[:content])
+        expect(card.title).to eq(title)
+        expect(card.content).to eq(content)
 
         expect(page).to have_content(card.title)
         expect(page).to have_content(card.content)
       end
     end
   end
-
 end

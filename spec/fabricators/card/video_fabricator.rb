@@ -1,5 +1,6 @@
 Fabricator('card/video') do
-  title      { Faker::Lorem.sentence }
+  transient  :public_board
+  title      { |attrs| Faker::Lorem.sentence unless attrs[:public_board] }
   title_hint { Faker::Lorem.sentence }
   video_id   { %w(1D1cap6yETA sTSA_sWGM44 QH2-TGUlwu4).sample }
   provider   { Card::Video::PROVIDERS.sample }

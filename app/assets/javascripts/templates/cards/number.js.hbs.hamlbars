@@ -1,0 +1,10 @@
+{{#with view.content}}
+.card-item-nr
+  %h3
+    {{number}}
+  %span
+    {{content}}
+{{partial 'cards/components/title'}}
+{{partial 'cards/components/user'}}
+{{partial 'cards/components/question'}}
+{{/with}}

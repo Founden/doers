@@ -15,3 +15,11 @@ Doers.Activity = DS.Model.extend
   identifier: (->
     'activity-' + @get('id')
   ).property('id')
+
+  isCardCreation: ( ->
+    /create-card/.test(@get('slug'))
+  ).property('slug')
+
+  isCardUpdate: ( ->
+    /update-card/.test(@get('slug'))
+  ).property('slug')

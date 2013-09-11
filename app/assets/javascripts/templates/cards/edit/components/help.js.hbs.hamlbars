@@ -1,0 +1,5 @@
+.card-edit-help
+  .card-edit-help-question
+    {{view.content.question}}
+  .card-edit-help-description
+    {{view.content.help}}

@@ -1,27 +1,70 @@
-#project{:bind => {:class => 'content.slug'}}
+.header
+  {{#linkTo 'projects' class='header-root'}}
+  = _('Projects')
+  {{/linkTo}}
+  .header-title
+    {{content.title}}
+  .header-actions
+    {{#view view.deleteButtonView class='button compact secondary' confirmMessage='Are you shure you want to delete?'}}
+    %span.icon.icon-trash
+    {{/view}}
 
-  %header.header
-    .header-content
-      %h1
-        {{content.title}}
-      %p
-        {{content.description}}
-      %p.header-links
-        %a{:bind => {:href => 'content.website'}}
-          {{website content.website}}
+.content-wrap
 
-  .content
-    {{#if content.boards}}
-    .boards
-      {{#each content.boards}}
-      .board{:bind => {:id => 'slug'}}
-        {{partial 'partials/board'}}
-        {{partial 'partials/delete_confirmation'}}
+  .project{:bind => {:id => 'content.slug'}}
+    {{view view.titleView class='project-field project-title' valueBinding='content.title' placeholder='Add project name' type='text' name='title'}}
+    {{view view.descriptionView class='project-field project-description' valueBinding='content.description' placeholder='Add project description.' name='description'}}
+    {{view Doers.MembersView contentBinding='content'}}
+
+  .board-list
+    {{#each board in content.boards}}
+    .board-item{:bind => {:id => 'board.slug'}}
+      {{#linkTo 'boards.show' board.id}}
+      .board-item-cover
+        %h3.board-item-cover-title
+          {{board.title}}
+
+      .board-item-progress
+        {{view Doers.ProgressBar classNames='board-item-progress-bar' widthBinding='board.progress'}}
+      {{#if board.isNew}}
+      .board-item-user
+        %img.board-item-user-image{:bind => {:src => 'board.author.avatarUrl'}}
+        = _('By')
+        {{board.author.nicename}}
+        -# TODO: Add team to boards
+        .board-item-user-company
+          = _('Company name')
+      {{else}}
+      .board-item-user
+        %img.board-item-user-image{:bind => {:src => 'board.user.avatarUrl'}}
+        %span.icon.icon-comment
+        = _('Updated')
+        {{board.lastUpdate}}
+        = _('by')
+        {{board.user.nicename}}
+      {{/if}}
+      {{/linkTo}}
+    {{/each}}
+
+  .bucket
+    .bucket-header
+      .bucket-title
+        = _('Public boards')
+    .public-board-list
+      {{#each board in currentUser.publicBoards}}
+      .board-item{:bind => {:id => 'board.slug'}}
+        .board-item-cover
+          %h3.board-item-cover-title
+            {{board.title}}
+        .board-item-user
+          %img.board-item-user-image{:bind => {:src => 'board.author.avatarUrl'}}
+          = _('By')
+          {{board.author.nicename}}
+          .board-item-user-company
+            {{board.team.title}}
+        .board-item-branch{:_action => 'createBranch board'}
+          .icon.icon-plus
+          = _('Use board')
+          .board-item-branch-count
+            {{board.branchesCount}}
       {{/each}}
-    {{else}}
-    .public-boards
-      {{#each controller.currentUser.publicBoards}}
-      .board{:bind => {:id => 'slug'}}
-        {{partial 'partials/public_board'}}
-      {{/each}}
-    {{/if}}
