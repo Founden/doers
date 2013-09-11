@@ -15,9 +15,11 @@ class Api::V1::MembershipsController < Api::V1::ApplicationController
 
   # Handles membership deletion
   def destroy
-    membership = current_account.memberships.find_by(:id => params[:id])
+    membership = Membership.find_by(:id => params[:id])
+    can_destroy = current_account.can?(
+      :write, membership, :raise_error => false)
 
-    if membership and membership.destroy
+    if membership and can_destroy and membership.destroy
       render :nothing => true, :status => 204
     else
       render :nothing => true, :status => 400

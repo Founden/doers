@@ -1,32 +1,35 @@
-#importer
+.header
+  {{#linkTo 'projects'}}
+  .header-root
+    = _('Projects')
+  {{/linkTo}}
+  .header-title
+    = _('Import')
+  {{#if view.hasSelections}}
+  .header-actions
+    .button#run-import{:_action => 'doImport'}
+      %span.icon.icon-angel
+      = _('Import')
+  {{/if}}
 
-  %header.header
-    {{#view view.statusView}}
-    .header-content
-      {{#if view.hasSelections}}
-      %h1
-        = _('You have selected {{selectedStartups.length}} project(s)')
-      .buttons
-        %button#run-import.button{:_action => 'doImport'}
-          = _('Import selected')
-      {{else}}
-      %h1
+.content-wrap
+
+  .project-list
+    .project-list-header
+      .project-list-title
+        {{#if view.hasSelections}}
+        = _('Projects to import ({{selectedStartups.length}})')
+        {{else}}
         {{#if content.length}}
         = _('Select projects to import')
         {{else}}
-        = _('Loading projects from Angel List... {{content.length}} found')
+        = _('Loading projects from Angel List')
         {{/if}}
-      {{/if}}
+        {{/if}}
+    {{#each startup in content}}
+    {{#view view.startupView contentBinding=startup}}
+    .icon.icon-checkmark
+    %h3.startup-item-title
+      {{startup.title}}
     {{/view}}
-
-  .content
-    .projects
-      {{#each startup in content}}
-      {{#view view.startupView contentBinding=startup}}
-      %img{:bind => {:src => 'startup.logoUrl', :alt => 'startup.title'}}/
-      %h2 {{startup.title}}
-      %p.description {{startup.description}}
-      %footer
-        {{website startup.website}}
-      {{/view}}
-      {{/each}}
+    {{/each}}

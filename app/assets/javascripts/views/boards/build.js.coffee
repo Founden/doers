@@ -1,10 +1,20 @@
 Doers.BoardsBuildView = Ember.View.extend
-  buildCardsView: Ember.CollectionView.extend
-    classNames: ['cards', 'build']
 
+  titleView: Ember.TextField.extend
+    focusOut: (event) ->
+      @get('controller').update()
+
+  descriptionView: Ember.TextArea.extend
+    focusOut: (event) ->
+      @get('controller').update()
+
+  deleteButtonView: Doers.DeleteButtonView
+
+  cardsView: Ember.CollectionView.extend
+    classNames: ['cards']
     createChildView: (view, attrs) ->
-      attrs.content.set('isBuilding', true)
       type = attrs.content.get('type')
-      view = @container.resolve('view:%@'.fmt(type)) || view
+      view = @container.resolve('view:card')
       view.reopen(Doers.MovableMixin)
+      attrs.templateName = 'cards/%@'.fmt(type.underscore())
       @_super(view, attrs)

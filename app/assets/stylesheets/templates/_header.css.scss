@@ -1,73 +1,81 @@
 .header {
-  margin: 0 0 30px 0;
-  border-bottom: 1px solid $bw_9;
+  @include clearfix;
+  box-shadow: 0 1px $gray-3;
+  background: $white;
+}
+
+.header-root {
+  float: left;
+  padding: 0 45px 0 30px;
+  line-height: 98px;
+  background: $gray-1 image-url('header-arrow.png') no-repeat right center;
+  font-size: em(18);
+  font-weight: 600;
+  color: $gray-4;
+}
+
+.header-title {
+  float: left;
+  padding: 0 45px 0 30px;
+  max-width: 6em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 98px;
+  background: image-url('header-arrow.png') no-repeat right center;
+  font-size: em(18);
+  font-weight: 600;
+}
+
+.header-user {
+  float: left;
+  padding: 28px 30px;
   position: relative;
+  font-size: em(14);
+  color: $gray-5;
+}
 
-  .header-content {
-    padding: 30px 320px 30px 0;
+.header-user-image {
+  float: left;
+  width: 48px;
+  height: 48px;
+  margin: -3px 12px -3px -3px;
+  border-radius: 50%;
+}
 
-    h1 {
-      color: $bw_3;
-    }
+.header-progress-wrap {
+  margin: 30px 0;
+}
 
-    .header-links {
-      margin: 0.5em 0 0 0;
-      font-size: em(12);
+.header-progress-cards {
+  font-size: em(14);
+  font-weight: 700;
+}
 
-      a {
-        color: $bw_7;
-        border-bottom: 1px dotted $bw_7;
-      }
-    }
+.header-progress {
+  position: relative;
+  overflow: hidden;
+  height: 5px;
+  margin: 8px 0;
+  background: $gray-1;
+}
 
-    p {
-      margin: 0.5em 0 0 0;
-      color: $bw_7;
-    }
+.header-progress-bar {
+  width: 50%;
+  height: 100%;
+  background-color: $green;
+}
 
-    .avatar {
-      float: left;
-      width: 66px;
-      height: 66px;
-      margin: 0 20px 0 0;
-      border-radius: 50%;
-    }
-  }
+.header-actions {
+  float: right;
+  padding: 28px 30px;
 
-  .buttons {
-    position: absolute;
-    right: 0;
-    top: 30px;
-  }
+  .button {
+    float: left;
+    margin: 0 0 0 10px;
 
-  .tabs {
-    @include clearfix;
-    position: absolute;
-    right: 0;
-    bottom: 0;
-
-    li {
-      float: left;
-
-      &.active {
-        box-shadow: 0 1px $bw_1;
-
-        a {
-          color: $bw_1;
-        }
-      }
-    }
-
-    a {
-      display: block;
-      padding: 10px;
-      font-size: em(12);
-      text-transform: uppercase;
-      color: $bw_5;
-
-      &:hover {
-        color: $bw_1;
-      }
+    &:first-of-type {
+      margin-left: 0;
     }
   }
 }

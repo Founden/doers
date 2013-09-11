@@ -18,9 +18,27 @@ feature 'Cards', :js, :slow do
 
     scenario 'are shown' do
       expect(page).to have_css('#board-%d' % board.id, :count => 1)
+      expect(page).to have_css('.cards .card-item', :count => board.cards.count)
+    end
 
-      cards_classname = '#board-%d .cards .card' % board.id
-      expect(page).to have_css(cards_classname, :count => board.cards.count)
+    scenario 'activity is shown' do
+      page.find('.card-%d' % card.id).click
+      expect(page).to have_css(
+        '.card-edit-%d .card-activity .card-activity-log' % card.id,
+        :count => card.activities.count)
+    end
+
+    scenario 'handles comments' do
+      content = Faker::Lorem.sentence
+      page.find('.card-%d' % card.id).click
+      within('.card-edit-%d .card-comment-new' % card.id) do
+        fill_in :comment, :with => content
+      end
+      page.find('.card-edit-%d .card-comment-new-actions .button' % card.id).click
+
+      expect(page).to have_css(
+        '.card-edit-%d .card-activity .card-comment' % card.id, :count => 1)
+      expect(card.comments.count).to eq(1)
     end
 
     context 'can not be repositioned' do
@@ -34,8 +52,8 @@ feature 'Cards', :js, :slow do
       scenario 'when dragged and dropped' do
         order = board.cards.pluck('id', 'position').flatten
 
-        target = page.first('.card')
-        source = page.all('.card .title').last
+        target = page.first('.card-item')
+        source = page.all('.card-item').last
 
         page.execute_script('$("#%s").trigger("dragstart")' % source['id'])
         page.execute_script('$("#%s").trigger("drop")' % target['id'])

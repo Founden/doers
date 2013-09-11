@@ -1,32 +1,11 @@
 Doers.CardsController = Ember.ArrayController.extend
-  rollbackCard: (event) ->
-    event.preventDefault() if event instanceof jQuery.Event
-    @get('content').rollback() if @get('content.isDirty') and @get('content.id')
+  commentContent: ''
+
+  save: ->
     @set('content.isEditing', false)
-
-  saveCard: (event) ->
-    event.preventDefault() if event instanceof jQuery.Event
-    currentUser = @container.resolve('user:current')
     @get('content').save().then =>
+      currentUser = @container.resolve('user:current')
       @set('content.user', currentUser)
-      @set('isEditing', false)
-
-  removeCard: (card) ->
-    notNew = !!card.get('id')
-    card.deleteRecord()
-    card.save() if notNew
-    @get('content').removeObject(card)
-
-  changeCardStyle: (card, style) ->
-    card.set('style', style)
-    card.save()
-
-  addListItem: (card) ->
-    item = Ember.Object.create({label: null, checked: true})
-    card.get('items').pushObject(item)
-
-  removeListItem: (card, item) ->
-    card.get('items').removeObject(item)
 
   addCard: (type) ->
     klass = @container.resolve('model:' + type)
@@ -35,7 +14,19 @@ Doers.CardsController = Ember.ArrayController.extend
       type: type
       position: @get('content.length')
     @get('content').pushObject(card)
-    card.set('isEditing', true)
+
+  removeCard: (card) ->
+    notNew = !!card.get('id')
+    card.deleteRecord()
+    card.save() if notNew
+    @get('content').removeObject(card)
+
+  addListItem: (card) ->
+    item = Ember.Object.create({label: null, checked: true})
+    card.get('items').pushObject(item)
+
+  removeListItem: (card, item) ->
+    card.get('items').removeObject(item)
 
   updateMap: (map, data) ->
     map.set('latitude', data.lat)
@@ -119,3 +110,20 @@ Doers.CardsController = Ember.ArrayController.extend
     asset.set('attachment', data.url || data.data)
     asset.set('description', data.desc || asset.get('description'))
     asset.save()
+
+  addComment: (card) ->
+    klass = @container.resolve('model:comment')
+    activityKlass = @container.resolve('model:activity')
+    content = @get('commentContent')
+
+    if content and content.length > 1
+      comment = klass.createRecord
+        content: content
+        commentableId: card.get('id')
+        board: card.get('board')
+        project: card.get('project')
+      comment.save().then =>
+        @set('commentContent', '')
+        card.get('activities').pushObject activityKlass.createRecord
+          comment: comment
+          lastUpdate: comment.get('updatedAt')

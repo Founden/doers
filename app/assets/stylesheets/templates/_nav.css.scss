@@ -1,0 +1,74 @@
+.nav {
+  @include box-sizing(border-box);
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 20;
+  width: 280px;
+  height: 100%;
+  background-color: $black;
+  color: $white;
+  box-shadow: 2px 0 rgba($black, 0.1);
+}
+
+.nav-logo {
+  display: block;
+  @include hide-text;
+  background: image-url('logo.png') no-repeat 0 0;
+  width: 116px;
+  height: 28px;
+  margin: 35px 30px;
+}
+
+.nav-list-item {
+  @include clearfix;
+  position: relative;
+  border-top: 1px solid rgba($white, 0.1);
+
+  &:last-child {
+    border-bottom: 1px solid rgba($white, 0.1);
+  }
+}
+
+.nav-list-item-btn {
+  display: block;
+  position: relative;
+  padding: 15px 30px;
+  color: $white;
+  font-weight: 700;
+  font-size: em(14);
+
+  .icon {
+    float: right;
+    font-size: 24px;
+    margin: -4px -4px 0 0;
+  }
+}
+
+.nav-list-item-account {
+  padding: 15px 30px 15px 87px;
+}
+
+.nav-list-item-account-name {
+  font-weight: 700;
+}
+
+.nav-list-item-account-image {
+  position: absolute;
+  left: 27px;
+  top: 12px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+
+.nav-list-item-account-actions {
+  margin: 0;
+  font-size: em(12);
+  color: rgba($white, 0.6);
+
+  a {
+    color: rgba($white, 0.6);
+    border-bottom: 1px solid rgba($white, 0.2);
+  }
+}

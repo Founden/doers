@@ -1,17 +1,39 @@
-#board
+.header
+  {{#linkTo 'projects' class='header-root'}}
+  = _('Projects')
+  {{/linkTo}}
+  {{#linkTo 'projects.show' board.project class='header-title'}}
+  {{board.project.title}}
+  {{/linkTo}}
+  .header-user
+    %img.header-user-image{:bind => {:src => 'board.user.avatarUrl'}}
+    = _('Updated')
+    {{board.lastUpdate}}
+    %br/
+    = _('by')
+    {{board.user.nicename}}
+  .header-actions
+    {{#view view.deleteButtonView class='button compact secondary' confirmMessage='Are you shure you want to delete?'}}
+    %span.icon.icon-trash
+    {{/view}}
+  .header-progress-wrap
+    .header-progress-cards
+      {{board.completedCardsCount}} / {{board.cardsCount}}
+    .header-progress
+      {{view Doers.ProgressBar classNames='header-progress-bar' widthBinding='board.completedCardsProgress'}}
 
-  %header.header
-    .header-content
-      %h1
-        {{board.title}}
-      %p
-        {{board.description}}
+.content-wrap
 
-  .content
-    %div{:bind => {:id => 'board.slug'}}
-      {{#if content.isLoaded}}
-      {{collection view.cardsView contentBinding=arrangedContent}}
-      {{else}}
-      %em
-        = _('Loading...')
-      {{/if}}
+  .board{:bind => {:id => 'board.slug'}}
+    {{view view.titleView class='board-field board-title' valueBinding='board.title' placeholder='Add board name' type='text' name='title'}}
+    {{view view.descriptionView class='board-field board-description' valueBinding='board.description' placeholder='Add board description.' name='description'}}
+    -# TODO: Add collaborator faces
+
+  {{#if content.isLoaded}}
+  {{collection view.cardsView contentBinding='arrangedContent'}}
+  {{#if selectedCardView}}
+  {{#with selectedCardView}}
+  {{view editView contentBinding='content' templateNameBinding='editTemplateName'}}
+  {{/with}}
+  {{/if}}
+  {{/if}}

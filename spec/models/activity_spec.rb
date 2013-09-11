@@ -32,4 +32,18 @@ describe Activity, :use_truncation do
       its(:trackable_title) { should eq(project.title) }
     end
   end
+
+  context 'order defaults to Activity#updated_at' do
+    let!(:activities) { Fabricate(:public_board).author.activities }
+    let(:dates) { activities.pluck('updated_at').map(&:to_i) }
+
+    context '#all' do
+      subject do
+        activities.order('updated_at').pluck('updated_at').map(&:to_i)
+      end
+
+      it { should eq(dates) }
+      it { should eq(dates.sort) }
+    end
+  end
 end

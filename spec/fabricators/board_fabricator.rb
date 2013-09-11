@@ -34,7 +34,7 @@ Fabricator(:public_board, :from => :board) do
   after_create do |board, transients|
     transients[:card_types].each do |type|
       Fabricate(
-        type, :board => board, :user => board.author)
+        type, :board => board, :user => board.author, :public_board => true)
     end
   end
 end

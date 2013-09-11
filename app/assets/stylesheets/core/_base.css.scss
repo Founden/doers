@@ -1,14 +1,21 @@
 body {
-  font: 400 16px/1.5 'ff-tisa-sans-web-pro', $helvetica;
-  background-color: $bw_10;
-  color: $bw_1;
+  -webkit-font-smoothing: antialiased;
+  background-color: $gray-1;
+
+  &.overlayed {
+    overflow: hidden;
+  }
+}
+
+body, input, textarea {
+  font: 400 16px/1.5 $source-sans-pro;
+  color: $black;
 }
 
 a {
-  color: $bw_1;
+  color: $black;
   text-decoration: none;
   cursor: pointer;
-  @include transition(color 0.2s);
 
   &:hover {
     text-decoration: none;
@@ -17,28 +24,13 @@ a {
 
 ul, ol {
   list-style: none;
-}
-
-h1, h2, h3, h4, h5, h6, p, ul, ol, fieldset {
-  margin: 0;
   padding: 0;
 }
 
-h1, h2 {
-  font-family: 'ff-tisa-web-pro';
+h1, h2, h3, h4, h5, h6, p, ul, ol {
+  margin: 0;
 }
 
-h1 {
-  font-size: em(28);
-  font-weight: 400;
-}
-
-h2 {
-  font-size: em(21);
-  font-weight: 700;
-}
-
-h3 {
-  font-size: 1em;
-  font-weight: 700;
+h1, h2, h3 {
+  font-family: $museo;
 }

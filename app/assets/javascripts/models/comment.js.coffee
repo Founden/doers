@@ -3,10 +3,10 @@ Doers.Comment = DS.Model.extend
   parentComment: DS.belongsTo('Doers.Comment', inverse: 'comments')
   updatedAt: DS.attr('date')
 
-  user: DS.belongsTo('Doers.User', readOnly: true, inverse: 'comments')
-  project: DS.belongsTo('Doers.Project', inverse: 'comments')
-  board: DS.belongsTo('Doers.Board', inverse: 'comments')
-  card: DS.belongsTo('Doers.Card', readOnly: true, inverse: 'comments')
+  user: DS.belongsTo('Doers.User', readOnly: true)
+  project: DS.belongsTo('Doers.Project')
+  board: DS.belongsTo('Doers.Board')
+  card: DS.belongsTo('Doers.Card', readOnly: true)
   externalAuthorName: DS.attr('string', readOnly: true)
   comments: DS.hasMany('Doers.Comment', readOnly: true, inverse: 'parentComment')
 

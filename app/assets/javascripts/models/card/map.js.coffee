@@ -5,7 +5,7 @@ Doers.MapMixin = Ember.Mixin.create
   results: null
   isSearching: false
   zoom: 12
-  size: '640x320'
+  size: '300x170'
 
   params: ( ->
     $.param
@@ -14,6 +14,10 @@ Doers.MapMixin = Ember.Mixin.create
       size: @get('size')
       sensor: false
   ).property('latitude', 'longitude', 'zoom', 'size')
+
+  imageUrl: ( ->
+    'http://maps.googleapis.com/maps/api/staticmap?%@'.fmt(@get('params'))
+  ).property('params')
 
   queryChanged: ( ->
     Ember.run.debounce(@, 'search', 200)

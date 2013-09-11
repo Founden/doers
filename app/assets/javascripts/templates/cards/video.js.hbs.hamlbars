@@ -1,0 +1,7 @@
+{{#with view.content}}
+.card-item-image
+  %img{:bind => {:src => 'image.attachment'}}
+{{partial 'cards/components/title'}}
+{{partial 'cards/components/user'}}
+{{partial 'cards/components/question'}}
+{{/with}}
