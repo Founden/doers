@@ -11,6 +11,11 @@ Doers.ProjectsNewRoute = Ember.Route.extend
       project = @get('controller.content')
       project.deleteRecord() if project.get('isNew')
 
+Doers.ProjectsShowRoute = Ember.Route.extend
+  setupController: (controller, model)->
+    controller.set('project', model)
+    controller.set('content', model.get('boards'))
+
 Doers.ProjectsImportRoute = Ember.Route.extend
   model: ->
     @get('currentUser.startups')
