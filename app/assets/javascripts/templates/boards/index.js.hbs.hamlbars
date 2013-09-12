@@ -21,6 +21,6 @@
         = _('By')
         {{board.author.nicename}}
         .board-item-user-company
-          = _('Company name')
+          {{board.team.title}}
       {{/linkTo}}
     {{/each}}
