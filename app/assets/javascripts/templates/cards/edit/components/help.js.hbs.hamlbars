@@ -1,5 +1,12 @@
+{{#if isBuilding}}
+.card-edit-field
+  {{textarea valueBinding='question' placeholder='Question' rows='2' name='question'}}
+.card-edit-field
+  {{textarea valueBinding='help' placeholder='Help' rows='6' name='help'}}
+{{else}}
 .card-edit-help
   .card-edit-help-question
-    {{view.content.question}}
+    {{question}}
   .card-edit-help-description
-    {{view.content.help}}
+    {{help}}
+{{/if}}
