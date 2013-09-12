@@ -6,12 +6,12 @@
   @extend .project-field;
 }
 
-.board-title {
+input.board-title {
   @extend .project-title;
   font-size: em(36);
 }
 
-.board-description {
+textarea.board-description {
   @extend .project-description;
 }
 
