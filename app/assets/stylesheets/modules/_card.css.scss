@@ -7,16 +7,6 @@
   height: 100%;
   padding: 40px 0 40px 280px;
   background: rgba($black, 0.8);
-
-  #{$all-text-inputs}, textarea {
-    @include box-sizing(border-box);
-    border: 0;
-    outline: 0;
-    margin: 0;
-    width: 100%;
-    resize: none;
-    background: transparent;
-  }
 }
 
 .card-wrap {
@@ -26,12 +16,19 @@
 }
 
 .card-edit {
+  @include box-sizing(border-box);
   position: relative;
-  overflow: hidden;
   width: 570px;
   height: 100%;
+  padding: 0 0 73px 0;
   background: $white;
   border-radius: 3px;
+}
+
+.card-edit-fields {
+  height: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .card-edit-actions {
@@ -42,6 +39,7 @@
   width: 100%;
   padding: 15px 20px;
   border-top: 1px solid $gray-1;
+  background: $white;
 }
 
 .card-edit-help {
@@ -60,28 +58,96 @@
 }
 
 .card-edit-field {
-  margin: 20px 30px;
+  margin: 30px;
+
+  input, textarea {
+    width: 100%;
+  }
+
+  textarea {
+    color: $gray-6;
+  }
+}
+
+.card-edit-field-list {
+  display: table;
+  width: 100%;
+
+  li {
+    @include box-sizing(border-box);
+    display: table-cell;
+    padding: 0 10px 0 0;
+
+    &:last-of-type {
+      padding-right: 0;
+    }
+
+    label {
+      display: block;
+      margin: 0 0 0.5em 0;
+      text-transform: uppercase;
+      color: $gray-4;
+      letter-spacing: 2px;
+      font-weight: 700;
+      font-size: em(12);
+    }
+
+    #{$all-text-inputs} {
+      padding: 15px;
+      width: 100%;
+      border: 1px solid $gray-2;
+      border-radius: 3px;
+      font: em(18) $museo;
+    }
+
+    input[type='date'] {
+
+      &::-webkit-calendar-picker-indicator {
+        display: none;
+      }
+    }
+  }
 }
 
 .card-edit-field-title {
-  font: 500 em(21) $museo;
+  font-size: em(18);
 }
 
-.card-edit-field-text {
-  color: $gray-6;
-}
+.card-edit-search {
+  margin: 30px;
+  position: relative;
 
-.card-edit-field-number {
-  font-size: em(21);
+  input {
+    padding: 15px;
+    width: 100%;
+    border: 1px solid $gray-2;
+    border-radius: 3px;
+    font: em(18) $museo;
+
+    &:focus {
+      border: 2px solid $green;
+      padding: 14px;
+    }
+  }
 }
 
 .card-edit-search-results {
-  margin: 20px 30px;
+  @include box-sizing(border-box);
+  position: absolute;
+  left: 0;
+  top: 100%;
+  width: 100%;
+  height: 210px;
+  margin-top: -2px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  border: 2px solid $green;
+  border-radius: 0 0 3px 3px;
+  background: $gray-1;
 
   li {
-    padding: 5px 10px;
-    margin: 0 0 1px 0;
-    background-color: $gray-1;
+    padding: 15px;
+    border-bottom: 1px dotted $gray-4;
     font-size: em(14);
     white-space: nowrap;
     overflow: hidden;
@@ -89,9 +155,72 @@
     cursor: pointer;
 
     &:hover {
-      background-color: $gray-2;
+      background: $green;
+      color: $white;
     }
   }
+}
+
+.card-edit-photo {
+  margin: 30px;
+  overflow: hidden;
+  position: relative;
+  background: $gray-1;
+  border-radius: 3px;
+
+  img {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+
+  .uploader {
+    position: relative;
+    z-index: 1;
+    margin: 10px;
+  }
+}
+
+.card-edit-map {
+  margin: 30px;
+  overflow: hidden;
+  border-radius: 3px;
+  height: 170px;
+
+  img {
+    display: block;
+    width: 100%;
+  }
+}
+
+.card-edit-embed {
+  margin: 30px;
+  @include clearfix;
+  font-size: em(14);
+  color: $gray-6;
+}
+
+.card-edit-embed-image {
+  float: left;
+  height: 84px;
+  margin: 0 15px 0 0;
+}
+
+.card-edit-embed-title {
+  font-weight: 600;
+}
+
+.card-edit-video {
+  margin: 30px;
+  height: 255px;
+  overflow: hidden;
+}
+
+.card-edit-video-player {
+  width: 100%;
+  height: 100%;
+  border: 0;
 }
 
 .card-activity {
@@ -108,7 +237,8 @@
 }
 
 .card-activity-list {
-  overflow-x: scroll;
+  overflow-y: scroll;
+  overflow-x: hidden;
   height: 100%;
 }
 
@@ -139,6 +269,10 @@
   color: $gray-6;
   font-size: em(12);
 
+  &:first-of-type {
+    margin-top: 20px;
+  }
+
   &:last-of-type {
     margin-bottom: 20px;
   }
@@ -154,6 +288,8 @@
 }
 
 .card-comment-new-text {
+  width: 100%;
+  background: transparent;
   padding: 20px;
   font-size: em(14);
 }
