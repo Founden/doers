@@ -1,4 +1,4 @@
-Doers.ProjectsShowController = Ember.Controller.extend
+Doers.ProjectsShowController = Ember.ArrayController.extend
   inviteEmail: ''
 
   update: ->
