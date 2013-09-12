@@ -4,18 +4,12 @@
 }
 
 .project-field {
-  @include box-sizing(border-box);
   display: block;
-  border: 0;
-  outline: 0;
-  padding: 0;
   width: 100%;
-  resize: none;
-  background: transparent;
   text-align: center;
 }
 
-.project-title {
+input.project-title {
   margin: 0 0 0.5em 0;
   font-size: em(48);
   line-height: 1.3em;
@@ -23,8 +17,7 @@
   font-family: $museo;
 }
 
-.project-description {
-  width: 100%;
+textarea.project-description {
   margin: 0 0 1em 0;
   font-size: em(28);
   line-height: 1.4em;
