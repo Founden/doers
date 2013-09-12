@@ -76,6 +76,8 @@
 
 .card-item-title {
   margin: 1em 20px 0 20px;
+  max-height: 45px;
+  overflow: hidden;
   font-size: em(18);
   line-height: 1.25em;
 }
@@ -89,9 +91,8 @@
 }
 
 .card-item-text {
-  margin: 0.5em 20px 0 20px;
-  font-size: em(14);
-  color: $gray-6;
+  @extend .card-item-description;
+  max-height: 210px;
 }
 
 .card-item-image {
@@ -115,7 +116,7 @@
 
 .card-item-embed-image {
   float: left;
-  height: 80px;
+  height: 84px;
   margin: 0 15px 0 0;
 }
 
