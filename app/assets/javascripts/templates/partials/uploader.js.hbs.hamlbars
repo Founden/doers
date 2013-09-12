@@ -1,9 +1,10 @@
-{{#unless view.attachment}}
-{{#unless view.isError}}
-= _('Click to upload or drop a file.')
-{{else}}
-= _('File is not an image. Try again.')
-{{/unless}}
-{{else}}
-= _('Image uploaded. Drop again to upload a new one.')
-{{/unless}}
+.uploader-title
+  {{#unless view.attachment}}
+  {{#unless view.isError}}
+  = _('Click to upload or drop a file.')
+  {{else}}
+  = _('File is not an image. Try again.')
+  {{/unless}}
+  {{else}}
+  = _('Image uploaded. Drop again to upload a new one.')
+  {{/unless}}
