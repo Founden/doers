@@ -28,10 +28,14 @@
 
   .card-comment-new
     {{textarea class='card-comment-new-text' placeholder='Write a comment...' rows='4' name='comment' valueBinding='controller.commentContent'}}
-    {{#if controller.commentContent.length}}
     .card-comment-new-actions
+      {{#if controller.commentContent.length}}
       %button.button.secondary{:_action => 'addComment this'}
         %span.icon.icon-comment
         = _('Comment')
       = _('Tab + Enter to Submit.')
-    {{/if}}
+      {{else}}
+      %button.button{:disabled => true}
+        %span.icon.icon-ellipsis
+        = _('Comment')
+      {{/if}}
