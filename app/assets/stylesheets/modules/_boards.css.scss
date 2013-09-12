@@ -88,6 +88,7 @@
   width: 1%;
   height: 100%;
   background: $green;
+  @include transition(width 1s);
 }
 
 .board-item-user {
