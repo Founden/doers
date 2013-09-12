@@ -2,27 +2,28 @@ Doers.ProjectsShowController = Ember.Controller.extend
   inviteEmail: ''
 
   update: ->
-    if @get('content.title')
-      @get('content').save()
+    if @get('project.title')
+      @get('project').save()
 
   destroy: ->
-    project = @get('content')
+    project = @get('project')
     project.one 'didDelete', =>
       @get('target.router').transitionTo('projects.index')
     project.deleteRecord()
     project.get('store').commit()
 
   createBranch: (board) ->
-    project = @get('content')
+    project = @get('project')
     branch = @container.resolve('model:board').createRecord
       title: board.get('title')
       description: board.get('description')
       parentBoard: board
       project: project
-    branch.save()
+    branch.save().then =>
+      @get('content').pushObject(branch)
 
   invite: ->
-    project = @get('content')
+    project = @get('project')
     klass = @container.resolve('model:invitation')
     if email = @get('inviteEmail')
       invitation = klass.createRecord
