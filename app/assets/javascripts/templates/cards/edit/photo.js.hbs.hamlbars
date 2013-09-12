@@ -5,7 +5,7 @@
     .card-edit-fields
       {{partial 'cards/edit/components/actions'}}
       {{partial 'cards/edit/components/help'}}
-      .card-edit-photo
+      .card-edit-image
         %img{:bind => {:src => 'image.attachment'}}
         {{view view.uploadView}}
       {{partial 'cards/edit/components/title'}}
