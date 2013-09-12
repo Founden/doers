@@ -3,7 +3,7 @@
   = _('Projects')
   {{/linkTo}}
   .header-title
-    {{content.title}}
+    {{project.title}}
   .header-actions
     {{#view view.deleteButtonView class='button compact secondary' confirmMessage='Are you shure you want to delete?'}}
     %span.icon.icon-trash
@@ -11,13 +11,13 @@
 
 .content-wrap
 
-  .project{:bind => {:id => 'content.slug'}}
-    {{view view.titleView class='project-field project-title' valueBinding='content.title' placeholder='Add project name' type='text' name='title'}}
-    {{view view.descriptionView class='project-field project-description' valueBinding='content.description' placeholder='Add project description.' name='description'}}
-    {{view Doers.MembersView contentBinding='content'}}
+  .project{:bind => {:id => 'project.slug'}}
+    {{view view.titleView class='project-field project-title' valueBinding='project.title' placeholder='Add project name' type='text' name='title'}}
+    {{view view.descriptionView class='project-field project-description' valueBinding='project.description' placeholder='Add project description.' name='description'}}
+    {{view Doers.MembersView contentBinding='project'}}
 
   .board-list
-    {{#each board in content.boards}}
+    {{#each board in content}}
     .board-item{:bind => {:id => 'board.slug'}}
       {{#linkTo 'boards.show' board.id}}
       .board-item-cover
@@ -37,7 +37,8 @@
       {{else}}
       .board-item-user
         %img.board-item-user-image{:bind => {:src => 'board.user.avatarUrl'}}
-        %span.icon.icon-comment
+        - # TODO: Add activity icon
+        / %span.icon.icon-comment
         = _('Updated')
         {{board.lastUpdate}}
         = _('by')

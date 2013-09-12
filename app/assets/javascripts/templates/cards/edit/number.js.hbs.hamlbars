@@ -2,12 +2,18 @@
 .card-wrap
   {{partial 'cards/edit/components/activity'}}
   .card-edit
-    {{partial 'cards/edit/components/help'}}
-    {{partial 'cards/edit/components/actions'}}
-    .card-edit-field
-      {{input class='card-edit-field-title' valueBinding='title' placeholderBinding='titleHint' type='text' name='title'}}
-    .card-edit-field
-      {{input class='card-edit-field-number' valueBinding='number' placeholder='Type your number...' type='text' name='number'}}
-    .card-edit-field
-      {{input valueBinding='content' placeholder='What does it represent?' type='text' name='content'}}
+    .card-edit-fields
+      {{partial 'cards/edit/components/actions'}}
+      {{partial 'cards/edit/components/help'}}
+      .card-edit-field
+        %ul.card-edit-field-list
+          %li
+            %label
+              = _('Number')
+            {{input valueBinding='number' placeholder='0.00' type='number' name='number'}}
+          %li
+            %label
+              = _('Represnets')
+            {{input valueBinding='content' placeholder='Unit' type='text' name='content'}}
+      {{partial 'cards/edit/components/title'}}
 {{/with}}

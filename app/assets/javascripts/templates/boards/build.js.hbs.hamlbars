@@ -1,6 +1,6 @@
 .header
   {{#linkTo 'boards' class='header-root'}}
-  = _('Template boards')
+  = _('Your boards')
   {{/linkTo}}
   .header-title
     {{board.title}}
@@ -20,9 +20,6 @@
         .board-toolbar-btn{:_action => 'addCard "%s"' % card}
           = card
       - [_('Book'), _('Link'), _('Map'), _('Photo'), _('Video')].each do |card|
-        .board-toolbar-btn{:_action => 'addCard "%s"' % card}
-          = card
-      - [_('List')].each do |card|
         .board-toolbar-btn{:_action => 'addCard "%s"' % card}
           = card
 

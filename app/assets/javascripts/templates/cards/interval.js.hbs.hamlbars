@@ -1,12 +1,12 @@
 {{#with view.content}}
-.card-item-interval
-  .card-item-interval-min
+.card-item-range
+  .card-item-range-min
     {{minimum}}
-  {{#view Doers.ProgressBar classNames='card-item-interval-value' widthBinding='progress'}}
+  {{#view Doers.ProgressBar classNames='card-item-range-value' widthBinding='progress'}}
   %h3
     {{selected}}
   {{/view}}
-  .card-item-interval-max
+  .card-item-range-max
     {{maximum}}
 {{partial 'cards/components/title'}}
 {{partial 'cards/components/user'}}

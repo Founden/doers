@@ -34,3 +34,16 @@ h1, h2, h3, h4, h5, h6, p, ul, ol {
 h1, h2, h3 {
   font-family: $museo;
 }
+
+#{$all-text-inputs}, textarea {
+  @include box-sizing(border-box);
+  border: 0;
+  outline: 0;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+}
+
+textarea {
+  resize: none;
+}

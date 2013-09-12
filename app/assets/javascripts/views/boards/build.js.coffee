@@ -16,5 +16,6 @@ Doers.BoardsBuildView = Ember.View.extend
       type = attrs.content.get('type')
       view = @container.resolve('view:card')
       view.reopen(Doers.MovableMixin)
+      attrs.content.set('isBuilding', true)
       attrs.templateName = 'cards/%@'.fmt(type.underscore())
       @_super(view, attrs)

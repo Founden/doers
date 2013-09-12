@@ -1,4 +1,5 @@
 {{#unless title}}
 .card-item-question
-  {{question}}
+  .card-item-question-title
+    {{question}}
 {{/unless}}

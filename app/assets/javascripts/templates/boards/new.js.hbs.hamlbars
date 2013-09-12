@@ -1,6 +1,6 @@
 .header
   {{#linkTo 'boards' class='header-root'}}
-  = _('Template boards')
+  = _('Your boards')
   {{/linkTo}}
   .header-title
     {{content.title}}
