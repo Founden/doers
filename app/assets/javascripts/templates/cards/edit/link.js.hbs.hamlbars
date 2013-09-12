@@ -2,10 +2,17 @@
 .card-wrap
   {{partial 'cards/edit/components/activity'}}
   .card-edit
-    {{partial 'cards/edit/components/help'}}
-    {{partial 'cards/edit/components/actions'}}
-    .card-edit-field
-      {{input class='card-edit-field-title' valueBinding='title' placeholderBinding='titleHint' type='text' name='title'}}
-    .card-edit-field
-      {{input valueBinding='view.content.url' placeholder='http://...' type='text' name='url'}}
+    .card-edit-fields
+      {{partial 'cards/edit/components/actions'}}
+      {{partial 'cards/edit/components/help'}}
+      .card-edit-search
+        {{input valueBinding='url' placeholder='http://...' type='text' name='url'}}
+      .card-edit-embed
+        %img.card-edit-embed-image{:bind => {:src => 'embed.thumbnailUrl'}}
+        .card-edit-embed-title
+          {{embed.title}}
+        .card-edit-embed-author
+          = _('By')
+          {{embed.authorName}}
+      {{partial 'cards/edit/components/title'}}
 {{/with}}
