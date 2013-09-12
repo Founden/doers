@@ -1,6 +1,6 @@
 {{#with view.content}}
 .card-item-image
-  %img{:bind => {:src => 'imageUrl'}}
+  {{view Doers.ImageMapView contentBinding=view.content size='298x170'}}
 {{partial 'cards/components/title'}}
 {{partial 'cards/components/user'}}
 {{partial 'cards/components/question'}}
