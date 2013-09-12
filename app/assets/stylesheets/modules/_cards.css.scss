@@ -71,8 +71,7 @@
 .card-item-question-title {
   background-color: $white;
   padding: 30px;
-  border-left: 2px solid $white;
-  border-bottom: 1px solid $gray-2;
+  box-shadow: 2px 1px $gray-2;
   font-weight: 600;
 }
 
