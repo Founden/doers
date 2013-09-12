@@ -106,18 +106,21 @@
 }
 
 .card-item-embed {
-  @include clearfix;
-  margin: 0 20px;
-  padding: 20px 0;
+  position: relative;
+  margin: 20px 20px 0 20px;
+  padding: 0 0 20px 75px;
+  min-height: 84px;
   border-bottom: 1px solid $gray-2;
   font-size: em(14);
   color: $gray-6;
 }
 
 .card-item-embed-image {
-  float: left;
-  height: 84px;
-  margin: 0 15px 0 0;
+  position: absolute;
+  left: 0;
+  top: 0;
+  max-width: 60px;
+  max-height: 84px;
 }
 
 .card-item-embed-title {
