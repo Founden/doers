@@ -36,7 +36,7 @@ h1, h2, h3 {
   font-family: $museo;
 }
 
-#{$all-text-inputs}, textarea {
+input, textarea {
   @include box-sizing(border-box);
   border: 0;
   outline: 0;
