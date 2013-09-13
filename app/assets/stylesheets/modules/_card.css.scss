@@ -92,9 +92,9 @@
       font-size: em(12);
     }
 
-    #{$all-text-inputs} {
-      padding: 15px;
+    input {
       width: 100%;
+      padding: 15px;
       border: 1px solid $gray-2;
       border-radius: 3px;
       font: em(18) $museo;
