@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130909202228) do
+ActiveRecord::Schema.define(version: 20130914214926) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -134,6 +134,28 @@ ActiveRecord::Schema.define(version: 20130909202228) do
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
+  create_table "gutentag_taggings", force: true do |t|
+    t.integer  "tag_id",        null: false
+    t.integer  "taggable_id",   null: false
+    t.string   "taggable_type", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "gutentag_taggings", ["tag_id"], name: "index_gutentag_taggings_on_tag_id", using: :btree
+  add_index "gutentag_taggings", ["taggable_type", "taggable_id", "tag_id"], name: "unique_taggings", unique: true, using: :btree
+  add_index "gutentag_taggings", ["taggable_type", "taggable_id"], name: "index_gutentag_taggings_on_taggable_type_and_taggable_id", using: :btree
+
+  create_table "gutentag_tags", force: true do |t|
+    t.string   "name",                       null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "taggings_count", default: 0, null: false
+  end
+
+  add_index "gutentag_tags", ["name"], name: "index_gutentag_tags_on_name", unique: true, using: :btree
+  add_index "gutentag_tags", ["taggings_count"], name: "index_gutentag_tags_on_taggings_count", using: :btree
+
   create_table "identities", force: true do |t|
     t.string   "uid"
     t.string   "token"
@@ -196,28 +218,6 @@ ActiveRecord::Schema.define(version: 20130909202228) do
   add_index "projects", ["status"], name: "index_projects_on_status", using: :btree
   add_index "projects", ["user_id"], name: "index_projects_on_user_id", using: :btree
   add_index "projects", ["website"], name: "index_projects_on_website", using: :btree
-
-  create_table "taggings", force: true do |t|
-    t.integer  "tag_id",        null: false
-    t.integer  "taggable_id",   null: false
-    t.string   "taggable_type", null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "taggings", ["tag_id"], name: "index_taggings_on_tag_id", using: :btree
-  add_index "taggings", ["taggable_type", "taggable_id", "tag_id"], name: "unique_taggings", unique: true, using: :btree
-  add_index "taggings", ["taggable_type", "taggable_id"], name: "index_taggings_on_taggable_type_and_taggable_id", using: :btree
-
-  create_table "tags", force: true do |t|
-    t.string   "name",                       null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "taggings_count", default: 0, null: false
-  end
-
-  add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
-  add_index "tags", ["taggings_count"], name: "index_tags_on_taggings_count", using: :btree
 
   create_table "teams", force: true do |t|
     t.string   "title"
