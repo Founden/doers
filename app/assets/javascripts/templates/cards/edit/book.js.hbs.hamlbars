@@ -1,3 +1,4 @@
+{{view view.overlayView}}
 {{#with view.content}}
 .card-wrap
   {{partial 'cards/edit/components/activity'}}
@@ -26,6 +27,7 @@
           {{/if}}
           {{/if}}
         {{/if}}
+      {{#if bookTitle}}
       .card-edit-embed
         %img.card-edit-embed-image{:bind => {:src => 'image.attachment'}}
         .card-edit-embed-title
@@ -33,5 +35,6 @@
         .card-edit-embed-author
           = _('By')
           {{bookAuthors}}
+      {{/if}}
       {{partial 'cards/edit/components/title'}}
 {{/with}}
