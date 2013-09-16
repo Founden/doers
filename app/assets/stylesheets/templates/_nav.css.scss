@@ -38,10 +38,8 @@
   font-weight: 700;
   font-size: em(14);
 
-  .icon {
+  .icon:before {
     float: right;
-    font-size: 24px;
-    margin: -4px -4px 0 0;
   }
 }
 

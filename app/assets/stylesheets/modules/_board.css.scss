@@ -20,29 +20,24 @@
 }
 
 .board-toolbar {
-  @include box-sizing(border-box);
-  display: table;
+  @include clearfix;
   width: 100%;
-  background: $white;
-  border: 1px solid $gray-2;
-  border-radius: 3px;
-  box-shadow: 0 1px 0 rgba($black, 0.1);
+  padding: 20px 0;
+  border-width: 1px 0 1px 0;
+  border-style: solid;
+  border-color: $gray-2;
 }
 
 .board-toolbar-btn {
-  display: table-cell;
-  padding: 20px;
-  border-right: 1px solid $gray-1;
+  float: left;
+  width: 10%;
   font-size: em(12);
-  text-transform: uppercase;
+  color: $gray-6;
   text-align: center;
   cursor: pointer;
 
-  &:last-of-type {
-    border-right: 0;
-  }
-
-  &:hover {
-    background: $gray-1;
+  .icon {
+    display: block;
+    color: $green;
   }
 }
