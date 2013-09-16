@@ -19,3 +19,4 @@ Doers.CardView = Ember.View.extend
   click: (event) ->
     @set('controller.selectedCardView', @)
     @set('content.isEditing', true)
+    $('body').animate({scrollTop: 0}, 200)

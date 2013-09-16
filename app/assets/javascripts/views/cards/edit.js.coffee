@@ -8,3 +8,8 @@ Doers.CardEditView = Ember.View.extend
   saveButtonView: Ember.View.extend
     contentBinding: 'parentView.content'
     clickBinding: 'controller.save'
+
+  overlayView: Ember.View.extend
+    classNames: ['card-overlay']
+    contentBinding: 'parentView.content'
+    clickBinding: 'controller.close'
