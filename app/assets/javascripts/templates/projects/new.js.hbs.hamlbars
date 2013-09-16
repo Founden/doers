@@ -8,7 +8,7 @@
 .content-wrap
 
   .project
-    {{input class='project-field project-title' valueBinding='content.title' placeholder='Your next big project name...' type='text' name='title'}}
+    {{input class='project-field project-title' valueBinding='content.title' placeholder='Type your project name...' type='text' name='title'}}
     {{textarea class='project-field project-description' valueBinding='content.description' placeholder='...and its description.' name='description'}}
     .project-actions
       {{#if content.title}}

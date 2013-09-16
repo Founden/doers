@@ -9,86 +9,146 @@
   font-style: normal;
 }
 
-.icon:before {
-  font-family: 'doers-icons';
-  font-style: normal;
-  font-weight: 400;
-  display: inline-block;
-  text-decoration: none;
-  line-height: 1em;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-}
+.icon {
 
-.icon-checkmark:before {
+  &:before {
+    font-family: 'doers-icons';
+    font-style: normal;
+    font-weight: 400;
+    display: inline-block;
+    text-decoration: none;
+    line-height: 1em;
+    font-size: 16px;
+    letter-spacing: 0;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  &.large {
+
+    &:before {
+      font-size: 48px;
+    }
+  }
+
+}
+.icon-list:before {
   content: '\e000';
 }
 
-.icon-trash:before {
+.icon-book:before {
   content: '\e001';
 }
 
-.icon-close:before {
+.icon-timestamp:before {
   content: '\e002';
 }
 
-.icon-edit:before {
+.icon-interval:before {
   content: '\e003';
 }
 
-.icon-settings:before {
-  content: '\e004';
-}
-
-.icon-star:before {
+.icon-number:before {
   content: '\e005';
 }
 
-.icon-view:before {
+.icon-map:before {
   content: '\e006';
 }
 
-.icon-board:before {
+.icon-angel:before {
   content: '\e007';
 }
 
-.icon-ellipsis:before {
+.icon-photo:before {
   content: '\e008';
 }
 
-.icon-mail:before {
+.icon-phrase:before,
+.icon-paragraph:before {
   content: '\e009';
 }
 
-.icon-arrow-prev:before {
+.icon-board:before {
   content: '\e010';
 }
 
-.icon-arrow-next:before {
+.icon-arrow-up:before {
   content: '\e011';
 }
 
+.icon-arrow-down:before {
+  content: '\e012';
+}
+
+.icon-ellipsis:before {
+  content: '\e013';
+}
+
 .icon-plus:before {
-  content: '\e00a';
+  content: '\e014';
+}
+
+.icon-checkmark:before {
+  content: '\e015';
+}
+
+.icon-settings:before {
+  content: '\e016';
 }
 
 .icon-comment:before {
-  content: '\e00b';
+  content: '\e017';
 }
 
 .icon-user:before {
+  content: '\e018';
+}
+
+.icon-mail:before {
+  content: '\e019';
+}
+
+.icon-video:before {
+  content: '\e00a';
+}
+
+.icon-star:before {
+  content: '\e00b';
+}
+
+.icon-view:before {
   content: '\e00c';
 }
 
-.icon-angel:before {
+.icon-arrow-next:before {
   content: '\e00d';
 }
 
-.icon-project:before {
+.icon-arrow-prev:before {
   content: '\e00e';
 }
 
-.icon-directory:before {
+.icon-arrow-close:before {
   content: '\e00f';
 }
 
+.icon-trash:before {
+  content: '\e01a';
+}
+
+.icon-project:before {
+  content: '\e01b';
+}
+
+.icon-directory:before {
+  content: '\e01c';
+}
+
+.icon-edit:before {
+  content: '\e01d';
+}
+
+.icon-link:before {
+  content: '\e01e';
+}

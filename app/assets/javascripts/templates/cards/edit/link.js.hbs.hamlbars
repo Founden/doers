@@ -8,6 +8,7 @@
       {{partial 'cards/edit/components/help'}}
       .card-edit-search
         {{input valueBinding='url' placeholder='http://...' type='text' name='url'}}
+      {{#if embed.title}}
       .card-edit-embed
         %img.card-edit-embed-image{:bind => {:src => 'embed.thumbnailUrl'}}
         .card-edit-embed-title
@@ -15,5 +16,6 @@
         .card-edit-embed-author
           = _('By')
           {{embed.authorName}}
+      {{/if}}
       {{partial 'cards/edit/components/title'}}
 {{/with}}

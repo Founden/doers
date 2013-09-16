@@ -14,7 +14,7 @@
   .project{:bind => {:id => 'project.slug'}}
     {{view view.titleView class='project-field project-title' valueBinding='project.title' placeholder='Add project name' type='text' name='title'}}
     {{view view.descriptionView class='project-field project-description' valueBinding='project.description' placeholder='Add project description.' name='description'}}
-    {{view Doers.MembersView contentBinding='project'}}
+    {{view Doers.MembersView contentBinding='project' authorBinding='project.user'}}
 
   .board-list
     {{#each board in content}}
