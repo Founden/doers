@@ -21,6 +21,7 @@ Doers.ProjectsShowController = Ember.ArrayController.extend
       project: project
     branch.save().then =>
       @get('content').pushObject(branch)
+      $('body').animate({scrollTop: 100}, 200)
 
   invite: ->
     project = @get('project')

@@ -30,6 +30,7 @@
         {{project.boardsCount}}
         %span.icon.icon-board
       .project-item-users
+        %img.project-item-user-image{:bind => {:src => 'project.user.avatarUrl'}}
         {{#each membership in project.memberships}}
         %img.project-item-user-image{:bind => {:src => 'membership.user.avatarUrl'}}
         {{/each}}
@@ -53,6 +54,7 @@
         {{project.boardsCount}}
         %span.icon.icon-board
       .project-item-users
+        %img.project-item-user-image{:bind => {:src => 'project.user.avatarUrl'}}
         {{#each membership in project.memberships}}
         %img.project-item-user-image{:bind => {:src => 'membership.user.avatarUrl'}}
         {{/each}}

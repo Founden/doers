@@ -15,10 +15,9 @@
   .icon:before {
     vertical-align: top;
     line-height: 40px;
-    padding: 0 10px 0 0;
-    margin: 0 15px 0 -5px;
+    padding: 0 15px 0 0;
+    margin: 0 15px 0 0;
     border-right: 1px solid rgba($black, 0.1);
-    font-size: 24px;
   }
 
   &:disabled {
@@ -39,7 +38,6 @@
   }
 
   &.compact {
-    padding: 0 10px;
 
     .icon:before {
       margin: 0;
@@ -50,7 +48,11 @@
 
   &.small {
     font-size: 12px;
-    line-height: 30px;
+    line-height: 28px;
     padding: 0 10px;
+
+    &.icon:before {
+      line-height: 28px;
+    }
   }
 }
