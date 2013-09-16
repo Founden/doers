@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe Card::List do
-  it { should validate_presence_of(:content) }
   it { should belong_to(:parent_card) }
   it { should have_many(:versions).dependent(:destroy) }
 
