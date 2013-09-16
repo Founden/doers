@@ -1,3 +1,4 @@
+{{view view.overlayView}}
 {{#with view.content}}
 .card-wrap
   {{partial 'cards/edit/components/activity'}}
