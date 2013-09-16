@@ -2,4 +2,5 @@
 .card-item-question
   .card-item-question-title
     {{question}}
+  {{view view.questionIconView}}
 {{/unless}}
