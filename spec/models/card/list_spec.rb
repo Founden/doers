@@ -8,7 +8,6 @@ describe Card::List do
   context 'instance' do
     subject(:list_card) { Fabricate('card/list') }
 
-    its(:content) { should_not be_blank }
     its(:items) { should_not be_empty }
 
     context '#items' do

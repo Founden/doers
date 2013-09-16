@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'List', :js, :slow, :pending do
+feature 'List', :js, :focus do
 
   background do
     sign_in_with_angel_list
@@ -19,7 +19,7 @@ feature 'List', :js, :slow, :pending do
     end
 
     scenario 'is shown with details' do
-      expect(page).to have_css('.cards .card', :count => 1)
+      expect(page).to have_css('.cards .card-item', :count => 1)
 
       expect(page).to have_css('.card-%d' % card.id)
 
@@ -28,29 +28,27 @@ feature 'List', :js, :slow, :pending do
       card.items.each do |item|
         expect(page).to have_content(item['label'])
         if item['checked']
-          expect(page.source).to include('checked')
+          expect(page.source).to include('icon-checkmark')
         end
       end
     end
 
-    context 'when clicked on edit' do
+    context 'when clicked' do
       given(:card_attrs) { Fabricate.attributes_for('card/list') }
 
       background do
-        page.find('.card-%d .card-settings' % card.id).click
-        page.find('#dropdown-card-%d .toggle-editing' % card.id).click
+        page.find('.card-%d' % card.id).click
       end
 
       scenario 'can edit card details in editing screen' do
-        edit_css = '#edit-card-%d' % card.id
 
-        within(edit_css) do
+        within('.card-edit') do
           fill_in('title', :with => card_attrs[:title])
           fill_in('content', :with => card_attrs[:content])
         end
-        page.find(edit_css + ' .actions .does-save').click
-
-        expect(page).to_not have_css(edit_css)
+        page.find('.save-card').click
+        sleep(1)
+        expect(page).to_not have_css('.card-edit')
 
         card.reload
         expect(card.title).to eq(card_attrs[:title])
@@ -61,8 +59,7 @@ feature 'List', :js, :slow, :pending do
       end
 
       scenario 'can update card items' do
-        edit_css = '#edit-card-%d' % card.id
-        edit_item = page.all(edit_css + ' li').first
+        edit_item = page.all('.card-edit-check-item').first
 
         within(edit_item) do
           fill_in('label', :with => card_attrs['items'].first['label'])
@@ -71,9 +68,9 @@ feature 'List', :js, :slow, :pending do
           uncheck('checkbox') if card_attrs['items'].first['checked']
           check('checkbox') unless card_attrs['items'].first['checked']
         end
-        page.find(edit_css + ' .actions .does-save').click
-
-        expect(page).to_not have_css(edit_css)
+        page.find('.save-card').click
+        sleep(1)
+        expect(page).to_not have_css('card-edit')
 
         card.reload
         first_item = card.items.first
@@ -82,20 +79,19 @@ feature 'List', :js, :slow, :pending do
           first_item['checked']).to_not eq(card_attrs['items'].first['checked'])
 
         expect(page).to have_content(first_item['label'])
-        expect(page.source).to include('checked') if first_item['checked']
+        expect(page.source).to include('icon-checkmark') if first_item['checked']
       end
 
       scenario 'can remove list items in editing screen' do
         initial_list_size = card.items.size
         first_item = card.items.first
 
-        edit_css = '#edit-card-%d' % card.id
-        edit_item = page.all(edit_css + ' li').first
+        edit_item = page.all('.card-edit-check-item').first
 
-        edit_item.find('a.does-remove').click
-        page.find(edit_css + ' .actions .does-save').click
-
-        expect(page).to_not have_css(edit_css)
+        edit_item.find('.remove-check-list-item').click
+        page.find('.save-card').click
+        sleep(1)
+        expect(page).to_not have_css('card-edit')
 
         card.reload
         expect(card.items.size).to eq(initial_list_size - 1)
@@ -104,18 +100,17 @@ feature 'List', :js, :slow, :pending do
 
       scenario 'can add a new card item' do
         initial_list_size = card.items.size
-        edit_css = '#edit-card-%d' % card.id
 
-        page.find(edit_css + ' a.does-add').click
+        page.find('.add-check-list-item').click
         # Pick the before-last item
-        edit_item = page.all(edit_css + ' li')[card.items.size]
+        edit_item = page.all('.card-edit-check-item')[card.items.size]
 
         within(edit_item) do
           fill_in('label', :with => card_attrs['items'].first['label'])
         end
-        page.find(edit_css + ' .actions .does-save').click
-
-        expect(page).to_not have_css(edit_css)
+        page.find('.save-card').click
+        sleep(1)
+        expect(page).to_not have_css('card-edit')
 
         card.reload
         expect(card.items.size).to eq(initial_list_size + 1)

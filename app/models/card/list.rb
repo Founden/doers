@@ -8,9 +8,6 @@ class Card::List < Card
   has_many(:versions, :class_name => Card::List,
            :dependent => :destroy, :foreign_key => :parent_card_id)
 
-  # Validations
-  validates_presence_of :content
-
   # Callbacks
   # Sanitize user input
   after_initialize do
