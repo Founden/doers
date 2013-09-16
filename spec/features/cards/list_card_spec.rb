@@ -59,27 +59,31 @@ feature 'List', :js, :slow do
       end
 
       scenario 'can update card items' do
+        label = Faker::Lorem.sentence
+        item = card.items.first
+        checked = item['checked']
+
         edit_item = page.all('.card-edit-check-item').first
-
+        checkbox = edit_item.all('.card-edit-check-box').first
         within(edit_item) do
-          fill_in('label', :with => card_attrs['items'].first['label'])
-
+          fill_in('label', :with => label)
           # Toggle checkbox value
-          uncheck('checkbox') if card_attrs['items'].first['checked']
-          check('checkbox') unless card_attrs['items'].first['checked']
+          checkbox.click
         end
         page.find('.save-card').click
         sleep(1)
+
         expect(page).to_not have_css('card-edit')
+        expect(page).to have_content(label)
+        # Should be toggled
+        if !checked
+          expect(page).to have_css('.card-item-check-list .icon-checkmark')
+        end
 
         card.reload
-        first_item = card.items.first
-        expect(first_item['label']).to eq(card_attrs['items'].first['label'])
-        expect(
-          first_item['checked']).to_not eq(card_attrs['items'].first['checked'])
-
-        expect(page).to have_content(first_item['label'])
-        expect(page.source).to include('icon-checkmark') if first_item['checked']
+        entry = card.items.first
+        expect(entry['label']).to eq(label)
+        expect(entry['checked']).to_not eq(checked)
       end
 
       scenario 'can remove list items in editing screen' do
