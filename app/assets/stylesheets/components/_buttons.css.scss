@@ -47,4 +47,10 @@
       border: 0;
     }
   }
+
+  &.small {
+    font-size: 12px;
+    line-height: 30px;
+    padding: 0 10px;
+  }
 }

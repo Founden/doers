@@ -7,6 +7,11 @@ Doers.CardsController = Ember.ArrayController.extend
       currentUser = @container.resolve('user:current')
       @set('content.user', currentUser)
 
+  close: ->
+    @set('content.isEditing', false)
+    if @get('content.isDirty')
+      @get('content').rollback()
+
   addCard: (type) ->
     klass = @container.resolve('model:' + type)
     card = klass.createRecord

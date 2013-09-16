@@ -19,7 +19,7 @@
       - [_('Paragraph'), _('Number'), _('Interval'), _('Timestamp')].each do |card|
         .board-toolbar-btn{:_action => 'addCard "%s"' % card}
           = card
-      - [_('Book'), _('Link'), _('Map'), _('Photo'), _('Video')].each do |card|
+      - [_('Book'), _('Link'), _('Map'), _('Photo'), _('Video'), _('List')].each do |card|
         .board-toolbar-btn{:_action => 'addCard "%s"' % card}
           = card
 
