@@ -1,5 +1,15 @@
 {{#with view.content}}
 {{partial 'cards/components/title'}}
+.card-item-description
+  {{content}}
+%ul.card-item-check-list
+  {{#each item in items}}
+  %li
+    {{#if item.checked}}
+    %span.icon.icon-checkmark
+    {{/if}}
+    {{item.label}}
+  {{/each}}
 {{partial 'cards/components/user'}}
 {{partial 'cards/components/question'}}
 {{/with}}
