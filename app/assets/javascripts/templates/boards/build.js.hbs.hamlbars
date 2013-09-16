@@ -16,12 +16,10 @@
     {{textarea class='board-field board-description' valueBinding='board.description' placeholder='Add board description.' name='description'}}
     {{view Doers.MembersView contentBinding='board' authorBinding='board.author'}}
     .board-toolbar
-      - [_('Paragraph'), _('Number'), _('Interval'), _('Timestamp')].each do |card|
-        .board-toolbar-btn{:_action => 'addCard "%s"' % card}
-          = card
-      - [_('Book'), _('Link'), _('Map'), _('Photo'), _('Video'), _('List')].each do |card|
-        .board-toolbar-btn{:_action => 'addCard "%s"' % card}
-          = card
+      - %w(Paragraph Number Interval Timestamp Book Link Map Photo Video List).map { |type| _(type) }.each do |type|
+        .board-toolbar-btn{:_action => 'addCard "%s"' % type}
+          %span.icon.large{:class => 'icon-%s' % type.parameterize}
+          = type
 
   {{#if content.isLoaded}}
   {{collection view.cardsView contentBinding='arrangedContent'}}

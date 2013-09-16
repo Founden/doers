@@ -16,6 +16,16 @@ Doers.CardView = Ember.View.extend
     'type-%@'.fmt(type.dasherize())
   ).property('content.type')
 
+  questionIconView: Ember.View.extend
+    contentBinding: 'parentView.content'
+    classNames: ['icon', 'large']
+    classNameBindings: 'typeClassName'
+
+    typeClassName: ( ->
+      type = @get('content.type') || ''
+      'icon-%@'.fmt(type.dasherize())
+    ).property('content.type')
+
   click: (event) ->
     @set('controller.selectedCardView', @)
     @set('content.isEditing', true)
