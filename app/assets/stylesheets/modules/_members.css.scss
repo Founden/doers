@@ -85,3 +85,7 @@
     }
   }
 }
+
+.member-item-owner {
+  @extend .member-item;
+}

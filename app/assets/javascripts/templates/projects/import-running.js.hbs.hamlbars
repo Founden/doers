@@ -1,8 +1,21 @@
+.header
+  {{#linkTo 'projects'}}
+  .header-root
+    = _('Projects')
+  {{/linkTo}}
+  .header-title
+    = _('Import')
+
 .content-wrap
 
-  .dashboard
-    %h1.dashboard-title
-      = _('Your startups are being imported...')
-    .dashboard-description
+  .status
+    .status-loader
+    %h1.status-title
+      = _('Importing projects')
+    .status-message
       = _('While we get everything processed, feel free to navigate away from this page.')
-
+    .status-actions
+      {{#linkTo 'projects' class='status-button'}}
+      %span.icon.icon-directory
+      = _('Your projects')
+      {{/linkTo}}

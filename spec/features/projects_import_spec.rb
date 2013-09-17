@@ -33,8 +33,7 @@ feature 'Projects', :js, :slow do
         find('#run-import').click
 
         expect(page).to_not have_css('.startup-list')
-        expect(page).to have_css('.dashboard-title')
-        expect(page).to have_css('.dashboard-description')
+        expect(page).to have_css('.status')
       end
     end
   end
