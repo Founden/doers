@@ -4,7 +4,7 @@
   .header-actions
     {{#linkTo 'projects.import' id='projects-import' class='button secondary'}}
     %span.icon.icon-angel
-    = _('Import from Angel List')
+    = _('Import from AngelList')
     {{/linkTo}}
     %a#projects-add.button{:href => root_path(:anchor => '/projects/new')}
       %span.icon.icon-project
@@ -12,6 +12,22 @@
 
 .content-wrap
 
+  {{#unless content}}
+  .status
+    .status-message
+      = _('You have no active projects at the moment.')
+      %br/
+      = _('Start by creating your first project.')
+    .status-actions
+      {{#linkTo 'projects.new' class='status-button'}}
+      %span.icon.icon-project
+      = _('Create new project')
+      {{/linkTo}}
+      {{#linkTo 'projects.import' class='status-button'}}
+      %span.icon.icon-angel
+      = _('Import from AngelList')
+      {{/linkTo}}
+  {{else}}
   .project-list
     .project-list-header
       .project-list-title
@@ -35,7 +51,9 @@
         %img.project-item-user-image{:bind => {:src => 'membership.user.avatarUrl'}}
         {{/each}}
     {{/each}}
+  {{/unless}}
 
+  {{#if currentUser.sharedProjects}}
   .project-list
     .project-list-header
       .project-list-title
@@ -59,3 +77,4 @@
         %img.project-item-user-image{:bind => {:src => 'membership.user.avatarUrl'}}
         {{/each}}
     {{/each}}
+  {{/if}}
