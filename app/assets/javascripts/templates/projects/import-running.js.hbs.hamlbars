@@ -13,7 +13,7 @@
     %h1.status-title
       = _('Importing projects')
     .status-message
-      = _('While we get everything processed, feel <br /> free to navigate away from this page.')
+      = _('While we get everything processed, feel free to navigate away from this page.')
     .status-actions
       {{#linkTo 'projects' class='status-button'}}
       %span.icon.icon-directory
