@@ -28,4 +28,6 @@
       .card-edit-map
         {{view Doers.ImageMapView contentBinding=view.content size='510x170'}}
       {{partial 'cards/edit/components/title'}}
+      .card-edit-field
+        {{textarea placeholder='Type your content...' valueBinding='content' rows='4' name='content'}}
 {{/with}}
