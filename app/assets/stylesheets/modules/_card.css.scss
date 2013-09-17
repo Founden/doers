@@ -62,10 +62,6 @@
   input, textarea {
     width: 100%;
   }
-
-  textarea {
-    color: $gray-6;
-  }
 }
 
 .card-edit-field-list {
@@ -286,7 +282,7 @@
   overflow: hidden;
   right: 0;
   top: 0;
-  width: 360px;
+  width: 340px;
   height: 100%;
   padding: 0 0 198px 0;
   background: $gray-1;

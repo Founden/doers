@@ -9,10 +9,10 @@
 @import 'core/base';
 @import 'core/animations';
 
-@import 'components/bucket';
 @import 'components/buttons';
 @import 'components/dropdown';
-@import 'components/members';
+@import 'components/page';
+@import 'components/status';
 @import 'components/icons';
 @import 'components/uploader';
 
@@ -20,7 +20,6 @@
 @import 'templates/content';
 @import 'templates/header';
 
-@import 'modules/dashboard';
 @import 'modules/projects';
 @import 'modules/import';
 @import 'modules/project';
@@ -28,4 +27,4 @@
 @import 'modules/board';
 @import 'modules/cards';
 @import 'modules/card';
-@import 'modules/page';
+@import 'modules/members';
