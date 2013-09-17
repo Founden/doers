@@ -16,9 +16,6 @@
     {{view view.descriptionView class='project-field project-description' valueBinding='project.description' placeholder='Add project description.' name='description'}}
     {{view Doers.MembersView contentBinding='project' authorBinding='project.user'}}
 
-  .board-list-header
-    .board-list-title
-      = _('Project boards')
   .board-list
     {{#each board in content}}
     .board-item{:bind => {:id => 'board.slug'}}
