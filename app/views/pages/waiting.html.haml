@@ -1,33 +1,25 @@
 .header
   .header-root
-    = _('Beta Application')
+    = _('Thank you for applying')
 
 .content-wrap
 
-  .waiting
-    .waiting-title
-      = _("You're on the list!")
-    .waiting-description
-      = _('Thank you %s for applying') % current_account.name
-    .waiting-content
-      %p
-        = _('To make sure we make the most of this beta testing phase, it might take a while for us to to get back to you.')
-      %p
-        = _('We appreciate your patience.')
-        = _('We will email you as soon as we are able to grant you access on Doers.')
+  .page.half
+    %h1
+      = _("You're on the waiting list!")
+    %p
+      = _('To make sure we make the most of this beta testing phase, it might take a while for us to to get back to you.')
+      = _('We appreciate your patience. We will email you as soon as we are able to grant you access on Doers.')
+    %p
+      = _('We are looking to have a diverse group of beta customers.')
+      = _('So in order to facilitate for us the process, please choose your status below:')
 
-      %hr
-
+    = form_for(current_account, :url => waiting_pages_path) do |f|
       %p
-        = _('We are looking to have a diverse group of beta customers.')
+        = f.select :interest, User::INTERESTS
       %p
-        = _('So in order to facilitate for us the process, please choose your status below:')
-
-    .waiting-actions
-      = form_for(current_account, :url => waiting_pages_path) do |f|
-        %p
-          = f.select :interest, User::INTERESTS
-        %p
-          = f.check_box :newsletter_allowed?
-          = f.label :newsletter_allowed, _('Please email me news sometimes.')
-        = f.submit _('Save'), :class => 'button'
+        = f.check_box :newsletter_allowed?
+        = f.label :newsletter_allowed, _('Please email me news sometimes.')
+      = f.button :class => 'button' do
+        %span.icon.icon-checkmark
+        = _('Save')
