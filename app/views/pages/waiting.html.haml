@@ -4,15 +4,15 @@
 
 .content-wrap
 
-  .page
+  .page.half
     %h1
       = _("You're on the waiting list!")
     %p
-      = _('To make sure we make the most of this beta testing phase, it might <br /> take a while for us to to get back to you.')
-      = _('We appreciate your patience. We <br /> will email you as soon as we are able to grant you access on Doers.')
+      = _('To make sure we make the most of this beta testing phase, it might take a while for us to to get back to you.')
+      = _('We appreciate your patience. We will email you as soon as we are able to grant you access on Doers.')
     %p
       = _('We are looking to have a diverse group of beta customers.')
-      = _('So in <br /> order to facilitate for us the process, <strong>please choose your status below:</strong>')
+      = _('So in order to facilitate for us the process, please choose your status below:')
 
     = form_for(current_account, :url => waiting_pages_path) do |f|
       %p
