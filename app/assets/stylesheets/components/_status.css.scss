@@ -1,0 +1,54 @@
+.status {
+  margin: 60px 0;
+  text-align: center;
+}
+
+.status-loader {
+  display: block;
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 2em auto;
+  background: image-url('do.gif') no-repeat center center;
+}
+
+.status-title {
+  font-size: em(36);
+  font-weight: 700;
+  margin: 0 0 0.5em 0;
+}
+
+.status-message {
+  font-size: em(24);
+  font-weight: 300;
+}
+
+.status-actions {
+  padding: 60px 0 0 0;
+  border-top: 1px solid $gray-2;
+  margin: 60px 0;
+}
+
+.status-button {
+  display: inline-block;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: em(12);
+  letter-spacing: 1px;
+  margin: 0 15px;
+  cursor: pointer;
+
+  .icon {
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+    margin: 0 10px 0 0;
+
+    &:before {
+      width: 42px;
+      line-height: 42px;
+      border-radius: 50%;
+      border: 3px solid $green;
+      color: $green;
+    }
+  }
+}
