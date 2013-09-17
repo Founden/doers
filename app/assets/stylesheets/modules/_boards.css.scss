@@ -1,7 +1,22 @@
 .board-list {
   @include clearfix;
   position: relative;
+  margin: 0 0 60px 0;
+}
+
+.board-list-header {
+  padding: 10px 0;
+  border-top: 1px solid $gray-2;
+  border-bottom: 1px solid $gray-2;
   margin: 0 0 20px 0;
+}
+
+.board-list-title {
+  font-size: em(12);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: $gray-5;
 }
 
 .board-item {
@@ -12,11 +27,19 @@
   top: auto;
   float: left;
   width: 215px;
-  margin: 0 10px 20px 10px;
+  margin: 0 20px 20px 0;
   border: 1px solid $gray-4;
   border-radius: 3px;
   background: $white;
   box-shadow: 0 1px 1px $gray-3;
+
+  &:nth-of-type(4n) {
+    margin-right: 0;
+  }
+
+  &:nth-of-type(4n+1) {
+    clear: left;
+  }
 
   &.completed {
     background: $green;

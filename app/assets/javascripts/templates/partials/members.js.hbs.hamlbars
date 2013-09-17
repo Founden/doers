@@ -1,5 +1,5 @@
 %ul.member-list
-  %li.member-item
+  %li.member-item-owner
     %img.member-item-image{:bind => {:src => 'view.author.avatarUrl', :title => 'view.author.nicename'}}
   {{#each member in view.content.memberships}}
   %li.member-item

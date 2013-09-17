@@ -23,7 +23,6 @@
       .board-item-cover
         %h3.board-item-cover-title
           {{board.title}}
-
       .board-item-progress
         {{view Doers.ProgressBar classNames='board-item-progress-bar' widthBinding='board.progress'}}
       {{#if board.isNew}}
@@ -47,25 +46,24 @@
       {{/linkTo}}
     {{/each}}
 
-  .bucket
-    .bucket-header
-      .bucket-title
-        = _('Public boards')
-    .public-board-list
-      {{#each board in currentUser.publicBoards}}
-      .board-item{:bind => {:id => 'board.slug'}}
-        .board-item-cover
-          %h3.board-item-cover-title
-            {{board.title}}
-        .board-item-user
-          %img.board-item-user-image{:bind => {:src => 'board.author.avatarUrl'}}
-          = _('By')
-          {{board.author.nicename}}
-          .board-item-user-company
-            {{board.team.title}}
-        .board-item-branch{:_action => 'createBranch board'}
-          .icon.icon-plus
-          = _('Use board')
-          .board-item-branch-count
-            {{board.branchesCount}}
-      {{/each}}
+  .board-list-header
+    .board-list-title
+      = _('Public boards')
+  .public-board-list
+    {{#each board in currentUser.publicBoards}}
+    .board-item{:bind => {:id => 'board.slug'}}
+      .board-item-cover
+        %h3.board-item-cover-title
+          {{board.title}}
+      .board-item-user
+        %img.board-item-user-image{:bind => {:src => 'board.author.avatarUrl'}}
+        = _('By')
+        {{board.author.nicename}}
+        .board-item-user-company
+          {{board.team.title}}
+      .board-item-branch{:_action => 'createBranch board'}
+        .icon.icon-plus
+        = _('Use board')
+        .board-item-branch-count
+          {{board.branchesCount}}
+    {{/each}}
