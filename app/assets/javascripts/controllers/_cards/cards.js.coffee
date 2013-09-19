@@ -1,4 +1,5 @@
 Doers.CardsController = Ember.ArrayController.extend
+  selectedCardView: null
   commentContent: ''
 
   save: ->
