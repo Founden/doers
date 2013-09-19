@@ -6,6 +6,28 @@ feature 'Dashboard', :js, :slow do
     sign_in_with_angel_list
   end
 
+  context 'menu' do
+    background do
+      visit root_path
+    end
+
+    scenario 'is expanded' do
+      expect(page).to have_css('.nav.narrow', :count => 0)
+      expect(page).to have_css('.content.wide', :count => 0)
+    end
+
+    context 'on toggle' do
+      background do
+        page.find('.nav-toggle').click
+      end
+
+      scenario 'narrows the menu and expands the content' do
+        expect(page).to have_css('.nav.narrow', :count => 1)
+        expect(page).to have_css('.content.wide', :count => 1)
+      end
+    end
+  end
+
   context 'with no projects' do
     background do
       visit root_path
