@@ -3,3 +3,7 @@
   %span.icon.icon-checkmark
   = _('Save')
   {{/view}}
+
+  %button.button.remove-card{:_action => 'removeCard view.content'}
+    %span.icon.icon-trash
+    = _('Remove')

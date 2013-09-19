@@ -25,6 +25,7 @@ Doers.CardsController = Ember.ArrayController.extend
     notNew = !!card.get('id')
     card.deleteRecord()
     card.save() if notNew
+    @set('selectedCardView.content', null)
     @get('content').removeObject(card)
 
   addListItem: (card) ->
