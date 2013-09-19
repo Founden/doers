@@ -14,6 +14,18 @@ feature 'Board', :js, :slow do
       visit root_path(:anchor => '/boards/%d/build' % board.id)
     end
 
+    scenario 'allows cards deletion' do
+      cards_count = board.cards.count
+
+      page.first('.card-item').click
+      expect(page).to have_css('.card-edit')
+
+      page.find('.card-edit-actions .button.remove-card').click
+      expect(page).to_not have_css('.card-edit')
+      expect(page).to have_css('.card-item', :count => cards_count - 1)
+      expect(board.reload.cards.count).to eq(cards_count - 1)
+    end
+
     context 'UI allows cards to be repositioned' do
       background do
         # Update every card position
