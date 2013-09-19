@@ -1,6 +1,8 @@
 .nav
   %a{:href => root_path, :class => 'nav-logo'}
     = Doers::Config.app_name
+  .nav-toggle
+    %span.icon.icon-arrow-prev
   - if account_signed_in? and current_account.confirmed?
     %ul.nav-list
       %li.nav-list-item.nav-list-item-account

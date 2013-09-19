@@ -9,6 +9,44 @@
   background-color: $black;
   color: $white;
   box-shadow: 2px 0 rgba($black, 0.1);
+  @include transition(width 0.2s $ease-out-expo);
+
+  &.narrow {
+    width: 108px;
+
+    .nav-toggle {
+      width: 100%;
+      @include transition(background 0.1s);
+      opacity: 0;
+
+      &:hover {
+        background: tint($black, 5%);
+        opacity: 1;
+      }
+
+      .icon {
+        @include transform(rotate(180deg));
+      }
+    }
+
+    .nav-logo {
+      width: 48px;
+    }
+
+    .nav-list-item-account-name,
+    .nav-list-item-account-actions {
+      display: none;
+    }
+
+    .nav-list-item-btn {
+      text-indent: -280px;
+
+      .icon {
+        text-indent: 0;
+        right: 46px;
+      }
+    }
+  }
 }
 
 .nav-logo {
@@ -18,6 +56,23 @@
   width: 116px;
   height: 28px;
   margin: 35px 30px;
+}
+
+.nav-toggle {
+  @include box-sizing(border-box);
+  position: absolute;
+  right: 0;
+  top: 0;
+  line-height: 98px;
+  padding: 0 30px;
+  text-align: center;
+  color: $white;
+  cursor: pointer;
+
+  .icon {
+    display: block;
+    @include transition(all 0.2s);
+  }
 }
 
 .nav-list-item {
@@ -33,18 +88,30 @@
 .nav-list-item-btn {
   display: block;
   position: relative;
+  white-space: nowrap;
   padding: 15px 30px;
   color: $white;
   font-weight: 700;
   font-size: em(14);
+  @include transition(background 0.1s, text-indent 0.2s $ease-out-expo);
 
-  .icon:before {
-    float: right;
+  &:hover {
+    background: tint($black, 5%);
+  }
+
+  .icon {
+    position: absolute;
+    right: 30px;
+    top: 0;
+    line-height: 51px;
+    @include transition(right 0.2s $ease-out-expo);
   }
 }
 
 .nav-list-item-account {
-  padding: 15px 30px 15px 87px;
+  white-space: nowrap;
+  padding: 15px 30px 15px 90px;
+  height: 48px;
 }
 
 .nav-list-item-account-name {
@@ -53,7 +120,7 @@
 
 .nav-list-item-account-image {
   position: absolute;
-  left: 27px;
+  left: 30px;
   top: 12px;
   width: 48px;
   height: 48px;
