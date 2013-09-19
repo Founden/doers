@@ -12,8 +12,8 @@
 .content-wrap
 
   .board{:bind => {:id => 'board.slug'}}
-    {{input class='board-field board-title' valueBinding='board.title' placeholder='Add board name' type='text' name='title'}}
-    {{textarea class='board-field board-description' valueBinding='board.description' placeholder='Add board description.' name='description'}}
+    {{view view.titleView class='board-field board-title' valueBinding='board.title' placeholder='Add board name' type='text' name='title'}}
+    {{view view.descriptionView class='board-field board-description' valueBinding='board.description' placeholder='Add board description.' name='description'}}
     {{view Doers.MembersView contentBinding='board' authorBinding='board.author'}}
     .board-toolbar
       - %w(Paragraph Number Interval Timestamp Book Link Map Photo Video List).map { |type| _(type) }.each do |type|
