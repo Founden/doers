@@ -32,6 +32,7 @@
 }
 
 .card-edit-actions {
+  @include clearfix;
   @include box-sizing(border-box);
   position: absolute;
   left: 0;
@@ -39,6 +40,19 @@
   width: 100%;
   padding: 15px 20px;
   border-top: 1px solid $gray-1;
+
+  .button {
+    float: left;
+    margin: 0 10px 0 0;
+  }
+
+  .remove-card {
+    float: right;
+    text-decoration: underline;
+    font-size: em(12);
+    color: $gray-5;
+    line-height: 42px;
+  }
 }
 
 .card-edit-help {
