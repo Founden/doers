@@ -68,6 +68,6 @@ group :test do
   gem 'vcr'
   gem 'poltergeist'
   gem 'puffing-billy'
-  gem 'database_cleaner'
+  gem 'database_rewinder'
   gem 'shoulda-matchers'
 end
