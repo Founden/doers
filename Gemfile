@@ -22,7 +22,6 @@ group :production do
   gem 'puma'
   gem 'party_foul'
   gem 'aws-sdk'
-  gem 'intercom-rails'
   gem 'daemons'
 end
 
