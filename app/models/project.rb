@@ -17,6 +17,7 @@ class Project < ActiveRecord::Base
   has_many :invitations, :dependent => :destroy, :as => :invitable
   has_many(
     :memberships, :dependent => :destroy, :class_name => ProjectMembership)
+  has_many :topics
 
   # Validations
   validates :user, :presence => true

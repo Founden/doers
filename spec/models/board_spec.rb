@@ -15,6 +15,8 @@ describe Board do
   it { should have_many(:members) }
   it { should have_many(:tags) }
   it { should have_many(:invitations).dependent(:destroy) }
+  it { should have_many(:topics).dependent('') }
+
   it { should validate_presence_of(:author) }
   it { should validate_presence_of(:title) }
   it { should ensure_inclusion_of(:status).in_array(Board::STATES) }

@@ -16,6 +16,7 @@ class Card < ActiveRecord::Base
   belongs_to :user
   belongs_to :board
   belongs_to :project
+  belongs_to :topic
   has_many :activities, :as => :trackable
   has_many :comments, :as => :commentable, :dependent => :destroy
 
