@@ -20,7 +20,7 @@ feature 'Board', :js, :slow do
       page.first('.card-item').click
       expect(page).to have_css('.card-edit')
 
-      page.find('.card-edit-actions .button.remove-card').click
+      page.find('.card-edit-actions .remove-card').click
       expect(page).to_not have_css('.card-edit')
       expect(page).to have_css('.card-item', :count => cards_count - 1)
       expect(board.reload.cards.count).to eq(cards_count - 1)
