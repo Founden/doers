@@ -22,6 +22,7 @@ class Board < ActiveRecord::Base
   has_many(:memberships, :dependent => :destroy, :class_name => BoardMembership)
   has_many :members, :through => :memberships, :source => :user
   has_many :invitations, :dependent => :destroy, :as => :invitable
+  has_many :topics
   # Tagging support
   has_many_tags
 

@@ -5,6 +5,7 @@ describe Activity, :use_truncation do
   it { should belong_to(:board) }
   it { should belong_to(:project) }
   it { should belong_to(:trackable) }
+  it { should belong_to(:topic) }
 
   it { should validate_presence_of(:user) }
   it { should validate_presence_of(:trackable_id) }

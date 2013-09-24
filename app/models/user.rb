@@ -37,6 +37,7 @@ class User < ActiveRecord::Base
   has_many :created_projects, :class_name => Project, :dependent => :destroy
   has_many(
     :shared_projects, :through => :accepted_memberships, :source => :project)
+  has_many :topics
 
   # Validations
   validates :email, :uniqueness => true, :presence => true

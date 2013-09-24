@@ -7,6 +7,7 @@ describe Comment do
   it { should belong_to(:board) }
   it { should belong_to(:project) }
   it { should belong_to(:commentable) }
+  it { should belong_to(:topic) }
 
   it { should validate_presence_of(:content) }
   it { should_not ensure_inclusion_of(

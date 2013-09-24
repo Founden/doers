@@ -4,6 +4,7 @@ describe Card do
   it { should belong_to(:user) }
   it { should belong_to(:board) }
   it { should belong_to(:project) }
+  it { should belong_to(:topic) }
   it { should have_many(:activities).dependent('') }
   it { should have_many(:comments).dependent(:destroy) }
 

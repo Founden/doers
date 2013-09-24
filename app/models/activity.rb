@@ -12,6 +12,7 @@ class Activity < ActiveRecord::Base
   belongs_to :board
   belongs_to :user
   belongs_to :trackable, :polymorphic => true
+  belongs_to :topic
 
   # Validations
   validates_presence_of :user
