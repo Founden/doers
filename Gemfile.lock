@@ -115,7 +115,7 @@ GEM
     coffee-script-source (1.6.3)
     cookiejar (0.3.0)
     daemons (1.1.9)
-    database_cleaner (1.1.1)
+    database_rewinder (0.0.1)
     delayed_job (4.0.0)
       activesupport (>= 3.0, < 4.1)
     delayed_job_active_record (4.0.0)
@@ -395,7 +395,7 @@ DEPENDENCIES
   cane
   coffee-rails
   daemons
-  database_cleaner
+  database_rewinder
   delayed_job
   delayed_job_active_record
   easy_auth!
