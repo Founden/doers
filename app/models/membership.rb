@@ -13,8 +13,18 @@ class Membership < ActiveRecord::Base
   # Validations
   validates_presence_of :user, :creator
 
+  # Callbacks
+  after_commit :notify_member, :on => :create
+
   # Target to use when generating activities
   def activity_title
     self.user.nicename
   end
+
+  private
+
+    # Sends an email with details about the new membership
+    def notify_member
+      UserMailer.delay.membership_notification(self)
+    end
 end
