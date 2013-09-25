@@ -10,7 +10,7 @@
         .nav-list-item-account-name
           = current_account.nicename
         .nav-list-item-account-actions
-          %a{:href => sign_out_path}
+          %a#signout-btn{:href => sign_out_path}
             = _('sign out')
       - if current_account.confirmed?
         %li.nav-list-item
@@ -19,7 +19,7 @@
             %span.icon.icon-directory
         %li.nav-list-item
           %a{:href => root_path(:anchor => '/projects/new'), :class => 'nav-list-item-btn'}
-            = _('Create new porject')
+            = _('Create new project')
             %span.icon.icon-project
       - if current_account.admin?
         %li.nav-list-item
