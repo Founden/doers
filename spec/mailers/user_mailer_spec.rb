@@ -48,6 +48,18 @@ describe UserMailer do
     its(:to) { should include(invitation.user.email) }
   end
 
+  context '#membership_notification' do
+    let(:membership) { Fabricate(:project_membership) }
+
+    before { UserMailer.membership_notification(membership).deliver }
+
+    it_should_behave_like 'an email from us'
+    its('body.encoded') { should match(membership.creator.nicename) }
+    its('body.encoded') { should match(membership.user.nicename) }
+    its('body.encoded') { should match(membership.project.title) }
+    its(:to) { should include(membership.user.email) }
+  end
+
   context '#invite' do
     shared_examples 'an invitation from us' do
       its(:to) { should include(invitation.email) }
