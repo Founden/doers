@@ -16,6 +16,14 @@ describe BoardMembership do
     it { should_not be_valid }
   end
 
+  context '#notify_member', :use_truncation do
+    let!(:membership) { Fabricate(:board_membership) }
+
+    subject(:email) { ActionMailer::Base.deliveries.last }
+
+    its(:to) { should include(membership.user.email) }
+  end
+
   context '#activities', :use_truncation do
     let(:membership) { Fabricate(:board_membership) }
 
