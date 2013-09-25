@@ -7,7 +7,7 @@ class GutentagCacheCounter < ActiveRecord::Migration
     Gutentag::Tag.reset_column_information
     Gutentag::Tag.pluck(:id).each do |tag_id|
       Gutentag::Tag.reset_counters tag_id, :taggings
-    end
+    end if Gutentag::Tag.table_exists?
   end
 
   def down
