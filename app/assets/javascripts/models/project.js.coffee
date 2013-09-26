@@ -14,6 +14,7 @@ Doers.Project = DS.Model.extend
   boards: DS.hasMany('Doers.Board', inverse: 'project')
   activities: DS.hasMany('Doers.Activity', readOnly: true, inverse: 'project')
   memberships: DS.hasMany('Doers.Membership', readOnly: true, inverse: 'project')
+  invitations: DS.hasMany('Doers.Invitation', readOnly: true, inverse: 'project')
 
   deleteConfirmation: false
 
