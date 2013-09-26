@@ -1,0 +1,31 @@
+.header
+  .header-root
+    = _('Collaborators')
+
+.content-wrap
+  {{#each project in content}}
+  .membership-project
+    %h2.membership-project-title
+      {{project.title}}
+    {{#each membership in project.memberships}}
+    .membership-user
+      %img.membership-user-image{:bind => {:src => 'membership.user.avatarUrl'}}
+      .membership-user-name
+        {{membership.user.nicename}}
+      .membership-user-remove{:_action => 'remove membership'}
+        = _('remove')
+    {{/each}}
+    {{#each invitation in project.invitations}}
+    {{#unless invitation.membership}}
+    .membership-invitee
+      .membership-invitee-email
+        {{invitation.email}}
+      .membership-invitee-remove{:_action => 'remove invitation'}
+        %span.icon.icon-close
+    {{/unless}}
+    {{/each}}
+    .membership-invitee-form
+      {{input placeholder='Invite a collaborator' type='email' name='email' valueBinding='controller.inviteEmail'}}
+      %button.button.compact{:_action => 'invite project'}
+        %span.icon.icon-mail
+  {{/each}}
