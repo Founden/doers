@@ -12,9 +12,4 @@ class Membership < ActiveRecord::Base
 
   # Validations
   validates_presence_of :user, :creator
-
-  # Target to use when generating activities
-  def activity_title
-    self.user.nicename
-  end
 end
