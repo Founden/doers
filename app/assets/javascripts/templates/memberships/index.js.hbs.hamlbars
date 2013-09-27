@@ -4,7 +4,7 @@
 
 .content-wrap
   {{#each project in content}}
-  .membership-project
+  .membership-project{:bind => {:id => 'project.slug'}}
     %h2.membership-project-title
       {{project.title}}
     {{#each membership in project.memberships}}
