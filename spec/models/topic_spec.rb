@@ -56,4 +56,24 @@ describe Topic do
       it { should be_valid }
     end
   end
+
+  context 'order defaults to Topic#position', :pending do
+    let!(:topics) { Fabricate(:topic).cards }
+    let(:positions) { cards.count.times.collect{ rand(10..100) } }
+
+    context '#all' do
+      subject { Card.all.map(&:position) }
+
+      it { should eq(Array.new(cards.count){ 0 }) }
+
+      context 'after positions are updated' do
+        before do
+          cards.each_with_index { |card, index|
+            card.update_attributes(:position => positions[index]) }
+        end
+
+        it { should eq(positions.sort) }
+      end
+    end
+  end
 end
