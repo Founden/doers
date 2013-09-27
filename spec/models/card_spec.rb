@@ -34,28 +34,10 @@ describe Card do
 
         its(:content) { should eq(Sanitize.clean(content)) }
       end
-
-      context '#question' do
-        before { card.update_attributes(:question => content[0..250]) }
-
-        its(:question) { should eq(Sanitize.clean(content[0..250])) }
-      end
-
-      context '#help' do
-        before { card.update_attributes(:help => content) }
-
-        its(:help) { should eq(Sanitize.clean(content)) }
-      end
-
-      context '#title_hint' do
-        before { card.update_attributes(:title_hint => content[0..250]) }
-
-        its(:title_hint) { should eq(Sanitize.clean(content[0..250])) }
-      end
     end
   end
 
-  context 'order defaults to Card#position' do
+  context 'order defaults to Card#position', :pending do
     let!(:cards) { Fabricate(:public_board).cards }
     let(:positions) { cards.count.times.collect{ rand(10..100) } }
 

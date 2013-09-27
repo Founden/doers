@@ -1,10 +1,8 @@
 Fabricator(:card) do
-  transient  :public_board
-  title      { |attrs| Faker::Lorem.sentence unless attrs[:public_board] }
-  title_hint { Faker::Lorem.sentence }
-  user
-  board
   style      { Card::STYLES.sample }
-  question   { Faker::Lorem.sentence }
-  help       { Faker::Lorem.phrases(4).join("\n") }
+  title      { Faker::Lorem.sentence }
+  user
+  board      { |attrs| Fabricate(:board, :user => attrs[:user]) }
+  topic      { |attrs|
+    Fabricate(:topic, :user => attrs[:user], :board => attrs[:board]) }
 end

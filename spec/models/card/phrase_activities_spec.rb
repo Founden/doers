@@ -5,41 +5,42 @@ describe Card::Phrase, :use_truncation do
   let!(:card) { Fabricate('card/phrase', :user => user) }
 
   context '#activities' do
-    subject { card.activities }
+    subject(:activities) { card.activities }
 
     context 'on create' do
-      its(:size) { should eq(1) }
+      subject{ activities.last }
 
-      its('last.user') { should eq(card.user) }
-      its('last.project') { should eq(card.project) }
-      its('last.board') { should eq(card.board) }
-      its('last.trackable') { should eq(card) }
-      its('last.slug') { should eq('create-card-phrase') }
+      its(:user) { should eq(card.user) }
+      its(:project) { should eq(card.project) }
+      its(:board) { should eq(card.board) }
+      its(:card) { should eq(card) }
+      its(:slug) { should eq('create-card-phrase') }
     end
 
     context 'on update' do
       before { card.update_attributes(:title => Faker::Lorem.sentence) }
 
-      its(:size) { should eq(2) }
-      its('last.user') { should eq(card.user) }
-      its('last.project') { should eq(card.project) }
-      its('last.board') { should eq(card.board) }
-      its('last.trackable') { should eq(card) }
-      its('last.slug') { should eq('update-card-phrase') }
+      subject{ activities.last }
+
+      it { activities.count.should eq(2) }
+      its(:user) { should eq(card.user) }
+      its(:project) { should eq(card.project) }
+      its(:board) { should eq(card.board) }
+      its(:card) { should eq(card) }
+      its(:slug) { should eq('update-card-phrase') }
     end
 
     context 'on delete' do
       before { card.destroy }
 
-      subject { user.activities }
+      subject { user.activities.last }
 
-      its(:size) { should eq(3) }
-      its('last.user') { should eq(card.user) }
-      its('last.project') { should eq(card.project) }
-      its('last.board') { should eq(card.board) }
-      its('last.trackable_id') { should_not be_nil }
-      its('last.trackable_type') { should_not be_nil }
-      its('last.slug') { should eq('destroy-card-phrase') }
+      it { activities.count.should eq(2) }
+      its(:user) { should eq(card.user) }
+      its(:project) { should eq(card.project) }
+      its(:board) { should eq(card.board) }
+      its(:card_id) { should_not be_nil }
+      its(:slug) { should eq('destroy-card-phrase') }
     end
   end
 end
