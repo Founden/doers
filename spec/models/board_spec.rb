@@ -100,7 +100,7 @@ describe Board do
       end
     end
 
-    context '#branch_for' do
+    context '#branch_for', :pending do
       let(:brancher) { Fabricate(:user_with_projects, :projects_count => 1) }
       let(:project) { brancher.projects.first }
       let(:board) { Fabricate(:public_board) }
