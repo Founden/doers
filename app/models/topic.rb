@@ -3,6 +3,9 @@ class Topic < ActiveRecord::Base
   # Include [Activity] generations support
   include Activity::Support
 
+  # Default scope: order by position
+  default_scope { order(:position) }
+
   # Relationships
   belongs_to :user
   belongs_to :project
@@ -17,6 +20,9 @@ class Topic < ActiveRecord::Base
   validates_presence_of :board, :unless => :project
 
   # Callbacks
+  after_initialize do
+    self.position ||= 0
+  end
   before_validation do
     # Sanitize user input
     self.title = Sanitize.clean(self.title)
