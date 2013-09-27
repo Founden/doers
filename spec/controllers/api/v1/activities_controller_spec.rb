@@ -25,15 +25,15 @@ describe Api::V1::ActivitiesController, :use_truncation do
 
     subject(:api_activity) { json_to_ostruct(response.body, :activity) }
 
-    its('keys.size') { should eq(14) }
+    its('keys.size') { should eq(15) }
     its(:id) { should eq(activity.id) }
     its(:slug) { should eq(activity.slug) }
     its(:user_id) { should eq(user.id) }
     its(:project_id) { should be_nil }
     its(:board_id) { should be_nil }
     its(:comment_id) { should be_nil }
-    its(:trackable_id) { should eq(user.id) }
-    its(:trackable_type) { should eq(user.class.name) }
+    its(:card_id) { should be_nil }
+    its(:topic_id) { should be_nil }
     its(:user_name) { should eq(user.nicename) }
     its(:project_title) { should be_nil }
     its(:board_title) { should be_nil }

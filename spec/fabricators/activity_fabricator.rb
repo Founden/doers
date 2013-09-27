@@ -1,5 +1,5 @@
 Fabricator(:activity) do
   slug      'user:create'
   user
-  trackable { |attr| attr['user'] }
+  topic   { |attrs| Fabricate(:topic, :user => attrs[:user]) }
 end
