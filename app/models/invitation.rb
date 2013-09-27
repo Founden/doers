@@ -12,7 +12,6 @@ class Invitation < ActiveRecord::Base
   belongs_to :user
   belongs_to :membership, :polymorphic => true
   belongs_to :invitable, :polymorphic => true
-  has_many :activities, :as => :trackable
 
   # Validations
   validates_presence_of :user, :email
@@ -49,8 +48,8 @@ class Invitation < ActiveRecord::Base
   end
 
   # Target to use when generating activities
-  def activity_title
-    self.email
+  def activity_owner
+    self.invitable.respond_to?(:activities) ? self.invitable : self.user
   end
 
   private

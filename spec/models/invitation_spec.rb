@@ -4,7 +4,6 @@ describe Invitation do
   it { should belong_to(:user) }
   it { should belong_to(:membership) }
   it { should belong_to(:invitable) }
-  it { should have_many(:activities) }
   it { should validate_presence_of(:user) }
   it { should validate_presence_of(:email) }
   it { should validate_uniqueness_of(:email) }
@@ -80,30 +79,31 @@ describe Invitation do
     end
 
     context '#activities', :use_truncation do
-      subject { invitation.activities }
+      subject(:activities) { invitation.activity_owner.activities }
 
       context 'on create' do
-        its(:size) { should eq(1) }
-        its('first.user') { should eq(invitation.user) }
-        its('first.project') { should be_nil }
-        its('first.board') { should be_nil }
-        its('first.trackable') { should eq(invitation) }
-        its('first.trackable_type') { should eq(Invitation.name) }
-        its('first.trackable_title') { should eq(invitation.email) }
-        its('first.slug') { should eq('create-invitation') }
+        subject { activities.first }
+
+        context 'when no invitable is set' do
+          subject { activities.last }
+
+          its(:user) { should eq(invitation.user) }
+          its(:project) { should be_nil }
+          its(:board) { should be_nil }
+          its(:invitation_email) { should eq(invitation.email) }
+          its(:slug) { should eq('create-invitation') }
+        end
 
         context 'when invitable is a project' do
-          its(:size) { should eq(1) }
-          its('first.user') { should eq(invitation.user) }
-          its('first.project') { should eq(invitation.invitable) }
-          its('first.board') { should be_nil }
+          its(:user) { should eq(invitation.user) }
+          its(:project) { should eq(invitation.invitable) }
+          its(:board) { should be_nil }
         end
 
         context 'when invitable is a board' do
-          its(:size) { should eq(1) }
-          its('first.user') { should eq(invitation.user) }
-          its('first.project') { should be_nil }
-          its('first.board') { should eq(invitation.invitable) }
+          its(:user) { should eq(invitation.user) }
+          its(:project) { should be_nil }
+          its(:board) { should eq(invitation.invitable) }
         end
       end
     end
