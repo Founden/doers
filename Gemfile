@@ -17,6 +17,7 @@ gem 'delayed_job_active_record'
 gem 'pg'
 gem 'oembedr'
 gem 'gutentag'
+gem 'zip', :require => false
 
 group :production do
   gem 'puma'

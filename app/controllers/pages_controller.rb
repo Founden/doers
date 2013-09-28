@@ -15,6 +15,17 @@ class PagesController < ApplicationController
     end
   end
 
+  # Export download page
+  def export
+  end
+
+  # Sends the export data to download
+  def download
+    Delayed::Job.enqueue(ExportJob.new(current_account))
+    flash[:success] = _('Give us some time then check your email.')
+    redirect_to export_pages_path
+  end
+
   private
 
   # Allowed params for [User] objects
