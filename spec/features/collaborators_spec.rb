@@ -23,6 +23,18 @@ feature 'Collaborators', :js, :focus do
       end
     end
 
+    scenario 'and can be removed' do
+      project = user.projects.first
+      members_selector = '#project-%d .membership-user-remove' % project.id
+      members_count = project.members.count
+
+      page.all(members_selector).first.click
+
+      expect(page).to have_css(members_selector, :count => members_count - 1)
+      sleep(1)
+      expect(project.members.reload.count).to eq(members_count - 1)
+    end
+
     scenario 'can be invited' do
       email = Faker::Internet.email
 
