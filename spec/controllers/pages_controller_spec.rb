@@ -64,6 +64,8 @@ describe PagesController do
   describe '#download' do
     before do
       controller.stub(:current_account) { user }
+      ImportJob.stub_chain(:new, :perform)
+      Delayed::Job.should_receive(:enqueue).and_call_original
       get(:download)
     end
 
