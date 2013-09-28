@@ -21,6 +21,10 @@
           %a{:href => root_path(:anchor => '/projects/new'), :class => 'nav-list-item-btn'}
             = _('Create new project')
             %span.icon.icon-project
+        %li.nav-list-item
+          %a{:href => root_path(:anchor => '/memberships'), :class => 'nav-list-item-btn'}
+            = _('Collaborators')
+            %span.icon.icon-user
       - if current_account.admin?
         %li.nav-list-item
           %a{:href => root_path(:anchor => '/boards'), :class => 'nav-list-item-btn'}
