@@ -19,10 +19,9 @@
     Progress:
       setup: ->
         NProgress.configure
-          # showSpinner: false
+          showSpinner: false
           ease: 'ease'
           speed: 500
-          # trickle: false
 
     Navigation:
       setup: ->
