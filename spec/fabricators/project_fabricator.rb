@@ -19,6 +19,16 @@ Fabricator(:project_with_invitations, :from => :project) do
   end
 end
 
+Fabricator(:project_with_memberships, :from => :project) do
+  transient :memberships_count => 3
+
+  after_create do |project, transients|
+    transients[:memberships_count].times do
+      Fabricate(:project_membership, :project => project, :creator => project.user)
+    end
+  end
+end
+
 Fabricator(:imported_project, :from => :project) do
   external_id   { sequence(:external_id, 2000) }
   external_type { Doers::Config.external_types.first }
