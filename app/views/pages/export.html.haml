@@ -5,15 +5,26 @@
 .content-wrap
 
   .page.half
-    %h1
-      = _('Your export options')
-    %p
-      = _('Below you can download your project boards data.')
-    %p
-      = _('You will get a package with boards content archived.')
-      = _('There will be two files for each board, one computer friendly (JSON), and the other one human friendly (Markdown).')
-    %p
-      %a{:href => download_pages_path}
-        %button.button
-          %span.icon.icon-arrow-down
-            = _('Start download')
+    - if @current_account.boards.count
+      %h1
+        = _('Your export options')
+      %p
+        = _('Below you can queue your project boards data for download.')
+      %p
+        = _('You will get an email with a package with boards content archived.')
+        = _('There will be two files for each board, one computer friendly (JSON), and the other one human friendly (Markdown).')
+      %p
+        %a{:href => download_pages_path}
+          %button.button
+            %span.icon.icon-arrow-down
+              = _('Email me boards data.')
+    - else
+      %h1
+        = _('No export options for you')
+      %p
+        = _('Export is not available for you since there are no boards you have created.')
+      %p
+        %a{:href => root_path}
+          %button.button
+            %span.icon.icon-arrow-prev
+              = _('Take me back to dashboard.')
