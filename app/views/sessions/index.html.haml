@@ -10,6 +10,6 @@
     %p
       = _('You can use your Angel List account so we can sync with existing startups you have access to and help you win some time.')
     %p
-      %a{:href => oauth2_sign_in_path(:provider => :angel_list), :class => 'button'}
+      %a.button#signin-btn{:href => oauth2_sign_in_path(:provider => :angel_list)}
         = _('Sign in with Angel List')
 
