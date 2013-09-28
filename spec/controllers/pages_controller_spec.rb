@@ -52,4 +52,24 @@ describe PagesController do
     end
   end
 
+  describe '#export' do
+    before do
+      controller.stub(:current_account) { user }
+      get(:export)
+    end
+
+    it { should render_template(:export) }
+  end
+
+  describe '#download' do
+    before do
+      controller.stub(:current_account) { user }
+      ImportJob.stub_chain(:new, :perform)
+      Delayed::Job.should_receive(:enqueue).and_call_original
+      get(:download)
+    end
+
+    it { should redirect_to(export_pages_path) }
+  end
+
 end

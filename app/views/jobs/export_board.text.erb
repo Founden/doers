@@ -1,0 +1,25 @@
+#### <%= board['project'] %>
+
+# <%= board['title'] %>
+
+### <%= board['description'] %>
+
+---
+
+## Cards
+
+<% board['cards'].each do |card| %>
+##### <%= card['question'] %>
+
+#### <%= card['title'] %>
+
+<%= card['content'] %>
+
+ * <%= card['type'] %> by <%= card['author'] %>
+<% card['data'].each do |attr_key, attr_val| %>
+ * <%= attr_key.humanize %>: <%= attr_val %>
+<% end %>
+
+---
+
+<% end %>
