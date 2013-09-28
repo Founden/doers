@@ -31,10 +31,16 @@
         $('.nav').toggleClass('narrow')
         $('.content').toggleClass('wide')
 
+    Mixpanel:
+      setup: ->
+        mixpanel.track_links('#signin-btn', 'AngelList login')
+        mixpanel.track_links('#signout-btn', 'Signed out')
+
     setup: ->
       @Notifications.setup()
       @Progress.setup()
       @Navigation.setup()
+      @Mixpanel.setup()
 
   Doers.setup()
 
