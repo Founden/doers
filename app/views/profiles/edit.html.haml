@@ -16,7 +16,7 @@
           = f.text_field :name, :required => true
         - if current_account.admin?
           .field.checkbox
-            = f.check_box :confirmed?
+            = f.check_box :confirmed
             = f.label :confirmed, _('Allow Beta')
         .actions
           = f.submit _('Save'), :class => 'button'

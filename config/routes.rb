@@ -14,6 +14,8 @@ Doers::Application.routes.draw do
     get :dashboard
     get :waiting
     patch :waiting
+    get :export
+    get :download
   end
 
   namespace :api, :constraints => {:format => :json} do
