@@ -1,0 +1,19 @@
+.header
+  .header-root
+    = _('Data Export')
+
+.content-wrap
+
+  .page.half
+    %h1
+      = _('Your export options')
+    %p
+      = _('Below you can download your project boards data.')
+    %p
+      = _('You will get a package with boards content archived.')
+      = _('There will be two files for each board, one computer friendly (JSON), and the other one human friendly (Markdown).')
+    %p
+      %a{:href => download_pages_path}
+        %button.button
+          %span.icon.icon-arrow-down
+            = _('Start download')

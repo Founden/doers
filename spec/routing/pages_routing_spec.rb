@@ -16,6 +16,14 @@ describe PagesController do
       patch('/waiting').should route_to('pages#waiting')
     end
 
+    it 'for export page' do
+      get('/export').should route_to('pages#export')
+    end
+
+    it 'for download page' do
+      get('/download').should route_to('pages#download')
+    end
+
   end
 end
 

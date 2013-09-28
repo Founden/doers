@@ -15,6 +15,15 @@ class PagesController < ApplicationController
     end
   end
 
+  # Export download page
+  def export
+  end
+
+  # Sends the export data to download
+  def download
+    redirect_to export_pages_path
+  end
+
   private
 
   # Allowed params for [User] objects
