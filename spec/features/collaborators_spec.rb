@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'Collaborators', :js, :focus do
+feature 'Collaborators', :js do
 
   background do
     sign_in_with_angel_list
