@@ -23,25 +23,23 @@ describe ExportJob do
     end
 
     context 'when user has boards' do
-      before do
-        job.should_receive(:prepare_boards)
-        job.should_receive(:generate_json)
-        job.should_receive(:generate_markdown)
-        job.should_receive(:archive)
-        job.should_receive(:send_email)
-        job.perform
+      it do
+        job.should_receive(:prepare_boards).and_call_original
+        job.should_receive(:generate_json).and_call_original
+        job.should_receive(:generate_markdown).and_call_original
+        job.should_receive(:archive).and_call_original
+        job.should_receive(:send_email).and_call_original
+        UserMailer.should_receive(:export_data).and_call_original
+        expect{
+          job.perform
+        }.to_not raise_error
       end
-
-      its(:boards) { should be_empty }
     end
   end
 
   context '#prepare_boards' do
     before do
       job.should_receive(:prepare_boards).and_call_original
-      job.should_receive(:generate_json)
-      job.should_receive(:generate_markdown)
-      job.should_receive(:archive)
       job.should_receive(:send_email)
       job.perform
     end
@@ -71,14 +69,17 @@ describe ExportJob do
 
   context '#generate_json' do
     before do
-      job.should_receive(:generate_json).and_call_original
-      job.should_receive(:generate_markdown)
-      job.should_receive(:archive)
+      job.should_receive(:prepare_boards).and_call_original
       job.should_receive(:send_email)
       job.perform
     end
 
+    subject { job.generate_json }
+
+    its(:size) { should eq(user.boards.count) }
+
     it 'generates json files' do
+      job.generate_json
       job.boards.each do |b|
         json = File.read(job.user_dir.join(b['id'].to_s + '.json'))
         json.should eq(b.to_json)
@@ -88,13 +89,17 @@ describe ExportJob do
 
   context '#generate_markdown' do
     before do
-      job.should_receive(:generate_markdown).and_call_original
-      job.should_receive(:archive)
+      job.should_receive(:prepare_boards).and_call_original
       job.should_receive(:send_email)
       job.perform
     end
 
+    subject { job.generate_markdown }
+
+    its(:size) { should eq(user.boards.count) }
+
     it 'generates markdown files' do
+      job.generate_markdown
       job.boards.each do |b|
         mkdn = File.read(job.user_dir.join(b['id'].to_s + '.markdown'))
         mkdn.should include(b['title'])
@@ -115,17 +120,32 @@ describe ExportJob do
 
   context '#archive' do
     before do
-      job.should_receive(:archive).and_call_original
+      job.should_receive(:prepare_boards).and_call_original
       job.should_receive(:send_email)
       job.perform
     end
 
-    subject{ Pathname.new(job.user_dir + '.zip') }
+    subject { job.archive }
 
     it { should exist }
     its(:size) { should_not eq(0) }
   end
 
   context '#send_email' do
+    before do
+      tmp_path = Pathname.new(Dir.tmpdir).join(rand(100).to_s)
+      File.write(tmp_path, rand(100))
+      job.should_receive(:archive).and_return(tmp_path)
+      tmp_path.should_receive(:unlink)
+
+      UserMailer.should_receive(:export_data).and_call_original
+      FileUtils.should_receive(:rm_rf).with(job.user_dir)
+    end
+
+    it do
+      expect{
+        job.send_email
+      }.to_not raise_error
+    end
   end
 end
