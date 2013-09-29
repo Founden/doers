@@ -43,10 +43,16 @@ describe Topic do
       it { should be_valid }
     end
 
-    context 'when board is missing' do
+    context 'when authored board is missing' do
       let(:board) { Fabricate(:board) }
 
       it { should be_valid }
+    end
+
+    context 'when board is missing' do
+      let(:board) { Fabricate(:branched_board) }
+
+      it { should_not be_valid }
     end
 
     context 'when project and board are present' do
