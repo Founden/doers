@@ -262,7 +262,7 @@ describe User do
         it_behaves_like 'no error is raised'
 
         context 'or a set of boards not owned by the user' do
-          let(:target) { Fabricate('card/phrase'); Card.all }
+          let(:target) { Card.where(:id => Fabricate('card/phrase').id) }
 
           it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
           it_behaves_like 'is not writable'
