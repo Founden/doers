@@ -37,7 +37,7 @@ describe Api::V1::ActivitiesController, :use_truncation do
     its(:user_name) { should eq(user.nicename) }
     its(:project_title) { should be_nil }
     its(:board_title) { should be_nil }
-    its(:trackable_title) { should be_nil }
+    its(:topic_title) { should be_nil }
     its(:updated_at) { should_not be_blank }
     its(:last_update) { should eq(activity.updated_at.to_s(:pretty)) }
   end
