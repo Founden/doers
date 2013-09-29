@@ -12,7 +12,7 @@ Fabricator(:board_comment, :from => :comment) do
   content     { Faker::HTMLIpsum.fancy_string }
   project     { |attrs| Fabricate(:project, :user => attrs[:user]) }
   board       { |attrs| Fabricate(
-    :board, :project => attrs[:project], :author => attrs[:user]) }
+    :branched_board, :project => attrs[:project], :author => attrs[:user]) }
   topic       {}
 end
 
@@ -24,6 +24,12 @@ end
 Fabricator(:topic_comment_with_parent, :from => :topic_comment) do
   parent_comment { |attrs|
     Fabricate(:comment, :project => attrs[:project], :board => attrs[:board]) }
+end
+
+Fabricator(
+  :topic_comment_with_parent_and_card, :from => :topic_comment_with_parent) do
+  card { |attrs| Fabricate('card/phrase', :project => attrs[:project],
+    :board => attrs[:board], :topic => attrs[:topic]) }
 end
 
 Fabricator(:comment_from_angel_list, :class_name => Comment) do
