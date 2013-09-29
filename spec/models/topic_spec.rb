@@ -63,19 +63,19 @@ describe Topic do
     end
   end
 
-  context 'order defaults to Topic#position', :pending do
-    let!(:topics) { Fabricate(:topic).cards }
-    let(:positions) { cards.count.times.collect{ rand(10..100) } }
+  context 'order defaults to Topic#position' do
+    let!(:topics) { Fabricate(:board).topics }
+    let(:positions) { topics.count.times.collect{ rand(10..100) } }
 
     context '#all' do
-      subject { Card.all.map(&:position) }
+      subject { Topic.all.map(&:position) }
 
-      it { should eq(Array.new(cards.count){ 0 }) }
+      it { should eq(Array.new(topics.count){ 0 }) }
 
       context 'after positions are updated' do
         before do
-          cards.each_with_index { |card, index|
-            card.update_attributes(:position => positions[index]) }
+          topics.each_with_index { |topic, index|
+            topic.update_attributes(:position => positions[index]) }
         end
 
         it { should eq(positions.sort) }
