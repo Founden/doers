@@ -39,7 +39,7 @@ describe Card do
     end
   end
 
-  context 'order defaults to Card#position', :pending do
+  context 'order defaults to Card#position' do
     let!(:cards) { Fabricate(:public_board).cards }
     let(:positions) { cards.count.times.collect{ rand(10..100) } }
 
