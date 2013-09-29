@@ -9,7 +9,9 @@ describe Card do
   it { should have_many(:comments).dependent(:destroy) }
 
   it { should validate_presence_of(:user) }
+  it { should validate_presence_of(:project) }
   it { should validate_presence_of(:board) }
+  it { should validate_presence_of(:topic) }
   it { should ensure_inclusion_of(:style).in_array(Card::STYLES) }
   it { should validate_numericality_of(:position) }
 

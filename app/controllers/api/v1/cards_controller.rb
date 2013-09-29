@@ -71,7 +71,8 @@ class Api::V1::CardsController < Api::V1::ApplicationController
 
     # Strong parameters for updating a card
     def card_params
-      params[:card].except!(:user_id, :project_id, :board_id, :image_id)
+      params[:card].except!(
+        :user_id, :project_id, :board_id, :image_id, :topic_id)
       params.require(:card).permit!
     end
 end
