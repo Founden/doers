@@ -116,7 +116,7 @@ describe Api::V1::BoardsController do
 
       its('keys.size') { should eq(19) }
       its(:title) { should eq(title) }
-      its(:description) { should be_nil }
+      its(:description) { should eq(attrs[:description]) }
       its(:user_id) { should eq(user.id) }
       its(:project_id) { should eq(project.id) }
       its(:parent_board_id) { should eq(board.id) }
