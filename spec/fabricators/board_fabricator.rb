@@ -23,7 +23,6 @@ Fabricator(:branched_board, :class_name => Board) do
   description { Faker::Lorem.sentence }
 
   after_create do |board|
-    board.parent_board.update_attributes(:status => Board::STATES.last)
     board.cover = Fabricate(:cover, :user => board.user, :board => board)
   end
 end

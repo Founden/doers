@@ -21,7 +21,7 @@ class Card < ActiveRecord::Base
   has_many :comments, :dependent => :destroy
 
   # Validations
-  validates_presence_of :user, :board, :topic
+  validates_presence_of :user, :project, :board, :topic
   validates_inclusion_of :style, :in => STYLES
   validates_numericality_of :position
 
