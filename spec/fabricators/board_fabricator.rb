@@ -2,14 +2,16 @@ Fabricator(:board) do
   author(:fabricator => :user)
   title       { Faker::Lorem.sentence }
   description { Faker::Lorem.sentence }
-  team
+  team        { Fabricate(:team, :boards_count => 0) }
   after_create do |board, trans|
     rand(1..5).times do
       board.tag_names << Faker::Lorem.word
     end
     board.save
-    board.cover = Fabricate(
-      :cover, :user => (board.author || board.user), :board => board)
+    board.cover = Fabricate(:cover, :user => board.author, :board => board)
+    rand(1..10).times do
+      Fabricate(:topic, :board => board, :user => board.author)
+    end
   end
 end
 
@@ -21,7 +23,7 @@ Fabricator(:branched_board, :class_name => Board) do
   description { Faker::Lorem.sentence }
 
   after_create do |board|
-    board.parent_board.update_attributes(:status => Board::STATES.last)
+    board.cover = Fabricate(:cover, :user => board.user, :board => board)
   end
 end
 
@@ -33,8 +35,7 @@ Fabricator(:public_board, :from => :board) do
 
   after_create do |board, transients|
     transients[:card_types].each do |type|
-      Fabricate(
-        type, :board => board, :user => board.author, :public_board => true)
+      Fabricate(type, :board => board, :user => board.author)
     end
   end
 end

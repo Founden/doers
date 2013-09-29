@@ -43,10 +43,16 @@ describe Topic do
       it { should be_valid }
     end
 
-    context 'when board is missing' do
+    context 'when authored board is missing' do
       let(:board) { Fabricate(:board) }
 
       it { should be_valid }
+    end
+
+    context 'when board is missing' do
+      let(:board) { Fabricate(:branched_board) }
+
+      it { should_not be_valid }
     end
 
     context 'when project and board are present' do
@@ -54,6 +60,26 @@ describe Topic do
       let(:board) { Fabricate(:board) }
 
       it { should be_valid }
+    end
+  end
+
+  context 'order defaults to Topic#position' do
+    let!(:topics) { Fabricate(:board).topics }
+    let(:positions) { topics.count.times.collect{ rand(10..100) } }
+
+    context '#all' do
+      subject { Topic.all.map(&:position) }
+
+      it { should eq(Array.new(topics.count){ 0 }) }
+
+      context 'after positions are updated' do
+        before do
+          topics.each_with_index { |topic, index|
+            topic.update_attributes(:position => positions[index]) }
+        end
+
+        it { should eq(positions.sort) }
+      end
     end
   end
 end

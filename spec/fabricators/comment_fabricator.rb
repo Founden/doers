@@ -1,9 +1,7 @@
 Fabricator(:comment) do
-  content     { Faker::HTMLIpsum.fancy_string }
+  content { Faker::HTMLIpsum.fancy_string }
   user
-  project     { |attrs| Fabricate(:project, :user => attrs[:user]) }
-  board       { |attrs| Fabricate(
-    :board, :project => attrs[:project], :author => attrs[:user]) }
+  project { |attrs| Fabricate(:project, :user => attrs[:user]) }
 end
 
 Fabricator(:comment_with_parent, :from => :comment) do
@@ -14,21 +12,24 @@ Fabricator(:board_comment, :from => :comment) do
   content     { Faker::HTMLIpsum.fancy_string }
   project     { |attrs| Fabricate(:project, :user => attrs[:user]) }
   board       { |attrs| Fabricate(
-    :board, :project => attrs[:project], :author => attrs[:user]) }
+    :branched_board, :project => attrs[:project], :author => attrs[:user]) }
+  topic       {}
 end
 
-Fabricator(:card_comment, :from => :board_comment) do
-  commentable { |attrs|
-    Fabricate('card/phrase', :project => attrs[:project],
-              :board => attrs[:board], :user => attrs[:user]) }
+Fabricator(:topic_comment, :from => :board_comment) do
+  topic   { |attrs| Fabricate(:topic, :user => attrs[:user],
+    :project => attrs[:project], :board => attrs[:board]) }
 end
 
-Fabricator(:card_comment_with_parent, :from => :board_comment) do
+Fabricator(:topic_comment_with_parent, :from => :topic_comment) do
   parent_comment { |attrs|
     Fabricate(:comment, :project => attrs[:project], :board => attrs[:board]) }
-  commentable { |attrs|
-    Fabricate('card/phrase', :project => attrs[:project],
-              :board => attrs[:board], :user => attrs[:user]) }
+end
+
+Fabricator(
+  :topic_comment_with_parent_and_card, :from => :topic_comment_with_parent) do
+  card { |attrs| Fabricate('card/phrase', :project => attrs[:project],
+    :board => attrs[:board], :topic => attrs[:topic]) }
 end
 
 Fabricator(:comment_from_angel_list, :class_name => Comment) do
