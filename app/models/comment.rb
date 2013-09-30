@@ -11,12 +11,13 @@ class Comment < ActiveRecord::Base
   belongs_to :board
   belongs_to :user
   belongs_to :parent_comment, :class_name => Comment
-  belongs_to :commentable, :polymorphic => true
+  belongs_to :card
+  belongs_to :topic
   has_many :comments, :foreign_key => :parent_comment_id, :dependent => :destroy
   belongs_to :topic
 
   # Validations
-  validates :content, :presence => true
+  validates_presence_of :content
   validates_inclusion_of(
     :external_type, :in => Doers::Config.external_types, :if => :external?)
 
@@ -44,16 +45,6 @@ class Comment < ActiveRecord::Base
 
   # Target to use when generating activities
   def activity_owner
-    self.commentable || self.board || self.project
-  end
-
-  # Target to use when generating activities
-  def activity_target
-    self.commentable || self
-  end
-
-  # Target to use when generating activities
-  def activity_title
-    self.activity_owner.title
+    self.topic || self.board || self.project
   end
 end

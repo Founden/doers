@@ -1,8 +1,6 @@
 require 'spec_helper'
 
 describe Card::Link do
-  it { should belong_to(:parent_card) }
-  it { should have_many(:versions).dependent(:destroy) }
   it { should validate_presence_of(:content) }
   it { should allow_value(Faker::Internet.uri(:http)).for(:url) }
   it { should allow_value(Faker::Internet.uri(:https)).for(:url) }

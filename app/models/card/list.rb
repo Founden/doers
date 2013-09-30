@@ -3,11 +3,6 @@ class Card::List < Card
   # Store accessors definition
   store_accessor :data, :items
 
-  # Relationships
-  belongs_to :parent_card, :class_name => Card::List
-  has_many(:versions, :class_name => Card::List,
-           :dependent => :destroy, :foreign_key => :parent_card_id)
-
   # Callbacks
   # Sanitize user input
   after_initialize do

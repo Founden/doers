@@ -16,22 +16,13 @@ class Api::V1::CommentsController < Api::V1::ApplicationController
 
   # Handles comment creation
   def create
-    commentable_type = comment_params[:commentable_type]
-    comment = current_account.comments.build
-    errors = nil
+    comment = current_account.comments.build(comment_params)
+    current_account.can?(:write, comment.board)
 
-    if (commentable_type == 'Card' or commentable_type.blank?)
-      comment.attributes = comment_params
-      commentable = (comment.commentable || comment.board || comment.project)
-      current_account.can?(:read, commentable)
-    else
-      errors = [_('Commentable not allowed.')]
-    end
-
-    if !errors and comment.save
+    if comment.save
       render :json => comment
     else
-      render :json => { :errors => errors || comment.errors.messages }
+      render :json => { :errors => comment.errors.messages }
     end
   end
 
@@ -52,6 +43,6 @@ class Api::V1::CommentsController < Api::V1::ApplicationController
     # Strong parameters for comment object
     def comment_params
       params.require(:comment).permit(:content, :project_id, :board_id,
-        :commentable_id, :commentable_type, :parent_comment_id)
+        :card_id, :parent_comment_id)
     end
 end

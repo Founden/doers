@@ -2,7 +2,6 @@
 class ProjectMembership < Membership
   # Relationships
   has_many :invitations, :as => :membership
-  has_many :activities, :as => :trackable
 
   # Validations
   validates_presence_of :project
@@ -10,6 +9,11 @@ class ProjectMembership < Membership
 
   # Callbacks
   after_commit :generate_activity, :on => [:create, :destroy]
+
+  # Target to use when generating activities
+  def activity_owner
+    self.project
+  end
 
   private
     # Membership user project ids

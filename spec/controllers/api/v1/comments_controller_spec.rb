@@ -52,13 +52,15 @@ describe Api::V1::CommentsController do
     end
 
     context 'for an owned comment' do
-      let(:comment) { Fabricate(:card_comment_with_parent, :user => user) }
+      let(:comment) do
+        Fabricate(:topic_comment_with_parent_and_card, :user => user)
+      end
 
       before { get(:show, :id => comment_id) }
 
       subject(:api_comment) { json_to_ostruct(response.body, :comment) }
 
-      its('keys.size') { should eq(10) }
+      its('keys.size') { should eq(11) }
       its(:id) { should eq(comment.id) }
       its(:content) { should eq(comment.content) }
       its(:external_author_name) { should be_blank }
@@ -68,12 +70,13 @@ describe Api::V1::CommentsController do
       its(:board_id) { should eq(comment.board.id) }
       its(:parent_comment_id) { should eq(comment.parent_comment.id) }
       its(:comment_ids) { should be_empty }
-      its(:card_id) { should eq(comment.commentable.id) }
+      its(:card_id) { should eq(comment.card.id) }
+      its(:topic_id) { should eq(comment.topic.id) }
 
       context 'when comment is a parent comment' do
         let(:comment_id) { comment.parent_comment.id }
 
-        its('keys.size') { should eq(10) }
+        its('keys.size') { should eq(11) }
         its(:id) { should eq(comment.parent_comment.id) }
         its(:card_id) { should be_blank }
         its(:parent_comment_id) { should be_blank }
@@ -83,19 +86,19 @@ describe Api::V1::CommentsController do
   end
 
   describe '#create' do
-    let(:comment_attrs) {
-      Fabricate.attributes_for(:comment_with_parent, :user => user) }
+    let(:comment_attrs) do
+      Fabricate.attributes_for(
+        :topic_comment_with_parent_and_card, :user => user)
+    end
     let(:comment) { user.comments.first }
 
     before do
-      unless example.metadata[:skip_before]
-        post(:create, :comment => comment_attrs)
-      end
+      post(:create, :comment => comment_attrs)
     end
 
     subject(:api_comment) { json_to_ostruct(response.body, :comment) }
 
-    its('keys.size') { should eq(10) }
+    its('keys.size') { should eq(11) }
     its(:id) { should eq(comment.id) }
     its(:content) { should eq(comment.content) }
     its(:external_author_name) { should be_blank }
@@ -105,43 +108,23 @@ describe Api::V1::CommentsController do
     its(:board_id) { should eq(comment.board.id) }
     its(:parent_comment_id) { should eq(comment.parent_comment.id) }
     its(:comment_ids) { should be_empty }
-    its(:card_id) { should be_blank }
+    its(:card_id) { should eq(comment.card.id) }
+    its(:topic_id) { should be_blank }
 
-    context 'when commentable is wrong' do
-      let(:comment_attrs) {
-        Fabricate.attributes_for(:comment, :commentable_type => 'Wrong') }
-
-      subject(:api_comment) { json_to_ostruct(response.body) }
-
-      its(:errors) { should_not be_empty }
-    end
-
-    context 'when commentable is set' do
+    context 'when card is set' do
       let(:board) { Fabricate(:branched_board, :user => user) }
       let(:card) { Fabricate(
         :card, :board => board, :project => board.project) }
-      let(:comment_attrs) { Fabricate.attributes_for(
-        :comment, :board => board, :project => board.project, :user => user,
-        :commentable_type => 'Card', :commentable_id => card.id) }
+      let(:comment_attrs) { Fabricate.attributes_for(:comment, :board => board,
+        :project => board.project, :user => user, :card_id => card.id) }
 
       subject(:api_comment) { json_to_ostruct(response.body, :comment) }
 
-      its('keys.size') { should eq(10) }
+      its('keys.size') { should eq(11) }
       its(:user_id) { should eq(user.id) }
       its(:project_id) { should eq(comment.project.id) }
       its(:board_id) { should eq(comment.board.id) }
       its(:card_id) { should eq(card.id) }
-
-      context 'and commentable is not allowed', :skip_before do
-        let(:board) { Fabricate(:branched_board) }
-
-        it do
-          expect {
-            post(:create, :comment => comment_attrs)
-          }.to raise_error(ActiveRecord::RecordNotFound)
-        end
-
-      end
     end
   end
 
