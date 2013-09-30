@@ -184,7 +184,7 @@ describe Api::V1::CardsController do
     context 'with wrong parameters' do
       context 'on type' do
         let(:card_attrs) { Fabricate.attributes_for(
-          'card/phrase', :user => user, :board => board) }
+          'card/phrase', :user => user) }
 
         its('response.status') { should eq(400) }
         its('response.body') { should match('errors') }
@@ -192,7 +192,7 @@ describe Api::V1::CardsController do
 
       context 'on attributes' do
         let(:card_attrs) { Fabricate.attributes_for(
-          'card/phrase', :user => user, :type => 'Phrase', :board => nil) }
+          'card/phrase', :user => user, :type => 'Phrase', :topic => nil) }
 
         its('response.status') { should eq(400) }
         its('response.body') { should match('errors') }
@@ -200,8 +200,8 @@ describe Api::V1::CardsController do
 
       context 'on a not owned board_id' do
         let(:card_attrs) do
-          Fabricate.attributes_for('card/phrase',
-            :user => user, :type => 'Phrase', :board => Fabricate(:board))
+          Fabricate.attributes_for('card/phrase', :user => user,
+            :type => 'Phrase', :board => Fabricate(:branched_board))
         end
 
         its('response.status') { should eq(400) }
