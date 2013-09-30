@@ -5,20 +5,16 @@
   {{#linkTo 'projects.show' board.project class='header-title'}}
   {{board.project.title}}
   {{/linkTo}}
-  .header-user
-    %img.header-user-image{:bind => {:src => 'board.user.avatarUrl'}}
-    = _('Updated')
-    {{board.lastUpdate}}
-    %br/
-    = _('by')
-    {{board.user.nicename}}
+  .header-title
+    {{board.title}}
   .header-actions
     {{#view view.deleteButtonView class='button compact secondary' confirmMessage='Are you shure you want to delete?'}}
     %span.icon.icon-trash
     {{/view}}
   .header-progress-wrap
-    .header-progress-cards
-      {{board.completedCardsCount}} / {{board.cardsCount}}
+    .header-progress-title
+      {{board.completedCardsProgress}}&#37;
+      = _('board alignment')
     .header-progress
       {{view Doers.ProgressBar classNames='header-progress-bar' widthBinding='board.completedCardsProgress'}}
 
@@ -28,6 +24,25 @@
     {{view view.titleView class='board-field board-title' valueBinding='board.title' placeholder='Add board name' type='text' name='title'}}
     {{view view.descriptionView class='board-field board-description' valueBinding='board.description' placeholder='Add board description.' name='description'}}
     -# TODO: Add collaborator faces
+
+  .topics
+    {{#each topic in arrangedContent}}
+    .topic
+      .topic-status
+        .icon.icon-checkmark
+      .topic-content
+        %h4.topic-title
+          {{topic.title}}
+        .topic-description
+          {{topic.description}}
+      .topic-user
+        %img.topic-user-image{:bind => {:src => 'topic.user.avatarUrl'}}
+        = _('Updated')
+        {{topic.lastUpdate}}
+        %br/
+        = _('by')
+        {{topic.user.nicename}}
+    {{/each}}
 
   {{#if content.isLoaded}}
   {{collection view.cardsView contentBinding='arrangedContent'}}
