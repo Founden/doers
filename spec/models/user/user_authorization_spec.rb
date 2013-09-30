@@ -123,7 +123,7 @@ describe User do
       end
 
       context 'within a board owned by the user' do
-        let(:board) { Fabricate(:board, :author => user) }
+        let(:board) { Fabricate(:branched_board, :user => user) }
         let(:target) { board.cover }
         before { user.should_receive(:assets_to).and_call_original }
 
@@ -142,7 +142,7 @@ describe User do
       end
 
       context 'within a board not owned by the user' do
-        let(:board) { Fabricate(:board) }
+        let(:board) { Fabricate(:branched_board) }
         let(:target) { board.cover }
         before { user.should_receive(:assets_to).and_call_original }
 
@@ -315,7 +315,7 @@ describe User do
       end
 
       context 'within a board owned by the user' do
-        let(:board) { Fabricate(:board, :author => user) }
+        let(:board) { Fabricate(:branched_board, :user => user) }
         let(:target) { Fabricate('card/phrase', :board => board) }
         before { user.should_receive(:cards_to).and_call_original }
 
@@ -334,7 +334,7 @@ describe User do
       end
 
       context 'within a board not owned by the user' do
-        let(:board) { Fabricate(:board) }
+        let(:board) { Fabricate(:branched_board) }
         let(:target) { Fabricate('card/phrase', :board => board) }
         before { user.should_receive(:cards_to).and_call_original }
 
