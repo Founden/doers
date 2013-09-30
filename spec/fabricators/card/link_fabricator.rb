@@ -5,8 +5,8 @@ Fabricator('card/link') do
   project    { |attrs| Fabricate(:project, :user => attrs[:user]) }
   board      { |attrs| Fabricate(
     :branched_board, :user => attrs[:user], :project => attrs[:project]) }
-  topic      { |attrs|
-    Fabricate(:topic, :user => attrs[:user], :board => attrs[:board]) }
+  topic      { |attrs| Fabricate(
+    :topic, :user => attrs[:user], :board => attrs[:board].parent_board) }
 
   url        { Faker::Internet.uri(Card::Link::ALLOWED_SCHEMES.sample) }
   content    { Faker::Lorem.paragraph }
