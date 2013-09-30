@@ -1,6 +1,7 @@
 Doers.User = DS.Model.extend
   externalId: DS.attr('number', readOnly: true)
   nicename: DS.attr('string', readOnly: true)
+  email: DS.attr('string', readOnly: true)
   angelListToken: DS.attr('string', readOnly: true)
   isImporting: DS.attr('boolean', readOnly: true)
   isAdmin: DS.attr('boolean', readOnly: true)

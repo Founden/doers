@@ -2,7 +2,7 @@
 class UserSerializer < ActiveModel::Serializer
   include GravatarHelper
 
-  attributes :id, :nicename, :external_id, :angel_list_token
+  attributes :id, :nicename, :external_id, :angel_list_token, :email
   attributes :avatar_url, :admin? => :is_admin, :importing => :is_importing
   attributes :public_board_ids
 
@@ -34,6 +34,7 @@ class UserSerializer < ActiveModel::Serializer
   def is_current_user?
     current_account.id.eql?(object.id)
   end
+  alias_method :include_email?, :is_current_user?
   alias_method :include_external_id?, :is_current_user?
   alias_method :include_angel_list_token?, :is_current_user?
   alias_method :include_created_projects?, :is_current_user?

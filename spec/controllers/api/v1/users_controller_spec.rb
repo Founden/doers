@@ -27,9 +27,10 @@ describe Api::V1::UsersController do
     subject(:api_user) { json_to_ostruct(response.body, :user) }
 
     shared_examples 'shows current user details' do
-      its('keys.size') { should eq(15) }
+      its('keys.size') { should eq(16) }
       its(:id) { should eq(user.id) }
       its(:nicename) { should eq(user.nicename) }
+      its(:email) { should eq(user.email) }
       its('external_id.to_i') { should eq(user.external_id) }
       its(:angel_list_token) { should eq(user.identities.first.token) }
       its(:is_importing) { should be_false }
