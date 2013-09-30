@@ -5,8 +5,8 @@ Fabricator('card/video') do
   project    { |attrs| Fabricate(:project, :user => attrs[:user]) }
   board      { |attrs| Fabricate(
     :branched_board, :user => attrs[:user], :project => attrs[:project]) }
-  topic      { |attrs|
-    Fabricate(:topic, :user => attrs[:user], :board => attrs[:board]) }
+  topic      { |attrs| Fabricate(
+    :topic, :user => attrs[:user], :board => attrs[:board].parent_board) }
 
   video_id   { %w(1D1cap6yETA sTSA_sWGM44 QH2-TGUlwu4).sample }
   provider   { Card::Video::PROVIDERS.sample }
