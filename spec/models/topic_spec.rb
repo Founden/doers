@@ -8,6 +8,7 @@ describe Topic do
   it { should have_many(:activities).dependent('') }
   it { should validate_presence_of(:user) }
   it { should validate_presence_of(:title) }
+  it { should validate_presence_of(:board) }
 
   context 'instance' do
     let(:topic) { Fabricate(:topic) }
@@ -24,42 +25,6 @@ describe Topic do
 
       its(:title) { should eq(Sanitize.clean(content[0..250])) }
       its(:description) { should eq(Sanitize.clean(content)) }
-    end
-  end
-
-  context 'validation' do
-    let(:project) {}
-    let(:board) {}
-
-    subject { Fabricate.build(:topic, :project => project, :board => board) }
-
-    context 'when project and board is missing' do
-      it { should_not be_valid }
-    end
-
-    context 'when project is missing' do
-      let(:project) { Fabricate(:project) }
-
-      it { should be_valid }
-    end
-
-    context 'when authored board is missing' do
-      let(:board) { Fabricate(:board) }
-
-      it { should be_valid }
-    end
-
-    context 'when board is missing' do
-      let(:board) { Fabricate(:branched_board) }
-
-      it { should_not be_valid }
-    end
-
-    context 'when project and board are present' do
-      let(:project) { Fabricate(:project) }
-      let(:board) { Fabricate(:board) }
-
-      it { should be_valid }
     end
   end
 
