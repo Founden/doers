@@ -12,24 +12,29 @@ describe Api::V1::CardsController do
   describe '#index' do
     let(:card_ids) { [] }
 
-    before { get(:index, :ids => card_ids) }
-
     subject(:api_card) { json_to_ostruct(response.body) }
 
-    its('cards.size') { should eq(0) }
+    context 'when no ids are queried' do
+      before { get(:index, :ids => card_ids) }
+
+      its('cards.size') { should eq(0) }
+    end
 
     context 'when queried ids are available' do
-      let(:card_ids) do
-        [Fabricate('card/phrase', :project => project).id]
-      end
+      let(:card_ids) { [Fabricate('card/phrase', :project => project).id] }
+
+      before { get(:index, :ids => card_ids) }
 
       its('cards.size') { should eq(1) }
     end
 
     context 'when queried ids are not available' do
-      let(:card_ds) { Fabricate('card/phrase').id }
+      let(:card_ids) { [Fabricate('card/phrase').id] }
 
-      its('cards.size') { should eq(0) }
+      it 'raises 404' do
+        expect{ get(:index, :ids => card_ids) }.to raise_error(
+          ActiveRecord::RecordNotFound)
+      end
     end
   end
 
