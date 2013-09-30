@@ -123,7 +123,7 @@ describe User do
       end
 
       context 'within a board owned by the user' do
-        let(:board) { Fabricate(:board, :user => user) }
+        let(:board) { Fabricate(:board, :author => user) }
         let(:target) { board.cover }
         before { user.should_receive(:assets_to).and_call_original }
 
@@ -164,14 +164,16 @@ describe User do
 
     context 'when target is a board' do
       context 'owned by the user' do
-        let(:target) { Fabricate(:board, :user => user) }
+        let(:target) { Fabricate(:board, :author => user) }
         before { user.should_receive(:boards_to).and_call_original }
 
         it { should be_true }
         it_behaves_like 'is writable'
 
         context 'or a set of boards owned by the user' do
-          let(:target) { Fabricate(:board, :user => user); user.boards }
+          let(:target) do
+            Fabricate(:board, :author => user); user.authored_boards
+          end
 
           it { should be_true }
           it_behaves_like 'is writable'
@@ -313,7 +315,7 @@ describe User do
       end
 
       context 'within a board owned by the user' do
-        let(:board) { Fabricate(:board, :user => user) }
+        let(:board) { Fabricate(:board, :author => user) }
         let(:target) { Fabricate('card/phrase', :board => board) }
         before { user.should_receive(:cards_to).and_call_original }
 
@@ -511,7 +513,7 @@ describe User do
       end
 
       context 'within a board owned by the user' do
-        let(:board) { Fabricate(:board, :user => user) }
+        let(:board) { Fabricate(:board, :author => user) }
         let(:target) { board.activities.first }
         before { user.should_receive(:activities_to).and_call_original }
 
@@ -616,7 +618,7 @@ describe User do
       end
     end
 
-    context 'when target is a topic', :focus do
+    context 'when target is a topic' do
       context 'owned by the user' do
         let(:target) { Fabricate(:topic, :user => user) }
         before { user.should_receive(:topics_to).and_call_original }
