@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130924194135) do
+ActiveRecord::Schema.define(version: 20130925105606) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,19 +22,20 @@ ActiveRecord::Schema.define(version: 20130924194135) do
     t.integer  "user_id"
     t.integer  "project_id"
     t.integer  "board_id"
-    t.integer  "trackable_id"
-    t.string   "trackable_type"
+    t.integer  "card_id"
     t.hstore   "data"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "topic_id"
+    t.integer  "comment_id"
   end
 
   add_index "activities", ["board_id"], name: "index_activities_on_board_id", using: :btree
+  add_index "activities", ["card_id"], name: "index_activities_on_card_id", using: :btree
+  add_index "activities", ["comment_id"], name: "index_activities_on_comment_id", using: :btree
   add_index "activities", ["project_id"], name: "index_activities_on_project_id", using: :btree
   add_index "activities", ["slug"], name: "index_activities_on_slug", using: :btree
   add_index "activities", ["topic_id"], name: "index_activities_on_topic_id", using: :btree
-  add_index "activities", ["trackable_id", "trackable_type"], name: "index_activities_on_trackable_id_and_trackable_type", using: :btree
   add_index "activities", ["user_id"], name: "index_activities_on_user_id", using: :btree
 
   create_table "assets", force: true do |t|
@@ -89,8 +90,6 @@ ActiveRecord::Schema.define(version: 20130924194135) do
     t.string   "style"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "question"
-    t.text     "help"
     t.integer  "parent_card_id"
     t.integer  "topic_id"
   end
@@ -112,13 +111,12 @@ ActiveRecord::Schema.define(version: 20130924194135) do
     t.hstore   "data"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "commentable_id"
-    t.string   "commentable_type"
+    t.integer  "card_id"
     t.integer  "topic_id"
   end
 
   add_index "comments", ["board_id"], name: "index_comments_on_board_id", using: :btree
-  add_index "comments", ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type", using: :btree
+  add_index "comments", ["card_id"], name: "index_comments_on_card_id", using: :btree
   add_index "comments", ["parent_comment_id"], name: "index_comments_on_parent_comment_id", using: :btree
   add_index "comments", ["project_id"], name: "index_comments_on_project_id", using: :btree
   add_index "comments", ["topic_id"], name: "index_comments_on_topic_id", using: :btree
@@ -245,9 +243,11 @@ ActiveRecord::Schema.define(version: 20130924194135) do
     t.hstore   "data"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "position"
   end
 
   add_index "topics", ["board_id"], name: "index_topics_on_board_id", using: :btree
+  add_index "topics", ["position"], name: "index_topics_on_position", using: :btree
   add_index "topics", ["project_id"], name: "index_topics_on_project_id", using: :btree
   add_index "topics", ["user_id"], name: "index_topics_on_user_id", using: :btree
 

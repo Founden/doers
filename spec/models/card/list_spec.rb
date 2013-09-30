@@ -1,9 +1,6 @@
 require 'spec_helper'
 
 describe Card::List do
-  it { should belong_to(:parent_card) }
-  it { should have_many(:versions).dependent(:destroy) }
-
   context 'instance' do
     subject(:list_card) { Fabricate('card/list') }
 

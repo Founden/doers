@@ -6,7 +6,7 @@ describe Comment do
   it { should belong_to(:user) }
   it { should belong_to(:board) }
   it { should belong_to(:project) }
-  it { should belong_to(:commentable) }
+  it { should belong_to(:card) }
   it { should belong_to(:topic) }
 
   it { should validate_presence_of(:content) }
@@ -50,36 +50,36 @@ describe Comment do
     let(:target) {}
     subject(:activity) { target.activities.reload.last }
 
-    context 'first on a card comment' do
-      let(:comment) { Fabricate(:card_comment) }
-      let(:target) { comment.commentable }
+    context 'on a topic' do
+      let(:comment) { Fabricate(:topic_comment) }
+      let(:target) { comment.topic }
 
       its(:slug) { should eq('create-comment') }
-      its(:comment_id) { should eq(comment.id.to_s) }
+      its(:comment) { should eq(comment) }
     end
 
-    context 'first for a comment with parent comment' do
-      let(:comment) { Fabricate(:card_comment_with_parent) }
-      let(:target) { comment.commentable }
+    context 'on a comment with parent' do
+      let(:comment) { Fabricate(:topic_comment_with_parent) }
+      let(:target) { comment.topic }
 
       its(:slug) { should_not eq('create-comment') }
-      its(:comment_id) { should be_blank }
+      its(:comment) { should be_blank }
     end
 
-    context 'first for a board comment' do
+    context 'on a board' do
       let(:comment) { Fabricate(:board_comment) }
       let(:target) { comment.board }
 
       its(:slug) { should eq('create-comment') }
-      its(:comment_id) { should eq(comment.id.to_s) }
+      its(:comment) { should eq(comment) }
     end
 
-    context 'first for a project comment' do
+    context 'on a project' do
       let(:comment) { Fabricate(:board_comment, :board => nil) }
       let(:target) { comment.project }
 
       its(:slug) { should eq('create-comment') }
-      its(:comment_id) { should eq(comment.id.to_s) }
+      its(:comment) { should eq(comment) }
     end
   end
 
