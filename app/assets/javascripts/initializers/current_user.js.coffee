@@ -14,8 +14,8 @@ Doers.initializer
 
       mixpanel.identify(user.get('email'))
       mixpanel.people.set
-        name: user.get('nicename')
-        last_seen: new Date()
+        NAME: user.get('nicename')
+        LAST_VISIT: new Date()
 
       # Continue the boot process
       application.advanceReadiness()
