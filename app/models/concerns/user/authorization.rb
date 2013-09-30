@@ -24,6 +24,8 @@ module User::Authorization
       !activities_to(action).where(:id => target).empty?
     when 'Comment'
       !comments_to(action).where(:id => target).empty?
+    when 'Topic'
+      !topics_to(action).where(:id => target).empty?
     when /Membership/
       # Just check if we are the creators or users of it
       target.creator_id == self.id or target.user_id == self.id
@@ -188,5 +190,29 @@ module User::Authorization
     end
 
     Comment.where(query)
+  end
+
+  # Available topics for user, `action` can be :read or :write
+  def topics_to(action)
+    table = Topic.arel_table
+
+    query =
+      # User is the owner
+      table[:user_id].eq(self.id).or(
+        # User created the board
+        table[:board_id].in(self.authored_board_ids)
+      ).or(
+        # Somebody shared its board
+        table[:board_id].in(self.shared_board_ids)
+      )
+
+    if action.to_sym != :write
+      query = query.or(
+        # Status is `public`
+        table[:board_id].in(Board.public.pluck('id'))
+      )
+    end
+
+    Topic.where(query)
   end
 end
