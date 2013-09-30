@@ -11,4 +11,8 @@ Doers.BoardsShowController =
     board.one 'didDelete', =>
       @get('target.router').transitionTo('projects.show', project)
     board.deleteRecord()
+    mixpanel.track 'DELETED',
+      TYPE: 'Board'
+      ID: board.get('id')
+      TITLE: board.get('title')
     board.get('store').commit()
