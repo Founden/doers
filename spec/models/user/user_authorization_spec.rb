@@ -615,5 +615,97 @@ describe User do
         end
       end
     end
+
+    context 'when target is a topic', :focus do
+      context 'owned by the user' do
+        let(:target) { Fabricate(:topic, :user => user) }
+        before { user.should_receive(:topics_to).and_call_original }
+
+        it { should be_true }
+        it_behaves_like 'is writable'
+
+        context 'or a set of topics owned by the user' do
+          let(:target) { Fabricate(:topic, :user => user); user.topics }
+
+          it { should be_true }
+          it_behaves_like 'is writable'
+        end
+      end
+
+      context 'not owned by the user' do
+        let(:target) { Fabricate(:topic) }
+        before { user.should_receive(:topics_to).and_call_original }
+
+        it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
+        it_behaves_like 'is not writable'
+        it_behaves_like 'no error is raised'
+
+        context 'or a set of topics not owned by the user' do
+          let(:target) { Topic.where(:id => Fabricate(:topic).id) }
+
+          it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
+          it_behaves_like 'is not writable'
+        end
+      end
+
+      context 'within a board owned by the user' do
+        let(:board) { Fabricate(:board, :author => user) }
+        let(:target) { Fabricate(:topic, :board => board) }
+        before { user.should_receive(:topics_to).and_call_original }
+
+        it { should be_true }
+        it_behaves_like 'is writable'
+
+        context 'or a set of such' do
+          let(:target) do
+            2.times { Fabricate(:topic, :board => board) }
+            Topic.where(:board_id => board.id)
+          end
+
+          it { should be_true }
+          it_behaves_like 'is writable'
+        end
+      end
+
+      context 'within a board not owned by the user' do
+        let(:board) { Fabricate(:board) }
+        let(:target) { Fabricate(:topic, :board => board) }
+        before { user.should_receive(:topics_to).and_call_original }
+
+        it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
+        it_behaves_like 'is not writable'
+        it_behaves_like 'no error is raised'
+
+        context 'or a set of such' do
+          let(:target) do
+            2.times { Fabricate(:topic, :board => board) }
+            Topic.where(:board_id => board.id)
+          end
+
+          it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
+          it_behaves_like 'is not writable'
+        end
+      end
+
+      context 'within a public board' do
+        let(:board) { Fabricate(:public_board) }
+        let(:target) { Fabricate(:topic, :board => board) }
+        before { user.should_receive(:topics_to).and_call_original }
+
+        it { should be_true }
+        it_behaves_like 'is not writable'
+
+        context 'or a set of such' do
+          let(:target) do
+            2.times { Fabricate(:topic, :board => board) }
+            Topic.where(:board_id => board.id)
+          end
+
+          it { should be_true }
+          it_behaves_like 'is not writable'
+        end
+      end
+    end
+
   end
 end
