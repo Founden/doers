@@ -33,8 +33,9 @@
 
     Mixpanel:
       setup: ->
-        mixpanel.track_links('#signin-btn', 'AngelList login')
-        mixpanel.track_links('#signout-btn', 'Signed out')
+        mixpanel.track_links('#signin-btn', 'LOGIN', {TYPE: 'AngelList'})
+        mixpanel.track_links('#signout-btn', 'LOGOUT')
+        mixpanel.track_links('#export-btn', 'EXPORT')
 
     setup: ->
       @Notifications.setup()

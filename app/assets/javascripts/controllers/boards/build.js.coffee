@@ -7,16 +7,18 @@ Doers.BoardsBuildController =
     board = @get('board')
     if board.get('title')
       board.save().then =>
-        mixpanel.track 'Updated board',
-          id: board.get('id')
-          title: board.get('title')
+        mixpanel.track 'UPDATED',
+          TYPE: 'Board'
+          ID: board.get('id')
+          TITLE: board.get('title')
 
   destroy: ->
     board = @get('board')
     board.one 'didDelete', =>
-      mixpanel.track 'Deleted board',
-        id: board.get('id')
-        title: board.get('title')
+      mixpanel.track 'DELETED',
+        TYPE: 'Board'
+        ID: board.get('id')
+        TITLE: board.get('title')
       @get('target.router').transitionTo('boards')
     board.deleteRecord()
     board.get('store').commit()
@@ -34,6 +36,8 @@ Doers.BoardsBuildController =
         @set('inviteEmail', '')
         if membership = invitation.get('membership')
           board.get('memberships').pushObject(membership)
-        mixpanel.track 'Shared board',
-          id: board.get('id')
-          title: board.get('title')
+        mixpanel.track 'SHARED',
+          TYPE: 'Board'
+          ID: board.get('id')
+          TITLE: board.get('title')
+          EMAIL: email
