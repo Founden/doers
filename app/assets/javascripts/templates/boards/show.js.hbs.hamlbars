@@ -26,29 +26,26 @@
     -# TODO: Add collaborator faces
 
   .topics
-    {{#each topic in arrangedContent}}
-    .topic
-      .topic-status
-        .icon.icon-checkmark
-      .topic-content
-        %h4.topic-title
-          {{topic.title}}
-        .topic-description
-          {{topic.description}}
-      .topic-user
-        %img.topic-user-image{:bind => {:src => 'topic.user.avatarUrl'}}
-        = _('Updated')
-        {{topic.lastUpdate}}
-        %br/
-        = _('by')
-        {{topic.user.nicename}}
+    {{#each topic in content}}
+    {{#linkTo 'board.topics.show' board topic classNames='topic'}}
+    {{#view classNames='topic-status' classNameBindings='topic.completed'}}
+    {{#if topic.completed}}
+    .icon.icon-checkmark
+    {{else}}
+    .icon.icon-ellipsis
+    {{/if}}
+    {{/view}}
+    .topic-content
+      %h4.topic-title
+        {{topic.title}}
+      .topic-description
+        {{topic.description}}
+    .topic-user
+      %img.topic-user-image{:bind => {:src => 'topic.user.avatarUrl'}}
+      = _('Updated')
+      {{topic.lastUpdate}}
+      %br/
+      = _('by')
+      {{topic.user.nicename}}
+    {{/linkTo}}
     {{/each}}
-
-  {{#if content.isLoaded}}
-  {{collection view.cardsView contentBinding='arrangedContent'}}
-  {{#if selectedCardView}}
-  {{#with selectedCardView}}
-  {{view editView contentBinding='content' templateNameBinding='editTemplateName'}}
-  {{/with}}
-  {{/if}}
-  {{/if}}
