@@ -14,8 +14,8 @@ Doers.initializer
 
       mixpanel.identify(user.get('email'))
       mixpanel.people.set
-        NAME: user.get('nicename')
-        EMAIL: user.get('email')
+        $name: user.get('nicename')
+        $email: user.get('email')
 
       # Continue the boot process
       application.advanceReadiness()
