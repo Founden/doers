@@ -8,3 +8,5 @@ Doers.Router.map (match)->
     @route 'new'
     @route 'show', {path: ':board_id'}
     @route 'build', {path: ':board_id/build'}
+    @resource 'board.topics', {path: 'boards/:board_id/topics'}, ->
+      @route('show', {path: ':topic_id'})

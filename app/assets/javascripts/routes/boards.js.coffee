@@ -13,8 +13,7 @@ Doers.BoardsNewRoute = Ember.Route.extend
 Doers.BoardsShowRoute = Ember.Route.extend
   setupController: (controller, model)->
     controller.set('board', model)
-    controller.set('content', model.get('cards'))
-    controller.set('selectedCardView', null)
+    controller.set('content', model.get('topics'))
 
 Doers.BoardsBuildRoute = Ember.Route.extend
   setupController: (controller, model)->
