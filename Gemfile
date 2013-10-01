@@ -18,13 +18,13 @@ gem 'pg'
 gem 'oembedr'
 gem 'gutentag'
 gem 'zip', :require => false
-gem 'intercom-rails'
 
 group :production do
   gem 'puma'
   gem 'party_foul'
   gem 'aws-sdk'
   gem 'daemons'
+  gem 'intercom-rails'
 end
 
 group :assets do
