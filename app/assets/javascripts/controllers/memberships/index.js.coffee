@@ -13,10 +13,16 @@ Doers.MembershipsIndexController = Ember.Controller.extend
         @set('inviteEmail', '')
         if membership = invitation.get('membership')
           project.get('memberships').pushObject(membership)
-        mixpanel.track 'Shared project',
-          id: project.get('id')
-          title: project.get('title')
+        mixpanel.track 'SHARED',
+          TYPE: 'Project'
+          ID: project.get('id')
+          TITLE: project.get('title')
 
   remove: (membership) ->
+    type = membership.get('board.id') ? 'Board' : 'Project'
+    mixpanel.track 'UNSHARED',
+      TYPE: type
+      ID: membership.get('board.id') || membership.get('project.id')
+      TITLE: membership.get('board.title') || membership.get('project.title')
     membership.deleteRecord()
     membership.get('store').commit()

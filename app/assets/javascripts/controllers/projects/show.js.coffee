@@ -5,16 +5,18 @@ Doers.ProjectsShowController = Ember.ArrayController.extend
     project = @get('project')
     if project.get('title')
       project.save().then =>
-        mixpanel.track 'Updated project',
-          id: project.get('id')
-          title: project.get('title')
+        mixpanel.track 'UPDATED',
+          TYPE: 'Project'
+          ID: project.get('id')
+          TITLE: project.get('title')
 
   destroy: ->
     project = @get('project')
     project.one 'didDelete', =>
-      mixpanel.track 'Deleted project',
-        id: project.get('id')
-        title: project.get('title')
+      mixpanel.track 'DELETED',
+        TYPE: 'Project'
+        ID: project.get('id')
+        TITLE: project.get('title')
       @get('target.router').transitionTo('projects.index')
     project.deleteRecord()
     project.get('store').commit()
@@ -29,9 +31,10 @@ Doers.ProjectsShowController = Ember.ArrayController.extend
     branch.save().then =>
       @get('content').pushObject(branch)
       $('body').animate({scrollTop: 100}, 200)
-      mixpanel.track 'Branched board',
-        id: board.get('id')
-        title: board.get('title')
+      mixpanel.track 'BRANCHED',
+        TYPE: 'Board'
+        ID: board.get('id')
+        TITLE: board.get('title')
 
   invite: ->
     project = @get('project')
@@ -46,6 +49,7 @@ Doers.ProjectsShowController = Ember.ArrayController.extend
         @set('inviteEmail', '')
         if membership = invitation.get('membership')
           project.get('memberships').pushObject(membership)
-        mixpanel.track 'Shared project',
-          id: project.get('id')
-          title: project.get('title')
+        mixpanel.track 'SHARED',
+          TYPE: 'Project'
+          ID: project.get('id')
+          TITLE: project.get('title')
