@@ -20,6 +20,7 @@ Doers.Board = DS.Model.extend
   cards: DS.hasMany('Doers.Card', inverse: 'board')
   memberships: DS.hasMany('Doers.Membership', readOnly: true, inverse: 'board')
   cardsCount: DS.attr('number', readOnly: true)
+  topics: DS.hasMany('Doers.Topic', readOnly: true, inverse: 'board')
 
   deleteConfirmation: false
 
