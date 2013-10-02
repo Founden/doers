@@ -26,7 +26,7 @@ class Api::V1::BoardsController < Api::V1::ApplicationController
       parent_board = Board.find_by!(:id => create_params[:parent_board_id])
       project = Project.find_by!(:id => create_params[:project_id])
       current_account.can?(:read, parent_board)
-      current_account.can?(:write, project)
+      current_account.can?(:read, project)
       board = parent_board.branches.create(
         create_params.merge(:user => current_account))
     end
