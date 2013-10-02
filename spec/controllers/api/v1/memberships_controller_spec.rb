@@ -9,16 +9,21 @@ describe Api::V1::MembershipsController do
 
   describe '#index' do
     let(:memb_ids) { [] }
-    before { get(:index, :ids => memb_ids) }
 
     subject(:api_memberships) { json_to_ostruct(response.body) }
 
-    its(:memberships) { should be_empty }
+    context 'when nothing is queried' do
+      before { get(:index, :ids => memb_ids) }
+
+      its(:memberships) { should be_empty }
+    end
 
     context 'for created memberships' do
       let(:memb_ids) do
         3.times.collect{ Fabricate(:project_membership, :creator => user).id }
       end
+
+      before { get(:index, :ids => memb_ids) }
 
       its('memberships.size') { should eq(user.memberships.count) }
     end
@@ -28,6 +33,8 @@ describe Api::V1::MembershipsController do
         3.times.collect{ Fabricate(:project_membership, :user => user).id }
       end
 
+      before { get(:index, :ids => memb_ids) }
+
       its('memberships.size') { should eq(user.memberships.count) }
     end
 
@@ -36,7 +43,11 @@ describe Api::V1::MembershipsController do
         3.times.collect{ Fabricate(:project_membership).id }
       end
 
-      its(:memberships) { should be_empty }
+      it 'raises not found' do
+        expect{
+          get(:index, :ids => memb_ids)
+        }.to raise_error(ActiveRecord::RecordNotFound)
+      end
     end
   end
 
