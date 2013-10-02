@@ -26,8 +26,9 @@ Fabricator(:branched_board, :class_name => Board) do
 end
 
 Fabricator(:public_board, :from => :board) do
-  transient   :card_types => %w(card/book card/interval card/link card/map
-    card/number card/paragraph card/photo card/phrase card/timestamp card/video)
+  transient   :card_types =>
+    %w(card/book card/interval card/link card/map card/list card/number
+      card/paragraph card/photo card/phrase card/timestamp card/video)
 
   status  { Board::STATES.last }
 
