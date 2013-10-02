@@ -16,7 +16,7 @@ describe Api::V1::UsersController do
   end
 
   describe '#show' do
-    include GravatarHelper
+    include AvatarHelper
 
     let(:user_id) { user.id }
     # Some data to make sure nothing brakes
@@ -34,7 +34,7 @@ describe Api::V1::UsersController do
       its(:angel_list_token) { should eq(user.identities.first.token) }
       its(:is_importing) { should be_false }
       its(:is_admin) { should eq(user.admin?) }
-      its(:avatar_url) { should eq(gravatar_uri(user.email)) }
+      its(:avatar_url) { should eq(avatar_uri(user)) }
       its('created_project_ids.size') {
         should eq(user.created_project_ids.count) }
       its('shared_project_ids.size') {
