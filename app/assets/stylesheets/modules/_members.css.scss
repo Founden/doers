@@ -26,28 +26,33 @@
   &.active {
 
     .member-item-add-btn {
-      border-color: $gray-4;
-      @include transform(rotate(45deg));
 
       .icon:before {
-        color: $gray-4;
+        @include transform(rotate(45deg));
       }
     }
   }
 }
 
 .member-item-add-btn {
-  width: 42px;
-  height: 42px;
-  border: 3px solid $green;
-  border-radius: 50%;
   vertical-align: top;
   cursor: pointer;
-  @include transition(all 0.2s);
+
+  &:hover {
+
+    .icon:before {
+      border-color: $green;
+      color: $green;
+    }
+  }
 
   .icon:before {
-    line-height: 42px;
-    color: $green;
+    border: 1px solid $gray-4;
+    border-radius: 50%;
+    width: 46px;
+    line-height: 46px;
+    color: $gray-4;
+    @include transition(all 0.2s);
   }
 }
 
