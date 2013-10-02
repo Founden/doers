@@ -8,7 +8,7 @@ class Membership < ActiveRecord::Base
   belongs_to :user
   belongs_to :board
   belongs_to :project
-  has_one :invitation
+  has_one :invitation, :dependent => :destroy
 
   # Validations
   validates_presence_of :user, :creator
