@@ -2,7 +2,6 @@ require 'spec_helper'
 require 'project' # Fix the autoload shit
 
 describe ProjectMembership do
-  it { should have_many(:invitations).dependent('') }
   it { should validate_presence_of(:project) }
 
   context 'of an user to his own project' do

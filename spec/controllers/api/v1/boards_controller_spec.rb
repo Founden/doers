@@ -161,7 +161,7 @@ describe Api::V1::BoardsController do
     end
 
     context 'when project is not accessible' do
-      let(:board) { Fabricate(:board) }
+      let(:project) { Fabricate(:project) }
 
       it 'raises not found' do
         expect{ post(:create, :board => attrs) }.to raise_error(

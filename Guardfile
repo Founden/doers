@@ -12,3 +12,7 @@ guard 'rspec', :cli => '--tag ~slow --tag ~no_ci' do
   watch('app/controllers/application_controller.rb')  { "spec/controllers" }
 end
 
+guard 'migrate', :run_on_start => true, :rails_env => :test,
+  :test_clone => false, :reset => true do
+  watch(%r{^db/migrate/(\d+).+\.rb})
+end

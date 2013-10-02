@@ -28,9 +28,11 @@ describe Api::V1::ProjectsController do
     end
 
     context 'when project ids are not available' do
+      let(:project_ids) { [Fabricate(:project).id] }
+
       it 'raises not found' do
         expect{
-          get(:index, :ids => [rand(99..100)])
+          get(:index, :ids => project_ids)
         }.to raise_error ActiveRecord::RecordNotFound
       end
     end
