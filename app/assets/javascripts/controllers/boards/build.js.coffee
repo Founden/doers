@@ -3,8 +3,8 @@ Doers.BoardsBuildController =
   sortProperties: ['position']
   inviteEmail: ''
 
-  update: ->
-    if @get('board.title')
+  update: (event) ->
+    if @get('board.isDirty')
       @get('board').save()
 
   destroy: ->
@@ -27,3 +27,11 @@ Doers.BoardsBuildController =
         @set('inviteEmail', '')
         if membership = invitation.get('membership')
           board.get('memberships').pushObject(membership)
+
+  addTopic: ->
+    klass = @container.resolve('model:topic')
+    topic = klass.createRecord
+      board: @get('board')
+      user: @get('currentUser')
+      position: @get('content.length')
+    @get('content').pushObject(topic)

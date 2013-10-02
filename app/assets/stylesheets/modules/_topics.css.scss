@@ -3,27 +3,30 @@
   display: table;
   position: relative;
   width: 100%;
-  margin: 0 0 10px 0;
+  margin: 0 0 15px 0;
   border: 1px solid $gray-4;
   border-radius: 3px;
   background: $white;
   box-shadow: 0 1px 1px $gray-3;
-  cursor: pointer;
 
-  &:hover {
-    background: $blue;
-    border-color: $blue;
-    color: $white;
+  &.with-link {
+    cursor: pointer;
 
-    .topic-status {
-      box-shadow: 0 0 0 1px $black;
-      background: $black;
+    &:hover {
+      background: $blue;
+      border-color: $blue;
       color: $white;
-    }
 
-    .topic-user,
-    .topic-description {
-      color: rgba($white, 0.5);
+      .topic-status {
+        box-shadow: 0 0 0 1px $black;
+        background: $black;
+        color: $white;
+      }
+
+      .topic-user,
+      .topic-description {
+        color: rgba($white, 0.5);
+      }
     }
   }
 }
@@ -45,6 +48,10 @@
   }
 }
 
+.topic-drag-handle {
+  @extend .topic-status;
+}
+
 .topic-content {
   display: table-cell;
   padding: 20px 30px;
@@ -57,10 +64,21 @@
   width: 75%;
 }
 
+.topic-title-field {
+  @extend .topic-title;
+  width: 100%;
+}
+
 .topic-description {
   font-size: em(14);
   margin: 0.5em 0 0 0;
   color: $gray-6;
+}
+
+.topic-description-field {
+  @extend .topic-description;
+  width: 100%;
+  height: 84px;
 }
 
 .topic-user {
