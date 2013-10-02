@@ -67,6 +67,8 @@ describe Api::V1::BoardsController do
       its('activity_ids.size') { should eq(board.activities.count) }
       its('membership_ids.size') { should eq(board.memberships.count) }
       its(:progress) { should eq(0) }
+      its('parent_board_topic_ids.size') {
+        should eq(board.parent_board_topics.count) }
 
       context '#progress' do
         let(:board_id) do
@@ -90,6 +92,7 @@ describe Api::V1::BoardsController do
         its(:parent_board_id) { should be_nil }
         its('collections.sort') {
           should eq(board.parent_board.tag_names.map(&:titleize).sort) }
+        its('topic_ids.size') { should eq(board.parent_board.topics.count) }
       end
     end
 

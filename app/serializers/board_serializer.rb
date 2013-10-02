@@ -16,6 +16,7 @@ class BoardSerializer < ActiveModel::Serializer
   has_many :activities, :embed => :id
   has_many :memberships, :embed => :id
   has_many :topics, :embed => :id
+  has_many :parent_board_topics, :embed => :id
 
   # Creates a nice timestamp to indicate when it was last time updated
   def last_update
@@ -43,13 +44,19 @@ class BoardSerializer < ActiveModel::Serializer
     cards_count > 0 ? ( completed_count.to_f / cards_count) * 100 : 0
   end
 
-  # Hide collections for non public boards
-  def include_collections?
-    object.project_id.blank?
+  # Helper to alias to when its a whiteboard
+  def is_whiteboard?
+    object.parent_board_id.blank?
   end
 
-  # Hide progress for non public boards
-  def include_progress?
-    !object.project_id.blank?
+  # Helper to alias to when its NOT a whiteboard
+  def is_not_whiteboard?
+    !object.parent_board_id.blank?
   end
+
+  alias_method :include_collections?, :is_whiteboard?
+  alias_method :include_progress?, :is_not_whiteboard?
+  alias_method :include_topics?, :is_whiteboard?
+  alias_method :include_parent_board_topics?, :is_not_whiteboard?
+
 end
