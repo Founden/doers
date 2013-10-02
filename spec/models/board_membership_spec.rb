@@ -2,7 +2,6 @@ require 'spec_helper'
 require 'board' # Fix the autoload shit
 
 describe BoardMembership do
-  it { should have_many(:invitations).dependent('') }
   it { should validate_presence_of(:board) }
 
   context 'of an user to his own board' do
