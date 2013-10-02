@@ -22,8 +22,8 @@
 .content-wrap
 
   .board{:bind => {:id => 'board.slug'}}
-    {{input class='board-field board-title' valueBinding='board.title' placeholder='Add board name' type='text' name='title'}}
-    {{textarea class='board-field board-description' valueBinding='board.description' placeholder='Add board description.' name='description'}}
+    {{input class='board-title' valueBinding='board.title' placeholder='Add board name' type='text' name='title'}}
+    {{textarea class='board-description' valueBinding='board.description' placeholder='Add board description.' name='description'}}
 
   .topic
     {{#view classNames='topic-status' classNameBindings='content.completed'}}
@@ -34,7 +34,7 @@
     {{/if}}
     {{/view}}
     .topic-content
-      %h4.topic-title
+      .topic-title
         {{content.title}}
       .topic-description
         {{content.description}}
@@ -52,7 +52,7 @@
       .activity-comment-user
         %img{:class => 'activity-comment-user-image', :bind => {:src => 'activity.comment.user.avatarUrl'}}
         {{activity.comment.user.nicename}},
-        {{activity.comment.updatedAt}}
+        {{timeago activity.comment.updatedAt}}
       .activity-comment-content
         {{activity.comment.content}}
     {{else}}
@@ -64,7 +64,7 @@
       {{#if activity.isCardUpdate}}
       = _('updated the card.')
       {{/if}}
-      {{activity.lastUpdate}}
+      {{timeago activity.lastUpdate}}
     {{/if}}
     {{/each}}
     .activity-comment

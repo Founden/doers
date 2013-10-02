@@ -32,17 +32,8 @@
 
 .activity {
   font-size: em(12);
+  margin: 0 0 20px 0;
   color: $gray-6;
-
-  + .activity-comment {
-    margin-top: 20px;
-    padding-top: 20px;
-    border-top: 1px solid $gray-2;
-  }
-
-  &:last-of-type {
-    margin-bottom: 20px;
-  }
 }
 
 .activity-comment-actions {
