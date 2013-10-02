@@ -58,12 +58,15 @@ describe ProfilesController do
     let(:newsletter_allowed) { ['1', '0'].sample }
     let(:user_id) { user.id }
     let(:current_account) { user }
+    let(:avatar_upload) { Rack::Test::UploadedFile.new(
+      Rails.root.join('spec/fixtures/test.png'), 'image/png') }
 
     before do
       controller.stub(:current_account) { current_account }
       put(:update, :id => user_id, :user => {
         :email => email, :name => name, :confirmed => true,
-        :newsletter_allowed => newsletter_allowed } )
+        :newsletter_allowed => newsletter_allowed,
+        :avatar => avatar_upload } )
     end
 
     it 'updates user profile' do
@@ -71,6 +74,7 @@ describe ProfilesController do
       user.email.should eq(user.email)
       user.name.should eq(name)
       user.newsletter_allowed?.should eq(newsletter_allowed)
+      user.avatar.should_not be_nil
     end
 
     context 'as a user updating a profile it does not own' do
