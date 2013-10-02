@@ -133,7 +133,7 @@ describe ExportJob do
 
   context '#send_email' do
     before do
-      tmp_path = Pathname.new(Dir.tmpdir).join(rand(100).to_s)
+      tmp_path = Pathname.new(Dir.tmpdir).join(rand(100).to_s + '.zip')
       File.write(tmp_path, rand(100))
       job.should_receive(:archive).and_return(tmp_path)
       tmp_path.should_receive(:unlink)

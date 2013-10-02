@@ -17,7 +17,7 @@ class ExportJob < Struct.new(:user)
     @template_path =
       Rails.root.join('app', 'views', 'jobs', 'export_board.text.erb')
     @user_dir = Pathname.new(Dir.tmpdir).join(user.id.to_s)
-    @user_dir.unlink if @user_dir.exist?
+    FileUtils.rm_rf(user_dir) if @user_dir.exist?
     @user_dir.mkpath
 
     unless user.boards.empty?
@@ -71,14 +71,14 @@ class ExportJob < Struct.new(:user)
 
   # Creates an archive with json and markdown files
   def archive
-    prefix = user_dir + '/'
+    prefix = user_dir.to_s + '/'
     file_path = user_dir + '.zip'
     file_path.unlink if file_path.exist?
     files = generate_json + generate_markdown
 
     Zip::ZipFile.open(file_path, Zip::ZipFile::CREATE) do |zipfile|
       files.each do |file|
-        zipfile.add(file.sub(prefix.to_s, ''), file)
+        zipfile.add(file.sub(prefix, ''), file)
       end
     end
     file_path
