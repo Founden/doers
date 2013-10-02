@@ -27,7 +27,7 @@
 
   .topics
     {{#each topic in content}}
-    {{#linkTo 'board.topics.show' board topic classNames='topic'}}
+    {{#linkTo 'topic' board topic classNames='topic'}}
     {{#view classNames='topic-status' classNameBindings='topic.completed'}}
     {{#if topic.completed}}
     .icon.icon-checkmark

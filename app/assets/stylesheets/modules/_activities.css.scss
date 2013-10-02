@@ -1,0 +1,60 @@
+.activity-comment {
+  margin: 0 0 20px 0;
+  padding: 0 40px 20px 40px;
+  border-bottom: 1px solid $gray-2;
+
+  &:last-of-type {
+    padding-bottom: 0;
+    border-bottom: 0;
+  }
+}
+
+.activity-comment-user {
+  position: relative;
+  margin: 0 0 0.5em 0;
+  font-size: em(12);
+  color: $gray-6;
+}
+
+.activity-comment-user-image {
+  position: absolute;
+  left: -38px;
+  top: -3px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+}
+
+.activity-comment-content {
+  font-size: em(14);
+  width: 100%;
+}
+
+.activity {
+  font-size: em(12);
+  color: $gray-6;
+
+  + .activity-comment {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid $gray-2;
+  }
+
+  &:last-of-type {
+    margin-bottom: 20px;
+  }
+}
+
+.activity-comment-actions {
+  font-size: em(14);
+
+  > a {
+    text-decoration: underline;
+    margin: 0 1em 0 0;
+    color: $gray-6;
+
+    &.create-comment {
+      color: $green;
+    }
+  }
+}

@@ -47,13 +47,14 @@
 
 .topic-content {
   display: table-cell;
-  padding: 20px 30% 30px 20px;
+  padding: 20px 30px;
   vertical-align: middle;
 }
 
 .topic-title {
   font-size: em(18);
   font-weight: 600;
+  width: 75%;
 }
 
 .topic-description {
@@ -63,9 +64,10 @@
 }
 
 .topic-user {
-  position: absolute;
-  right: 30px;
-  top: 20px;
+  display: table-cell;
+  vertical-align: middle;
+  width: 30%;
+  padding: 20px 30px;
   font-size: em(12);
   color: $gray-6;
 }
@@ -76,4 +78,8 @@
   height: 42px;
   margin: -3px 10px -3px 0;
   border-radius: 50%;
+}
+
+.topic-activities {
+  margin: 20px 0 20px 120px;
 }

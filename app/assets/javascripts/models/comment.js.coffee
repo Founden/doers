@@ -11,4 +11,4 @@ Doers.Comment = DS.Model.extend
   comments: DS.hasMany('Doers.Comment', readOnly: true, inverse: 'parentComment')
 
   commentableId: DS.attr('number')
-  commentableType: DS.attr('string', defaultValue: 'Card')
+  commentableType: DS.attr('string', defaultValue: 'Topic')
