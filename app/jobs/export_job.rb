@@ -17,7 +17,7 @@ class ExportJob < Struct.new(:user)
     @template_path =
       Rails.root.join('app', 'views', 'jobs', 'export_board.text.erb')
     @user_dir = Pathname.new(Dir.tmpdir).join(user.id.to_s)
-    @user_dir.unlink if @user_dir.exist?
+    FileUtils.rm_rf(user_dir) if @user_dir.exist?
     @user_dir.mkpath
 
     unless user.boards.empty?
