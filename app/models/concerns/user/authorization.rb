@@ -27,8 +27,7 @@ module User::Authorization
     when 'Topic'
       !topics_to(action).where(:id => target).empty?
     when /Membership/
-      # Just check if we are the creators or users of it
-      target.creator_id == self.id or target.user_id == self.id
+      !memberships_to(action).where(:id => target).empty?
     else
       # Just check if we are the owners
       target.respond_to?(:user_id) and target.user_id == self.id
@@ -214,5 +213,29 @@ module User::Authorization
     end
 
     Topic.where(query)
+  end
+
+  # Available memberships for user, `action` can be :read or :write
+  def memberships_to(action)
+    table = Membership.arel_table
+
+    query =
+      # User is the owner
+      table[:user_id].eq(self.id).or(
+        # User is the creator
+        table[:creator_id].eq(self.id)
+      )
+
+    if action.to_sym != :write
+      query = query.or(
+        # Somebody shared its board
+        table[:board_id].in(self.shared_board_ids)
+      ).or(
+        # Somebody shared its project
+        table[:project_id].in(self.shared_project_ids)
+      )
+    end
+
+    Membership.where(query)
   end
 end
