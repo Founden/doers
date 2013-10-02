@@ -386,6 +386,8 @@ describe User do
     context 'when target is a membership' do
       let(:target) { Fabricate(:project_membership) }
 
+      before { user.should_receive(:memberships_to).and_call_original }
+
       it { expect{ subject }.to raise_error(ActiveRecord::RecordNotFound) }
       it_behaves_like 'is not writable'
       it_behaves_like 'no error is raised'
@@ -397,7 +399,10 @@ describe User do
         it_behaves_like 'is writable'
 
         context 'or a set of such' do
-          let(:target) { Membership.where(:creator_id => user.id) }
+          let(:target) do
+            Fabricate(:project_membership, :creator => user)
+            user.created_memberships
+          end
 
           it { should be_true }
           it_behaves_like 'is writable'
@@ -411,10 +416,49 @@ describe User do
         it_behaves_like 'is writable'
 
         context 'or a set of such' do
-          let(:target) { Membership.where(:user_id => user.id) }
+          let(:target) do
+            Fabricate(:project_membership, :user => user)
+            user.accepted_memberships
+          end
 
           it { should be_true }
           it_behaves_like 'is writable'
+        end
+      end
+
+      context 'of the user shared project' do
+        let(:project) { Fabricate(:project_membership, :user => user).project }
+        let(:target) { Fabricate(:project_membership, :project => project) }
+
+        it { should be_true }
+        it_behaves_like 'is not writable'
+
+        context 'or a set of such' do
+          let(:target) do
+            membership = Fabricate(:project_membership, :project => project)
+            Membership.where(:id => membership)
+          end
+
+          it { should be_true }
+          it_behaves_like 'is not writable'
+        end
+      end
+
+      context 'of the user shared board' do
+        let(:board) { Fabricate(:board_membership, :user => user).board }
+        let(:target) { Fabricate(:board_membership, :board => board) }
+
+        it { should be_true }
+        it_behaves_like 'is not writable'
+
+        context 'or a set of such' do
+          let(:target) do
+            membership = Fabricate(:board_membership, :board => board)
+            Membership.where(:id => membership)
+          end
+
+          it { should be_true }
+          it_behaves_like 'is not writable'
         end
       end
     end
