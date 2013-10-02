@@ -38,7 +38,7 @@ describe Api::V1::UsersController do
       its('created_project_ids.size') {
         should eq(user.created_project_ids.count) }
       its('shared_project_ids.size') {
-        should eq(user.created_project_ids.count) }
+        should eq(user.shared_projects.count) }
       its('public_board_ids.size') { should eq(Board.public.count) }
       its('branched_board_ids.size') { should eq(user.branched_boards.count) }
       its('authored_board_ids.size') { should eq(user.authored_boards.count) }
