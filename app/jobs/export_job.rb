@@ -71,14 +71,14 @@ class ExportJob < Struct.new(:user)
 
   # Creates an archive with json and markdown files
   def archive
-    prefix = user_dir + '/'
+    prefix = user_dir.to_s + '/'
     file_path = user_dir + '.zip'
     file_path.unlink if file_path.exist?
     files = generate_json + generate_markdown
 
     Zip::ZipFile.open(file_path, Zip::ZipFile::CREATE) do |zipfile|
       files.each do |file|
-        zipfile.add(file.sub(prefix.to_s, ''), file)
+        zipfile.add(file.sub(prefix, ''), file)
       end
     end
     file_path
