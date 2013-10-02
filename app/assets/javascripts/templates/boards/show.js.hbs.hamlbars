@@ -21,13 +21,13 @@
 .content-wrap
 
   .board{:bind => {:id => 'board.slug'}}
-    {{view view.titleView class='board-field board-title' valueBinding='board.title' placeholder='Add board name' type='text' name='title'}}
-    {{view view.descriptionView class='board-field board-description' valueBinding='board.description' placeholder='Add board description.' name='description'}}
+    {{view view.titleView class='board-title' valueBinding='board.title' placeholder='Add board name' type='text' name='title'}}
+    {{view view.descriptionView class='board-description' valueBinding='board.description' placeholder='Add board description.' name='description'}}
     -# TODO: Add collaborator faces
 
   .topics
     {{#each topic in content}}
-    {{#linkTo 'topic' board topic classNames='topic'}}
+    {{#linkTo 'topic' board topic class='topic with-link'}}
     {{#view classNames='topic-status' classNameBindings='topic.completed'}}
     {{#if topic.completed}}
     .icon.icon-checkmark
@@ -36,10 +36,8 @@
     {{/if}}
     {{/view}}
     .topic-content
-      %h4.topic-title
+      .topic-title
         {{topic.title}}
-      .topic-description
-        {{topic.description}}
     .topic-user
       %img.topic-user-image{:bind => {:src => 'topic.user.avatarUrl'}}
       = _('Updated')
