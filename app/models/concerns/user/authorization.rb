@@ -18,6 +18,8 @@ module User::Authorization
       !assets_to(action).where(:id => target).empty?
     when 'Board'
       !boards_to(action).where(:id => target).empty?
+    when 'Project'
+      !projects_to(action).where(:id => target).empty?
     when /Card/
       !cards_to(action).where(:id => target).empty?
     when 'Activity'
@@ -237,5 +239,23 @@ module User::Authorization
     end
 
     Membership.where(query)
+  end
+
+  # Available projects for user, `action` can be :read or :write
+  def projects_to(action)
+    table = Project.arel_table
+
+    query =
+      # User is the owner
+      table[:user_id].eq(self.id)
+
+    if action.to_sym != :write
+      query = query.or(
+        # Somebody shared its project
+        table[:id].in(self.shared_project_ids)
+      )
+    end
+
+    Project.where(query)
   end
 end
