@@ -22,8 +22,6 @@ Doers.Board = DS.Model.extend
   cardsCount: DS.attr('number', readOnly: true)
   topics: DS.hasMany('Doers.Topic', readOnly: true, inverse: 'board')
 
-  deleteConfirmation: false
-
   slug: (->
     'board-' + @get('id')
   ).property('id')
