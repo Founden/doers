@@ -1,7 +1,7 @@
 # Main application controller class
 class ApplicationController < ActionController::Base
   include EasyAuthHelper
-  include GravatarHelper
+  include AvatarHelper
   include ApplicationHelper
 
   # Prevent CSRF attacks by raising an exception.

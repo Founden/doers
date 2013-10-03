@@ -1,6 +1,6 @@
 # [User] model serializer
 class UserSerializer < ActiveModel::Serializer
-  include GravatarHelper
+  include AvatarHelper
 
   attributes :id, :nicename, :external_id, :angel_list_token
   attributes :avatar_url, :admin? => :is_admin, :importing => :is_importing
@@ -27,7 +27,7 @@ class UserSerializer < ActiveModel::Serializer
 
   # Generates user avatar URL
   def avatar_url
-    gravatar_uri(object.email)
+    avatar_uri(object)
   end
 
   # Method to use for aliasing what attributes can be included
