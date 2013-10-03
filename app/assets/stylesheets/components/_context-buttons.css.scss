@@ -1,6 +1,6 @@
 .context-button {
   position: relative;
-  margin: 20px 0 20px 100px;
+  margin: 20px 20px 20px 120px;
   padding: 20px 0;
   border: 1px solid $gray-4;
   border-radius: 3px;
@@ -17,13 +17,12 @@
 
   .icon {
     position: absolute;
-    left: -72px;
-    top: 50%;
-    margin: -22px 0 0 0;
+    left: -90px;
+    top: 8px;
 
     &:before {
-      width: 42px;
-      line-height: 42px;
+      width: 40px;
+      line-height: 40px;
       border-radius: 50%;
       border: 1px solid $gray-4;
       color: $gray-4;
@@ -34,11 +33,10 @@
   &:before {
     content: '';
     position: absolute;
-    left: 0;
-    top: 50%;
+    left: -3px;
+    top: 26px;
     width: 4px;
     height: 4px;
-    margin: -3px 0 0 -3px;
     background: inherit;
     border-width: 0 0 1px 1px;
     border-color: $gray-4;
