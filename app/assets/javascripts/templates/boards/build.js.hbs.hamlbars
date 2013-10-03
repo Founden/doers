@@ -12,20 +12,29 @@
 .content-wrap
 
   .board{:bind => {:id => 'board.slug'}}
-    {{view view.titleView class='board-field board-title' valueBinding='board.title' placeholder='Add board name' type='text' name='title'}}
-    {{view view.descriptionView class='board-field board-description' valueBinding='board.description' placeholder='Add board description.' name='description'}}
+    {{view view.titleView class='board-title' valueBinding='board.title' placeholder='Add board name' type='text' name='title'}}
+    {{view view.descriptionView class='board-description' valueBinding='board.description' placeholder='Add board description.' name='description'}}
     {{view Doers.MembersView contentBinding='board' authorBinding='board.author'}}
-    .board-toolbar
-      - %w(Paragraph Number Interval Timestamp Book Link Map Photo Video List).map { |type| _(type) }.each do |type|
-        .board-toolbar-btn{:_action => 'addCard "%s"' % type}
-          %span.icon.large{:class => 'icon-%s' % type.parameterize}
-          = type
 
-  {{#if content.isLoaded}}
-  {{collection view.cardsView contentBinding='arrangedContent'}}
-  {{#if selectedCardView}}
-  {{#with selectedCardView}}
-  {{view editView contentBinding='content' templateNameBinding='editTemplateName'}}
-  {{/with}}
-  {{/if}}
-  {{/if}}
+  .topics
+    {{#each topic in content}}
+    .topic
+      .topic-drag-handle
+        .icon.icon-ellipsis
+      .topic-content
+        .topic-title
+          {{topic.title}}
+        .topic-description
+          {{topic.description}}
+      .topic-user
+        %img.topic-user-image{:bind => {:src => 'topic.user.avatarUrl'}}
+        = _('Updated')
+        {{topic.lastUpdate}}
+        %br/
+        = _('by')
+        {{topic.user.nicename}}
+    {{/each}}
+
+  .context-button{:_action => 'addTopic'}
+    .icon.icon-plus
+    = _('Add new topic')

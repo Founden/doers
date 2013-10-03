@@ -1,0 +1,103 @@
+.topic {
+  @include box-sizing(border-box);
+  display: table;
+  position: relative;
+  width: 100%;
+  margin: 0 0 15px 0;
+  border: 1px solid $gray-4;
+  border-radius: 3px;
+  background: $white;
+  box-shadow: 0 1px 1px $gray-3;
+
+  &.with-link {
+    cursor: pointer;
+
+    &:hover {
+      background: $blue;
+      border-color: $blue;
+      color: $white;
+
+      .topic-status {
+        box-shadow: 0 0 0 1px $black;
+        background: $black;
+        color: $white;
+      }
+
+      .topic-user,
+      .topic-description {
+        color: rgba($white, 0.5);
+      }
+    }
+  }
+}
+
+.topic-status {
+  display: table-cell;
+  width: 100px;
+  vertical-align: middle;
+  text-align: center;
+  border-radius: 3px 0 0 3px;
+  background: $gray-1;
+  box-shadow: 0 0 0 1px $gray-4;
+  color: $gray-4;
+
+  &.completed {
+    background: tint($green, 80%);
+    box-shadow: 0 0 0 1px tint($green, 60%);
+    color: $green;
+  }
+}
+
+.topic-drag-handle {
+  @extend .topic-status;
+}
+
+.topic-content {
+  display: table-cell;
+  padding: 20px 30px;
+  vertical-align: middle;
+}
+
+.topic-title {
+  font-size: em(18);
+  font-weight: 600;
+  width: 75%;
+}
+
+.topic-title-field {
+  @extend .topic-title;
+  width: 100%;
+}
+
+.topic-description {
+  font-size: em(14);
+  margin: 0.5em 0 0 0;
+  color: $gray-6;
+}
+
+.topic-description-field {
+  @extend .topic-description;
+  width: 100%;
+  height: 84px;
+}
+
+.topic-user {
+  display: table-cell;
+  vertical-align: middle;
+  width: 30%;
+  padding: 20px 30px;
+  font-size: em(12);
+  color: $gray-6;
+}
+
+.topic-user-image {
+  float: left;
+  width: 42px;
+  height: 42px;
+  margin: -3px 10px -3px 0;
+  border-radius: 50%;
+}
+
+.topic-activities {
+  margin: 20px 0 20px 120px;
+}

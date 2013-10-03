@@ -25,6 +25,13 @@
     -webkit-font-smoothing: antialiased;
   }
 
+  &.medium {
+
+    &:before {
+      font-size: 24px;
+    }
+  }
+
   &.large {
 
     &:before {

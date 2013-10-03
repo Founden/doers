@@ -49,11 +49,14 @@ describe Api::V1::TopicsController do
       let(:topic) {
         Fabricate(:topic, :board => board) }
       let(:topic_id) { topic.id }
+      let(:board_id) { board.id }
+      let(:params) { {:id => topic_id, :board_id => board_id} }
 
-      before { get(:show, :id => topic_id) }
+      before { get(:show, params) }
 
       subject(:api_topic) { json_to_ostruct(response.body, :topic) }
 
+      its('keys.size')   { should eq(10) }
       its(:id) { should eq(topic.id) }
       its(:title) { should eq(topic.title) }
       its(:description) { should eq(topic.description) }
@@ -61,8 +64,21 @@ describe Api::V1::TopicsController do
       its(:updated_at) { should_not be_nil }
       its(:user_id) { should eq(topic.user.id) }
       its(:board_id) { should eq(topic.board.id) }
-      its('activity_ids.size') { should eq(topic.activities.count) }
       its('comment_ids.size') { should eq(topic.comments.count) }
+      its('activity_ids.size') {
+        should eq(topic.activities.where(:board_id => board_id).count) }
+
+      context 'when board has no topic activities' do
+        let(:board_id) { Fabricate(:branched_board, :parent_board => board).id }
+
+        its('activity_ids.size') { should eq(0) }
+      end
+
+      context 'when board is not set' do
+        let(:board_id) { '' }
+
+        its('activity_ids.size') { should eq(0) }
+      end
     end
   end
 

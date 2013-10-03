@@ -1,0 +1,81 @@
+.header
+  {{#linkTo 'projects' class='header-root'}}
+  = _('Projects')
+  {{/linkTo}}
+  {{#linkTo 'projects.show' board.project class='header-title'}}
+  {{board.project.title}}
+  {{/linkTo}}
+  {{#linkTo 'boards.show' board class='header-title'}}
+  {{board.title}}
+  {{/linkTo}}
+  .header-actions
+    {{#linkTo 'boards.show' board class='button compact secondary'}}
+    %span.icon.icon-arrow-prev
+    {{/linkTo}}
+  .header-progress-wrap
+    .header-progress-title
+      {{board.completedCardsProgress}}&#37;
+      = _('board alignment')
+    .header-progress
+      {{view Doers.ProgressBar classNames='header-progress-bar' widthBinding='board.completedCardsProgress'}}
+
+.content-wrap
+
+  .board{:bind => {:id => 'board.slug'}}
+    {{input class='board-title' valueBinding='board.title' placeholder='Add board name' type='text' name='title'}}
+    {{textarea class='board-description' valueBinding='board.description' placeholder='Add board description.' name='description'}}
+
+  .topic
+    {{#view classNames='topic-status' classNameBindings='content.completed'}}
+    {{#if content.completed}}
+    .icon.icon-checkmark
+    {{else}}
+    .icon.icon-ellipsis
+    {{/if}}
+    {{/view}}
+    .topic-content
+      .topic-title
+        {{content.title}}
+      .topic-description
+        {{content.description}}
+    .topic-user
+      %img.topic-user-image{:bind => {:src => 'topic.user.avatarUrl'}}
+      = _('Updated')
+      {{content.lastUpdate}}
+      %br/
+      = _('by')
+      {{content.user.nicename}}
+  .topic-activities
+    {{#each activity in content.activities}}
+    {{#if activity.comment}}
+    .activity-comment
+      .activity-comment-user
+        %img{:class => 'activity-comment-user-image', :bind => {:src => 'activity.comment.user.avatarUrl'}}
+        {{activity.comment.user.nicename}},
+        {{timeago activity.comment.updatedAt}}
+      .activity-comment-content
+        {{activity.comment.content}}
+    {{else}}
+    .activity
+      {{activity.user.nicename}}
+      {{#if activity.isCardCreation}}
+      = _('created the card.')
+      {{/if}}
+      {{#if activity.isCardUpdate}}
+      = _('updated the card.')
+      {{/if}}
+      {{timeago activity.lastUpdate}}
+    {{/if}}
+    {{/each}}
+    .activity-comment
+      .activity-comment-user
+        %img{:class => 'activity-comment-user-image', :bind => {:src => 'currentUser.avatarUrl'}}
+        {{currentUser.nicename}}
+      {{textarea class='activity-comment-content' valueBinding='commentContent' placeholder='Write a comment...' rows='4' name='comment'}}
+      .activity-comment-actions
+        {{#if commentContent}}
+        %a.create-comment{:_action => 'addComment'}
+          = _('Save')
+        %a.reset-comment{:_action => 'resetComment'}
+          = _('Cancel')
+        {{/if}}
