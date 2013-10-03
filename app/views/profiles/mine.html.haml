@@ -10,7 +10,8 @@
       %fieldset
         .field
           = f.label :avatar
-          = gravatar_tag(current_user.email, {:class => 'avatar', :size => 120})
+          = avatar_tag(current_user, {:size => 120})
+          = f.file_field :avatar
         .field.checkbox
           = f.check_box :newsletter_allowed?
           = f.label :newsletter_allowed, _('Email me news sometimes')

@@ -16,6 +16,7 @@ describe Board do
   it { should have_many(:tags) }
   it { should have_many(:invitations).dependent(:destroy) }
   it { should have_many(:topics).dependent('') }
+  it { should have_many(:parent_board_topics).through(:parent_board) }
 
   it { should validate_presence_of(:author) }
   it { should validate_presence_of(:title) }
@@ -62,6 +63,7 @@ describe Board do
         subject { branch }
 
         its(:parent_board) { should eq(board) }
+        its(:parent_board_topic_ids) { should eq(board.topic_ids) }
 
         context 'only with user present' do
           let(:user) { nil }

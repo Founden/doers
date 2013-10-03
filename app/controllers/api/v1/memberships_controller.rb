@@ -3,14 +3,16 @@ class Api::V1::MembershipsController < Api::V1::ApplicationController
 
   # Lists memberships
   def index
-    memberships = current_account.memberships.where(:id => params[:ids])
+    memberships = Membership.where(:id => params[:ids])
+    current_account.can?(:read, memberships)
     render :json => memberships
   end
 
   # Shows a membership
   def show
-    user = current_account.memberships.find(params[:id])
-    render :json => (user || current_account)
+    membership = Membership.find_by!(:id => params[:id])
+    current_account.can?(:read, membership)
+    render :json => membership
   end
 
   # Handles membership deletion
