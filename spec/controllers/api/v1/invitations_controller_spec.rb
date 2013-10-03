@@ -33,7 +33,7 @@ describe Api::V1::InvitationsController do
   end
 
   describe '#show' do
-    include GravatarHelper
+    include AvatarHelper
 
     let(:invite) { Fabricate(:invitation) }
     let(:invite_id) { invite.id }

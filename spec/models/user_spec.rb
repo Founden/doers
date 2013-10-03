@@ -15,6 +15,7 @@ describe User do
   it { should have_many(:accepted_memberships).dependent(:destroy) }
   it { should have_many(:invitations).dependent(:destroy) }
   it { should have_many(:topics).dependent('') }
+  it { should have_one(:avatar).dependent(:destroy) }
 
   it { should validate_presence_of(:email) }
   it { should validate_uniqueness_of(:email) }
