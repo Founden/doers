@@ -1,6 +1,7 @@
 Doers.TopicController = Ember.Controller.extend
 
   commentContent: ''
+  cardPicker: false
 
   addComment: ->
     klass = @container.resolve('model:comment')
@@ -21,3 +22,15 @@ Doers.TopicController = Ember.Controller.extend
 
   resetComment: ->
     @set('commentContent', '')
+
+  showCardPicker: ->
+    @set('cardPicker', true)
+
+  addCard: (type) ->
+    klass = @container.resolve('model:' + type)
+    card = klass.createRecord
+      user: @get('currentUser')
+      board: @get('board')
+      project: @get('board.project')
+      topic: @get('content')
+      type: type
