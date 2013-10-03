@@ -92,39 +92,71 @@ describe Api::V1::CommentsController do
     end
     let(:comment) { user.comments.first }
 
-    before do
-      post(:create, :comment => comment_attrs)
-    end
-
-    subject(:api_comment) { json_to_ostruct(response.body, :comment) }
-
-    its('keys.size') { should eq(11) }
-    its(:id) { should eq(comment.id) }
-    its(:content) { should eq(comment.content) }
-    its(:external_author_name) { should be_blank }
-    its(:updated_at) { should_not be_blank }
-    its(:user_id) { should eq(user.id) }
-    its(:project_id) { should eq(comment.project.id) }
-    its(:board_id) { should eq(comment.board.id) }
-    its(:parent_comment_id) { should eq(comment.parent_comment.id) }
-    its(:comment_ids) { should be_empty }
-    its(:card_id) { should eq(comment.card.id) }
-    its(:topic_id) { should be_blank }
-
-    context 'when card is set' do
-      let(:board) { Fabricate(:branched_board, :user => user) }
-      let(:card) { Fabricate(
-        :card, :board => board, :project => board.project) }
-      let(:comment_attrs) { Fabricate.attributes_for(:comment, :board => board,
-        :project => board.project, :user => user, :card_id => card.id) }
+    context 'with valid params' do
+      before do
+        post(:create, :comment => comment_attrs)
+      end
 
       subject(:api_comment) { json_to_ostruct(response.body, :comment) }
 
       its('keys.size') { should eq(11) }
+      its(:id) { should eq(comment.id) }
+      its(:content) { should eq(comment.content) }
+      its(:external_author_name) { should be_blank }
+      its(:updated_at) { should_not be_blank }
       its(:user_id) { should eq(user.id) }
       its(:project_id) { should eq(comment.project.id) }
       its(:board_id) { should eq(comment.board.id) }
-      its(:card_id) { should eq(card.id) }
+      its(:parent_comment_id) { should eq(comment.parent_comment.id) }
+      its(:comment_ids) { should be_empty }
+      its(:card_id) { should eq(comment.card.id) }
+      its(:topic_id) { should eq(comment.topic.id) }
+
+      context 'when card is set' do
+        let(:board) { Fabricate(:branched_board, :user => user) }
+        let(:card) { Fabricate(
+          :card, :board => board, :project => board.project) }
+        let(:comment_attrs) { Fabricate.attributes_for(:comment, :board => board,
+          :project => board.project, :user => user, :card => card) }
+
+        subject(:api_comment) { json_to_ostruct(response.body, :comment) }
+
+        its('keys.size') { should eq(11) }
+        its(:user_id) { should eq(user.id) }
+        its(:project_id) { should eq(comment.project.id) }
+        its(:board_id) { should eq(comment.board.id) }
+        its(:card_id) { should eq(card.id) }
+      end
+    end
+
+    context 'with wrong project' do
+      let(:prj) { Fabricate(:project) }
+
+      it 'raises not found' do
+        expect{
+          post(:create, :comment => comment_attrs.merge(:project_id => prj.id))
+        }.to raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
+
+    context 'with wrong board' do
+      let(:board) { Fabricate(:board) }
+
+      it 'raises not found' do
+        expect{
+          post(:create, :comment => comment_attrs.merge(:board_id => board.id))
+        }.to raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
+
+    context 'with wrong topic' do
+      let(:topic) { Fabricate(:topic) }
+
+      it 'raises not found' do
+        expect{
+          post(:create, :comment => comment_attrs.merge(:topic_id => topic.id))
+        }.to raise_error(ActiveRecord::RecordNotFound)
+      end
     end
   end
 
