@@ -17,7 +17,7 @@ end
 
 Fabricator(:branched_board, :class_name => Board) do
   user
-  project
+  project     { |attrs| Fabricate(:project, :user => attrs[:user]) }
   parent_board(:fabricator => :public_board)
   title       { Faker::Lorem.sentence }
   description { Faker::Lorem.sentence }

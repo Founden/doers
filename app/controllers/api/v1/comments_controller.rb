@@ -17,7 +17,9 @@ class Api::V1::CommentsController < Api::V1::ApplicationController
   # Handles comment creation
   def create
     comment = current_account.comments.build(comment_params)
-    current_account.can?(:write, comment.board)
+    current_account.can?(:write, comment.project) if comment.project
+    current_account.can?(:write, comment.board) if comment.board
+    current_account.can?(:read, comment.topic)
 
     if comment.save
       render :json => comment
@@ -43,6 +45,6 @@ class Api::V1::CommentsController < Api::V1::ApplicationController
     # Strong parameters for comment object
     def comment_params
       params.require(:comment).permit(:content, :project_id, :board_id,
-        :card_id, :parent_comment_id)
+        :topic_id, :card_id, :parent_comment_id)
     end
 end
