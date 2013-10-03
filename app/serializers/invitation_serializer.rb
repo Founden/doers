@@ -1,6 +1,6 @@
 # [Invitation] model serializer
 class InvitationSerializer < ActiveModel::Serializer
-  include GravatarHelper
+  include AvatarHelper
 
   attributes :id, :email, :project_id, :board_id, :membership_type
   attributes :avatar_url, :membership_id

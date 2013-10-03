@@ -10,7 +10,7 @@
       %fieldset
         .field
           = f.label :avatar
-          = gravatar_tag(@profile.email, {:class => 'avatar', :size => 70})
+          = avatar_tag(@profile, {:size => 70})
         .field
           = f.label :name, _('Name')
           = f.text_field :name, :required => true
