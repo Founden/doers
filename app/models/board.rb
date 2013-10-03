@@ -23,6 +23,8 @@ class Board < ActiveRecord::Base
   has_many :members, :through => :memberships, :source => :user
   has_many :invitations, :dependent => :destroy, :as => :invitable
   has_many :topics
+  # Topics for branches
+  has_many :parent_board_topics, :through => :parent_board, :source => :topics
   # Tagging support
   has_many_tags
 
