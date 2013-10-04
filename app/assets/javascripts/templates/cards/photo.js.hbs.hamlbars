@@ -1,14 +1,18 @@
 {{#with view.content}}
-%img.card-user-image{:bind => {:src => 'user.avatarUrl'}}
+{{partial 'cards/components/user'}}
 .card-wrap
   .card-edit
     .card-field
       {{input type='text' class='card-field-title' valueBinding='title' placeholder='Type your sugestion title...' name='title'}}
     .card-field
       {{textarea class='card-field-description' valueBinding='content' placeholder='Type your sugestion...' rows='3' name='description'}}
-    .card-media
+    {{#if title}}
+    .card-attachment
+      {{view view.uploadView}}
       {{#if image}}
-      %img.card-media-image{:bind => {:src => 'image.attachment'}}
+      %img.card-attachment-image{:bind => {:src => 'image.attachment'}}
       {{/if}}
+    {{/if}}
+    {{partial 'cards/components/actions'}}
   .card-alignment
 {{/with}}

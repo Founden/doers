@@ -66,7 +66,7 @@
 
 .card-edit {
   display: table-cell;
-  padding: 20px 0;
+  padding: 20px 0 10px 0;
 }
 
 .card-field {
@@ -82,24 +82,82 @@
   font-size: em(14);
 }
 
-.card-media {
+.card-attachment {
+  margin: 0 0 10px 0;
+  min-height: 200px;
+  position: relative;
   overflow: hidden;
-  min-height: 280px;
 
-  &:hover {
+  .uploader {
+    @include box-sizing(border-box);
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    text-align: center;
 
-    .card-media-image {
-      -webkit-filter: blur(50px);
+    input {
+      opacity: 0;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+  }
+
+  .uploader-status {
+    width: 200px;
+    margin: auto;
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+    display: table;
+    padding: 15px 20px 20px 20px;
+    background: rgba($white, 0.8);
+    border-radius: 3px;
+    font-size: em(12);
+    color: rgba($black, 0.8);
+    cursor: pointer;
+    @include transition(all 0.2s);
+
+    &:hover {
+      background: $white;
+      color: $black;
+    }
+
+    .icon {
+      margin: 0 0 5px 0;
     }
   }
 }
 
-.card-media-image {
+.card-attachment-image {
   width: 100%;
   display: block;
 }
 
+.card-actions {
+  margin: 0 30px;
+  font-size: em(14);
+
+  a {
+    color: $gray-6;
+    text-decoration: underline;
+    margin: 0 0.5em 0 0;
+
+    &.save-card {
+      color: $green;
+    }
+
+    &.delete-card {
+      float: right;
+      margin-right: 0;
+    }
+  }
+}
+
 .card-alignment {
+  @include box-sizing(border-box);
   display: table-cell;
   width: 270px;
   background: $gray-1;
