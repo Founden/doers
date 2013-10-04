@@ -2,17 +2,20 @@ Doers.CardView = Ember.View.extend
   classNames: ['card']
   classNameBindings: ['content.slug', 'typeClassName']
 
+  controller: ( ->
+    if type = @get('content.type')
+      @container.resolve('controller:' + type + 'Card').create
+        content: @get('content')
+  ).property('content.type')
+
   templateName: ( ->
-    type = @get('content.type') || ''
-    'cards/%@'.fmt(type.underscore())
+    if type = @get('content.type')
+      'cards/%@'.fmt(type.underscore())
   ).property('content.type')
 
   typeClassName: ( ->
-    type = @get('content.type') || ''
-    'type-%@'.fmt(type.dasherize())
+    if type = @get('content.type')
+      'type-%@'.fmt(type.dasherize())
   ).property('content.type')
 
-  controller: ( ->
-    type = @get('content.type') || ''
-    @container.resolve('controller:' + type)
-  ).property('content.type')
+  uploadView: Doers.UploaderView

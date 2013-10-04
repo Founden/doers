@@ -1,0 +1,1 @@
+%img.card-user-image{:bind => {:src => 'user.avatarUrl'}}
