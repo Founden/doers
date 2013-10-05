@@ -10,11 +10,11 @@
 @import 'core/animations';
 
 @import 'components/buttons';
+@import 'components/context-buttons';
 @import 'components/dropdown';
 @import 'components/page';
 @import 'components/status';
 @import 'components/icons';
-@import 'components/uploader';
 
 @import 'templates/nav';
 @import 'templates/content';
@@ -25,6 +25,7 @@
 @import 'modules/project';
 @import 'modules/boards';
 @import 'modules/board';
-@import 'modules/cards';
+@import 'modules/topics';
 @import 'modules/card';
 @import 'modules/members';
+@import 'modules/activities';

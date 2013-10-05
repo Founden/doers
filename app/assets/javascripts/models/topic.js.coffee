@@ -10,3 +10,16 @@ Doers.Topic = DS.Model.extend
   board: DS.belongsTo('Doers.Board', inverse: 'topics', readOnly: true)
   comments: DS.hasMany('Doers.Comment', readOnly: true)
   activities: DS.hasMany('Doers.Activity', readOnly: true)
+  card: DS.belongsTo('Doers.Card', readOnly: true, inverse: 'topic')
+
+  # TODO: Set completed attribute
+  completed: true
+
+  moveSource: false
+  moveTarget: false
+
+  needsRepositioning: ( ->
+    board = @get('board')
+    if board
+      board.topicsOrderChanged()
+  ).observes('moveTarget')

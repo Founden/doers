@@ -1,0 +1,1 @@
+Doers.LinkCardController = Doers.CardController.extend()

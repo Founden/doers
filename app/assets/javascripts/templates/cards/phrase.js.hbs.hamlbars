@@ -1,7 +1,0 @@
-{{#with view.content}}
-{{partial 'cards/components/title'}}
-.card-item-text
-  {{content}}
-{{partial 'cards/components/user'}}
-{{partial 'cards/components/question'}}
-{{/with}}

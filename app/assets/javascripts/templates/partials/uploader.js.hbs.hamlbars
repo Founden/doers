@@ -1,4 +1,5 @@
-.uploader-title
+.uploader-status
+  .icon.icon-photo.medium
   {{#unless view.attachment}}
   {{#unless view.isError}}
   = _('Click to upload or drop a file.')

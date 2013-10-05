@@ -1,0 +1,34 @@
+.activities
+  {{#each activity in content.activities}}
+  {{#if activity.comment}}
+  .activity-comment
+    .activity-comment-user
+      %img{:class => 'activity-comment-user-image', :bind => {:src => 'activity.comment.user.avatarUrl'}}
+      {{activity.comment.user.nicename}},
+      {{timeago activity.comment.updatedAt}}
+    .activity-comment-content
+      {{activity.comment.content}}
+  {{else}}
+  .activity
+    {{activity.user.nicename}}
+    {{#if activity.isCardCreation}}
+    = _('created the card.')
+    {{/if}}
+    {{#if activity.isCardUpdate}}
+    = _('updated the card.')
+    {{/if}}
+    {{timeago activity.lastUpdate}}
+  {{/if}}
+  {{/each}}
+  .activity-comment
+    .activity-comment-user
+      %img{:class => 'activity-comment-user-image', :bind => {:src => 'currentUser.avatarUrl'}}
+      {{currentUser.nicename}}
+    {{textarea class='activity-comment-content' valueBinding='commentContent' placeholder='Write a comment...' rows='4' name='comment'}}
+    .activity-comment-actions
+      {{#if commentContent}}
+      %a.create-comment{:_action => 'addComment'}
+        = _('Save')
+      %a.reset-comment{:_action => 'resetComment'}
+        = _('Cancel')
+      {{/if}}
