@@ -1,0 +1,1 @@
+Doers.MapCardController = Doers.CardController.extend()

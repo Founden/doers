@@ -1,7 +1,11 @@
 {{#with view.content}}
-{{partial 'cards/components/title'}}
-.card-item-text
-  {{content}}
 {{partial 'cards/components/user'}}
-{{partial 'cards/components/question'}}
+.card-wrap
+  .card-edit
+    .card-field
+      {{input type='text' class='card-field-title' valueBinding='title' placeholder='Type your sugestion title...' name='title'}}
+    .card-field
+      {{textarea class='card-field-description' valueBinding='content' placeholder='Type your sugestion...' rows='12' name='description'}}
+    {{partial 'cards/components/actions'}}
+  .card-alignment
 {{/with}}

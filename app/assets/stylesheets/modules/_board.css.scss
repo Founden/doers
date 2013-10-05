@@ -2,10 +2,6 @@
   @extend .project;
 }
 
-.board-field {
-  @extend .project-field;
-}
-
 .board-title {
   @extend .project-title;
   font-size: em(36);
@@ -17,27 +13,4 @@
 
 .board-actions {
   @extend .project-actions;
-}
-
-.board-toolbar {
-  @include clearfix;
-  width: 100%;
-  padding: 20px 0;
-  border-width: 1px 0 1px 0;
-  border-style: solid;
-  border-color: $gray-2;
-}
-
-.board-toolbar-btn {
-  float: left;
-  width: 10%;
-  font-size: em(12);
-  color: $gray-6;
-  text-align: center;
-  cursor: pointer;
-
-  .icon {
-    display: block;
-    color: $green;
-  }
 }

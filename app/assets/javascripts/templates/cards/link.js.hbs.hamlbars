@@ -1,12 +1,14 @@
 {{#with view.content}}
-.card-item-embed
-  %img.card-item-embed-image{:bind => {:src => 'embed.thumbnailUrl'}}
-  .card-item-embed-title
-    {{embed.title}}
-  .card-item-embed-author
-    = _('By')
-    {{embed.authorName}}
-{{partial 'cards/components/title'}}
-{{partial 'cards/components/user'}}
-{{partial 'cards/components/question'}}
+%img.card-user-image{:bind => {:src => 'user.avatarUrl'}}
+.card-wrap
+  .card-edit
+    .card-field
+      {{input type='text' class='card-field-title' valueBinding='title' placeholder='Type your sugestion title...' name='title'}}
+    .card-field
+      {{textarea class='card-field-description' valueBinding='content' placeholder='Type your sugestion...' rows='3' name='description'}}
+    .card-media
+      {{#if image}}
+      %img.card-media-image{:bind => {:src => 'image.attachment'}}
+      {{/if}}
+  .card-alignment
 {{/with}}

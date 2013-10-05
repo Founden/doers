@@ -1,0 +1,56 @@
+.context-button {
+  position: relative;
+  margin: 20px 20px 20px 120px;
+  padding: 20px 0;
+  border: 1px solid $gray-4;
+  border-radius: 3px;
+  background: $white;
+  box-shadow: 0 1px 1px $gray-3;
+  font-size: em(12);
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-align: center;
+  text-transform: uppercase;
+  color: $green;
+  cursor: pointer;
+  @include transition(all 0.2s);
+
+  .icon {
+    position: absolute;
+    left: -90px;
+    top: 8px;
+
+    &:before {
+      width: 40px;
+      line-height: 40px;
+      border-radius: 50%;
+      border: 1px solid $gray-4;
+      color: $gray-4;
+      @include transition(all 0.2s);
+    }
+  }
+
+  &:before {
+    content: '';
+    position: absolute;
+    left: -3px;
+    top: 26px;
+    width: 4px;
+    height: 4px;
+    background: inherit;
+    border-width: 0 0 1px 1px;
+    border-color: $gray-4;
+    border-style: solid;
+    @include transform(rotate(45deg));
+  }
+
+  &:hover {
+    background: $gray-1;
+    box-shadow: none;
+
+    .icon:before {
+      color: $green;
+      border-color: $green;
+    }
+  }
+}
