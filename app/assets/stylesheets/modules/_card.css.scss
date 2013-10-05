@@ -84,16 +84,16 @@
 
 .card-attachment {
   margin: 0 0 10px 0;
-  min-height: 300px;
+  min-height: 180px;
   position: relative;
   overflow: hidden;
 
   &:hover {
 
-    .card-image {
+    .card-image,
+    .card-embed {
       -webkit-filter: blur(10px);
       @include transform(scale(0.98));
-      overflow: hidden;
     }
 
     .uploader,
@@ -151,6 +151,28 @@
 .card-image {
   width: 100%;
   display: block;
+}
+
+.card-embed {
+  @include clearfix;
+  background-color: $gray-1;
+}
+
+.card-embed-image {
+  float: left;
+  width: 50%;
+  margin: 0 30px 0 0;
+}
+
+.card-embed-title {
+  font-weight: 600;
+  width: 85%;
+  margin: 20px 0 0 0;
+}
+
+.card-embed-author {
+  font-size: em(14);
+  color: $gray-6;
 }
 
 .card-search {
