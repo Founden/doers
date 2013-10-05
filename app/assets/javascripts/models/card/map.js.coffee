@@ -2,8 +2,6 @@ Doers.MapMixin = Ember.Mixin.create
   latitude: DS.attr('number')
   longitude: DS.attr('number')
   query: null
-  results: null
-  isSearching: false
 
   queryChanged: ( ->
     Ember.run.debounce(@, 'search', 200)
@@ -19,9 +17,8 @@ Doers.MapMixin = Ember.Mixin.create
         q: @get('query')
         format: 'json'
       success: (response) =>
-        @set('results', response)
-        @set('isSearching', false)
-      failure: =>
-        @set('results', null)
+        if response.length > 0
+          @set('latitude', response[0].lat)
+          @set('longitude', response[0].lon)
 
 Doers.Map = Doers.Card.extend(Doers.MapMixin)
