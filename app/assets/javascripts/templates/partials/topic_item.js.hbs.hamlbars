@@ -1,0 +1,19 @@
+.topic-drag-handle
+  .icon.icon-ellipsis
+.topic-content
+  {{input type='text' class='topic-title' valueBinding='title' placeholder='Type your topic title...' name='title'}}
+  {{textarea class='topic-description' valueBinding='description' placeholder='Type your topic description...' rows='6' name='description'}}
+  {{#if isDirty}}
+  .topic-actions
+    %a.save-topic{:_action => 'save'}
+      = _('Save')
+  {{/if}}
+{{#if user}}
+.topic-user
+  %img.topic-user-image{:bind => {:src => 'user.avatarUrl'}}
+  = _('Updated')
+  {{lastUpdate}}
+  %br/
+  = _('by')
+  {{user.nicename}}
+{{/if}}

@@ -7,6 +7,7 @@
 .header-root {
   float: left;
   padding: 0 45px 0 30px;
+  margin: 0 30px 0 0;
   line-height: 98px;
   background: $gray-1 image-url('header-arrow.png') no-repeat right center;
   font-size: em(18);
@@ -16,7 +17,8 @@
 
 .header-title {
   float: left;
-  padding: 0 45px 0 30px;
+  padding: 0 45px 0 0;
+  margin: 0 30px 0 0;
   max-width: 6em;
   white-space: nowrap;
   overflow: hidden;
@@ -27,36 +29,17 @@
   font-weight: 600;
 }
 
-.header-user {
-  float: left;
-  padding: 28px 30px;
-  position: relative;
-  font-size: em(14);
-  color: $gray-5;
-}
-
-.header-user-image {
-  float: left;
-  width: 48px;
-  height: 48px;
-  margin: -3px 12px -3px -3px;
-  border-radius: 50%;
-}
-
-.header-progress-wrap {
-  margin: 30px 0;
-}
-
-.header-progress-cards {
-  font-size: em(14);
-  font-weight: 700;
+.header-progress-title {
+  font: em(12) $museo;
+  text-transform: uppercase;
+  margin: 37px 0 4px 0;
+  white-space: nowrap;
 }
 
 .header-progress {
   position: relative;
   overflow: hidden;
-  height: 5px;
-  margin: 8px 0;
+  height: 3px;
   background: $gray-1;
 }
 

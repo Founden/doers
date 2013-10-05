@@ -1,0 +1,5 @@
+.card-actions
+  %a.save-card{:_action => 'save'}
+    = _('Save')
+  %a.delete-card{:_action => 'destroy'}
+    = _('delete sugestion')

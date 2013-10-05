@@ -2,7 +2,7 @@ Doers.ProjectsShowController = Ember.ArrayController.extend
   inviteEmail: ''
 
   update: ->
-    if @get('project.title')
+    if @get('project.isDirty')
       @get('project').save()
 
   destroy: ->

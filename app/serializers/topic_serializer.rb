@@ -6,6 +6,7 @@ class TopicSerializer < ActiveModel::Serializer
   has_one :board, :embed => :id
   has_many :comments, :embed => :id
   has_many :activities, :embed => :id
+  has_one :card, :embed => :id
 
   # Creates a nice timestamp to indicate when it was last time updated
   def last_update

@@ -10,7 +10,7 @@ class Topic < ActiveRecord::Base
   belongs_to :user
   belongs_to :project
   belongs_to :board
-  has_many :cards, :dependent => :destroy
+  has_one :card, :dependent => :destroy
   has_many :comments, :dependent => :destroy
   has_many :activities
 

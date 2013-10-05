@@ -1,7 +1,0 @@
-{{#if isBuilding}}
-.card-edit-field
-  {{input class='card-edit-field-title' valueBinding='titleHint' placeholder='Title hint' type='text' name='title-hint'}}
-{{else}}
-.card-edit-field
-  {{input class='card-edit-field-title' valueBinding='title' placeholderBinding='titleHint' type='text' name='title'}}
-{{/if}}
