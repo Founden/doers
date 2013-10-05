@@ -1,7 +1,10 @@
-Doers.TopicController = Ember.Controller.extend
+Doers.TopicController = Ember.ObjectController.extend
 
   commentContent: ''
   cardPicker: false
+
+  save: ->
+    @get('content').save()
 
   addComment: ->
     klass = @container.resolve('model:comment')

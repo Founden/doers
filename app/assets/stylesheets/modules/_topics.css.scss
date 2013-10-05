@@ -8,6 +8,15 @@
   border-radius: 3px;
   background: $white;
   box-shadow: 0 1px 1px $gray-3;
+  @include transition(all 0.2s);
+
+  &.is-dragged {
+    @include transform(translateX(20px));
+  }
+
+  &.is-droppable {
+    margin-bottom: 40px;
+  }
 
   &.with-link {
     cursor: pointer;
@@ -68,6 +77,21 @@
   font-size: em(14);
   margin: 10px 0 0 0;
   color: $gray-6;
+}
+
+.topic-actions {
+  margin: 10px 0 0 0;
+  font-size: em(14);
+
+  a {
+    color: $gray-6;
+    text-decoration: underline;
+    margin: 0 0.5em 0 0;
+
+    &.save-topic {
+      color: $green;
+    }
+  }
 }
 
 .topic-user {
