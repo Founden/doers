@@ -2,7 +2,7 @@ Doers.ImageMapView = Ember.View.extend
   tagName: 'img'
   attributeBindings: ['src']
   zoom: 12
-  size: '300x300'
+  size: '508x300'
   sensor: false
 
   params: ( ->

@@ -84,9 +84,23 @@
 
 .card-attachment {
   margin: 0 0 10px 0;
-  min-height: 200px;
+  min-height: 300px;
   position: relative;
   overflow: hidden;
+
+  &:hover {
+
+    .card-image {
+      -webkit-filter: blur(10px);
+      @include transform(scale(0.98));
+      overflow: hidden;
+    }
+
+    .uploader,
+    .card-search {
+      opacity: 1;
+    }
+  }
 
   .uploader {
     @include box-sizing(border-box);
@@ -97,6 +111,8 @@
     width: 100%;
     height: 100%;
     text-align: center;
+    opacity: 0;
+    @include transition(all 0.2s);
 
     input {
       opacity: 0;
@@ -111,6 +127,7 @@
     margin: auto;
     position: absolute;
     top: 0; left: 0; bottom: 0; right: 0;
+    z-index: 1;
     display: table;
     padding: 15px 20px 20px 20px;
     background: rgba($white, 0.8);
@@ -131,9 +148,47 @@
   }
 }
 
-.card-attachment-image {
+.card-image {
   width: 100%;
   display: block;
+}
+
+.card-search {
+  width: 320px;
+  margin: auto;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+  z-index: 1;
+  display: table;
+  text-align: center;
+  opacity: 0;
+  @include transition(all 0.2s);
+
+  label {
+    display: block;
+    margin: 0 0 10px 0;
+    font-size: em(12);
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+}
+
+.card-search-field {
+  position: relative;
+
+  input {
+    border: 1px solid rgba($black, 0.8);
+    background: rgba($white, 0.8);
+    padding: 10px 40px 10px 15px;
+    border-radius: 3px;
+  }
+
+  .icon {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+  }
 }
 
 .card-actions {
