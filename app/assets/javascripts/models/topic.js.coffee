@@ -14,3 +14,12 @@ Doers.Topic = DS.Model.extend
 
   # TODO: Set completed attribute
   completed: true
+
+  moveSource: false
+  moveTarget: false
+
+  needsRepositioning: ( ->
+    board = @get('board')
+    if board
+      board.topicsOrderChanged()
+  ).observes('moveTarget')

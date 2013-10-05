@@ -31,6 +31,5 @@ Doers.BoardsBuildController = Ember.ArrayController.extend
     klass = @container.resolve('model:topic')
     topic = klass.createRecord
       board: @get('board')
-      user: @get('currentUser')
       position: @get('content.length')
     @get('content').pushObject(topic)

@@ -17,23 +17,7 @@
     {{view Doers.MembersView contentBinding='board' authorBinding='board.author'}}
 
   .topics
-    {{#each topic in content}}
-    .topic
-      .topic-drag-handle
-        .icon.icon-ellipsis
-      .topic-content
-        .topic-title
-          {{topic.title}}
-        .topic-description
-          {{topic.description}}
-      .topic-user
-        %img.topic-user-image{:bind => {:src => 'topic.user.avatarUrl'}}
-        = _('Updated')
-        {{topic.lastUpdate}}
-        %br/
-        = _('by')
-        {{topic.user.nicename}}
-    {{/each}}
+    {{each arrangedContent itemViewClass='view.topicItemView' itemController='topic'}}
 
   .context-button{:_action => 'addTopic'}
     .icon.icon-plus
