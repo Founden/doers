@@ -1,14 +1,27 @@
 {{#with view.content}}
-%img.card-user-image{:bind => {:src => 'user.avatarUrl'}}
+{{partial 'cards/components/user'}}
 .card-wrap
   .card-edit
     .card-field
       {{input type='text' class='card-field-title' valueBinding='title' placeholder='Type your sugestion title...' name='title'}}
     .card-field
       {{textarea class='card-field-description' valueBinding='content' placeholder='Type your sugestion...' rows='3' name='description'}}
-    .card-media
-      {{#if image}}
-      %img.card-media-image{:bind => {:src => 'image.attachment'}}
+    .card-attachment
+      .card-search
+        %label
+          = _('Type link address')
+        .card-search-field
+          {{input type='text' valueBinding='url' action='update' placeholder='Type or paste a link here' name='query'}}
+          .icon.icon-map.medium
+      {{#if embed}}
+      .card-embed
+        %img.card-embed-image{:bind => {:src => 'embed.thumbnailUrl'}}
+        .card-embed-title
+          {{embed.title}}
+        .card-embed-author
+          = _('By')
+          {{embed.authorName}}
       {{/if}}
+    {{partial 'cards/components/actions'}}
   .card-alignment
 {{/with}}
