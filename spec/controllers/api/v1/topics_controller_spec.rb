@@ -56,7 +56,7 @@ describe Api::V1::TopicsController do
 
       subject(:api_topic) { json_to_ostruct(response.body, :topic) }
 
-      its('keys.size')   { should eq(12) }
+      its('keys.size')   { should eq(11) }
       its(:id) { should eq(topic.id) }
       its(:title) { should eq(topic.title) }
       its(:description) { should eq(topic.description) }
@@ -67,8 +67,6 @@ describe Api::V1::TopicsController do
       its('comment_ids.size') { should eq(topic.comments.count) }
       its('activity_ids.size') {
         should eq(topic.activities.where(:board_id => board_id).count) }
-      its('endorse_ids.size') {
-        should eq(topic.endorses.where(:board_id => board_id).count) }
 
       its('card_id') { should be_blank }
 
@@ -136,7 +134,7 @@ describe Api::V1::TopicsController do
 
       subject(:api_topic) { json_to_ostruct(response.body, :topic) }
 
-      its('keys.size')   { should eq(12) }
+      its('keys.size')   { should eq(11) }
       its(:id)           { should_not be_blank }
       its(:title)        { should eq(topic_attrs[:title]) }
       its(:description)  { should eq(topic_attrs[:description]) }
@@ -145,7 +143,6 @@ describe Api::V1::TopicsController do
       its(:user_id)      { should eq(user.id) }
       its(:board_id)     { should eq(board.id) }
       its(:activity_ids) { should be_empty }
-      its(:endorse_ids)  { should be_empty }
       its(:comment_ids)  { should be_empty }
     end
   end
@@ -168,7 +165,7 @@ describe Api::V1::TopicsController do
 
       subject(:api_topic) { json_to_ostruct(response.body, :topic) }
 
-      its('keys.size')   { should eq(12) }
+      its('keys.size')   { should eq(11) }
       its(:title)        { should eq(topic_attrs[:title]) }
       its(:description)  { should eq(topic_attrs[:description]) }
       its(:position)     { should_not be_nil }
@@ -176,7 +173,6 @@ describe Api::V1::TopicsController do
       its(:user_id)      { should eq(user.id) }
       its(:board_id)     { should eq(board.id) }
       its(:activity_ids) { should be_empty }
-      its(:endorse_ids) { should be_empty }
       its(:comment_ids)  { should be_empty }
     end
   end
