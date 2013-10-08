@@ -1,4 +1,5 @@
-Doers.BoardsShowController = Ember.ArrayController.extend
+Doers.BoardsShowController =
+Ember.ArrayController.extend Doers.ControllerAlertMixin,
 
   update: ->
     if @get('board.title')

@@ -1,1 +1,2 @@
-Doers.LinkCardController = Doers.CardController.extend()
+Doers.LinkCardController =
+Doers.CardController.extend Doers.ControllerAlertMixin
