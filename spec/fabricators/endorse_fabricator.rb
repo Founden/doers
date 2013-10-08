@@ -1,4 +1,4 @@
-Fabricator(:endorse, :class_name => Endorse) do
+Fabricator(:endorse) do
   user
   project { |attrs| Fabricate(:project, :user => attrs[:user]) }
   board   { |attrs| Fabricate(
