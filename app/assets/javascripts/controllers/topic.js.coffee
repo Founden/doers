@@ -1,4 +1,5 @@
-Doers.TopicController = Ember.ObjectController.extend
+Doers.TopicController =
+Ember.ObjectController.extend Doers.ControllerAlertMixin,
 
   commentContent: ''
   cardPicker: false

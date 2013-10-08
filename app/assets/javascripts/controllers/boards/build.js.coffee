@@ -1,4 +1,6 @@
-Doers.BoardsBuildController = Ember.ArrayController.extend
+Doers.BoardsBuildController =
+Ember.ArrayController.extend Doers.ControllerAlertMixin,
+
   sortProperties: ['position']
   inviteEmail: ''
 
