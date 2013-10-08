@@ -1,1 +1,2 @@
-Doers.ParagraphCardController = Doers.CardController.extend()
+Doers.ParagraphCardController =
+Doers.CardController.extend Doers.ControllerAlertMixin

@@ -1,4 +1,5 @@
-Doers.CardController = Ember.ObjectController.extend
+Doers.CardController =
+Ember.ObjectController.extend Doers.ControllerAlertMixin,
 
   save: ->
     @get('content').save().then =>
