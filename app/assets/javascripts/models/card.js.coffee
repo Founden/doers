@@ -13,6 +13,7 @@ Doers.Card = DS.Model.extend
   user: DS.belongsTo('Doers.User', readOnly: true)
   activities: DS.hasMany('Doers.Activity', readOnly: true, polymorphic: true)
   comments: DS.hasMany('Doers.Comment', readOnly: true, inverse: 'card')
+  endorses: DS.hasMany('Doers.Endorse', readOnly: true)
 
   isEditing: false
 
