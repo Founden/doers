@@ -1,11 +1,17 @@
 # [Topic] model serializer
 class TopicSerializer < ActiveModel::Serializer
   attributes :id, :title, :description, :position, :updated_at
-  attributes :activity_ids, :last_update, :card_id
+  attributes :endorse_ids, :activity_ids, :last_update, :card_id
 
   has_one :user, :embed => :id
   has_one :board, :embed => :id
   has_many :comments, :embed => :id
+
+  # Fetches topic endorse ids
+  def endorse_ids
+    return [] if options[:topic_board_id].blank?
+    object.endorses.where(:board_id => options[:topic_board_id]).pluck('id')
+  end
 
   # Fetches topic board activity ids
   def activity_ids

@@ -10,6 +10,7 @@ Doers.Topic = DS.Model.extend
   board: DS.belongsTo('Doers.Board', inverse: 'topics', readOnly: true)
   comments: DS.hasMany('Doers.Comment', readOnly: true)
   activities: DS.hasMany('Doers.Activity', readOnly: true)
+  endorses: DS.hasMany('Doers.Endorse', readOnly: true)
   card: DS.belongsTo('Doers.Card', readOnly: true, inverse: 'topic')
 
   # TODO: Set completed attribute

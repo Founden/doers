@@ -13,6 +13,7 @@ class Topic < ActiveRecord::Base
   has_many :cards, :dependent => :destroy
   has_many :comments, :dependent => :destroy
   has_many :activities
+  has_many :endorses, :dependent => :destroy
 
   # Validations
   validates_presence_of :title, :user, :board
