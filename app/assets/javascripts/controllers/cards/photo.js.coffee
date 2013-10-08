@@ -1,4 +1,5 @@
-Doers.PhotoCardController = Doers.CardController.extend
+Doers.PhotoCardController =
+Doers.CardController.extend Doers.ControllerAlertMixin,
 
   update: ->
     card = @get('content')

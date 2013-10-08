@@ -1,4 +1,6 @@
-Doers.ProjectsShowController = Ember.ArrayController.extend
+Doers.ProjectsShowController =
+  Ember.ArrayController.extend Doers.ControllerAlertMixin,
+
   inviteEmail: ''
 
   update: ->
