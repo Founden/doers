@@ -31,6 +31,7 @@ Doers::Application.routes.draw do
       resources(:memberships, :only => [:index, :show, :destroy])
       resources(:comments, :except => [:update])
       resources(:topics)
+      resources(:endorses, :except => [:update])
     end
   end
 

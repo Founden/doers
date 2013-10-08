@@ -22,7 +22,7 @@ module User::Authorization
       !projects_to(action).where(:id => target).empty?
     when /Card/
       !cards_to(action).where(:id => target).empty?
-    when 'Activity'
+    when /Activity|Endorse/
       !activities_to(action).where(:id => target).empty?
     when 'Comment'
       !comments_to(action).where(:id => target).empty?
