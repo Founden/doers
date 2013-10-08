@@ -20,6 +20,7 @@ describe User do
   it { should validate_presence_of(:email) }
   it { should validate_uniqueness_of(:email) }
   it { should ensure_inclusion_of(:interest).in_array(User::INTERESTS.values) }
+  it { should have_many(:endorses).dependent(:destroy) }
 
   context 'unconfirmed' do
     subject { User.new }

@@ -39,6 +39,7 @@ class User < ActiveRecord::Base
     :shared_projects, :through => :accepted_memberships, :source => :project)
   has_many :topics
   has_one :avatar, :class_name => Asset::Avatar, :dependent => :destroy
+  has_many :endorses, :dependent => :destroy
 
   # Validations
   validates :email, :uniqueness => true, :presence => true
