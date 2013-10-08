@@ -1,12 +1,17 @@
 # [Topic] model serializer
 class TopicSerializer < ActiveModel::Serializer
-  attributes :id, :title, :description, :position, :updated_at, :last_update
+  attributes :id, :title, :description, :position, :updated_at
+  attributes :activity_ids, :last_update
 
   has_one :user, :embed => :id
   has_one :board, :embed => :id
   has_many :comments, :embed => :id
-  has_many :activities, :embed => :id
-  has_one :card, :embed => :id
+
+  # Fetches topic board activity ids
+  def activity_ids
+    return [] if options[:topic_board_id].blank?
+    object.activities.where(:board_id => options[:topic_board_id]).pluck('id')
+  end
 
   # Creates a nice timestamp to indicate when it was last time updated
   def last_update
