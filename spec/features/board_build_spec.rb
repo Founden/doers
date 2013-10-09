@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'Board', :js, :focus do
+feature 'Board', :js, :slow do
   background do
     sign_in_with_angel_list
   end
@@ -48,10 +48,11 @@ feature 'Board', :js, :focus do
           fill_in('topic-description', :with => description)
         end
 
-        page.find('.save-topic').click
-        expect(page).to_not have_css('.save-topic')
+        page.find('.topic-%s .save-topic' % topic.id).click
 
+        expect(page).to_not have_css('.save-topic')
         sleep(1)
+
         topic.reload
         expect(topic.title).to eq(title)
         expect(topic.description).to eq(description)
