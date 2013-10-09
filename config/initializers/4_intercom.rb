@@ -41,6 +41,7 @@ IntercomRails.config do |config|
     'Occupation/Interest' => Proc.new{ |u| User::INTERESTS.invert[u.interest] },
     'Has Beta access' => :confirmed?,
     'Wants newsletter' => :newsletter_allowed?,
+    'Promo Code' => :promo_code
   }
 
   # == User -> Company association

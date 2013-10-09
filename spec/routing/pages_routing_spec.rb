@@ -16,6 +16,14 @@ describe PagesController do
       patch('/waiting').should route_to('pages#waiting')
     end
 
+    it 'for promo code page' do
+      get('/promo_code').should route_to('pages#promo_code')
+    end
+
+    it 'for promo code page (PATCH)' do
+      patch('/promo_code').should route_to('pages#promo_code')
+    end
+
   end
 end
 

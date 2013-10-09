@@ -42,6 +42,7 @@ describe User do
     its(:confirmed?) { should be_true }
     its(:admin?) { should be_false }
     its(:importing) { should be_false }
+    its(:promo_code) { should be_blank }
 
     context '#projects' do
       let(:project) { Fabricate(:project, :user => user) }

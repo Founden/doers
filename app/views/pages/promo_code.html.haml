@@ -1,0 +1,21 @@
+.header
+  .header-root
+    = _('Beta Access')
+
+.content-wrap
+
+  .page.half
+    %h1
+      = _('Claim your beta access with the promo code.')
+    %p
+      = _('We sent promo codes to a close circle of people we know.')
+      = _('These codes can be used to instantly claim beta access.')
+    %p
+      = _('If you got an email with such a promo code, you can claim it below:')
+
+    = form_for(current_account, :url => promo_code_pages_path) do |f|
+      %p
+        = f.text_field :promo_code, :placeholder => _('Promo code goes here...')
+      = f.button :class => 'button' do
+        %span.icon.icon-checkmark
+        = _('Claim')

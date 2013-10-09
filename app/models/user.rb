@@ -17,6 +17,7 @@ class User < ActiveRecord::Base
 
   store_accessor :data, :confirmed, :interest, :company
   store_accessor :data, :importing, :newsletter_allowed
+  store_accessor :data, :promo_code
 
   # Relationships
   has_many :cards
