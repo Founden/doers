@@ -15,6 +15,7 @@ Ember.ObjectController.extend Doers.ControllerAlertMixin,
         board: @get('board')
         project: @get('board.project')
         topic: @get('content')
+        card: @get('content.card')
       comment.save().then =>
         @set('commentContent', '')
         @get('content.activities').pushObject activityKlass.createRecord
