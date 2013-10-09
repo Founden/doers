@@ -1,5 +1,5 @@
 Fabricator(:activity) do
-  slug      'user:create'
+  slug      'user-create'
   user
 end
 

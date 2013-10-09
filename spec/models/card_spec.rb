@@ -7,6 +7,7 @@ describe Card do
   it { should belong_to(:topic) }
   it { should have_many(:activities).dependent('') }
   it { should have_many(:comments).dependent(:destroy) }
+  it { should have_many(:endorses).dependent(:destroy) }
 
   it { should validate_presence_of(:user) }
   it { should validate_presence_of(:project) }
