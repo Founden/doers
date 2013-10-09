@@ -13,3 +13,4 @@ Doers.BoardsBuildView = Ember.View.extend
   topicItemView: Ember.View.extend Doers.MovableMixin,
     templateName: 'partials/topic_item'
     classNames: ['topic']
+    classNameBindings: ['content.slug', 'content.isNew:new-topic']
