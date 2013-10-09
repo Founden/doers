@@ -2,9 +2,19 @@
   margin: 20px 20px 20px 120px;
 }
 
-.activity-comment {
+.activity {
   margin: 0 0 20px 0;
-  padding: 20px 40px 0 70px;
+}
+
+.activity-title {
+  padding: 0 16px;
+  font-size: em(12);
+  color: $gray-6;
+}
+
+.activity-comment {
+  position: relative;
+  padding: 20px 56px;
   border-top: 1px solid $gray-2;
 
   &:last-of-type {
@@ -13,8 +23,11 @@
   }
 }
 
+.activity-comment-form {
+  @extend .activity-comment;
+}
+
 .activity-comment-user {
-  position: relative;
   margin: 0 0 0.5em 0;
   font-size: em(12);
   color: $gray-6;
@@ -22,8 +35,8 @@
 
 .activity-comment-user-image {
   position: absolute;
-  left: -68px;
-  top: -3px;
+  left: 16px;
+  top: 16px;
   width: 24px;
   height: 24px;
   border-radius: 50%;
@@ -32,13 +45,6 @@
 .activity-comment-content {
   font-size: em(14);
   width: 100%;
-}
-
-.activity {
-  font-size: em(12);
-  margin: 0 0 20px 0;
-  padding: 0 30px;
-  color: $gray-6;
 }
 
 .activity-comment-actions {
