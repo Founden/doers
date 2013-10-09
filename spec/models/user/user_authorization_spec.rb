@@ -529,6 +529,22 @@ describe User do
       it_behaves_like 'no error is raised'
     end
 
+    context 'when target is an endorse (same as activity)' do
+      let(:target) { Fabricate(:endorse, :user => user) }
+
+      before { user.should_receive(:activities_to).and_call_original }
+
+      it { should be_true }
+      it_behaves_like 'is writable'
+
+      context 'or an endorse' do
+        let(:target) { Fabricate(:endorse, :user => user) ; user.endorses }
+
+        it { should be_true }
+        it_behaves_like 'is writable'
+      end
+    end
+
     context 'when target is an activity', :use_truncation do
       context 'owned by the user' do
         let(:target) { user.activities.first }
