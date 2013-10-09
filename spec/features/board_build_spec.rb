@@ -6,7 +6,7 @@ feature 'Board', :js, :focus do
   end
 
   context 'building' do
-    given(:board) { Fabricate(:persona_board, :user => User.first) }
+    given(:board) { Fabricate(:board, :author => User.first) }
 
     background do
       visit root_path(:anchor => '/boards/%d/build' % board.id)
