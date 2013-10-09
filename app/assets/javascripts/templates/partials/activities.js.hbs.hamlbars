@@ -1,5 +1,6 @@
 .activities
   {{#each activity in content.activities}}
+  {{#view classNames='activity' classNameBindings='activity.slug'}}
   {{#if activity.comment}}
   .activity-comment
     .activity-comment-user
@@ -9,7 +10,7 @@
     .activity-comment-content
       {{activity.comment.content}}
   {{else}}
-  .activity
+  .activity-title
     {{activity.user.nicename}}
     {{#if activity.isCardCreation}}
     = _('created the card.')
@@ -19,8 +20,9 @@
     {{/if}}
     {{timeago activity.lastUpdate}}
   {{/if}}
+  {{/view}}
   {{/each}}
-  .activity-comment
+  .activity-comment-form
     .activity-comment-user
       %img{:class => 'activity-comment-user-image', :bind => {:src => 'currentUser.avatarUrl'}}
       {{currentUser.nicename}}

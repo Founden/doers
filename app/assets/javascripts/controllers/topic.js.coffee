@@ -12,9 +12,9 @@ Ember.ObjectController.extend Doers.ControllerAlertMixin,
     if content and content.length > 1
       comment = klass.createRecord
         content: content
-        commentableId: @get('content.id')
         board: @get('board')
         project: @get('board.project')
+        topic: @get('content')
       comment.save().then =>
         @set('commentContent', '')
         @get('content.activities').pushObject activityKlass.createRecord
