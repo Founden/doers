@@ -20,8 +20,8 @@ class PagesController < ApplicationController
     code = params[:user] ? params[:user][:promo_code] : nil
     if code and Doers::Config.promo_codes.include?(code)
       current_account.update_attributes(:promo_code => code, :confirmed => true)
-      flash[:success] =
-        _("Promo code worked! Please don't forget to leave your feedback.")
+      notice = _("Code worked! Please don't forget to leave your feedback.")
+      redirect_to root_path, :notice => notice
     else
       flash[:alert] =
         _("Sorry, but we couldn't validate that promo code.") if code
