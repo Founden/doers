@@ -62,7 +62,7 @@ describe AvatarHelper do
       let!(:avatar) { Fabricate(:avatar, :user => user) }
 
       it { should eq(
-        image_tag(avatar.attachment.url, { :class => tag_class } )) }
+        image_tag(avatar.attachment.url(:thumb), { :class => tag_class } )) }
     end
 
   end
