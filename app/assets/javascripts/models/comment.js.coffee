@@ -6,7 +6,7 @@ Doers.Comment = DS.Model.extend
   user: DS.belongsTo('Doers.User', readOnly: true)
   project: DS.belongsTo('Doers.Project')
   board: DS.belongsTo('Doers.Board')
-  topic: DS.belongsTo('Doers.Topic')
   card: DS.belongsTo('Doers.Card')
+  topic: DS.belongsTo('Doers.Topic')
   externalAuthorName: DS.attr('string', readOnly: true)
   comments: DS.hasMany('Doers.Comment', readOnly: true, inverse: 'parentComment')
