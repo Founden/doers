@@ -48,7 +48,6 @@ class User < ActiveRecord::Base
   # Callbacks
   before_create :notify_invitation_creator
   after_commit :generate_activity, :on => :create
-  after_commit :send_confirmation_email, :on => :update
 
   # All user projects
   def projects
@@ -102,17 +101,6 @@ class User < ActiveRecord::Base
   def notify_invitation_creator
     if invitation = Invitation.find_by(:email => self.email)
       UserMailer.delay.invitation_claimed(invitation, self)
-    end
-  end
-
-  # Create a job to send the confirmation email on validation
-  def send_confirmation_email
-    _data = previous_changes[:data]
-    # It's either a hash or an array of changes
-    _data = _data.last if _data.respond_to?(:last)
-
-    if !_data.blank? and data[:confirmed].to_i > 0
-      UserMailer.delay.confirmed(self)
     end
   end
 
