@@ -21,7 +21,13 @@ defaults: &defaults
         thumb: 100x100#
         small: 300x300>
         medium: 600x600>
-
+  promo_codes:
+    - DOERS_VLAD
+    - DOERS_STAS
+    - DOERS_CATALINA
+    - DOERS_ALEXANDRU
+    - DOERS_STEFAN
+    - DOERS_ANDREEA
 
 development:
   <<: *defaults
