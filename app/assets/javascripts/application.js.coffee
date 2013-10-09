@@ -33,6 +33,8 @@
 
     Mixpanel:
       setup: ->
+        # TODO, track pageviews on Ember routes
+        mixpanel.track_pageview()
         mixpanel.track_links('#signin-btn', 'LOGIN', {TYPE: 'AngelList'})
         mixpanel.track_links('#signout-btn', 'LOGOUT')
         mixpanel.track_links('#export-btn', 'EXPORT')
