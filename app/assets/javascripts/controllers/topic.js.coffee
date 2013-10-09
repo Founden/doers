@@ -4,9 +4,6 @@ Ember.ObjectController.extend Doers.ControllerAlertMixin,
   commentContent: ''
   cardPicker: false
 
-  save: ->
-    @get('content').save()
-
   addComment: ->
     klass = @container.resolve('model:comment')
     activityKlass = @container.resolve('model:activity')
