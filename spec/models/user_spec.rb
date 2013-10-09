@@ -93,14 +93,6 @@ describe User do
       end
     end
 
-    context 'sends a confirmation email', :use_truncation do
-      before do
-        UserMailer.should_receive(:confirmed)
-      end
-
-      it { user.update_attributes(:confirmed => '1') }
-    end
-
     context '#nicename when #name is blank' do
       before { user.update_attribute(:name, nil) }
 
