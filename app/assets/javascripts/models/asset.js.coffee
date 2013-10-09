@@ -10,3 +10,8 @@ Doers.Asset = DS.Model.extend
   # TODO: Materialize these polymorphic definitions
   assetableId: DS.attr('number')
   assetableType: DS.attr('string')
+
+  # Attachment size URLs
+  thumbSizeUrl: DS.attr('string', readOnly: true)
+  smallSizeUrl: DS.attr('string', readOnly: true)
+  mediumSizeUrl: DS.attr('string', readOnly: true)

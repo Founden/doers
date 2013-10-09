@@ -40,11 +40,9 @@ class ProfilesController < ApplicationController
 
   # Allowed user parameters
   def user_params
-    if current_account.admin?
-      params.require(:user).permit(:name, :newsletter_allowed, :confirmed)
-    else
-      params.require(:user).permit(:name, :newsletter_allowed, :avatar)
-    end
+    attrs = [:name, :newsletter_allowed, :avatar]
+    attrs << :confirmed if current_account.admin?
+    params.require(:user).permit(attrs)
   end
 
   # Check if `current_account` has `admin?`

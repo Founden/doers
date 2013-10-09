@@ -5,7 +5,7 @@ module AvatarHelper
   # User avatar wrapper to serve Gravatar if an avatar is not uploaded
   def avatar_uri(user, options={})
     if user.avatar
-      user.avatar.attachment.url
+      user.avatar.attachment.url(:thumb)
     else
       gravatar_uri(user.email, options)
     end

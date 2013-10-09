@@ -15,6 +15,13 @@ defaults: &defaults
     s3:
       protocol: 'https'
       bucket: 'app.doersapp.com'
+  assets:
+    image:
+      sizes:
+        thumb: 100x100#
+        small: 300x300>
+        medium: 600x600>
+
 
 development:
   <<: *defaults
