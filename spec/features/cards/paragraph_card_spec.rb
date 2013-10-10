@@ -1,54 +1,46 @@
 require 'spec_helper'
 
-feature 'Paragraph', :js, :slow, :pending do
+feature 'Paragraph', :js, :slow do
   background do
     sign_in_with_angel_list
   end
 
-  context 'card from an existing project board' do
-    given(:project) do
-      Fabricate(:project_with_boards_and_cards,
-                :user => User.first, :card_types => %w(card/paragraph))
-    end
-    given(:board) { project.boards.first }
-    given(:card) { board.cards.first }
+  context 'card from an existing topic' do
+    given(:card) { Fabricate('card/paragraph', :user => User.first) }
+    given(:topic) { card.topic }
 
     background do
-      visit root_path(:anchor => '/boards/%d' % board.id)
+      visit root_path(:anchor => '/board/%d/topic/%d' % [card.board.id, card.topic.id])
     end
 
     scenario 'is shown with details' do
-      expect(page).to have_css('.cards .card-item', :count => 1)
-
-      expect(page).to have_content(card.title)
-      expect(page).to have_content(card.content)
+      expect(page).to have_css('.card', :count => 1)
+      expect(page.source).to include(card.title)
     end
 
-    context 'when clicked' do
-      let(:title) { Faker::Lorem.sentence }
-      let(:content) { Faker::Lorem.sentence }
+    context 'when edited' do
+      given(:title) { Faker::Lorem.sentence }
+      given(:content) { Faker::Lorem.sentence }
 
-      background do
-        page.find('.card-%d' % card.id).click
-      end
-
-      scenario 'can edit card details in editing screen' do
-
+      scenario 'can be saved' do
         within('.card-edit') do
           fill_in('title', :with => title)
           fill_in('content', :with => content)
         end
-
         page.find('.save-card').click
-        sleep(1)
-        expect(page).to_not have_css('.card-edit')
 
+        sleep(1)
         card.reload
         expect(card.title).to eq(title)
         expect(card.content).to eq(content)
+      end
 
-        expect(page).to have_content(card.title)
-        expect(page).to have_content(card.content)
+      scenario 'can be deleted' do
+        page.find('.delete-card').click
+        expect(page).to_not have_css('.card')
+        sleep(1)
+        topic.reload
+        expect(topic.cards.count).to eq(0)
       end
     end
   end

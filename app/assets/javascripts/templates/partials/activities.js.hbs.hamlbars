@@ -1,26 +1,30 @@
 .activities
   {{#each activity in content.activities}}
-  {{#if activity.comment}}
-  .activity-comment
-    .activity-comment-user
-      %img{:class => 'activity-comment-user-image', :bind => {:src => 'activity.comment.user.avatarUrl'}}
-      {{activity.comment.user.nicename}},
-      {{timeago activity.comment.updatedAt}}
-    .activity-comment-content
-      {{activity.comment.content}}
-  {{else}}
-  .activity
-    {{activity.user.nicename}}
-    {{#if activity.isCardCreation}}
-    = _('created the card.')
+  .activity{:bind => {:id => 'activity.identifier'}}
+    {{#if activity.comment}}
+    .activity-comment
+      .activity-comment-user
+        %img{:class => 'activity-comment-user-image', :bind => {:src => 'activity.comment.user.avatarUrl'}}
+        {{activity.comment.user.nicename}},
+        {{timeago activity.comment.updatedAt}}
+      .activity-comment-content
+        {{activity.comment.content}}
+    {{else}}
+    .activity-title
+      {{activity.user.nicename}}
+      {{#if activity.isCardCreation}}
+      = _('sugested an answer')
+      {{/if}}
+      {{#if activity.isCardUpdate}}
+      = _('updated the sugestion')
+      {{/if}}
+      {{#if activity.isCardDestroy}}
+      = _('removed the sugestion')
+      {{/if}}
+      {{timeago activity.lastUpdate}}.
     {{/if}}
-    {{#if activity.isCardUpdate}}
-    = _('updated the card.')
-    {{/if}}
-    {{timeago activity.lastUpdate}}
-  {{/if}}
   {{/each}}
-  .activity-comment
+  .activity-comment-form
     .activity-comment-user
       %img{:class => 'activity-comment-user-image', :bind => {:src => 'currentUser.avatarUrl'}}
       {{currentUser.nicename}}
