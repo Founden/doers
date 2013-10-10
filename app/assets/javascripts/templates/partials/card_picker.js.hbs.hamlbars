@@ -1,5 +1,5 @@
 {{#unless cardPicker}}
-.context-button{:_action => 'showCardPicker'}
+.context-button.show-card-picker{:_action => 'showCardPicker'}
   .icon.icon-user
   = _('Add your suggestion')
 {{else}}
