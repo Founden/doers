@@ -56,3 +56,24 @@
     }
   }
 }
+
+.button-pile {
+  display: inline-block;
+  padding: 0 10px;
+  line-height: 23px;
+  border: 1px solid $gray-2;
+  border-radius: 12px;
+  background: $white;
+  font-size: 12px;
+  font-weight: 700;
+  color: $gray-4;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+
+  &:hover, &.active {
+    background: $green;
+    border-color: $green;
+    color: $white;
+  }
+}

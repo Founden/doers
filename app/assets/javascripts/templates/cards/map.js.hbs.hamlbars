@@ -15,5 +15,5 @@
           .icon.icon-map.medium
       {{view Doers.ImageMapView contentBinding='view.content' class='card-image'}}
     {{partial 'cards/components/actions'}}
-  .card-alignment
+  {{partial 'cards/components/endorses'}}
 {{/with}}
