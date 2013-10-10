@@ -1,12 +1,13 @@
 require 'spec_helper'
 
-feature 'Paragraph', :js, :focus do
+feature 'Paragraph', :js, :slow do
   background do
     sign_in_with_angel_list
   end
 
   context 'card from an existing topic' do
     given(:card) { Fabricate('card/paragraph', :user => User.first) }
+    given(:topic) { card.topic }
 
     background do
       visit root_path(:anchor => '/board/%d/topic/%d' % [card.board.id, card.topic.id])
@@ -14,8 +15,7 @@ feature 'Paragraph', :js, :focus do
 
     scenario 'is shown with details' do
       expect(page).to have_css('.card', :count => 1)
-      expect(page.soruce).to include(card.title)
-      expect(page.source).to include(card.content)
+      expect(page.source).to include(card.title)
     end
 
     context 'when edited' do
@@ -34,7 +34,14 @@ feature 'Paragraph', :js, :focus do
         expect(card.title).to eq(title)
         expect(card.content).to eq(content)
       end
-    end
 
+      scenario 'can be deleted' do
+        page.find('.delete-card').click
+        expect(page).to_not have_css('.card')
+        sleep(1)
+        topic.reload
+        expect(topic.cards.count).to eq(0)
+      end
+    end
   end
 end
