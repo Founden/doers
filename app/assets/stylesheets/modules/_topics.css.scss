@@ -84,6 +84,7 @@
   font-size: em(14);
 
   a {
+    display: inline-block;
     color: $gray-6;
     text-decoration: underline;
     margin: 0 0.5em 0 0;

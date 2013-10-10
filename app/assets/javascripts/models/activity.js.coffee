@@ -9,7 +9,7 @@ Doers.Activity = DS.Model.extend
   card: DS.belongsTo('Doers.Card', readOnly: true, inverse: 'activities')
   comment: DS.belongsTo('Doers.Comment', readOnly: true)
 
-  slug: (->
+  identifier: (->
     'activity-' + @get('id')
   ).property('id')
 
@@ -19,4 +19,8 @@ Doers.Activity = DS.Model.extend
 
   isCardUpdate: ( ->
     /update-card/.test(@get('slug'))
+  ).property('slug')
+
+  isCardDestroy: ( ->
+    /destroy-card/.test(@get('slug'))
   ).property('slug')

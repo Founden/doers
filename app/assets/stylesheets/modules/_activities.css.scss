@@ -1,9 +1,5 @@
 .activities {
-  margin: 20px 20px 20px 120px;
-}
-
-.activity {
-  margin: 0 0 20px 0;
+  margin: 20px 20px 40px 120px;
 }
 
 .activity-title {
@@ -15,6 +11,7 @@
 .activity-comment {
   position: relative;
   padding: 20px 56px;
+  margin: 20px 0;
   border-top: 1px solid $gray-2;
 
   &:last-of-type {
@@ -44,13 +41,15 @@
 
 .activity-comment-content {
   font-size: em(14);
-  width: 100%;
+  width: 65%;
 }
 
 .activity-comment-actions {
+  margin: 20px 0 0 0;
   font-size: em(14);
 
   > a {
+    display: inline-block;
     text-decoration: underline;
     margin: 0 1em 0 0;
     color: $gray-6;
