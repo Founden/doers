@@ -5,6 +5,7 @@ Doers.CardView = Ember.View.extend
   controller: ( ->
     if type = @get('content.type')
       @container.resolve('controller:' + type + 'Card').create
+        container: @get('container')
         content: @get('content')
   ).property('content.type')
 
