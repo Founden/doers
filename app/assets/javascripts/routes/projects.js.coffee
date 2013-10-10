@@ -6,7 +6,7 @@ Doers.ProjectsNewRoute = Ember.Route.extend
   model: ->
     @store.createRecord('project')
 
-  events:
+  actions:
     willTransition: (trainsition) ->
       project = @get('controller.content')
       project.deleteRecord() if project.get('isNew')

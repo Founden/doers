@@ -1,15 +1,16 @@
 Doers.CardController =
 Ember.ObjectController.extend Doers.ControllerAlertMixin,
 
-  save: ->
-    @get('content').save().then =>
-      currentUser = @container.resolve('user:current')
-      @set('content.user', currentUser)
+  actions:
+    save: ->
+      @get('content').save().then =>
+        currentUser = @container.resolve('user:current')
+        @set('content.user', currentUser)
 
-  destroy: ->
-    card = @get('content')
-    card.deleteRecord()
-    card.get('store').commit()
+    destroy: ->
+      card = @get('content')
+      card.deleteRecord()
+      card.get('store').commit()
 
   # Creates or updates an asset
   # @param data [Hash], a set of asset options
