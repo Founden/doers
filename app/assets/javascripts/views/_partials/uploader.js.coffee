@@ -27,7 +27,7 @@ Doers.UploaderView = Ember.ContainerView.extend
       reader.readAsDataURL(attachment)
 
   attachmentObserver: ( ->
-    @get('controller').update(@get('content'))
+    @get('controller').send('update', @get('content'))
   ).observes('content.attachment', 'content.id')
 
   hiddenFileInputView: Ember.View.extend
