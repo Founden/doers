@@ -3,14 +3,11 @@ Doers.Activity = DS.Model.extend
   lastUpdate: DS.attr('string', readOnly: true)
 
   user: DS.belongsTo('Doers.User', readOnly: true, inverse: 'activities')
-  project: DS.belongsTo('Doers.User', readOnly: true, inverse: 'activities')
-  board: DS.belongsTo('Doers.User', readOnly: true, inverse: 'activities')
+  project: DS.belongsTo('Doers.Project', readOnly: true, inverse: 'activities')
+  board: DS.belongsTo('Doers.Board', readOnly: true, inverse: 'activities')
+  topic: DS.belongsTo('Doers.Topic', readOnly: true, inverse: 'activities')
+  card: DS.belongsTo('Doers.Card', readOnly: true, inverse: 'activities')
   comment: DS.belongsTo('Doers.Comment', readOnly: true)
-  # This one can go pretty crazy since it can represent:
-  #   user, card, asset or other objects
-  #   so we better load it when we really need it
-  trackableId: DS.attr('number', readOnly: true)
-  trackableType: DS.attr('string', readOnly: true)
 
   identifier: (->
     'activity-' + @get('id')
@@ -22,4 +19,8 @@ Doers.Activity = DS.Model.extend
 
   isCardUpdate: ( ->
     /update-card/.test(@get('slug'))
+  ).property('slug')
+
+  isCardDestroy: ( ->
+    /destroy-card/.test(@get('slug'))
   ).property('slug')

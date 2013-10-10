@@ -13,6 +13,7 @@ describe Card::Phrase, :use_truncation do
       its(:user) { should eq(card.user) }
       its(:project) { should eq(card.project) }
       its(:board) { should eq(card.board) }
+      its(:topic) { should eq(card.topic) }
       its(:card) { should eq(card) }
       its(:slug) { should eq('create-card-phrase') }
     end
@@ -26,6 +27,7 @@ describe Card::Phrase, :use_truncation do
       its(:user) { should eq(card.user) }
       its(:project) { should eq(card.project) }
       its(:board) { should eq(card.board) }
+      its(:topic) { should eq(card.topic) }
       its(:card) { should eq(card) }
       its(:slug) { should eq('update-card-phrase') }
     end
@@ -39,6 +41,7 @@ describe Card::Phrase, :use_truncation do
       its(:user) { should eq(card.user) }
       its(:project) { should eq(card.project) }
       its(:board) { should eq(card.board) }
+      its(:topic) { should eq(card.topic) }
       its(:card_id) { should_not be_nil }
       its(:slug) { should eq('destroy-card-phrase') }
     end
