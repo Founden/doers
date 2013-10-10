@@ -1,4 +1,4 @@
-Doers.LinkMixin = Ember.Mixin.create
+Doers.Link = Doers.Card.extend
   url: DS.attr('string')
   result: null
   embed: null
@@ -25,5 +25,3 @@ Doers.LinkMixin = Ember.Mixin.create
     if html = @get('embed.html')
       html.htmlSafe()
   ).property('embed.html')
-
-Doers.Link = Doers.Card.extend(Doers.LinkMixin)

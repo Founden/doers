@@ -2,25 +2,23 @@ Doers.Board = DS.Model.extend
   title: DS.attr('string')
   description: DS.attr('string')
   progress: DS.attr('number', readOnly: true)
-
-  parentBoard: DS.belongsTo('Doers.Board', inverse: 'branches')
-  project: DS.belongsTo('Doers.Project', inverse: 'boards')
-  user: DS.belongsTo('Doers.User', readOnly: true, inverse: 'branchedBoards')
-  author: DS.belongsTo('Doers.User', readOnly: true, inverse: 'authoredBoards')
-  team: DS.belongsTo('Doers.Team', readOnly: true, inverse: 'boards')
-  cover: DS.belongsTo('Doers.Asset', inverse: 'board')
-
   collections: DS.attr('array', readOnly: true, defaultValue: [])
   updatedAt: DS.attr('date', readOnly: true)
   lastUpdate: DS.attr('string', readOnly: true)
-
-  activities: DS.hasMany('Doers.Activity', readOnly: true, inverse: 'board')
-  branches: DS.hasMany('Doers.Board', inverse: 'parentBoard')
   branchesCount: DS.attr('number', readOnly: true)
-  cards: DS.hasMany('Doers.Card', inverse: 'board')
-  memberships: DS.hasMany('Doers.Membership', readOnly: true, inverse: 'board')
   cardsCount: DS.attr('number', readOnly: true)
-  topics: DS.hasMany('Doers.Topic', readOnly: true, inverse: 'board')
+
+  parentBoard: DS.belongsTo('board', inverse: 'branches')
+  project: DS.belongsTo('project', inverse: 'boards')
+  user: DS.belongsTo('user', readOnly: true, inverse: 'branchedBoards')
+  author: DS.belongsTo('user', readOnly: true, inverse: 'authoredBoards')
+  team: DS.belongsTo('team', readOnly: true, inverse: 'boards')
+  cover: DS.belongsTo('asset', inverse: 'board')
+  activities: DS.hasMany('activity', readOnly: true, inverse: 'board', async: true)
+  branches: DS.hasMany('board', inverse: 'parentBoard', async: true)
+  cards: DS.hasMany('card', inverse: 'board', async: true)
+  memberships: DS.hasMany('membership', readOnly: true, inverse: 'board', async: true)
+  topics: DS.hasMany('topic', readOnly: true, inverse: 'board', async: true)
 
   slug: (->
     'board-' + @get('id')

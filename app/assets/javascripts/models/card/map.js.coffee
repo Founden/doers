@@ -1,4 +1,4 @@
-Doers.MapMixin = Ember.Mixin.create
+Doers.Map = Doers.Card.extend
   latitude: DS.attr('number')
   longitude: DS.attr('number')
   query: null
@@ -20,5 +20,3 @@ Doers.MapMixin = Ember.Mixin.create
         if response.length > 0
           @set('latitude', response[0].lat)
           @set('longitude', response[0].lon)
-
-Doers.Map = Doers.Card.extend(Doers.MapMixin)

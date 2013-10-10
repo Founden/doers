@@ -2,7 +2,7 @@ Doers.BookMixin = Ember.Mixin.create
   url: DS.attr('string')
   bookTitle: DS.attr('string')
   bookAuthors: DS.attr('string')
-  image: DS.belongsTo('Doers.Asset', readOnly: true)
+  image: DS.belongsTo('asset', readOnly: true)
   query: null
   results: null
   isSearching: false

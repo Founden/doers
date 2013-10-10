@@ -3,9 +3,9 @@ Doers.Asset = DS.Model.extend
   attachment: DS.attr('string')
   type: DS.attr('string')
 
-  board: DS.belongsTo('Doers.Board')
-  project: DS.belongsTo('Doers.Project')
-  user: DS.belongsTo('Doers.User', readOnly: true)
+  board: DS.belongsTo('board')
+  project: DS.belongsTo('project')
+  user: DS.belongsTo('user', readOnly: true)
 
   # TODO: Materialize these polymorphic definitions
   assetableId: DS.attr('number')
