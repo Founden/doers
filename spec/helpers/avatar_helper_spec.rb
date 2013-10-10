@@ -22,7 +22,7 @@ describe AvatarHelper do
       let(:avatar) { Fabricate(:avatar, :user => Fabricate(:user)) }
       let(:user) { avatar.user }
 
-      it { should eq(avatar.attachment.url) }
+      it { should eq(avatar.attachment.url(:thumb)) }
     end
 
   end
