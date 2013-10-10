@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 ruby '2.0.0'
 
 gem 'rails'
-gem 'gettext_i18n_rails'
+gem 'gettext_i18n_rails', '0.10.1'
 gem 'haml-rails'
 gem 'easy_auth', :github => 'stas/easy_auth', :branch => 'rails4'
 gem 'easy_auth-oauth2', :github => 'dockyard/easy_auth-oauth2'
