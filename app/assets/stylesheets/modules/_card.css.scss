@@ -233,11 +233,47 @@
   }
 }
 
-.card-alignment {
+.card-endorses {
   @include box-sizing(border-box);
   display: table-cell;
   width: 270px;
+  vertical-align: middle;
   background: $gray-1;
   border-left: 1px solid $gray-3;
   border-radius: 0 3px 3px 0;
+  text-align: center;
+
+  h4 {
+    font-size: em(12);
+    color: $gray-4;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  ul {
+    margin: 15px 20px;
+    border-bottom: 1px solid $gray-2;
+    padding: 0 0 15px 0;
+  }
+
+  li {
+    display: inline-block;
+    margin: 2px;
+  }
+
+  img {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    vertical-align: middle;
+  }
+
+  .icon {
+    background-color: $green;
+    color: $white;
+    vertical-align: middle;
+    width: 24px;
+    border-radius: 50%;
+    cursor: pointer;
+  }
 }

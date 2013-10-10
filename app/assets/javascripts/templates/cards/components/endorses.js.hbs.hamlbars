@@ -1,0 +1,12 @@
+.card-endorses
+  %h4
+    = _('Agree with this')
+  %ul
+    {{#each endorse in endorses}}
+    %li
+      %img{:class => 'card-endorse-image', :bind => {:src => 'endorse.user.avatarUrl'}}
+    {{/each}}
+    %li
+      .icon.icon-plus{:_action => 'endorse'}
+  .button-pile
+    = _('Mark as aligned')
