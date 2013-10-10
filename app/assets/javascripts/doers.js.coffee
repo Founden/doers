@@ -10,6 +10,7 @@
 
 #= require_self
 #= require_tree ./initializers
+#= require_tree ./transforms
 #= require ./serializer
 #= require ./adapter
 #= require ./store
@@ -29,5 +30,3 @@ window.Doers ||= Ember.Application.create
   rootElement: '#doers-app'
   notificationsElement: '#notifications'
   errorDataAttr: 'error'
-
-
