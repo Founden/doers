@@ -21,5 +21,5 @@
           {{embed.authorName}}
       {{/if}}
     {{partial 'cards/components/actions'}}
-  .card-alignment
+  {{partial 'cards/components/endorses'}}
 {{/with}}
