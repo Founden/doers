@@ -9,6 +9,7 @@ feature 'Dashboard', :js, :slow do
   context 'menu' do
     background do
       visit root_path
+      page.execute_script('if (localStorage) localStorage.clear()')
     end
 
     scenario 'is expanded' do
@@ -22,6 +23,12 @@ feature 'Dashboard', :js, :slow do
       end
 
       scenario 'narrows the menu and expands the content' do
+        expect(page).to have_css('.nav.narrow', :count => 1)
+        expect(page).to have_css('.content.wide', :count => 1)
+      end
+
+      scenario 'menu state persists on page reload' do
+        visit root_path
         expect(page).to have_css('.nav.narrow', :count => 1)
         expect(page).to have_css('.content.wide', :count => 1)
       end

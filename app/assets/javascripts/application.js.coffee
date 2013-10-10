@@ -24,12 +24,32 @@
           speed: 500
 
     Navigation:
-      setup: ->
-        $('.nav-toggle').on 'click', @toggle
+      flagName: 'Doers.Navigation.toggled'
+      toggeled: null
 
-      toggle: (e) ->
+      saveToggle: ->
+        try
+          if localStorage.getItem(@flagName)
+            localStorage.removeItem(@flagName)
+          else
+            localStorage.setItem(@flagName, true)
+        catch
+          false
+
+      toggle: (saveFlag = true) ->
         $('.nav').toggleClass('narrow')
         $('.content').toggleClass('wide')
+        @saveToggle() if saveFlag
+
+      setup: ->
+        $('.nav-toggle').on 'click', => @toggle()
+
+        try
+          @toggeled = localStorage.getItem(@flagName)
+        catch
+          false
+
+        @toggle(false) if @toggeled
 
     Mixpanel:
       setup: ->
