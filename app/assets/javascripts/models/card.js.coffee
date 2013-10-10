@@ -7,13 +7,12 @@ Doers.Card = DS.Model.extend
   type: DS.attr('string')
   updatedAt: DS.attr('date', readOnly: true)
 
-  project: DS.belongsTo('Doers.Project')
-  board: DS.belongsTo('Doers.Board')
-  topic: DS.belongsTo('Doers.Topic', inverse: 'card')
-  user: DS.belongsTo('Doers.User', readOnly: true)
-  activities: DS.hasMany('Doers.Activity', readOnly: true, polymorphic: true)
-  comments: DS.hasMany('Doers.Comment', readOnly: true, inverse: 'card')
-  endorses: DS.hasMany('Doers.Endorse', readOnly: true)
+  project: DS.belongsTo('project')
+  board: DS.belongsTo('board')
+  topic: DS.belongsTo('topic', inverse: 'card')
+  user: DS.belongsTo('user', readOnly: true)
+  comments: DS.hasMany('comment', readOnly: true, inverse: 'card', async: true)
+  endorses: DS.hasMany('endorse', readOnly: true, inverse: 'card', async: true)
 
   isEditing: false
 

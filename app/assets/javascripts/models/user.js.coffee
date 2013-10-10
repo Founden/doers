@@ -7,14 +7,14 @@ Doers.User = DS.Model.extend
   startups: Ember.ArrayController.create()
   avatarUrl: DS.attr('string', readOnly: true)
 
-  createdProjects: DS.hasMany('Doers.Project', readOnly: true, inverse: 'user')
-  sharedProjects: DS.hasMany('Doers.Project', readOnly: true, inverse: 'user')
-  authoredBoards: DS.hasMany('Doers.Board', readOnly: true, inverse: 'author')
-  branchedBoards: DS.hasMany('Doers.Board', readOnly: true, inverse: 'user')
-  publicBoards: DS.hasMany('Doers.Board', readOnly: true)
-  activities: DS.hasMany('Doers.Activity', readOnly: true, inverse: 'user')
-  invitations: DS.hasMany('Doers.Invitation', readOnly: true, inverse: 'user')
-  comments: DS.hasMany('Doers.Comment', readOnly: true)
+  createdProjects: DS.hasMany('project', readOnly: true, inverse: 'user', async: true)
+  sharedProjects: DS.hasMany('project', readOnly: true, inverse: 'user', async: true)
+  authoredBoards: DS.hasMany('board', readOnly: true, inverse: 'author', async: true)
+  branchedBoards: DS.hasMany('board', readOnly: true, inverse: 'user', async: true)
+  publicBoards: DS.hasMany('board', readOnly: true, async: true)
+  activities: DS.hasMany('activity', readOnly: true, inverse: 'user', async: true)
+  invitations: DS.hasMany('invitation', readOnly: true, inverse: 'user', async: true)
+  comments: DS.hasMany('comment', readOnly: true, async: true)
 
   startupsUrl: ( ->
     'https://api.angel.co/1/startup_roles?v=1&user_id=' +
@@ -28,19 +28,16 @@ Doers.User = DS.Model.extend
 
   loadStartups: ->
     url = @get('startupsUrl')
-    self = @
-
-    startupClass = @store.container.resolve('model:angel_list_startup')
 
     $.ajax
       url: url
       dataType: 'jsonp'
-      success: (response) ->
-        startups = self.get('startups')
-        response.startup_roles.forEach ((role) ->
+      success: (response) =>
+        startups = @get('startups')
+        response.startup_roles.forEach ((role) =>
           if role.role == 'founder' || role.role == 'advisor'
             startup = role.startup
-            startups.addObject startupClass.create
+            startups.addObject @store.createRecord 'startup',
               id: startup.id
               title: startup.name
               description: startup.product_desc

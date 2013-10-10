@@ -3,6 +3,6 @@ Doers.Team = DS.Model.extend
   description: DS.attr('string')
   slug: DS.attr('string')
 
-  banner: DS.belongsTo('Doers.Asset')
-  boards: DS.hasMany('Doers.Board')
-  users: DS.hasMany('Doers.User')
+  banner: DS.belongsTo('asset')
+  boards: DS.hasMany('board', readOnly: true, inverse: 'team', async: true)
+  users: DS.hasMany('user', async: true)

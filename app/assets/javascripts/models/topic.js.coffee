@@ -6,11 +6,11 @@ Doers.Topic = DS.Model.extend
   updatedAt: DS.attr('date', readOnly: true)
   lastUpdate: DS.attr('string', readOnly: true)
 
-  user: DS.belongsTo('Doers.User')
-  board: DS.belongsTo('Doers.Board', inverse: 'topics', readOnly: true)
-  comments: DS.hasMany('Doers.Comment', readOnly: true)
-  activities: DS.hasMany('Doers.Activity', readOnly: true)
-  card: DS.belongsTo('Doers.Card', readOnly: true, inverse: 'topic')
+  user: DS.belongsTo('user')
+  board: DS.belongsTo('board', inverse: 'topics', readOnly: true)
+  comments: DS.hasMany('comment', inverse:  'topic', readOnly: true, async: true)
+  activities: DS.hasMany('activity', inverse: 'topic', readOnly: true, async: true)
+  card: DS.belongsTo('card', inverse: 'topic', readOnly: true)
 
   # TODO: Set completed attribute
   completed: true

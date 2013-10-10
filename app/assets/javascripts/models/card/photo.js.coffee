@@ -1,6 +1,4 @@
-Doers.PhotoMixin = Ember.Mixin.create
-  image: DS.belongsTo('Doers.Asset', readOnly: true)
+Doers.Photo = Doers.Card.extend
+  image: DS.belongsTo('asset', readOnly: true)
   attachment: null
   attachmentDescription: null
-
-Doers.Photo = Doers.Card.extend(Doers.PhotoMixin)

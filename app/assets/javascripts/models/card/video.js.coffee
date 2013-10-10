@@ -1,7 +1,7 @@
 Doers.VideoMixin = Ember.Mixin.create
   videoId: DS.attr('string')
   provider: DS.attr('string')
-  image: DS.belongsTo('Doers.Asset', readOnly: true)
+  image: DS.belongsTo('asset', readOnly: true)
   query: null
   results: null
   isSearching: false

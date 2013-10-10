@@ -9,11 +9,11 @@ Doers.Project = DS.Model.extend
   boardsCount: DS.attr('number', readOnly: true)
   membersCount: DS.attr('number', readOnly: true)
 
-  user: DS.belongsTo('Doers.User', readOnly: true, inverse: 'createdProjects')
-  logo: DS.belongsTo('Doers.Logo', readOnly: true, inverse: 'user')
-  boards: DS.hasMany('Doers.Board', inverse: 'project')
-  activities: DS.hasMany('Doers.Activity', readOnly: true, inverse: 'project')
-  memberships: DS.hasMany('Doers.Membership', readOnly: true, inverse: 'project')
+  user: DS.belongsTo('user', readOnly: true, inverse: 'createdProjects')
+  boards: DS.hasMany('board', inverse: 'project', async: true)
+  activities: DS.hasMany('activity', readOnly: true, inverse: 'project', async: true)
+  memberships: DS.hasMany('membership', readOnly: true, inverse: 'project', async: true)
+  logo: DS.belongsTo('logo', readOnly: true)
 
   slug: (->
     'project-' + @get('id')
