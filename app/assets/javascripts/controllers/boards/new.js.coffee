@@ -1,4 +1,5 @@
-Doers.BoardsNewController = Ember.Controller.extend Doers.ControllerAlertMixin,
+Doers.BoardsNewController =
+Ember.Controller.extend Doers.ControllerAlertMixin,
 
   save: ->
     board = @get('content')

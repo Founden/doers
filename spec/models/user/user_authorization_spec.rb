@@ -123,7 +123,7 @@ describe User do
       end
 
       context 'within a board owned by the user' do
-        let(:board) { Fabricate(:board, :user => user) }
+        let(:board) { Fabricate(:branched_board, :user => user) }
         let(:target) { board.cover }
         before { user.should_receive(:assets_to).and_call_original }
 
@@ -142,7 +142,7 @@ describe User do
       end
 
       context 'within a board not owned by the user' do
-        let(:board) { Fabricate(:board) }
+        let(:board) { Fabricate(:branched_board) }
         let(:target) { board.cover }
         before { user.should_receive(:assets_to).and_call_original }
 
@@ -164,14 +164,16 @@ describe User do
 
     context 'when target is a board' do
       context 'owned by the user' do
-        let(:target) { Fabricate(:board, :user => user) }
+        let(:target) { Fabricate(:board, :author => user) }
         before { user.should_receive(:boards_to).and_call_original }
 
         it { should be_true }
         it_behaves_like 'is writable'
 
         context 'or a set of boards owned by the user' do
-          let(:target) { Fabricate(:board, :user => user); user.boards }
+          let(:target) do
+            Fabricate(:board, :author => user); user.authored_boards
+          end
 
           it { should be_true }
           it_behaves_like 'is writable'
@@ -262,7 +264,7 @@ describe User do
         it_behaves_like 'no error is raised'
 
         context 'or a set of boards not owned by the user' do
-          let(:target) { Fabricate('card/phrase'); Card.all }
+          let(:target) { Card.where(:id => Fabricate('card/phrase').id) }
 
           it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
           it_behaves_like 'is not writable'
@@ -313,7 +315,7 @@ describe User do
       end
 
       context 'within a board owned by the user' do
-        let(:board) { Fabricate(:board, :user => user) }
+        let(:board) { Fabricate(:branched_board, :user => user) }
         let(:target) { Fabricate('card/phrase', :board => board) }
         before { user.should_receive(:cards_to).and_call_original }
 
@@ -332,7 +334,7 @@ describe User do
       end
 
       context 'within a board not owned by the user' do
-        let(:board) { Fabricate(:board) }
+        let(:board) { Fabricate(:branched_board) }
         let(:target) { Fabricate('card/phrase', :board => board) }
         before { user.should_receive(:cards_to).and_call_original }
 
@@ -384,6 +386,8 @@ describe User do
     context 'when target is a membership' do
       let(:target) { Fabricate(:project_membership) }
 
+      before { user.should_receive(:memberships_to).and_call_original }
+
       it { expect{ subject }.to raise_error(ActiveRecord::RecordNotFound) }
       it_behaves_like 'is not writable'
       it_behaves_like 'no error is raised'
@@ -395,7 +399,10 @@ describe User do
         it_behaves_like 'is writable'
 
         context 'or a set of such' do
-          let(:target) { Membership.where(:creator_id => user.id) }
+          let(:target) do
+            Fabricate(:project_membership, :creator => user)
+            user.created_memberships
+          end
 
           it { should be_true }
           it_behaves_like 'is writable'
@@ -409,10 +416,92 @@ describe User do
         it_behaves_like 'is writable'
 
         context 'or a set of such' do
-          let(:target) { Membership.where(:user_id => user.id) }
+          let(:target) do
+            Fabricate(:project_membership, :user => user)
+            user.accepted_memberships
+          end
 
           it { should be_true }
           it_behaves_like 'is writable'
+        end
+      end
+
+      context 'of the user shared project' do
+        let(:project) { Fabricate(:project_membership, :user => user).project }
+        let(:target) { Fabricate(:project_membership, :project => project) }
+
+        it { should be_true }
+        it_behaves_like 'is not writable'
+
+        context 'or a set of such' do
+          let(:target) do
+            membership = Fabricate(:project_membership, :project => project)
+            Membership.where(:id => membership)
+          end
+
+          it { should be_true }
+          it_behaves_like 'is not writable'
+        end
+      end
+
+      context 'of the user shared board' do
+        let(:board) { Fabricate(:board_membership, :user => user).board }
+        let(:target) { Fabricate(:board_membership, :board => board) }
+
+        it { should be_true }
+        it_behaves_like 'is not writable'
+
+        context 'or a set of such' do
+          let(:target) do
+            membership = Fabricate(:board_membership, :board => board)
+            Membership.where(:id => membership)
+          end
+
+          it { should be_true }
+          it_behaves_like 'is not writable'
+        end
+      end
+    end
+
+    context 'when target is a project' do
+      let(:target) { Fabricate(:project) }
+
+      before { user.should_receive(:projects_to).and_call_original }
+
+      it { expect{ subject }.to raise_error(ActiveRecord::RecordNotFound) }
+      it_behaves_like 'is not writable'
+      it_behaves_like 'no error is raised'
+
+      context 'created by user' do
+        let(:target) { Fabricate(:project, :user => user) }
+
+        it { should be_true }
+        it_behaves_like 'is writable'
+
+        context 'or a set of such' do
+          let(:target) do
+            Fabricate(:project, :user => user).user.created_projects
+          end
+
+          it { should be_true }
+          it_behaves_like 'is writable'
+        end
+      end
+
+      context 'of the user shared project' do
+        let(:project) { Fabricate(:project_membership, :user => user).project }
+        let(:target) { project }
+
+        it { should be_true }
+        it_behaves_like 'is not writable'
+
+        context 'or a set of such' do
+          let(:target) do
+            project.members.first.shared_projects
+          end
+
+          it { should be_true }
+          it_behaves_like 'is not writable'
         end
       end
     end
@@ -438,6 +527,22 @@ describe User do
       it { expect{ subject }.to raise_error(ActiveRecord::RecordNotFound) }
       it_behaves_like 'is not writable'
       it_behaves_like 'no error is raised'
+    end
+
+    context 'when target is an endorse (same as activity)' do
+      let(:target) { Fabricate(:endorse, :user => user) }
+
+      before { user.should_receive(:activities_to).and_call_original }
+
+      it { should be_true }
+      it_behaves_like 'is writable'
+
+      context 'or an endorse' do
+        let(:target) { Fabricate(:endorse, :user => user) ; user.endorses }
+
+        it { should be_true }
+        it_behaves_like 'is writable'
+      end
     end
 
     context 'when target is an activity', :use_truncation do
@@ -511,7 +616,7 @@ describe User do
       end
 
       context 'within a board owned by the user' do
-        let(:board) { Fabricate(:board, :user => user) }
+        let(:board) { Fabricate(:board, :author => user) }
         let(:target) { board.activities.first }
         before { user.should_receive(:activities_to).and_call_original }
 
@@ -615,5 +720,97 @@ describe User do
         end
       end
     end
+
+    context 'when target is a topic' do
+      context 'owned by the user' do
+        let(:target) { Fabricate(:topic, :user => user) }
+        before { user.should_receive(:topics_to).and_call_original }
+
+        it { should be_true }
+        it_behaves_like 'is writable'
+
+        context 'or a set of topics owned by the user' do
+          let(:target) { Fabricate(:topic, :user => user); user.topics }
+
+          it { should be_true }
+          it_behaves_like 'is writable'
+        end
+      end
+
+      context 'not owned by the user' do
+        let(:target) { Fabricate(:topic) }
+        before { user.should_receive(:topics_to).and_call_original }
+
+        it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
+        it_behaves_like 'is not writable'
+        it_behaves_like 'no error is raised'
+
+        context 'or a set of topics not owned by the user' do
+          let(:target) { Topic.where(:id => Fabricate(:topic).id) }
+
+          it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
+          it_behaves_like 'is not writable'
+        end
+      end
+
+      context 'within a board owned by the user' do
+        let(:board) { Fabricate(:board, :author => user) }
+        let(:target) { Fabricate(:topic, :board => board) }
+        before { user.should_receive(:topics_to).and_call_original }
+
+        it { should be_true }
+        it_behaves_like 'is writable'
+
+        context 'or a set of such' do
+          let(:target) do
+            2.times { Fabricate(:topic, :board => board) }
+            Topic.where(:board_id => board.id)
+          end
+
+          it { should be_true }
+          it_behaves_like 'is writable'
+        end
+      end
+
+      context 'within a board not owned by the user' do
+        let(:board) { Fabricate(:board) }
+        let(:target) { Fabricate(:topic, :board => board) }
+        before { user.should_receive(:topics_to).and_call_original }
+
+        it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
+        it_behaves_like 'is not writable'
+        it_behaves_like 'no error is raised'
+
+        context 'or a set of such' do
+          let(:target) do
+            2.times { Fabricate(:topic, :board => board) }
+            Topic.where(:board_id => board.id)
+          end
+
+          it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
+          it_behaves_like 'is not writable'
+        end
+      end
+
+      context 'within a public board' do
+        let(:board) { Fabricate(:public_board) }
+        let(:target) { Fabricate(:topic, :board => board) }
+        before { user.should_receive(:topics_to).and_call_original }
+
+        it { should be_true }
+        it_behaves_like 'is not writable'
+
+        context 'or a set of such' do
+          let(:target) do
+            2.times { Fabricate(:topic, :board => board) }
+            Topic.where(:board_id => board.id)
+          end
+
+          it { should be_true }
+          it_behaves_like 'is not writable'
+        end
+      end
+    end
+
   end
 end

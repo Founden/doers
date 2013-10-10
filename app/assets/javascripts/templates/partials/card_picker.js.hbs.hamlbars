@@ -1,0 +1,23 @@
+{{#unless cardPicker}}
+.context-button.show-card-picker{:_action => 'showCardPicker'}
+  .icon.icon-user
+  = _('Add your suggestion')
+{{else}}
+.card-picker
+  %img.card-user-image{:bind => {:src => 'currentUser.avatarUrl'}}
+  %h4
+    = _('Best match for this topic:')
+  %ul
+    %li{:_action => 'addCard "Paragraph"'}
+      .icon.icon-paragraph.large
+      = _('Text')
+    %li{:_action => 'addCard "Photo"'}
+      .icon.icon-photo.large
+      = _('Image')
+    %li{:_action => 'addCard "Map"'}
+      .icon.icon-map.large
+      = _('Map')
+    %li{:_action => 'addCard "Link"'}
+      .icon.icon-link.large
+      = _('Link')
+{{/unless}}

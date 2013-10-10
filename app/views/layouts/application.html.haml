@@ -52,6 +52,7 @@
     = csrf_meta_tags
 
   %body
+    = render('shared/alerts')
     = render('shared/nav')
     .content
       = yield

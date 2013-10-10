@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'Book', :js, :slow do
+feature 'Book', :js, :slow, :pending do
   background do
     sign_in_with_angel_list
   end

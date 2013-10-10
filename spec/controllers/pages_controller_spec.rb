@@ -72,4 +72,39 @@ describe PagesController do
     it { should redirect_to(export_pages_path) }
   end
 
+  describe '#promo_code' do
+    let(:user) { Fabricate(:user, :confirmed => nil) }
+
+    before do
+      controller.stub(:current_account) { user }
+      get(:promo_code)
+    end
+
+    it { should render_template(:promo_code) }
+
+    context 'user claims a code' do
+      let(:code) { Doers::Config.promo_codes.sample }
+
+      before do
+        post(:promo_code, :user => {:promo_code => code})
+      end
+
+      it 'updates user promo_code, confirmed attrs and redirects' do
+        should redirect_to(root_path)
+        user.confirmed?.should be_true
+        user.promo_code.should eq(code)
+      end
+
+      context 'and is invalid' do
+        let(:code) { Faker::Lorem.word }
+
+        it 'shows the page again' do
+          should render_template(:promo_code)
+          user.confirmed?.should be_false
+          user.promo_code.should be_blank
+        end
+      end
+    end
+  end
+
 end

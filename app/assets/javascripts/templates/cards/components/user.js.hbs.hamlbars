@@ -1,9 +1,1 @@
-.card-item-user
-  %img{:class => 'card-item-user-image', :bind => {:src => 'user.avatarUrl'}}
-  - # TODO: Add activity icon
-  / %span.icon.icon-comment
-  = _('Updated')
-  {{lastUpdate}}
-  %br/
-  = _('by')
-  {{user.nicename}}
+%img.card-user-image{:bind => {:src => 'user.avatarUrl'}}

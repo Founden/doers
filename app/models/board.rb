@@ -22,6 +22,9 @@ class Board < ActiveRecord::Base
   has_many(:memberships, :dependent => :destroy, :class_name => BoardMembership)
   has_many :members, :through => :memberships, :source => :user
   has_many :invitations, :dependent => :destroy, :as => :invitable
+  has_many :topics
+  # Topics for branches
+  has_many :parent_board_topics, :through => :parent_board, :source => :topics
   # Tagging support
   has_many_tags
 
@@ -49,26 +52,6 @@ class Board < ActiveRecord::Base
     self.description = Sanitize.clean(self.description)
   end
   after_commit :generate_activity, :on => [:create, :destroy]
-
-  # Handles boards branching for a user an a project
-  # @param user [User] the branching user
-  # @param project [Project] the project to branch into
-  # @param params [Hash] the parameters like :title to include
-  # @return [Board] the new branch
-  def branch_for(user, project, params)
-    raise _('Board is not available') if !user.can?(:read, self)
-    raise _('Project is not available') if !user.projects.include?(project)
-
-    board = branches.create(
-      :title => params[:title], :user => user, :project => project)
-    # Forking the cards
-    self.cards.each do |card|
-      attrs = card.attributes.except('id', 'created_at', 'updated_at')
-      attrs.merge!(:user => user, :project => project, :parent_card => card)
-      board.cards.create(attrs)
-    end unless board.new_record?
-    board
-  end
 
   private
 

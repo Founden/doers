@@ -1,2 +1,1 @@
-Doers.ProjectsIndexController =
-  Ember.Controller.extend(Doers.DeleteConfirmationMixin)
+Doers.ProjectsIndexController = Ember.Controller.extend()

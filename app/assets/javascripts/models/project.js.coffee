@@ -16,8 +16,6 @@ Doers.Project = DS.Model.extend
   memberships: DS.hasMany('Doers.Membership', readOnly: true, inverse: 'project')
   invitations: DS.hasMany('Doers.Invitation', readOnly: true, inverse: 'project')
 
-  deleteConfirmation: false
-
   slug: (->
     'project-' + @get('id')
   ).property('id')

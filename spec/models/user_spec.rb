@@ -14,10 +14,13 @@ describe User do
   it { should have_many(:created_memberships).dependent(:destroy) }
   it { should have_many(:accepted_memberships).dependent(:destroy) }
   it { should have_many(:invitations).dependent(:destroy) }
+  it { should have_many(:topics).dependent('') }
+  it { should have_one(:avatar).dependent(:destroy) }
 
   it { should validate_presence_of(:email) }
   it { should validate_uniqueness_of(:email) }
   it { should ensure_inclusion_of(:interest).in_array(User::INTERESTS.values) }
+  it { should have_many(:endorses).dependent(:destroy) }
 
   context 'unconfirmed' do
     subject { User.new }
@@ -39,6 +42,7 @@ describe User do
     its(:confirmed?) { should be_true }
     its(:admin?) { should be_false }
     its(:importing) { should be_false }
+    its(:promo_code) { should be_blank }
 
     context '#projects' do
       let(:project) { Fabricate(:project, :user => user) }
@@ -88,14 +92,6 @@ describe User do
 
         its(:shared_projects) { should include(invite.invitable) }
       end
-    end
-
-    context 'sends a confirmation email', :use_truncation do
-      before do
-        UserMailer.should_receive(:confirmed)
-      end
-
-      it { user.update_attributes(:confirmed => '1') }
     end
 
     context '#nicename when #name is blank' do

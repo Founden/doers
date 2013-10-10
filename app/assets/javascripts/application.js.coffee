@@ -10,11 +10,11 @@
       container: $('#notifications')
 
       setup: ->
-        @container.find('.close').one 'click', @close
+        @container.find('.icon-close').one 'click', @close
 
       close: (e) ->
         e.preventDefault()
-        $(@).parents('.alert-box').remove()
+        $(@).parents('.alert').remove()
 
     Progress:
       setup: ->

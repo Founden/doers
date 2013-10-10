@@ -1,5 +1,9 @@
 # Image asset type class
 class Asset::Image < Asset
+  # Attachment overwrite
+  has_attached_file(
+    :attachment, :styles => Doers::Config.assets.image.sizes.except('thumb'))
+
   # Validations
   validates_presence_of :user, :board, :assetable
   validates_attachment_content_type :attachment, :content_type => IMAGE_TYPES

@@ -3,13 +3,15 @@ class Api::V1::ProjectsController < Api::V1::ApplicationController
 
   # Lists available projects
   def index
-    projects = current_account.projects.find(params[:ids])
+    projects = Project.where(:id => params[:ids])
+    current_account.can?(:read, projects)
     render :json => projects
   end
 
   # Shows available project
   def show
-    project = current_account.projects.find(params[:id])
+    project = Project.find_by!(:id => params[:id])
+    current_account.can?(:read, project)
     render :json => project
   end
 
@@ -25,15 +27,17 @@ class Api::V1::ProjectsController < Api::V1::ApplicationController
 
   # Handles project changes
   def update
-    project = current_account.projects.find(params[:id])
+    project = Project.find_by!(:id => params[:id])
+    current_account.can?(:write, project)
     project.update_attributes(project_params)
     render :json => project
   end
 
   # Handles project deletion
   def destroy
-    project = current_account.projects.find_by(:id => params[:id])
-    if project and project.destroy
+    project = Project.find_by(:id => params[:id])
+    can_destroy = current_account.can?(:write, project, :raise_error => false)
+    if can_destroy and project and project.destroy
       render :nothing => true, :status => 204
     else
       render :nothing => true, :status => 400

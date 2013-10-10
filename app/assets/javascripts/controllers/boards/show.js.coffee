@@ -1,5 +1,5 @@
 Doers.BoardsShowController =
-  Doers.CardsController.extend Doers.ControllerAlertMixin,
+Ember.ArrayController.extend Doers.ControllerAlertMixin,
 
   update: ->
     if @get('board.title')

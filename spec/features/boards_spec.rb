@@ -38,7 +38,7 @@ feature 'Boards', :js, :slow do
         expect(page).to have_content(public_board.title)
       end
 
-      context 'on click' do
+      context 'on click', :pending do
         background do
           find('#board-%d .board-item-branch' % public_board.id).click
         end

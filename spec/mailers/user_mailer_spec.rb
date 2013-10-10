@@ -16,14 +16,6 @@ describe UserMailer do
       Mail::Address.new(Doers::Config.contact_email).address) }
   end
 
-  context '#confirmed' do
-    before { UserMailer.confirmed(user).deliver }
-
-    it_should_behave_like 'an email from us'
-    its('body.encoded') { should match(user.nicename) }
-    its(:to) { should include(user.email) }
-  end
-
   context '#startup_imported' do
     let(:project) { Fabricate(:project, :user => user) }
 

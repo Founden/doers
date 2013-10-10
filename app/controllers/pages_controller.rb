@@ -2,7 +2,7 @@
 class PagesController < ApplicationController
   include EasyAuth::Controllers::Authenticated
 
-  skip_before_filter :require_confirmation, :only => [:waiting]
+  skip_before_filter :require_confirmation, :only => [:waiting, :promo_code]
 
   # Shows main dashboard
   def dashboard
@@ -24,6 +24,19 @@ class PagesController < ApplicationController
     Delayed::Job.enqueue(ExportJob.new(current_account))
     flash[:success] = _('Give us some time then check your email.')
     redirect_to export_pages_path
+  end
+
+  # Show the page for claiming promo codes
+  def promo_code
+    code = params[:user] ? params[:user][:promo_code] : nil
+    if code and Doers::Config.promo_codes.include?(code)
+      current_account.update_attributes(:promo_code => code, :confirmed => true)
+      notice = _("Code worked! Please don't forget to leave your feedback.")
+      redirect_to root_path, :notice => notice
+    else
+      flash[:alert] =
+        _("Sorry, but we couldn't validate that promo code.") if code
+    end
   end
 
   private

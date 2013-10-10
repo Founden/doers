@@ -1,11 +1,12 @@
 Doers.BoardsBuildController =
-  Doers.CardsController.extend Doers.ControllerAlertMixin,
+Ember.ArrayController.extend Doers.ControllerAlertMixin,
+
   sortProperties: ['position']
   inviteEmail: ''
 
   update: ->
     board = @get('board')
-    if board.get('title')
+    if board.get('title') and board.get('isDirty')
       board.save().then =>
         mixpanel.track 'UPDATED',
           TYPE: 'Board'
@@ -41,3 +42,17 @@ Doers.BoardsBuildController =
           ID: board.get('id')
           TITLE: board.get('title')
           EMAIL: email
+
+  addTopic: ->
+    klass = @container.resolve('model:topic')
+    topic = klass.createRecord
+      board: @get('board')
+      position: @get('content.length')
+    @get('content').pushObject(topic)
+
+  saveTopic: (topic) ->
+    topic.save()
+
+  removeTopic: (topic) ->
+    topic.deleteRecord()
+    topic.get('store').commit()

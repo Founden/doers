@@ -60,7 +60,7 @@ describe Api::V1::AssetsController do
 
       subject(:api_asset) { json_to_ostruct(response.body, :asset) }
 
-      its('keys.size') { should eq(9) }
+      its('keys.size') { should eq(12) }
       its(:id) { should eq(image.id) }
       its(:description) { should eq(image.description) }
       its(:type) { should eq(image.type.to_s.demodulize) }
@@ -70,6 +70,9 @@ describe Api::V1::AssetsController do
       its(:project_id) { should eq(image.project.id) }
       its(:assetable_type) { should eq('Card') }
       its(:assetable_id) { should eq(card.id) }
+      its(:thumb_size_url) { should eq(image.attachment.url(:thumb)) }
+      its(:small_size_url) { should eq(image.attachment.url(:small)) }
+      its(:medium_size_url) { should eq(image.attachment.url(:medium)) }
     end
   end
 
@@ -104,7 +107,7 @@ describe Api::V1::AssetsController do
 
         subject(:api_asset) { json_to_ostruct(response.body, :asset) }
 
-        its('keys.size') { should eq(9) }
+        its('keys.size') { should eq(12) }
         its(:id) { should eq(asset.id) }
         its(:description) { should eq(attrs[:description]) }
         its(:attachment_file_size) { should eq(attrs[:attachment_file_size]) }
@@ -129,7 +132,7 @@ describe Api::V1::AssetsController do
             Fabricate.attributes_for(:image_to_upload, :attachment => image_url)
           }
 
-          its('keys.size') { should eq(9) }
+          its('keys.size') { should eq(12) }
         end
       end
     end
@@ -163,7 +166,7 @@ describe Api::V1::AssetsController do
 
       subject(:api_asset) { json_to_ostruct(response.body, :asset) }
 
-      its('keys.size') { should eq(9) }
+      its('keys.size') { should eq(12) }
       its(:id) { should_not be_nil }
       its(:description) { should eq(asset_attrs[:description]) }
       its(:type) { should eq(asset_attrs[:type].to_s.demodulize) }
@@ -180,14 +183,14 @@ describe Api::V1::AssetsController do
           :assetable_type => project.class, :assetable_id => project.id)
         }
 
-        its('keys.size') { should eq(9) }
+        its('keys.size') { should eq(12) }
       end
 
       context 'for cover' do
         let(:asset_attrs) { Fabricate.attributes_for(:image_to_upload,
           :user => user, :board => board, :type => 'Cover') }
 
-        its('keys.size') { should eq(9) }
+        its('keys.size') { should eq(12) }
       end
 
       context 'with downloadable attachment URL' do
@@ -207,7 +210,7 @@ describe Api::V1::AssetsController do
             :assetable_type => project.class, :assetable_id => project.id)
         }
 
-        its('keys.size') { should eq(9) }
+        its('keys.size') { should eq(12) }
       end
     end
   end

@@ -1,6 +1,5 @@
 Doers.MovableMixin = Ember.Mixin.create
-  classNames: ['drag-handler']
-  classNameBindings: ['isDragged:moving', 'isDroppable:drop-handler']
+  classNameBindings: ['isDragged', 'isDroppable']
   attributeBindings: ['draggable']
   draggable: 'true'
   isDroppable: false
