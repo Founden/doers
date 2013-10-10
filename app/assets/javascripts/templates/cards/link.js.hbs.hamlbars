@@ -4,14 +4,12 @@
   .card-edit
     .card-field
       {{input type='text' class='card-field-title' valueBinding='title' placeholder='Type your sugestion title...' name='title'}}
-    .card-field
-      {{textarea class='card-field-description' valueBinding='content' placeholder='Type your sugestion...' rows='3' name='content'}}
     .card-attachment
       .card-search
         %label
           = _('Type link address')
         .card-search-field
-          {{input type='text' valueBinding='url' action='update' placeholder='Type or paste a link here' name='query'}}
+          {{input type='text' valueBinding='url' action='update' placeholder='Type or paste a link here' name='url'}}
           .icon.icon-map.medium
       {{#if embed}}
       .card-embed
