@@ -4,7 +4,7 @@ Doers.BoardsIndexRoute = Ember.Route.extend
 
 Doers.BoardsNewRoute = Ember.Route.extend
   model: ->
-    @container.resolve('model:board').createRecord()
+    @store.createRecord('board')
 
   redirect: ->
     unless @get('currentUser.isAdmin')

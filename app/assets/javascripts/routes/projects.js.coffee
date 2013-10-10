@@ -4,7 +4,7 @@ Doers.ProjectsIndexRoute = Ember.Route.extend
 
 Doers.ProjectsNewRoute = Ember.Route.extend
   model: ->
-    @container.resolve('model:project').createRecord()
+    @store.createRecord('project')
 
   events:
     willTransition: (trainsition) ->
