@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe ExportJob do
+describe ExportJob, :pending do
   let(:board) { Fabricate(:board_with_cards) }
   let(:user) { board.user }
   let(:job) { ExportJob.new(user) }

@@ -44,7 +44,7 @@ feature 'Photo', :js, :slow do
         expect(page.source).to match('data:image/png;base64')
       end
 
-      scenario 'can be deleted' do
+      scenario 'can be deleted', :pending do
         page.find('.delete-card').click
         expect(page).to_not have_css('.card')
         sleep(1)
