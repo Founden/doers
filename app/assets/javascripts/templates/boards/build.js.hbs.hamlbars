@@ -17,8 +17,8 @@
     {{view Doers.MembersView contentBinding='board' authorBinding='board.author'}}
 
   .topics
-    {{each arrangedContent itemViewClass='view.topicItemView' itemController='topic'}}
+    {{each arrangedContent itemViewClass='view.topicItemView'}}
 
-  .context-button{:_action => 'addTopic'}
+  .context-button.add-topic{:_action => 'addTopic'}
     .icon.icon-plus
     = _('Add new topic')
