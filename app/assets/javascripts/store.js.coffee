@@ -1,2 +1,1 @@
-Doers.Store = DS.Store.extend
-  adapter: 'Doers.RESTAdapter'
+Doers.Store = DS.Store.extend()
