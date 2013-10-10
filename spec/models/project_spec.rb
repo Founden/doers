@@ -10,6 +10,7 @@ describe Project do
   it { should have_many(:memberships).dependent(:destroy) }
   it { should have_many(:members) }
   it { should have_many(:invitations).dependent(:destroy) }
+  it { should have_many(:topics).dependent('') }
 
   it { should validate_presence_of(:user) }
   it { should validate_presence_of(:title) }

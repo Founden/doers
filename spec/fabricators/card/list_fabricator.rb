@@ -1,13 +1,14 @@
 Fabricator('card/list') do
-  transient  :public_board
-  title      { |attrs| Faker::Lorem.sentence unless attrs[:public_board] }
-  content    { Faker::Lorem.sentence }
-  title_hint { Faker::Lorem.sentence }
+  style      { Card::STYLES.sample }
+  title      { Faker::Lorem.sentence }
   user
-  board
-  project    { nil }
-  question   { Faker::Lorem.sentence }
-  help       { Faker::Lorem.phrases(4).join("\n") }
+  project    { |attrs| Fabricate(:project, :user => attrs[:user]) }
+  board      { |attrs| Fabricate(
+    :branched_board, :user => attrs[:user], :project => attrs[:project]) }
+  topic      { |attrs| Fabricate(
+    :topic, :user => attrs[:user], :board => attrs[:board].parent_board) }
+
+  content    { Faker::Lorem.paragraph }
   items      { rand(2..5).times.collect do
     {'label' => Faker::Lorem.sentence, 'checked' => [true, false].sample}
   end }

@@ -1,9 +1,11 @@
-Doers.ProjectsShowController = Ember.ArrayController.extend
+Doers.ProjectsShowController =
+  Ember.ArrayController.extend Doers.ControllerAlertMixin,
+
   inviteEmail: ''
 
   update: ->
     project = @get('project')
-    if project.get('title')
+    if project.get('title') and project.get('isDirty')
       project.save().then =>
         mixpanel.track 'UPDATED',
           TYPE: 'Project'

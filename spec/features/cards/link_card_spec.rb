@@ -5,13 +5,9 @@ feature 'Link', :js, :slow do
     sign_in_with_angel_list
   end
 
-  context 'card from an existing project board' do
-    given(:project) do
-      Fabricate(:project_with_boards_and_cards,
-                :user => User.first, :card_types => %w(card/link))
-    end
-    given(:board) { project.boards.first }
-    given(:card) { board.cards.first }
+  context 'card from an existing topic' do
+    given(:card) { Fabricate('card/link', :user => User.first) }
+    given(:topic) { card.topic }
     given(:embed) do
       { 'title' => Faker::Lorem.sentence }
     end
@@ -22,42 +18,42 @@ feature 'Link', :js, :slow do
     background do
       Oembedr.should_receive(:known_service?).at_least(1).times.and_return(true)
       Oembedr.should_receive(:fetch).at_least(1).times.and_return(response)
-      visit root_path(:anchor => '/boards/%d' % board.id)
+      visit root_path(:anchor => '/board/%d/topic/%d' % [card.board.id, card.topic.id])
     end
 
     scenario 'is shown with details' do
-      expect(page).to have_css('.cards .card-item', :count => 1)
-
-      expect(page).to have_content(card.title)
-      expect(page.source).to include(embed['title'])
+      expect(page).to have_css('.card', :count => 1)
+      expect(page.source).to include(card.title)
+      expect(page).to have_content(embed['title'])
     end
 
-    context 'when clicked' do
+    context 'when edited' do
       given(:title) { Faker::Lorem.sentence }
       given(:url) { Faker::Internet.http_url }
 
-      background do
-        page.find('.card-%d' % card.id).click
-      end
-
-      scenario 'can edit card details in editing screen' do
-
+      scenario 'can be saved' do
         within('.card-edit') do
           fill_in('title', :with => title)
           fill_in('url', :with => url)
         end
-
-        page.find('.save-card').click
         sleep(1)
-        expect(page).to_not have_css('.card-edit')
+        page.find('.save-card').click
 
+        sleep(1)
         card.reload
         expect(card.title).to eq(title)
 
-        expect(page).to have_content(card.title)
         expect(page).to have_content(embed['title'])
       end
-    end
-  end
 
+      scenario 'can be deleted' do
+        page.find('.delete-card').click
+        expect(page).to_not have_css('.card')
+        sleep(1)
+        topic.reload
+        expect(topic.cards.count).to eq(0)
+      end
+    end
+
+  end
 end

@@ -10,17 +10,19 @@ class Card < ActiveRecord::Base
   default_scope { order(:position) }
 
   # Store accessors definition
-  store_accessor :data, :title_hint
+  store_accessor :data
 
   # Relationships
   belongs_to :user
   belongs_to :board
   belongs_to :project
-  has_many :activities, :as => :trackable
-  has_many :comments, :as => :commentable, :dependent => :destroy
+  belongs_to :topic
+  has_many :activities
+  has_many :comments, :dependent => :destroy
+  has_many :endorses, :dependent => :destroy
 
   # Validations
-  validates_presence_of :user, :board
+  validates_presence_of :user, :project, :board, :topic
   validates_inclusion_of :style, :in => STYLES
   validates_numericality_of :position
 
@@ -33,9 +35,6 @@ class Card < ActiveRecord::Base
   before_validation do
     self.title = Sanitize.clean(self.title)
     self.content = Sanitize.clean(self.content) if self.content.is_a?(String)
-    self.question = Sanitize.clean(self.question)
-    self.help = Sanitize.clean(self.help)
-    self.title_hint = Sanitize.clean(self.title_hint)
   end
   after_commit :generate_activity
 end

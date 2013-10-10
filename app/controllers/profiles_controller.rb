@@ -24,7 +24,13 @@ class ProfilesController < ApplicationController
     @profile = current_account
     @profile = User.find(params[:id]) if current_account.admin?
 
-    if @profile.update_attributes(user_params)
+    if pic = user_params[:avatar]
+      pic = URI.parse(pic) if pic.to_s.match(Asset::URI_REGEXP)
+      @profile.avatar.update_attributes(:attachment => pic) if @profile.avatar
+      @profile.create_avatar(:attachment => pic) unless @profile.avatar
+    end
+
+    if @profile.update_attributes(user_params.except(:avatar))
       flash[:success] = _('Profile updated.')
     end
     render :show
@@ -34,11 +40,9 @@ class ProfilesController < ApplicationController
 
   # Allowed user parameters
   def user_params
-    if current_account.admin?
-      params.require(:user).permit(:name, :newsletter_allowed, :confirmed)
-    else
-      params.require(:user).permit(:name, :newsletter_allowed)
-    end
+    attrs = [:name, :newsletter_allowed, :avatar]
+    attrs << :confirmed if current_account.admin?
+    params.require(:user).permit(attrs)
   end
 
   # Check if `current_account` has `admin?`

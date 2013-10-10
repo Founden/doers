@@ -5,7 +5,7 @@ describe Asset::Image, :use_truncation do
   let!(:image) { Fabricate('card/photo', :user => user).image }
 
   context '#activities' do
-    subject { image.assetable.activities }
+    subject(:activities) { image.assetable.activities }
 
     context 'on create' do
       its(:size) { should eq(2) }
@@ -14,21 +14,21 @@ describe Asset::Image, :use_truncation do
     context 'on update' do
       before { image.update_attributes(:description => Faker::Lorem.sentence) }
 
-      its(:size) { should eq(2) }
-      its('last.user') { should eq(image.user) }
-      its('last.project') { should eq(image.project) }
-      its('last.board') { should eq(image.board) }
-      its('last.trackable') { should eq(image.assetable) }
-      its('last.slug') { should match('update') }
-      its('last.slug') { should match('image') }
+      subject { activities.last }
+
+      it { activities.size.should eq(2) }
+
+      its(:user) { should eq(image.user) }
+      its(:project) { should eq(image.project) }
+      its(:board) { should eq(image.board) }
+      its(:card) { should eq(image.assetable) }
+      its(:slug) { should match(/update-card.*asset.*/) }
     end
 
     context 'on delete' do
       before { image.destroy }
 
-      subject { user.activities }
-
-      its(:size) { should eq(3) }
+      its(:size) { should eq(2) }
     end
   end
 end

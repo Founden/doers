@@ -10,12 +10,7 @@ Doers.BoardsBuildView = Ember.View.extend
 
   deleteButtonView: Doers.DeleteButtonView
 
-  cardsView: Ember.CollectionView.extend
-    classNames: ['cards']
-    createChildView: (view, attrs) ->
-      type = attrs.content.get('type')
-      view = @container.resolve('view:card')
-      view.reopen(Doers.MovableMixin)
-      attrs.content.set('isBuilding', true)
-      attrs.templateName = 'cards/%@'.fmt(type.underscore())
-      @_super(view, attrs)
+  topicItemView: Ember.View.extend Doers.MovableMixin,
+    templateName: 'partials/topic_item'
+    classNames: ['topic']
+    classNameBindings: ['content.slug', 'content.isNew:new-topic']

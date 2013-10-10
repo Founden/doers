@@ -16,6 +16,8 @@ Doers::Application.routes.draw do
     patch :waiting
     get :export
     get :download
+    get :promo_code
+    patch :promo_code
   end
 
   namespace :api, :constraints => {:format => :json} do
@@ -32,6 +34,8 @@ Doers::Application.routes.draw do
       resources(:invitations, :except => [:update])
       resources(:memberships, :only => [:index, :show, :destroy])
       resources(:comments, :except => [:update])
+      resources(:topics)
+      resources(:endorses, :except => [:update])
     end
   end
 

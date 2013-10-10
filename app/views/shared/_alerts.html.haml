@@ -1,7 +1,7 @@
-#notifications
-  - flash.each do |name, msg|
-    - if msg.is_a?(String)
-      .alert-box{:class => "#{name}"}
-        %p
-          = msg
-        %a.close.icon-close
+#notifications.alerts
+  - flash.each do |name, message|
+    - if message.is_a?(String)
+      .alert{:class => name}
+        .alert-message
+          = message
+        .icon.icon-close

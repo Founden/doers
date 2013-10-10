@@ -6,48 +6,65 @@ feature 'Board', :js, :slow do
   end
 
   context 'building' do
-    given(:board) do
-      Fabricate(:persona_board, :user => User.first)
-    end
+    given(:board) { Fabricate(:board, :author => User.first) }
 
     background do
       visit root_path(:anchor => '/boards/%d/build' % board.id)
     end
 
-    scenario 'allows cards deletion' do
-      cards_count = board.cards.count
+    context 'topics' do
 
-      page.first('.card-item').click
-      expect(page).to have_css('.card-edit')
-
-      page.find('.card-edit-actions .remove-card').click
-      expect(page).to_not have_css('.card-edit')
-      expect(page).to have_css('.card-item', :count => cards_count - 1)
-      expect(board.reload.cards.count).to eq(cards_count - 1)
-    end
-
-    context 'UI allows cards to be repositioned' do
-      background do
-        # Update every card position
-        board.cards.each do |card|
-          card.update_attribute(:position, card.id)
-        end
+      scenario 'are shown' do
+        expect(page).to have_css('.topic', :count => board.topics.count)
       end
 
-      scenario 'when dragged and dropped' do
-        order = board.cards.pluck('id', 'position').flatten
+      scenario 'can be created' do
+        title = Faker::Lorem.sentence
+        description =Faker::Lorem.sentence
 
-        target = page.first('.card-item')
-        source = page.all('.card-item').last
+        page.find('.add-topic').click
+        expect(page).to have_css('.new-topic')
 
-        page.execute_script('$("#%s").trigger("dragstart")' % source['id'])
-        page.execute_script('$("#%s").trigger("drop")' % target['id'])
-        # TODO: Why this no work??!
-        # source.drag_to(target)
+        within('.new-topic') do
+          fill_in('topic-title', :with => title)
+          fill_in('topic-description', :with => description)
+        end
+
+        page.find('.save-topic').click
+        expect(page).to_not have_css('.save-topic')
 
         sleep(1)
-        expect(order).to_not eq(
-          board.cards.reload.pluck('id', 'position').flatten)
+        board.reload
+        expect(page).to have_css('.topic', :count => board.topics.count)
+      end
+
+      scenario 'can be edited' do
+        topic = board.topics.first
+        title = Faker::Lorem.sentence
+        description =Faker::Lorem.sentence
+
+        within('.topic-%s' % topic.id) do
+          fill_in('topic-title', :with => title)
+          fill_in('topic-description', :with => description)
+        end
+
+        page.find('.topic-%s .save-topic' % topic.id).click
+
+        expect(page).to_not have_css('.save-topic')
+        sleep(1)
+
+        topic.reload
+        expect(topic.title).to eq(title)
+        expect(topic.description).to eq(description)
+      end
+
+      scenario 'can be deleted' do
+        topic = board.topics.first
+        page.find('.topic-%s .remove-topic' % topic.id).click
+
+        sleep(1)
+        board.reload
+        expect(page).to have_css('.topic', :count => board.topics.count)
       end
     end
   end

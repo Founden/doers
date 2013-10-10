@@ -1,15 +1,11 @@
 Doers.AlertView = Ember.View.extend
   templateName: 'partials/alert'
-  classNames: ['alert-box']
+  classNames: ['alert']
   classNameBindings: ['type']
-  type: null
   message: null
+  type: null
   closeIcon: Ember.View.extend
-    tagName: 'a'
-    classNames: ['close']
-    # Garbage-collect itself, since click event doesn't work for some reason
-    # FIXME: WTF click is not triggered?!
+    classNames: ['icon', 'icon-close']
     didInsertElement: ->
-      self = @get('parentView')
-      @$().one 'click', ->
-        self.destroy()
+      @$().one 'click', =>
+        @get('parentView').destroy()

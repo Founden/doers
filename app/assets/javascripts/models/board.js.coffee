@@ -20,8 +20,7 @@ Doers.Board = DS.Model.extend
   cards: DS.hasMany('Doers.Card', inverse: 'board')
   memberships: DS.hasMany('Doers.Membership', readOnly: true, inverse: 'board')
   cardsCount: DS.attr('number', readOnly: true)
-
-  deleteConfirmation: false
+  topics: DS.hasMany('Doers.Topic', readOnly: true, inverse: 'board')
 
   slug: (->
     'board-' + @get('id')
@@ -40,10 +39,10 @@ Doers.Board = DS.Model.extend
     (@get('completedCardsCount') / @get('cardsCount')) * 100
   ).property('completedCardsCount')
 
-  cardsOrderChanged: ->
-    cards = @get('cards')
-    source = cards.filterProperty('moveSource', true).get('firstObject')
-    target = cards.filterProperty('moveTarget', true).get('firstObject')
+  topicsOrderChanged: ->
+    topics = @get('topics')
+    source = topics.filterProperty('moveSource', true).get('firstObject')
+    target = topics.filterProperty('moveTarget', true).get('firstObject')
 
     if target and source and (target.get('id') != source.get('id'))
       targetAt = target.get('position')
@@ -52,17 +51,17 @@ Doers.Board = DS.Model.extend
 
       # If we need to shift some cards in between
       if Math.abs(diff) != 1
-        # Shift/Unshift any cards which position is affected
-        cards.forEach (card) ->
-          cardAt = card.get('position')
+        # Shift/Unshift any topics which position is affected
+        topics.forEach (topic) ->
+          topicAt = topic.get('position')
           # If source is before target
-          if diff > 0 and cardAt < targetAt and cardAt > sourceAt
-            card.decrementProperty('position')
+          if diff > 0 and topicAt < targetAt and topicAt > sourceAt
+            topic.decrementProperty('position')
           # If source is after target (all goes desc order)
-          if diff < 0 and cardAt >= targetAt and cardAt < sourceAt
-            card.incrementProperty('position')
+          if diff < 0 and topicAt >= targetAt and topicAt < sourceAt
+            topic.incrementProperty('position')
           if diff == 0
-            card.set('position', cards.indexOf(card))
+            topic.set('position', topics.indexOf(topic))
 
         # Set source after target
         if diff > 0
@@ -75,8 +74,8 @@ Doers.Board = DS.Model.extend
         target.set('position', sourceAt)
 
       # Set source after target
-      cards.setEach('moveSource', false)
-      cards.setEach('moveTarget', false)
+      topics.setEach('moveSource', false)
+      topics.setEach('moveTarget', false)
 
       source.save() if source.get('id')
       target.save() if source.get('id')
