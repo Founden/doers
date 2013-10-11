@@ -17,8 +17,8 @@ feature 'Memberships', :js, :slow do
       page.find('.member-item-add-form .button').click
       page.find('.member-item-add.active').click
 
-      expect(page).to have_css('.member-list .member-item', :count => 1)
       sleep(1)
+      expect(page).to have_css('.member-list .member-item', :count => 1)
       expect(member.accepted_memberships.reload.count).to_not eq(0)
     end
   end
