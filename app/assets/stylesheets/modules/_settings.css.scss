@@ -1,0 +1,52 @@
+.settings {
+  margin: 60px 0 0 0;
+}
+
+.settings-title {
+  margin: 0 0 20px 0;
+  border-bottom: 1px solid $gray-3;
+  padding: 0 0 10px 0;
+  font-size: em(12);
+  font-weight: 700;
+  color: $gray-4;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.settings-field {
+  @include clearfix;
+  margin: 0 0 20px 0;
+  border-bottom: 1px solid $gray-2;
+  padding: 0 0 20px 0;
+
+  label {
+    display: block;
+    margin: 0 0 0.5em 0;
+    font-family: $museo;
+    font-weight: 700;
+  }
+
+  input[type=text] {
+    width: 100%;
+
+    &[readonly=readonly] {
+      color: rgba($black, 0.6);
+    }
+  }
+
+  input[type=checkbox] {
+    margin: 0 5px 0 0;
+  }
+
+  .avatar {
+    float: left;
+    margin: 0 20px 0 0;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+  }
+
+  .button {
+    float: right;
+  }
+}
