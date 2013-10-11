@@ -17,6 +17,7 @@ Doers.Board = DS.Model.extend
   branches: DS.hasMany('board', inverse: 'parentBoard', async: true)
   memberships: DS.hasMany('membership', readOnly: true, inverse: 'board', async: true)
   topics: DS.hasMany('topic', readOnly: true, inverse: 'board', async: true)
+  parentBoardTopics: DS.hasMany('topic', readOnly: true, inverse: 'board', async: true)
 
   slug: (->
     'board-' + @get('id')
