@@ -1,7 +1,7 @@
 # [Topic] model serializer
 class TopicSerializer < ActiveModel::Serializer
   attributes :id, :title, :description, :position, :updated_at
-  attributes :activity_ids, :last_update, :card_id
+  attributes :activity_ids, :last_update, :card
 
   has_one :user, :embed => :id
   has_one :board, :embed => :id
@@ -13,10 +13,12 @@ class TopicSerializer < ActiveModel::Serializer
     object.activities.where(:board_id => options[:topic_board_id]).pluck('id')
   end
 
-  # Fetches topic card id for current board
-  def card_id
+  # Fetches topic card id and type for current board
+  def card
     return nil if options[:topic_board_id].blank?
-    object.cards.where(:board_id => options[:topic_board_id]).pluck('id').first
+    if crd = object.cards.find_by(:board_id => options[:topic_board_id])
+      {:type => crd.type.demodulize.downcase, :id => crd.id}
+    end
   end
 
   # Creates a nice timestamp to indicate when it was last time updated
