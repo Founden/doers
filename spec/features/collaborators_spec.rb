@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'Collaborators', :js do
+feature 'Collaborators', :js, :slow do
 
   background do
     sign_in_with_angel_list
@@ -37,16 +37,37 @@ feature 'Collaborators', :js do
 
     scenario 'can be invited' do
       email = Faker::Internet.email
+      project = user.projects.first
+      members_count = project.members.count
 
-      within('.membership-invitee-form') do
+      within('#project-%d .membership-invitee-form' % project.id) do
         fill_in :email, :with => email
       end
       page.find('.membership-invitee-form .button').click
-
-      expect(page).to have_css('.membership-invitee', :count => 1)
+      expect(page).to have_css('.membership-user', :count => members_count)
       expect(page).to have_content(email)
+
       sleep(1)
+
       expect(Invitation.find_by(:email => email)).to_not be_nil
+    end
+
+    scenario 'can be added' do
+      member = Fabricate(:user)
+      project = user.projects.first
+      members_count = project.members.count
+
+      within('#project-%d .membership-invitee-form' % project.id) do
+        fill_in :email, :with => member.email
+      end
+      page.find('.membership-invitee-form .button').click
+
+      sleep(1)
+
+      expect(page).to have_css('.membership-user', :count => members_count + 1)
+      expect(page).to_not have_content(member.email)
+      expect(page).to have_content(member.nicename)
+      expect(Invitation.find_by(:email => member.email)).to be_nil
     end
   end
 end
