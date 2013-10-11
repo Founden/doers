@@ -88,13 +88,17 @@ feature 'Dashboard', :js, :slow do
     end
 
     scenario 'confirms deletion and removes project when clicked on delete' do
-      pending
-      find('#project-%d .delete-button' % user.projects.first.id).click
-      expect(page).to have_css('.delete-confirmation')
-      find('.delete-confirmation .button.red').click
-      sleep(1)
+
+      projects_count = user.projects.count
+
+      find('#project-%d .project-item-title' % user.projects.first.id).click
+      find('.header-actions .button.secondary').click
+
       expect(page).to have_css(
-        '.projects .project', :count => user.projects.count)
+        '.project-list .project-item', :count => projects_count - 1)
+
+      sleep(1)
+      expect(user.projects.count).to eq(projects_count - 1)
     end
 
   end
