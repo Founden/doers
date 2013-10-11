@@ -1,9 +1,3 @@
-#profile
-
-  %header.header
-    .header-content
-      = avatar_tag(@profile, {:size => 100})
-      %h1
-        = @profile.nicename
-      %p.header-links
-        = mail_to @profile.email, _('contact me')
+.header
+  .header-root
+    = @profile.nicename

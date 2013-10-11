@@ -1,4 +1,4 @@
-Doers.MembershipsIndexController = Ember.Controller.extend
+Doers.MembershipsController = Ember.Controller.extend
   inviteEmail: ''
 
   actions:
