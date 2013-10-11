@@ -134,12 +134,12 @@
 }
 
 .nav-list-item-account-actions {
-  margin: 0;
   font-size: em(12);
   color: rgba($white, 0.6);
 
   a {
     color: rgba($white, 0.6);
     border-bottom: 1px solid rgba($white, 0.2);
+    margin: 0 0.5em 0 0;
   }
 }
