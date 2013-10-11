@@ -12,16 +12,16 @@ Ember.ObjectController.extend Doers.ControllerAlertMixin,
       card.deleteRecord()
       card.get('store').commit()
 
-  endorse: ->
-    card = @get('content')
-    klass = @container.resolve('model:endorse')
-    endorse = klass.createRecord
-      project: card.get('project')
-      board: card.get('board')
-      topic: card.get('topic')
-      card: card
-    endorse.save().then =>
-      # card.get('endorses').pushObject(endorse)
+    endorse: ->
+      card = @get('content')
+      klass = @container.resolve('model:endorse')
+      endorse = klass.createRecord
+        project: card.get('project')
+        board: card.get('board')
+        topic: card.get('topic')
+        card: card
+      endorse.save().then =>
+        card.get('endorses').pushObject(endorse)
 
   # Creates or updates an asset
   # @param data [Hash], a set of asset options

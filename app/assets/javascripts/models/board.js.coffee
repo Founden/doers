@@ -6,7 +6,6 @@ Doers.Board = DS.Model.extend
   updatedAt: DS.attr('date', readOnly: true)
   lastUpdate: DS.attr('string', readOnly: true)
   branchesCount: DS.attr('number', readOnly: true)
-  cardsCount: DS.attr('number', readOnly: true)
 
   parentBoard: DS.belongsTo('board', inverse: 'branches')
   project: DS.belongsTo('project', inverse: 'boards')
@@ -16,26 +15,12 @@ Doers.Board = DS.Model.extend
   cover: DS.belongsTo('asset', inverse: 'board')
   activities: DS.hasMany('activity', readOnly: true, inverse: 'board', async: true)
   branches: DS.hasMany('board', inverse: 'parentBoard', async: true)
-  cards: DS.hasMany('card', inverse: 'board', async: true)
   memberships: DS.hasMany('membership', readOnly: true, inverse: 'board', async: true)
   topics: DS.hasMany('topic', readOnly: true, inverse: 'board', async: true)
 
   slug: (->
     'board-' + @get('id')
   ).property('id')
-
-  completedCardsCount: ( ->
-    # TODO: Make this smarter
-    count = 0
-    @get('cards').map (c)->
-      if !!c.get('title')
-        count++
-    count
-  ).property('cards.@each.title')
-
-  completedCardsProgress: ( ->
-    (@get('completedCardsCount') / @get('cardsCount')) * 100
-  ).property('completedCardsCount')
 
   topicsOrderChanged: ->
     topics = @get('topics')
