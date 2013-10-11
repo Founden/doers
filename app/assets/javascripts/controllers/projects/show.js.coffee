@@ -4,17 +4,25 @@ Doers.ProjectsShowController =
   inviteEmail: ''
 
   actions:
-
     update: ->
-      if @get('project.isDirty')
-        @get('project').save()
+      project = @get('project')
+      if project.get('title') and project.get('isDirty')
+        project.save().then =>
+          mixpanel.track 'UPDATED',
+            TYPE: 'Project'
+            ID: project.get('id')
+            TITLE: project.get('title')
 
     destroy: ->
       project = @get('project')
-      project.one 'didDelete', =>
-        @get('target.router').transitionTo('projects.index')
       project.deleteRecord()
-      project.get('store').commit()
+      project.save().then =>
+        mixpanel.track 'DELETED',
+          TYPE: 'Project'
+          ID: project.get('id')
+          TITLE: project.get('title')
+        @get('target.router').transitionTo('projects.index')
+
 
     createBranch: (board) ->
       project = @get('project')
@@ -26,6 +34,10 @@ Doers.ProjectsShowController =
       branch.save().then =>
         @get('content').pushObject(branch)
         $('body').animate({scrollTop: 100}, 200)
+        mixpanel.track 'BRANCHED',
+          TYPE: 'Board'
+          ID: board.get('id')
+          TITLE: board.get('title')
 
     invite: ->
       project = @get('project')
@@ -39,3 +51,7 @@ Doers.ProjectsShowController =
           @set('inviteEmail', '')
           if membership = invitation.get('membership')
             project.get('memberships').pushObject(membership)
+          mixpanel.track 'SHARED',
+            TYPE: 'Project'
+            ID: project.get('id')
+            TITLE: project.get('title')

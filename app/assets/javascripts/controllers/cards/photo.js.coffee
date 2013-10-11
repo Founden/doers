@@ -9,5 +9,9 @@ Doers.CardController.extend Doers.ControllerAlertMixin,
           attr: 'image',
           desc: card.get('attachmentDescription'),
           data: card.get('attachment')
-        @createOrUpdateAsset(data)
 
+        if card.get('isNew')
+          card.save().then =>
+            @createOrUpdateAsset(data)
+        else
+          @createOrUpdateAsset(data)

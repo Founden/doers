@@ -12,5 +12,10 @@ Doers.initializer
       container.injection('route', 'currentUser', 'user:current')
       container.injection('controller', 'currentUser', 'user:current')
 
+      mixpanel.identify(user.get('email'))
+      mixpanel.people.set
+        $name: user.get('nicename')
+        $email: user.get('email')
+
       # Continue the boot process
       application.advanceReadiness()

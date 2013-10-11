@@ -40,6 +40,18 @@ describe UserMailer do
     its(:to) { should include(invitation.user.email) }
   end
 
+  context '#membership_notification' do
+    let(:membership) { Fabricate(:project_membership) }
+
+    before { UserMailer.membership_notification(membership).deliver }
+
+    it_should_behave_like 'an email from us'
+    its('body.encoded') { should match(membership.creator.nicename) }
+    its('body.encoded') { should match(membership.user.nicename) }
+    its('body.encoded') { should match(membership.project.title) }
+    its(:to) { should include(membership.user.email) }
+  end
+
   context '#invite' do
     shared_examples 'an invitation from us' do
       its(:to) { should include(invitation.email) }
@@ -69,5 +81,22 @@ describe UserMailer do
       its(:subject) { should match(invitation.invitable.title) }
       its('body.encoded') { should match(invitation.invitable.title) }
     end
+  end
+
+  context '#export_data' do
+    let(:user) { Fabricate(:user) }
+    let(:zip_path) { File.expand_path(user.id.to_s + '.zip', Dir.tmpdir) }
+
+    before do
+      File.write(zip_path, rand(100))
+      UserMailer.export_data(user, zip_path).deliver
+    end
+    after { File.unlink(zip_path) }
+
+    it_should_behave_like 'an email from us'
+    its('body.encoded') { should match(user.nicename) }
+    its('attachments') { should have(1).attachment }
+    its('attachments.first.filename') { should eq('doers_boards.zip') }
+    its(:to) { should include(user.email) }
   end
 end

@@ -26,7 +26,6 @@ describe Board, :use_truncation do
 
       subject { user.activities }
 
-      its(:size) { should eq(3) }
       its('last.user') { should eq(user) }
       its('last.project') { should eq(board.project) }
       its('last.board_id') { should_not be_nil }

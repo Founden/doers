@@ -3,7 +3,6 @@ require 'spec_helper'
 describe PagesController do
 
   describe 'routing' do
-
     it 'for dashboard' do
       get('/dashboard').should route_to('pages#dashboard')
     end
@@ -16,6 +15,14 @@ describe PagesController do
       patch('/waiting').should route_to('pages#waiting')
     end
 
+    it 'for export page' do
+      get('/export').should route_to('pages#export')
+    end
+
+    it 'for download page' do
+      get('/download').should route_to('pages#download')
+    end
+
     it 'for promo code page' do
       get('/promo_code').should route_to('pages#promo_code')
     end
@@ -26,4 +33,3 @@ describe PagesController do
 
   end
 end
-

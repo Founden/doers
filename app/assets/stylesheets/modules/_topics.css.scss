@@ -8,10 +8,10 @@
   border-radius: 3px;
   background: $white;
   box-shadow: 0 1px 1px $gray-3;
-  @include transition(all 0.2s);
 
   &.is-dragged {
     @include transform(translateX(20px));
+    @include transition(all 0.2s);
   }
 
   &.is-droppable {
@@ -84,6 +84,7 @@
   font-size: em(14);
 
   a {
+    display: inline-block;
     color: $gray-6;
     text-decoration: underline;
     margin: 0 0.5em 0 0;

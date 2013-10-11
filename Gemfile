@@ -17,13 +17,14 @@ gem 'delayed_job_active_record'
 gem 'pg'
 gem 'oembedr'
 gem 'gutentag'
+gem 'zip', :require => false
 
 group :production do
   gem 'puma'
   gem 'party_foul'
   gem 'aws-sdk'
-  gem 'intercom-rails'
   gem 'daemons'
+  gem 'intercom-rails'
 end
 
 group :assets do
@@ -68,6 +69,6 @@ group :test do
   gem 'vcr'
   gem 'poltergeist'
   gem 'puffing-billy'
-  gem 'database_cleaner'
+  gem 'database_rewinder'
   gem 'shoulda-matchers'
 end
