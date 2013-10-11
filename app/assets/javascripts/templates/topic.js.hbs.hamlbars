@@ -47,7 +47,7 @@
       {{content.user.nicename}}
 
   {{#if content.card.isLoaded}}
-  {{view templateNameBinding=cardTemplateName controllerBinding=cardController contentBinding=content.card classBinding=cardClassNames}}
+  {{view templateNameBinding=cardTemplateName controllerBinding=cardController contentBinding=content.card classBinding=cardClassNames uploadViewBinding=uploaderView}}
   {{else}}
   {{partial 'partials/card_picker'}}
   {{/if}}
