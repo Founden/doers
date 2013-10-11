@@ -46,8 +46,8 @@
       = _('by')
       {{content.user.nicename}}
 
-  {{#if content.card}}
-  {{view Doers.CardView contentBinding=content.card}}
+  {{#if content.card.isLoaded}}
+  {{view templateNameBinding=cardTemplateName controllerBinding=cardController contentBinding=content.card classBinding=cardClassNames}}
   {{else}}
   {{partial 'partials/card_picker'}}
   {{/if}}
