@@ -1,22 +1,28 @@
-#profile
+.header
+  .header-root
+    = _('Settings')
 
-  %header.header
-    .header-content
-      %h1
-        = _('Your Profile')
+.content-wrap
 
-  .content
-    = form_for current_user, :url => profile_path(current_user), :html => { :class => 'form' } do |f|
-      %fieldset
-        .field
-          = f.label :avatar
-          = avatar_tag(current_user, {:size => 120})
-          = f.file_field :avatar
-        .field.checkbox
-          = f.check_box :newsletter_allowed?
-          = f.label :newsletter_allowed, _('Email me news sometimes')
-        .field
-          = f.label :name, _('Name')
-          = f.text_field :name, :required => true
-        .actions
-          = f.submit _('Save'), :class => 'button'
+  = form_for current_user, :url => profile_path(current_user), :html => {:class => 'settings'} do |f|
+    .settings-title
+      = _('Account settings')
+    .settings-field
+      = f.label :email, _('Your e-mail address')
+      = f.text_field :email, :readonly => true
+    .settings-field
+      = f.label :name, _('Your name')
+      = f.text_field :name, :required => true
+    .settings-field
+      = avatar_tag(current_user, {:size => 60})
+      = f.label :avatar, _('Your profile picture')
+      = f.file_field :avatar
+    .settings-field
+      = f.label :newsletter_allowed, _('E-mail notificationse')
+      = f.check_box :newsletter_allowed?
+      = _('Signup for Doers App Newsletter.')
+    .settings-actions
+      = f.button :class => 'button' do
+        %span.icon.icon-checkmark
+        = _('Save')
+
