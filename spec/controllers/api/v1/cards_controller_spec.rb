@@ -48,13 +48,14 @@ describe Api::V1::CardsController do
     end
 
     context 'for available cards' do
+      let(:json_root) {:phrase}
       let(:card) {
         Fabricate('card/phrase', :project => project, :board => board) }
       let(:card_id) { card.id }
 
       before { get(:show, :id => card_id) }
 
-      subject(:api_card) { json_to_ostruct(response.body, :card) }
+      subject(:api_card) { json_to_ostruct(response.body, json_root) }
 
       its(:id) { should eq(card.id) }
       its(:title) { should eq(card.title) }
@@ -70,11 +71,13 @@ describe Api::V1::CardsController do
       its('endorse_ids.size') { should eq(card.endorses.count) }
 
       context 'phrase card' do
+        let(:json_root) {:phrase}
         its('keys.size') { should eq(14) }
         its(:content) { should eq(card.content) }
       end
 
       context 'paragraph card' do
+        let(:json_root) {:paragraph}
         let(:card) {
           Fabricate('card/paragraph', :project => project, :board => board) }
 
@@ -83,6 +86,7 @@ describe Api::V1::CardsController do
       end
 
       context 'number card' do
+        let(:json_root) {:number}
         let(:card) {
           Fabricate('card/number', :project => project, :board => board) }
 
@@ -92,6 +96,7 @@ describe Api::V1::CardsController do
       end
 
       context 'timestamp card' do
+        let(:json_root) {:timestamp}
         let(:card) {
           Fabricate('card/timestamp', :project => project, :board => board) }
 
@@ -100,6 +105,7 @@ describe Api::V1::CardsController do
       end
 
       context 'interval card' do
+        let(:json_root) {:interval}
         let(:card) {
           Fabricate('card/interval', :project => project, :board => board) }
 
@@ -110,6 +116,7 @@ describe Api::V1::CardsController do
       end
 
       context 'book card' do
+        let(:json_root) {:book}
         let(:card) {
           Fabricate('card/book', :project => project, :board => board) }
 
@@ -121,6 +128,7 @@ describe Api::V1::CardsController do
       end
 
       context 'photo card' do
+        let(:json_root) {:photo}
         let(:card) {
           Fabricate('card/photo', :project => project, :board => board) }
 
@@ -129,6 +137,7 @@ describe Api::V1::CardsController do
       end
 
       context 'video card' do
+        let(:json_root) {:video}
         let(:card) {
           Fabricate('card/video', :project => project, :board => board) }
 
@@ -139,6 +148,7 @@ describe Api::V1::CardsController do
       end
 
       context 'map card' do
+        let(:json_root) {:map}
         let(:card) {
           Fabricate('card/map', :project => project, :board => board) }
 
@@ -149,6 +159,7 @@ describe Api::V1::CardsController do
       end
 
       context 'link card' do
+        let(:json_root) {:link}
         let(:card) {
           Fabricate('card/link', :project => project, :board => board) }
 
@@ -158,6 +169,7 @@ describe Api::V1::CardsController do
       end
 
       context 'list card' do
+        let(:json_root) {:list}
         let(:card) {
           Fabricate('card/list', :project => project, :board => board) }
 
@@ -214,7 +226,7 @@ describe Api::V1::CardsController do
       let(:card_attrs) { Fabricate.attributes_for(
         'card/phrase', :user => user, :board => board, :type => 'Phrase') }
 
-      subject(:api_card) { json_to_ostruct(response.body, :card) }
+      subject(:api_card) { json_to_ostruct(response.body, :phrase) }
 
       its('keys.size') { should eq(14) }
       its(:id) { should_not be_blank }
@@ -249,11 +261,12 @@ describe Api::V1::CardsController do
     end
 
     context 'for available cards' do
+      let(:json_root) { :phrase }
       let(:card_id) { card.id }
 
       before { patch(:update, :id => card_id, :card => card_attrs) }
 
-      subject(:api_card) { json_to_ostruct(response.body, :card) }
+      subject(:api_card) { json_to_ostruct(response.body, json_root) }
 
       context 'some attributes do not change' do
         let(:card_attrs) { Fabricate.attributes_for('card/phrase') }
@@ -271,8 +284,6 @@ describe Api::V1::CardsController do
         let(:card) { Fabricate(
           'card/phrase', :project => project, :board => board) }
 
-        subject(:api_card) { json_to_ostruct(response.body, :card) }
-
         its(:user_id) { should eq(user.id) }
         its(:user_id) { should_not eq(card.id) }
       end
@@ -288,6 +299,7 @@ describe Api::V1::CardsController do
       end
 
       context 'paragraph card' do
+        let(:json_root) { :paragraph }
         let(:card) {
           Fabricate('card/paragraph', :project => project, :board => board)}
         let(:card_attrs) { Fabricate.attributes_for('card/paragraph') }
@@ -298,6 +310,7 @@ describe Api::V1::CardsController do
       end
 
       context 'number card' do
+        let(:json_root) { :number }
         let(:card) {
           Fabricate('card/number', :project => project, :board => board)}
         let(:card_attrs) { Fabricate.attributes_for('card/number') }
@@ -309,6 +322,7 @@ describe Api::V1::CardsController do
       end
 
       context 'timestamp card' do
+        let(:json_root) { :timestamp }
         let(:card) {
           Fabricate('card/timestamp', :project => project, :board => board)}
         let(:card_attrs) { Fabricate.attributes_for('card/timestamp') }
@@ -319,6 +333,7 @@ describe Api::V1::CardsController do
       end
 
       context 'interval card' do
+        let(:json_root) { :interval }
         let(:card) {
           Fabricate('card/interval', :project => project, :board => board)}
         let(:card_attrs) { Fabricate.attributes_for('card/interval') }
@@ -331,6 +346,7 @@ describe Api::V1::CardsController do
       end
 
       context 'photo card' do
+        let(:json_root) { :photo }
         let(:card) {
           Fabricate('card/photo', :project => project, :board => board)}
         let(:card_attrs) { Fabricate.attributes_for('card/photo') }
@@ -342,6 +358,7 @@ describe Api::V1::CardsController do
       end
 
       context 'video card' do
+        let(:json_root) { :video }
         let(:card) {
           Fabricate('card/video', :project => project, :board => board)}
         let(:card_attrs) { Fabricate.attributes_for('card/video') }
@@ -355,6 +372,7 @@ describe Api::V1::CardsController do
       end
 
       context 'link card' do
+        let(:json_root) { :link }
         let(:card) {
           Fabricate('card/link', :project => project, :board => board)}
         let(:card_attrs) { Fabricate.attributes_for('card/link') }
@@ -366,6 +384,7 @@ describe Api::V1::CardsController do
       end
 
       context 'map card' do
+        let(:json_root) { :map }
         let(:card) {
           Fabricate('card/map', :project => project, :board => board)}
         let(:card_attrs) { Fabricate.attributes_for('card/map') }
@@ -378,6 +397,7 @@ describe Api::V1::CardsController do
       end
 
       context 'list card' do
+        let(:json_root) { :list }
         let(:card) {
           Fabricate('card/list', :project => project, :board => board) }
         let(:card_attrs) { Fabricate.attributes_for('card/list') }
