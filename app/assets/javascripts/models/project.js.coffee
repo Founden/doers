@@ -13,6 +13,7 @@ Doers.Project = DS.Model.extend
   boards: DS.hasMany('board', inverse: 'project', async: true)
   activities: DS.hasMany('activity', readOnly: true, inverse: 'project', async: true)
   memberships: DS.hasMany('membership', readOnly: true, inverse: 'project', async: true)
+  invitations: DS.hasMany('invitation', readOnly: true, inverse: 'project', async: true)
   logo: DS.belongsTo('logo', readOnly: true)
 
   slug: (->
