@@ -74,6 +74,8 @@
 }
 
 .topic-description {
+  width: 100%;
+  display: block;
   font-size: em(14);
   margin: 10px 0 0 0;
   color: $gray-6;
