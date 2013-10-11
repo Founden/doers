@@ -46,10 +46,12 @@ describe Api::V1::TopicsController do
     end
 
     context 'for available topic' do
-      let(:topic) {
-        Fabricate(:topic, :board => board) }
       let(:topic_id) { topic.id }
-      let(:board_id) { board.id }
+      let(:topic) { Fabricate(:topic, :board => board) }
+      let(:project) { Fabricate(:project, :user => user) }
+      let(:card) { Fabricate('card/phrase',
+        :board => board, :topic => topic, :project => project) }
+      let(:board_id) { card.board.id }
       let(:params) { {:id => topic_id, :board_id => board_id} }
 
       before { get(:show, params) }
@@ -64,20 +66,16 @@ describe Api::V1::TopicsController do
       its(:updated_at) { should_not be_nil }
       its(:user_id) { should eq(topic.user.id) }
       its(:board_id) { should eq(topic.board.id) }
+      its('card_id') { should eq(card.id) }
       its('comment_ids.size') { should eq(topic.comments.count) }
       its('activity_ids.size') {
         should eq(topic.activities.where(:board_id => board_id).count) }
 
-      its('card_id') { should be_blank }
+      context 'when board has no card' do
+        let(:board_id) { board.id }
 
-      context 'when board has no topic activities' do
-        let(:project) { Fabricate(:project, :user => user) }
-        let(:card) { Fabricate('card/phrase',
-          :board => board, :topic => topic, :project => project) }
-        let(:board_id) { card.board.id }
-
-        its('activity_ids.size') { should eq(0) }
-        its('card_id') { should eq(card.id) }
+        its('activity_ids.size') { should eq(1) }
+        its('card_id') { should be_blank }
       end
 
       context 'when board is not set' do

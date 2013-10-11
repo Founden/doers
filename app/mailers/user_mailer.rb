@@ -34,4 +34,22 @@ class UserMailer < ActionMailer::Base
 
     mail(:to => invitation.email, :subject => subject, :template_name => view)
   end
+
+  # Sends a notification about newly created membership user is part of
+  def membership_notification(membership)
+    @dashboard_url = root_url
+    @user = membership.user
+    @creator = membership.creator
+    @target = membership.board || membership.project
+    mail(:to => @user.email, :subject => _('%s added you to %s on %s.') % [
+      @creator.nicename, @target.title, Doers::Config.app_name])
+  end
+
+  # Sends an email with exported data
+  def export_data(user, zip_path)
+    @user = user
+    attachments['doers_boards.zip'] = File.read(zip_path)
+    mail(:to => user.email, :subject => _('Your %s exported data.') % [
+      Doers::Config.app_name])
+  end
 end

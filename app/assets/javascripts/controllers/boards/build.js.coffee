@@ -35,3 +35,10 @@ Ember.ArrayController.extend Doers.ControllerAlertMixin,
         board: @get('board')
         position: @get('content.length')
       @get('content').pushObject(topic)
+
+    saveTopic: (topic) ->
+      topic.save()
+
+    removeTopic: (topic) ->
+      topic.deleteRecord()
+      topic.save()

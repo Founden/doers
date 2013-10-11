@@ -9,6 +9,8 @@
 @import 'core/base';
 @import 'core/animations';
 
+@import 'nprogress';
+
 @import 'components/buttons';
 @import 'components/context-buttons';
 @import 'components/dropdown';
@@ -29,4 +31,5 @@
 @import 'modules/topics';
 @import 'modules/card';
 @import 'modules/members';
+@import 'modules/memberships';
 @import 'modules/activities';

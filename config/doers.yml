@@ -14,7 +14,9 @@ defaults: &defaults
   aws:
     s3:
       protocol: 'https'
-      bucket: 'app.doersapp.com'
+      bucket: 'assets.doersapp.com'
+  mixpanel:
+    token: 8c9917404d52607b8d3b265180f39721
   assets:
     image:
       sizes:

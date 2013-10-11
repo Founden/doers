@@ -19,3 +19,7 @@ Doers.Activity = DS.Model.extend
   isCardUpdate: ( ->
     /update-card/.test(@get('slug'))
   ).property('slug')
+
+  isCardDestroy: ( ->
+    /destroy-card/.test(@get('slug'))
+  ).property('slug')

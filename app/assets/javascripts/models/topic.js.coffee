@@ -18,6 +18,10 @@ Doers.Topic = DS.Model.extend
   moveSource: false
   moveTarget: false
 
+  slug: (->
+    'topic-' + @get('id')
+  ).property('id', 'type')
+
   needsRepositioning: ( ->
     board = @get('board')
     if board

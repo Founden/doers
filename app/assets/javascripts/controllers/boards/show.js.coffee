@@ -9,7 +9,10 @@ Ember.ArrayController.extend Doers.ControllerAlertMixin,
     destroy: ->
       board = @get('board')
       project = board.get('project')
-      board.one 'didDelete', =>
-        @get('target.router').transitionTo('projects.show', project)
       board.deleteRecord()
-      board.get('store').commit()
+      board.save().then =>
+        mixpanel.track 'DELETED',
+          TYPE: 'Board'
+          ID: board.get('id')
+          TITLE: board.get('title')
+        @get('target.router').transitionTo('projects.show', project)

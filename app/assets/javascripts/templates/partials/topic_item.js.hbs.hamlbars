@@ -1,13 +1,15 @@
 .topic-drag-handle
   .icon.icon-ellipsis
 .topic-content
-  {{input type='text' class='topic-title' valueBinding='title' placeholder='Type your topic title...' name='title'}}
-  {{textarea class='topic-description' valueBinding='description' placeholder='Type your topic description...' rows='6' name='description'}}
-  {{#if isDirty}}
+  {{input type='text' class='topic-title' valueBinding='title' placeholder='Type your topic title...' name='topic-title'}}
+  {{textarea class='topic-description' valueBinding='description' placeholder='Type your topic description...' rows='6' name='topic-description'}}
   .topic-actions
-    %a.save-topic{:_action => 'save'}
+    {{#if isDirty}}
+    %a.save-topic{:_action => 'saveTopic view.content'}
       = _('Save')
-  {{/if}}
+    {{/if}}
+    %a.remove-topic{:_action => 'removeTopic view.content'}
+      = _('remove topic')
 {{#if user}}
 .topic-user
   %img.topic-user-image{:bind => {:src => 'user.avatarUrl'}}

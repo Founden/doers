@@ -15,6 +15,17 @@ class PagesController < ApplicationController
     end
   end
 
+  # Export download page
+  def export
+  end
+
+  # Sends the export data to download
+  def download
+    Delayed::Job.enqueue(ExportJob.new(current_account))
+    flash[:success] = _('Give us some time then check your email.')
+    redirect_to export_pages_path
+  end
+
   # Show the page for claiming promo codes
   def promo_code
     code = params[:user] ? params[:user][:promo_code] : nil

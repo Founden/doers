@@ -17,23 +17,26 @@ Ember.ObjectController.extend Doers.ControllerAlertMixin,
           commentableId: @get('content.id')
           board: @get('board')
           project: @get('board.project')
+          topic: @get('content')
+          card: @get('content.card')
         comment.save().then =>
           @set('commentContent', '')
           @get('content.activities').pushObject @store.createRecord 'activity',
             comment: comment
             lastUpdate: comment.get('updatedAt')
 
-    resetComment: ->
-      @set('commentContent', '')
 
-    showCardPicker: ->
-      @set('cardPicker', true)
+      resetComment: ->
+        @set('commentContent', '')
 
-    addCard: (type) ->
-      card = @store.createRecord type.toLowerCase(),
-        user: @get('currentUser')
-        board: @get('board')
-        project: @get('board.project')
-        topic: @get('content')
-        type: type
-      @set('content.card', card)
+      showCardPicker: ->
+        @set('cardPicker', true)
+
+      addCard: (type) ->
+        card = @store.createRecord type.toLowerCase(),
+          user: @get('currentUser')
+          board: @get('board')
+          project: @get('board.project')
+          topic: @get('content')
+          type: type
+        @set('content.card', card)

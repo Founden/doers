@@ -1,0 +1,94 @@
+.membership-project {
+  overflow: hidden;
+  margin: 30px 0 0 0;
+  border: 1px solid $gray-4;
+  border-radius: 3px;
+  background: $white;
+  box-shadow: 0 1px 1px $gray-3;
+}
+
+.membership-project-title {
+  margin: 25px 30px;
+  font-size: em(24);
+}
+
+.membership-user {
+  float: left;
+  position: relative;
+  min-height: 60px;
+  margin: 0 30px 30px 30px;
+  padding: 0 0 0 75px;
+}
+
+.membership-user-image {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 60px;
+  width: 60px;
+  border-radius: 50%;
+  margin: 0 10px 0 0;
+}
+
+.membership-user-name {
+  font-weight: 600;
+}
+
+.membership-user-email {
+  color: $gray-6;
+  font-size: em(12);
+}
+
+.membership-user-remove {
+  text-decoration: underline;
+  font-size: em(12);
+  color: $red;
+  cursor: pointer;
+}
+
+.membership-invitee {
+  clear: both;
+  position: relative;
+  border-top: 1px solid $gray-1;
+  padding: 15px 30px;
+}
+
+.membership-invitee-email {
+  font-weight: 600;
+}
+
+.membership-invitee-remove {
+  position: absolute;
+  right: 0;
+  top: 0;
+  line-height: 54px;
+  width: 54px;
+  text-align: center;
+  border-left: 1px solid $gray-1;
+  cursor: pointer;
+
+  .icon:before {
+    color: $gray-3;
+  }
+}
+
+.membership-invitee-form {
+  clear: both;
+  position: relative;
+  border-top: 1px solid $gray-1;
+
+  input {
+    padding: 15px 30px;
+    width: 100%;
+  }
+
+  .button {
+    position: absolute;
+    right: 0;
+    top: 0;
+    border-radius: 0;
+    border: 0;
+    width: 54px;
+    height: 54px;
+  }
+}
