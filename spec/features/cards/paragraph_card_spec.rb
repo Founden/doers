@@ -35,7 +35,7 @@ feature 'Paragraph', :js, :slow do
         expect(card.content).to eq(content)
       end
 
-      scenario 'can be deleted', :pending do
+      scenario 'can be deleted' do
         page.find('.delete-card').click
         expect(page).to_not have_css('.card')
         sleep(1)
