@@ -39,7 +39,7 @@
       .topic-description
         {{content.description}}
     .topic-user
-      %img.topic-user-image{:bind => {:src => 'topic.user.avatarUrl'}}
+      %img.topic-user-image{:bind => {:src => 'content.user.avatarUrl'}}
       = _('Updated')
       {{content.lastUpdate}}
       %br/

@@ -10,3 +10,7 @@ Doers.Embed = DS.Model.extend
   authorName: DS.attr('string', readOnly: true)
   width: DS.attr('number', readOnly: true)
   height: DS.attr('number', readOnly: true)
+
+  mediaUrl: ( ->
+    @get('thumbnailUrl') || @get('embedUrl')
+  ).property('embedUrl', 'thumbnailUrl')
