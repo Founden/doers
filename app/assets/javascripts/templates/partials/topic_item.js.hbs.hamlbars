@@ -1,7 +1,7 @@
 .topic-drag-handle
   .icon.icon-ellipsis
 .topic-content
-  {{input type='text' class='topic-title' valueBinding='title' placeholder='Type your topic title...' name='topic-title'}}
+  {{textarea class='topic-title' valueBinding='title' placeholder='Type your topic title...' rows='2' name='topic-title'}}
   {{textarea class='topic-description' valueBinding='description' placeholder='Type your topic description...' rows='6' name='topic-description'}}
   .topic-actions
     {{#if isDirty}}
