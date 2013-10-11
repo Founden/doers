@@ -12,10 +12,9 @@ Ember.ArrayController.extend Doers.ControllerAlertMixin,
 
     destroy: ->
       board = @get('board')
-      board.one 'didDelete', =>
-        @get('target.router').transitionTo('boards')
       board.deleteRecord()
-      board.get('store').commit()
+      board.save().then =>
+        @get('target.router').transitionTo('boards')
 
     invite: ->
       board = @get('board')
