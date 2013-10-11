@@ -1,3 +1,3 @@
-Doers.MembershipsIndexRoute = Ember.Route.extend
+Doers.MembershipsRoute = Ember.Route.extend
   model: ->
     @get('currentUser.createdProjects')

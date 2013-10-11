@@ -1,22 +1,27 @@
-#profile
+.header
+  .header-root
+    = @profile.nicename
+  .header-title
+    = _('Profile')
 
-  %header.header
-    .header-content
-      %h1
-        = _('%s Profile') % @profile.nicename
+.content-wrap
 
-  .content
-    = form_for @profile,  :url => profile_path(@profile), :html => {:class => 'form'} do |f|
-      %fieldset
-        .field
-          = f.label :avatar
-          = avatar_tag(@profile, {:size => 70})
-        .field
-          = f.label :name, _('Name')
-          = f.text_field :name, :required => true
-        - if current_account.admin?
-          .field.checkbox
-            = f.check_box :confirmed
-            = f.label :confirmed, _('Allow Beta')
-        .actions
-          = f.submit _('Save'), :class => 'button'
+  = form_for current_user, :url => profile_path(current_user), :html => {:class => 'settings'} do |f|
+    .settings-title
+      = _('Edit profile')
+    .settings-field
+      = avatar_tag(@profile, {:size => 70})
+      = f.label :avatar, current_user.nicename
+      = current_user.email
+    .settings-field
+      = f.label :name, _('Name')
+      = f.text_field :name, :required => true
+    - if current_account.admin?
+      .settings-field
+        = f.label :confirmed, _('Beta access')
+        = f.check_box :confirmed
+        = _('Allow')
+    .settings-actions
+      = f.button :class => 'button' do
+        %span.icon.icon-checkmark
+        = _('Save')
