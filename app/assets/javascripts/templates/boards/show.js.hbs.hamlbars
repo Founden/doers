@@ -28,8 +28,8 @@
   .topics
     {{#each topic in content}}
     {{#linkTo 'topic' board topic class='topic with-link'}}
-    {{#view classNames='topic-status' classNameBindings='topic.completed'}}
-    {{#if topic.completed}}
+    {{#view classNames='topic-status' classNameBindings='topic.aligned'}}
+    {{#if topic.aligned}}
     .icon.icon-checkmark
     {{else}}
     .icon.icon-ellipsis

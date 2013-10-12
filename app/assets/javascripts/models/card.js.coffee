@@ -5,6 +5,7 @@ Doers.Card = DS.Model.extend
   title: DS.attr('string')
   content: DS.attr('string')
   type: DS.attr('string')
+  aligned: DS.attr('boolean', default: false)
   updatedAt: DS.attr('date', readOnly: true)
 
   project: DS.belongsTo('project')

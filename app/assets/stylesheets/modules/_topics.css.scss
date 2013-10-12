@@ -50,7 +50,7 @@
   box-shadow: 0 0 0 1px $gray-4;
   color: $gray-4;
 
-  &.completed {
+  &.aligned {
     background: tint($green, 80%);
     box-shadow: 0 0 0 1px tint($green, 60%);
     color: $green;

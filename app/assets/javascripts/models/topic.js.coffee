@@ -12,8 +12,9 @@ Doers.Topic = DS.Model.extend
   activities: DS.hasMany('activity', inverse: 'topic', readOnly: true, async: true)
   card: DS.belongsTo('card', inverse: 'topic', readOnly: true, polymorphic: true)
 
-  # TODO: Set completed attribute
-  completed: true
+  aligned: ( ->
+    @get('card.aligned')
+  ).property('card.aligned')
 
   moveSource: false
   moveTarget: false
