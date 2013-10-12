@@ -129,6 +129,30 @@ describe Api::V1::CommentsController do
       end
     end
 
+    context 'with a shared project with boards' do
+      let(:membership) { Fabricate(:project_membership, :user => user) }
+      let(:project) { membership.project }
+      let(:board) do
+        Fabricate(:branched_board, :project => project, :user => project.user)
+      end
+      let(:comment_attrs) do
+        Fabricate.attributes_for(:comment, :board => board,
+          :project => board.project, :user => user, :card => nil)
+      end
+
+      before do
+        post(:create, :comment => comment_attrs)
+      end
+
+      subject(:api_comment) { json_to_ostruct(response.body, :comment) }
+
+      its('keys.size') { should eq(11) }
+      its(:user_id) { should eq(user.id) }
+      its(:project_id) { should eq(project.id) }
+      its(:board_id) { should eq(board.id) }
+      its(:card_id) { should be_blank }
+    end
+
     context 'with wrong project' do
       let(:prj) { Fabricate(:project) }
 
