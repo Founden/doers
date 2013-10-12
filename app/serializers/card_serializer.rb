@@ -2,7 +2,7 @@
 class CardSerializer < ActiveModel::Serializer
   root :card
 
-  attributes :id, :title, :content, :position, :updated_at, :style, :type
+  attributes :id, :title, :content, :position, :updated_at, :style, :type, :aligned
 
   has_one :user, :embed => :id
   has_one :project, :embed => :id

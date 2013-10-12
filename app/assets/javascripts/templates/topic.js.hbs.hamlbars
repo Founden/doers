@@ -26,8 +26,8 @@
     {{textarea class='board-description' valueBinding='board.description' placeholder='Add board description.' name='description'}}
 
   .topic
-    {{#view classNames='topic-status' classNameBindings='content.completed'}}
-    {{#if content.completed}}
+    {{#view classNames='topic-status' classNameBindings='content.aligned'}}
+    {{#if content.aligned}}
     .icon.icon-checkmark
     {{else}}
     .icon.icon-ellipsis

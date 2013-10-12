@@ -10,7 +10,7 @@ class Card < ActiveRecord::Base
   default_scope { order(:position) }
 
   # Store accessors definition
-  store_accessor :data
+  store_accessor :data, :aligned
 
   # Relationships
   belongs_to :user
@@ -37,4 +37,10 @@ class Card < ActiveRecord::Base
     self.content = Sanitize.clean(self.content) if self.content.is_a?(String)
   end
   after_commit :generate_activity
+
+  # Checks if card is aligned
+  def aligned?
+    !aligned.blank?
+  end
+
 end
