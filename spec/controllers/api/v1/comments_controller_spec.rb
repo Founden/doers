@@ -116,8 +116,10 @@ describe Api::V1::CommentsController do
         let(:board) { Fabricate(:branched_board, :user => user) }
         let(:card) { Fabricate(
           :card, :board => board, :project => board.project) }
-        let(:comment_attrs) { Fabricate.attributes_for(:comment, :board => board,
-          :project => board.project, :user => user, :card => card) }
+        let(:comment_attrs) do
+          Fabricate.attributes_for(:comment, :board => board,
+          :project => board.project, :user => user, :card => card)
+        end
 
         subject(:api_comment) { json_to_ostruct(response.body, :comment) }
 
