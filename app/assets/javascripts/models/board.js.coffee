@@ -6,6 +6,7 @@ Doers.Board = DS.Model.extend
   updatedAt: DS.attr('date', readOnly: true)
   lastUpdate: DS.attr('string', readOnly: true)
   branchesCount: DS.attr('number', readOnly: true)
+  cardsCount: DS.attr('number', readOnly: true)
 
   parentBoard: DS.belongsTo('board', inverse: 'branches')
   project: DS.belongsTo('project', inverse: 'boards')
@@ -17,11 +18,24 @@ Doers.Board = DS.Model.extend
   branches: DS.hasMany('board', inverse: 'parentBoard', async: true)
   memberships: DS.hasMany('membership', readOnly: true, inverse: 'board', async: true)
   topics: DS.hasMany('topic', readOnly: true, inverse: 'board', async: true)
+  cards: DS.hasMany('card', readOnly: true, inverse: 'board', async: true)
   parentBoardTopics: DS.hasMany('topic', readOnly: true, inverse: 'board', async: true)
 
   slug: (->
     'board-' + @get('id')
   ).property('id')
+
+  completedCardsCount: ( ->
+    count = 0
+    @get('cards').map (card) ->
+      if card.get('aligned')
+        count++
+    count
+  ).property('cards.@each.aligned')
+
+  completedCardsProgress: ( ->
+    (@get('completedCardsCount') / @get('cardsCount')) * 100
+  ).property('completedCardsCount')
 
   topicsOrderChanged: ->
     topics = @get('topics')
@@ -33,7 +47,7 @@ Doers.Board = DS.Model.extend
       sourceAt = source.get('position')
       diff = targetAt - sourceAt
 
-      # If we need to shift some cards in between
+      # If we need to shift some topics in between
       if Math.abs(diff) != 1
         # Shift/Unshift any topics which position is affected
         topics.forEach (topic) ->
