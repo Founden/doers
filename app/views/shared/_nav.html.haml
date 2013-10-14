@@ -10,6 +10,8 @@
         .nav-list-item-account-name
           = current_account.nicename
         .nav-list-item-account-actions
+          %a{:href => mine_profiles_path}
+            = _('account settings')
           %a#signout-btn{:href => sign_out_path}
             = _('sign out')
       - if current_account.confirmed?
