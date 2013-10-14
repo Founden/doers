@@ -1,5 +1,5 @@
 box: wercker/ubuntu12.04-ruby2.0.0
-services: 
+services:
   - wercker/postgresql
 build:
   steps:
@@ -11,12 +11,12 @@ build:
     - script:
         name: DB Setup
         code: |
-          bundle exec rake db:schema:load RAILS_ENV=test
+          bundle exec rake parallel:create parallel:load_schema RAILS_ENV=test
 
     - script:
         name: RSpec
         code: |
-          bundle exec rspec
+          bundle exec rake parallel:spec spec:features
 
   after-steps:
     - hipchat-notify:
