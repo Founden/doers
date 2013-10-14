@@ -10,7 +10,7 @@ class Card < ActiveRecord::Base
   default_scope { order(:position) }
 
   # Store accessors definition
-  store_accessor :data, :aligned
+  store_accessor :data, :alignment
 
   # Relationships
   belongs_to :user
@@ -27,8 +27,8 @@ class Card < ActiveRecord::Base
   validates_numericality_of :position
 
   # Scopes
-  scope :unaligned, proc {
-    where('data @> hstore(?, ?)', 'aligned', 'true')
+  scope :aligned, proc {
+    where('data @> hstore(?, ?)', 'alignment', 'true')
   }
 
   # Callbacks
@@ -42,10 +42,4 @@ class Card < ActiveRecord::Base
     self.content = Sanitize.clean(self.content) if self.content.is_a?(String)
   end
   after_commit :generate_activity
-
-  # Checks if card is aligned
-  def aligned?
-    !aligned.blank?
-  end
-
 end
