@@ -17,7 +17,7 @@ class Api::V1::CommentsController < Api::V1::ApplicationController
   # Handles comment creation
   def create
     comment = current_account.comments.build(comment_params)
-    current_account.can?(:write, comment.project) if comment.project
+    current_account.can?(:read, comment.project) if comment.project
     current_account.can?(:write, comment.board) if comment.board
     current_account.can?(:read, comment.topic)
 

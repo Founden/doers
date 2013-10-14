@@ -46,7 +46,7 @@ feature 'Link', :js, :slow do
         expect(page).to have_content(embed['title'])
       end
 
-      scenario 'can be deleted', :pending do
+      scenario 'can be deleted' do
         page.find('.delete-card').click
         expect(page).to_not have_css('.card')
         sleep(1)

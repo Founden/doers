@@ -17,3 +17,9 @@ build:
         name: RSpec
         code: |
           bundle exec rspec
+
+  after-steps:
+    - hipchat-notify:
+        token: $HIPCHAT_TOKEN
+        room-id: 307331
+        from-name: Wercker

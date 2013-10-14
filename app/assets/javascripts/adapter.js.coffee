@@ -9,6 +9,8 @@ Doers.ApplicationAdapter = DS.ActiveModelAdapter.extend
     decamelized = Ember.String.decamelize(type)
     if decamelized in ['photo', 'paragraph', 'map', 'link']
       decamelized = 'card'
+    if decamelized in ['logo', 'image', 'banner', 'cover']
+      decamelized = 'asset'
     Ember.String.pluralize(decamelized)
 
   # Tweak findMany for topic requests to include its board

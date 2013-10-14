@@ -1,6 +1,7 @@
 Doers.ProjectsIndexRoute = Ember.Route.extend
   model: ->
-    @get('currentUser.createdProjects')
+    @get('currentUser').reload().then =>
+      @get('currentUser.createdProjects')
 
 Doers.ProjectsNewRoute = Ember.Route.extend
   model: ->

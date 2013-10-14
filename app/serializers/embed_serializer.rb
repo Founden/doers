@@ -2,9 +2,14 @@
 class EmbedSerializer < ActiveModel::Serializer
   root :embed
 
-  attributes :title, :height, :width, :html, :type => :embed_type
+  attributes :id, :title, :height, :width, :html, :type => :embed_type
   attributes :provider_name, :thumbnail_url, :author_url, :author_name
   attributes :url => :embed_url
+
+  # Dummy ID to make Ember happy
+  def id
+    DateTime.now.to_i
+  end
 
   # Overwrite serializer constructor
   def initialize(object, options={})
