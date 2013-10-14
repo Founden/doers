@@ -38,6 +38,7 @@ class BoardSerializer < ActiveModel::Serializer
     object.tags.pluck('name').map(&:titleize)
   end
 
+  # TODO: Move this to the model
   def progress
     completed_count = object.cards.aligned.count
     topics_count > 0 ? ( completed_count.to_f / topics_count) * 100 : 100

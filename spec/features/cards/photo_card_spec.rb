@@ -45,22 +45,6 @@ feature 'Photo', :js, :slow do
         expect(page.source).to include(
           card.image.attachment.url.force_encoding('UTF-8'))
       end
-
-      scenario 'can be marked as aligned' do
-        page.find('.toggle-alignment').click
-        expect(page).to have_css('.topic-status.aligned')
-        sleep(1)
-        card.reload
-        expect(card.aligned).to be_true
-      end
-
-      scenario 'can be deleted' do
-        page.find('.delete-card').click
-        expect(page).to_not have_css('.card')
-        sleep(1)
-        topic.reload
-        expect(topic.cards.count).to eq(0)
-      end
     end
   end
 end

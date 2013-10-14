@@ -12,6 +12,7 @@ feature 'Topic', :js, :slow do
     given(:board) { project.boards.first }
     given(:topic) { board.parent_board.topics.first }
     given(:content) { Faker::Lorem.sentence }
+    given!(:card) {}
 
     background do
       visit root_path(:anchor => '/board/%d/topic/%d' % [board.id, topic.id])
@@ -40,6 +41,29 @@ feature 'Topic', :js, :slow do
       expect(page).to have_css('.activity', :count => 1)
       expect(topic.comments.count).to eq(1)
     end
+
+    context 'with a card' do
+      given!(:card) do
+        Fabricate('card/paragraph', :project => project,
+          :board => board, :topic => topic)
+      end
+
+      scenario 'progress changes if aligned' do
+        expect(page.find('.header-progress-bar')[:style]).to include(': 0%')
+        page.find('.toggle-alignment').click
+        sleep(1)
+        expect(page.find('.header-progress-bar')[:style]).to_not include(': 0%')
+      end
+
+      scenario 'it can be deleted' do
+        page.find('.delete-card').click
+        expect(page).to_not have_css('.card')
+        sleep(1)
+        topic.reload
+        expect(topic.cards.count).to eq(0)
+      end
+    end
+
   end
 
 end
