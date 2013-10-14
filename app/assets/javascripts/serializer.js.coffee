@@ -5,3 +5,8 @@ Doers.ApplicationSerializer = DS.ActiveModelSerializer.extend
     if @container.resolve('model:card').detect(type)
       type.typeKey = 'card'
     hash[type.typeKey] = @serialize(record, options)
+
+  # Apparently ember data is ignoring readOnly flag
+  serializePolymorphicType: (record, json, relationship) ->
+    unless relationship.options.readOnly
+      @_super(record, json, relationship)

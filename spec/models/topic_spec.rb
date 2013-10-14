@@ -6,7 +6,6 @@ describe Topic do
   it { should have_many(:cards).dependent(:destroy) }
   it { should have_many(:comments).dependent(:destroy) }
   it { should have_many(:activities).dependent('') }
-  it { should have_many(:endorses).dependent(:destroy) }
   it { should validate_presence_of(:user) }
   it { should validate_presence_of(:title) }
   it { should validate_presence_of(:board) }

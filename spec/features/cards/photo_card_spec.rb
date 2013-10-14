@@ -16,7 +16,8 @@ feature 'Photo', :js, :slow do
     scenario 'is shown with details' do
       expect(page).to have_css('.card', :count => 1)
       expect(page.source).to include(card.title)
-      expect(page.source).to include(card.image.attachment.url)
+      expect(page.source).to include(
+        card.image.attachment.url.force_encoding('UTF-8'))
     end
 
     context 'when edited' do
@@ -41,10 +42,11 @@ feature 'Photo', :js, :slow do
         expect(card.content).to eq(content)
 
         expect(page.source).to_not include(old_image_url)
-        expect(page.source).to match('data:image/png;base64')
+        expect(page.source).to include(
+          card.image.attachment.url.force_encoding('UTF-8'))
       end
 
-      scenario 'can be deleted', :pending do
+      scenario 'can be deleted' do
         page.find('.delete-card').click
         expect(page).to_not have_css('.card')
         sleep(1)

@@ -8,14 +8,15 @@ Ember.ObjectController.extend Doers.ControllerAlertMixin,
         @set('content.user', currentUser)
 
     destroy: ->
+      topic = @get('content.topic')
       card = @get('content')
       card.deleteRecord()
-      card.save()
+      card.save().then =>
+        topic.set('card', null)
 
     endorse: ->
       card = @get('content')
-      klass = @container.resolve('model:endorse')
-      endorse = klass.createRecord
+      endorse = @store.createRecord 'endorse',
         project: card.get('project')
         board: card.get('board')
         topic: card.get('topic')
@@ -43,7 +44,7 @@ Ember.ObjectController.extend Doers.ControllerAlertMixin,
 
   createAsset: (data) ->
     card = @get('content')
-    asset = Doers.Asset.createRecord
+    asset = @get('content.store').createRecord 'asset',
       attachment: data.url || data.data
       description: data.desc
       project: card.get('project')

@@ -1,5 +1,6 @@
 # [Card::Interval] model serializer
 class Card::IntervalSerializer < CardSerializer
+  root :interval
   attributes :minimum, :maximum, :selected
 
   # Manually type cast it until serializer supports it natively

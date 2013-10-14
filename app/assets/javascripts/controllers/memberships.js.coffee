@@ -14,6 +14,8 @@ Doers.MembershipsController = Ember.Controller.extend
           @set('inviteEmail', '')
           if membership = invitation.get('membership')
             project.get('memberships').pushObject(membership)
+          else
+            project.get('invitations').pushObject(invitation)
           mixpanel.track 'SHARED',
             TYPE: 'Project'
             ID: project.get('id')
