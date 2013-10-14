@@ -13,8 +13,8 @@ Doers.Topic = DS.Model.extend
   card: DS.belongsTo('card', inverse: 'topic', readOnly: true, polymorphic: true)
 
   aligned: ( ->
-    @get('card.aligned')
-  ).property('card.aligned')
+    @get('card.alignment')
+  ).property('card.alignment')
 
   moveSource: false
   moveTarget: false
