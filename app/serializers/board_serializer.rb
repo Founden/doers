@@ -1,7 +1,7 @@
 # [Board] model serializer
 class BoardSerializer < ActiveModel::Serializer
   attributes :id, :title, :status, :updated_at, :description, :card_ids
-  attributes :branches_count, :cards_count, :last_update, :collections
+  attributes :branches_count, :topics_count, :last_update, :collections
   attributes :progress
 
   has_one :user, :embed => :id
@@ -28,9 +28,9 @@ class BoardSerializer < ActiveModel::Serializer
     object.branches.count
   end
 
-  # Returns the number of cards
-  def cards_count
-    object.cards.count
+  # Returns the number of topics
+  def topics_count
+    object.parent_board_topics.count
   end
 
   # Returns collection/tag names
@@ -38,10 +38,10 @@ class BoardSerializer < ActiveModel::Serializer
     object.tags.pluck('name').map(&:titleize)
   end
 
-  # Returns collection/tag names
+  # TODO: Move this to the model
   def progress
-    completed_count = object.cards.pluck('title').reject(&:blank?).count
-    cards_count > 0 ? ( completed_count.to_f / cards_count) * 100 : 0
+    completed_count = object.cards.aligned.count
+    topics_count > 0 ? ( completed_count.to_f / topics_count) * 100 : 100
   end
 
   # Helper to alias to when its a whiteboard
@@ -55,8 +55,7 @@ class BoardSerializer < ActiveModel::Serializer
   end
 
   alias_method :include_collections?, :is_whiteboard?
-  alias_method :include_progress?, :is_not_whiteboard?
   alias_method :include_topics?, :is_whiteboard?
+  alias_method :include_progress?, :is_not_whiteboard?
   alias_method :include_parent_board_topics?, :is_not_whiteboard?
-
 end

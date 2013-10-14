@@ -13,10 +13,10 @@
     {{/view}}
   .header-progress-wrap
     .header-progress-title
-      {{board.completedCardsProgress}}&#37;
+      {{board.progress}}&#37;
       = _('board alignment')
     .header-progress
-      {{view Doers.ProgressBar classNames='header-progress-bar' widthBinding='board.completedCardsProgress'}}
+      {{view Doers.ProgressBar classNames='header-progress-bar' widthBinding='board.progress'}}
 
 .content-wrap
 
@@ -28,8 +28,8 @@
   .topics
     {{#each topic in content}}
     {{#linkTo 'topic' board topic class='topic with-link'}}
-    {{#view classNames='topic-status' classNameBindings='topic.completed'}}
-    {{#if topic.completed}}
+    {{#view classNames='topic-status' classNameBindings='topic.aligned'}}
+    {{#if topic.aligned}}
     .icon.icon-checkmark
     {{else}}
     .icon.icon-ellipsis

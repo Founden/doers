@@ -6,6 +6,7 @@ Doers.Board = DS.Model.extend
   updatedAt: DS.attr('date', readOnly: true)
   lastUpdate: DS.attr('string', readOnly: true)
   branchesCount: DS.attr('number', readOnly: true)
+  topicsCount: DS.attr('number', readOnly: true)
 
   parentBoard: DS.belongsTo('board', inverse: 'branches')
   project: DS.belongsTo('project', inverse: 'boards')
@@ -33,7 +34,7 @@ Doers.Board = DS.Model.extend
       sourceAt = source.get('position')
       diff = targetAt - sourceAt
 
-      # If we need to shift some cards in between
+      # If we need to shift some topics in between
       if Math.abs(diff) != 1
         # Shift/Unshift any topics which position is affected
         topics.forEach (topic) ->
