@@ -6,7 +6,7 @@ Doers.Board = DS.Model.extend
   updatedAt: DS.attr('date', readOnly: true)
   lastUpdate: DS.attr('string', readOnly: true)
   branchesCount: DS.attr('number', readOnly: true)
-  cardsCount: DS.attr('number', readOnly: true)
+  topicsCount: DS.attr('number', readOnly: true)
 
   parentBoard: DS.belongsTo('board', inverse: 'branches')
   project: DS.belongsTo('project', inverse: 'boards')
@@ -24,18 +24,6 @@ Doers.Board = DS.Model.extend
   slug: (->
     'board-' + @get('id')
   ).property('id')
-
-  completedCardsCount: ( ->
-    count = 0
-    @get('cards').map (card) ->
-      if card.get('aligned')
-        count++
-    count
-  ).property('cards.@each.aligned')
-
-  completedCardsProgress: ( ->
-    (@get('completedCardsCount') / @get('cardsCount')) * 100
-  ).property('completedCardsCount')
 
   topicsOrderChanged: ->
     topics = @get('topics')

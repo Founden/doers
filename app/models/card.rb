@@ -26,6 +26,11 @@ class Card < ActiveRecord::Base
   validates_inclusion_of :style, :in => STYLES
   validates_numericality_of :position
 
+  # Scopes
+  scope :unaligned, proc {
+    where('data @> hstore(?, ?)', 'aligned', 'true')
+  }
+
   # Callbacks
   after_initialize do
     self.position ||= 0

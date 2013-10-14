@@ -14,10 +14,10 @@
     {{/linkTo}}
   .header-progress-wrap
     .header-progress-title
-      {{board.completedCardsProgress}}&#37;
+      {{board.progress}}&#37;
       = _('board alignment')
     .header-progress
-      {{view Doers.ProgressBar classNames='header-progress-bar' widthBinding='board.completedCardsProgress'}}
+      {{view Doers.ProgressBar classNames='header-progress-bar' widthBinding='board.progress'}}
 
 .content-wrap
 
