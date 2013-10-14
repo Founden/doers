@@ -9,7 +9,7 @@
     {{/each}}
     %li
       .icon.icon-plus{:_action => 'endorse'}
-  .button-pile{:_action => 'toggleAlignment'}
+  .button-pile.toggle-alignment{:_action => 'toggleAlignment'}
     {{#if aligned}}
     = _('Mark as unaligned')
     {{else}}

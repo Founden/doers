@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'Paragraph', :js, :slow do
+feature 'Paragraph', :js, :focus do
   background do
     sign_in_with_angel_list
   end
@@ -33,6 +33,14 @@ feature 'Paragraph', :js, :slow do
         card.reload
         expect(card.title).to eq(title)
         expect(card.content).to eq(content)
+      end
+
+      scenario 'can be marked as aligned' do
+        page.find('.toggle-alignment').click
+        expect(page).to have_css('.topic-status.aligned')
+        sleep(1)
+        card.reload
+        expect(card.aligned).to be_true
       end
 
       scenario 'can be deleted' do

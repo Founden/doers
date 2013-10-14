@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'Map', :js, :slow do
+feature 'Map', :js, :focus do
   background do
     sign_in_with_angel_list
   end
@@ -52,6 +52,14 @@ feature 'Map', :js, :slow do
 
         expect(page.source).to include(card.latitude)
         expect(page.source).to include(card.longitude)
+      end
+
+      scenario 'can be marked as aligned' do
+        page.find('.toggle-alignment').click
+        expect(page).to have_css('.topic-status.aligned')
+        sleep(1)
+        card.reload
+        expect(card.aligned).to be_true
       end
 
       scenario 'can be deleted' do

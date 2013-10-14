@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'Photo', :js, :slow do
+feature 'Photo', :js, :focus do
   background do
     sign_in_with_angel_list
   end
@@ -44,6 +44,14 @@ feature 'Photo', :js, :slow do
         expect(page.source).to_not include(old_image_url)
         expect(page.source).to include(
           card.image.attachment.url.force_encoding('UTF-8'))
+      end
+
+      scenario 'can be marked as aligned' do
+        page.find('.toggle-alignment').click
+        expect(page).to have_css('.topic-status.aligned')
+        sleep(1)
+        card.reload
+        expect(card.aligned).to be_true
       end
 
       scenario 'can be deleted' do
