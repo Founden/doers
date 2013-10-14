@@ -26,7 +26,7 @@ Ember.ObjectController.extend Doers.ControllerAlertMixin,
 
     toggleAlignment: ->
       card = @get('content')
-      card.toggleProperty('aligned')
+      card.toggleProperty('alignment')
       card.save().then ->
         card.get('board').reload()
 
