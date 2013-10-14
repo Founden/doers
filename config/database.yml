@@ -16,4 +16,4 @@ development:
 
 test:
   <<: *postgresql
-  database: doers_test
+  database: doers_test<%= ENV['TEST_ENV_NUMBER'] %>
