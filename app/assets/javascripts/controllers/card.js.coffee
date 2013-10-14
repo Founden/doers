@@ -10,7 +10,7 @@ Ember.ObjectController.extend Doers.ControllerAlertMixin,
     destroy: ->
       card = @get('content')
       card.deleteRecord()
-      card.get('store').commit()
+      card.save()
 
     endorse: ->
       card = @get('content')
@@ -26,7 +26,8 @@ Ember.ObjectController.extend Doers.ControllerAlertMixin,
     toggleAlignment: ->
       card = @get('content')
       card.toggleProperty('aligned')
-      card.save()
+      card.save().then ->
+        card.get('board').reload()
 
   # Creates or updates an asset
   # @param data [Hash], a set of asset options

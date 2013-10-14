@@ -1,5 +1,5 @@
-{{#unless isNew}}
 .card-endorses
+  {{#unless isNew}}
   %h4
     = _('Agree with this')
   %ul
@@ -15,4 +15,4 @@
     {{else}}
     = _('Mark as aligned')
     {{/if}}
-{{/unless}}
+  {{/unless}}
