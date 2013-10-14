@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'Photo', :js, :focus do
+feature 'Photo', :js, :slow do
   background do
     sign_in_with_angel_list
   end
