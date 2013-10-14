@@ -39,7 +39,7 @@ class BoardSerializer < ActiveModel::Serializer
   end
 
   def progress
-    completed_count = object.cards.unaligned.count
+    completed_count = object.cards.aligned.count
     topics_count > 0 ? ( completed_count.to_f / topics_count) * 100 : 100
   end
 
@@ -55,6 +55,6 @@ class BoardSerializer < ActiveModel::Serializer
 
   alias_method :include_collections?, :is_whiteboard?
   alias_method :include_topics?, :is_whiteboard?
+  alias_method :include_progress?, :is_not_whiteboard?
   alias_method :include_parent_board_topics?, :is_not_whiteboard?
-
 end

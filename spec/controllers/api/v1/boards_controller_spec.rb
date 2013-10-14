@@ -63,7 +63,7 @@ describe Api::V1::BoardsController do
       its(:branch_ids) { should be_empty }
       its(:card_ids) { should be_empty }
       its(:branches_count) { should eq(board.branches.count) }
-      its(:cards_count) { should eq(board.cards.count) }
+      its(:topics_count) { should eq(board.parent_board_topics.count) }
       its('activity_ids.size') { should eq(board.activities.count) }
       its('membership_ids.size') { should eq(board.memberships.count) }
       its(:progress) { should eq(0) }
@@ -77,7 +77,7 @@ describe Api::V1::BoardsController do
           board.id
         end
 
-        its(:progress) { should eq(100) }
+        its(:progress) { should eq(0) }
       end
 
       context 'for #parent_board' do
