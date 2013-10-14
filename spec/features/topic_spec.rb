@@ -48,6 +48,14 @@ feature 'Topic', :js, :slow do
           :board => board, :topic => topic)
       end
 
+      scenario 'it can be marked as aligned' do
+        page.find('.toggle-alignment').click
+        expect(page).to have_css('.topic-status.aligned')
+        sleep(1)
+        card.reload
+        expect(card.alignment).to be_true
+      end
+
       scenario 'progress changes if aligned' do
         expect(page.find('.header-progress-bar')[:style]).to include(': 0%')
         page.find('.toggle-alignment').click
