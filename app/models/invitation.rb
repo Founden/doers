@@ -66,6 +66,6 @@ class Invitation < ActiveRecord::Base
 
     # Board ids user branched/authored
     def user_board_ids
-      self.user.branched_board_ids + self.user.authored_board_ids + [nil]
+      self.user.created_board_ids + self.user.shared_board_ids + [nil]
     end
 end
