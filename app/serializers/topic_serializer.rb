@@ -1,16 +1,20 @@
 # [Topic] model serializer
 class TopicSerializer < ActiveModel::Serializer
   attributes :id, :title, :description, :position, :updated_at
-  attributes :activity_ids, :last_update, :card
+  attributes :activity_ids, :last_update, :card, :board_id
 
   has_one :user, :embed => :id
-  has_one :board, :embed => :id
   has_many :comments, :embed => :id
 
   # Fetches topic board activity ids
   def activity_ids
     return [] if options[:topic_board_id].blank?
     object.activities.where(:board_id => options[:topic_board_id]).pluck('id')
+  end
+
+  # Set topic board id
+  def board_id
+    options[:topic_board_id]
   end
 
   # Fetches topic card id and type for current board
