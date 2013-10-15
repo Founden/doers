@@ -18,8 +18,8 @@ module Activity::Support
 
     # Generates activity attributes based on current model attributes
     def activity_params
-      params = self.attributes.slice(
-        'user_id', 'project_id', 'board_id', 'topic_id', 'author_id', 'creator_id', 'title')
+      params = self.attributes.slice('user_id', 'project_id', 'board_id',
+        'topic_id', 'whiteboard_id', 'creator_id', 'title')
       params['slug'] = activity_slug
       params['user_id'] = params['author_id'] if params['user_id'].nil?
       if self.is_a?(Membership)

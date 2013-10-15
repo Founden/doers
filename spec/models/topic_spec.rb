@@ -3,6 +3,8 @@ require 'spec_helper'
 describe Topic do
   it { should belong_to(:user) }
   it { should belong_to(:project) }
+  it { should belong_to(:board).dependent('') }
+  it { should belong_to(:whiteboard).dependent('') }
   it { should have_many(:cards).dependent(:destroy) }
   it { should have_many(:comments).dependent(:destroy) }
   it { should have_many(:activities).dependent('') }

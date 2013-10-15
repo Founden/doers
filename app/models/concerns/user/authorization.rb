@@ -80,11 +80,8 @@ module User::Authorization
     table = Board.arel_table
 
     query =
-      # User is the author
-      table[:author_id].eq(self.id).or(
-        # User branched a board
-        table[:user_id].eq(self.id)
-      ).or(
+      # User branched a board
+      table[:user_id].eq(self.id).or(
         # User project has it
         table[:project_id].in(self.created_project_ids).or(
           # Somebody shared the project
