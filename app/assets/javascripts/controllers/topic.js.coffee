@@ -11,6 +11,7 @@ Ember.ObjectController.extend Doers.ControllerAlertMixin,
       @container.resolve('controller:' + type + 'Card').create
         content: @get('content.card')
         container: @container
+        store: @store
   ).property('content.card.type')
 
   cardTemplateName: ( ->
