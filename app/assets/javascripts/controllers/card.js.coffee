@@ -11,13 +11,14 @@ Ember.ObjectController.extend Doers.ControllerAlertMixin,
       @get('content').save().then =>
         currentUser = @container.resolve('user:current')
         @set('content.user', currentUser)
+        @get('content.topic').reload()
 
     destroy: ->
       topic = @get('content.topic')
       card = @get('content')
       card.deleteRecord()
       card.save().then =>
-        topic.set('card', null)
+        topic.reload()
 
     addEndorse: ->
       card = @get('content')
