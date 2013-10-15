@@ -19,7 +19,7 @@ describe Api::V1::BoardsController do
     end
 
     context 'for a not owned board' do
-      let(:board_ids) { [Fabricate(:branched_board).id] }
+      let(:board_ids) { [Fabricate(:board).id] }
 
       it 'raises 404' do
         expect{ get(:index, :ids => board_ids) }.to raise_error(
@@ -40,14 +40,14 @@ describe Api::V1::BoardsController do
 
   describe '#show' do
     context 'for available boards' do
-      let(:board) { Fabricate(:branched_board, :user => user) }
+      let(:board) { Fabricate(:board, :user => user) }
       let(:board_id) { board.id }
 
       before { get(:show, :id => board_id) }
 
       subject(:api_board) { json_to_ostruct(response.body, :board) }
 
-      its('keys.size') { should eq(20) }
+      its('keys.size') { should eq(19) }
       its(:id) { should eq(board.id) }
       its(:title) { should eq(board.title) }
       its(:status) { should eq(Board::STATES.first) }
@@ -59,16 +59,14 @@ describe Api::V1::BoardsController do
       its(:author_id) { should be_nil }
       its(:project_id) { should eq(board.project.id) }
       its(:team_id) { should be_blank }
-      its(:parent_board_id) { should eq(board.parent_board.id) }
-      its(:branch_ids) { should be_empty }
+      its(:whiteboard_id) { should eq(board.whiteboard.id) }
+      its(:board_ids) { should be_empty }
       its(:card_ids) { should be_empty }
-      its(:branches_count) { should eq(board.branches.count) }
-      its(:topics_count) { should eq(board.parent_board_topics.count) }
+      its(:boards_count) { should eq(board.branches.count) }
+      its(:topics_count) { should eq(board.topics.count) }
       its('activity_ids.size') { should eq(board.activities.count) }
       its('membership_ids.size') { should eq(board.memberships.count) }
       its(:progress) { should eq(0) }
-      its('parent_board_topic_ids.size') {
-        should eq(board.parent_board_topics.count) }
 
       context '#progress' do
         let(:board_id) do
@@ -81,7 +79,7 @@ describe Api::V1::BoardsController do
       end
 
       context 'for #parent_board' do
-        let(:board_id) { board.parent_board.id }
+        let(:board_id) { board.id }
 
         its('keys.size') { should eq(20) }
 
@@ -89,10 +87,10 @@ describe Api::V1::BoardsController do
         its(:author_id) { should eq(board.parent_board.author.id) }
         its(:team_id) { should eq(board.parent_board.team.id) }
         its(:project_id) { should be_nil }
-        its(:parent_board_id) { should be_nil }
+        its(:whiteboard_id) { should be_nil }
         its('collections.sort') {
           should eq(board.parent_board.tag_names.map(&:titleize).sort) }
-        its('topic_ids.size') { should eq(board.parent_board.topics.count) }
+        its('topic_ids.size') { should eq(board.topics.count) }
       end
     end
 
@@ -109,7 +107,7 @@ describe Api::V1::BoardsController do
     let(:board) { Fabricate(:persona_board) }
     let(:project) { Fabricate(:project, :user => user) }
     let(:title) { Faker::Lorem.sentence }
-    let(:attrs) { Fabricate.attributes_for(:branched_board,
+    let(:attrs) { Fabricate.attributes_for(:board,
       :project => project, :user => user, :parent_board => board,:title=>title)}
 
     context 'when parent board and project are available' do
@@ -184,7 +182,7 @@ describe Api::V1::BoardsController do
   end
 
   describe '#update' do
-    let(:board) { Fabricate(:branched_board, :user => user) }
+    let(:board) { Fabricate(:board, :user => user) }
     let(:board_attrs) { Fabricate.attributes_for(:board) }
     let(:board_id) { board.id }
 
@@ -201,7 +199,7 @@ describe Api::V1::BoardsController do
     its(:progress) { should eq(0) }
 
     context 'ignores wrong attributes' do
-      let(:board_attrs) { Fabricate.attributes_for(:branched_board) }
+      let(:board_attrs) { Fabricate.attributes_for(:board) }
 
       its('keys.size') { should eq(20) }
       its(:title) { should eq(board_attrs['title']) }

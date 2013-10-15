@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Api::V1::AssetsController do
   let(:user) { Fabricate(:user) }
   let(:project) { Fabricate(:project, :user => user) }
-  let(:board) { Fabricate(:branched_board, :user => user, :project => project) }
+  let(:board) { Fabricate(:board, :user => user, :project => project) }
 
   before do
     controller.stub(:current_account => user)

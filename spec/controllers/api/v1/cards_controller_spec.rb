@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Api::V1::CardsController do
   let(:user) { Fabricate(:user) }
   let(:project) { Fabricate(:project, :user => user) }
-  let(:board) { Fabricate(:branched_board, :user => user, :project => project) }
+  let(:board) { Fabricate(:board, :user => user, :project => project) }
 
   before do
     controller.stub(:current_account) { user }
@@ -215,7 +215,7 @@ describe Api::V1::CardsController do
       context 'on a not owned board_id' do
         let(:card_attrs) do
           Fabricate.attributes_for('card/phrase', :user => user,
-            :type => 'Phrase', :board => Fabricate(:branched_board))
+            :type => 'Phrase', :board => Fabricate(:board))
         end
 
         its('response.status') { should eq(400) }
