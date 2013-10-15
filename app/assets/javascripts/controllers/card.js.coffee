@@ -24,6 +24,12 @@ Ember.ObjectController.extend Doers.ControllerAlertMixin,
       endorse.save().then =>
         card.get('endorses').pushObject(endorse)
 
+    toggleAlignment: ->
+      card = @get('content')
+      card.toggleProperty('alignment')
+      card.save().then ->
+        card.get('board').reload()
+
   # Creates or updates an asset
   # @param data [Hash], a set of asset options
   #   Includes a key: `attr` the asset attribute name

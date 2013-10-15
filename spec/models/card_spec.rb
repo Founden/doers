@@ -41,7 +41,7 @@ describe Card do
   end
 
   context 'order defaults to Card#position' do
-    let!(:cards) { Fabricate(:public_board).cards }
+    let!(:cards) { 3.times.collect{ Fabricate(:card) } }
     let(:positions) { cards.count.times.collect{ rand(10..100) } }
 
     context '#all' do
@@ -57,6 +57,20 @@ describe Card do
 
         it { should eq(positions.sort) }
       end
+    end
+  end
+
+  context '#aligned scope' do
+    let!(:cards) { 3.times.collect{ Fabricate(:card) } }
+
+    subject { Card.aligned.count }
+
+    it { should eq(0) }
+
+    context 'when there are aligned cards' do
+      before { cards.first.update_attribute(:alignment, true) }
+
+      it { should eq(1) }
     end
   end
 end

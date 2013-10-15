@@ -63,6 +63,7 @@ group :development, :test do
   gem 'guard-rspec', :require => false
   gem 'rb-inotify', :require => false
   gem 'guard-migrate', :require => false
+  gem 'parallel_tests', :require => false
 end
 
 group :test do

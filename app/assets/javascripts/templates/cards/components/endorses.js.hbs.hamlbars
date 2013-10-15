@@ -1,4 +1,5 @@
 .card-endorses
+  {{#unless isNew}}
   %h4
     = _('Agree with this')
   %ul
@@ -8,5 +9,10 @@
     {{/each}}
     %li
       .icon.icon-plus{:_action => 'endorse'}
-  .button-pile
+  .button-pile.toggle-alignment{:_action => 'toggleAlignment'}
+    {{#if aligned}}
+    = _('Mark as unaligned')
+    {{else}}
     = _('Mark as aligned')
+    {{/if}}
+  {{/unless}}
