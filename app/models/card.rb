@@ -9,9 +9,6 @@ class Card < ActiveRecord::Base
   # Default scope: order by position
   default_scope { order(:position) }
 
-  # Store accessors definition
-  store_accessor :data, :alignment
-
   # Relationships
   belongs_to :user
   belongs_to :board
@@ -27,9 +24,7 @@ class Card < ActiveRecord::Base
   validates_numericality_of :position
 
   # Scopes
-  scope :aligned, proc {
-    where('data @> hstore(?, ?)', 'alignment', 'true')
-  }
+  scope :aligned, where(:alignment => true)
 
   # Callbacks
   after_initialize do
