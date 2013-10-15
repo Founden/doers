@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131008132441) do
+ActiveRecord::Schema.define(version: 20131015145851) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,21 +63,19 @@ ActiveRecord::Schema.define(version: 20131008132441) do
     t.string   "title"
     t.text     "description"
     t.integer  "user_id"
-    t.integer  "author_id"
     t.integer  "project_id"
-    t.integer  "parent_board_id"
     t.string   "status"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "team_id"
+    t.integer  "whiteboard_id"
   end
 
-  add_index "boards", ["author_id"], name: "index_boards_on_author_id", using: :btree
-  add_index "boards", ["parent_board_id"], name: "index_boards_on_parent_board_id", using: :btree
   add_index "boards", ["project_id"], name: "index_boards_on_project_id", using: :btree
   add_index "boards", ["status"], name: "index_boards_on_status", using: :btree
   add_index "boards", ["team_id"], name: "index_boards_on_team_id", using: :btree
   add_index "boards", ["user_id"], name: "index_boards_on_user_id", using: :btree
+  add_index "boards", ["whiteboard_id"], name: "index_boards_on_whiteboard_id", using: :btree
 
   create_table "cards", force: true do |t|
     t.integer  "user_id"
@@ -93,8 +91,10 @@ ActiveRecord::Schema.define(version: 20131008132441) do
     t.datetime "updated_at"
     t.integer  "parent_card_id"
     t.integer  "topic_id"
+    t.boolean  "alignment"
   end
 
+  add_index "cards", ["alignment"], name: "index_cards_on_alignment", using: :btree
   add_index "cards", ["board_id"], name: "index_cards_on_board_id", using: :btree
   add_index "cards", ["parent_card_id"], name: "index_cards_on_parent_card_id", using: :btree
   add_index "cards", ["position"], name: "index_cards_on_position", using: :btree
@@ -245,12 +245,14 @@ ActiveRecord::Schema.define(version: 20131008132441) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "position"
+    t.integer  "whiteboard_id"
   end
 
   add_index "topics", ["board_id"], name: "index_topics_on_board_id", using: :btree
   add_index "topics", ["position"], name: "index_topics_on_position", using: :btree
   add_index "topics", ["project_id"], name: "index_topics_on_project_id", using: :btree
   add_index "topics", ["user_id"], name: "index_topics_on_user_id", using: :btree
+  add_index "topics", ["whiteboard_id"], name: "index_topics_on_whiteboard_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "name"
@@ -263,5 +265,17 @@ ActiveRecord::Schema.define(version: 20131008132441) do
 
   add_index "users", ["email"], name: "index_users_on_email", using: :btree
   add_index "users", ["external_id"], name: "index_users_on_external_id", using: :btree
+
+  create_table "whiteboards", force: true do |t|
+    t.string   "title"
+    t.text     "description"
+    t.integer  "user_id"
+    t.integer  "team_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "whiteboards", ["team_id"], name: "index_whiteboards_on_team_id", using: :btree
+  add_index "whiteboards", ["user_id"], name: "index_whiteboards_on_user_id", using: :btree
 
 end
