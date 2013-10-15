@@ -6,6 +6,6 @@ Fabricator(:team) do
   angel_list  'http://angel.co/%s' % Faker::Lorem.word
   after_create do |team, trans|
     team.banner = Fabricate(:banner, :assetable => team)
-    trans[:boards_count].times { Fabricate(:board, :team => team) }
+    trans[:boards_count].times { Fabricate(:whiteboard, :team => team) }
   end
 end

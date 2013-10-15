@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Team do
   it { should have_one(:banner).dependent(:destroy) }
-  it { should have_many(:boards) }
+  it { should have_many(:whiteboards) }
   it { should have_many(:users).through(:boards) }
 
   %w(website angel_list).each do |attr|

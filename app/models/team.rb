@@ -6,8 +6,8 @@ class Team < ActiveRecord::Base
   store_accessor :data, :website, :angel_list
 
   # Relationships
-  has_many :boards
-  has_many :users, :through => :boards, :source => :author
+  has_many :whiteboards
+  has_many :users, :through => :whiteboards
   has_one(:banner, :as => :assetable,
           :class_name => Asset::Banner, :dependent => :destroy)
 
