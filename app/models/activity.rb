@@ -5,7 +5,7 @@ class Activity < ActiveRecord::Base
   store_accessor :data, :card_title, :topic_title, :invitation_email
 
   # Default scope: order by last update
-  default_scope { order(:updated_at) }
+  default_scope { order(:updated_at => :desc) }
 
   # Relationships
   belongs_to :project

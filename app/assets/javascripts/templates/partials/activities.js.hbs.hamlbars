@@ -1,4 +1,16 @@
 .activities
+  .activity-comment-form
+    .activity-comment-user
+      %img{:class => 'activity-comment-user-image', :bind => {:src => 'currentUser.avatarUrl'}}
+      {{currentUser.nicename}}
+    {{textarea class='activity-comment-content' valueBinding='commentContent' placeholder='Write a comment...' rows='4' name='comment'}}
+    .activity-comment-actions
+      {{#if commentContent}}
+      %a.create-comment{:_action => 'addComment'}
+        = _('Save')
+      %a.reset-comment{:_action => 'resetComment'}
+        = _('Cancel')
+      {{/if}}
   {{#each activity in content.activities}}
   .activity{:bind => {:id => 'activity.identifier'}}
     {{#if activity.comment}}
@@ -6,7 +18,7 @@
       .activity-comment-user
         %img{:class => 'activity-comment-user-image', :bind => {:src => 'activity.comment.user.avatarUrl'}}
         {{activity.comment.user.nicename}},
-        {{timeago activity.comment.updatedAt}}
+        {{activity.lastUpdate}}
       .activity-comment-content
         {{activity.comment.content}}
     {{else}}
@@ -21,18 +33,6 @@
       {{#if activity.isCardDestroy}}
       = _('removed the sugestion')
       {{/if}}
-      {{timeago activity.lastUpdate}}.
+      {{activity.lastUpdate}}.
     {{/if}}
   {{/each}}
-  .activity-comment-form
-    .activity-comment-user
-      %img{:class => 'activity-comment-user-image', :bind => {:src => 'currentUser.avatarUrl'}}
-      {{currentUser.nicename}}
-    {{textarea class='activity-comment-content' valueBinding='commentContent' placeholder='Write a comment...' rows='4' name='comment'}}
-    .activity-comment-actions
-      {{#if commentContent}}
-      %a.create-comment{:_action => 'addComment'}
-        = _('Save')
-      %a.reset-comment{:_action => 'resetComment'}
-        = _('Cancel')
-      {{/if}}

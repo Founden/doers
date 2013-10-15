@@ -19,7 +19,7 @@ describe Project, :use_truncation do
     context 'on update' do
       before { project.update_attributes(:title => Faker::Company.name) }
 
-      subject{ activities.last }
+      subject{ activities.first }
 
       it { activities.count.should eq(2) }
       its(:user) { should eq(project.user) }
@@ -30,7 +30,7 @@ describe Project, :use_truncation do
     context 'on delete' do
       before { project.destroy }
 
-      subject { user.activities.last }
+      subject { user.activities.first }
 
       it { activities.count.should eq(2) }
       its(:user) { should eq(user) }

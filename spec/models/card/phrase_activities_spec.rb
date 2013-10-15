@@ -8,7 +8,7 @@ describe Card::Phrase, :use_truncation do
     subject(:activities) { card.activities }
 
     context 'on create' do
-      subject{ activities.last }
+      subject{ activities.first }
 
       its(:user) { should eq(card.user) }
       its(:project) { should eq(card.project) }
@@ -21,7 +21,7 @@ describe Card::Phrase, :use_truncation do
     context 'on update' do
       before { card.update_attributes(:title => Faker::Lorem.sentence) }
 
-      subject{ activities.last }
+      subject{ activities.first }
 
       it { activities.count.should eq(2) }
       its(:user) { should eq(card.user) }
@@ -35,7 +35,7 @@ describe Card::Phrase, :use_truncation do
     context 'on delete' do
       before { card.destroy }
 
-      subject { user.activities.last }
+      subject { user.activities.first }
 
       it { activities.count.should eq(2) }
       its(:user) { should eq(card.user) }
