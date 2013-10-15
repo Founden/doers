@@ -31,8 +31,8 @@ class User < ActiveRecord::Base
            :class_name => Membership)
   has_many :invitations, :dependent => :destroy
 
-  has_many :branched_boards, :class_name => Board
-  has_many :authored_boards, :foreign_key => :author_id, :class_name => Board
+  has_many :whiteboards
+  has_many :created_boards, :class_name => Board
   has_many :shared_boards, :through => :accepted_memberships, :source => :board
 
   has_many :created_projects, :class_name => Project, :dependent => :destroy
@@ -57,7 +57,7 @@ class User < ActiveRecord::Base
 
   # All user boards
   def boards
-    Board.where(:id => (shared_board_ids + branched_board_ids))
+    Board.where(:id => (shared_board_ids + created_boards))
   end
 
   # All user memberships

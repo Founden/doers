@@ -4,13 +4,13 @@ describe User do
   it { should have_many(:created_projects).dependent(:destroy) }
   it { should have_many(:shared_projects).through(:accepted_memberships) }
   it { should have_many(:created_boards).dependent('') }
-  it { should have_many(:authored_boards).dependent('') }
   it { should have_many(:shared_boards).through(:accepted_memberships) }
   it { should have_many(:cards).dependent('') }
   it { should have_many(:comments) }
   it { should have_many(:assets) }
   it { should have_many(:images).dependent('') }
   it { should have_many(:activities).dependent('') }
+  it { should have_many(:whiteboards).dependent('') }
   it { should have_many(:created_memberships).dependent(:destroy) }
   it { should have_many(:accepted_memberships).dependent(:destroy) }
   it { should have_many(:invitations).dependent(:destroy) }

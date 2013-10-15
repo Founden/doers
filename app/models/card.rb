@@ -24,7 +24,7 @@ class Card < ActiveRecord::Base
   validates_numericality_of :position
 
   # Scopes
-  scope :aligned, where(:alignment => true)
+  scope :aligned, proc{ where(:alignment => true) }
 
   # Callbacks
   after_initialize do
