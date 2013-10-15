@@ -28,13 +28,13 @@ Ember.ObjectController.extend Doers.ControllerAlertMixin,
         topic: card.get('topic')
         card: card
       endorse.save().then ->
-        card.get('endorses').pushObject(endorse)
+        card.reload()
 
     removeEndorse: ->
       endorse = @get('userEndorse')
       endorse.deleteRecord()
       endorse.save().then =>
-        @get('content.endorses').removeObject(endorse)
+        card.reload()
 
     toggleAlignment: ->
       card = @get('content')
