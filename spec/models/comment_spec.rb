@@ -5,6 +5,7 @@ describe Comment do
   it { should belong_to(:parent_comment) }
   it { should belong_to(:user) }
   it { should belong_to(:board) }
+  it { should belong_to(:whiteboard) }
   it { should belong_to(:project) }
   it { should belong_to(:card) }
   it { should belong_to(:topic) }
