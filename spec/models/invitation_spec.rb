@@ -85,8 +85,6 @@ describe Invitation do
         subject { activities.first }
 
         context 'when no invitable is set' do
-          subject { activities.last }
-
           its(:user) { should eq(invitation.user) }
           its(:project) { should be_nil }
           its(:board) { should be_nil }

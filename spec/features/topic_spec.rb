@@ -63,6 +63,15 @@ feature 'Topic', :js, :slow do
         expect(page.find('.header-progress-bar')[:style]).to_not include(': 0%')
       end
 
+      scenario 'user can endorse' do
+        expect(page).to have_css('.card-endorse-item', :count => 0)
+        page.find('.add-endorse').click
+        sleep(1)
+        card.reload
+        expect(card.endorses.count).to eq(1)
+        expect(page).to have_css('.card-endorse-item', :count => card.endorses.count)
+      end
+
       scenario 'it can be deleted' do
         page.find('.delete-card').click
         expect(page).to_not have_css('.card')

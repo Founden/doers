@@ -1,10 +1,10 @@
-Doers.Activity = DS.Model.extend
+Doers.Activity = DS.Model.extend Doers.LastUpdateMixin,
   slug: DS.attr('string', readOnly: true)
-  lastUpdate: DS.attr('string', readOnly: true)
+  updatedAt: DS.attr('date', readOnly: true)
 
   user: DS.belongsTo('user', readOnly: true, inverse: 'activities')
-  project: DS.belongsTo('user', readOnly: true, inverse: 'activities')
-  board: DS.belongsTo('user', readOnly: true, inverse: 'activities')
+  project: DS.belongsTo('project', readOnly: true, inverse: 'activities')
+  board: DS.belongsTo('board', readOnly: true, inverse: 'activities')
   comment: DS.belongsTo('comment', readOnly: true, inverse: 'activity')
   topic: DS.belongsTo('topic', readOnly: true, inverse: 'activities')
 
@@ -23,3 +23,4 @@ Doers.Activity = DS.Model.extend
   isCardDestroy: ( ->
     /destroy-card/.test(@get('slug'))
   ).property('slug')
+

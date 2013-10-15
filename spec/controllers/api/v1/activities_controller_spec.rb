@@ -25,7 +25,7 @@ describe Api::V1::ActivitiesController, :use_truncation do
 
     subject(:api_activity) { json_to_ostruct(response.body, :activity) }
 
-    its('keys.size') { should eq(15) }
+    its('keys.size') { should eq(14) }
     its(:id) { should eq(activity.id) }
     its(:slug) { should eq(activity.slug) }
     its(:user_id) { should eq(user.id) }
@@ -39,7 +39,6 @@ describe Api::V1::ActivitiesController, :use_truncation do
     its(:board_title) { should be_nil }
     its(:topic_title) { should be_nil }
     its(:updated_at) { should_not be_blank }
-    its(:last_update) { should eq(activity.updated_at.to_s(:pretty)) }
   end
 
   describe '#destroy' do
