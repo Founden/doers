@@ -32,7 +32,7 @@ describe Api::V1::EndorsesController do
 
       subject(:api_end) { json_to_ostruct(response.body, :endorse) }
 
-      its('keys.size') { should eq(15) }
+      its('keys.size') { should eq(14) }
       its(:id) { should eq(endorse.id) }
       its(:slug) { should eq(endorse.slug) }
       its(:user_id) { should eq(user.id) }
@@ -46,7 +46,6 @@ describe Api::V1::EndorsesController do
       its(:board_title) { should_not be_nil }
       its(:topic_title) { should_not be_nil }
       its(:updated_at) { should_not be_blank }
-      its(:last_update) { should eq(endorse.updated_at.to_s(:pretty)) }
     end
 
     context 'for a not owned endorse' do
@@ -68,7 +67,7 @@ describe Api::V1::EndorsesController do
 
       subject(:api_end) { json_to_ostruct(response.body, :endorse) }
 
-      its('keys.count') { should eq(15) }
+      its('keys.count') { should eq(14) }
       its(:id) { should_not be_nil }
       its(:user_id) { should eq(user.id) }
       its(:project_id) { should eq(end_attrs[:project_id]) }
