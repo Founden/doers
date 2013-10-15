@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 20131015145851) do
     t.integer  "topic_id"
     t.integer  "comment_id"
     t.string   "type"
+    t.integer  "whiteboard_id"
   end
 
   add_index "activities", ["board_id"], name: "index_activities_on_board_id", using: :btree
@@ -38,6 +39,7 @@ ActiveRecord::Schema.define(version: 20131015145851) do
   add_index "activities", ["slug"], name: "index_activities_on_slug", using: :btree
   add_index "activities", ["topic_id"], name: "index_activities_on_topic_id", using: :btree
   add_index "activities", ["user_id"], name: "index_activities_on_user_id", using: :btree
+  add_index "activities", ["whiteboard_id"], name: "index_activities_on_whiteboard_id", using: :btree
 
   create_table "assets", force: true do |t|
     t.integer  "project_id"
@@ -114,6 +116,7 @@ ActiveRecord::Schema.define(version: 20131015145851) do
     t.datetime "updated_at"
     t.integer  "card_id"
     t.integer  "topic_id"
+    t.integer  "whiteboard_id"
   end
 
   add_index "comments", ["board_id"], name: "index_comments_on_board_id", using: :btree
@@ -122,6 +125,7 @@ ActiveRecord::Schema.define(version: 20131015145851) do
   add_index "comments", ["project_id"], name: "index_comments_on_project_id", using: :btree
   add_index "comments", ["topic_id"], name: "index_comments_on_topic_id", using: :btree
   add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
+  add_index "comments", ["whiteboard_id"], name: "index_comments_on_whiteboard_id", using: :btree
 
   create_table "delayed_jobs", force: true do |t|
     t.integer  "priority",   default: 0, null: false
