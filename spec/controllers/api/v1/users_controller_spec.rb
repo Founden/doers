@@ -20,7 +20,7 @@ describe Api::V1::UsersController do
 
     let(:user_id) { user.id }
     # Some data to make sure nothing brakes
-    let!(:board) { Fabricate(:branched_board, :user => user) }
+    let!(:board) { Fabricate(:board, :user => user) }
 
     before { get(:show, :id => user_id) }
 
@@ -41,7 +41,7 @@ describe Api::V1::UsersController do
       its('shared_project_ids.size') {
         should eq(user.shared_projects.count) }
       its('public_board_ids.size') { should eq(Board.public.count) }
-      its('branched_board_ids.size') { should eq(user.branched_boards.count) }
+      its('board_ids.size') { should eq(user.boards.count) }
       its('authored_board_ids.size') { should eq(user.authored_boards.count) }
       its('shared_board_ids.size') { should eq(user.shared_boards.count) }
       its('activity_ids.size') { should eq(user.activities.count) }

@@ -113,7 +113,7 @@ describe Api::V1::CommentsController do
       its(:topic_id) { should eq(comment.topic.id) }
 
       context 'when card is set' do
-        let(:board) { Fabricate(:branched_board, :user => user) }
+        let(:board) { Fabricate(:board, :user => user) }
         let(:card) { Fabricate(
           :card, :board => board, :project => board.project) }
         let(:comment_attrs) do
@@ -135,7 +135,7 @@ describe Api::V1::CommentsController do
       let(:membership) { Fabricate(:project_membership, :user => user) }
       let(:project) { membership.project }
       let(:board) do
-        Fabricate(:branched_board, :project => project, :user => project.user)
+        Fabricate(:board, :project => project, :user => project.user)
       end
       let(:comment_attrs) do
         Fabricate.attributes_for(:comment, :board => board,

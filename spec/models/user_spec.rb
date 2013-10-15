@@ -3,7 +3,7 @@ require 'spec_helper'
 describe User do
   it { should have_many(:created_projects).dependent(:destroy) }
   it { should have_many(:shared_projects).through(:accepted_memberships) }
-  it { should have_many(:branched_boards).dependent('') }
+  it { should have_many(:created_boards).dependent('') }
   it { should have_many(:authored_boards).dependent('') }
   it { should have_many(:shared_boards).through(:accepted_memberships) }
   it { should have_many(:cards).dependent('') }
