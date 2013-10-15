@@ -33,6 +33,7 @@ describe Activity, :use_truncation do
     context 'for the board' do
       let(:board) { Fabricate(:board, :user => user) }
       let(:trackable) { board }
+      subject { trackable.activities.last }
 
       its(:user_name) { should eq(user.nicename) }
       its(:board) { should eq(board) }
@@ -64,11 +65,11 @@ describe Activity, :use_truncation do
 
     context '#all' do
       subject do
-        activities.order('updated_at').pluck('updated_at').map(&:to_i)
+        activities.order(:updated_at => :desc).pluck('updated_at').map(&:to_i)
       end
 
       it { should eq(dates) }
-      it { should eq(dates.sort) }
+      it { should eq(dates.sort.reverse) }
     end
   end
 end
