@@ -20,3 +20,12 @@ Doers.ApplicationAdapter = DS.ActiveModelAdapter.extend
         ids: ids, board_id: owner.get('id')
     else
       @_super(store, type, ids, owner)
+
+  find: (store, type, id) ->
+    if @container.resolve('model:topic').detect(type)
+      store.find(type, id).then (topic) =>
+        board_id = topic.get('board.id')
+        @ajax @buildURL(type.typeKey, id), 'GET', data:
+          board_id: board_id
+    else
+      @_super(store, type, id)
