@@ -60,7 +60,7 @@ describe Activity, :use_truncation do
   end
 
   context 'order defaults to Activity#updated_at' do
-    let!(:activities) { Fabricate(:public_board).author.activities }
+    let!(:activities) { Fabricate(:board).user.activities }
     let(:dates) { activities.pluck('updated_at').map(&:to_i) }
 
     context '#all' do
