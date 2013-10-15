@@ -4,9 +4,9 @@ Fabricator('card/number') do
   user
   project    { |attrs| Fabricate(:project, :user => attrs[:user]) }
   board      { |attrs| Fabricate(
-    :branched_board, :user => attrs[:user], :project => attrs[:project]) }
+    :board, :user => attrs[:user], :project => attrs[:project]) }
   topic      { |attrs| Fabricate(
-    :topic, :user => attrs[:user], :board => attrs[:board].parent_board) }
+    :topic, :user => attrs[:user], :board => attrs[:board]) }
 
   content    { Faker::Lorem.paragraph }
   number     { rand(1.0..9999.999).to_f.round(3) }

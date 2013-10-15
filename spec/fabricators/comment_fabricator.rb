@@ -12,7 +12,7 @@ Fabricator(:board_comment, :from => :comment) do
   content     { Faker::HTMLIpsum.fancy_string }
   project     { |attrs| Fabricate(:project, :user => attrs[:user]) }
   board       { |attrs| Fabricate(
-    :branched_board, :project => attrs[:project], :author => attrs[:user]) }
+    :board, :project => attrs[:project], :user => attrs[:user]) }
   topic       {}
 end
 
