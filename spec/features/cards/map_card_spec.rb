@@ -54,13 +54,6 @@ feature 'Map', :js, :slow do
         expect(page.source).to include(card.longitude)
       end
 
-      scenario 'can be deleted' do
-        page.find('.delete-card').click
-        expect(page).to_not have_css('.card')
-        sleep(1)
-        topic.reload
-        expect(topic.cards.count).to eq(0)
-      end
     end
   end
 end
