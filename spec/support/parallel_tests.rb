@@ -1,4 +1,4 @@
-if ENV['WERCKER']
+unless ENV['TDDIUM']
   require 'parallel_tests'
 
   if test_env_id = ENV['TEST_ENV_NUMBER']
