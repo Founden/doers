@@ -34,7 +34,6 @@ Ember.ObjectController.extend Doers.ControllerAlertMixin,
 
     addComment: ->
       content = @get('commentContent')
-
       if content and content.length > 1
         comment = @store.createRecord 'comment',
           content: content
@@ -45,9 +44,7 @@ Ember.ObjectController.extend Doers.ControllerAlertMixin,
           card: @get('content.card')
         comment.save().then =>
           @set('commentContent', '')
-          @get('content.activities').pushObject @store.createRecord 'activity',
-            comment: comment
-            lastUpdate: comment.get('updatedAt')
+          @get('content').reload()
 
     resetComment: ->
       @set('commentContent', '')
