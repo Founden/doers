@@ -6,8 +6,9 @@ class Whiteboard < ActiveRecord::Base
   has_one(:cover, :class_name => Asset::Cover,
     :dependent => :destroy, :as => :assetable)
   has_many :boards
-  has_many :comments
+  has_many :comments, :dependent => :destroy
   has_many :activities
+  has_many :topics
   # Tagging support
   has_many_tags
 
