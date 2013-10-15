@@ -14,7 +14,11 @@ class TopicSerializer < ActiveModel::Serializer
 
   # Set topic board id
   def board_id
-    options[:topic_board_id]
+    if options[:topic_board_id].blank?
+      object.board_id
+    else
+      options[:topic_board_id].to_i
+    end
   end
 
   # Fetches topic card id and type for current board
