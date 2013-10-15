@@ -10,6 +10,7 @@ class Activity < ActiveRecord::Base
   # Relationships
   belongs_to :project
   belongs_to :board
+  belongs_to :whiteboard
   belongs_to :user
   belongs_to :card
   belongs_to :topic
