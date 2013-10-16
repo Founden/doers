@@ -4,6 +4,20 @@
   border: 1px solid $gray-4;
   border-radius: 3px;
   background: $white;
+
+  &:before {
+    content: '';
+    position: absolute;
+    left: -3px;
+    top: 26px;
+    width: 4px;
+    height: 4px;
+    background: inherit;
+    border-width: 0 0 1px 1px;
+    border-color: $gray-4;
+    border-style: solid;
+    @include transform(rotate(45deg));
+  }
 }
 
 .card-edit-actions {
@@ -27,20 +41,6 @@
     font-size: em(12);
     color: $gray-5;
     line-height: 42px;
-  }
-
-  &:before {
-    content: '';
-    position: absolute;
-    left: -3px;
-    top: 26px;
-    width: 4px;
-    height: 4px;
-    background: inherit;
-    border-width: 0 0 1px 1px;
-    border-color: $gray-4;
-    border-style: solid;
-    @include transform(rotate(45deg));
   }
 }
 
