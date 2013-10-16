@@ -48,6 +48,7 @@ Doers.UploaderView = Ember.ContainerView.extend
     isDragging: false
     isVisible: true
     isError: false
+    classNames: ['uploader-drop-area']
     classNameBindings: ['isDragging:hover']
     doNothingBinding: 'parentView.doNothing'
     dropBinding: 'parentView.onDropOrChange'
