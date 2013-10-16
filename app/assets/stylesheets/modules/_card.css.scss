@@ -89,7 +89,7 @@
 
 .card-edit {
   display: table-cell;
-  padding: 20px 0 10px 0;
+  padding: 20px 0 0 0;
 }
 
 .card-field {
@@ -104,6 +104,7 @@
 
 .card-field-description {
   width: 100%;
+  min-height: 4 * 21px;
   font-size: em(14);
 }
 
@@ -230,7 +231,7 @@
 }
 
 .card-actions {
-  margin: 0 30px;
+  margin: 20px 30px;
   font-size: em(14);
 
   a {
