@@ -1,5 +1,10 @@
 .card-actions
+  {{#if isEditing}}
   %a.save-card{:_action => 'save'}
     = _('Save')
+  {{else}}
+  %a.edit-card{:_action => 'edit'}
+    = _('Edit')
+  {{/if}}
   %a.delete-card{:_action => 'destroy'}
-    = _('delete sugestion')
+    %span.icon.icon-trash
