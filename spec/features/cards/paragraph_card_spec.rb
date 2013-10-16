@@ -22,6 +22,10 @@ feature 'Paragraph', :js, :slow do
       given(:title) { Faker::Lorem.sentence }
       given(:content) { Faker::Lorem.sentence }
 
+      background do
+        page.find('.edit-card').click
+      end
+
       scenario 'can be saved' do
         within('.card-edit') do
           fill_in('title', :with => title)
