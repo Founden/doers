@@ -17,10 +17,18 @@ Doers.Activity = DS.Model.extend Doers.LastUpdateMixin,
   ).property('slug')
 
   isCardUpdate: ( ->
-    /update-card/.test(@get('slug'))
+    /^update-card-\w+$/.test(@get('slug'))
   ).property('slug')
 
   isCardDestroy: ( ->
     /destroy-card/.test(@get('slug'))
+  ).property('slug')
+
+  isCardAligned: ( ->
+    /^update-card-\w+-alignment$/.test(@get('slug'))
+  ).property('slug')
+
+  isCardMisaligned: ( ->
+    /^update-card-\w+-misalignment$/.test(@get('slug'))
   ).property('slug')
 
