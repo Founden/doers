@@ -289,6 +289,26 @@ describe Api::V1::CardsController do
         its(:user_id) { should_not eq(card.id) }
       end
 
+      context 'alignment toggling generates a proper activity' do
+        let(:card_attrs) {
+          Fabricate.attributes_for('card/phrase', :alignment => true) }
+        let(:card) { Fabricate(
+          'card/phrase', :project => project, :board => board) }
+
+        subject(:card_activities) { card.activities.reload.first }
+
+        its('slug') { should include('-alignment') }
+
+        context 'also when alignment is toggled back' do
+          let(:card_attrs) {
+            Fabricate.attributes_for('card/phrase', :alignment => false) }
+          let(:card) { Fabricate('card/phrase',
+            :project => project, :board => board, :alignment => true) }
+
+          its('slug') { should include('-misalignment') }
+        end
+      end
+
       context 'phrase card' do
         let(:card_attrs) { Fabricate.attributes_for('card/phrase') }
         let(:card) {
