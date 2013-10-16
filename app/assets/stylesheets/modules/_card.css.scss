@@ -131,6 +131,7 @@
     z-index: 1;
     width: 100%;
     height: 100%;
+    padding: 30px;
     text-align: center;
     cursor: pointer;
 
@@ -139,6 +140,23 @@
       position: absolute;
       left: 0;
       top: 0;
+    }
+  }
+
+  .uploader-drop-area {
+    @include box-sizing(border-box);
+    height: 100%;
+    border: 1px dashed rgba($black, 0.5);
+    border-radius: 6px;
+    @include transition(all 0.2s);
+
+    &:hover, &.hover {
+      border-color: $black;
+
+      .uploader-status {
+        background: $white;
+        color: $black;
+      }
     }
   }
 
@@ -155,11 +173,6 @@
     font-size: em(12);
     color: rgba($black, 0.8);
     @include transition(all 0.2s);
-
-    &:hover {
-      background: $white;
-      color: $black;
-    }
 
     .icon {
       margin: 0 0 5px 0;
