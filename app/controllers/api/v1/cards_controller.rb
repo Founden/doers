@@ -62,17 +62,24 @@ class Api::V1::CardsController < Api::V1::ApplicationController
   end
 
   private
+    # Allowed card types
+    def card_types
+      %w(photo paragraph link map list book interval number
+        phrase timestamp video)
+    end
 
     # Strong parameters for creating a new card
     def new_card_params
-      params[:card].except!(:user_id, :image_id)
-      params.require(:card).permit!
+      card_type = params.slice(*card_types).keys.first
+      params[card_type].except!(:user_id, :image_id) if card_type
+      params.require(card_type).permit!
     end
 
     # Strong parameters for updating a card
     def card_params
-      params[:card].except!(
-        :user_id, :project_id, :board_id, :image_id, :topic_id)
-      params.require(:card).permit!
+      card_type = params.slice(*card_types).keys.first
+      params[card_type].except!(
+        :user_id, :project_id, :board_id, :image_id, :topic_id) if card_type
+      params.require(card_type).permit!
     end
 end

@@ -193,7 +193,7 @@ describe Api::V1::CardsController do
   describe '#create' do
     let(:card_attrs) {}
 
-    before { post(:create, :card => card_attrs) }
+    before { post(:create, :phrase => card_attrs) }
 
     context 'with wrong parameters' do
       context 'on type' do
@@ -249,12 +249,12 @@ describe Api::V1::CardsController do
 
     it 'does nothing to a not owned card' do
       expect {
-        patch(:update, :card => {:title => ''}, :id => card_id)
+        patch(:update, :phrase => {:title => ''}, :id => card_id)
       }.to raise_error
     end
 
     context 'type is wrong' do
-      before { patch(:update, :card => {:type => 'wrong'}, :id => rand(10)) }
+      before { patch(:update, :phrase => {:type => 'wrong'}, :id => rand(10)) }
       subject { response }
 
       its(:body) { should be_blank }
@@ -265,7 +265,7 @@ describe Api::V1::CardsController do
       let(:json_root) { :phrase }
       let(:card_id) { card.id }
 
-      before { patch(:update, :id => card_id, :card => card_attrs) }
+      before { patch(:update, :id => card_id, json_root => card_attrs) }
 
       subject(:api_card) { json_to_ostruct(response.body, json_root) }
 
