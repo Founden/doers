@@ -8,7 +8,6 @@ Doers.Map = Doers.Card.extend
   ).observes('query')
 
   search: ->
-    @set('isSearching', true)
     $.ajax
       url: 'http://nominatim.openstreetmap.org/search'
       dataType: 'jsonp'
