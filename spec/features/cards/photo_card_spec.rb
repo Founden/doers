@@ -25,6 +25,10 @@ feature 'Photo', :js, :slow do
       given(:content) { Faker::Lorem.sentence }
       given(:image_path) { Rails.root.join('spec/fixtures/test.png') }
 
+      background do
+        page.find('.edit-card').click
+      end
+
       scenario 'can be saved' do
         old_image_url = card.image.attachment.url.force_encoding('UTF-8')
 

@@ -15,9 +15,6 @@ Doers.Link = Doers.Card.extend
       @store.find( 'embed', {url: url}).then (result) =>
         if result and embed = result.get('firstObject')
           @set('embed', embed)
-          @set('content', embed.get('title'))
-        else
-          @set('content', null)
 
   htmlContent: ( ->
     if html = @get('embed.html')

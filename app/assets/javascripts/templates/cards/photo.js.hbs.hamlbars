@@ -6,11 +6,14 @@
       {{input type='text' class='card-field-title' valueBinding='title' placeholder='Type your sugestion title...' name='title'}}
     .card-field
       {{textarea class='card-field-description' valueBinding='content' placeholder='Type your sugestion...' rows='3' name='content'}}
-    .card-attachment
-      {{view view.uploadView}}
-      {{#if image}}
-      %img.card-image{:bind => {:src => 'image.attachment'}}
-      {{/if}}
+    {{#view classNames='card-attachment' classNameBindings='isEditing' contentBinding='view.content'}}
+    {{#if isEditing}}
+    {{view view.parentView.uploadView}}
+    {{/if}}
+    {{#if image}}
+    %img.card-image{:bind => {:src => 'image.attachment'}}
+    {{/if}}
+    {{/view}}
     {{partial 'cards/components/actions'}}
   {{partial 'cards/components/endorses'}}
 {{/with}}
