@@ -113,17 +113,12 @@
   position: relative;
   overflow: hidden;
 
-  &:hover {
+  &.is-editing {
 
     .card-image,
     .card-embed {
       -webkit-filter: blur(10px);
-      @include transform(scale(0.98));
-    }
-
-    .uploader,
-    .card-search {
-      opacity: 1;
+      @include transform(scale(1.1));
     }
   }
 
@@ -136,8 +131,7 @@
     width: 100%;
     height: 100%;
     text-align: center;
-    opacity: 0;
-    @include transition(all 0.2s);
+    cursor: pointer;
 
     input {
       opacity: 0;
@@ -159,7 +153,6 @@
     border-radius: 3px;
     font-size: em(12);
     color: rgba($black, 0.8);
-    cursor: pointer;
     @include transition(all 0.2s);
 
     &:hover {
@@ -207,8 +200,6 @@
   z-index: 1;
   display: table;
   text-align: center;
-  opacity: 0;
-  @include transition(all 0.2s);
 
   label {
     display: block;
@@ -228,6 +219,7 @@
     background: rgba($white, 0.8);
     padding: 10px 40px 10px 15px;
     border-radius: 3px;
+    width: 100%;
   }
 
   .icon {
