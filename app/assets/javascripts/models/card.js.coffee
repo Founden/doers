@@ -14,6 +14,8 @@ Doers.Card = DS.Model.extend
   comments: DS.hasMany('comment', readOnly: true, inverse: 'card', async: true)
   endorses: DS.hasMany('endorse', readOnly: true, inverse: 'card', async: true)
 
+  isEditing: false
+
   slug: (->
     'card-' + @get('id')
   ).property('id', 'type')

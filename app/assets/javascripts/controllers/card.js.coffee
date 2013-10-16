@@ -7,10 +7,14 @@ Ember.ObjectController.extend Doers.ControllerAlertMixin,
   ).property('content.endorses.@each')
 
   actions:
+    edit: ->
+      @set('content.isEditing', true)
+
     save: ->
       @get('content').save().then =>
         currentUser = @container.resolve('user:current')
         @set('content.user', currentUser)
+        @set('content.isEditing', false)
         @get('content.topic').reload()
 
     destroy: ->

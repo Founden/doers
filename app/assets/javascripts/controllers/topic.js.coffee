@@ -59,4 +59,5 @@ Ember.ObjectController.extend Doers.ControllerAlertMixin,
         project: @get('board.project')
         topic: @get('content')
         type: type
+        isEditing: true
       @set('content.card', card)

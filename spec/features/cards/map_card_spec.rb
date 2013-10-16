@@ -32,6 +32,7 @@ feature 'Map', :js, :slow do
         proxy.stub(/nominatim/).and_return(
           :jsonp => locations, :callback_param => 'json_callback'
         )
+        page.find('.edit-card').click
       end
 
       scenario 'can be saved' do
