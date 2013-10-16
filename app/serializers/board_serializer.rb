@@ -41,7 +41,7 @@ class BoardSerializer < ActiveModel::Serializer
   # TODO: Move this to the model
   def progress
     completed_count = object.cards.aligned.count
-    topics_count > 0 ? ( completed_count.to_f / topics_count) * 100 : 100
+    topics_count > 0 ? (( completed_count.to_f / topics_count) * 100).to_i : 100
   end
 
   # Helper to alias to when its a whiteboard
