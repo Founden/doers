@@ -12,8 +12,6 @@ Ember.ObjectController.extend Doers.ControllerAlertMixin,
 
     save: ->
       @get('content').save().then =>
-        currentUser = @container.resolve('user:current')
-        @set('content.user', currentUser)
         @set('content.isEditing', false)
         @get('content.topic').reload()
 
@@ -52,14 +50,13 @@ Ember.ObjectController.extend Doers.ControllerAlertMixin,
   #                   `desc` the asset description
   #                   `url` the asset URI to use for `attachment`
   #                   `data` the asset base64 data to use for `attachment`
-  createOrUpdateAsset: (data) ->
-    if @get('content').get(data.attr)
-      @updateAsset(data)
+  createOrUpdateAsset: (data, card) ->
+    if card.get(data.attr)
+      @updateAsset(data, card)
     else
-      @createAsset(data)
+      @createAsset(data, card)
 
-  createAsset: (data) ->
-    card = @get('content')
+  createAsset: (data, card) ->
     asset = @get('content.store').createRecord 'asset',
       attachment: data.url || data.data
       description: data.desc
@@ -69,10 +66,11 @@ Ember.ObjectController.extend Doers.ControllerAlertMixin,
       assetableId: card.get('id')
       type: 'Image'
     asset.save().then =>
-      card.set(data.attr, asset)
+      card.reload()
 
-  updateAsset: (data) ->
-    asset = @get('content').get(data.attr)
+  updateAsset: (data, card) ->
+    asset = card.get(data.attr)
     asset.set('attachment', data.url || data.data)
     asset.set('description', data.desc || asset.get('description'))
-    asset.save()
+    asset.save().then ->
+      card.reload()
