@@ -43,6 +43,7 @@ Ember.ObjectController.extend Doers.ControllerAlertMixin,
       card.toggleProperty('alignment')
       card.save().then ->
         card.get('board').reload()
+        card.get('topic').reload()
 
   # Creates or updates an asset
   # @param data [Hash], a set of asset options
