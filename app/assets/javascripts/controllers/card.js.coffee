@@ -20,10 +20,10 @@ Ember.ObjectController.extend Doers.ControllerAlertMixin,
     destroy: ->
       card = @get('content')
       topic = card.get('topic')
+      card.deleteRecord()
       if card.get('isNew')
         topic.set('card', null)
       else
-        card.deleteRecord()
         card.save().then =>
           topic.reload()
 
