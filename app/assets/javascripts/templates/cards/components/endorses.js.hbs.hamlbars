@@ -1,11 +1,7 @@
 .card-endorses
   {{#unless isNew}}
   %h4
-    {{#if controller.userEndorse}}
-    = _('You agree with this')
-    {{else}}
-    = _('Agree with this')
-    {{/if}}
+    = _('Endorsements')
   %ul
     {{#each endorse in endorses}}
     %li.card-endorse-item
@@ -18,7 +14,7 @@
     %li
       .icon.icon-plus.add-endorse{:_action => 'addEndorse'}
     {{/if}}
-  .button-pile.toggle-alignment{:_action => 'toggleAlignment'}
+  .button.btn-small.toggle-alignment{:_action => 'toggleAlignment'}
     {{#if alignment}}
     = _('Mark as unaligned')
     {{else}}
