@@ -10,5 +10,4 @@ Ember.TextArea.reopen
 
   adjustHeight: ->
     if @get('autoresize')
-      @$().height(0)
       @$().height(@get('element.scrollHeight'))
