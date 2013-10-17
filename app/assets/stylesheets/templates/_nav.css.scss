@@ -4,12 +4,11 @@
   left: 0;
   top: 0;
   z-index: 20;
-  width: 280px;
+  width: 220px;
   height: 100%;
   overflow: hidden;
-  background-color: $black;
+  background: $blue;
   color: $white;
-  box-shadow: 2px 0 rgba($black, 0.1);
   @include transition(width 0.2s $ease-out-expo);
 
   &.narrow {
@@ -21,7 +20,7 @@
       opacity: 0;
 
       &:hover {
-        background: tint($black, 5%);
+        background: shade($blue, 10%);
         opacity: 1;
       }
 
@@ -38,8 +37,7 @@
       padding: 15px 30px;
     }
 
-    .nav-list-item-account-name,
-    .nav-list-item-account-actions {
+    .nav-list-item-account-name {
       display: none;
     }
 
@@ -83,10 +81,10 @@
 .nav-list-item {
   @include clearfix;
   position: relative;
-  border-top: 1px solid rgba($white, 0.1);
+  border-top: 1px solid $gray-1;
 
   &:last-child {
-    border-bottom: 1px solid rgba($white, 0.1);
+    border-bottom: 1px solid $gray-1;
   }
 }
 
@@ -97,18 +95,19 @@
   padding: 15px 30px;
   color: $white;
   font-weight: 700;
-  font-size: em(14);
+  font-size: em(11);
+  text-transform: uppercase;
+  letter-spacing: 1px;
   @include transition(background 0.1s, text-indent 0.2s $ease-out-expo);
 
   &:hover {
-    background: tint($black, 5%);
+    background: $gray-1;
   }
 
   .icon {
     position: absolute;
     right: 30px;
-    top: 0;
-    line-height: 51px;
+    top: 15px;
     @include transition(right 0.2s $ease-out-expo);
   }
 }
@@ -116,30 +115,20 @@
 .nav-list-item-account {
   white-space: nowrap;
   padding: 15px 30px 15px 90px;
-  height: 48px;
+  height: 42px;
 }
 
 .nav-list-item-account-name {
-  margin: 3px 0 0 0;
-  font-weight: 700;
+  font-size: em(14);
+  line-height: 42px;
+  color: rgba($white, 0.5);
 }
 
 .nav-list-item-account-image {
   position: absolute;
   left: 30px;
   top: 15px;
-  width: 48px;
-  height: 48px;
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
-}
-
-.nav-list-item-account-actions {
-  font-size: em(12);
-  color: rgba($white, 0.6);
-
-  a {
-    color: rgba($white, 0.6);
-    border-bottom: 1px solid rgba($white, 0.2);
-    margin: 0 0.5em 0 0;
-  }
 }
