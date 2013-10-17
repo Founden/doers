@@ -10,12 +10,14 @@ feature 'Paragraph', :js, :slow do
     given(:topic) { card.topic }
 
     background do
-      visit root_path(:anchor => '/board/%d/topic/%d' % [card.board.id, card.topic.id])
+      visit root_path(:anchor => '/board/%d/topic/%d' % [
+        card.board.id, card.topic.id])
     end
 
     scenario 'is shown with details' do
       expect(page).to have_css('.card', :count => 1)
-      expect(page.source).to include(card.title)
+      expect(page.find('.card-field-title').value).to eq(card.title)
+      expect(page.find('.card-field-description').value).to eq(card.content)
     end
 
     context 'when edited' do
