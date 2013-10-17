@@ -1,11 +1,4 @@
-.header
-  .header-root
-    = @profile.nicename
-  .header-title
-    = _('Profile')
-
-.content-wrap
-
+.wrapper
   = form_for current_user, :url => profile_path(current_user), :html => {:class => 'settings'} do |f|
     .settings-title
       = _('Edit profile')

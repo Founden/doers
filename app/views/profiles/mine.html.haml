@@ -1,9 +1,4 @@
-.header
-  .header-root
-    = _('Settings')
-
-.content-wrap
-
+.wrapper
   = form_for current_user, :url => profile_path(current_user), :html => {:class => 'settings'} do |f|
     .settings-title
       = _('Account settings')
