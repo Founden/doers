@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Board, :use_truncation do
   let(:user) { Fabricate(:user) }
-  let!(:board) { Fabricate(:board, :user => user) }
+  let!(:board) { Fabricate(:board, :user => user, :topics_count => 0) }
 
   context '#activities' do
     subject { board.activities }
