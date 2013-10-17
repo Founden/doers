@@ -3,9 +3,9 @@
 .card-wrap
   .card-edit
     .card-field
-      {{input type='text' class='card-field-title' valueBinding='title' placeholder='Type your sugestion title...' name='title'}}
+      {{textarea class='card-field-title' valueBinding='title' placeholder='Type your sugestion title...' name='title'}}
     .card-field
-      {{textarea class='card-field-description' valueBinding='content' placeholder='Type your sugestion...' rows='3' name='content'}}
+      {{textarea class='card-field-description' valueBinding='content' placeholder='Type your sugestion...' name='content'}}
     {{#view classNames='card-attachment' classNameBindings='isEditing' contentBinding='view.content'}}
     {{#if isEditing}}
     .card-search
