@@ -3,8 +3,7 @@ class Whiteboard < ActiveRecord::Base
   # Relationships
   belongs_to :user
   belongs_to :team
-  has_one(:cover, :class_name => Asset::Cover,
-    :dependent => :destroy, :as => :assetable)
+  has_one(:cover, :class_name => Asset::Cover, :dependent => :destroy)
   has_many :boards
   has_many :comments, :dependent => :destroy
   has_many :activities
