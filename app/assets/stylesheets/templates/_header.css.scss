@@ -1,65 +1,13 @@
 .header {
   @include clearfix;
-  box-shadow: 0 1px $gray-3;
-  background: $white;
-}
-
-.header-root {
-  float: left;
-  padding: 0 45px 0 30px;
-  margin: 0 30px 0 0;
-  line-height: 98px;
-  background: $gray-1 image-url('header-arrow.png') no-repeat right center;
-  font-size: em(18);
-  font-weight: 600;
-  color: $gray-4;
-}
-
-.header-title {
-  float: left;
-  padding: 0 45px 0 0;
-  margin: 0 30px 0 0;
-  max-width: 6em;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  line-height: 98px;
-  background: image-url('header-arrow.png') no-repeat right center;
-  font-size: em(18);
-  font-weight: 600;
-}
-
-.header-progress-title {
-  font: em(12) $museo;
-  text-transform: uppercase;
-  margin: 37px 0 4px 0;
-  white-space: nowrap;
-}
-
-.header-progress {
-  position: relative;
-  overflow: hidden;
-  height: 3px;
-  background: $gray-1;
-}
-
-.header-progress-bar {
-  width: 50%;
-  height: 100%;
-  background-color: $green;
-  @include transition(width 1s);
+  margin: 30px 0;
 }
 
 .header-actions {
   float: right;
-  padding: 28px 30px;
 
   .button {
     float: left;
     margin: 0 0 0 10px;
-
-    &:first-of-type {
-      margin-left: 0;
-    }
   }
 }

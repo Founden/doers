@@ -13,7 +13,6 @@
 
 @import 'components/buttons';
 @import 'components/context-buttons';
-@import 'components/dropdown';
 @import 'components/page';
 @import 'components/status';
 @import 'components/icons';
@@ -21,13 +20,15 @@
 
 @import 'templates/nav';
 @import 'templates/content';
+@import 'templates/wrapper';
 @import 'templates/header';
+@import 'templates/sidebar';
 
+@import 'modules/project';
 @import 'modules/projects';
 @import 'modules/import';
-@import 'modules/project';
-@import 'modules/boards';
 @import 'modules/board';
+@import 'modules/boards';
 @import 'modules/topics';
 @import 'modules/card';
 @import 'modules/members';

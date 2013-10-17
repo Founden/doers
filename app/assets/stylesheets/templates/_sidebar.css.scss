@@ -1,0 +1,16 @@
+.sidebar {
+  @include box-sizing(border-box);
+  position: fixed;
+  left: 220px;
+  top: 0;
+  width: 280px;
+  height: 100%;
+  overflow: hidden;
+  background: $white;
+  @include transition(left 0.2s $ease-out-expo);
+
+  + .wrapper {
+    width: 720px;
+    padding-left: 280px;
+  }
+}
