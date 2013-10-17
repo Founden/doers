@@ -1,15 +1,12 @@
-.header
-  .header-root
-    = _('Your boards')
-  .header-actions
-    {{#linkTo 'boards.new' class='button'}}
-    %span.icon.icon-board
-    = _('Create board')
-    {{/linkTo}}
+.wrapper
+  .header
+    .header-actions
+      {{#linkTo 'boards.new' class='button'}}
+      %span.icon.icon-board
+      = _('Create board')
+      {{/linkTo}}
 
-.content-wrap
-
-  .template-board-list
+  .board-list
     {{#each board in content}}
     .board-item{:bind => {:id => 'board.slug'}}
       {{#linkTo 'boards.build' board.id}}
