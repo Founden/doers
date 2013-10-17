@@ -12,6 +12,9 @@ class Card < ActiveRecord::Base
   # Store accessors definition
   store_accessor :data, :alignment
 
+  # Temporary attribute
+  attr_accessor :activity_alignment_slug
+
   # Relationships
   belongs_to :user
   belongs_to :board
@@ -42,4 +45,9 @@ class Card < ActiveRecord::Base
     self.content = Sanitize.clean(self.content) if self.content.is_a?(String)
   end
   after_commit :generate_activity
+
+  # Activity slug postfix
+  def activity_postfix
+    @activity_alignment_slug
+  end
 end

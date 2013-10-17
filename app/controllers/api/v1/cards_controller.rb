@@ -41,6 +41,13 @@ class Api::V1::CardsController < Api::V1::ApplicationController
     if klass
       card = klass.find_by!(:id => params[:id])
       current_account.can?(:write, card)
+      # Generate activities upon (dis)alignment
+      # TODO: Make this smarter to use card.alignment_changed?
+      if card_params[:alignment] == false and card.alignment == 'true'
+        card.activity_alignment_slug = 'misalignment'
+      elsif card_params[:alignment] == true and card.alignment != 'true'
+        card.activity_alignment_slug = 'alignment'
+      end
       card_params.merge!({:user => current_account})
       card.update_attributes(card_params.except(:type))
       render :json => card
@@ -62,17 +69,24 @@ class Api::V1::CardsController < Api::V1::ApplicationController
   end
 
   private
+    # Allowed card types
+    def card_types
+      %w(photo paragraph link map list book interval number
+        phrase timestamp video)
+    end
 
     # Strong parameters for creating a new card
     def new_card_params
-      params[:card].except!(:user_id, :image_id)
-      params.require(:card).permit!
+      card_type = params.slice(*card_types).keys.first
+      params[card_type].except!(:user_id, :image_id) if card_type
+      params.require(card_type).permit!
     end
 
     # Strong parameters for updating a card
     def card_params
-      params[:card].except!(
-        :user_id, :project_id, :board_id, :image_id, :topic_id)
-      params.require(:card).permit!
+      card_type = params.slice(*card_types).keys.first
+      params[card_type].except!(
+        :user_id, :project_id, :board_id, :image_id, :topic_id) if card_type
+      params.require(card_type).permit!
     end
 end
