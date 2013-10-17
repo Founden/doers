@@ -1,22 +1,6 @@
 .board-list {
   @include clearfix;
-  position: relative;
-  margin: 0 0 60px 0;
-}
-
-.board-list-header {
-  padding: 10px 0;
-  border-top: 1px solid $gray-2;
-  border-bottom: 1px solid $gray-2;
-  margin: 0 0 20px 0;
-}
-
-.board-list-title {
-  font-size: em(12);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  color: $gray-5;
+  margin: 30px 0;
 }
 
 .board-item {
@@ -26,64 +10,19 @@
   left: auto;
   top: auto;
   float: left;
-  width: 215px;
-  margin: 0 20px 20px 0;
-  border: 1px solid $gray-4;
+  width: 224px;
+  margin: 0 24px 24px 0;
+  border: 1px solid $gray-1;
   border-radius: 3px;
   background: $white;
-  box-shadow: 0 1px 1px $gray-3;
+  box-shadow: 0 1px 0 $gray-1;
 
-  &:nth-of-type(4n) {
+  &:nth-of-type(3n) {
     margin-right: 0;
   }
 
-  &:nth-of-type(4n+1) {
+  &:nth-of-type(3n+1) {
     clear: left;
-  }
-
-  &.aligned {
-    background: $green;
-
-    .board-item-cover-title {
-      color: $white;
-    }
-  }
-
-  &.stacked {
-    position: absolute;
-    left: 0;
-    top: 0;
-
-    &:nth-of-type(1) {
-      position: relative;
-    }
-
-    &:nth-of-type(2) {
-      left: -2px;
-      top: -2px;
-    }
-
-    &:nth-of-type(3) {
-      left: -4px;
-      top: -4px;
-    }
-  }
-}
-
-.board-item-remove-btn {
-  position: absolute;
-  right: 10px;
-  top: 10px;
-  z-index: 1;
-  width: 24px;
-  line-height: 24px;
-  font-size: em(24);
-  font-weight: 700;
-  text-align: center;
-  cursor: pointer;
-
-  &:hover {
-    color: $red;
   }
 }
 
@@ -97,14 +36,13 @@
   left: 0;
   bottom: 0;
   padding: 20px;
-  font-size: em(24);
-  line-height: 1.25em;
-  font-weight: 500;
+  font-size: em(18);
+  font-weight: 400;
 }
 
 .board-item-progress {
   height: 5px;
-  background: $gray-2;
+  background: $gray-1;
 }
 
 .board-item-progress-bar {
@@ -119,8 +57,7 @@
   padding: 15px 15px 15px 66px;
   min-height: 36px;
   font-size: em(12);
-  color: $gray-6;
-  @include linear-gradient($white, $gray-1);
+  color: $gray-5;
 
   .icon:before {
     position: absolute;
@@ -175,13 +112,4 @@
   text-align: right;
   font-weight: 400;
   color: $gray-6;
-}
-
-.public-board-list {
-  @extend .board-list;
-}
-
-.template-board-list {
-  @extend .board-list;
-  margin-top: 60px;
 }
