@@ -7,6 +7,8 @@
     {{#linkTo 'boards.show' board class='board-title'}}
     {{board.title}}
     {{/linkTo}}
+    .board-description
+      {{board.description}}
   .board-progress-wrap
     .board-progress-title
       {{board.progress}}&#37;
@@ -16,9 +18,10 @@
 
 .wrapper
   .header
-    .header-actions
-      %a.button
-        = _('Start new topic')
+    {{#linkTo 'boards.show' board class='button'}}
+    %span.icon.icon-arrow-prev
+    = _('Board')
+    {{/linkTo}}
 
   .topic
     {{#view classNames='topic-status' classNameBindings='content.aligned'}}
