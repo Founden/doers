@@ -3,6 +3,6 @@ Doers.MembersView = Ember.View.extend
   isAdding: false
 
   addButtonView: Ember.View.extend
-    classNames: ['button']
+    classNames: ['button', 'btn-icon']
     click: (event) ->
       @toggleProperty('parentView.isAdding')

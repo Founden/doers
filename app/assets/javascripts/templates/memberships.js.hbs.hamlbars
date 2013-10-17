@@ -1,8 +1,4 @@
-.header
-  .header-root
-    = _('Collaborators')
-
-.content-wrap
+.wrapper
   {{#each project in content}}
   .membership-project{:bind => {:id => 'project.slug'}}
     %h2.membership-project-title
