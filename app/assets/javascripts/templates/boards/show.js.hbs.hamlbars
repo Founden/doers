@@ -6,6 +6,11 @@
   .board
     {{textarea class='board-title' valueBinding='board.title' placeholder='Add board name' name='title'}}
     {{textarea class='board-description' valueBinding='board.description' placeholder='Add board description.' name='description'}}
+    {{#if board.isDirty}}
+    %button.button.btn-small{:_action => 'update'}
+      = _('Save')
+    {{/if}}
+
   .board-progress-wrap
     .board-progress-title
       {{board.progress}}&#37;
@@ -15,8 +20,12 @@
 
 .wrapper
   .header
+    {{#linkTo 'projects.show' board.project class='button'}}
+    %span.icon.icon-arrow-prev
+    = _('Project')
+    {{/linkTo}}
     .header-actions
-      {{#view view.deleteButtonView class='button' confirmMessage='Are you shure you want to delete?'}}
+      {{#view view.deleteButtonView class='button btn-icon' confirmMessage='Are you shure you want to delete?'}}
       %span.icon.icon-trash
       {{/view}}
 
