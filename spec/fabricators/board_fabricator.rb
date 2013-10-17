@@ -1,9 +1,10 @@
 Fabricator(:board) do
+  transient   :topics_count => 4
   user
   title       { Faker::Lorem.sentence }
   description { Faker::Lorem.sentence }
   after_create do |board, trans|
-    rand(1..10).times do
+    trans[:topics_count].times do
       Fabricate(:topic, :board => board, :user => board.user)
     end
   end
