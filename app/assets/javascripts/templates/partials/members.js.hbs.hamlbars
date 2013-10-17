@@ -9,10 +9,9 @@
     {{#view view.addButtonView}}
     %span.icon.icon-plus
     {{/view}}
-
 {{#if view.isAdding}}
 .member-add-form
   {{input type='email' placeholder='E-mail address' name='email' valueBinding='controller.inviteEmail'}}
-  %a.button{:_action => 'invite'}
-    %span.icon.icon-mail
+  %button.button.btn-small{:_action => 'invite'}
+    = _('Invite')
 {{/if}}
