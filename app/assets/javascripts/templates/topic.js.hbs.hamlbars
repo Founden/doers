@@ -1,29 +1,24 @@
-.header
-  {{#linkTo 'projects' class='header-root'}}
-  = _('Projects')
-  {{/linkTo}}
-  {{#linkTo 'projects.show' board.project class='header-title'}}
-  {{board.project.title}}
-  {{/linkTo}}
-  {{#linkTo 'boards.show' board class='header-title'}}
-  {{board.title}}
-  {{/linkTo}}
-  .header-actions
-    {{#linkTo 'boards.show' board class='button compact secondary'}}
-    %span.icon.icon-arrow-prev
+.sidebar
+  .project
+    {{#linkTo 'projects.show' board.project class='project-title'}}
+    {{board.project.title}}
     {{/linkTo}}
-  .header-progress-wrap
-    .header-progress-title
+  .board
+    {{#linkTo 'boards.show' board class='board-title'}}
+    {{board.title}}
+    {{/linkTo}}
+  .board-progress-wrap
+    .board-progress-title
       {{board.progress}}&#37;
       = _('board alignment')
-    .header-progress
-      {{view Doers.ProgressBar classNames='header-progress-bar' widthBinding='board.progress'}}
+    .board-progress
+      {{view Doers.ProgressBar classNames='board-progress-bar' widthBinding='board.progress'}}
 
-.content-wrap
-
-  .board{:bind => {:id => 'board.slug'}}
-    {{input class='board-title' valueBinding='board.title' placeholder='Add board name' type='text' name='title'}}
-    {{textarea class='board-description' valueBinding='board.description' placeholder='Add board description.' name='description'}}
+.wrapper
+  .header
+    .header-actions
+      %a.button
+        = _('Start new topic')
 
   .topic
     {{#view classNames='topic-status' classNameBindings='content.aligned'}}
