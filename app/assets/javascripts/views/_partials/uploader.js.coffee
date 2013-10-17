@@ -1,4 +1,5 @@
 Doers.UploaderView = Ember.ContainerView.extend
+  isError: false
   assetAttribute: 'image'
   contentBinding: 'parentView.content'
   classNames: ['uploader']
@@ -15,7 +16,7 @@ Doers.UploaderView = Ember.ContainerView.extend
     @doNothing(event)
 
   handleUpload: (event, attachment) ->
-    if !attachment.type.match('image')
+    if !(/image/).test(attachment.type)
       @set('isError', true)
     else
       @set('isError', false)
@@ -47,7 +48,7 @@ Doers.UploaderView = Ember.ContainerView.extend
     templateName: 'partials/uploader'
     isDragging: false
     isVisible: true
-    isError: false
+    isErrorBinding: 'parentView.isError'
     classNames: ['uploader-drop-area']
     classNameBindings: ['isDragging:hover']
     doNothingBinding: 'parentView.doNothing'

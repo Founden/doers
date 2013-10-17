@@ -5,6 +5,11 @@ module Activity::Support
     self
   end
 
+  # Activity slug postfix to be appended
+  def activity_postfix
+    nil
+  end
+
   private
 
     # Generates activity slug based on current model and transaction type
@@ -39,7 +44,7 @@ module Activity::Support
     # Activity generation hook
     def generate_activity(append_to_slug=nil)
       activity = self.activity_owner.activities.build(activity_params)
-      activity.slug = activity_slug(append_to_slug)
+      activity.slug = activity_slug(append_to_slug || activity_postfix)
       activity.save!
     end
 end
