@@ -8,6 +8,6 @@ Fabricator(:whiteboard) do
       board.tag_names << Faker::Lorem.word
     end
     board.save
-    # board.cover = Fabricate(:cover, :user => board.user, :board => board)
+    board.cover = Fabricate(:cover, :user => board.user, :whiteboard => board)
   end
 end
