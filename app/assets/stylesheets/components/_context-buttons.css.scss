@@ -1,11 +1,11 @@
 .context-button {
   position: relative;
-  margin: 20px 20px 20px 120px;
+  margin: 20px 20px 20px 60px;
   padding: 20px 0;
-  border: 1px solid $gray-4;
+  border: 1px solid $gray-1;
   border-radius: 3px;
   background: $white;
-  box-shadow: 0 1px 1px $gray-3;
+  box-shadow: 0 1px 0 $gray-1;
   font-size: em(12);
   font-weight: 700;
   letter-spacing: 1px;
@@ -17,15 +17,15 @@
 
   .icon {
     position: absolute;
-    left: -90px;
+    left: -60px;
     top: 8px;
 
     &:before {
       width: 40px;
       line-height: 40px;
       border-radius: 50%;
-      border: 1px solid $gray-4;
-      color: $gray-4;
+      border: 1px solid $gray-1;
+      color: $gray-1;
       @include transition(all 0.2s);
     }
   }
@@ -39,14 +39,18 @@
     height: 4px;
     background: inherit;
     border-width: 0 0 1px 1px;
-    border-color: $gray-4;
+    border-color: $gray-1;
     border-style: solid;
     @include transform(rotate(45deg));
   }
 
   &:hover {
-    background: $gray-1;
     box-shadow: none;
+    border-color: $gray-2;
+
+    &:before {
+      border-color: $gray-2;
+    }
 
     .icon:before {
       color: $green;
