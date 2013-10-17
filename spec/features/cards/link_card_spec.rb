@@ -23,7 +23,8 @@ feature 'Link', :js, :slow do
 
     scenario 'is shown with details' do
       expect(page).to have_css('.card', :count => 1)
-      expect(page.source).to include(card.title)
+      expect(page.find('.card-field-title').value).to eq(card.title)
+      expect(page.find('.card-field-description').value).to eq(card.content)
       expect(page).to have_content(embed['title'])
     end
 
