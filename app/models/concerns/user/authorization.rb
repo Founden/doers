@@ -50,10 +50,7 @@ module User::Authorization
       # User is the owner
       table[:user_id].eq(self.id).or(
         # User branched the board
-        table[:board_id].in(self.branched_board_ids).or(
-          # User created its board
-          table[:board_id].in(self.authored_board_ids)
-        ).or(
+        table[:board_id].in(self.created_board_ids).or(
           # Somebody shared its board
           table[:board_id].in(self.shared_board_ids)
         )
@@ -64,13 +61,6 @@ module User::Authorization
           table[:project_id].in(self.shared_project_ids)
         )
       )
-
-    if action.to_sym != :write
-      query = query.or(
-        # Status is `public`
-        table[:board_id].in(Board.public.pluck('id'))
-      )
-    end
 
     Asset.where(query)
   end
@@ -89,13 +79,6 @@ module User::Authorization
         )
       )
 
-    if action.to_sym != :write
-      query = query.or(
-        # Status is `public`
-        table[:status].eq(Board::STATES.last)
-      )
-    end
-
     Board.where(query)
   end
 
@@ -107,10 +90,7 @@ module User::Authorization
       # User is the owner
       table[:user_id].eq(self.id).or(
         # User branched the board
-        table[:board_id].in(self.branched_board_ids).or(
-          # User created the board
-          table[:board_id].in(self.authored_board_ids)
-        ).or(
+        table[:board_id].in(self.created_board_ids).or(
           # Somebody shared its board
           table[:board_id].in(self.shared_board_ids)
         )
@@ -121,13 +101,6 @@ module User::Authorization
           table[:project_id].in(self.shared_project_ids)
         )
       )
-
-    if action.to_sym != :write
-      query = query.or(
-        # Status is `public`
-        table[:board_id].in(Board.public.pluck('id'))
-      )
-    end
 
     Card.where(query)
   end
@@ -142,10 +115,7 @@ module User::Authorization
     if action.to_sym != :write
       query = query.or(
         # User branched the board
-        table[:board_id].in(self.branched_board_ids).or(
-          # User created the board
-          table[:board_id].in(self.authored_board_ids)
-        ).or(
+        table[:board_id].in(self.created_board_ids).or(
           # Somebody shared its board
           table[:board_id].in(self.shared_board_ids)
         )
@@ -170,12 +140,9 @@ module User::Authorization
 
     if action.to_sym != :write
       query = query.or(
-        # User branched the board
-        table[:board_id].in(self.branched_board_ids).or(
+        # User created the board
+        table[:board_id].in(self.created_board_ids).or(
           # User created the board
-          table[:board_id].in(self.authored_board_ids)
-        ).or(
-          # Somebody shared its board
           table[:board_id].in(self.shared_board_ids)
         )
       ).or(
@@ -198,18 +165,11 @@ module User::Authorization
       # User is the owner
       table[:user_id].eq(self.id).or(
         # User created the board
-        table[:board_id].in(self.authored_board_ids)
+        table[:board_id].in(self.created_board_ids)
       ).or(
         # Somebody shared its board
         table[:board_id].in(self.shared_board_ids)
       )
-
-    if action.to_sym != :write
-      query = query.or(
-        # Status is `public`
-        table[:board_id].in(Board.public.pluck('id'))
-      )
-    end
 
     Topic.where(query)
   end

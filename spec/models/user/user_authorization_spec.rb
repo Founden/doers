@@ -124,7 +124,8 @@ describe User do
 
       context 'within a board owned by the user' do
         let(:board) { Fabricate(:board, :user => user) }
-        let(:target) { board.cover }
+        let(:target) {
+          Fabricate('cover', :board => board, :user => Fabricate(:user)) }
         before { user.should_receive(:assets_to).and_call_original }
 
         it { should be_true }
@@ -143,7 +144,8 @@ describe User do
 
       context 'within a board not owned by the user' do
         let(:board) { Fabricate(:board) }
-        let(:target) { board.cover }
+        let(:target) {
+          Fabricate('cover', :board => board, :user => Fabricate(:user)) }
         before { user.should_receive(:assets_to).and_call_original }
 
         it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
@@ -164,7 +166,7 @@ describe User do
 
     context 'when target is a board' do
       context 'owned by the user' do
-        let(:target) { Fabricate(:board, :author => user) }
+        let(:target) { Fabricate(:board, :user => user) }
         before { user.should_receive(:boards_to).and_call_original }
 
         it { should be_true }
@@ -172,7 +174,7 @@ describe User do
 
         context 'or a set of boards owned by the user' do
           let(:target) do
-            Fabricate(:board, :author => user); user.authored_boards
+            Fabricate(:board, :user => user); user.created_boards
           end
 
           it { should be_true }
@@ -616,7 +618,7 @@ describe User do
       end
 
       context 'within a board owned by the user' do
-        let(:board) { Fabricate(:board, :author => user) }
+        let(:board) { Fabricate(:board, :user => user) }
         let(:target) { board.activities.first }
         before { user.should_receive(:activities_to).and_call_original }
 
@@ -754,7 +756,7 @@ describe User do
       end
 
       context 'within a board owned by the user' do
-        let(:board) { Fabricate(:board, :author => user) }
+        let(:board) { Fabricate(:board, :user => user) }
         let(:target) { Fabricate(:topic, :board => board) }
         before { user.should_receive(:topics_to).and_call_original }
 
@@ -792,24 +794,6 @@ describe User do
         end
       end
 
-      context 'within a public board' do
-        let(:board) { Fabricate(:public_board) }
-        let(:target) { Fabricate(:topic, :board => board) }
-        before { user.should_receive(:topics_to).and_call_original }
-
-        it { should be_true }
-        it_behaves_like 'is not writable'
-
-        context 'or a set of such' do
-          let(:target) do
-            2.times { Fabricate(:topic, :board => board) }
-            Topic.where(:board_id => board.id)
-          end
-
-          it { should be_true }
-          it_behaves_like 'is not writable'
-        end
-      end
     end
 
   end
