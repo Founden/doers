@@ -1,8 +1,7 @@
 .button {
   display: inline-block;
-  padding: 0 10px;
+  padding: 0 15px;
   line-height: 40px;
-  min-width: 20px;
   border: 1px solid $gray-1;
   border-radius: 20px;
   background: transparent;
@@ -11,15 +10,30 @@
   text-transform: uppercase;
   text-align: center;
   letter-spacing: 1px;
-  color: $gray-2;
+  color: $gray-3;
   cursor: pointer;
   outline: 0;
+  white-space: nowrap;
 
   .icon {
     margin: 0 5px 0 0;
   }
 
+  &:hover {
+    background: $green;
+    color: $white;
+  }
+
   &.btn-small {
-    line-height: 24px;
+    line-height: 26px;
+  }
+
+  &.btn-icon {
+    width: 40px;
+    padding: 0;
+
+    .icon {
+      margin: 0;
+    }
   }
 }
