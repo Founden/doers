@@ -75,7 +75,6 @@
 .card-field-title {
   width: 100%;
   font-size: em(18);
-  font-weight: 600;
 }
 
 .card-field-description {
@@ -245,7 +244,6 @@
   display: table-cell;
   width: 220px;
   vertical-align: middle;
-  background: rgba($black, 0.05);
   border-left: 1px solid $gray-1;
   border-radius: 0 3px 3px 0;
   text-align: center;
@@ -258,9 +256,9 @@
   }
 
   ul {
-    margin: 15px 20px;
+    margin: 15px 20px 30px 20px;
     border-bottom: 1px solid $gray-1;
-    padding: 0 0 15px 0;
+    padding: 0 0 30px 0;
   }
 
   li {
