@@ -2,12 +2,24 @@
   .project
     {{input type='text' class='project-title' valueBinding='project.title' placeholder='Project name' name='title'}}
     {{textarea class='project-description' valueBinding='project.description' placeholder='Type your project description...' name='description'}}
+    {{#if project.isDirty}}
+    %button.button.btn-small{:_action => 'update'}
+      = _('Save')
+    {{/if}}
     {{view Doers.MembersView contentBinding='project' authorBinding='project.user'}}
 
 .wrapper
   .header
+    {{#linkTo 'projects' class='button'}}
+    %span.icon.icon-arrow-prev
+    = _('My projects')
+    {{/linkTo}}
     .header-actions
-      {{#view view.deleteButtonView class='button' confirmMessage='Are you shure you want to delete?'}}
+      {{#linkTo 'boards.new' class='button'}}
+      %span.icon.icon-board
+      = _('Create new board')
+      {{/linkTo}}
+      {{#view view.deleteButtonView class='button btn-icon' confirmMessage='Are you shure you want to delete?'}}
       %span.icon.icon-trash
       {{/view}}
 
