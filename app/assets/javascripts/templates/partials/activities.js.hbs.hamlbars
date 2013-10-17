@@ -3,7 +3,7 @@
     .activity-comment-user
       %img{:class => 'activity-comment-user-image', :bind => {:src => 'currentUser.avatarUrl'}}
       {{currentUser.nicename}}
-    {{textarea class='activity-comment-content' valueBinding='commentContent' placeholder='Write a comment...' rows='4' name='comment'}}
+    {{textarea class='activity-comment-content' valueBinding='commentContent' placeholder='Write a comment...' name='comment'}}
     .activity-comment-actions
       {{#if commentContent}}
       %a.create-comment{:_action => 'addComment'}
