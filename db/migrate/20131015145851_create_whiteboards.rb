@@ -24,6 +24,9 @@ class CreateWhiteboards < ActiveRecord::Migration
     add_column :topics, :whiteboard_id, :integer
     add_index :topics, :whiteboard_id
 
+    add_column :assets, :whiteboard_id, :integer
+    add_index :assets, :whiteboard_id
+
     add_column :cards, :alignment, :bool
     add_index :cards, :alignment
   end
