@@ -1,22 +1,8 @@
-.header
-  {{#linkTo 'projects' class='header-root'}}
-  = _('Projects')
-  {{/linkTo}}
-  .header-title
-    {{content.title}}
-
-.content-wrap
-
+.sidebar
   .project
-    {{input class='project-title' valueBinding='content.title' placeholder='Type your project name...' type='text' name='title'}}
+    {{input type='text' class='project-title' valueBinding='content.title' placeholder='Add project name' name='title'}}
     {{textarea class='project-description' valueBinding='content.description' placeholder='...and its description.' name='description'}}
-    .project-actions
-      {{#if content.title}}
-      %button#create-project.button{:_action => 'save'}
-        %span.icon.icon-project
-        = _('Create project')
-      {{else}}
-      %button.button{:disabled => true}
-        %span.icon.icon-ellipsis
-        = _('Create project')
-      {{/if}}
+    {{#if content.title}}
+    %button.button.btn-small{:_action => 'save'}
+      = _('Create')
+    {{/if}}
