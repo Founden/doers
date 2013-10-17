@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(version: 20131015145851) do
     t.string   "attachment_content_type"
     t.integer  "attachment_file_size"
     t.datetime "attachment_updated_at"
+    t.integer  "whiteboard_id"
   end
 
   add_index "assets", ["assetable_id", "assetable_type"], name: "index_assets_on_assetable_id_and_assetable_type", using: :btree
@@ -60,6 +61,7 @@ ActiveRecord::Schema.define(version: 20131015145851) do
   add_index "assets", ["project_id"], name: "index_assets_on_project_id", using: :btree
   add_index "assets", ["type"], name: "index_assets_on_type", using: :btree
   add_index "assets", ["user_id"], name: "index_assets_on_user_id", using: :btree
+  add_index "assets", ["whiteboard_id"], name: "index_assets_on_whiteboard_id", using: :btree
 
   create_table "boards", force: true do |t|
     t.string   "title"
@@ -91,14 +93,12 @@ ActiveRecord::Schema.define(version: 20131015145851) do
     t.string   "style"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "parent_card_id"
     t.integer  "topic_id"
     t.boolean  "alignment"
   end
 
   add_index "cards", ["alignment"], name: "index_cards_on_alignment", using: :btree
   add_index "cards", ["board_id"], name: "index_cards_on_board_id", using: :btree
-  add_index "cards", ["parent_card_id"], name: "index_cards_on_parent_card_id", using: :btree
   add_index "cards", ["position"], name: "index_cards_on_position", using: :btree
   add_index "cards", ["project_id"], name: "index_cards_on_project_id", using: :btree
   add_index "cards", ["topic_id"], name: "index_cards_on_topic_id", using: :btree
