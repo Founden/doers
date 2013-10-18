@@ -27,7 +27,7 @@ describe Api::V1::UsersController do
     subject(:api_user) { json_to_ostruct(response.body, :user) }
 
     shared_examples 'shows current user details' do
-      its('keys.size') { should eq(16) }
+      its('keys.size') { should eq(12) }
       its(:id) { should eq(user.id) }
       its(:nicename) { should eq(user.nicename) }
       its(:email) { should eq(user.email) }
@@ -40,10 +40,6 @@ describe Api::V1::UsersController do
         should eq(user.created_project_ids.count) }
       its('shared_project_ids.size') {
         should eq(user.shared_projects.count) }
-      its('public_board_ids.size') { should eq(Board.public.count) }
-      its('board_ids.size') { should eq(user.boards.count) }
-      its('authored_board_ids.size') { should eq(user.authored_boards.count) }
-      its('shared_board_ids.size') { should eq(user.shared_boards.count) }
       its('activity_ids.size') { should eq(user.activities.count) }
       its('invitation_ids.size') { should eq(user.invitations.count) }
     end
