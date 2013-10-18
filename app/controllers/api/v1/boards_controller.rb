@@ -16,20 +16,10 @@ class Api::V1::BoardsController < Api::V1::ApplicationController
 
   # Handles board creation
   def create
-    if current_account.admin? and create_params[:project_id].blank?
-      # TODO: Remove public status
-      new_params = create_params.except(:user_id, :project_id, :parent_board_id).
-        merge(:status => 'public', :author_id => current_account.id)
-      board = Board.create(new_params)
-    else
-      # Lets raise 404 if parent board or project is not available
-      parent_board = Board.find_by!(:id => create_params[:parent_board_id])
-      project = Project.find_by!(:id => create_params[:project_id])
-      current_account.can?(:read, parent_board)
-      current_account.can?(:read, project)
-      board = parent_board.branches.create(
-        create_params.merge(:user => current_account))
-    end
+    # Lets raise 404 if project is not available
+    project = Project.find_by!(:id => create_params[:project_id])
+    current_account.can?(:read, project)
+    board = project.boards.create(create_params.merge(:user => current_account))
 
     if board.errors.empty?
       render :json => board
@@ -63,8 +53,7 @@ class Api::V1::BoardsController < Api::V1::ApplicationController
 
     # Strong parameters for creating a new board
     def create_params
-      params.require(:board).
-        permit(:title, :description, :project_id, :parent_board_id)
+      params.require(:board).permit(:title, :description, :project_id)
     end
 
     # Strong parameters for updating a board
