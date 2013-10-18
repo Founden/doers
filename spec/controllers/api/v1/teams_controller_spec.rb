@@ -31,7 +31,7 @@ describe Api::V1::TeamsController do
     its(:website) { should eq(team.website) }
     its(:angel_list) { should eq(team.angel_list) }
     its(:banner_id) { should eq(team.banner.id) }
-    its('user_ids.size') { should eq(team.boards.count) }
-    its('board_ids.size') { should eq(team.boards.count) }
+    its('user_ids.size') { should eq(team.users.count) }
+    its('whiteboard_ids.size') { should eq(team.whiteboards.count) }
   end
 end
