@@ -12,6 +12,7 @@ class Board < ActiveRecord::Base
   belongs_to :user
   belongs_to :project
   belongs_to :whiteboard
+  has_one(:cover, :class_name => Asset::Cover, :dependent => :destroy)
   has_many :cards, :dependent => :destroy
   has_many :comments, :dependent => :destroy
   has_many :activities
@@ -21,9 +22,7 @@ class Board < ActiveRecord::Base
   has_many :topics
 
   # Validations
-  validates_presence_of :title
-  # Require a user on non shared board
-  validates_presence_of :user
+  validates_presence_of :title, :user, :project
   # Status should be one from our list
   validates :status, :inclusion => {:in => STATES}
 
@@ -37,4 +36,10 @@ class Board < ActiveRecord::Base
     self.description = Sanitize.clean(self.description)
   end
   after_commit :generate_activity, :on => [:create, :destroy]
+
+  # Generates a progress out of current topics status
+  def progress
+    topics.count > 0 ? (
+      (cards.aligned.count.to_f / topics.count) * 100).to_i : 100
+  end
 end

@@ -4,6 +4,7 @@ describe Board do
   it { should belong_to(:user) }
   it { should belong_to(:project) }
   it { should belong_to(:whiteboard) }
+  it { should have_one(:cover).dependent(:destroy) }
   it { should have_many(:cards).dependent(:destroy) }
   it { should have_many(:comments).dependent(:destroy) }
   it { should have_many(:activities).dependent('') }
@@ -14,6 +15,7 @@ describe Board do
 
   it { should validate_presence_of(:title) }
   it { should validate_presence_of(:user) }
+  it { should validate_presence_of(:project) }
   it { should ensure_inclusion_of(:status).in_array(Board::STATES) }
 
   context 'public scope' do
@@ -41,6 +43,23 @@ describe Board do
 
       its(:title) { should eq(Sanitize.clean(content[0..250])) }
       its(:description) { should eq(Sanitize.clean(content)) }
+    end
+
+    context '#progress' do
+      its(:progress) { should eq(0) }
+
+      context 'when board has no topics' do
+        let(:board) { Fabricate(:board, :topics_count => 0) }
+        its(:progress) { should eq(100) }
+      end
+
+      context 'when board has cards aligned' do
+        let(:card) { Fabricate('card/paragraph', :alignment => true) }
+
+        subject { card.board }
+
+        its(:progress) { should eq(20) }
+      end
     end
   end
 end
