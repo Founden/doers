@@ -4,14 +4,14 @@ class Api::V1::TopicsController < Api::V1::ApplicationController
   def index
     topics = Topic.where(:id => params[:ids])
     current_account.can?(:read, topics)
-    render :json => topics, :topic_board_id => params[:board_id]
+    render :json => topics
   end
 
   # Shows a topic
   def show
     topic = Topic.find_by!(:id => params[:id])
     current_account.can?(:read, topic)
-    render :json => topic, :topic_board_id => params[:board_id]
+    render :json => topic
   end
 
   # Creates a topic
@@ -22,7 +22,7 @@ class Api::V1::TopicsController < Api::V1::ApplicationController
       topic = board.topics.create(create_params.merge(:user => current_account))
 
       if topic.errors.empty?
-        render :json => topic, :topic_board_id => params[:board_id]
+        render :json => topic
       else
         errors = topic.errors.messages
         render :json => {:errors => errors}, :status => 400
@@ -34,7 +34,7 @@ class Api::V1::TopicsController < Api::V1::ApplicationController
     topic = Topic.find_by!(:id => params[:id])
     current_account.can?(:write, topic)
     topic.update_attributes(topic_params)
-    render :json => topic, :topic_board_id => params[:board_id]
+    render :json => topic
   end
 
   # Destroys a topic
