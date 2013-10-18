@@ -57,6 +57,7 @@ describe Api::V1::BoardsController do
       its(:cover_id) { should be_blank }
       its(:project_id) { should eq(board.project_id) }
       its(:whiteboard_id) { should be_blank }
+      its(:topic_ids) { should eq(board.topic_ids) }
       its(:topics_count) { should eq(board.topics.count) }
       its('activity_ids.size') { should eq(board.activities.count) }
       its('membership_ids.size') { should eq(board.memberships.count) }
