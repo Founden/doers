@@ -1,11 +1,13 @@
 Fabricator(:board) do
   transient   :topics_count => 4
   user
+  project
   title       { Faker::Lorem.sentence }
   description { Faker::Lorem.sentence }
   after_create do |board, trans|
     trans[:topics_count].times do
-      Fabricate(:topic, :board => board, :user => board.user)
+      Fabricate(
+        :topic, :board => board, :user => board.user, :project => board.project)
     end
   end
 end
