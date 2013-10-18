@@ -47,51 +47,20 @@ describe Api::V1::BoardsController do
 
       subject(:api_board) { json_to_ostruct(response.body, :board) }
 
-      its('keys.size') { should eq(19) }
+      its('keys.size') { should eq(14) }
       its(:id) { should eq(board.id) }
       its(:title) { should eq(board.title) }
       its(:status) { should eq(Board::STATES.first) }
       its(:updated_at) { should_not be_nil }
       its(:description) { should eq(board.description) }
-      its(:last_update) { should eq(board.updated_at.to_s(:pretty)) }
       its(:user_id) { should eq(board.user.id) }
-      its(:cover_id) { should_not be_blank }
-      its(:author_id) { should be_nil }
-      its(:project_id) { should eq(board.project.id) }
-      its(:team_id) { should be_blank }
-      its(:whiteboard_id) { should eq(board.whiteboard.id) }
-      its(:board_ids) { should be_empty }
-      its(:card_ids) { should be_empty }
-      its(:boards_count) { should eq(board.branches.count) }
+      its(:cover_id) { should be_blank }
+      its(:project_id) { should eq(board.project_id) }
+      its(:whiteboard_id) { should be_blank }
       its(:topics_count) { should eq(board.topics.count) }
       its('activity_ids.size') { should eq(board.activities.count) }
       its('membership_ids.size') { should eq(board.memberships.count) }
       its(:progress) { should eq(0) }
-
-      context '#progress' do
-        let(:board_id) do
-          Fabricate('card/phrase', :board => board,
-                    :project => board.project, :user => board.user)
-          board.id
-        end
-
-        its(:progress) { should eq(0) }
-      end
-
-      context 'for #parent_board' do
-        let(:board_id) { board.id }
-
-        its('keys.size') { should eq(20) }
-
-        its(:user_id) { should be_nil }
-        its(:author_id) { should eq(board.parent_board.author.id) }
-        its(:team_id) { should eq(board.parent_board.team.id) }
-        its(:project_id) { should be_nil }
-        its(:whiteboard_id) { should be_nil }
-        its('collections.sort') {
-          should eq(board.parent_board.tag_names.map(&:titleize).sort) }
-        its('topic_ids.size') { should eq(board.topics.count) }
-      end
     end
 
     it 'raises an error for a private board ' do
@@ -104,24 +73,22 @@ describe Api::V1::BoardsController do
   end
 
   describe '#create' do
-    let(:board) { Fabricate(:persona_board) }
     let(:project) { Fabricate(:project, :user => user) }
     let(:title) { Faker::Lorem.sentence }
     let(:attrs) { Fabricate.attributes_for(:board,
-      :project => project, :user => user, :parent_board => board,:title=>title)}
+      :project => project, :user => user, :title=>title) }
 
-    context 'when parent board and project are available' do
+    context 'when project is available' do
       before { post(:create, :board => attrs) }
 
       subject(:api_board) { json_to_ostruct(response.body, :board) }
 
-      its('keys.size') { should eq(20) }
+      its('keys.size') { should eq(14) }
       its(:title) { should eq(title) }
       its(:description) { should eq(attrs[:description]) }
       its(:user_id) { should eq(user.id) }
       its(:project_id) { should eq(project.id) }
-      its(:parent_board_id) { should eq(board.id) }
-      its(:progress) { should eq(0) }
+      its(:progress) { should eq(100) }
 
       context 'when title is not set' do
         let(:title) { nil }
@@ -133,32 +100,6 @@ describe Api::V1::BoardsController do
           response.status.should eq(400)
         end
       end
-
-      context 'when user is admin? and no project is set' do
-        let(:user) { Fabricate(:admin) }
-        let(:attrs) { Fabricate.attributes_for(
-          :board, :title=>title, :author => user, :project => nil) }
-
-        its('keys.size') { should eq(20) }
-        its(:title) { should eq(title) }
-        its(:description) { should_not be_nil }
-        its(:user_id) { should be_nil }
-        its(:author_id) { should eq(user.id) }
-        its(:project_id) { should be_nil }
-        its(:parent_board_id) { should be_nil }
-        its(:team_id) { should be_blank }
-        its('card_ids.count') { should eq(0) }
-        its(:collections) { should be_empty }
-      end
-    end
-
-    context 'when parent board is not accessible' do
-      let(:board) { Fabricate(:board) }
-
-      it 'raises not found' do
-        expect{ post(:create, :board => attrs) }.to raise_error(
-          ActiveRecord::RecordNotFound)
-      end
     end
 
     context 'when project is not accessible' do
@@ -169,16 +110,6 @@ describe Api::V1::BoardsController do
           ActiveRecord::RecordNotFound)
       end
     end
-
-    context 'when user is not admin?' do
-      let(:attrs) { Fabricate.attributes_for(:board, :author => user) }
-
-      it 'gives status 404' do
-        expect { post(:create, :board => attrs) }.to raise_error(
-          ActiveRecord::RecordNotFound)
-      end
-    end
-
   end
 
   describe '#update' do
@@ -190,29 +121,28 @@ describe Api::V1::BoardsController do
 
     subject(:api_board) { json_to_ostruct(response.body, :board) }
 
-    its('keys.size') { should eq(20) }
+    its('keys.size') { should eq(14) }
     its(:title) { should eq(board_attrs['title']) }
     its(:description) { should eq(board_attrs['description']) }
     its(:user_id) { should eq(user.id) }
     its(:project_id) { should eq(board.project.id) }
-    its(:parent_board_id) { should eq(board.parent_board.id) }
     its(:progress) { should eq(0) }
 
     context 'ignores wrong attributes' do
       let(:board_attrs) { Fabricate.attributes_for(:board) }
 
-      its('keys.size') { should eq(20) }
+      its('keys.size') { should eq(14) }
       its(:title) { should eq(board_attrs['title']) }
       its(:description) { should eq(board_attrs['description']) }
       its(:user_id) { should eq(user.id) }
       its(:project_id) { should eq(board.project.id) }
-      its(:parent_board_id) { should eq(board.parent_board.id) }
+      its(:whiteboard_id) { should eq(board.whiteboard_id) }
       its(:status) { should eq(board.status) }
     end
 
     it 'does nothing to a not owned board' do
       expect {
-        patch(:update, :board => board_attrs, :id => board.parent_board.id)
+        patch(:update, :board => board_attrs, :id => Fabricate(:board).id)
       }.to raise_error
     end
   end
