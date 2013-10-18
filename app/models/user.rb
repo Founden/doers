@@ -57,7 +57,7 @@ class User < ActiveRecord::Base
 
   # All user boards
   def boards
-    Board.where(:id => (shared_board_ids + created_boards))
+    Board.where(:id => (shared_board_ids + created_board_ids))
   end
 
   # All user memberships
