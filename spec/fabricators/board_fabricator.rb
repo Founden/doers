@@ -1,7 +1,7 @@
 Fabricator(:board) do
   transient   :topics_count => 4
   user
-  project
+  project     { |attrs| Fabricate(:project, :user => attrs[:user]) }
   title       { Faker::Lorem.sentence }
   description { Faker::Lorem.sentence }
   after_create do |board, trans|
