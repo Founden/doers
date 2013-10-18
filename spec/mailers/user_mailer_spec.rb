@@ -27,7 +27,7 @@ describe UserMailer do
     its(:to) { should include(user.email) }
   end
 
-  context '#Invitation_claimed' do
+  context '#invitation_claimed' do
     let(:invitation) { Fabricate(:project_invitee) }
     let(:user) { User.find_by(:email => invitation.email) }
 
