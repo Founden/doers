@@ -9,8 +9,25 @@ describe Topic do
   it { should have_many(:comments).dependent(:destroy) }
   it { should have_many(:activities).dependent('') }
   it { should validate_presence_of(:user) }
-  it { should validate_presence_of(:title) }
-  it { should validate_presence_of(:board) }
+
+  context 'validations' do
+    let(:topic) { Fabricate.build(:topic, :board => nil) }
+    subject { topic }
+
+    it { should_not be_valid }
+
+    context 'when board is missing' do
+      let(:topic) { Fabricate.build(:whiteboard_topic) }
+
+      it { should be_valid }
+    end
+
+    context 'when whiteboard is missing' do
+      let(:topic) { Fabricate.build(:topic) }
+
+      it { should be_valid }
+    end
+  end
 
   context 'instance' do
     let(:topic) { Fabricate(:topic) }
