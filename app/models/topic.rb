@@ -16,7 +16,9 @@ class Topic < ActiveRecord::Base
   has_many :activities
 
   # Validations
-  validates_presence_of :title, :user, :board
+  validates_presence_of :title, :user
+  validates_presence_of :board, :unless => :whiteboard
+  validates_presence_of :whiteboard, :unless => :board
 
   # Callbacks
   after_initialize do
