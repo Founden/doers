@@ -17,9 +17,11 @@ class Api::V1::WhiteboardsController < Api::V1::ApplicationController
   # Handles whiteboard creation
   def create
     if board = Board.find_by(:id => create_params[:board_id])
-      whiteboard = board.create_whiteboard(create_params.except(:board_id))
+      current_account.can?(:read, board)
+      whiteboard = board.whiteboardify(current_account)
     else
-      whiteboard = Whiteboard.create(create_params.except(:board_id))
+      whiteboard = current_account.whiteboards.create(
+        create_params.except(:board_id))
     end
 
     if whiteboard.errors.empty?
@@ -34,7 +36,7 @@ class Api::V1::WhiteboardsController < Api::V1::ApplicationController
   def update
     whiteboard = Whiteboard.find_by!(:id => params[:id])
     current_account.can?(:write, whiteboard)
-    whiteboard.update_attributes(whiteboard_params)
+    whiteboard.update_attributes(update_params)
     render :json => whiteboard
   end
 
