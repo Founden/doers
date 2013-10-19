@@ -12,6 +12,7 @@ describe Board, :use_truncation do
       its('first.user') { should eq(board.user) }
       its('first.project') { should eq(board.project) }
       its('first.board') { should eq(board) }
+      its('first.whiteboard') { should be_nil }
       its('first.slug') { should eq('create-board') }
     end
 
@@ -29,6 +30,7 @@ describe Board, :use_truncation do
       its('last.user') { should eq(user) }
       its('last.project') { should eq(board.project) }
       its('last.board_id') { should_not be_nil }
+      its('first.whiteboard_id') { should be_nil }
       its('last.slug') { should eq('destroy-board') }
     end
   end
