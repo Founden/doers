@@ -11,6 +11,7 @@ describe User do
   it { should have_many(:images).dependent('') }
   it { should have_many(:activities).dependent('') }
   it { should have_many(:whiteboards).dependent('') }
+  it { should have_many(:shared_whiteboards).through(:accepted_memberships) }
   it { should have_many(:created_memberships).dependent(:destroy) }
   it { should have_many(:accepted_memberships).dependent(:destroy) }
   it { should have_many(:invitations).dependent(:destroy) }

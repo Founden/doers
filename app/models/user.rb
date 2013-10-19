@@ -32,6 +32,8 @@ class User < ActiveRecord::Base
   has_many :invitations, :dependent => :destroy
 
   has_many :whiteboards
+  has_many(:shared_whiteboards, :class_name => Whiteboard,
+           :through => :accepted_memberships, :source => :whiteboard)
   has_many :created_boards, :class_name => Board
   has_many :shared_boards, :through => :accepted_memberships, :source => :board
 
