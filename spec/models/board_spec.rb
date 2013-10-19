@@ -61,5 +61,22 @@ describe Board do
         its(:progress) { should eq(20) }
       end
     end
+
+    context '#whiteboardify' do
+      let(:whiteboardifier) { Fabricate(:user) }
+
+      subject(:whiteboard) { board.whiteboardify(whiteboardifier) }
+
+      its(:boards) { should include(board) }
+
+      %w(title description position user_id).each do |attr_name|
+        context "topics #{attr_name}" do
+          subject { whiteboard.topics.pluck(attr_name).sort }
+
+          it { should eq(board.topics.pluck(attr_name).sort) }
+        end
+      end
+    end
+
   end
 end

@@ -42,4 +42,16 @@ class Board < ActiveRecord::Base
     topics.count > 0 ? (
       (cards.aligned.count.to_f / topics.count) * 100).to_i : 100
   end
+
+  # Fork this board into a whiteboard
+  def whiteboardify(user)
+    self.create_whiteboard(:title => self.title,
+      :description => self.description, :user => user)
+    self.topics.each_with_index do |topic, index|
+      self.whiteboard.topics.create(topic.attributes.slice(
+        *%w(user_id title description position)))
+    end
+    self.save
+    self.whiteboard
+  end
 end
