@@ -16,7 +16,7 @@ build:
     - script:
         name: RSpec
         code: |
-          bundle exec rake parallel:spec spec:features
+          bundle exec rake parallel:spec
 
   after-steps:
     - hipchat-notify:
