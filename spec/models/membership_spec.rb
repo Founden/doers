@@ -5,6 +5,7 @@ describe Membership do
   it { should belong_to(:creator) }
   it { should belong_to(:project) }
   it { should belong_to(:board) }
+  it { should belong_to(:whiteboard) }
   it { should have_one(:invitation) }
   it { should validate_presence_of(:creator) }
   it { should validate_presence_of(:user) }
