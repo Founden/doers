@@ -36,6 +36,7 @@ Doers::Application.routes.draw do
       resources(:comments, :except => [:update])
       resources(:topics)
       resources(:endorses, :except => [:update])
+      resources(:whiteboards)
     end
   end
 
