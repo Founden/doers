@@ -8,8 +8,8 @@ Fabricator('card/map') do
   topic      { |attrs| Fabricate(
     :topic, :user => attrs[:user], :board => attrs[:board]) }
 
-  latitude   { rand(0.0..100.9) }
-  longitude  { rand(0.0..100.9) }
+  latitude   { Faker::Geolocation.lat.to_f.round(5) }
+  longitude  { Faker::Geolocation.lng.to_f.round(5) }
   content    { sequence(:addres) { '%s, %s, %s' % [
     Faker::Address.street_address,Faker::Address.city,Faker::Address.country] }}
 end
