@@ -1,5 +1,8 @@
 # DOERS [Whiteboard] class
 class Whiteboard < ActiveRecord::Base
+  # Include [Activity] generations support
+  include Activity::Support
+
   # Relationships
   belongs_to :user
   belongs_to :team
