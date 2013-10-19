@@ -37,6 +37,7 @@ group :assets do
   gem 'jquery-rails'
   gem 'ember-rails'
   gem 'ember-source'
+  gem 'ember-data-source', '~> 1.0.0.beta'
   gem 'bourbon'
   gem 'normalize-rails'
   gem 'momentjs-rails'
