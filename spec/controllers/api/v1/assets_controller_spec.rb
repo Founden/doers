@@ -115,7 +115,7 @@ describe Api::V1::AssetsController do
         its(:type) { should eq(asset.type.to_s.demodulize) }
         its(:user_id) { should eq(asset.user.id) }
         its(:board_id) { should eq(asset.board.id) }
-        its(:whiteboard_id) { should eq(asset.whitebaord_id) }
+        its(:whiteboard_id) { should be_blank }
         its(:project_id) { should eq(asset.project.id) }
         its(:assetable_type) { should eq(asset.assetable_type) }
         its(:assetable_id) { should eq(card.id) }
