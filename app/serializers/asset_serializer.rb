@@ -8,6 +8,7 @@ class AssetSerializer < ActiveModel::Serializer
   has_one :user, :embed => :id
   has_one :project, :embed => :id
   has_one :board, :embed => :id
+  has_one :whiteboard, :embed => :id
 
   # Thumb size of the attachment
   def thumb_size_url
