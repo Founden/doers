@@ -40,7 +40,7 @@ class UserMailer < ActionMailer::Base
     @dashboard_url = root_url
     @user = membership.user
     @creator = membership.creator
-    @target = membership.board || membership.project
+    @target = membership.whiteboard || membership.board || membership.project
     mail(:to => @user.email, :subject => _('%s added you to %s on %s.') % [
       @creator.nicename, @target.title, Doers::Config.app_name])
   end
