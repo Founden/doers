@@ -1,5 +1,5 @@
 Fabricator(:user) do
-name                { sequence(:name) { |nid| Faker::Name.name.sub("'", '') } }
+  name              { sequence(:name) { |nid| Faker::Name.name.delete("'") } }
   email             { sequence(:email) { |eid| Faker::Internet.email } }
   external_id       { sequence(:external_id) }
   confirmed         { true }

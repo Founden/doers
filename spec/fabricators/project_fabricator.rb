@@ -1,5 +1,5 @@
 Fabricator(:project) do
-  title         { sequence(:title)       { Faker::Company.name } }
+  title         { sequence(:title)       { Faker::Company.name.delete("'") } }
   description   { sequence(:description) { Faker::Company.catch_phrase } }
   website       { sequence(:www)         { Faker::Internet.uri(:https) } }
   user

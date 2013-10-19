@@ -22,8 +22,8 @@ describe UserMailer do
     before { UserMailer.startup_imported(project).deliver }
 
     it_should_behave_like 'an email from us'
-    its('body.encoded') { should match(user.nicename) }
-    its('body.encoded') { should match(project.title) }
+    its('body.encoded') { should include(user.nicename) }
+    its('body.encoded') { should include(project.title) }
     its(:to) { should include(user.email) }
   end
 
@@ -34,9 +34,9 @@ describe UserMailer do
     before { UserMailer.invitation_claimed(invitation, user).deliver }
 
     it_should_behave_like 'an email from us'
-    its('body.encoded') { should match(invitation.user.nicename) }
-    its('body.encoded') { should match(user.nicename) }
-    its('body.encoded') { should match(invitation.invitable.title) }
+    its('body.encoded') { should include(invitation.user.nicename) }
+    its('body.encoded') { should include(user.nicename) }
+    its('body.encoded') { should include(invitation.invitable.title) }
     its(:to) { should include(invitation.user.email) }
   end
 
@@ -46,17 +46,17 @@ describe UserMailer do
     before { UserMailer.membership_notification(membership).deliver }
 
     it_should_behave_like 'an email from us'
-    its('body.encoded') { should match(membership.creator.nicename) }
-    its('body.encoded') { should match(membership.user.nicename) }
-    its('body.encoded') { should match(membership.project.title) }
+    its('body.encoded') { should include(membership.creator.nicename) }
+    its('body.encoded') { should include(membership.user.nicename) }
+    its('body.encoded') { should include(membership.project.title) }
     its(:to) { should include(membership.user.email) }
   end
 
   context '#invite' do
     shared_examples 'an invitation from us' do
       its(:to) { should include(invitation.email) }
-      its('body.encoded') { should match(user.nicename) }
-      its('body.encoded') { should match(root_url) }
+      its('body.encoded') { should include(user.nicename) }
+      its('body.encoded') { should include(root_url) }
     end
 
     let(:invitation) { Fabricate(:invitation, :user => user) }
@@ -70,16 +70,16 @@ describe UserMailer do
       let(:invitation) { Fabricate(:project_invitation, :user => user) }
 
       it_should_behave_like 'an invitation from us'
-      its(:subject) { should match(invitation.invitable.title) }
-      its('body.encoded') { should match(invitation.invitable.title) }
+      its(:subject) { should include(invitation.invitable.title) }
+      its('body.encoded') { should include(invitation.invitable.title) }
     end
 
     context 'to join a board' do
       let(:invitation) { Fabricate(:board_invitation, :user => user) }
 
       it_should_behave_like 'an invitation from us'
-      its(:subject) { should match(invitation.invitable.title) }
-      its('body.encoded') { should match(invitation.invitable.title) }
+      its(:subject) { should include(invitation.invitable.title) }
+      its('body.encoded') { should include(invitation.invitable.title) }
     end
   end
 
@@ -94,7 +94,7 @@ describe UserMailer do
     after { File.unlink(zip_path) }
 
     it_should_behave_like 'an email from us'
-    its('body.encoded') { should match(user.nicename) }
+    its('body.encoded') { should include(user.nicename) }
     its('attachments') { should have(1).attachment }
     its('attachments.first.filename') { should eq('doers_boards.zip') }
     its(:to) { should include(user.email) }
