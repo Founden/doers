@@ -129,6 +129,17 @@ describe Api::V1::CommentsController do
         its(:board_id) { should eq(comment.board.id) }
         its(:card_id) { should eq(card.id) }
       end
+
+      context 'when content is blank' do
+        let(:comment_attrs) do
+          Fabricate.attributes_for(
+            :topic_comment_with_parent_and_card, :user => user, :content => nil)
+        end
+
+        subject(:api_comment) { json_to_ostruct(response.body) }
+
+        its(:errors) { should_not be_empty }
+      end
     end
 
     context 'with a shared project with boards' do

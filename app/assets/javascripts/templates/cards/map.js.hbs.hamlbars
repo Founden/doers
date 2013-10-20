@@ -3,17 +3,20 @@
 .card-wrap
   .card-edit
     .card-field
-      {{input type='text' class='card-field-title' valueBinding='title' placeholder='Type your sugestion title...' name='title'}}
+      {{textarea class='card-field-title' valueBinding='title' placeholder='Type your sugestion title...' name='title'}}
     .card-field
-      {{textarea class='card-field-description' valueBinding='content' placeholder='Type your sugestion...' rows='3' name='content'}}
-    .card-attachment
-      .card-search
-        %label
-          = _('Type address')
-        .card-search-field
-          {{input type='text' valueBinding='query' action='update' placeholder='Type address, state or city' name='query'}}
-          .icon.icon-map.medium
-      {{view Doers.ImageMapView contentBinding='view.content' class='card-image'}}
+      {{textarea class='card-field-description' valueBinding='content' placeholder='Type your sugestion...' name='content'}}
+    {{#view classNames='card-attachment' classNameBindings='isEditing' contentBinding='view.content'}}
+    {{#if isEditing}}
+    .card-search
+      %label
+        = _('Type address')
+      .card-search-field
+        {{input type='text' valueBinding='query' action='update' placeholder='Type address, state or city' name='query'}}
+        .icon.icon-map.medium
+    {{/if}}
+    {{view Doers.ImageMapView contentBinding='view.content' class='card-image'}}
+    {{/view}}
     {{partial 'cards/components/actions'}}
   {{partial 'cards/components/endorses'}}
 {{/with}}

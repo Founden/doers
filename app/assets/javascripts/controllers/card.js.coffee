@@ -1,28 +1,47 @@
 Doers.CardController =
 Ember.ObjectController.extend Doers.ControllerAlertMixin,
 
+  userEndorse: ( ->
+    currentUser = @container.resolve('user:current')
+    @get('content.endorses').findBy('user', currentUser)
+  ).property('content.endorses.@each')
+
   actions:
+    edit: ->
+      @set('content.isEditing', true)
+
     save: ->
       @get('content').save().then =>
         currentUser = @container.resolve('user:current')
         @set('content.user', currentUser)
+        @set('content.isEditing', false)
+        @get('content.topic').reload()
 
     destroy: ->
-      topic = @get('content.topic')
       card = @get('content')
+      topic = card.get('topic')
       card.deleteRecord()
-      card.save().then =>
+      if card.get('isNew')
         topic.set('card', null)
+      else
+        card.save().then =>
+          topic.reload()
 
-    endorse: ->
+    addEndorse: ->
       card = @get('content')
       endorse = @store.createRecord 'endorse',
         project: card.get('project')
         board: card.get('board')
         topic: card.get('topic')
         card: card
+      endorse.save().then ->
+        card.reload()
+
+    removeEndorse: ->
+      endorse = @get('userEndorse')
+      endorse.deleteRecord()
       endorse.save().then =>
-        card.get('endorses').pushObject(endorse)
+        card.reload()
 
     toggleAlignment: ->
       card = @get('content')

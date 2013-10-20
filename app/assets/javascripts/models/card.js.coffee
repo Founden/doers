@@ -1,5 +1,4 @@
 Doers.Card = DS.Model.extend
-  ticker: Date.now()
   assetableType: 'Card'
 
   title: DS.attr('string')
@@ -17,19 +16,6 @@ Doers.Card = DS.Model.extend
 
   isEditing: false
 
-  init: ->
-    setInterval ( =>
-      @set('ticker', Date.now())
-    ), 60000
-    @_super()
-
   slug: (->
     'card-' + @get('id')
   ).property('id', 'type')
-
-  didUpdate: ->
-    @set('updatedAt', new Date())
-
-  lastUpdate: ( ->
-    moment(@get('updatedAt')).fromNow()
-  ).property('updatedAt', 'ticker')

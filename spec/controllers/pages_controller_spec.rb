@@ -11,6 +11,12 @@ describe PagesController do
 
     it { should render_template(:dashboard) }
 
+    context 'as an unconfirmed user' do
+      let(:user) { Fabricate(:user, :confirmed => nil) }
+
+      it { should redirect_to(waiting_pages_path) }
+    end
+
     context 'as an authenticated visitor' do
       let(:user) { nil }
 

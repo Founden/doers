@@ -10,18 +10,14 @@
 
 .activity-comment {
   position: relative;
-  padding: 20px 56px;
+  padding: 20px 56px 0 56px;
   margin: 20px 0;
   border-top: 1px solid $gray-2;
-
-  &:last-of-type {
-    padding-bottom: 0;
-    border-bottom: 0;
-  }
 }
 
 .activity-comment-form {
   @extend .activity-comment;
+  border-top: 0;
 }
 
 .activity-comment-user {
@@ -45,13 +41,13 @@
 }
 
 .activity-comment-actions {
-  margin: 20px 0 0 0;
   font-size: em(14);
+  margin: 10px 0 0 0;
 
   > a {
     display: inline-block;
     text-decoration: underline;
-    margin: 0 1em 0 0;
+    margin: 0 0.5em 0 0;
     color: $gray-6;
 
     &.create-comment {

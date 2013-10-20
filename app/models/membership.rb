@@ -17,11 +17,6 @@ class Membership < ActiveRecord::Base
   # Callbacks
   after_commit :notify_member, :on => :create
 
-  # Target to use when generating activities
-  def activity_title
-    self.user.nicename
-  end
-
   private
 
     # Sends an email with details about the new membership
