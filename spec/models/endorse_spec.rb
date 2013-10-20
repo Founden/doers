@@ -12,5 +12,11 @@ describe Endorse do
 
     its(:slug) { should eq('create-endorse') }
     its(:type) { should eq(Endorse.name) }
+
+    context 'on destroy', :use_truncation do
+      before { endorse.destroy }
+
+      its('card.activities.first.slug') { should eq('destroy-endorse') }
+    end
   end
 end
