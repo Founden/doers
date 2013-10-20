@@ -25,9 +25,9 @@ describe Whiteboard, :use_truncation do
 
       subject { user.activities }
 
-      its('last.user') { should eq(user) }
-      its('last.whiteboard_id') { should_not be_nil }
-      its('last.slug') { should eq('destroy-whiteboard') }
+      its('first.user') { should eq(user) }
+      its('first.whiteboard_id') { should_not be_nil }
+      its('first.slug') { should eq('destroy-whiteboard') }
     end
   end
 end
