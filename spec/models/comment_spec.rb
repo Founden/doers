@@ -49,7 +49,7 @@ describe Comment do
 
   context '#activities', :use_truncation do
     let(:target) {}
-    subject(:activity) { target.activities.reload.last }
+    subject(:activity) { target.activities.reload.first }
 
     context 'on a topic' do
       let(:comment) { Fabricate(:topic_comment) }

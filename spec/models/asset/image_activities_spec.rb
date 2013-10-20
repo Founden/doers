@@ -14,7 +14,7 @@ describe Asset::Image, :use_truncation do
     context 'on update' do
       before { image.update_attributes(:description => Faker::Lorem.sentence) }
 
-      subject { activities.last }
+      subject { activities.first }
 
       it { activities.size.should eq(2) }
 

@@ -27,7 +27,7 @@ describe BoardMembership do
     subject(:activities) { membership.activity_owner.activities }
 
     context 'on create' do
-      subject { activities.last }
+      subject { activities.first }
 
       its(:user) { should eq(membership.creator) }
       its(:project) { should be_nil }
@@ -46,7 +46,7 @@ describe BoardMembership do
     context 'on delete' do
       before { membership.destroy }
 
-      subject { activities.last }
+      subject { activities.first }
 
       its(:user) { should eq(membership.creator) }
       its(:project) { should be_nil }

@@ -27,11 +27,11 @@ describe Board, :use_truncation do
 
       subject { user.activities }
 
-      its('last.user') { should eq(user) }
-      its('last.project') { should eq(board.project) }
-      its('last.board_id') { should_not be_nil }
+      its('first.user') { should eq(user) }
+      its('first.project') { should eq(board.project) }
+      its('first.board_id') { should_not be_nil }
       its('first.whiteboard_id') { should be_nil }
-      its('last.slug') { should eq('destroy-board') }
+      its('first.slug') { should eq('destroy-board') }
     end
   end
 end

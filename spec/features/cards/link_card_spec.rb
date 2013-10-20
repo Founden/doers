@@ -23,13 +23,18 @@ feature 'Link', :js, :slow, :pending do
 
     scenario 'is shown with details' do
       expect(page).to have_css('.card', :count => 1)
-      expect(page.source).to include(card.title)
+      expect(page.find('.card-field-title').value).to eq(card.title)
+      expect(page.find('.card-field-description').value).to eq(card.content)
       expect(page).to have_content(embed['title'])
     end
 
     context 'when edited' do
       given(:title) { Faker::Lorem.sentence }
       given(:url) { Faker::Internet.http_url }
+
+      background do
+        page.find('.edit-card').click
+      end
 
       scenario 'can be saved' do
         within('.card-edit') do

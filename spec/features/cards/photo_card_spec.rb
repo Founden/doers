@@ -15,7 +15,8 @@ feature 'Photo', :js, :slow, :pending do
 
     scenario 'is shown with details' do
       expect(page).to have_css('.card', :count => 1)
-      expect(page.source).to include(card.title)
+      expect(page.find('.card-field-title').value).to eq(card.title)
+      expect(page.find('.card-field-description').value).to eq(card.content)
       expect(page.source).to include(
         card.image.attachment.url.force_encoding('UTF-8'))
     end
@@ -24,6 +25,10 @@ feature 'Photo', :js, :slow, :pending do
       given(:title) { Faker::Lorem.sentence }
       given(:content) { Faker::Lorem.sentence }
       given(:image_path) { Rails.root.join('spec/fixtures/test.png') }
+
+      background do
+        page.find('.edit-card').click
+      end
 
       scenario 'can be saved' do
         old_image_url = card.image.attachment.url.force_encoding('UTF-8')

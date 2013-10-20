@@ -4,6 +4,20 @@
   border: 1px solid $gray-4;
   border-radius: 3px;
   background: $white;
+
+  &:before {
+    content: '';
+    position: absolute;
+    left: -3px;
+    top: 26px;
+    width: 4px;
+    height: 4px;
+    background: inherit;
+    border-width: 0 0 1px 1px;
+    border-color: $gray-4;
+    border-style: solid;
+    @include transform(rotate(45deg));
+  }
 }
 
 .card-edit-actions {
@@ -27,20 +41,6 @@
     font-size: em(12);
     color: $gray-5;
     line-height: 42px;
-  }
-
-  &:before {
-    content: '';
-    position: absolute;
-    left: -3px;
-    top: 26px;
-    width: 4px;
-    height: 4px;
-    background: inherit;
-    border-width: 0 0 1px 1px;
-    border-color: $gray-4;
-    border-style: solid;
-    @include transform(rotate(45deg));
   }
 }
 
@@ -89,7 +89,7 @@
 
 .card-edit {
   display: table-cell;
-  padding: 20px 0 10px 0;
+  padding: 20px 0 0 0;
 }
 
 .card-field {
@@ -104,6 +104,7 @@
 
 .card-field-description {
   width: 100%;
+  min-height: 4 * 21px;
   font-size: em(14);
 }
 
@@ -113,17 +114,12 @@
   position: relative;
   overflow: hidden;
 
-  &:hover {
+  &.is-editing {
 
     .card-image,
     .card-embed {
       -webkit-filter: blur(10px);
-      @include transform(scale(0.98));
-    }
-
-    .uploader,
-    .card-search {
-      opacity: 1;
+      @include transform(scale(1.1));
     }
   }
 
@@ -135,15 +131,32 @@
     z-index: 1;
     width: 100%;
     height: 100%;
+    padding: 30px;
     text-align: center;
-    opacity: 0;
-    @include transition(all 0.2s);
+    cursor: pointer;
 
     input {
       opacity: 0;
       position: absolute;
       left: 0;
       top: 0;
+    }
+  }
+
+  .uploader-drop-area {
+    @include box-sizing(border-box);
+    height: 100%;
+    border: 1px dashed rgba($black, 0.5);
+    border-radius: 6px;
+    @include transition(all 0.2s);
+
+    &:hover, &.hover {
+      border-color: $black;
+
+      .uploader-status {
+        background: $white;
+        color: $black;
+      }
     }
   }
 
@@ -159,13 +172,7 @@
     border-radius: 3px;
     font-size: em(12);
     color: rgba($black, 0.8);
-    cursor: pointer;
     @include transition(all 0.2s);
-
-    &:hover {
-      background: $white;
-      color: $black;
-    }
 
     .icon {
       margin: 0 0 5px 0;
@@ -207,8 +214,6 @@
   z-index: 1;
   display: table;
   text-align: center;
-  opacity: 0;
-  @include transition(all 0.2s);
 
   label {
     display: block;
@@ -228,6 +233,7 @@
     background: rgba($white, 0.8);
     padding: 10px 40px 10px 15px;
     border-radius: 3px;
+    width: 100%;
   }
 
   .icon {
@@ -238,7 +244,7 @@
 }
 
 .card-actions {
-  margin: 0 30px;
+  margin: 20px 30px;
   font-size: em(14);
 
   a {

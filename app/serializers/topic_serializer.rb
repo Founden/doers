@@ -7,4 +7,5 @@ class TopicSerializer < ActiveModel::Serializer
   has_many :cards, :embed => :id
   has_many :comments, :embed => :id
   has_many :activities, :embed => :id
+
 end

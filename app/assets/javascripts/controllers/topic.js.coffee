@@ -11,6 +11,7 @@ Ember.ObjectController.extend Doers.ControllerAlertMixin,
       @container.resolve('controller:' + type + 'Card').create
         content: @get('content.card')
         container: @container
+        store: @store
   ).property('content.card.type')
 
   cardTemplateName: ( ->
@@ -33,7 +34,6 @@ Ember.ObjectController.extend Doers.ControllerAlertMixin,
 
     addComment: ->
       content = @get('commentContent')
-
       if content and content.length > 1
         comment = @store.createRecord 'comment',
           content: content
@@ -44,9 +44,7 @@ Ember.ObjectController.extend Doers.ControllerAlertMixin,
           card: @get('content.card')
         comment.save().then =>
           @set('commentContent', '')
-          @get('content.activities').pushObject @store.createRecord 'activity',
-            comment: comment
-            lastUpdate: comment.get('updatedAt')
+          @get('content').reload()
 
     resetComment: ->
       @set('commentContent', '')
@@ -61,4 +59,5 @@ Ember.ObjectController.extend Doers.ControllerAlertMixin,
         project: @get('board.project')
         topic: @get('content')
         type: type
+        isEditing: true
       @set('content.card', card)
