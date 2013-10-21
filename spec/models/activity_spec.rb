@@ -60,6 +60,46 @@ describe Activity, :use_truncation do
     end
   end
 
+  context '#remove_previous_if_same_as' do
+    subject(:project) { Fabricate(:project) }
+
+    its('activities.count') { should eq(1) }
+
+    context 'after calling save' do
+      before { project.save }
+
+      its('activities.count') { should eq(2) }
+    end
+
+    context 'after calling #save multiple times' do
+      before { rand(5).times{ project.save } }
+
+      its('activities.count') { should eq(2) }
+    end
+
+    context 'after calling #save in < 10 minutes' do
+      before do
+        project.save
+        Timecop.freeze(DateTime.now + 5.minutes) do
+          project.save
+        end
+      end
+
+      its('activities.count') { should eq(2) }
+    end
+
+    context 'after calling #save after 10 minutes' do
+      before do
+        project.save
+        Timecop.freeze(DateTime.now + 11.minutes) do
+          project.save
+        end
+      end
+
+      its('activities.count') { should eq(3) }
+    end
+  end
+
   context 'order defaults to Activity#updated_at' do
     let!(:activities) { Fabricate(:board).user.activities }
     let(:dates) { activities.pluck('updated_at').map(&:to_i) }

@@ -73,4 +73,5 @@ group :test do
   gem 'shoulda-matchers'
   gem 'simplecov', :require => false
   gem 'parallel_tests', :require => false
+  gem 'timecop'
 end
