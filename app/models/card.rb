@@ -9,9 +9,6 @@ class Card < ActiveRecord::Base
   # Default scope: order by position
   default_scope { order(:position) }
 
-  # Store accessors definition
-  store_accessor :data, :alignment
-
   # Temporary attribute
   attr_accessor :activity_alignment_slug
 

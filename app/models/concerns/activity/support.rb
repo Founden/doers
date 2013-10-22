@@ -44,7 +44,7 @@ module Activity::Support
     # Activity generation hook
     def generate_activity(append_to_slug=nil)
       activity = self.activity_owner.activities.build(activity_params)
-      activity.slug = activity_slug(append_to_slug)
+      activity.slug = activity_slug(append_to_slug || activity_postfix)
       remove_previous_if_same_as(activity)
       activity.save!
     end
