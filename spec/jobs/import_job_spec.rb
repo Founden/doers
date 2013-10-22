@@ -7,40 +7,57 @@ describe ImportJob do
   let(:import) { ImportJob.new(user, startup_id) }
 
   context '#perform' do
-    before do
-      import.should_receive(:import_project).and_return(false)
-      UserMailer.should_receive(:startup_imported).exactly(0).times
-      import.perform
-    end
-
     subject { import }
 
-    its(:user) { should eq(user) }
-    its(:startup_id) { should eq(startup_id) }
-    its(:access_token) { should eq(access_token) }
-    its(:startup_url) { should match(startup_id.to_s) }
-    its(:startup_url) { should match(access_token) }
-    its(:startup_comments_url) { should match(startup_id.to_s) }
-    its(:startup_comments_url) { should match(access_token) }
-    its(:startup_roles_url) { should match(startup_id.to_s) }
-    its(:startup_roles_url) { should match(access_token) }
-  end
+    context 'on failure sends an email' do
+      before do
+        import.should_receive(:import_project).and_return(false)
+        UserMailer.should_receive(:startup_import_failed).and_call_original
+        import.perform
+      end
 
-  context '#perform on success sends an email and flags importing as false' do
-    let(:project) { Fabricate(:project, :user => user) }
-    before do
-      import.should_receive(:import_project).and_return(project)
-      import.should_receive(:import_project_comments)
-      import.should_receive(:import_project_users)
-      UserMailer.should_receive(:startup_imported).and_call_original
-      import.project = project
-      import.perform
+      its(:user) { should eq(user) }
+      its(:startup_id) { should eq(startup_id) }
+      its(:access_token) { should eq(access_token) }
+      its(:startup_url) { should match(startup_id.to_s) }
+      its(:startup_url) { should match(access_token) }
+      its(:startup_comments_url) { should match(startup_id.to_s) }
+      its(:startup_comments_url) { should match(access_token) }
+      its(:startup_roles_url) { should match(startup_id.to_s) }
+      its(:startup_roles_url) { should match(access_token) }
+      its('user.importing') { should be_false }
     end
 
-    subject { import }
+    context 'on success sends an email' do
+      let(:project) { Fabricate(:project, :user => user) }
+      before do
+        import.should_receive(:import_project).and_return(project)
+        import.should_receive(:import_project_comments)
+        import.should_receive(:import_project_users)
+        UserMailer.should_receive(:startup_imported).and_call_original
+        import.project = project
+        import.perform
+      end
 
-    its('user.importing') { should be_false }
+      its('user.importing') { should be_false }
+    end
+
+    context 'on duplicate sends an email' do
+      let!(:project) do
+        Fabricate(:project, :user => user,
+          :external_id => startup_id, :external_type => import.external_type)
+      end
+
+      before do
+        import.should_receive(:import_project).exactly(0).times
+        UserMailer.should_receive(:startup_exists).and_call_original
+        import.perform
+      end
+
+      its('user.importing') { should be_false }
+    end
   end
+
 
   context '#process_json' do
     let(:json) { ['a', 'b', 'c'].to_json }
