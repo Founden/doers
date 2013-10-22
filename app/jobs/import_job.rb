@@ -9,10 +9,16 @@ class ImportJob < Struct.new(:user, :startup_id)
   def perform
     @access_token = user.identities.first.token
 
-    if import_project
+    if existing_project = Project.find_by(:external_id => startup_id.to_s)
+      ::UserMailer.startup_exists(existing_project, user).deliver
+    end
+
+    if !existing_project and import_project
       import_project_comments
       import_project_users
       ::UserMailer.startup_imported(project).deliver
+    else
+      ::UserMailer.startup_import_failed(user).deliver
     end
 
     user.update_attributes(:importing => false)

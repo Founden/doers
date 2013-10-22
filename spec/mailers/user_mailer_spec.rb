@@ -27,6 +27,26 @@ describe UserMailer do
     its(:to) { should include(user.email) }
   end
 
+  context '#startup_import_failed' do
+    before { UserMailer.startup_import_failed(user).deliver }
+
+    it_should_behave_like 'an email from us'
+    its('body.encoded') { should include(user.nicename) }
+    its(:to) { should include(user.email) }
+  end
+
+  context '#startup_exists' do
+    let(:project) { Fabricate(:project) }
+
+    before { UserMailer.startup_exists(project, user).deliver }
+
+    it_should_behave_like 'an email from us'
+    its('body.encoded') { should include(user.nicename) }
+    its('body.encoded') { should include(project.title) }
+    its('body.encoded') { should include(project.user.nicename) }
+    its(:to) { should include(user.email) }
+  end
+
   context '#invitation_claimed' do
     let(:invitation) { Fabricate(:project_invitee) }
     let(:user) { User.find_by(:email => invitation.email) }
