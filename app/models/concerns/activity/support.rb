@@ -5,6 +5,11 @@ module Activity::Support
     self
   end
 
+  # Activity slug postfix to be appended
+  def activity_postfix
+    nil
+  end
+
   private
 
     # Generates activity slug based on current model and transaction type
