@@ -2,6 +2,11 @@
 \
 \
 = _('Your startup %s, from Angel List, was imported.') % @project.title
+- unless @project.members.empty?
+  \
+  = _('We also found the startup users from Angel List and added them as collaborators:')
+  - @project.members.each do |member|
+    = '* %s' % member.nicename
 \
 = _('To start using it, visit %s') % Doers::Config.app_id
 \

@@ -25,6 +25,16 @@ describe UserMailer do
     its('body.encoded') { should include(user.nicename) }
     its('body.encoded') { should include(project.title) }
     its(:to) { should include(user.email) }
+
+    context 'with members' do
+      let(:project) { Fabricate(:project_membership, :creator => user).project }
+
+      it_should_behave_like 'an email from us'
+      its('body.encoded') { should include(user.nicename) }
+      its('body.encoded') { should include(project.title) }
+      its('body.encoded') { should include(project.members.first.nicename) }
+      its(:to) { should include(user.email) }
+    end
   end
 
   context '#startup_import_failed' do
