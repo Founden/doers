@@ -11,9 +11,33 @@ describe Asset::Cover do
   it { should belong_to(:user) }
   it { should belong_to(:project) }
   it { should belong_to(:board) }
+  it { should belong_to(:whiteboard) }
 
   it { should validate_presence_of(:user) }
-  it { should validate_presence_of(:board) }
+
+  context 'validations' do
+    let(:board) { Fabricate(:whiteboard) }
+    let(:whiteboard) { Fabricate(:whiteboard) }
+    let(:cover) { Fabricate.build(:cover) }
+
+    subject { cover }
+
+    it { should_not be_valid }
+
+    context 'board is not set' do
+      let(:cover) { Fabricate.build(
+          :cover, :whiteboard => whiteboard, :user => whiteboard.user) }
+
+      it { should be_valid }
+    end
+
+    context 'whiteboard is not set' do
+      let(:cover) {
+        Fabricate.build(:cover, :whiteboard => board, :user => board.user) }
+
+      it { should be_valid }
+    end
+  end
 
   context 'sanitization' do
     let(:bad_input) do

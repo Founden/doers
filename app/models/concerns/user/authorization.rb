@@ -18,6 +18,8 @@ module User::Authorization
       !assets_to(action).where(:id => target).empty?
     when 'Board'
       !boards_to(action).where(:id => target).empty?
+    when 'Whiteboard'
+      !whiteboards_to(action).where(:id => target).empty?
     when 'Project'
       !projects_to(action).where(:id => target).empty?
     when /Card/
@@ -49,11 +51,8 @@ module User::Authorization
     query =
       # User is the owner
       table[:user_id].eq(self.id).or(
-        # User branched the board
-        table[:board_id].in(self.branched_board_ids).or(
-          # User created its board
-          table[:board_id].in(self.authored_board_ids)
-        ).or(
+        # User created the board
+        table[:board_id].in(self.created_board_ids).or(
           # Somebody shared its board
           table[:board_id].in(self.shared_board_ids)
         )
@@ -63,16 +62,29 @@ module User::Authorization
           # Somebody shared the project
           table[:project_id].in(self.shared_project_ids)
         )
+      ).or(
+        # User whiteboard has it
+        table[:whiteboard_id].in(self.whiteboard_ids).or(
+          # Somebody shared the whiteboard
+          table[:whiteboard_id].in(self.shared_whiteboard_ids)
+        )
       )
-
-    if action.to_sym != :write
-      query = query.or(
-        # Status is `public`
-        table[:board_id].in(Board.public.pluck('id'))
-      )
-    end
 
     Asset.where(query)
+  end
+
+  # Available whiteboards for user, `action` can be :read or :write
+  def whiteboards_to(action)
+    table = Whiteboard.arel_table
+
+    query =
+      # User created a whiteboard
+      table[:user_id].eq(self.id).or(
+        # Somebody shared the whiteboard
+        table[:id].in(self.shared_whiteboard_ids)
+      ) if action.to_sym == :write
+
+    Whiteboard.where(query)
   end
 
   # Available boards for user, `action` can be :read or :write
@@ -80,24 +92,14 @@ module User::Authorization
     table = Board.arel_table
 
     query =
-      # User is the author
-      table[:author_id].eq(self.id).or(
-        # User branched a board
-        table[:user_id].eq(self.id)
-      ).or(
+      # User branched a board
+      table[:user_id].eq(self.id).or(
         # User project has it
         table[:project_id].in(self.created_project_ids).or(
           # Somebody shared the project
           table[:project_id].in(self.shared_project_ids)
         )
       )
-
-    if action.to_sym != :write
-      query = query.or(
-        # Status is `public`
-        table[:status].eq(Board::STATES.last)
-      )
-    end
 
     Board.where(query)
   end
@@ -110,10 +112,7 @@ module User::Authorization
       # User is the owner
       table[:user_id].eq(self.id).or(
         # User branched the board
-        table[:board_id].in(self.branched_board_ids).or(
-          # User created the board
-          table[:board_id].in(self.authored_board_ids)
-        ).or(
+        table[:board_id].in(self.created_board_ids).or(
           # Somebody shared its board
           table[:board_id].in(self.shared_board_ids)
         )
@@ -124,13 +123,6 @@ module User::Authorization
           table[:project_id].in(self.shared_project_ids)
         )
       )
-
-    if action.to_sym != :write
-      query = query.or(
-        # Status is `public`
-        table[:board_id].in(Board.public.pluck('id'))
-      )
-    end
 
     Card.where(query)
   end
@@ -145,10 +137,7 @@ module User::Authorization
     if action.to_sym != :write
       query = query.or(
         # User branched the board
-        table[:board_id].in(self.branched_board_ids).or(
-          # User created the board
-          table[:board_id].in(self.authored_board_ids)
-        ).or(
+        table[:board_id].in(self.created_board_ids).or(
           # Somebody shared its board
           table[:board_id].in(self.shared_board_ids)
         )
@@ -157,6 +146,12 @@ module User::Authorization
         table[:project_id].in(self.created_project_ids).or(
           # Somebody shared the project
           table[:project_id].in(self.shared_project_ids)
+        )
+      ).or(
+        # User whiteboard has it
+        table[:whiteboard_id].in(self.whiteboard_ids).or(
+          # Somebody shared the whiteboard
+          table[:whiteboard_id].in(self.shared_whiteboard_ids)
         )
       )
     end
@@ -173,12 +168,9 @@ module User::Authorization
 
     if action.to_sym != :write
       query = query.or(
-        # User branched the board
-        table[:board_id].in(self.branched_board_ids).or(
+        # User created the board
+        table[:board_id].in(self.created_board_ids).or(
           # User created the board
-          table[:board_id].in(self.authored_board_ids)
-        ).or(
-          # Somebody shared its board
           table[:board_id].in(self.shared_board_ids)
         )
       ).or(
@@ -186,6 +178,12 @@ module User::Authorization
         table[:project_id].in(self.created_project_ids).or(
           # Somebody shared the project
           table[:project_id].in(self.shared_project_ids)
+        )
+      ).or(
+        # User whiteboard has it
+        table[:whiteboard_id].in(self.whiteboard_ids).or(
+          # Somebody shared the whiteboard
+          table[:whiteboard_id].in(self.shared_whiteboard_ids)
         )
       )
     end
@@ -201,18 +199,17 @@ module User::Authorization
       # User is the owner
       table[:user_id].eq(self.id).or(
         # User created the board
-        table[:board_id].in(self.authored_board_ids)
+        table[:board_id].in(self.created_board_ids)
       ).or(
         # Somebody shared its board
         table[:board_id].in(self.shared_board_ids)
+      ).or(
+        # User whiteboard has it
+        table[:whiteboard_id].in(self.whiteboard_ids).or(
+          # Somebody shared the whiteboard
+          table[:whiteboard_id].in(self.shared_whiteboard_ids)
+        )
       )
-
-    if action.to_sym != :write
-      query = query.or(
-        # Status is `public`
-        table[:board_id].in(Board.public.pluck('id'))
-      )
-    end
 
     Topic.where(query)
   end
@@ -235,6 +232,9 @@ module User::Authorization
       ).or(
         # Somebody shared its project
         table[:project_id].in(self.shared_project_ids)
+      ).or(
+        # Somebody shared its whiteboard
+        table[:whiteboard_id].in(self.shared_whiteboard_ids)
       )
     end
 

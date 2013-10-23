@@ -15,6 +15,6 @@ class BoardMembership < Membership
   private
     # Membership user board ids
     def user_board_ids
-      user ? self.user.boards.pluck('id') + user.authored_board_ids : []
+      user ? self.user.boards.pluck('id') + user.created_board_ids : []
     end
 end

@@ -72,7 +72,7 @@ describe Invitation do
         it { should_not be_valid }
 
         context 'and when included' do
-          let(:user) { invitable.author }
+          let(:user) { invitable.user }
           it { should be_valid }
         end
       end

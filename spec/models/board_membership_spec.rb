@@ -7,8 +7,7 @@ describe BoardMembership do
   context 'of an user to his own board' do
     let(:board) { Fabricate(:board) }
     subject(:membership) do
-      Fabricate.build(
-        :board_membership, :board => board, :user => board.author)
+      Fabricate.build(:board_membership, :board => board, :user => board.user)
     end
 
     it { should_not be_valid }

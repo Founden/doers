@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'Paragraph', :js, :slow do
+feature 'Paragraph', :js, :slow, :pending do
   background do
     sign_in_with_angel_list
   end
@@ -10,7 +10,8 @@ feature 'Paragraph', :js, :slow do
     given(:topic) { card.topic }
 
     background do
-      visit root_path(:anchor => '/board/%d/topic/%d' % [card.board.id, card.topic.id])
+      visit root_path(:anchor => '/board/%d/topic/%d' % [
+        card.board.id, card.topic.id])
     end
 
     scenario 'is shown with details' do

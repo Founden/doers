@@ -5,6 +5,11 @@ module Activity::Support
     self
   end
 
+  # Activity slug postfix to be appended
+  def activity_postfix
+    nil
+  end
+
   private
 
     # Generates activity slug based on current model and transaction type
@@ -18,8 +23,8 @@ module Activity::Support
 
     # Generates activity attributes based on current model attributes
     def activity_params
-      params = self.attributes.slice(
-        'user_id', 'project_id', 'board_id', 'topic_id', 'author_id', 'creator_id', 'title')
+      params = self.attributes.slice('user_id', 'project_id', 'board_id',
+        'topic_id', 'whiteboard_id', 'creator_id', 'title')
       params['slug'] = activity_slug
       params['user_id'] = params['author_id'] if params['user_id'].nil?
       if self.is_a?(Membership)
@@ -40,6 +45,21 @@ module Activity::Support
     def generate_activity(append_to_slug=nil)
       activity = self.activity_owner.activities.build(activity_params)
       activity.slug = activity_slug(append_to_slug)
+      remove_previous_if_same_as(activity)
       activity.save!
+    end
+
+    # Callback checks for previous records on duplicated entries
+    # Default time interval to check for is 10 minutes ago
+    def remove_previous_if_same_as(current, time_diff=10.minutes)
+      keys = %w(id created_at updated_at data)
+      timing = (DateTime.now - time_diff)..DateTime.now
+      current_attrs = current.attributes.except(*keys)
+      self.activity_owner.activities.where(
+        :created_at => timing, :slug => current.slug).each do |act|
+          if act.attributes.except(*keys) == current_attrs
+            act.destroy
+          end
+        end
     end
 end

@@ -33,6 +33,12 @@
       {{#if activity.isCardDestroy}}
       = _('removed the sugestion')
       {{/if}}
+      {{#if activity.isCardAligned}}
+      = _('marked this as aligned')
+      {{/if}}
+      {{#if activity.isCardMisaligned}}
+      = _('marked this as misaligned')
+      {{/if}}
       {{activity.lastUpdate}}.
     {{/if}}
   {{/each}}

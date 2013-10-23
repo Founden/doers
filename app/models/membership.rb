@@ -7,6 +7,7 @@ class Membership < ActiveRecord::Base
   belongs_to :creator, :class_name => User
   belongs_to :user
   belongs_to :board
+  belongs_to :whiteboard
   belongs_to :project
   has_one :invitation, :dependent => :destroy
 
@@ -15,11 +16,6 @@ class Membership < ActiveRecord::Base
 
   # Callbacks
   after_commit :notify_member, :on => :create
-
-  # Target to use when generating activities
-  def activity_title
-    self.user.nicename
-  end
 
   private
 

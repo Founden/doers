@@ -123,8 +123,8 @@ describe User do
       end
 
       context 'within a board owned by the user' do
-        let(:board) { Fabricate(:branched_board, :user => user) }
-        let(:target) { board.cover }
+        let(:board) { Fabricate(:board, :user => user) }
+        let(:target) { Fabricate('cover', :board => board) }
         before { user.should_receive(:assets_to).and_call_original }
 
         it { should be_true }
@@ -142,8 +142,8 @@ describe User do
       end
 
       context 'within a board not owned by the user' do
-        let(:board) { Fabricate(:branched_board) }
-        let(:target) { board.cover }
+        let(:board) { Fabricate(:board) }
+        let(:target) { Fabricate('cover', :board => board) }
         before { user.should_receive(:assets_to).and_call_original }
 
         it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
@@ -160,11 +160,103 @@ describe User do
           it_behaves_like 'is not writable'
         end
       end
+
+      context 'within a whiteboard owned by the user' do
+        let(:whiteboard) { Fabricate(:whiteboard, :user => user) }
+        let(:target) { Fabricate('cover', :whiteboard => whiteboard) }
+        before { user.should_receive(:assets_to).and_call_original }
+
+        it { should be_true }
+        it_behaves_like 'is writable'
+
+        context 'or a set of such' do
+          let(:target) do
+            2.times { Fabricate(:cover, :whiteboard => whiteboard) }
+            Asset.where(:whiteboard_id => whiteboard.id)
+          end
+
+          it { should be_true }
+          it_behaves_like 'is writable'
+        end
+      end
+
+      context 'within a whiteboard not owned by the user' do
+        let(:whiteboard) { Fabricate(:whiteboard) }
+        let(:target) { Fabricate('cover', :whiteboard => whiteboard) }
+        before { user.should_receive(:assets_to).and_call_original }
+
+        it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
+        it_behaves_like 'is not writable'
+        it_behaves_like 'no error is raised'
+
+        context 'or a set of such' do
+          let(:target) do
+            2.times { Fabricate(:cover, :whiteboard => whiteboard) }
+            Asset.where(:whiteboard_id => whiteboard.id)
+          end
+
+          it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
+          it_behaves_like 'is not writable'
+        end
+      end
+    end
+
+    context 'when target is a whiteboard' do
+      context 'owned by the user' do
+        let(:target) { Fabricate(:whiteboard, :user => user) }
+        before { user.should_receive(:whiteboards_to).and_call_original }
+
+        it { should be_true }
+        it_behaves_like 'is writable'
+
+        context 'or a set of whiteboards owned by the user' do
+          let(:target) do
+            Fabricate(:whiteboard, :user => user); user.whiteboards
+          end
+
+          it { should be_true }
+          it_behaves_like 'is writable'
+        end
+      end
+
+      context 'shared with the user' do
+        let(:target) {
+          Fabricate(:whiteboard_membership, :user => user).whiteboard }
+        before { user.should_receive(:whiteboards_to).and_call_original }
+
+        it { should be_true }
+        it_behaves_like 'is writable'
+
+        context 'or a set of whiteboards shared with the user' do
+          let(:target) do
+            2.times { Fabricate(:whiteboard_membership, :user => user) }
+            user.shared_whiteboards
+          end
+
+          it { should be_true }
+          it_behaves_like 'is writable'
+        end
+      end
+
+      context 'not owned by the user' do
+        let(:target) { Fabricate(:whiteboard) }
+        before { user.should_receive(:whiteboards_to).and_call_original }
+
+        it { should be_true }
+        it_behaves_like 'is not writable'
+
+        context 'or a set of whiteboards not owned by the user' do
+          let(:target) { Fabricate(:whiteboard); Whiteboard.all }
+
+          it { should be_true }
+          it_behaves_like 'is not writable'
+        end
+      end
     end
 
     context 'when target is a board' do
       context 'owned by the user' do
-        let(:target) { Fabricate(:board, :author => user) }
+        let(:target) { Fabricate(:board, :user => user) }
         before { user.should_receive(:boards_to).and_call_original }
 
         it { should be_true }
@@ -172,7 +264,7 @@ describe User do
 
         context 'or a set of boards owned by the user' do
           let(:target) do
-            Fabricate(:board, :author => user); user.authored_boards
+            Fabricate(:board, :user => user); user.created_boards
           end
 
           it { should be_true }
@@ -315,7 +407,7 @@ describe User do
       end
 
       context 'within a board owned by the user' do
-        let(:board) { Fabricate(:branched_board, :user => user) }
+        let(:board) { Fabricate(:board, :user => user) }
         let(:target) { Fabricate('card/phrase', :board => board) }
         before { user.should_receive(:cards_to).and_call_original }
 
@@ -334,7 +426,7 @@ describe User do
       end
 
       context 'within a board not owned by the user' do
-        let(:board) { Fabricate(:branched_board) }
+        let(:board) { Fabricate(:board) }
         let(:target) { Fabricate('card/phrase', :board => board) }
         before { user.should_receive(:cards_to).and_call_original }
 
@@ -454,6 +546,27 @@ describe User do
         context 'or a set of such' do
           let(:target) do
             membership = Fabricate(:board_membership, :board => board)
+            Membership.where(:id => membership)
+          end
+
+          it { should be_true }
+          it_behaves_like 'is not writable'
+        end
+      end
+
+      context 'of the user shared whiteboard' do
+        let(:whiteboard) {
+          Fabricate(:whiteboard_membership, :user => user).whiteboard }
+        let(:target) {
+          Fabricate(:whiteboard_membership, :whiteboard => whiteboard) }
+
+        it { should be_true }
+        it_behaves_like 'is not writable'
+
+        context 'or a set of such' do
+          let(:target) do
+            membership =
+              Fabricate(:whiteboard_membership, :whiteboard => whiteboard)
             Membership.where(:id => membership)
           end
 
@@ -616,7 +729,7 @@ describe User do
       end
 
       context 'within a board owned by the user' do
-        let(:board) { Fabricate(:board, :author => user) }
+        let(:board) { Fabricate(:board, :user => user) }
         let(:target) { board.activities.first }
         before { user.should_receive(:activities_to).and_call_original }
 
@@ -645,6 +758,43 @@ describe User do
         context 'or a set of such' do
           let(:target) do
             board.activities
+          end
+
+          it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
+          it_behaves_like 'is not writable'
+        end
+      end
+
+      context 'within a whiteboard owned by the user' do
+        let(:whiteboard) { Fabricate(:whiteboard, :user => user) }
+        let(:target) { whiteboard.activities.first }
+        before { user.should_receive(:activities_to).and_call_original }
+
+        it { should be_true }
+        it_behaves_like 'is writable'
+
+        context 'or a set of such' do
+          let(:target) do
+            whiteboard.activities
+          end
+
+          it { should be_true }
+          it_behaves_like 'is writable'
+        end
+      end
+
+      context 'within a whiteboard not owned by the user' do
+        let(:whiteboard) { Fabricate(:whiteboard) }
+        let(:target) { whiteboard.activities.first }
+        before { user.should_receive(:activities_to).and_call_original }
+
+        it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
+        it_behaves_like 'is not writable'
+        it_behaves_like 'no error is raised'
+
+        context 'or a set of such' do
+          let(:target) do
+            whiteboard.activities
           end
 
           it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
@@ -719,6 +869,25 @@ describe User do
           it_behaves_like 'is not writable'
         end
       end
+
+      context 'within a whiteboard owned by the user' do
+        let(:whiteboard) {
+          Fabricate(:whiteboard_membership, :user => user).whiteboard }
+        let(:target) { Fabricate(:comment, :whiteboard => whiteboard) }
+        before { user.should_receive(:comments_to).and_call_original }
+
+        it { should be_true }
+        it_behaves_like 'is not writable'
+
+        context 'or a set of such' do
+          let(:target) do
+            Fabricate(:comment, :whiteboard => whiteboard).user.comments
+          end
+
+          it { should be_true }
+          it_behaves_like 'is not writable'
+        end
+      end
     end
 
     context 'when target is a topic' do
@@ -754,7 +923,7 @@ describe User do
       end
 
       context 'within a board owned by the user' do
-        let(:board) { Fabricate(:board, :author => user) }
+        let(:board) { Fabricate(:board, :user => user) }
         let(:target) { Fabricate(:topic, :board => board) }
         before { user.should_receive(:topics_to).and_call_original }
 
@@ -792,24 +961,45 @@ describe User do
         end
       end
 
-      context 'within a public board' do
-        let(:board) { Fabricate(:public_board) }
-        let(:target) { Fabricate(:topic, :board => board) }
+      context 'within a whiteboard owned by the user' do
+        let(:whiteboard) { Fabricate(:whiteboard, :user => user) }
+        let(:target) { Fabricate(:topic, :whiteboard => whiteboard) }
         before { user.should_receive(:topics_to).and_call_original }
 
         it { should be_true }
-        it_behaves_like 'is not writable'
+        it_behaves_like 'is writable'
 
         context 'or a set of such' do
           let(:target) do
-            2.times { Fabricate(:topic, :board => board) }
-            Topic.where(:board_id => board.id)
+            2.times { Fabricate(:topic, :whiteboard => whiteboard) }
+            Topic.where(:whiteboard_id => whiteboard.id)
           end
 
           it { should be_true }
+          it_behaves_like 'is writable'
+        end
+      end
+
+      context 'within a whiteboard not owned by the user' do
+        let(:whiteboard) { Fabricate(:whiteboard) }
+        let(:target) { Fabricate(:topic, :whiteboard => whiteboard) }
+        before { user.should_receive(:topics_to).and_call_original }
+
+        it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
+        it_behaves_like 'is not writable'
+        it_behaves_like 'no error is raised'
+
+        context 'or a set of such' do
+          let(:target) do
+            2.times { Fabricate(:topic, :whiteboard => whiteboard) }
+            Topic.where(:whiteboard_id => whiteboard.id)
+          end
+
+          it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
           it_behaves_like 'is not writable'
         end
       end
+
     end
 
   end
