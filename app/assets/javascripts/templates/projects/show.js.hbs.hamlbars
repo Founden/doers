@@ -15,7 +15,7 @@
     = _('My projects')
     {{/linkTo}}
     .header-actions
-      {{#linkTo 'boards.new' class='button'}}
+      {{#linkTo 'projects.add-board' project class='button'}}
       %span.icon.icon-board
       = _('Create new board')
       {{/linkTo}}
