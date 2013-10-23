@@ -18,38 +18,58 @@ feature 'Boards', :js, :slow do
       expect(page).to have_css(
         '.board-list .board-item', :count => project.boards.count)
     end
+  end
 
-    scenario 'confirms deletion and removes board when clicked on delete' do
-      pending
-      find('#board-%d .delete-button' % project.boards.first.id).click
-      expect(page).to have_css('.delete-confirmation')
-      find('.delete-confirmation .button.red').click
-      sleep(1)
-      expect(page).to have_css(
-        '.boards .board', :count => project.boards.count)
+  context 'screen' do
+    given(:user) { User.first }
+    given(:board) { Fabricate(:board, :user => user) }
+
+    background do
+      visit root_path(:anchor => '/boards/%d' % board.id)
     end
 
-    context 'when no boards are available' do
-      given(:project) { Fabricate(:project, :user => user) }
+    scenario 'confirms deletion and removes board' do
+      boards_count = user.boards.count
 
-      scenario 'some public boards are shown' do
-        expect(page).to have_css('.board-list .board-item', :count => 0)
-        expect(page).to have_css('.public-board-list .board-item', :count => 1)
-        expect(page).to have_content(public_board.title)
-      end
+      find('.remove-board').click
 
-      context 'on click', :pending do
-        background do
-          find('#board-%d .board-item-branch' % public_board.id).click
-        end
+      sleep(1)
 
-        scenario 'creates a branch for current project' do
-          expect(page).to have_css('.board-list .board-item', :count => 1)
-          sleep(1)
-          expect(user.boards.first.cards.count).to eq(public_board.cards.count)
-        end
-      end
+      expect(page).to have_css(
+        '.board-item', :count => boards_count - 1)
+      expect(user.boards.count).to eq(boards_count - 1)
     end
   end
 
+  context 'creation screen' do
+    given(:user) { User.first }
+    given(:attrs) { Fabricate.attributes_for(:board) }
+
+    background do
+      visit root_path(:anchor => '/boards/new')
+    end
+
+    scenario 'with a title and description set, creates a new board' do
+      pending
+      within('.board') do
+        fill_in :title, :with => attrs[:title]
+        fill_in :description, :with => attrs[:description]
+      end
+
+      click_on('create-board')
+
+      sleep(1)
+      expect(page).to have_css('#board-%d' % user.boards.first.id)
+      expect(page).to have_field(:title, :with =>  attrs[:title])
+      expect(page).to have_field(:description, :with => attrs[:description])
+    end
+
+    scenario 'with missing title wont show create button' do
+      within('.board') do
+        fill_in :title, :with => ''
+        fill_in :description, :with => attrs[:description]
+      end
+      expect(page).to_not have_css('#create-board')
+    end
+  end
 end
