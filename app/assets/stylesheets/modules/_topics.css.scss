@@ -2,12 +2,17 @@
   @include box-sizing(border-box);
   display: table;
   position: relative;
+  overflow: hidden;
   width: 100%;
   margin: 0 0 15px 0;
   border: 1px solid $gray-1;
-  background: $white;
   border-radius: 3px;
   box-shadow: 0 1px 0 $gray-1;
+
+  > a {
+    display: table;
+    width: 100%;
+  }
 
   &.is-dragged {
     @include transform(translateX(20px));
@@ -23,6 +28,7 @@
   display: table-cell;
   width: 60px;
   border-right: 1px solid $gray-1;
+  background: $white;
   vertical-align: middle;
   text-align: center;
   color: $gray-2;
@@ -40,6 +46,7 @@
 .topic-content {
   display: table-cell;
   padding: 20px 30px;
+  background: $white;
   vertical-align: middle;
 }
 
@@ -75,8 +82,9 @@
 .topic-user {
   display: table-cell;
   vertical-align: middle;
-  width: 40%;
+  width: 35%;
   padding: 20px 30px;
+  background: $white;
   font-size: em(12);
   color: $gray-5;
 }
