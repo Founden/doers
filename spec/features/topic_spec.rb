@@ -57,10 +57,10 @@ feature 'Topic', :js, :slow do
       end
 
       scenario 'progress changes if aligned' do
-        expect(page.find('.header-progress-bar')[:style]).to include(': 0%')
+        expect(page.find('.board-progress-bar')[:style]).to include(': 0%')
         page.find('.toggle-alignment').click
         sleep(1)
-        expect(page.find('.header-progress-bar')[:style]).to_not include(': 0%')
+        expect(page.find('.board-progress-bar')[:style]).to_not include(': 0%')
       end
 
       scenario 'user can endorse' do
