@@ -2,7 +2,8 @@
   @include clearfix;
 }
 
-.member-item {
+.member-item,
+.member-item-add {
   float: left;
   position: relative;
   margin: 0 10px 10px 0;

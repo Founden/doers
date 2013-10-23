@@ -5,13 +5,13 @@
   %li.member-item
     %img.member-item-image{:bind => {:src => 'member.user.avatarUrl', :title => 'member.user.nicename'}}
   {{/each}}
-  %li.member-item
+  %li.member-item-add
     {{#view view.addButtonView}}
     %span.icon.icon-plus
     {{/view}}
 {{#if view.isAdding}}
 .member-add-form
   {{input type='email' placeholder='E-mail address' name='email' valueBinding='controller.inviteEmail'}}
-  %button.button.btn-small{:_action => 'invite'}
+  %button.button.btn-small.add-member{:_action => 'invite'}
     = _('Invite')
 {{/if}}
