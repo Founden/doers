@@ -39,5 +39,8 @@ Ember.ArrayController.extend Doers.ControllerAlertMixin,
       topic.save()
 
     removeTopic: (topic) ->
-      topic.deleteRecord()
-      topic.save()
+      if topic.get('isNew')
+        @get('content').removeObject(topic)
+      else
+        topic.deleteRecord()
+        topic.save()
