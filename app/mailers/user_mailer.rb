@@ -10,6 +10,21 @@ class UserMailer < ActionMailer::Base
       project.title, Doers::Config.app_name])
   end
 
+  # Sends a startup exists report to the user
+  def startup_exists(project, user)
+    @project = project
+    @user = user
+    mail(:to => user.email, :subject => _('%s already imported once on %s.') % [
+      project.title, Doers::Config.app_name])
+  end
+
+  # Sends a startup import failure report to the user
+  def startup_import_failed(user)
+    @user = user
+    mail(:to => user.email, :subject => _('Startup import failed on %s.') % [
+      Doers::Config.app_name])
+  end
+
   # Sends a notice to the invitation creator
   def invitation_claimed(invitation, user)
     @invitation = invitation
