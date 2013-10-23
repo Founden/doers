@@ -33,22 +33,6 @@
   width: 100%;
   border-bottom: 1px solid rgba($black, 0.05);
 
-  .icon-checkmark {
-    float: left;
-    width: 16px;
-    height: 16px;
-    padding: 3px;
-    margin: 15px 0 15px 15px;
-    border: 1px solid $gray-2;
-    border-radius: 3px;
-    background: $white;
-
-    &:before {
-      display: none;
-      color: $green;
-    }
-  }
-
   &.selected {
 
     .icon-checkmark:before {
@@ -63,6 +47,22 @@
   padding: 15px;
   font-size: em(18);
   font-weight: 400;
+
+  .icon-checkmark {
+    float: left;
+    width: 17px;
+    height: 17px;
+    padding: 3px;
+    margin: 0 15px 0 0;
+    border: 1px solid $gray-2;
+    border-radius: 3px;
+    background: $white;
+
+    &:before {
+      display: none;
+      color: $green;
+    }
+  }
 }
 
 .project-item-users {
