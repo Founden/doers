@@ -5,69 +5,45 @@ feature 'Memberships', :js, :slow do
     sign_in_with_angel_list
   end
 
-  shared_examples 'member is added' do
-    scenario 'adds an user to memberships' do
-      member = Fabricate(:user)
-      expect(page).to have_css('.member-list .member-item', :count => 0)
-
-      page.find('.member-item-add').click
-      within('.member-item-add-form') do
-        fill_in :email, :with => member.email
-      end
-      page.find('.member-item-add-form .button').click
-      page.find('.member-item-add.active').click
-
-      sleep(1)
-      expect(page).to have_css('.member-list .member-item', :count => 1)
-      expect(member.accepted_memberships.reload.count).to_not eq(0)
-    end
-  end
-
-  shared_examples 'email is invited' do
-    scenario 'sends an invitation' do
-      email = Faker::Internet.email
-      expect(page).to have_css('.member-list .member-item', :count => 0)
-
-      page.find('.member-item-add').click
-      within('.member-item-add-form') do
-        fill_in :email, :with => email
-      end
-      page.find('.member-item-add-form .button').click
-      page.find('.member-item-add.active').click
-
-      expect(page).to have_css('.member-list .member-item', :count => 0)
-      sleep(1)
-      expect(Invitation.find_by(:email => email)).to_not be_nil
-    end
-  end
-
-  context 'in a page' do
-    given(:page_path) {}
+  context 'of a project' do
+    given(:project) { Fabricate(:project, :user => User.first) }
 
     background do
-      visit page_path
+      visit root_path(:anchor => '/projects/%d' % project.id)
     end
 
-    context 'of a build board' do
-      given(:board) do
-        Fabricate(:public_board, :user => User.first)
-      end
-      given(:page_path) do
-        root_path(:anchor => '/boards/%d/build' % board.id)
-      end
+    context 'member is added' do
+      scenario 'adds an user to memberships' do
+        member = Fabricate(:user)
+        expect(page).to have_css('.member-list .member-item', :count => 1)
 
-      include_examples 'member is added'
-      include_examples 'email is invited'
+        page.find('.member-item-add').click
+        within('.member-add-form') do
+          fill_in :email, :with => member.email
+        end
+        page.find('.add-member').click
+
+        sleep(1)
+        expect(page).to have_css('.member-list .member-item', :count => 2)
+        expect(member.accepted_memberships.reload.count).to_not eq(0)
+      end
     end
 
-    context 'of a project' do
-      given(:project) { Fabricate(:project, :user => User.first) }
-      given(:page_path) do
-        root_path(:anchor => '/projects/%d' % project.id)
-      end
+    context 'email is invited' do
+      scenario 'sends an invitation' do
+        email = Faker::Internet.email
+        expect(page).to have_css('.member-list .member-item', :count => 1)
 
-      include_examples 'member is added'
-      include_examples 'email is invited'
+        page.find('.member-item-add').click
+        within('.member-add-form') do
+          fill_in :email, :with => email
+        end
+        page.find('.add-member').click
+
+        expect(page).to have_css('.member-list .member-item', :count => 1)
+        sleep(1)
+        expect(Invitation.find_by(:email => email)).to_not be_nil
+      end
     end
   end
 end
