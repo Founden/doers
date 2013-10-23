@@ -3,6 +3,6 @@
     {{textarea class='board-title' valueBinding='content.title' placeholder='Add board name' name='title'}}
     {{textarea class='board-description' valueBinding='content.description' placeholder='...and its description.' name='description'}}
     {{#if content.title}}
-    %button.button.btn-small{:_action => 'save'}
+    %button#create-board.button.btn-small{:_action => 'save'}
       = _('Create')
     {{/if}}
