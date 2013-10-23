@@ -1,5 +1,5 @@
 .sidebar
-  .project
+  .project{:bind => {:id => 'project.slug'}}
     {{input type='text' class='project-title' valueBinding='project.title' placeholder='Project name' name='title'}}
     {{textarea class='project-description' valueBinding='project.description' placeholder='Type your project description...' name='description'}}
     {{#if project.isDirty}}
@@ -19,7 +19,7 @@
       %span.icon.icon-board
       = _('Create new board')
       {{/linkTo}}
-      {{#view view.deleteButtonView class='button btn-icon' confirmMessage='Are you shure you want to delete?'}}
+      {{#view view.deleteButtonView class='button btn-icon remove-project' confirmMessage='Are you shure you want to delete?'}}
       %span.icon.icon-trash
       {{/view}}
 

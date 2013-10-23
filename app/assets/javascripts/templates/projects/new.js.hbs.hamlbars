@@ -3,6 +3,6 @@
     {{input type='text' class='project-title' valueBinding='content.title' placeholder='Add project name' name='title'}}
     {{textarea class='project-description' valueBinding='content.description' placeholder='...and its description.' name='description'}}
     {{#if content.title}}
-    %button.button.btn-small{:_action => 'save'}
+    %button#create-project.button.btn-small{:_action => 'save'}
       = _('Create')
     {{/if}}

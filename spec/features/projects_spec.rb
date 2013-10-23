@@ -47,7 +47,7 @@ feature 'Projects', :js, :slow do
     scenario 'confirms deletion and removes project' do
       projects_count = user.projects.count
 
-      find('.header-actions .button.secondary').click
+      find('.remove-project').click
 
       sleep(1)
 
