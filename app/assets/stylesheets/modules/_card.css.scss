@@ -1,6 +1,6 @@
 .card {
   position: relative;
-  margin: 20px 20px 20px 60px;
+  margin: 20px 0 20px 60px;
   border: 1px solid $gray-1;
   border-radius: 3px;
   background: $white;
@@ -242,7 +242,7 @@
 .card-endorses {
   @include box-sizing(border-box);
   display: table-cell;
-  width: 220px;
+  width: 35%;
   vertical-align: middle;
   border-left: 1px solid $gray-1;
   border-radius: 0 3px 3px 0;

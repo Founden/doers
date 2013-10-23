@@ -7,8 +7,13 @@
     {{#linkTo 'boards.show' board class='board-title'}}
     {{board.title}}
     {{/linkTo}}
-    .board-description
-      {{board.description}}
+  %ul.board-topics
+    {{#each topic in board.topics}}
+    %li
+      {{#linkTo 'topic' topic}}
+      {{topic.title}}
+      {{/linkTo}}
+    {{/each}}
   .board-progress-wrap
     .board-progress-title
       {{board.progress}}&#37;
@@ -32,10 +37,15 @@
     {{/if}}
     {{/view}}
     .topic-content
-      .topic-title
-        {{content.title}}
-      .topic-description
-        {{content.description}}
+      {{textarea class='topic-title' valueBinding='title' placeholder='Type your topic title...' name='topic-title'}}
+      {{textarea class='topic-description' valueBinding='description' placeholder='Type your topic description...' name='topic-description'}}
+      .topic-actions
+        {{#if content.isDirty}}
+        %a.save-topic{:_action => 'save'}
+          = _('Save')
+        {{/if}}
+        %a.remove-topic{:_action => 'destroy'}
+          = _('remove this topic')
     .topic-user
       %img.topic-user-image{:bind => {:src => 'content.user.avatarUrl'}}
       = _('Updated')

@@ -30,24 +30,8 @@
       {{/view}}
 
   .topics
-    {{#each topic in content}}
-    {{#linkTo 'topic' board topic class='topic'}}
-    {{#view classNames='topic-status' classNameBindings='topic.aligned'}}
-    {{#if topic.aligned}}
-    .icon.icon-checkmark
-    {{else}}
-    .icon.icon-ellipsis
-    {{/if}}
-    {{/view}}
-    .topic-content
-      .topic-title
-        {{topic.title}}
-    .topic-user
-      %img.topic-user-image{:bind => {:src => 'topic.user.avatarUrl'}}
-      = _('Updated')
-      {{topic.lastUpdate}}
-      %br/
-      = _('by')
-      {{topic.user.nicename}}
-    {{/linkTo}}
-    {{/each}}
+    {{each arrangedContent itemViewClass='view.topicItemView'}}
+
+  .context-button.add-topic{:_action => 'addTopic'}
+    .icon.icon-plus
+    = _('Add new topic')

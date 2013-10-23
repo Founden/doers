@@ -1,6 +1,6 @@
 .context-button {
   position: relative;
-  margin: 20px 20px 20px 60px;
+  margin: 20px 0 20px 60px;
   padding: 20px 0;
   border: 1px solid $gray-1;
   border-radius: 3px;
@@ -25,7 +25,7 @@
       line-height: 40px;
       border-radius: 50%;
       border: 1px solid $gray-1;
-      color: $gray-1;
+      color: $gray-2;
       @include transition(all 0.2s);
     }
   }
