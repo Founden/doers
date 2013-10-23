@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Api::V1::TopicsController do
   let(:user) { Fabricate(:user) }
-  let(:board) { Fabricate(:board, :author => user) }
+  let(:board) { Fabricate(:board, :user => user) }
 
   before do
     controller.stub(:current_account) { user }
@@ -49,16 +49,12 @@ describe Api::V1::TopicsController do
       let(:topic_id) { topic.id }
       let(:topic) { Fabricate(:topic, :board => board) }
       let(:project) { Fabricate(:project, :user => user) }
-      let(:card) { Fabricate('card/phrase',
-        :board => board, :topic => topic, :project => project) }
-      let(:board_id) { card.board.id }
-      let(:params) { {:id => topic_id, :board_id => board_id} }
 
-      before { get(:show, params) }
+      before { get(:show, :id => topic_id) }
 
       subject(:api_topic) { json_to_ostruct(response.body, :topic) }
 
-      its('keys.size')   { should eq(11) }
+      its('keys.size')   { should eq(10) }
       its(:id) { should eq(topic.id) }
       its(:title) { should eq(topic.title) }
       its(:description) { should eq(topic.description) }
@@ -66,25 +62,9 @@ describe Api::V1::TopicsController do
       its(:updated_at) { should_not be_nil }
       its(:user_id) { should eq(topic.user.id) }
       its(:board_id) { should eq(topic.board.id) }
-      its('card.keys.sort') { should eq(%w(id type).sort) }
-      its('card.values') { should include(card.id) }
+      its('card_ids.size') { should eq(topic.cards.count) }
       its('comment_ids.size') { should eq(topic.comments.count) }
-      its('activity_ids.size') {
-        should eq(topic.activities.where(:board_id => board_id).count) }
-
-      context 'when board has no card' do
-        let(:board_id) { board.id }
-
-        its('activity_ids.size') { should eq(1) }
-        its('card_id') { should be_blank }
-      end
-
-      context 'when board is not set' do
-        let(:board_id) { '' }
-
-        its('activity_ids.size') { should eq(0) }
-        its('card_id') { should be_blank }
-      end
+      its('activity_ids.size') { should eq(topic.activities.count) }
     end
   end
 
@@ -133,7 +113,7 @@ describe Api::V1::TopicsController do
 
       subject(:api_topic) { json_to_ostruct(response.body, :topic) }
 
-      its('keys.size')   { should eq(11) }
+      its('keys.size')   { should eq(10) }
       its(:id)           { should_not be_blank }
       its(:title)        { should eq(topic_attrs[:title]) }
       its(:description)  { should eq(topic_attrs[:description]) }
@@ -141,7 +121,7 @@ describe Api::V1::TopicsController do
       its(:updated_at)   { should_not be_blank }
       its(:user_id)      { should eq(user.id) }
       its(:board_id)     { should eq(board.id) }
-      its(:activity_ids) { should be_empty }
+      its(:activity_ids) { should_not be_empty }
       its(:comment_ids)  { should be_empty }
     end
   end
@@ -164,14 +144,14 @@ describe Api::V1::TopicsController do
 
       subject(:api_topic) { json_to_ostruct(response.body, :topic) }
 
-      its('keys.size')   { should eq(11) }
+      its('keys.size')   { should eq(10) }
       its(:title)        { should eq(topic_attrs[:title]) }
       its(:description)  { should eq(topic_attrs[:description]) }
       its(:position)     { should_not be_nil }
       its(:updated_at)   { should_not be_blank }
       its(:user_id)      { should eq(user.id) }
       its(:board_id)     { should eq(board.id) }
-      its(:activity_ids) { should be_empty }
+      its(:activity_ids) { should_not be_empty }
       its(:comment_ids)  { should be_empty }
     end
   end

@@ -4,9 +4,9 @@ Fabricator('card/book') do
   user
   project    { |attrs| Fabricate(:project, :user => attrs[:user]) }
   board      { |attrs| Fabricate(
-    :branched_board, :user => attrs[:user], :project => attrs[:project]) }
+    :board, :user => attrs[:user], :project => attrs[:project]) }
   topic      { |attrs| Fabricate(
-    :topic, :user => attrs[:user], :board => attrs[:board].parent_board) }
+    :topic, :user => attrs[:user], :board => attrs[:board]) }
 
   book_title   { Faker::Lorem.sentence }
   url          { Faker::Internet.http_url }

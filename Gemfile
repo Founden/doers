@@ -37,6 +37,7 @@ group :assets do
   gem 'jquery-rails'
   gem 'ember-rails'
   gem 'ember-source'
+  gem 'ember-data-source', '~> 1.0.0.beta'
   gem 'bourbon'
   gem 'normalize-rails'
   gem 'momentjs-rails'
@@ -50,20 +51,18 @@ group :development do
   gem 'yard', :require => false
   gem 'erd', :require => false
   gem 'mina', :require => false, :github => 'stas/mina', :branch => 'rbenv_and_ruby-build_support'
-  gem 'simplecov', :require => false
   gem 'letter_opener'
   gem 'pry-rails'
   gem 'brakeman', :require => false
+  gem 'listen', '1.3.1' # Version 2.0 is broken
+  gem 'guard-rspec', :require => false
+  gem 'guard-migrate', :require => false
 end
 
 group :development, :test do
   gem 'ffaker'
   gem 'fabrication'
   gem 'rspec-rails'
-  gem 'guard-rspec', :require => false
-  gem 'rb-inotify', :require => false
-  gem 'guard-migrate', :require => false
-  gem 'parallel_tests', :require => false
 end
 
 group :test do
@@ -72,4 +71,7 @@ group :test do
   gem 'puffing-billy'
   gem 'database_rewinder'
   gem 'shoulda-matchers'
+  gem 'simplecov', :require => false
+  gem 'parallel_tests', :require => false
+  gem 'timecop'
 end

@@ -12,13 +12,13 @@ Fabricator(:board_invitation, :from => :invitation) do
   membership_type BoardMembership.name
   invitable { |attrs|
     prj = Fabricate(:project, :user => attrs[:user])
-    Fabricate(:branched_board, :user => attrs[:user], :project => prj)
+    Fabricate(:board, :user => attrs[:user], :project => prj)
   }
 end
 
 Fabricator(:public_board_invitation, :from => :invitation) do
   membership_type BoardMembership.name
-  invitable { |attrs| Fabricate(:public_board, :author => attrs[:user]) }
+  invitable { |attrs| Fabricate(:public_board, :user => attrs[:user]) }
 end
 
 Fabricator(:project_invitee, :from => :project_invitation) do

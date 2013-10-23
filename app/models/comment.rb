@@ -9,6 +9,7 @@ class Comment < ActiveRecord::Base
   # Relationships
   belongs_to :project
   belongs_to :board
+  belongs_to :whiteboard
   belongs_to :user
   belongs_to :parent_comment, :class_name => Comment
   belongs_to :card

@@ -113,7 +113,7 @@ describe Api::V1::CommentsController do
       its(:topic_id) { should eq(comment.topic.id) }
 
       context 'when card is set' do
-        let(:board) { Fabricate(:branched_board, :user => user) }
+        let(:board) { Fabricate(:board, :user => user) }
         let(:card) { Fabricate(
           :card, :board => board, :project => board.project) }
         let(:comment_attrs) do
@@ -129,13 +129,24 @@ describe Api::V1::CommentsController do
         its(:board_id) { should eq(comment.board.id) }
         its(:card_id) { should eq(card.id) }
       end
+
+      context 'when content is blank' do
+        let(:comment_attrs) do
+          Fabricate.attributes_for(
+            :topic_comment_with_parent_and_card, :user => user, :content => nil)
+        end
+
+        subject(:api_comment) { json_to_ostruct(response.body) }
+
+        its(:errors) { should_not be_empty }
+      end
     end
 
     context 'with a shared project with boards' do
       let(:membership) { Fabricate(:project_membership, :user => user) }
       let(:project) { membership.project }
       let(:board) do
-        Fabricate(:branched_board, :project => project, :user => project.user)
+        Fabricate(:board, :project => project, :user => project.user)
       end
       let(:comment_attrs) do
         Fabricate.attributes_for(:comment, :board => board,
