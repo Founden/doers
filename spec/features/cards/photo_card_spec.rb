@@ -15,7 +15,8 @@ feature 'Photo', :js, :slow do
 
     scenario 'is shown with details' do
       expect(page).to have_css('.card', :count => 1)
-      expect(page.source).to include(card.title)
+      expect(page).to have_field(:title, :with => card.title)
+      expect(page).to have_field(:content, :with => card.content)
       expect(page.source).to include(
         card.image.attachment.url.force_encoding('UTF-8'))
     end

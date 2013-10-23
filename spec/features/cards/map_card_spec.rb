@@ -15,7 +15,8 @@ feature 'Map', :js, :slow do
 
     scenario 'is shown with details' do
       expect(page).to have_css('.card', :count => 1)
-      expect(page.source).to include(card.title)
+      expect(page).to have_field(:title, :with => card.title)
+      expect(page).to have_field(:content, :with => card.content)
       expect(page.source).to match(/maps\.googleapis\.com/)
       expect(page.source).to include("#{card.longitude}")
       expect(page.source).to include("#{card.latitude}")
