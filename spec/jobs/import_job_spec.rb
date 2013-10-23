@@ -7,37 +7,57 @@ describe ImportJob do
   let(:import) { ImportJob.new(user, startup_id) }
 
   context '#perform' do
-    before do
-      import.should_receive(:import_project).and_return(false)
-      UserMailer.should_receive(:startup_imported).exactly(0).times
-      import.perform
-    end
-
     subject { import }
 
-    its(:user) { should eq(user) }
-    its(:startup_id) { should eq(startup_id) }
-    its(:access_token) { should eq(access_token) }
-    its(:startup_url) { should match(startup_id.to_s) }
-    its(:startup_url) { should match(access_token) }
-    its(:startup_comments_url) { should match(startup_id.to_s) }
-    its(:startup_comments_url) { should match(access_token) }
-  end
+    context 'on failure sends an email' do
+      before do
+        import.should_receive(:import_project).and_return(false)
+        UserMailer.should_receive(:startup_import_failed).and_call_original
+        import.perform
+      end
 
-  context '#perform on success sends an email and flags importing as false' do
-    let(:project) { Fabricate(:project, :user => user) }
-    before do
-      import.should_receive(:import_project).and_return(project)
-      import.should_receive(:import_project_comments)
-      UserMailer.should_receive(:startup_imported).and_call_original
-      import.project = project
-      import.perform
+      its(:user) { should eq(user) }
+      its(:startup_id) { should eq(startup_id) }
+      its(:access_token) { should eq(access_token) }
+      its(:startup_url) { should match(startup_id.to_s) }
+      its(:startup_url) { should match(access_token) }
+      its(:startup_comments_url) { should match(startup_id.to_s) }
+      its(:startup_comments_url) { should match(access_token) }
+      its(:startup_roles_url) { should match(startup_id.to_s) }
+      its(:startup_roles_url) { should match(access_token) }
+      its('user.importing') { should be_false }
     end
 
-    subject { import }
+    context 'on success sends an email' do
+      let(:project) { Fabricate(:project, :user => user) }
+      before do
+        import.should_receive(:import_project).and_return(project)
+        import.should_receive(:import_project_comments)
+        import.should_receive(:import_project_users)
+        UserMailer.should_receive(:startup_imported).and_call_original
+        import.project = project
+        import.perform
+      end
 
-    its('user.importing') { should be_false }
+      its('user.importing') { should be_false }
+    end
+
+    context 'on duplicate sends an email' do
+      let!(:project) do
+        Fabricate(:project, :user => user,
+          :external_id => startup_id, :external_type => import.external_type)
+      end
+
+      before do
+        import.should_receive(:import_project).exactly(0).times
+        UserMailer.should_receive(:startup_exists).and_call_original
+        import.perform
+      end
+
+      its('user.importing') { should be_false }
+    end
   end
+
 
   context '#process_json' do
     let(:json) { ['a', 'b', 'c'].to_json }
@@ -124,5 +144,51 @@ describe ImportJob do
     its('first.external_type') { should eq(import.external_type) }
     its('first.author.nicename') { should eq(data.first['user']['name']) }
     its('first.author.email') { should match(data.first['user']['id'].to_s) }
+  end
+
+  context '#import_project_users' do
+    let(:project) { Fabricate(:project) }
+    let(:data) do
+      MultiJson.load(Rails.root.join(
+        'spec/fixtures/angel_list_startup_roles.json'))['startup_roles']
+    end
+
+    before do
+      import.should_receive(:process_json).and_return(data)
+      import.project = project
+      import.import_project_users
+    end
+
+    subject(:memberships) { import.project.memberships }
+
+    its(:count) { should eq(0) }
+
+    context 'project author external_id is included' do
+      let(:project_user) { Fabricate(:user, :external_id => 123) }
+      let(:project) { Fabricate(:project, :user => project_user) }
+
+      its(:count) { should eq(0) }
+    end
+
+    context 'some user external_id is included' do
+      let(:some_user) { Fabricate(:user, :external_id => 123) }
+      let(:project) { some_user; Fabricate(:project) }
+
+      its(:count) { should eq(1) }
+      its('first.user') { should eq(some_user) }
+      its('first.creator') { should eq(project.user) }
+    end
+
+    context 'some users external_ids is included' do
+      let(:some_user) { Fabricate(:user, :external_id => 123) }
+      let(:another_user) { Fabricate(:user, :external_id => 124) }
+      let(:project) { some_user; another_user; Fabricate(:project) }
+
+      subject { project.members }
+
+      its(:count) { should eq(2) }
+      it { should include(some_user) }
+      it { should include(another_user) }
+    end
   end
 end
