@@ -9,7 +9,7 @@ Doers.Card = DS.Model.extend
 
   project: DS.belongsTo('project')
   board: DS.belongsTo('board')
-  topic: DS.belongsTo('topic', inverse: 'card')
+  topic: DS.belongsTo('topic', inverse: 'cards')
   user: DS.belongsTo('user', readOnly: true)
   comments: DS.hasMany('comment', readOnly: true, inverse: 'card', async: true)
   endorses: DS.hasMany('endorse', readOnly: true, inverse: 'card', async: true)
