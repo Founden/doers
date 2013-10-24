@@ -33,7 +33,7 @@ describe User do
     subject(:user) { Fabricate(:user) }
 
     it { should be_valid }
-    its('identities.first.uid') { should eq(user.email) }
+    its('identities.first.uid') { should include(user.email) }
     its(:email) { should_not be_empty }
     its(:name) { should_not be_empty }
     its(:nicename) { should eq(user.name) }

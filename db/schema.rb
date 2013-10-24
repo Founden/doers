@@ -203,12 +203,14 @@ ActiveRecord::Schema.define(version: 20131024121647) do
     t.hstore   "data"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "whiteboard_id"
   end
 
   add_index "memberships", ["board_id"], name: "index_memberships_on_board_id", using: :btree
   add_index "memberships", ["creator_id"], name: "index_memberships_on_creator_id", using: :btree
   add_index "memberships", ["project_id"], name: "index_memberships_on_project_id", using: :btree
   add_index "memberships", ["user_id"], name: "index_memberships_on_user_id", using: :btree
+  add_index "memberships", ["whiteboard_id"], name: "index_memberships_on_whiteboard_id", using: :btree
 
   create_table "projects", force: true do |t|
     t.string   "title"
