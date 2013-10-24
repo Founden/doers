@@ -1,10 +1,10 @@
 GIT
-  remote: git://github.com/dockyard/easy_auth-oauth2.git
-  revision: da13184911dd5b64478e51173e206d4057c821de
+  remote: git://github.com/dockyard/easy_auth.git
+  revision: 30e5c3efe87603bd057b51df2c0f1a4c1707578e
   specs:
-    easy_auth-oauth2 (0.2.0)
-      easy_auth (~> 0.3.0)
-      oauth2 (~> 0.9.1)
+    easy_auth (0.4.0)
+      postgres_ext
+      rails (~> 4.0.0)
 
 GIT
   remote: git://github.com/geekcelerator/easy_auth-angel_list.git
@@ -20,12 +20,13 @@ GIT
     seedbank (0.3.0.pre2)
 
 GIT
-  remote: git://github.com/stas/easy_auth.git
-  revision: 4cf8104ebad35a441ddfbc1e1fd41d09dd90fadc
-  branch: rails4
+  remote: git://github.com/stas/easy_auth-oauth2.git
+  revision: 328897ae02e487ee09b8fd41076bd7ac64c51bc3
+  branch: update_to_easy_auth_master
   specs:
-    easy_auth (0.3.0)
-      rails (>= 4.0.0.beta1)
+    easy_auth-oauth2 (0.2.0)
+      easy_auth
+      oauth2
 
 GIT
   remote: git://github.com/stas/mina.git
@@ -256,12 +257,17 @@ GEM
     party_foul (1.4.0)
       octokit (~> 2.3.1)
     pg (0.17.0)
+    pg_array_parser (0.0.9)
     poltergeist (1.4.1)
       capybara (~> 2.1.0)
       cliver (~> 0.2.1)
       multi_json (~> 1.0)
       websocket-driver (>= 0.2.0)
     polyglot (0.3.3)
+    postgres_ext (2.1.2)
+      activerecord (~> 4.0.0)
+      arel (~> 4.0.0)
+      pg_array_parser (~> 0.0.9)
     pry (0.9.12.2)
       coderay (~> 1.0.5)
       method_source (~> 0.8)
