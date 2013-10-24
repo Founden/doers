@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'Topic', :js, :slow, :pending do
+feature 'Topic', :js, :focus do
   background do
     sign_in_with_angel_list
   end
@@ -10,18 +10,18 @@ feature 'Topic', :js, :slow, :pending do
       Fabricate(:project_with_boards, :user => User.first)
     end
     given(:board) { project.boards.first }
-    given(:topic) { board.parent_board.topics.first }
+    given(:topic) { board.topics.first }
     given(:content) { Faker::Lorem.sentence }
     given!(:card) {}
 
     background do
-      visit root_path(:anchor => '/board/%d/topic/%d' % [board.id, topic.id])
+      visit root_path(:anchor => '/topic/%d' % topic.id)
     end
 
     scenario 'is shown' do
       expect(page).to have_css('.topic', :count => 1)
-      expect(page).to have_content(topic.title)
-      expect(page).to have_content(topic.description)
+      expect(page).to have_field('topic-title', :with => topic.title)
+      expect(page).to have_field('topic-description', :with => topic.description)
     end
 
     scenario 'cards can be added' do
