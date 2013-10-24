@@ -41,8 +41,8 @@
     {{/if}}
     {{/view}}
     .topic-content
-      {{textarea class='topic-title' valueBinding='title' placeholder='Type your topic title...' name='topic-title'}}
-      {{textarea class='topic-description' valueBinding='description' placeholder='Type your topic description...' name='topic-description'}}
+      {{textarea class='topic-title' valueBinding='content.title' placeholder='Type your topic title...' name='topic-title'}}
+      {{textarea class='topic-description' valueBinding='content.description' placeholder='Type your topic description...' name='topic-description'}}
       {{#if content.isDirty}}
       .topic-actions
         %a.save-topic{:_action => 'save'}
@@ -56,10 +56,10 @@
       = _('by')
       {{content.user.nicename}}
 
-  {{#if content.card.isLoaded}}
-  {{view templateNameBinding=cardTemplateName controllerBinding=cardController contentBinding=content.card classBinding=cardClassNames uploadViewBinding=uploaderView}}
-  {{else}}
+  {{#each card in content.cards}}
+  {{topic-card card=card}}
+  {{/each}}
+
   {{partial 'partials/card_picker'}}
-  {{/if}}
 
   {{partial 'partials/activities'}}
