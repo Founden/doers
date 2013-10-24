@@ -19,3 +19,8 @@ Doers.Card = DS.Model.extend
   slug: (->
     'card-' + @get('id')
   ).property('id', 'type')
+
+  componentClass: ( ->
+    if type = @get('type')
+      '%@-card'.fmt(type.underscore())
+  ).property('type')

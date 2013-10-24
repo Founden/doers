@@ -1,11 +1,11 @@
-{{#with view.content}}
-{{partial 'cards/components/user'}}
+{{#with content}}
+{{partial 'partials/card/user'}}
 .card-wrap
   .card-edit
     .card-field
       {{textarea class='card-field-title' valueBinding='title' placeholder='Type your sugestion title...' name='title'}}
     .card-field
       {{textarea class='card-field-description' valueBinding='content' placeholder='Type your sugestion...' name='content'}}
-    {{partial 'cards/components/actions'}}
-  {{partial 'cards/components/endorses'}}
+    {{partial 'partials/card/actions'}}
+  {{partial 'partials/card/endorses'}}
 {{/with}}

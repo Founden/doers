@@ -1,5 +1,5 @@
-{{#with view.content}}
-{{partial 'cards/components/user'}}
+{{#with content}}
+{{partial 'partials/card/user'}}
 .card-wrap
   .card-edit
     .card-field
@@ -8,12 +8,15 @@
       {{textarea class='card-field-description' valueBinding='content' placeholder='Type your sugestion...' name='content'}}
     {{#view classNames='card-attachment' classNameBindings='isEditing' contentBinding='view.content'}}
     {{#if isEditing}}
-    {{view view.parentView.uploadView}}
+    .card-search
+      %label
+        = _('Type address')
+      .card-search-field
+        {{input type='text' valueBinding='query' action='update' placeholder='Type address, state or city' name='query'}}
+        .icon.icon-map.medium
     {{/if}}
-    {{#if image}}
-    %img.card-image{:bind => {:src => 'image.attachment'}}
-    {{/if}}
+    {{view Doers.ImageMapView contentBinding='view.content' class='card-image'}}
     {{/view}}
-    {{partial 'cards/components/actions'}}
-  {{partial 'cards/components/endorses'}}
+    {{partial 'partials/card/actions'}}
+  {{partial 'partials/card/endorses'}}
 {{/with}}

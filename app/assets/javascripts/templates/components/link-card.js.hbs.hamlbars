@@ -1,5 +1,5 @@
-{{#with view.content}}
-{{partial 'cards/components/user'}}
+{{#with content}}
+{{partial 'partials/card/user'}}
 .card-wrap
   .card-edit
     .card-field
@@ -25,6 +25,6 @@
         {{embed.authorName}}
     {{/if}}
     {{/view}}
-    {{partial 'cards/components/actions'}}
-  {{partial 'cards/components/endorses'}}
+    {{partial 'partials/card/actions'}}
+  {{partial 'partials/card/endorses'}}
 {{/with}}
