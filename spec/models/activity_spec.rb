@@ -60,6 +60,34 @@ describe Activity, :use_truncation do
     end
   end
 
+  context '#activity_slug' do
+    subject(:project) { Fabricate(:project) }
+    let(:title) { Faker::Lorem.sentence }
+    let(:slug) { Faker::Lorem.word }
+
+    before do
+      project.update_attributes(
+        :title => title, :activity_postfix => slug)
+    end
+
+    its(:title) { should eq(title) }
+    its('activities.first.slug') { should include(slug) }
+  end
+
+  context '#activity_author' do
+    subject(:project) { Fabricate(:project) }
+    let(:some_user) { Fabricate(:user) }
+    let(:title) { Faker::Lorem.sentence }
+
+    before do
+      project.update_attributes(
+        :title => title, :activity_author => some_user)
+    end
+
+    its(:title) { should eq(title) }
+    its('activities.first.user') { should eq(some_user) }
+  end
+
   context '#remove_previous_if_same_as' do
     subject(:project) { Fabricate(:project) }
 

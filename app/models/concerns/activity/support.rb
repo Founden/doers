@@ -1,14 +1,19 @@
 # Support for [Activity] generation on callbacks
 module Activity::Support
+  # Support for concerns
+  extend ActiveSupport::Concern
+
+  included do
+    # Activity slug postfix to be appended
+    attr_accessor :activity_postfix
+    attr_accessor :activity_author
+  end
+
   # Target to use when generating activities
   def activity_owner
     self
   end
 
-  # Activity slug postfix to be appended
-  def activity_postfix
-    nil
-  end
 
   private
 
@@ -26,7 +31,9 @@ module Activity::Support
       params = self.attributes.slice('user_id', 'project_id', 'board_id',
         'topic_id', 'whiteboard_id', 'creator_id', 'title')
       params['slug'] = activity_slug
-      params['user_id'] = params['author_id'] if params['user_id'].nil?
+      if self.activity_author.respond_to?(:id) and self.activity_author.id
+        params['user_id'] = self.activity_author.id
+      end
       if self.is_a?(Membership)
         params['user_id'] = params['creator_id']
       end
@@ -38,7 +45,7 @@ module Activity::Support
       if self.is_a?(Comment)
         params['comment_id'] = self.id
       end
-      params.except('author_id', 'creator_id', 'title')
+      params.except('creator_id', 'title')
     end
 
     # Activity generation hook
@@ -51,6 +58,7 @@ module Activity::Support
 
     # Callback checks for previous records on duplicated entries
     # Default time interval to check for is 10 minutes ago
+    # TODO: Find a smarter way for this, it needs ~1s to work
     def remove_previous_if_same_as(current, time_diff=10.minutes)
       keys = %w(id created_at updated_at data)
       timing = (DateTime.now - time_diff)..DateTime.now
