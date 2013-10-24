@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'Boards', :js, :slow, :pending do
+feature 'Boards', :js, :slow do
   background do
     sign_in_with_angel_list
   end
@@ -8,7 +8,6 @@ feature 'Boards', :js, :slow, :pending do
   context 'from an existing project' do
     given(:user) { User.first }
     given(:project) { Fabricate(:project_with_boards, :user => user) }
-    given!(:public_board) { Fabricate(:public_board) }
 
     background do
       visit root_path(:anchor => '/projects/%d' % project.id)
@@ -22,14 +21,15 @@ feature 'Boards', :js, :slow, :pending do
 
   context 'screen' do
     given(:user) { User.first }
-    given(:board) { Fabricate(:board, :user => user) }
+    given(:project) { Fabricate(:project_with_boards, :user => user) }
+    given(:board) { project.boards.first }
 
     background do
       visit root_path(:anchor => '/boards/%d' % board.id)
     end
 
     scenario 'confirms deletion and removes board' do
-      boards_count = user.boards.count
+      boards_count = project.boards.count
 
       find('.remove-board').click
 
@@ -37,16 +37,17 @@ feature 'Boards', :js, :slow, :pending do
 
       expect(page).to have_css(
         '.board-item', :count => boards_count - 1)
-      expect(user.boards.count).to eq(boards_count - 1)
+      expect(project.boards.count).to eq(boards_count - 1)
     end
   end
 
   context 'creation screen' do
     given(:user) { User.first }
+    given(:project) { Fabricate(:project, :user => user) }
     given(:attrs) { Fabricate.attributes_for(:board) }
 
     background do
-      visit root_path(:anchor => '/boards/new')
+      visit root_path(:anchor => '/projects/%d/add-board' % project.id)
     end
 
     scenario 'with a title and description set, creates a new board' do
