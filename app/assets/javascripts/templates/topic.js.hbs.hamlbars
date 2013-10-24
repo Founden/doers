@@ -57,7 +57,7 @@
       {{content.user.nicename}}
 
   {{#each card in content.cards}}
-  {{topic-card card=card}}
+  {{lookup card.componentClass content=card}}
   {{/each}}
 
   {{partial 'partials/card_picker'}}

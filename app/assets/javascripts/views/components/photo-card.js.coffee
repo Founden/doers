@@ -1,5 +1,4 @@
-Doers.PhotoCardController =
-Doers.CardController.extend Doers.ControllerAlertMixin,
+Doers.PhotoCardComponent = Doers.CardComponent.extend
 
   actions:
     update: ->
