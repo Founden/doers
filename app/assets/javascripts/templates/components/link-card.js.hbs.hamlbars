@@ -26,5 +26,5 @@
     {{/if}}
     {{/view}}
     {{partial 'partials/card/actions'}}
-  {{partial 'partials/card/endorses'}}
+  {{partial 'partials/card/sidebar'}}
 {{/with}}

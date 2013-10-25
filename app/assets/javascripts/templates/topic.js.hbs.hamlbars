@@ -58,16 +58,16 @@
 
   {{#each card in content.cards}}
   {{#if card.isParagraph}}
-  {{paragraph-card content=card}}
+  {{paragraph-card content=card user=currentUser}}
   {{/if}}
   {{#if card.isPhoto}}
-  {{photo-card content=card}}
+  {{photo-card content=card user=currentUser}}
   {{/if}}
   {{#if card.isMap}}
-  {{map-card content=card}}
+  {{map-card content=card user=currentUser}}
   {{/if}}
   {{#if card.isLink}}
-  {{link-card content=card}}
+  {{link-card content=card user=currentUser}}
   {{/if}}
   {{/each}}
 

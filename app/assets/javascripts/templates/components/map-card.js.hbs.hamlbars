@@ -18,5 +18,5 @@
     {{view Doers.ImageMapView contentBinding='view.content' class='card-image'}}
     {{/view}}
     {{partial 'partials/card/actions'}}
-  {{partial 'partials/card/endorses'}}
+  {{partial 'partials/card/sidebar'}}
 {{/with}}
