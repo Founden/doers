@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'Projects', :js, :slow, :pending do
+feature 'Projects', :js, :slow do
   given(:user) { User.first }
 
   background do
