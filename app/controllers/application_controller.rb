@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   include EasyAuthHelper
   include AvatarHelper
   include ApplicationHelper
+  include CurrentAccountConcern
 
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
