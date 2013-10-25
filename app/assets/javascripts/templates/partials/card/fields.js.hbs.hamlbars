@@ -1,0 +1,4 @@
+.card-field
+  {{textarea class='card-field-title' valueBinding='title' placeholder='Type your sugestion title...' name='title' disabledBinding='isNotEditing'}}
+.card-field
+  {{textarea class='card-field-description' valueBinding='content' placeholder='Type your sugestion...' name='content' disabledBinding='isNotEditing'}}

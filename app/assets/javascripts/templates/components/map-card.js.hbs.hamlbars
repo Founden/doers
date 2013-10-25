@@ -2,10 +2,8 @@
 {{partial 'partials/card/user'}}
 .card-wrap
   .card-edit
-    .card-field
-      {{textarea class='card-field-title' valueBinding='title' placeholder='Type your sugestion title...' name='title'}}
-    .card-field
-      {{textarea class='card-field-description' valueBinding='content' placeholder='Type your sugestion...' name='content'}}
+    {{partial 'partials/card/fields'}}
+
     {{#view classNames='card-attachment' classNameBindings='isEditing' contentBinding='view.content'}}
     {{#if isEditing}}
     .card-search
@@ -17,6 +15,7 @@
     {{/if}}
     {{view Doers.ImageMapView contentBinding='view.content' class='card-image'}}
     {{/view}}
+
     {{partial 'partials/card/actions'}}
   {{partial 'partials/card/sidebar'}}
 {{/with}}
