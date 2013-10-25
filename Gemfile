@@ -54,7 +54,6 @@ group :development do
   gem 'letter_opener'
   gem 'pry-rails'
   gem 'brakeman', :require => false
-  gem 'listen', '1.3.1' # Version 2.0 is broken
   gem 'guard-rspec', :require => false
   gem 'guard-migrate', :require => false
 end
