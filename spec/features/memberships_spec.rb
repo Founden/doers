@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'Memberships', :js, :focus do
+feature 'Memberships', :js, :slow do
   background do
     sign_in_with_angel_list
   end
