@@ -1,14 +1,14 @@
 .settings {
-  margin: 60px 0 0 0;
+  margin: 40px 0;
 }
 
 .settings-title {
   margin: 0 0 20px 0;
-  border-bottom: 1px solid $gray-3;
+  border-bottom: 1px solid $gray-1;
   padding: 0 0 10px 0;
   font-size: em(12);
   font-weight: 700;
-  color: $gray-4;
+  color: $gray-2;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
@@ -16,14 +16,14 @@
 .settings-field {
   @include clearfix;
   margin: 0 0 20px 0;
-  border-bottom: 1px solid $gray-2;
+  border-bottom: 1px solid rgba($black, 0.05);
   padding: 0 0 20px 0;
 
   label {
     display: block;
-    margin: 0 0 0.5em 0;
-    font-family: $museo;
-    font-weight: 700;
+    margin: 0 0 5px 0;
+    font-size: em(14);
+    color: $gray-3;
   }
 
   input[type=text] {

@@ -1,15 +1,5 @@
-.header
-  {{#linkTo 'projects'}}
-  .header-root
-    = _('Projects')
-  {{/linkTo}}
-  .header-title
-    = _('Import')
-
-.content-wrap
-
+.wrapper
   .status
-    .status-loader
     %h1.status-title
       = _('Importing projects')
     .status-message
@@ -17,5 +7,5 @@
     .status-actions
       {{#linkTo 'projects' class='status-button'}}
       %span.icon.icon-directory
-      = _('Your projects')
+      = _('My projects')
       {{/linkTo}}

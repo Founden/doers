@@ -1,20 +1,18 @@
-Doers.Topic = DS.Model.extend
+Doers.Topic = DS.Model.extend Doers.LastUpdateMixin,
   title: DS.attr('string')
   description: DS.attr('string')
   position: DS.attr('number')
-
   updatedAt: DS.attr('date', readOnly: true)
-  lastUpdate: DS.attr('string', readOnly: true)
 
   user: DS.belongsTo('user')
   board: DS.belongsTo('board', inverse: 'topics', readOnly: true)
   comments: DS.hasMany('comment', inverse:  'topic', readOnly: true, async: true)
   activities: DS.hasMany('activity', inverse: 'topic', readOnly: true, async: true)
-  card: DS.belongsTo('card', inverse: 'topic', readOnly: true, polymorphic: true)
+  cards: DS.hasMany('card', inverse: 'topic', readOnly: true, async: true, polymorphic: true)
 
   aligned: ( ->
-    @get('card.alignment')
-  ).property('card.alignment')
+    @get('cards').findBy('alignment', true)
+  ).property('cards.@each.alignment')
 
   moveSource: false
   moveTarget: false

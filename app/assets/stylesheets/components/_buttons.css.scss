@@ -2,78 +2,43 @@
   display: inline-block;
   padding: 0 15px;
   line-height: 40px;
-  border: 1px solid rgba($black, 0.1);
-  @include linear-gradient(tint($green, 10%), shade($green, 10%));
-  border-radius: 3px;
-  box-shadow: 0 1px 0 rgba($black, 0.1);
-  font-size: 14px;
-  font-weight: 600;
-  color: $white;
+  border: 1px solid $gray-1;
+  border-radius: 20px;
+  background: transparent;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-align: center;
+  letter-spacing: 1px;
+  color: $gray-3;
   cursor: pointer;
   outline: 0;
+  white-space: nowrap;
 
-  .icon:before {
-    vertical-align: top;
-    line-height: 40px;
-    padding: 0 15px 0 0;
-    margin: 0 15px 0 0;
-    border-right: 1px solid rgba($black, 0.1);
+  .icon {
+    margin: 0 5px 0 0;
   }
 
-  &:disabled {
-    background: transparent;
-    color: $gray-4;
-    border-color: $gray-3;
-    box-shadow: none;
-  }
-
-  &.secondary {
-    border-color: $gray-3;
-    @include linear-gradient($white, $gray-1);
-    color: $black;
-
-    &:focus {
-      border-color: $green;
-    }
-  }
-
-  &.compact {
-
-    .icon:before {
-      margin: 0;
-      padding: 0;
-      border: 0;
-    }
-  }
-
-  &.small {
-    font-size: 12px;
-    line-height: 28px;
-    padding: 0 10px;
-
-    &.icon:before {
-      line-height: 28px;
-    }
-  }
-}
-
-.button-pile {
-  display: inline-block;
-  padding: 0 10px;
-  line-height: 23px;
-  border: 1px solid $gray-2;
-  border-radius: 12px;
-  background: $white;
-  font-size: 12px;
-  font-weight: 700;
-  color: $gray-4;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  cursor: pointer;
-
-  &:hover, &.active {
-    background: $green;
+  &.selected {
+    color: $green;
     border-color: $green;
+  }
+
+  &:hover {
+    background: $green;
     color: $white;
+  }
+
+  &.btn-small {
+    line-height: 26px;
+  }
+
+  &.btn-icon {
+    width: 40px;
+    padding: 0;
+
+    .icon {
+      margin: 0;
+    }
   }
 }

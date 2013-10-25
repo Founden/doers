@@ -1,7 +1,7 @@
 .card {
   position: relative;
-  margin: 20px 20px 20px 120px;
-  border: 1px solid $gray-4;
+  margin: 20px 0 20px 60px;
+  border: 1px solid $gray-1;
   border-radius: 3px;
   background: $white;
 
@@ -14,39 +14,15 @@
     height: 4px;
     background: inherit;
     border-width: 0 0 1px 1px;
-    border-color: $gray-4;
+    border-color: inherit;
     border-style: solid;
     @include transform(rotate(45deg));
   }
 }
 
-.card-edit-actions {
-  @include clearfix;
-  @include box-sizing(border-box);
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  padding: 15px 20px;
-  border-top: 1px solid $gray-1;
-
-  .button {
-    float: left;
-    margin: 0 10px 0 0;
-  }
-
-  .remove-card {
-    float: right;
-    text-decoration: underline;
-    font-size: em(12);
-    color: $gray-5;
-    line-height: 42px;
-  }
-}
-
 .card-user-image {
   position: absolute;
-  left: -90px;
+  left: -60px;
   top: 8px;
   width: 42px;
   height: 42px;
@@ -60,15 +36,9 @@
 
 .card-picker {
   @extend .card;
-  padding: 50px;
+  padding: 30px;
   text-align: center;
   display: block;
-
-  h4 {
-    font-size: em(18);
-    font-weight: 600;
-    margin: 0 0 30px 0;
-  }
 
   li {
     display: inline-block;
@@ -76,7 +46,7 @@
     text-transform: uppercase;
     font-size: em(12);
     font-weight: 700;
-    color: $gray-4;
+    color: $gray-2;
     letter-spacing: 1px;
     @include transition(color 0.2s);
     cursor: pointer;
@@ -99,12 +69,10 @@
 .card-field-title {
   width: 100%;
   font-size: em(18);
-  font-weight: 600;
 }
 
 .card-field-description {
   width: 100%;
-  min-height: 4 * 21px;
   font-size: em(14);
 }
 
@@ -118,7 +86,7 @@
 
     .card-image,
     .card-embed {
-      -webkit-filter: blur(10px);
+      @include blur(10px);
       @include transform(scale(1.1));
     }
   }
@@ -146,7 +114,7 @@
   .uploader-drop-area {
     @include box-sizing(border-box);
     height: 100%;
-    border: 1px dashed rgba($black, 0.5);
+    border: 1px dashed $gray-5;
     border-radius: 6px;
     @include transition(all 0.2s);
 
@@ -171,7 +139,7 @@
     background: rgba($white, 0.8);
     border-radius: 3px;
     font-size: em(12);
-    color: rgba($black, 0.8);
+    color: $gray-8;
     @include transition(all 0.2s);
 
     .icon {
@@ -203,7 +171,7 @@
 
 .card-embed-author {
   font-size: em(14);
-  color: $gray-6;
+  color: $gray-5;
 }
 
 .card-search {
@@ -229,7 +197,7 @@
   position: relative;
 
   input {
-    border: 1px solid rgba($black, 0.8);
+    border: 1px solid $gray-8;
     background: rgba($white, 0.8);
     padding: 10px 40px 10px 15px;
     border-radius: 3px;
@@ -249,7 +217,7 @@
 
   a {
     display: inline-block;
-    color: $gray-6;
+    color: $gray-5;
     text-decoration: underline;
     margin: 0 0.5em 0 0;
 
@@ -264,39 +232,31 @@
   }
 }
 
-.card-endorses {
+.card-sidebar {
   @include box-sizing(border-box);
   display: table-cell;
-  width: 270px;
+  width: 35%;
   vertical-align: middle;
-  background: $gray-1;
-  border-left: 1px solid $gray-3;
+  border-left: 1px solid $gray-1;
   border-radius: 0 3px 3px 0;
   text-align: center;
 
   h4 {
     font-size: em(12);
-    color: $gray-4;
+    color: $gray-2;
     letter-spacing: 1px;
     text-transform: uppercase;
   }
+}
 
-  ul {
-    margin: 15px 20px;
-    border-bottom: 1px solid $gray-2;
-    padding: 0 0 15px 0;
-  }
+.card-endorses {
+  margin: 15px 20px 30px 20px;
+  border-bottom: 1px solid $gray-1;
+  padding: 0 0 30px 0;
 
   li {
     display: inline-block;
     margin: 2px;
-  }
-
-  img {
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    vertical-align: middle;
   }
 
   .icon {
@@ -307,4 +267,11 @@
     border-radius: 50%;
     cursor: pointer;
   }
+}
+
+.card-endorse-image {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  vertical-align: middle;
 }

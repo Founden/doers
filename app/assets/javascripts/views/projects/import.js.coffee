@@ -5,7 +5,7 @@ Doers.ProjectsImportView = Ember.View.extend
   ).property('controller.selectedStartups.length')
 
   startupView: Ember.View.extend
-    classNames: ['startup-item']
+    classNames: ['project-item']
     classNameBindings: ['content.slug', 'content.isSelected:selected']
 
     click: (event) ->

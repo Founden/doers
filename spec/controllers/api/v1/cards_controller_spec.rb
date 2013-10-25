@@ -134,7 +134,8 @@ describe Api::V1::CardsController do
           Fabricate('card/photo', :project => project, :board => board) }
 
         its('keys.size') { should eq(16) }
-        its(:image_id) { should eq(card.image.id) }
+        its('image.keys.sort') { should eq(['id', 'type'].sort) }
+        its('image.values') {should include(card.image.id) }
       end
 
       context 'video card' do
@@ -375,7 +376,8 @@ describe Api::V1::CardsController do
         its('keys.size') { should eq(16) }
         its(:title) { should eq(card_attrs['title']) }
         its(:content) { should eq(Sanitize.clean(card_attrs['content'])) }
-        its(:image_id) { should eq(card.image.id) }
+        its('image.keys.sort') { should eq(['id', 'type'].sort) }
+        its('image.values') {should include(card.image.id) }
       end
 
       context 'video card' do

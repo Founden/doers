@@ -1,12 +1,10 @@
 .page {
   margin: 60px 0;
-
-  &.half {
-    width: 50%;
-  }
+  width: 50%;
 
   h1 {
     font-size: em(36);
+    line-height: 1.25;
     font-weight: 700;
     margin: 0 0 0.5em 0;
   }
@@ -14,6 +12,15 @@
   p {
     font-size: em(18);
     margin: 0 0 1em 0;
+  }
+
+  input[type=text] {
+    border: 1px solid $gray-1;
+    padding: 8px;
+    border-radius: 3px;
+    display: inline-block;
+    margin: 0 10px 0 0;
+    vertical-align: top;
   }
 
   input[type=checkbox] {

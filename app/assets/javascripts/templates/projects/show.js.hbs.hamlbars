@@ -1,20 +1,28 @@
-.header
-  {{#linkTo 'projects' class='header-root'}}
-  = _('Projects')
-  {{/linkTo}}
-  .header-title
-    {{project.title}}
-  .header-actions
-    {{#view view.deleteButtonView class='button compact secondary' confirmMessage='Are you shure you want to delete?'}}
-    %span.icon.icon-trash
-    {{/view}}
-
-.content-wrap
-
+.sidebar
   .project{:bind => {:id => 'project.slug'}}
-    {{view view.titleView class='project-field project-title' valueBinding='project.title' placeholder='Add project name' type='text' name='title'}}
-    {{view view.descriptionView class='project-field project-description' valueBinding='project.description' placeholder='Add project description.' name='description'}}
+    {{input type='text' class='project-title' valueBinding='project.title' placeholder='Project name' name='title'}}
+    {{textarea class='project-description' valueBinding='project.description' placeholder='Type your project description...' name='description'}}
+    {{#if project.isDirty}}
+    .project-actions
+      %button.button.btn-small{:_action => 'update'}
+        = _('Save')
+    {{/if}}
     {{view Doers.MembersView contentBinding='project' authorBinding='project.user'}}
+
+.wrapper
+  .header
+    {{#linkTo 'projects' class='button'}}
+    %span.icon.icon-arrow-prev
+    = _('My projects')
+    {{/linkTo}}
+    .header-actions
+      {{#linkTo 'projects.add-board' project class='button'}}
+      %span.icon.icon-board
+      = _('Create new board')
+      {{/linkTo}}
+      {{#view view.deleteButtonView class='button btn-icon remove-project' confirmMessage='Are you shure you want to delete?'}}
+      %span.icon.icon-trash
+      {{/view}}
 
   .board-list
     {{#each board in content}}
@@ -44,26 +52,4 @@
         {{board.user.nicename}}
       {{/if}}
       {{/linkTo}}
-    {{/each}}
-
-  .board-list-header
-    .board-list-title
-      = _('Public boards')
-  .public-board-list
-    {{#each board in currentUser.publicBoards}}
-    .board-item{:bind => {:id => 'board.slug'}}
-      .board-item-cover
-        %h3.board-item-cover-title
-          {{board.title}}
-      .board-item-user
-        %img.board-item-user-image{:bind => {:src => 'board.author.avatarUrl'}}
-        = _('By')
-        {{board.author.nicename}}
-        .board-item-user-company
-          {{board.team.title}}
-      .board-item-branch{:_action => 'createBranch board'}
-        .icon.icon-plus
-        = _('Use board')
-        .board-item-branch-count
-          {{board.branchesCount}}
     {{/each}}

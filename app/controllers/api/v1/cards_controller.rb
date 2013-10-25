@@ -70,7 +70,7 @@ class Api::V1::CardsController < Api::V1::ApplicationController
     # Allowed card types
     def card_types
       %w(photo paragraph link map list book interval number
-        phrase timestamp video)
+        phrase timestamp video card)
     end
 
     # Strong parameters for creating a new card
