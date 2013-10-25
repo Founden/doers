@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'Photo', :js, :slow, :pending do
+feature 'Photo', :js, :slow do
   background do
     sign_in_with_angel_list
   end
@@ -10,15 +10,16 @@ feature 'Photo', :js, :slow, :pending do
     given(:topic) { card.topic }
 
     background do
-      visit root_path(:anchor => '/board/%d/topic/%d' % [card.board.id, card.topic.id])
+      visit root_path(:anchor => '/topic/%d' % topic.id)
     end
 
     scenario 'is shown with details' do
       expect(page).to have_css('.card', :count => 1)
-      expect(page.find('.card-field-title').value).to eq(card.title)
-      expect(page.find('.card-field-description').value).to eq(card.content)
-      expect(page.source).to include(
-        card.image.attachment.url.force_encoding('UTF-8'))
+      expect(page).to have_field(:title, :with => card.title)
+      expect(page).to have_field(:content, :with => card.content)
+
+      page.find('.card-image')['src'].should have_content
+        card.image.attachment.url.force_encoding('UTF-8')
     end
 
     context 'when edited' do
@@ -31,8 +32,6 @@ feature 'Photo', :js, :slow, :pending do
       end
 
       scenario 'can be saved' do
-        old_image_url = card.image.attachment.url.force_encoding('UTF-8')
-
         within('.card-edit') do
           fill_in('title', :with => title)
           fill_in('content', :with => content)
@@ -46,9 +45,8 @@ feature 'Photo', :js, :slow, :pending do
         expect(card.title).to eq(title)
         expect(card.content).to eq(content)
 
-        expect(page.source).to_not include(old_image_url)
-        expect(page.source).to include(
-          card.image.attachment.url.force_encoding('UTF-8'))
+        page.find('.card-image')['src'].should have_content
+          card.image.attachment.url.force_encoding('UTF-8')
       end
     end
   end

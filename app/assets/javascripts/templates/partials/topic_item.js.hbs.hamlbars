@@ -1,16 +1,26 @@
-.topic-drag-handle
+{{#if isNew}}
+.topic-status
   .icon.icon-ellipsis
 .topic-content
   {{textarea class='topic-title' valueBinding='title' placeholder='Type your topic title...' name='topic-title'}}
   {{textarea class='topic-description' valueBinding='description' placeholder='Type your topic description...' name='topic-description'}}
   .topic-actions
-    {{#if isDirty}}
     %a.save-topic{:_action => 'saveTopic view.content'}
       = _('Save')
-    {{/if}}
     %a.remove-topic{:_action => 'removeTopic view.content'}
-      = _('remove topic')
-{{#if user}}
+      = _('Cancel')
+{{else}}
+{{#linkTo 'topic' view.content}}
+{{#view classNames='topic-status' classNameBindings='aligned:aligned'}}
+{{#if aligned}}
+.icon.icon-checkmark
+{{else}}
+.icon.icon-ellipsis
+{{/if}}
+{{/view}}
+.topic-content
+  .topic-title
+    {{title}}
 .topic-user
   %img.topic-user-image{:bind => {:src => 'user.avatarUrl'}}
   = _('Updated')
@@ -18,4 +28,5 @@
   %br/
   = _('by')
   {{user.nicename}}
+{{/linkTo}}
 {{/if}}

@@ -62,7 +62,7 @@ describe Api::V1::TopicsController do
       its(:updated_at) { should_not be_nil }
       its(:user_id) { should eq(topic.user.id) }
       its(:board_id) { should eq(topic.board.id) }
-      its('card_ids.size') { should eq(topic.cards.count) }
+      its('cards.size') { should eq(topic.cards.count) }
       its('comment_ids.size') { should eq(topic.comments.count) }
       its('activity_ids.size') { should eq(topic.activities.count) }
     end

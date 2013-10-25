@@ -1,14 +1,13 @@
 .content {
   position: relative;
-  margin: 0 0 0 280px;
+  margin: 0 0 0 220px;
   @include transition(margin-left 0.2s $ease-out-expo);
 
   &.wide {
     margin-left: 108px;
-  }
-}
 
-.content-wrap {
-  width: 920px;
-  margin: 0 auto;
+    .sidebar {
+      left: 108px;
+    }
+  }
 }

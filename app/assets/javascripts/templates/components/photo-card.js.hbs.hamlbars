@@ -1,5 +1,5 @@
-{{#with view.content}}
-{{partial 'cards/components/user'}}
+{{#with content}}
+{{partial 'partials/card/user'}}
 .card-wrap
   .card-edit
     .card-field
@@ -8,12 +8,12 @@
       {{textarea class='card-field-description' valueBinding='content' placeholder='Type your sugestion...' name='content'}}
     {{#view classNames='card-attachment' classNameBindings='isEditing' contentBinding='view.content'}}
     {{#if isEditing}}
-    {{view view.parentView.uploadView}}
+    {{view Doers.UploaderView contentBinding=view.content}}
     {{/if}}
     {{#if image}}
-    %img.card-image{:bind => {:src => 'image.attachment'}}
+    %img.card-image{:bind => {:src => 'image.mediumSizeUrl'}}
     {{/if}}
     {{/view}}
-    {{partial 'cards/components/actions'}}
-  {{partial 'cards/components/endorses'}}
+    {{partial 'partials/card/actions'}}
+  {{partial 'partials/card/sidebar'}}
 {{/with}}

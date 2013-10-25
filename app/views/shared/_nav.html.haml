@@ -9,27 +9,19 @@
         = avatar_tag(current_user, {:size => 42, :class => 'nav-list-item-account-image'})
         .nav-list-item-account-name
           = current_account.nicename
-        .nav-list-item-account-actions
-          %a{:href => mine_profiles_path}
-            = _('account settings')
-          %a#signout-btn{:href => sign_out_path}
-            = _('sign out')
-      - if current_account.confirmed?
-        %li.nav-list-item
-          %a{:href => root_path(:anchor => '/projects'), :class => 'nav-list-item-btn'}
-            = _('Your projects')
-            %span.icon.icon-directory
-        %li.nav-list-item
-          %a{:href => root_path(:anchor => '/projects/new'), :class => 'nav-list-item-btn'}
-            = _('Create new project')
-            %span.icon.icon-project
-        %li.nav-list-item
-          %a{:href => root_path(:anchor => '/memberships'), :class => 'nav-list-item-btn'}
-            = _('Collaborators')
-            %span.icon.icon-user
-      - if current_account.admin?
-        %li.nav-list-item
-          %a{:href => root_path(:anchor => '/boards'), :class => 'nav-list-item-btn'}
-            = _('Your boards')
-            %span.icon.icon-board
-
+      %li.nav-list-item
+        %a{:href => root_path(:anchor => '/projects'), :class => 'nav-list-item-btn'}
+          = _('My projects')
+          %span.icon.icon-directory
+      %li.nav-list-item
+        %a{:href => root_path(:anchor => '/memberships'), :class => 'nav-list-item-btn'}
+          = _('Collaborators')
+          %span.icon.icon-user
+      %li.nav-list-item
+        %a{:href => mine_profiles_path, :class => 'nav-list-item-btn'}
+          = _('Account settings')
+          %span.icon.icon-settings
+      %li.nav-list-item
+        %a{:href => sign_out_path, :class => 'nav-list-item-btn'}
+          = _('Sign out')
+          %span.icon.icon-close

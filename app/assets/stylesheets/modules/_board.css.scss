@@ -1,16 +1,73 @@
 .board {
-  @extend .project;
+  margin: 20px 30px;
 }
 
 .board-title {
-  @extend .project-title;
-  font-size: em(36);
+  display: block;
+  width: 100%;
+  margin: 0 0 10px 0;
+  font-size: em(18);
+  font-weight: 400;
+  font-family: $museo;
 }
 
 .board-description {
   @extend .project-description;
 }
 
-.board-actions {
-  @extend .project-actions;
+.board-progress-wrap {
+  @include box-sizing(border-box);
+  position: absolute;
+  left: 0;
+  bottom: 30px;
+  padding: 0 30px;
+  width: 100%;
+}
+
+.board-progress-title {
+  font: em(12) $museo;
+  text-transform: uppercase;
+  margin: 0 0 5px 0;
+}
+
+.board-progress {
+  position: relative;
+  overflow: hidden;
+  height: 5px;
+  background: $gray-1;
+}
+
+.board-progress-bar {
+  width: 0;
+  height: 100%;
+  background-color: $green;
+  @include transition(width 1s);
+}
+
+.board-topics {
+
+  li {
+    border-bottom: 1px dotted $gray-1;
+
+    &:first-of-type {
+      border-top: 1px dotted $gray-1;
+    }
+  }
+
+  a {
+    display: block;
+    padding: 10px 30px;
+    font-size: em(12);
+    color: $gray-5;
+    @include transition(all 0.2s);
+
+    &:hover {
+      color: $black;
+    }
+
+    &.active {
+      background: rgba($black, 0.05);
+      color: $black;
+    }
+  }
 }
