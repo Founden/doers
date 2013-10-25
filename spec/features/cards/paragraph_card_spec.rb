@@ -10,8 +10,7 @@ feature 'Paragraph', :js, :slow, :pending do
     given(:topic) { card.topic }
 
     background do
-      visit root_path(:anchor => '/board/%d/topic/%d' % [
-        card.board.id, card.topic.id])
+      visit root_path(:anchor => '/topic/%d' % topic.id)
     end
 
     scenario 'is shown with details' do

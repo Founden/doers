@@ -18,7 +18,7 @@ feature 'Link', :js, :slow, :pending do
     background do
       Oembedr.should_receive(:known_service?).at_least(1).times.and_return(true)
       Oembedr.should_receive(:fetch).at_least(1).times.and_return(response)
-      visit root_path(:anchor => '/board/%d/topic/%d' % [card.board.id, card.topic.id])
+      visit root_path(:anchor => '/topic/%d' % topic.id)
     end
 
     scenario 'is shown with details' do
