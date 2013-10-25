@@ -51,3 +51,4 @@ Ember.ObjectController.extend Doers.ControllerAlertMixin,
         type: type
         isEditing: true
       topic.get('cards').pushObject(card)
+      @set('cardPicker', false)
