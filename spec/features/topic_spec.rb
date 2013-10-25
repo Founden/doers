@@ -8,8 +8,6 @@ feature 'Topic', :js, :slow do
   context 'from an existing project board' do
     given(:user) { User.first }
     given(:card) { Fabricate('card/paragraph', :user => user) }
-    given(:project) { card.project }
-    given(:board) { card.boards }
     given(:topic) { card.topic }
     given(:content) { Faker::Lorem.sentence }
 
@@ -20,7 +18,8 @@ feature 'Topic', :js, :slow do
     scenario 'is shown' do
       expect(page).to have_css('.topic', :count => 1)
       expect(page).to have_field('topic-title', :with => topic.title)
-      expect(page).to have_field('topic-description', :with => topic.description)
+      expect(page).to have_field(
+        'topic-description', :with => topic.description)
     end
 
     scenario 'cards can be added' do
@@ -62,16 +61,17 @@ feature 'Topic', :js, :slow do
 
       scenario 'user can endorse' do
         expect(page).to have_css('.card-endorse-item', :count => 0)
+        # TODO: Fix this!
         page.find('.add-endorse').click
+        page.find('.add-endorse').click
+        expect(page).to have_css('.card-endorse-item', :count => 2)
         sleep(1)
-        card.reload
-        expect(card.endorses.count).to eq(1)
-        expect(page).to have_css('.card-endorse-item', :count => card.endorses.count)
+        expect(card.endorses.reload.count).to eq(2)
+
         page.find('.remove-endorse').click
+        expect(page).to have_css('.card-endorse-item', :count => 1)
         sleep(1)
-        card.reload
-        expect(card.endorses.count).to eq(0)
-        expect(page).to have_css('.card-endorse-item', :count => card.endorses.count)
+        expect(card.endorses.reload.count).to eq(1)
       end
 
       scenario 'it can be deleted' do
