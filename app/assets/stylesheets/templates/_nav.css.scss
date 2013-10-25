@@ -114,21 +114,19 @@
 
 .nav-list-item-account {
   white-space: nowrap;
-  padding: 15px 30px 15px 90px;
-  height: 42px;
+  padding: 15px 30px;
 }
 
 .nav-list-item-account-name {
   font-size: em(14);
-  line-height: 42px;
+  line-height: 48px;
   color: rgba($white, 0.5);
 }
 
 .nav-list-item-account-image {
-  position: absolute;
-  left: 30px;
-  top: 15px;
-  width: 42px;
-  height: 42px;
+  float: left;
+  width: 48px;
+  height: 48px;
+  margin: 0 15px 0 0;
   border-radius: 50%;
 }
