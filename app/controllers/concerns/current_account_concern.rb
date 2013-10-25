@@ -12,7 +12,7 @@ module CurrentAccountConcern
     user = current_account_without_touch
     return user if user.blank?
 
-    if user.updated_at.to_i > user.login_at.to_i + 10.minutes
+    if user.updated_at.to_i > user.login_at.to_i + Doers::Config.logout_after
       user.update_attributes(:login_at => user.updated_at)
     end
     user

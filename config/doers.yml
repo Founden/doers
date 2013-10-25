@@ -30,6 +30,8 @@ defaults: &defaults
     - DOERS_ALEXANDRU
     - DOERS_STEFAN
     - DOERS_ANDREEA
+  logout_after: <%= 10.minutes %>
+  activity_remove_at: <%= 10.minutes %>
 
 development:
   <<: *defaults

@@ -31,7 +31,7 @@ describe SessionsController do
       its('flash.keys') { should include(:error) }
     end
 
-    context 'for allowed authentication', :focus do
+    context 'for allowed authentication' do
       let(:params) do
         {:provider => :angel_list, :identity => :oauth2, :code => 'DUMMY_CODE'}
       end
@@ -44,12 +44,13 @@ describe SessionsController do
 
         its('updated_at.to_i') { should eq(user.created_at.to_i) }
 
-        context 'after < 10m', :skip_before => true do
+        context "after < #{Doers::Config.logout_after}", :skip_before => true do
           let(:user) { Fabricate(:user, :email => 'doer@geekcelerator.com') }
 
           before do
             @updated_at = user.updated_at
-            Timecop.freeze(user.updated_at + 11.minutes) do
+            freeze_at = @updated_at + Doers::Config.logout_after - 1.minutes
+            Timecop.freeze(freeze_at) do
               get(:create, params)
             end
           end
@@ -58,12 +59,13 @@ describe SessionsController do
           its(:login_at) { should be_blank }
         end
 
-        context 'after 10m', :skip_before => true do
+        context "after #{Doers::Config.logout_after}", :skip_before => true do
           let(:user) { Fabricate(:user, :email => 'doer@geekcelerator.com') }
 
           before do
             @updated_at = user.updated_at
-            Timecop.freeze(@updated_at + 11.minutes) do
+            freeze_at = @updated_at + Doers::Config.logout_after + 1.minutes
+            Timecop.freeze(freeze_at) do
               get(:create, params)
             end
           end
