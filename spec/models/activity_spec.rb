@@ -105,10 +105,11 @@ describe Activity, :use_truncation do
       its('activities.count') { should eq(2) }
     end
 
-    context 'after calling #save in < 10 minutes' do
+    context "after #save in < #{Doers::Config.activity_remove_at} minutes" do
       before do
         project.save
-        Timecop.freeze(DateTime.now + 5.minutes) do
+        freeze_at = DateTime.now + Doers::Config.activity_remove_at - 1.minute
+        Timecop.freeze(freeze_at) do
           project.save
         end
       end
@@ -116,10 +117,11 @@ describe Activity, :use_truncation do
       its('activities.count') { should eq(2) }
     end
 
-    context 'after calling #save after 10 minutes' do
+    context "after #save after #{Doers::Config.activity_remove_at} minutes" do
       before do
         project.save
-        Timecop.freeze(DateTime.now + 11.minutes) do
+        freeze_at = DateTime.now + Doers::Config.activity_remove_at + 1.minute
+        Timecop.freeze(freeze_at) do
           project.save
         end
       end
