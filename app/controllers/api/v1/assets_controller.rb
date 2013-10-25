@@ -71,7 +71,7 @@ class Api::V1::AssetsController < Api::V1::ApplicationController
   private
     # Allowed asset types
     def asset_types
-      %w(avatar banner cover image logo)
+      %w(avatar banner cover image logo asset)
     end
 
     # Strong parameters for updating a new asset

@@ -140,7 +140,7 @@ GEM
       execjs (>= 1.2)
       handlebars-source
       railties (>= 3.1)
-    ember-source (1.0.0)
+    ember-source (1.1.1)
       handlebars-source (= 1.0.12)
     erd (0.3.2)
       nokogiri
