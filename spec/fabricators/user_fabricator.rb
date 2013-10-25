@@ -4,7 +4,7 @@ Fabricator(:user) do
   external_id       { sequence(:external_id) }
   confirmed         { true }
   identities(:count => 1) { |attrs, i|
-    Fabricate(:angel_list_identity, :uid => attrs[:email]) }
+    Fabricate(:angel_list_identity, :uid => [attrs[:email]]) }
 end
 
 Fabricator(:user_with_projects, :from => :user) do

@@ -45,8 +45,7 @@ class Api::V1::CardsController < Api::V1::ApplicationController
       card.attributes = card_params.merge(
         {:user => current_account}).except(:type)
       if card.alignment_changed?
-        card.activity_alignment_slug =
-          card.alignment ? 'alignment' : 'misalignment'
+        card.activity_postfix = card.alignment ? 'alignment' : 'misalignment'
       end
       card.save
       render :json => card
