@@ -1,5 +1,5 @@
 {{#if isNew}}
-.topic-drag-handle
+.topic-status
   .icon.icon-ellipsis
 .topic-content
   {{textarea class='topic-title' valueBinding='title' placeholder='Type your topic title...' name='topic-title'}}
@@ -11,8 +11,13 @@
       = _('Cancel')
 {{else}}
 {{#linkTo 'topic' view.content}}
-.topic-drag-handle
-  .icon.icon-ellipsis
+{{#view classNames='topic-status' classNameBindings='aligned:aligned'}}
+{{#if aligned}}
+.icon.icon-checkmark
+{{else}}
+.icon.icon-ellipsis
+{{/if}}
+{{/view}}
 .topic-content
   .topic-title
     {{title}}

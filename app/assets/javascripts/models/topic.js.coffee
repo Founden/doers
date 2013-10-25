@@ -11,8 +11,8 @@ Doers.Topic = DS.Model.extend Doers.LastUpdateMixin,
   cards: DS.hasMany('card', inverse: 'topic', readOnly: true, async: true, polymorphic: true)
 
   aligned: ( ->
-    @get('card.alignment')
-  ).property('card.alignment')
+    @get('cards').findBy('alignment', true)
+  ).property('cards.@each.alignment')
 
   moveSource: false
   moveTarget: false
