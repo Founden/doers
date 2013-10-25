@@ -102,7 +102,7 @@ class ImportJob < Struct.new(:user, :startup_id)
   def import_project_users
     data = process_json(startup_roles_url)
 
-    data.each do |role|
+    data['startup_roles'].each do |role|
       external_id = role['tagged']['id']
       member = User.find_by(:external_id => external_id.to_s)
       project.memberships.create({
