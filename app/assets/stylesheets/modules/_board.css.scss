@@ -57,8 +57,11 @@
   a {
     display: block;
     padding: 10px 30px;
-    font-size: em(12);
+    font-size: em(14);
     color: $gray-5;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     @include transition(all 0.2s);
 
     &:hover {
