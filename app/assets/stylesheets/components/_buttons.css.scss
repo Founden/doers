@@ -19,6 +19,11 @@
     margin: 0 5px 0 0;
   }
 
+  &.active {
+    color: $green;
+    border-color: $green;
+  }
+
   &:hover {
     background: $green;
     color: $white;
