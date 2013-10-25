@@ -20,7 +20,18 @@ Doers.Card = DS.Model.extend
     'card-' + @get('id')
   ).property('id', 'type')
 
-  componentClass: ( ->
-    if type = @get('type')
-      '%@-card'.fmt(type.underscore())
+  isParagraph: ( ->
+    @get('type') == 'Paragraph'
+  ).property('type')
+
+  isPhoto: ( ->
+    @get('type') == 'Photo'
+  ).property('type')
+
+  isMap: ( ->
+    @get('type') == 'Map'
+  ).property('type')
+
+  isLink: ( ->
+    @get('type') == 'Link'
   ).property('type')

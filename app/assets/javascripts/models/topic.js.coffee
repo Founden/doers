@@ -8,7 +8,7 @@ Doers.Topic = DS.Model.extend Doers.LastUpdateMixin,
   board: DS.belongsTo('board', inverse: 'topics', readOnly: true)
   comments: DS.hasMany('comment', inverse:  'topic', readOnly: true, async: true)
   activities: DS.hasMany('activity', inverse: 'topic', readOnly: true, async: true)
-  cards: DS.hasMany('card', inverse: 'topic', readOnly: true, polymorphic: true)
+  cards: DS.hasMany('card', inverse: 'topic', readOnly: true, async: true, polymorphic: true)
 
   aligned: ( ->
     @get('card.alignment')
