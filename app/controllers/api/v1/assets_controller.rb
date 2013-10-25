@@ -69,17 +69,23 @@ class Api::V1::AssetsController < Api::V1::ApplicationController
   end
 
   private
+    # Allowed asset types
+    def asset_types
+      %w(avatar banner cover image logo)
+    end
 
     # Strong parameters for updating a new asset
     def asset_params
-      params[:asset].except!(
-        :board_id, :type, :project_id, :user_id, :assetable_id, :assetable_type)
-      params.require(:asset).permit(:description, :attachment)
+      asset_type = params.slice(*asset_types).keys.first
+      params[asset_type].except!(:board_id, :type, :project_id, :user_id,
+        :assetable_id, :assetable_type) if asset_type
+      params.require(asset_type).permit(:description, :attachment)
     end
 
     # Strong parameters for creating a new asset
     def new_asset_params
-      params.require(:asset).permit(:description, :board_id, :type,
+      asset_type = params.slice(*asset_types).keys.first
+      params.require(asset_type).permit(:description, :board_id, :type,
         :project_id, :assetable_id, :assetable_type, :attachment)
     end
 end
