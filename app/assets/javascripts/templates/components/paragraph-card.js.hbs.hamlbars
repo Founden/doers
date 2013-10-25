@@ -7,5 +7,5 @@
     .card-field
       {{textarea class='card-field-description' valueBinding='content' placeholder='Type your sugestion...' name='content'}}
     {{partial 'partials/card/actions'}}
-  {{partial 'partials/card/endorses'}}
+  {{partial 'partials/card/sidebar'}}
 {{/with}}
