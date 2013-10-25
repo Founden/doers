@@ -4,7 +4,7 @@
     = _('Endorsements')
   {{card-endorses content=view.content user=view.user}}
   {{#if alignment}}
-  .button.btn-small.active.toggle-alignment{:_action => 'toggleAlignment'}
+  .button.btn-small.selected.toggle-alignment{:_action => 'toggleAlignment'}
     = _('Mark as unaligned')
   {{else}}
   .button.btn-small.toggle-alignment{:_action => 'toggleAlignment'}
