@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131015145851) do
+ActiveRecord::Schema.define(version: 20131024121647) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -166,16 +166,16 @@ ActiveRecord::Schema.define(version: 20131015145851) do
   add_index "gutentag_tags", ["taggings_count"], name: "index_gutentag_tags_on_taggings_count", using: :btree
 
   create_table "identities", force: true do |t|
-    t.string   "uid"
     t.string   "token"
     t.string   "account_type"
     t.integer  "account_id"
     t.string   "type"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "uid",          default: [], array: true
   end
 
-  add_index "identities", ["uid"], name: "index_identities_on_uid", using: :btree
+  add_index "identities", ["uid"], name: "index_identities_on_uid", using: :gin
 
   create_table "invitations", force: true do |t|
     t.string   "email"
