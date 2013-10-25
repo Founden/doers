@@ -18,10 +18,10 @@ Doers.CardComponent = Ember.Component.extend
     destroy: ->
       card = @get('content')
       topic = card.get('topic')
-      card.deleteRecord()
       if card.get('isNew')
-        topic.set('card', null)
+        topic.get('cards').removeObject(card)
       else
+        card.deleteRecord()
         card.save().then =>
           topic.reload()
 

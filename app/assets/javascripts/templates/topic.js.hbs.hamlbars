@@ -57,7 +57,18 @@
       {{content.user.nicename}}
 
   {{#each card in content.cards}}
-  {{lookup card.componentClass content=card}}
+  {{#if card.isParagraph}}
+  {{paragraph-card content=card}}
+  {{/if}}
+  {{#if card.isPhoto}}
+  {{photo-card content=card}}
+  {{/if}}
+  {{#if card.isMap}}
+  {{map-card content=card}}
+  {{/if}}
+  {{#if card.isLink}}
+  {{link-card content=card}}
+  {{/if}}
   {{/each}}
 
   {{partial 'partials/card_picker'}}
