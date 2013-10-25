@@ -3,8 +3,9 @@
     {{input type='text' class='project-title' valueBinding='project.title' placeholder='Project name' name='title'}}
     {{textarea class='project-description' valueBinding='project.description' placeholder='Type your project description...' name='description'}}
     {{#if project.isDirty}}
-    %button.button.btn-small{:_action => 'update'}
-      = _('Save')
+    .project-actions
+      %button.button.btn-small{:_action => 'update'}
+        = _('Save')
     {{/if}}
     {{view Doers.MembersView contentBinding='project' authorBinding='project.user'}}
 
