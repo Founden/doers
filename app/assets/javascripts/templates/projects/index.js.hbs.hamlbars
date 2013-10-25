@@ -56,10 +56,10 @@
     .project-list-header
       .project-list-title
         = _('Shared with me')
-      .project-list-title-boards
-        = _('Boards')
       .project-list-title-users
         = _('Collaborators')
+      .project-list-title-boards
+        = _('Boards')
     {{#each project in currentUser.sharedProjects}}
     .project-item{:bind => {:id => 'project.slug'}}
       %h3.project-item-title
