@@ -5,8 +5,6 @@
 {{else}}
 .card-picker
   %img.card-user-image{:bind => {:src => 'currentUser.avatarUrl'}}
-  %h4
-    = _('Best match for this topic:')
   %ul
     %li{:_action => 'addCard "Paragraph"'}
       .icon.icon-paragraph.large

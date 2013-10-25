@@ -36,15 +36,9 @@
 
 .card-picker {
   @extend .card;
-  padding: 50px;
+  padding: 30px;
   text-align: center;
   display: block;
-
-  h4 {
-    font-size: em(18);
-    font-weight: 400;
-    margin: 0 0 30px 0;
-  }
 
   li {
     display: inline-block;
