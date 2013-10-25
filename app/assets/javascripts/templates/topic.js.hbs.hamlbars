@@ -33,7 +33,7 @@
       {{/view}}
 
   .topic
-    {{#view classNames='topic-status' classNameBindings='content.aligned'}}
+    {{#view classNames='topic-status' classNameBindings='content.aligned:aligned'}}
     {{#if content.aligned}}
     .icon.icon-checkmark
     {{else}}
