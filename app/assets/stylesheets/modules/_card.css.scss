@@ -87,7 +87,7 @@
 
     .card-image,
     .card-embed {
-      -webkit-filter: blur(10px);
+      @include blur(10px);
       @include transform(scale(1.1));
     }
   }
