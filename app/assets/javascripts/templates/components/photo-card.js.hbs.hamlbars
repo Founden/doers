@@ -11,7 +11,7 @@
     {{view Doers.UploaderView contentBinding=view.content}}
     {{/if}}
     {{#if image}}
-    %img.card-image{:bind => {:src => 'image.attachment'}}
+    %img.card-image{:bind => {:src => 'image.mediumSizeUrl'}}
     {{/if}}
     {{/view}}
     {{partial 'partials/card/actions'}}
