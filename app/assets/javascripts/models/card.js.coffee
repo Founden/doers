@@ -16,6 +16,10 @@ Doers.Card = DS.Model.extend
 
   isEditing: false
 
+  isNotEditing: ( ->
+    !@get('isEditing')
+  ).property('isEditing')
+
   slug: (->
     'card-' + @get('id')
   ).property('id', 'type')
