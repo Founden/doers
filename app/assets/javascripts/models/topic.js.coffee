@@ -5,7 +5,8 @@ Doers.Topic = DS.Model.extend Doers.LastUpdateMixin,
   updatedAt: DS.attr('date', readOnly: true)
 
   user: DS.belongsTo('user')
-  board: DS.belongsTo('board', inverse: 'topics', readOnly: true)
+  project: DS.belongsTo('project')
+  board: DS.belongsTo('board', inverse: 'topics')
   comments: DS.hasMany('comment', inverse:  'topic', readOnly: true, async: true)
   activities: DS.hasMany('activity', inverse: 'topic', readOnly: true, async: true)
   cards: DS.hasMany('card', inverse: 'topic', readOnly: true, async: true, polymorphic: true)

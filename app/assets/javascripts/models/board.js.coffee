@@ -8,7 +8,7 @@ Doers.Board = DS.Model.extend Doers.LastUpdateMixin,
   topicsCount: DS.attr('number', readOnly: true)
 
   project: DS.belongsTo('project', inverse: 'boards')
-  user: DS.belongsTo('user', readOnly: true, inverse: 'boards')
+  user: DS.belongsTo('user', readOnly: true)
   cover: DS.belongsTo('asset', inverse: 'board')
   activities: DS.hasMany('activity', readOnly: true, inverse: 'board', async: true)
   memberships: DS.hasMany('membership', readOnly: true, inverse: 'board', async: true)

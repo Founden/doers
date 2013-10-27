@@ -23,6 +23,7 @@ Ember.ArrayController.extend Doers.ControllerAlertMixin,
     addTopic: ->
       topic = @store.createRecord 'topic',
         board: @get('board')
+        project: @get('board.project')
         position: @get('content.length')
       @get('content').pushObject(topic)
 

@@ -10,12 +10,8 @@ Doers.User = DS.Model.extend
 
   createdProjects: DS.hasMany('project', readOnly: true, inverse: 'user', async: true)
   sharedProjects: DS.hasMany('project', readOnly: true, inverse: 'user', async: true)
-  authoredBoards: DS.hasMany('board', readOnly: true, inverse: 'author', async: true)
-  branchedBoards: DS.hasMany('board', readOnly: true, inverse: 'user', async: true)
-  publicBoards: DS.hasMany('board', readOnly: true, async: true)
   activities: DS.hasMany('activity', readOnly: true, inverse: 'user', async: true)
   invitations: DS.hasMany('invitation', readOnly: true, inverse: 'user', async: true)
-  comments: DS.hasMany('comment', readOnly: true, async: true)
 
   startupsUrl: ( ->
     'https://api.angel.co/1/startup_roles?v=1&user_id=' +
