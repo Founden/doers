@@ -21,7 +21,8 @@ class Api::V1::AssetsController < Api::V1::ApplicationController
     attchmnt = URI.parse(attchmnt) if attchmnt.to_s.match(Asset::URI_REGEXP)
 
     asset = Asset.find_by!(:id => params[:id])
-    current_account.can?(:write, asset)
+    target = asset.assetable || asset.project || asset.whiteboard
+    current_account.can?(:write, target)
 
     begin
       asset.update_attributes(asset_params.merge(:attachment => attchmnt))
@@ -44,7 +45,8 @@ class Api::V1::AssetsController < Api::V1::ApplicationController
 
       asset = klass.new(
         new_asset_params.except(:type).merge(:attachment => attchmnt))
-      target = asset.assetable || asset.board || asset.project
+      target = asset.whiteboard ||
+        asset.assetable || asset.board || asset.project
       current_account.can?(:write, target)
       asset.user = current_account
       asset.save!
