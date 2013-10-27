@@ -28,7 +28,8 @@ Ember.ArrayController.extend Doers.ControllerAlertMixin,
       @get('content').pushObject(topic)
 
     saveTopic: (topic) ->
-      topic.save()
+      topic.save().then =>
+        @get('board').reload()
 
     removeTopic: (topic) ->
       if topic.get('isNew')
