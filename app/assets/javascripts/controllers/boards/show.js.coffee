@@ -14,11 +14,11 @@ Ember.ArrayController.extend Doers.ControllerAlertMixin,
       project = board.get('project')
       board.deleteRecord()
       board.save().then =>
+        @get('target.router').transitionTo('projects.show', project)
         mixpanel.track 'DELETED',
           TYPE: 'Board'
           ID: board.get('id')
           TITLE: board.get('title')
-        @get('target.router').transitionTo('projects.show', project)
 
     addTopic: ->
       topic = @store.createRecord 'topic',
