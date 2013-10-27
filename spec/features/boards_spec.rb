@@ -29,13 +29,10 @@ feature 'Boards', :js, :slow do
     end
 
     scenario 'confirms deletion and removes board' do
-      pending
       boards_count = project.boards.count
 
       find('.remove-board').click
 
-      sleep(1)
-      # TODO: Find out why this doesn't work
       expect(page).to have_css(
         '.board-list .board-item', :count => boards_count - 1)
       expect(project.boards.count).to eq(boards_count - 1)
