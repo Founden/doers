@@ -184,17 +184,11 @@ module User::Authorization
     query =
       # User is the owner
       table[:user_id].eq(self.id).or(
-        # User created the board
-        table[:board_id].in(self.created_board_ids)
-      ).or(
-        # Somebody shared its board
-        table[:board_id].in(self.shared_board_ids)
-      ).or(
         # User created its project
-        table[:board_id].in(self.created_project_ids)
-      ).or(
-        # Somebody shared its project
-        table[:board_id].in(self.shared_project_ids)
+        table[:project_id].in(self.created_project_ids).or(
+          # Somebody shared its project
+          table[:project_id].in(self.shared_project_ids)
+        )
       ).or(
         # User whiteboard has it
         table[:whiteboard_id].in(self.whiteboard_ids).or(

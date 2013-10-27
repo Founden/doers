@@ -856,8 +856,9 @@ describe User do
       end
 
       context 'within a board owned by the user' do
-        let(:board) { Fabricate(:board, :user => user) }
-        let(:target) { Fabricate(:topic, :board => board) }
+        let(:project) { Fabricate(:project_membership, :user => user).project }
+        let(:board) { Fabricate(:board, :project => project) }
+        let(:target) { Fabricate(:topic, :board => board, :project => project) }
         before { user.should_receive(:topics_to).and_call_original }
 
         it { should be_true }
