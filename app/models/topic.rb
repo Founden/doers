@@ -19,6 +19,7 @@ class Topic < ActiveRecord::Base
   validates_presence_of :title, :user
   validates_presence_of :board, :unless => :whiteboard
   validates_presence_of :whiteboard, :unless => :board
+  validates_presence_of :project, :if => :board
 
   # Callbacks
   after_initialize do

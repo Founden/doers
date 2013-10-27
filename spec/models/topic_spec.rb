@@ -26,6 +26,12 @@ describe Topic do
       let(:topic) { Fabricate.build(:topic) }
 
       it { should be_valid }
+
+      context 'and project is missing' do
+        let(:topic) { Fabricate.build(:topic, :project => nil) }
+
+        it { should_not be_valid }
+      end
     end
   end
 
