@@ -25,6 +25,7 @@ group :production do
   gem 'aws-sdk'
   gem 'daemons'
   gem 'intercom-rails'
+  gem 'dalli'
 end
 
 group :assets do
