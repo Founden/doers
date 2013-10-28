@@ -7,7 +7,7 @@ class Card < ActiveRecord::Base
   STYLES = %w(small medium large)
 
   # Default scope: order by position
-  default_scope { order(:position) }
+  default_scope { order(:id => :asc) }
 
   # Relationships
   belongs_to :user
