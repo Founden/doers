@@ -30,6 +30,15 @@ defaults: &defaults
     - DOERS_ALEXANDRU
     - DOERS_STEFAN
     - DOERS_ANDREEA
+  memcache:
+    - mc4.dev.ec2.memcachier.com:11211
+    -
+      :username: 04f07b
+      :password: 912903cba6
+      :failover: true
+      :socket_timeout: 1.5
+      :socket_failure_delay: 0.2
+
 
 development:
   <<: *defaults
