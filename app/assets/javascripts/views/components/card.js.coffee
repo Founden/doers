@@ -1,6 +1,10 @@
 Doers.CardComponent = Ember.Component.extend
   classNames: ['card']
 
+  isOwner: ( ->
+    @get('content.user') == @get('user')
+  ).property('content.user', 'user')
+
   actions:
     edit: ->
       @set('content.isEditing', true)
