@@ -4,10 +4,11 @@
 
 .project-title {
   display: block;
-  margin: 0 -30px 20px -30px;
-  border-bottom: 1px solid $gray-1;
-  padding: 0 30px 20px 30px;
+  overflow: hidden;
+  width: 100%;
+  margin: 0 0 10px 0;
   font-size: em(26);
+  line-height: 1.35em;
   font-weight: 400;
   font-family: $museo;
 }
