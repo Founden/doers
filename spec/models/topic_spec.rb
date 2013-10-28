@@ -5,6 +5,7 @@ describe Topic do
   it { should belong_to(:project) }
   it { should belong_to(:board).dependent('') }
   it { should belong_to(:whiteboard).dependent('') }
+  it { should belong_to(:aligned_card).dependent('') }
   it { should have_many(:cards).dependent(:destroy) }
   it { should have_many(:comments).dependent(:destroy) }
   it { should have_many(:activities).dependent('') }

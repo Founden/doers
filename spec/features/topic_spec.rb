@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'Topic', :js, :slow do
+feature 'Topic', :js, :aslow do
   background do
     sign_in_with_angel_list
   end
@@ -47,12 +47,12 @@ feature 'Topic', :js, :slow do
         page.find('.toggle-alignment').click
         expect(page).to have_css('.topic-status.aligned')
         sleep(1)
-        card.reload
-        expect(card.alignment).to be_true
+        topic.reload
+
+        expect(topic.aligned_card).to_not be_blank
       end
 
       scenario 'progress changes if aligned' do
-        pending
         expect(page.find('.board-progress-bar')[:style]).to include(': 0%')
         page.find('.toggle-alignment').click
         sleep(1)
@@ -61,17 +61,15 @@ feature 'Topic', :js, :slow do
 
       scenario 'user can endorse' do
         expect(page).to have_css('.card-endorse-item', :count => 0)
-        # TODO: Fix this!
         page.find('.add-endorse').click
-        page.find('.add-endorse').click
-        expect(page).to have_css('.card-endorse-item', :count => 2)
-        sleep(1)
-        expect(card.endorses.reload.count).to eq(2)
-
-        page.find('.remove-endorse').click
         expect(page).to have_css('.card-endorse-item', :count => 1)
         sleep(1)
         expect(card.endorses.reload.count).to eq(1)
+
+        page.find('.remove-endorse').click
+        expect(page).to have_css('.card-endorse-item', :count => 0)
+        sleep(1)
+        expect(card.endorses.reload.count).to eq(0)
       end
 
       scenario 'it can be deleted' do

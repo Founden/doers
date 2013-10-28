@@ -55,7 +55,7 @@ describe Api::V1::TopicsController do
 
       subject(:api_topic) { json_to_ostruct(response.body, :topic) }
 
-      its('keys.size')   { should eq(11) }
+      its('keys.size') { should eq(12) }
       its(:id) { should eq(topic.id) }
       its(:title) { should eq(topic.title) }
       its(:description) { should eq(topic.description) }
@@ -64,6 +64,7 @@ describe Api::V1::TopicsController do
       its(:user_id) { should eq(topic.user.id) }
       its(:board_id) { should eq(topic.board.id) }
       its(:project_id) { should eq(board.project.id) }
+      its(:aligned_card_id) { should be_blank }
       its('cards.size') { should eq(topic.cards.count) }
       its('comment_ids.size') { should eq(topic.comments.count) }
       its('activity_ids.size') { should eq(topic.activities.count) }
@@ -128,7 +129,7 @@ describe Api::V1::TopicsController do
 
       subject(:api_topic) { json_to_ostruct(response.body, :topic) }
 
-      its('keys.size')   { should eq(11) }
+      its('keys.size')   { should eq(12) }
       its(:id)           { should_not be_blank }
       its(:title)        { should eq(topic_attrs[:title]) }
       its(:description)  { should eq(topic_attrs[:description]) }
@@ -139,6 +140,7 @@ describe Api::V1::TopicsController do
       its(:project_id)   { should eq(board.project.id) }
       its(:activity_ids) { should_not be_empty }
       its(:comment_ids)  { should be_empty }
+      its(:aligned_card_id) { should be_blank }
     end
   end
 
@@ -153,24 +155,56 @@ describe Api::V1::TopicsController do
     end
 
     context 'for available topic' do
-      let(:topic) { Fabricate(
-        :topic, :board => board, :project => board.project, :user => user) }
+      let(:topic) { Fabricate(:topic, :board => board,
+        :project => board.project, :user => user) }
       let(:topic_id) { topic.id }
+      let(:card_id) { }
 
-      before { patch(:update, :id => topic_id, :topic => topic_attrs) }
+      before do
+        patch(:update, :id => topic_id,
+              :topic => topic_attrs.merge(:aligned_card_id => card_id))
+      end
 
       subject(:api_topic) { json_to_ostruct(response.body, :topic) }
 
-      its('keys.size')   { should eq(11) }
+      its('keys.size')   { should eq(12) }
       its(:title)        { should eq(topic_attrs[:title]) }
       its(:description)  { should eq(topic_attrs[:description]) }
       its(:position)     { should_not be_nil }
       its(:updated_at)   { should_not be_blank }
       its(:user_id)      { should eq(user.id) }
       its(:board_id)     { should eq(board.id) }
-      its(:project_id)     { should eq(board.project.id) }
+      its(:project_id)   { should eq(board.project.id) }
       its(:activity_ids) { should_not be_empty }
       its(:comment_ids)  { should be_empty }
+      its(:aligned_card_id) { should be_blank }
+
+      context 'alignment toggling generates a proper activity' do
+        let(:card_id) { Fabricate('card/paragraph', :project => topic.project,
+          :board => topic.board, :topic => topic).id }
+
+        its(:aligned_card_id) { should eq(card_id) }
+
+        context 'activity slug' do
+          subject(:topic_activities) { topic.activities.reload.first }
+
+          its(:slug) { should include('-alignment') }
+        end
+
+        context 'also when alignment is toggled back' do
+          let(:topic) { Fabricate(:topic_with_card, :board => board,
+            :project => board.project, :user => user) }
+          let(:card_id) { nil }
+
+          its(:aligned_card_id) { should be_blank }
+
+          context 'activity slug' do
+            subject(:topic_activities) { topic.activities.reload.first }
+
+            its(:slug) { should include('-misalignment') }
+          end
+        end
+      end
     end
   end
 
