@@ -4,7 +4,6 @@ Doers.Card = DS.Model.extend
   title: DS.attr('string')
   content: DS.attr('string')
   type: DS.attr('string')
-  alignment: DS.attr('boolean', default: false)
   updatedAt: DS.attr('date', readOnly: true)
 
   project: DS.belongsTo('project')
@@ -15,6 +14,10 @@ Doers.Card = DS.Model.extend
   endorses: DS.hasMany('endorse', readOnly: true, inverse: 'card', async: true)
 
   isEditing: false
+
+  isAlignedCard: ( ->
+    @get('topic.alignedCard.id') == @get('id')
+  ).property('topic.alignedCard')
 
   isNotEditing: ( ->
     !@get('isEditing')

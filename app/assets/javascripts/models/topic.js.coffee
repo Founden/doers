@@ -7,13 +7,10 @@ Doers.Topic = DS.Model.extend Doers.LastUpdateMixin,
   user: DS.belongsTo('user')
   project: DS.belongsTo('project')
   board: DS.belongsTo('board', inverse: 'topics')
+  alignedCard: DS.belongsTo('card')
   comments: DS.hasMany('comment', inverse:  'topic', readOnly: true, async: true)
   activities: DS.hasMany('activity', inverse: 'topic', readOnly: true, async: true)
   cards: DS.hasMany('card', inverse: 'topic', readOnly: true, async: true, polymorphic: true)
-
-  aligned: ( ->
-    @get('cards').findBy('alignment', true)
-  ).property('cards.@each.alignment')
 
   moveSource: false
   moveTarget: false

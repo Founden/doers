@@ -42,9 +42,7 @@ class Board < ActiveRecord::Base
     return 100 if topics.count < 1
     return 0 if topics.count > 0 and cards.count < 1
 
-    alignments = topics.collect { |t|
-      t.cards.aligned.count > 0 ? 1 : 0
-    }.reduce(&:+)
+    alignments = topics.where.not(:aligned_card_id => nil).count
 
     ( (alignments.to_f / topics.count) * 100 ).to_i
   end
