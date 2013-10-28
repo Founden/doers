@@ -9,6 +9,7 @@ Doers.CardEndorsesComponent = Ember.Component.extend
   actions:
     create: ->
       card = @get('content')
+      topic = @get('content.topic')
       endorse = @get('content.store').createRecord 'endorse',
         project: card.get('project')
         board: card.get('board')
@@ -16,9 +17,13 @@ Doers.CardEndorsesComponent = Ember.Component.extend
         card: card
       endorse.save().then ->
         card.reload()
+        topic.reload()
 
     destroy: ->
       endorse = @get('userEndorse')
+      card = @get('content')
+      topic = @get('content.topic')
       endorse.deleteRecord()
-      endorse.save().then =>
+      endorse.save().then ->
         card.reload()
+        topic.reload()
