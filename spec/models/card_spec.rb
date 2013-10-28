@@ -60,17 +60,4 @@ describe Card do
     end
   end
 
-  context '#aligned scope' do
-    let!(:cards) { 3.times.collect{ Fabricate(:card) } }
-
-    subject { Card.aligned.count }
-
-    it { should eq(0) }
-
-    context 'when there are aligned cards' do
-      before { cards.first.update_attribute(:alignment, true) }
-
-      it { should eq(1) }
-    end
-  end
 end
