@@ -22,7 +22,12 @@ Doers.CardComponent = Ember.Component.extend
 
     toggleAlignment: ->
       card = @get('content')
-      card.toggleProperty('alignment')
-      card.save().then ->
-        card.get('board').reload()
-        card.get('topic').reload()
+      topic = @get('content.topic')
+      if card.get('isAlignedCard')
+        topic.set('alignedCard', null)
+      else
+        topic.set('alignedCard', card)
+
+      topic.save().then ->
+        topic.get('board').reload()
+        topic.reload()

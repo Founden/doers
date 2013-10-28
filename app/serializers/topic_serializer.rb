@@ -5,6 +5,7 @@ class TopicSerializer < ActiveModel::Serializer
   has_one :user, :embed => :id
   has_one :board, :embed => :id
   has_one :project, :embed => :id
+  has_one :aligned_card, :embed => :id
   has_many :comments, :embed => :id
   has_many :activities, :embed => :id
 
