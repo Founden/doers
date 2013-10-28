@@ -11,6 +11,7 @@ class Topic < ActiveRecord::Base
   belongs_to :project
   belongs_to :board
   belongs_to :whiteboard
+  belongs_to :aligned_card, :class_name => Card
   has_many :cards, :dependent => :destroy
   has_many :comments, :dependent => :destroy
   has_many :activities
