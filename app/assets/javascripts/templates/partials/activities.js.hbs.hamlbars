@@ -39,6 +39,12 @@
       {{#if activity.isCardMisaligned}}
       = _('marked this as misaligned')
       {{/if}}
+      {{#if activity.isCardEndorse}}
+      = _('endorses a card')
+      {{/if}}
+      {{#if activity.isCardDisagree}}
+      = _('disagrees a card')
+      {{/if}}
       {{activity.lastUpdate}}.
     {{/if}}
   {{/each}}

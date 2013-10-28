@@ -32,3 +32,10 @@ Doers.Activity = DS.Model.extend Doers.LastUpdateMixin,
     /^update-card-\w+-misalignment$/.test(@get('slug'))
   ).property('slug')
 
+  isCardEndorse: ( ->
+    /create-endorse/.test(@get('slug'))
+  ).property('slug')
+
+  isCardDisagree: ( ->
+    /destroy-endorse/.test(@get('slug'))
+  ).property('slug')
