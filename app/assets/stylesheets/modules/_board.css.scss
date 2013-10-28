@@ -1,14 +1,11 @@
 .board {
-  margin: 20px 30px;
+  border-top: 1px solid $gray-1;
+  padding: 20px 30px 10px 30px;
 }
 
 .board-title {
-  display: block;
-  width: 100%;
-  margin: 0 0 10px 0;
+  @extend .project-title;
   font-size: em(18);
-  font-weight: 400;
-  font-family: $museo;
 }
 
 .board-description {
