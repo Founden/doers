@@ -1,6 +1,6 @@
 .sidebar
   .project{:bind => {:id => 'project.slug'}}
-    {{input type='text' class='project-title' valueBinding='project.title' placeholder='Project name' name='title'}}
+    {{textarea class='project-title' valueBinding='project.title' placeholder='Project name' name='title'}}
     {{textarea class='project-description' valueBinding='project.description' placeholder='Type your project description...' name='description'}}
     {{#if project.isDirty}}
     .project-actions
