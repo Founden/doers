@@ -4,7 +4,7 @@ Doers.CardEndorsesComponent = Ember.Component.extend
 
   userEndorse: ( ->
     @get('content.endorses').findBy('user', @get('user'))
-  ).property('content.endorses.@each')
+  ).property('content.endorses.@each', 'user')
 
   actions:
     create: ->
