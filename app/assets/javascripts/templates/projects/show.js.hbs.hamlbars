@@ -20,7 +20,7 @@
       %span.icon.icon-board
       = _('Create new board')
       {{/linkTo}}
-      {{#view view.deleteButtonView class='button btn-icon remove-project' confirmMessage='Are you shure you want to delete?'}}
+      {{#view view.deleteButtonView class='button btn-icon btn-danger remove-project' confirmMessage='Are you shure you want to delete?'}}
       %span.icon.icon-trash
       {{/view}}
 
