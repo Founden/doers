@@ -33,7 +33,13 @@ class Api::V1::TopicsController < Api::V1::ApplicationController
   def update
     topic = Topic.find_by!(:id => params[:id])
     current_account.can?(:write, topic)
-    topic.update_attributes(topic_params)
+    topic.attributes = topic_params
+    # Generate activities upon (dis)alignment
+    if topic.aligned_card_id_changed?
+      topic.activity_author = current_account
+      topic.activity_postfix = topic.aligned_card ? 'alignment' : 'misalignment'
+    end
+    topic.save
     render :json => topic
   end
 
@@ -59,6 +65,7 @@ class Api::V1::TopicsController < Api::V1::ApplicationController
 
     # Strong parameters for updating a topic
     def topic_params
-      params.require(:topic).permit(:title, :description, :position)
+      params.require(:topic).permit(
+        :title, :description, :position, :aligned_card_id)
     end
 end

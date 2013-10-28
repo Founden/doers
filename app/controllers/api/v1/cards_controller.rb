@@ -41,13 +41,7 @@ class Api::V1::CardsController < Api::V1::ApplicationController
     if klass
       card = klass.find_by!(:id => params[:id])
       current_account.can?(:write, card)
-      # Generate activities upon (dis)alignment
-      card.attributes = card_params.merge(
-        {:user => current_account}).except(:type)
-      if card.alignment_changed?
-        card.activity_postfix = card.alignment ? 'alignment' : 'misalignment'
-      end
-      card.save
+      card.update_attributes(card_params.except(:type))
       render :json => card
     else
       render :nothing => true, :status => 400

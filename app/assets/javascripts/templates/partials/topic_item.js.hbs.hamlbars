@@ -11,8 +11,8 @@
       = _('Cancel')
 {{else}}
 {{#linkTo 'topic' view.content}}
-{{#view classNames='topic-status' classNameBindings='aligned:aligned'}}
-{{#if aligned}}
+{{#view classNames='topic-status' classNameBindings='alignedCard:aligned'}}
+{{#if alignedCard}}
 .icon.icon-checkmark
 {{else}}
 .icon.icon-ellipsis
