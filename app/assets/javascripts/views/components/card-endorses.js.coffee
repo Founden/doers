@@ -1,6 +1,7 @@
 Doers.CardEndorsesComponent = Ember.Component.extend
   classNames: ['card-endorses']
   tagName: ['ul']
+  isOwnerBinding: 'parentView.isOwner'
 
   userEndorse: ( ->
     @get('content.endorses').findBy('user', @get('user'))
