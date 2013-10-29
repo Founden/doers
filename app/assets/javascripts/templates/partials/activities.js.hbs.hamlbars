@@ -40,10 +40,10 @@
       = _('marked this as misaligned')
       {{/if}}
       {{#if activity.isCardEndorse}}
-      = _('endorses a card')
+      = _('endorsed this')
       {{/if}}
       {{#if activity.isCardDisagree}}
-      = _('disagrees a card')
+      = _('disagree on this')
       {{/if}}
       {{activity.lastUpdate}}.
     {{/if}}
