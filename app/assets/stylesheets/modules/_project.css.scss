@@ -23,3 +23,112 @@
 .project-actions {
   margin: 0 0 20px 0;
 }
+
+.project-members {
+  @include clearfix;
+  margin: 20px 30px;
+}
+
+.project-member-item {
+  float: left;
+  position: relative;
+  margin: 0 10px 10px 0;
+
+  &:hover {
+
+    .project-member-image {
+      @include blur(1px);
+    }
+
+    .project-member-tooltip {
+      display: block;
+    }
+  }
+}
+
+.project-member-image {
+  display: block;
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  cursor: pointer;
+}
+
+.project-member-tooltip {
+  position: absolute;
+  left: 100%;
+  top: 0;
+  z-index: 10;
+  padding: 10px 15px;
+  border: 1px solid $gray-1;
+  border-radius: 3px;
+  background: $white;
+  box-shadow: 0 1px 0 $gray-1;
+  display: none;
+
+  &:before {
+    content: '';
+    position: absolute;
+    left: -3px;
+    top: 18px;
+    width: 4px;
+    height: 4px;
+    background: inherit;
+    border-width: 0 0 1px 1px;
+    border-color: $gray-1;
+    border-style: solid;
+    @include transform(rotate(45deg));
+  }
+}
+
+.project-member-name {
+  font-size: em(14);
+  font-weight: 600;
+  color: $gray-5;
+  white-space: nowrap;
+}
+
+.project-member-remove {
+  display: inline-block;
+  font-size: em(12);
+  color: $red;
+  white-space: nowrap;
+}
+
+.project-invitees {
+  margin: 0 30px 20px 30px;
+}
+
+.project-invitee {
+  display: block;
+  border-bottom: 1px solid rgba($black, 0.05);
+  padding: 5px 0;
+  font-size: em(12);
+  color: $gray-5;
+
+  .icon {
+    float: right;
+    color: $gray-2;
+    cursor: pointer;
+  }
+}
+
+.project-invitee-add {
+  margin: 5px 0;
+  display: inline-block;
+  font-size: em(12);
+  color: $green;
+}
+
+.project-invitee-form {
+
+  .button {
+    float: right;
+  }
+}
+
+.project-ivitee-email {
+  font-size: em(14);
+  height: 42px;
+  width: 75%;
+}
