@@ -8,7 +8,9 @@ describe Project do
   it { should have_one(:logo).dependent(:destroy) }
   it { should have_many(:activities).dependent('') }
   it { should have_many(:memberships).dependent(:destroy) }
-  it { should have_many(:members) }
+  it { should have_many(:owner_memberships).dependent(:destroy) }
+  it { should have_many(:members).through(:memberships) }
+  it { should have_many(:owners).through(:owner_memberships) }
   it { should have_many(:invitations).dependent(:destroy) }
   it { should have_many(:topics).dependent('') }
 
@@ -25,6 +27,7 @@ describe Project do
     subject(:project) { Fabricate(:project) }
 
     its(:status) { should eq(Project::STATES.first) }
+    its(:owners) { should include(project.user) }
 
     context 'when imported' do
       subject(:project) { Fabricate(:imported_project) }
