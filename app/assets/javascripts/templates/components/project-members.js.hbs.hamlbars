@@ -1,18 +1,16 @@
 {{#with content}}
-%li.project-member-item
+%li.project-owner
   %img.project-member-image{:bind => {:src => 'user.avatarUrl'}}
   .project-member-tooltip
     .project-member-name
       {{user.nicename}}
 {{#each member in memberships}}
-%li.project-member-item
+%li.project-member
   %img.project-member-image{:bind => {:src => 'member.user.avatarUrl'}}
   .project-member-tooltip
     .project-member-name
       {{member.user.nicename}}
-    {{#if view.isOwner}}
     %a.project-member-remove{:_action => 'destroy member'}
       = _('remove')
-    {{/if}}
 {{/each}}
 {{/with}}
