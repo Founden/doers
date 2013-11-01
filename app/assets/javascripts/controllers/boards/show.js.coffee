@@ -30,6 +30,10 @@ Ember.ArrayController.extend Doers.ControllerAlertMixin,
     saveTopic: (topic) ->
       topic.save().then =>
         @get('board').reload()
+        mixpanel.track 'CREATED',
+          TYPE: 'Topic'
+          ID: topic.get('id')
+          TITLE: topic.get('title')
 
     removeTopic: (topic) ->
       if topic.get('isNew')
@@ -37,3 +41,7 @@ Ember.ArrayController.extend Doers.ControllerAlertMixin,
       else
         topic.deleteRecord()
         topic.save()
+        mixpanel.track 'DELETED',
+          TYPE: 'Topic'
+          ID: topic.get('id')
+          TITLE: topic.get('title')
