@@ -32,7 +32,7 @@ Doers::Application.routes.draw do
       resources(:embeds, :only => [:index])
       resources(:activities, :except => [:create, :update])
       resources(:invitations, :except => [:update])
-      resources(:memberships, :only => [:index, :show, :destroy])
+      resources(:memberships, :only => [:index, :show, :update, :destroy])
       resources(:comments, :except => [:update])
       resources(:topics)
       resources(:endorses, :except => [:update])

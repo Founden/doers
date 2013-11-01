@@ -15,6 +15,17 @@ class Api::V1::MembershipsController < Api::V1::ApplicationController
     render :json => membership
   end
 
+  # Updates a membership
+  def update
+    memb = current_account.accepted_memberships.find_by!(:id => params[:id])
+
+    if memb.update_attributes(membership_params)
+      render :json => memb
+    else
+      render :json => { :errors => memb.errors.messages }, :status => 400
+    end
+  end
+
   # Handles membership deletion
   def destroy
     membership = Membership.find_by(:id => params[:id])
@@ -26,5 +37,14 @@ class Api::V1::MembershipsController < Api::V1::ApplicationController
     else
       render :nothing => true, :status => 400
     end
+  end
+
+  private
+
+  # Allowed membership parameters
+  def membership_params
+    params.require(:membership).permit(
+      :notify_discussions, :notify_collaborations, :notify_boards_topics,
+      :notify_cards_alignments)
   end
 end
