@@ -35,18 +35,9 @@
       {{#linkTo 'boards.show' board.id}}
       .board-item-cover
         %h3.board-item-cover-title
-          {{board.title}}
+          {{{board.title}}}
       .board-item-progress
         {{view Doers.ProgressBar classNames='board-item-progress-bar' widthBinding='board.progress'}}
-      {{#if board.isNew}}
-      .board-item-user
-        %img.board-item-user-image{:bind => {:src => 'board.author.avatarUrl'}}
-        = _('By')
-        {{board.author.nicename}}
-        -# TODO: Add team to boards
-        .board-item-user-company
-          = _('Company name')
-      {{else}}
       .board-item-user
         %img.board-item-user-image{:bind => {:src => 'board.user.avatarUrl'}}
         - # TODO: Add activity icon
@@ -55,6 +46,5 @@
         {{board.lastUpdate}}
         = _('by')
         {{board.user.nicename}}
-      {{/if}}
       {{/linkTo}}
     {{/each}}

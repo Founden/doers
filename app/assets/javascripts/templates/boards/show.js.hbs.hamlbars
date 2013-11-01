@@ -1,7 +1,7 @@
 .sidebar
   .project{:bind => {:id => 'board.project.slug'}}
     {{#linkTo 'projects.show' board.project class='project-title'}}
-    {{board.project.title}}
+    {{{board.project.title}}}
     {{/linkTo}}
   .board{:bind => {:id => 'board.slug'}}
     {{textarea class='board-title' valueBinding='board.title' placeholder='Add board name' name='title'}}

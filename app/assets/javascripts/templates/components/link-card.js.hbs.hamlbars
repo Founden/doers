@@ -17,7 +17,7 @@
     .card-embed
       %img.card-embed-image{:bind => {:src => 'embed.mediaUrl'}}
       .card-embed-title
-        {{embed.title}}
+        {{{embed.title}}}
       .card-embed-author
         = _('By')
         {{embed.authorName}}
