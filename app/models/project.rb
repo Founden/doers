@@ -14,9 +14,12 @@ class Project < ActiveRecord::Base
   has_one :logo, :dependent => :destroy, :class_name => Asset::Logo
   has_many :activities
   has_many :members, :through => :memberships, :source => :user
+  has_many :owners, :through => :owner_memberships, :source => :user
   has_many :invitations, :dependent => :destroy, :as => :invitable
   has_many(
     :memberships, :dependent => :destroy, :class_name => ProjectMembership)
+  has_many(
+    :owner_memberships, :dependent => :destroy, :class_name => OwnerMembership)
   has_many :topics
 
   # Validations
@@ -40,4 +43,7 @@ class Project < ActiveRecord::Base
     self.description = Sanitize.clean(self.description)
   end
   after_commit :generate_activity
+  after_create do
+    self.owner_memberships.create(:creator => self.user, :user => self.user)
+  end
 end

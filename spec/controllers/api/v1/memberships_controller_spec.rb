@@ -25,7 +25,7 @@ describe Api::V1::MembershipsController do
 
       before { get(:index, :ids => memb_ids) }
 
-      its('memberships.size') { should eq(user.memberships.count) }
+      its('memberships.size') { should eq(3) }
     end
 
     context 'for owned memberships' do
