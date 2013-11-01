@@ -2,10 +2,15 @@
 %li.card-endorse-item
   %img{:class => 'card-endorse-image', :bind => {:src => 'endorse.user.avatarUrl'}}
 {{/each}}
+{{#if view.isOwner}}
+%li.card-endorse-item
+  %img{:class => 'card-endorse-image', :bind => {:src => 'user.avatarUrl'}}
+{{else}}
 {{#if view.userEndorse}}
 %li
   .icon.icon-close.remove-endorse{:_action => 'destroy'}
 {{else}}
 %li
   .icon.icon-plus.add-endorse{:_action => 'create'}
+{{/if}}
 {{/if}}

@@ -55,7 +55,7 @@ describe Card do
             card.update_attributes(:position => positions[index]) }
         end
 
-        it { should eq(positions.sort) }
+        it { should eq(positions.sort.reverse) }
       end
     end
   end

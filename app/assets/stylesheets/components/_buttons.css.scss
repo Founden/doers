@@ -33,6 +33,13 @@
     line-height: 26px;
   }
 
+  &.btn-danger {
+
+    &:hover {
+      background: $red;
+    }
+  }
+
   &.btn-icon {
     width: 40px;
     padding: 0;

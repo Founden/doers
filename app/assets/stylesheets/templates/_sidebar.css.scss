@@ -6,7 +6,6 @@
   width: 280px;
   height: 100%;
   padding: 0 0 0 6px;
-  overflow: hidden;
   background: rgba($white, 0.95);
   border-right: 1px solid $gray-1;
   @include transition(left 0.2s $ease-out-expo);
@@ -27,4 +26,15 @@
     width: 720px;
     padding-left: 280px;
   }
+}
+
+.sidebar-title {
+  padding: 0 0 5px 0;
+  border-bottom: 1px solid $gray-1;
+  margin: 0 30px;
+  font-size: em(11);
+  color: $gray-2;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 700;
 }

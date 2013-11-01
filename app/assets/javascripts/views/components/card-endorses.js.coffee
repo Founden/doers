@@ -1,6 +1,7 @@
 Doers.CardEndorsesComponent = Ember.Component.extend
   classNames: ['card-endorses']
   tagName: ['ul']
+  isOwnerBinding: 'parentView.isOwner'
 
   userEndorse: ( ->
     @get('content.endorses').findBy('user', @get('user'))
@@ -18,6 +19,10 @@ Doers.CardEndorsesComponent = Ember.Component.extend
       endorse.save().then ->
         card.reload()
         topic.reload()
+        mixpanel.track 'ENDORSED',
+          TYPE: 'Card'
+          ID: card.get('id')
+          TITLE: card.get('title')
 
     destroy: ->
       endorse = @get('userEndorse')
@@ -27,3 +32,7 @@ Doers.CardEndorsesComponent = Ember.Component.extend
       endorse.save().then ->
         card.reload()
         topic.reload()
+        mixpanel.track 'DISAGREE',
+          TYPE: 'Card'
+          ID: card.get('id')
+          TITLE: card.get('title')

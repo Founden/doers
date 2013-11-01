@@ -16,8 +16,6 @@ Doers::Application.routes.draw do
     patch :waiting
     get :export
     get :download
-    get :promo_code
-    patch :promo_code
   end
 
   namespace :api, :constraints => {:format => :json} do

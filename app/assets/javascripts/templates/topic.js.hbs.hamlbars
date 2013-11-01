@@ -1,17 +1,17 @@
 .sidebar
   .project
     {{#linkTo 'projects.show' board.project class='project-title'}}
-    {{board.project.title}}
+    {{{board.project.title}}}
     {{/linkTo}}
   .board
     {{#linkTo 'boards.show' board class='board-title'}}
-    {{board.title}}
+    {{{board.title}}}
     {{/linkTo}}
   %ul.board-topics
     {{#each topic in board.topics}}
     %li
       {{#linkTo 'topic' topic}}
-      {{topic.title}}
+      {{{topic.title}}}
       {{/linkTo}}
     {{/each}}
   .board-progress-wrap
@@ -28,7 +28,7 @@
     = _('Board')
     {{/linkTo}}
     .header-actions
-      {{#view view.deleteButtonView class='button btn-icon remove-topic' confirmMessage='Are you shure you want to delete?'}}
+      {{#view view.deleteButtonView class='button btn-icon btn-danger remove-topic' confirmMessage='Are you shure you want to delete?'}}
       %span.icon.icon-trash
       {{/view}}
 

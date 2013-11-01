@@ -1,7 +1,7 @@
 .sidebar
   .project{:bind => {:id => 'board.project.slug'}}
     {{#linkTo 'projects.show' board.project class='project-title'}}
-    {{board.project.title}}
+    {{{board.project.title}}}
     {{/linkTo}}
   .board{:bind => {:id => 'board.slug'}}
     {{textarea class='board-title' valueBinding='board.title' placeholder='Add board name' name='title'}}
@@ -25,7 +25,7 @@
     = _('Project')
     {{/linkTo}}
     .header-actions
-      {{#view view.deleteButtonView class='button btn-icon remove-board' confirmMessage='Are you shure you want to delete?'}}
+      {{#view view.deleteButtonView class='button btn-icon btn-danger remove-board' confirmMessage='Are you shure you want to delete?'}}
       %span.icon.icon-trash
       {{/view}}
 

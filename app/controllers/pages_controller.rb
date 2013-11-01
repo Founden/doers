@@ -2,17 +2,10 @@
 class PagesController < ApplicationController
   include EasyAuth::Controllers::Authenticated
 
-  skip_before_filter :require_confirmation, :only => [:waiting, :promo_code]
+  skip_before_filter :require_confirmation, :only => [:waiting]
 
   # Shows main dashboard
   def dashboard
-  end
-
-  # Show this page for unconfirmed users
-  def waiting
-    if params[:user] and current_account.update_attributes(user_params)
-      flash[:success] = _('Your application was updated. Thank you.')
-    end
   end
 
   # Export download page
@@ -27,10 +20,10 @@ class PagesController < ApplicationController
   end
 
   # Show the page for claiming promo codes
-  def promo_code
+  def waiting
     code = params[:user] ? params[:user][:promo_code] : nil
     if code and Doers::Config.promo_codes.include?(code)
-      current_account.update_attributes(:promo_code => code, :confirmed => true)
+      current_account.update_attributes(user_params.merge(:confirmed => true))
       notice = _("Code worked! Please don't forget to leave your feedback.")
       redirect_to root_path, :notice => notice
     else
@@ -43,7 +36,7 @@ class PagesController < ApplicationController
 
   # Allowed params for [User] objects
   def user_params
-    params.require(:user).permit(:interest, :newsletter_allowed)
+    params.require(:user).permit(:interest, :newsletter_allowed, :promo_code)
   end
 
 end
