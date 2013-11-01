@@ -38,7 +38,7 @@
     .project-item{:bind => {:id => 'project.slug'}}
       %h3.project-item-title
         {{#linkTo 'projects.show' project}}
-        {{project.title}}
+        {{{project.title}}}
         {{/linkTo}}
       .project-item-users
         %img.project-item-user-image{:bind => {:src => 'project.user.avatarUrl'}}
@@ -64,7 +64,7 @@
     .project-item{:bind => {:id => 'project.slug'}}
       %h3.project-item-title
         {{#linkTo 'projects.show' project}}
-        {{project.title}}
+        {{{project.title}}}
         {{/linkTo}}
       .project-item-users
         %img.project-item-user-image{:bind => {:src => 'project.user.avatarUrl'}}

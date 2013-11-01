@@ -1,7 +1,7 @@
 .sidebar
   .project
     {{#linkTo 'projects.show' project class='project-title'}}
-    {{project.title}}
+    {{{project.title}}}
     {{/linkTo}}
   .board
     {{textarea class='board-title' valueBinding='content.title' placeholder='Add board name' name='title'}}

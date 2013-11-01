@@ -20,7 +20,7 @@
         {{activity.comment.user.nicename}},
         {{activity.lastUpdate}}
       .activity-comment-content
-        {{activity.comment.content}}
+        {{{activity.comment.content}}}
     {{else}}
     .activity-title
       {{activity.user.nicename}}
