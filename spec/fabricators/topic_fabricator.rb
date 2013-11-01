@@ -15,6 +15,15 @@ Fabricator(:topic_with_card, :from => :topic) do
   end
 end
 
+Fabricator(:topic_with_cards, :from => :topic) do
+  after_create do |topic, trans|
+    Fabricate('card/paragraph',
+      :user => topic.user, :project => topic.project, :board => topic.board, :topic => topic)
+    Fabricate('card/paragraph',
+      :project => topic.project, :board => topic.board, :topic => topic)
+  end
+end
+
 Fabricator(:whiteboard_topic, :from => :topic) do
   user
   whiteboard  { |attrs| Fabricate(:whiteboard, :user => attrs[:user]) }
