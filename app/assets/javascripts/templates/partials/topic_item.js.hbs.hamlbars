@@ -20,7 +20,7 @@
 {{/view}}
 .topic-content
   .topic-title
-    {{title}}
+    {{{title}}}
 .topic-user
   %img.topic-user-image{:bind => {:src => 'user.avatarUrl'}}
   = _('Updated')

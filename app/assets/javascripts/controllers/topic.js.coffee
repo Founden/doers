@@ -8,7 +8,11 @@ Ember.ObjectController.extend Doers.ControllerAlertMixin,
     save: ->
       topic = @get('content')
       if topic.get('title')
-        topic.save()
+        topic.save().then =>
+          mixpanel.track 'UPDATED',
+            TYPE: 'Topic'
+            ID: topic.get('id')
+            TITLE: topic.get('title')
 
     destroy: ->
       topic = @get('content')
@@ -34,6 +38,10 @@ Ember.ObjectController.extend Doers.ControllerAlertMixin,
         comment.save().then =>
           @set('commentContent', '')
           @get('content').reload()
+          mixpanel.track 'CREATED',
+            TYPE: 'Comment'
+            ID: comment.get('id')
+            CONTENT: comment.get('content')
 
     resetComment: ->
       @set('commentContent', '')

@@ -1,3 +1,4 @@
+{{#if view.isOwner}}
 .card-actions
   {{#if isEditing}}
   %a.save-card{:_action => 'save'}
@@ -8,3 +9,4 @@
   {{/if}}
   %a.delete-card{:_action => 'destroy'}
     %span.icon.icon-trash
+{{/if}}
