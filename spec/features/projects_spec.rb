@@ -8,7 +8,7 @@ feature 'Projects', :js, :slow do
   end
 
   context 'creation screen' do
-    given(:attrs) { Fabricate.attributes_for(:project) }
+    given(:attrs) { Fabricate.to_params(:project) }
 
     background do
       visit root_path(:anchor => '/projects/new')

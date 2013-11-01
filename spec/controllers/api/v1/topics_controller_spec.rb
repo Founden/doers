@@ -77,7 +77,7 @@ describe Api::V1::TopicsController do
     context 'with wrong parameters' do
       context 'on title' do
         let(:topic_attrs) {
-          Fabricate.attributes_for(:topic, :user => user, :title => '') }
+          Fabricate.to_params(:topic, :user => user, :title => '') }
 
         before { post(:create, :topic => topic_attrs) }
 
@@ -87,7 +87,7 @@ describe Api::V1::TopicsController do
 
       context 'on board' do
         let(:topic_attrs) {
-          Fabricate.attributes_for(:topic, :user => user, :board => nil) }
+          Fabricate.to_params(:topic, :user => user, :board => nil) }
 
         it 'raises not found' do
           expect{ post(:create, :topic => topic_attrs) }.to raise_error(
@@ -97,7 +97,7 @@ describe Api::V1::TopicsController do
 
       context 'on board with no project' do
         let(:topic_attrs) {
-          Fabricate.attributes_for(:topic, :user => user) }
+          Fabricate.to_params(:topic, :user => user) }
 
         before do
           post(:create, :topic => topic_attrs.except(:project_id))
@@ -110,7 +110,7 @@ describe Api::V1::TopicsController do
 
       context 'on a not owned board' do
         let(:topic_attrs) do
-          Fabricate.attributes_for(
+          Fabricate.to_params(
             :topic, :user => user, :board => Fabricate(:board))
         end
 
@@ -122,7 +122,7 @@ describe Api::V1::TopicsController do
     end
 
     context 'with valid parameters' do
-      let(:topic_attrs) { Fabricate.attributes_for(
+      let(:topic_attrs) { Fabricate.to_params(
         :topic, :user => user, :board => board, :project => board.project) }
 
       before { post(:create, :topic => topic_attrs) }
@@ -145,7 +145,7 @@ describe Api::V1::TopicsController do
   end
 
   describe '#update' do
-    let(:topic_attrs) { Fabricate.attributes_for(:topic) }
+    let(:topic_attrs) { Fabricate.to_params(:topic) }
     let(:topic_id) { rand(99..999) }
 
     it 'does nothing to a not owned topic' do

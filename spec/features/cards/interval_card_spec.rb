@@ -27,7 +27,7 @@ feature 'Interval', :js, :slow, :pending do
     end
 
     context 'when clicked' do
-      let(:card_attrs) { Fabricate.attributes_for('card/interval') }
+      let(:card_attrs) { Fabricate.to_params('card/interval') }
 
       background do
         page.find('.card-%d' % card.id).click

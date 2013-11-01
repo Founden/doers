@@ -197,7 +197,7 @@ describe Api::V1::CardsController do
 
     context 'with wrong parameters' do
       context 'on type' do
-        let(:card_attrs) { Fabricate.attributes_for(
+        let(:card_attrs) { Fabricate.to_params(
           'card/phrase', :user => user) }
 
         its('response.status') { should eq(400) }
@@ -205,7 +205,7 @@ describe Api::V1::CardsController do
       end
 
       context 'on attributes' do
-        let(:card_attrs) { Fabricate.attributes_for(
+        let(:card_attrs) { Fabricate.to_params(
           'card/phrase', :user => user, :type => 'Phrase', :topic => nil) }
 
         its('response.status') { should eq(400) }
@@ -214,7 +214,7 @@ describe Api::V1::CardsController do
 
       context 'on a not owned board_id' do
         let(:card_attrs) do
-          Fabricate.attributes_for('card/phrase', :user => user,
+          Fabricate.to_params('card/phrase', :user => user,
             :type => 'Phrase', :board => Fabricate(:board))
         end
 
@@ -224,7 +224,7 @@ describe Api::V1::CardsController do
     end
 
     context 'with valid parameters' do
-      let(:card_attrs) { Fabricate.attributes_for(
+      let(:card_attrs) { Fabricate.to_params(
         'card/phrase', :user => user, :board => board, :type => 'Phrase') }
 
       subject(:api_card) { json_to_ostruct(response.body, :phrase) }
@@ -270,7 +270,7 @@ describe Api::V1::CardsController do
       subject(:api_card) { json_to_ostruct(response.body, json_root) }
 
       context 'some attributes do not change' do
-        let(:card_attrs) { Fabricate.attributes_for('card/phrase') }
+        let(:card_attrs) { Fabricate.to_params('card/phrase') }
         let(:card) { Fabricate(
           'card/phrase', :project => project, :board => board, :user => user) }
 
@@ -281,7 +281,7 @@ describe Api::V1::CardsController do
       end
 
       context 'user is updated to latest user who did changes' do
-        let(:card_attrs) { Fabricate.attributes_for('card/phrase') }
+        let(:card_attrs) { Fabricate.to_params('card/phrase') }
         let(:card) { Fabricate(
           'card/phrase', :project => project, :board => board, :user => user) }
 
@@ -290,7 +290,7 @@ describe Api::V1::CardsController do
       end
 
       context 'phrase card' do
-        let(:card_attrs) { Fabricate.attributes_for('card/phrase') }
+        let(:card_attrs) { Fabricate.to_params('card/phrase') }
         let(:card) { Fabricate(
           'card/phrase', :project => project, :board => board, :user => user) }
 
@@ -303,7 +303,7 @@ describe Api::V1::CardsController do
         let(:json_root) { :paragraph }
         let(:card) { Fabricate('card/paragraph',
           :project => project, :board => board, :user => user) }
-        let(:card_attrs) { Fabricate.attributes_for('card/paragraph') }
+        let(:card_attrs) { Fabricate.to_params('card/paragraph') }
 
         its('keys.size') { should eq(14) }
         its(:title) { should eq(card_attrs['title']) }
@@ -314,7 +314,7 @@ describe Api::V1::CardsController do
         let(:json_root) { :number }
         let(:card) { Fabricate(
           'card/number', :project => project, :board => board, :user => user) }
-        let(:card_attrs) { Fabricate.attributes_for('card/number') }
+        let(:card_attrs) { Fabricate.to_params('card/number') }
 
         its('keys.size') { should eq(15) }
         its(:title) { should eq(card_attrs['title']) }
@@ -326,7 +326,7 @@ describe Api::V1::CardsController do
         let(:json_root) { :timestamp }
         let(:card) { Fabricate('card/timestamp',
           :project => project, :board => board, :user => user) }
-        let(:card_attrs) { Fabricate.attributes_for('card/timestamp') }
+        let(:card_attrs) { Fabricate.to_params('card/timestamp') }
 
         its('keys.size') { should eq(14) }
         its(:title) { should eq(card_attrs['title']) }
@@ -337,7 +337,7 @@ describe Api::V1::CardsController do
         let(:json_root) { :interval }
         let(:card) { Fabricate(
           'card/interval', :project => project, :board => board, :user => user)}
-        let(:card_attrs) { Fabricate.attributes_for('card/interval') }
+        let(:card_attrs) { Fabricate.to_params('card/interval') }
 
         its('keys.size') { should eq(17) }
         its(:title) { should eq(card_attrs['title']) }
@@ -350,7 +350,7 @@ describe Api::V1::CardsController do
         let(:json_root) { :photo }
         let(:card) { Fabricate(
           'card/photo', :project => project, :board => board, :user => user) }
-        let(:card_attrs) { Fabricate.attributes_for('card/photo') }
+        let(:card_attrs) { Fabricate.to_params('card/photo') }
 
         its('keys.size') { should eq(15) }
         its(:title) { should eq(card_attrs['title']) }
@@ -363,7 +363,7 @@ describe Api::V1::CardsController do
         let(:json_root) { :video }
         let(:card) { Fabricate(
           'card/video', :project => project, :board => board, :user => user) }
-        let(:card_attrs) { Fabricate.attributes_for('card/video') }
+        let(:card_attrs) { Fabricate.to_params('card/video') }
 
         its('keys.size') { should eq(17) }
         its(:title) { should eq(card_attrs['title']) }
@@ -377,7 +377,7 @@ describe Api::V1::CardsController do
         let(:json_root) { :link }
         let(:card) { Fabricate(
           'card/link', :project => project, :board => board, :user => user) }
-        let(:card_attrs) { Fabricate.attributes_for('card/link') }
+        let(:card_attrs) { Fabricate.to_params('card/link') }
 
         its('keys.size') { should eq(15) }
         its(:title) { should eq(card_attrs['title']) }
@@ -389,7 +389,7 @@ describe Api::V1::CardsController do
         let(:json_root) { :map }
         let(:card) { Fabricate(
           'card/map', :project => project, :board => board, :user => user) }
-        let(:card_attrs) { Fabricate.attributes_for('card/map') }
+        let(:card_attrs) { Fabricate.to_params('card/map') }
 
         its('keys.size') { should eq(16) }
         its(:title) { should eq(card_attrs['title']) }
@@ -402,7 +402,7 @@ describe Api::V1::CardsController do
         let(:json_root) { :list }
         let(:card) { Fabricate(
           'card/list', :project => project, :board => board, :user => user) }
-        let(:card_attrs) { Fabricate.attributes_for('card/list') }
+        let(:card_attrs) { Fabricate.to_params('card/list') }
 
         its('keys.size') { should eq(15) }
         its('items.size') { should eq(card.reload.items.size) }

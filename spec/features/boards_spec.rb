@@ -42,7 +42,7 @@ feature 'Boards', :js, :slow do
   context 'creation screen' do
     given(:user) { User.first }
     given(:project) { Fabricate(:project, :user => user) }
-    given(:attrs) { Fabricate.attributes_for(:board) }
+    given(:attrs) { Fabricate.to_params(:board) }
 
     background do
       visit root_path(:anchor => '/projects/%d/add-board' % project.id)
