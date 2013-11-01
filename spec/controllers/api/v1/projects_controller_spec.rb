@@ -72,7 +72,7 @@ describe Api::V1::ProjectsController do
   end
 
   describe '#create' do
-    let(:prj_attrs) { Fabricate.attributes_for(:project) }
+    let(:prj_attrs) { Fabricate.to_params(:project) }
     before { post(:create, :project => prj_attrs) }
 
     subject(:api_project) { json_to_ostruct(response.body, :project) }
@@ -99,7 +99,7 @@ describe Api::V1::ProjectsController do
   describe '#update' do
     let(:prj) { Fabricate(:project, :user => user) }
     let(:prj_attrs) do
-      Fabricate.attributes_for(:project, :status => Project::STATES.last)
+      Fabricate.to_params(:project, :status => Project::STATES.last)
     end
 
     before { post(:update, :id => prj.id, :project => prj_attrs) }

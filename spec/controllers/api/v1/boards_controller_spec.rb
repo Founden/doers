@@ -76,7 +76,7 @@ describe Api::V1::BoardsController do
   describe '#create' do
     let(:project) { Fabricate(:project, :user => user) }
     let(:title) { Faker::Lorem.sentence }
-    let(:attrs) { Fabricate.attributes_for(:board,
+    let(:attrs) { Fabricate.to_params(:board,
       :project => project, :user => user, :title=>title) }
 
     context 'when project is available' do
@@ -115,7 +115,7 @@ describe Api::V1::BoardsController do
 
   describe '#update' do
     let(:board) { Fabricate(:board, :user => user) }
-    let(:board_attrs) { Fabricate.attributes_for(:board) }
+    let(:board_attrs) { Fabricate.to_params(:board) }
     let(:board_id) { board.id }
 
     before { patch(:update, :board => board_attrs, :id => board_id) }
@@ -130,7 +130,7 @@ describe Api::V1::BoardsController do
     its(:progress) { should eq(0) }
 
     context 'ignores wrong attributes' do
-      let(:board_attrs) { Fabricate.attributes_for(:board) }
+      let(:board_attrs) { Fabricate.to_params(:board) }
 
       its('keys.size') { should eq(14) }
       its(:title) { should eq(board_attrs['title']) }

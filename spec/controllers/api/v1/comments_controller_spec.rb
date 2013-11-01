@@ -87,7 +87,7 @@ describe Api::V1::CommentsController do
 
   describe '#create' do
     let(:comment_attrs) do
-      Fabricate.attributes_for(
+      Fabricate.to_params(
         :topic_comment_with_parent_and_card, :user => user)
     end
     let(:comment) { user.comments.first }
@@ -117,7 +117,7 @@ describe Api::V1::CommentsController do
         let(:card) { Fabricate(
           :card, :board => board, :project => board.project) }
         let(:comment_attrs) do
-          Fabricate.attributes_for(:comment, :board => board,
+          Fabricate.to_params(:comment, :board => board,
           :project => board.project, :user => user, :card => card)
         end
 
@@ -132,7 +132,7 @@ describe Api::V1::CommentsController do
 
       context 'when content is blank' do
         let(:comment_attrs) do
-          Fabricate.attributes_for(
+          Fabricate.to_params(
             :topic_comment_with_parent_and_card, :user => user, :content => nil)
         end
 
@@ -149,7 +149,7 @@ describe Api::V1::CommentsController do
         Fabricate(:board, :project => project, :user => project.user)
       end
       let(:comment_attrs) do
-        Fabricate.attributes_for(:comment, :board => board,
+        Fabricate.to_params(:comment, :board => board,
           :project => board.project, :user => user, :card => nil)
       end
 

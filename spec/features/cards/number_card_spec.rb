@@ -26,7 +26,7 @@ feature 'Number', :js, :slow, :pending do
     end
 
     context 'when clicked' do
-      let(:card_attrs) { Fabricate.attributes_for('card/number') }
+      let(:card_attrs) { Fabricate.to_params('card/number') }
 
       background do
         page.find('.card-%d' % card.id).click

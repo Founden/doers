@@ -54,7 +54,7 @@ describe Api::V1::WhiteboardsController do
   end
 
   context '#create' do
-    let(:attrs) { Fabricate.attributes_for(:whiteboard) }
+    let(:attrs) { Fabricate.to_params(:whiteboard) }
 
     subject(:api_whiteboard) { json_to_ostruct(response.body, :whiteboard) }
 
@@ -114,7 +114,7 @@ describe Api::V1::WhiteboardsController do
 
   context '#update' do
     let(:whiteboard_id) { whiteboard.id }
-    let(:attrs) { Fabricate.attributes_for(:whiteboard) }
+    let(:attrs) { Fabricate.to_params(:whiteboard) }
 
     subject(:api_whiteboard) { json_to_ostruct(response.body, :whiteboard) }
 
