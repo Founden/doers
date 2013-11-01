@@ -23,7 +23,7 @@ class PagesController < ApplicationController
   def waiting
     code = params[:user] ? params[:user][:promo_code] : nil
     if code and Doers::Config.promo_codes.include?(code)
-      current_account.update_attributes(:promo_code => code, :confirmed => true)
+      current_account.update_attributes(user_params.merge(:confirmed => true))
       notice = _("Code worked! Please don't forget to leave your feedback.")
       redirect_to root_path, :notice => notice
     else
@@ -36,7 +36,7 @@ class PagesController < ApplicationController
 
   # Allowed params for [User] objects
   def user_params
-    params.require(:user).permit(:interest, :newsletter_allowed)
+    params.require(:user).permit(:interest, :newsletter_allowed, :promo_code)
   end
 
 end

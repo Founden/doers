@@ -9,7 +9,17 @@
       = _('If you got an email with such a promo code, you can claim it below:')
 
     = form_for(current_account, :url => waiting_pages_path) do |f|
-      = f.text_field :promo_code, :placeholder => _('Promo code goes here...')
-      = f.button :class => 'button' do
-        %span.icon.icon-checkmark
-        = _('Claim')
+      %p
+        = f.text_field :promo_code, :placeholder => _('Promo code goes here...')
+      %p
+        = _('We are looking to have a diverse group of beta customers.')
+        = _('So in order to facilitate for us the process, please choose your status below:')
+      %p
+        = f.select :interest, User::INTERESTS
+      %p
+        = f.check_box :newsletter_allowed?
+        = f.label :newsletter_allowed, _('Please email me news sometimes.')
+      %p
+        = f.button :class => 'button' do
+          %span.icon.icon-checkmark
+          = _('Claim')
