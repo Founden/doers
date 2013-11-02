@@ -1,5 +1,8 @@
 # DOERS [Activity] class
 class Activity < ActiveRecord::Base
+  # Include [Activity] notifications
+  include Activity::Notify
+
   # Some dynamic attributes
   store_accessor :data, :user_name, :project_title, :board_title
   store_accessor :data, :card_title, :topic_title, :invitation_email

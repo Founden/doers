@@ -6,7 +6,10 @@ class User < ActiveRecord::Base
   include EasyAuth::Models::Account
   # Include [Activity] generations support
   include Activity::Support
+  # Include [Activity] listening support
+  include Activity::Listen
 
+  # Possible user interests
   INTERESTS = {
     _('Founder') => 'founder',
     _('Investor') => 'investor',
