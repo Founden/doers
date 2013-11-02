@@ -6,6 +6,7 @@ module Activity::Support
   included do
     # Activity slug postfix to be appended
     attr_accessor :activity_postfix
+    # Activity author to be used
     attr_accessor :activity_author
   end
 
