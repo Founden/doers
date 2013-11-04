@@ -1,7 +1,7 @@
 .sidebar
   .project{:bind => {:id => 'project.slug'}}
-    {{textarea class='project-title' valueBinding='project.title' placeholder='Project name' name='title'}}
-    {{textarea class='project-description' valueBinding='project.description' placeholder='Type your project description...' name='description'}}
+    {{textarea class='project-title' valueBinding='project.title' placeholder='Project name' name='title' disabledBinding='isNotOwner'}}
+    {{textarea class='project-description' valueBinding='project.description' placeholder='Type your project description...' name='description'  disabledBinding='isNotOwner'}}
     {{#if project.isDirty}}
     .project-actions
       %button.button.btn-small{:_action => 'update'}
