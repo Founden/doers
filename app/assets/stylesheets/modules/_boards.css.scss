@@ -5,10 +5,6 @@
 
 .board-item {
   @include box-sizing(border-box);
-  position: relative;
-  overflow: hidden;
-  left: auto;
-  top: auto;
   float: left;
   width: 224px;
   margin: 0 24px 24px 0;
