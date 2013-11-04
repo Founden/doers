@@ -35,17 +35,18 @@
     {{#each board in content}}
     .board-item{:bind => {:id => 'board.slug'}}
       {{#linkTo 'boards.show' board.id}}
-      .board-item-cover
-        %h3.board-item-cover-title
+      .board-item-content
+        {{#view classNames='board-item-icon' classNameBindings='board.aligned'}}
+        .board-item-progress
+          {{view Doers.ProgressBar classNames='board-item-progress-bar' widthBinding='board.progress'}}
+        {{/view}}
+        %h3.board-item-title
           {{{board.title}}}
-      .board-item-progress
-        {{view Doers.ProgressBar classNames='board-item-progress-bar' widthBinding='board.progress'}}
       .board-item-user
         %img.board-item-user-image{:bind => {:src => 'board.user.avatarUrl'}}
-        - # TODO: Add activity icon
-        / %span.icon.icon-comment
         = _('Updated')
         {{board.lastUpdate}}
+        %br/
         = _('by')
         {{board.user.nicename}}
       {{/linkTo}}
