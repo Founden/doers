@@ -4,7 +4,13 @@ class Membership < ActiveRecord::Base
   include Activity::Support
 
   # Available values for `notify_*` attributes
-  TIMING = ['now', 'asap', 'daily', 'weekly']
+  TIMING = {
+    _('Immediately')         => 'now',
+    _('As soon as possible') => 'asap',
+    _('Daily')               => 'daily',
+    _('Weekly')              => 'weekly',
+    _('Never')               => false
+  }
 
   store_accessor :data, :notify_discussions, :notify_collaborations
   store_accessor :data, :notify_boards_topics, :notify_cards_alignments
@@ -20,18 +26,18 @@ class Membership < ActiveRecord::Base
 
   # Validations
   validates_presence_of :user, :creator
-  validates_inclusion_of :notify_discussions, :in => TIMING
-  validates_inclusion_of :notify_collaborations, :in => TIMING
-  validates_inclusion_of :notify_boards_topics, :in => TIMING
-  validates_inclusion_of :notify_cards_alignments, :in => TIMING
+  validates_inclusion_of :notify_discussions, :in => TIMING.values
+  validates_inclusion_of :notify_collaborations, :in => TIMING.values
+  validates_inclusion_of :notify_boards_topics, :in => TIMING.values
+  validates_inclusion_of :notify_cards_alignments, :in => TIMING.values
 
   # Callbacks
   after_commit :notify_member, :on => :create
   after_initialize do
-    self.notify_discussions ||= TIMING.first
-    self.notify_collaborations ||= TIMING.first
-    self.notify_boards_topics ||= TIMING.first
-    self.notify_cards_alignments ||= TIMING.first
+    self.notify_discussions ||= TIMING.values.first
+    self.notify_collaborations ||= TIMING.values.first
+    self.notify_boards_topics ||= TIMING.values.first
+    self.notify_cards_alignments ||= TIMING.values.first
   end
 
   private
