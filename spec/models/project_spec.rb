@@ -13,6 +13,8 @@ describe Project do
   it { should have_many(:owners).through(:owner_memberships) }
   it { should have_many(:invitations).dependent(:destroy) }
   it { should have_many(:topics).dependent('') }
+  it { should have_many(:collaborators).through(:collaborations) }
+  it { should have_many(:collaborations).dependent('') }
 
   it { should validate_presence_of(:user) }
   it { should validate_presence_of(:title) }

@@ -21,6 +21,8 @@ class Project < ActiveRecord::Base
   has_many(
     :owner_memberships, :dependent => :destroy, :class_name => OwnerMembership)
   has_many :topics
+  has_many(:collaborations, :class_name => Membership)
+  has_many(:collaborators, :through => :collaborations, :source => :user)
 
   # Validations
   validates :user, :presence => true
