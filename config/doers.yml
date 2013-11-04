@@ -11,6 +11,9 @@ defaults: &defaults
   admin_regex: !ruby/regexp '/geekcelerator\.com/i'
   external_types:
     - angel_list
+  notifications:
+    asap: <%= 5.minutes %>
+    offset: <%= 1.minutes %>
   aws:
     s3:
       protocol: 'https'
