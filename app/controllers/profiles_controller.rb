@@ -33,7 +33,7 @@ class ProfilesController < ApplicationController
     if @profile.update_attributes(user_params.except(:avatar))
       flash[:success] = _('Profile updated.')
     end
-    render :show
+    render :mine
   end
 
   private
