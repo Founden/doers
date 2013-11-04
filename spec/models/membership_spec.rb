@@ -11,7 +11,7 @@ describe Membership do
   it { should validate_presence_of(:user) }
   it { should have_many(:delayed_jobs).dependent(:destroy) }
 
-  Membership::TIMING.each do |timing|
+  Membership::TIMING.values.each do |timing|
     it { should allow_value(timing).for(:notify_discussions) }
     it { should allow_value(timing).for(:notify_collaborations) }
     it { should allow_value(timing).for(:notify_boards_topics) }
@@ -28,10 +28,10 @@ describe Membership do
   context 'instance' do
     subject { Membership.new }
 
-    its(:notify_discussions) { should eq(Membership::TIMING.first) }
-    its(:notify_collaborations) { should eq(Membership::TIMING.first) }
-    its(:notify_boards_topics) { should eq(Membership::TIMING.first) }
-    its(:notify_cards_alignments) { should eq(Membership::TIMING.first) }
+    its(:notify_discussions) { should eq(Membership::TIMING.values.first) }
+    its(:notify_collaborations) { should eq(Membership::TIMING.values.first) }
+    its(:notify_boards_topics) { should eq(Membership::TIMING.values.first) }
+    its(:notify_cards_alignments) { should eq(Membership::TIMING.values.first) }
   end
 
   context 'invitation' do
