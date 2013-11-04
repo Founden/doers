@@ -31,4 +31,67 @@ class Activity < ActiveRecord::Base
     self.topic_title = self.topic.title if self.topic
     self.card_title = self.card.title if self.card
   end
+  after_commit :notify_project_collaborators, :on => :create
+
+
+  private
+
+  # If there's a project and it has collaborators, queue notifications
+  def notify_project_collaborators
+    if self.project and self.project.collaborators.count > 1
+      self.project.collaborators.each do |collab|
+        notify_project_collaborator(collab)
+      end
+    end
+  end
+
+  def notify_project_collaborator(collab)
+    timing = notification_to_run_at(collab)
+    return unless timing
+
+    timing_type = collab.attributes[queue_type]
+
+    if job = collab.jobs.find_by(:queue => queue_type)
+      offset = job.run_at.to_i - self.created_at.to_i
+      maximum_offset = Doers::Config.notifications.offset
+      asap_type = Membership::TIMING.values.first
+
+      if offset < maximum_offset and timing_type.eq?(asap_type)
+        job.update_attribute(:run_at, timing)
+      end
+    else
+      NotificationsMailer.delay(
+        :queue => queue_type, :run_at => timing, :membership => collab).
+        send(:queue_type, collab)
+    end
+  end
+
+  def notification_to_run_at(collab)
+    timing = collab.attributes[queue_type]
+    case timing
+    when 'now'
+      1
+    when 'asap'
+      DateTime.now + Doers::Config.notifications.asap
+    when 'daily'
+      DateTime.now.at_end_of_day
+    when 'weekly'
+      DateTime.now.at_end_of_week
+    else
+      false
+    end
+  end
+
+  def queue_type
+    case self.slug
+    when /comment|endorse/
+      'notify_discussions'
+    when /membership|invitation/
+      'notify_collaborations'
+    when /card|alignment/
+      'notify_cards_alignments'
+    when /board|topic/
+      'notify_boards_topics'
+    end
+  end
 end
