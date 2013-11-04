@@ -50,19 +50,21 @@ class Activity < ActiveRecord::Base
     return unless timing
 
     timing_type = collab.attributes[queue_type]
+    now_type = Membership::TIMING.values.first
+    asap_type = Membership::TIMING.values[1]
+    maximum_offset = Doers::Config.notifications.offset
+    job = collab.jobs.find_by(:queue => queue_type)
 
-    if job = collab.jobs.find_by(:queue => queue_type)
-      offset = job.run_at.to_i - self.created_at.to_i
-      maximum_offset = Doers::Config.notifications.offset
-      asap_type = Membership::TIMING.values.first
-
-      if offset < maximum_offset and timing_type.eq?(asap_type)
-        job.update_attribute(:run_at, timing)
-      end
-    else
-      NotificationsMailer.delay(
+    if is_now = timing_type.eq?(now_type) or !job
+      return NotificationsMailer.delay(
         :queue => queue_type, :run_at => timing, :membership => collab).
-        send(:queue_type, collab)
+        send(queue_type, collab, self, :just_this => is_now)
+    end
+
+    # If there's already a job, check if it doesn't need rescheduling
+    offset = job.run_at.to_i - self.created_at.to_i
+    if offset < maximum_offset and timing_type.eq?(asap_type)
+      job.update_attribute(:run_at, timing)
     end
   end
 
