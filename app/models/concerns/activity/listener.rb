@@ -1,10 +1,10 @@
 # Support for [Activity] listening
-module Activity::Listen
+module Activity::Listener
   # Support for concerns
   extend ActiveSupport::Concern
 
   # Listens to the channel for notifications and yields if any
-  def on_notification
+  def on_notifications
     self.class.connection.execute('LISTEN %s' % channel)
     loop do
       self.class.connection.raw_connection.wait_for_notify do |ev, pid, payload|

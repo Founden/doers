@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   # Include [Activity] generations support
   include Activity::Support
   # Include [Activity] listening support
-  include Activity::Listen
+  include Activity::Listener
 
   # Possible user interests
   INTERESTS = {

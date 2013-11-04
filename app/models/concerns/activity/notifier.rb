@@ -1,5 +1,5 @@
 # Support for [Activity] notifications
-module Activity::Notify
+module Activity::Notifier
   # Support for concerns
   extend ActiveSupport::Concern
 
@@ -26,9 +26,7 @@ module Activity::Notify
   # @return Array with string values of form `['user_ID']`
   def channels
     if self.respond_to?(:project) and self.project
-      (self.project.members + self.project.owners).compact.map do |member|
-        'user_%d' % member.id
-      end
+      self.project.collaborators.map { |collab| 'user_%d' % collab.id }
     else
       []
     end
