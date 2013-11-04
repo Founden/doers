@@ -10,9 +10,11 @@
   .sidebar-title
     = _('Members on this proejct')
   {{project-members contentBinding='project' userBinding='currentUser'}}
+  {{#if isOwner}}
   .sidebar-title
     = _('Pendding invites')
   {{project-invitees contentBinding='project'}}
+  {{/if}}
 
 .wrapper
   .header
