@@ -47,7 +47,7 @@ describe Card do
     context '#all' do
       subject { Card.all.map(&:id) }
 
-      it { should eq(ids) }
+      it { should eq(ids.sort) }
     end
   end
 
