@@ -5,7 +5,7 @@
     .project-member-name
       {{user.nicename}}
 {{#each member in memberships}}
-{{#view view.memberView contentBinding=member}}
+{{#view view.memberView contentBinding='member'}}
 %li.project-member
   %img.project-member-image{:bind => {:src => 'member.user.avatarUrl'}}
   .project-member-tooltip
