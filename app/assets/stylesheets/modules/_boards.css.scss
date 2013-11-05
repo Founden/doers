@@ -4,9 +4,12 @@
 }
 
 .board-item {
-  display: table;
-  width: 100%;
   border-bottom: 1px solid rgba($black, 0.05);
+
+  > a {
+    display: table;
+    width: 100%;
+  }
 }
 
 .board-item-content {
