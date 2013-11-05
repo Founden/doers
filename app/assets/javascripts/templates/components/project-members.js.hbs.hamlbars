@@ -5,12 +5,20 @@
     .project-member-name
       {{user.nicename}}
 {{#each member in memberships}}
+{{#view view.memberView contentBinding='member'}}
 %li.project-member
   %img.project-member-image{:bind => {:src => 'member.user.avatarUrl'}}
   .project-member-tooltip
     .project-member-name
       {{member.user.nicename}}
+    {{#if view.canRemove}}
     %a.project-member-remove{:_action => 'destroy member'}
+      {{#if isCurrentUser}}
+      = _('remove me')
+      {{else}}
       = _('remove')
+      {{/if}}
+    {{/if}}
+{{/view}}
 {{/each}}
 {{/with}}

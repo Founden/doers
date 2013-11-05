@@ -40,23 +40,14 @@ describe Card do
     end
   end
 
-  context 'order defaults to Card#position' do
+  context 'order defaults to Card#id' do
     let!(:cards) { 3.times.collect{ Fabricate(:card) } }
-    let(:positions) { cards.count.times.collect{ rand(10..100) } }
+    let(:ids) { cards.map(&:id) }
 
     context '#all' do
-      subject { Card.all.map(&:position) }
+      subject { Card.all.map(&:id) }
 
-      it { should eq(Array.new(cards.count){ 0 }) }
-
-      context 'after positions are updated' do
-        before do
-          cards.each_with_index { |card, index|
-            card.update_attributes(:position => positions[index]) }
-        end
-
-        it { should eq(positions.sort.reverse) }
-      end
+      it { should eq(ids.sort) }
     end
   end
 

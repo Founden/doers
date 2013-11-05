@@ -18,6 +18,10 @@ Doers.Board = DS.Model.extend Doers.LastUpdateMixin,
     'board-' + @get('id')
   ).property('id')
 
+  aligned: (->
+    @get('progress') == 100
+  ).property('progress')
+
   topicsOrderChanged: ->
     topics = @get('topics')
     source = topics.filterProperty('moveSource', true).get('firstObject')

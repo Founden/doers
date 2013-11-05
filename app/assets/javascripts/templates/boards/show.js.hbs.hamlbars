@@ -33,5 +33,5 @@
     {{each arrangedContent itemViewClass='view.topicItemView'}}
 
   .context-button.add-topic{:_action => 'addTopic'}
-    .icon.icon-plus
+    .icon.icon-topic
     = _('Add new topic')

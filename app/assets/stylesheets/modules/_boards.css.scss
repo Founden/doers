@@ -1,43 +1,45 @@
 .board-list {
-  @include clearfix;
   margin: 30px 0;
+  border-top: 1px solid $gray-1;
 }
 
 .board-item {
+  display: table;
+  width: 100%;
+  border-bottom: 1px solid rgba($black, 0.05);
+}
+
+.board-item-content {
+  display: table-cell;
+  vertical-align: middle;
+  padding: 20px 0;
+}
+
+.board-item-title {
+  display: inline-block;
+  vertical-align: middle;
+  width: 80%;
+  font-size: em(18);
+  font-weight: 500;
+}
+
+.board-item-icon {
   @include box-sizing(border-box);
-  position: relative;
-  overflow: hidden;
-  left: auto;
-  top: auto;
-  float: left;
-  width: 224px;
-  margin: 0 24px 24px 0;
+  display: inline-block;
+  width: 46px;
+  height: 56px;
+  margin: 0 20px 0 10px;
   border: 1px solid $gray-1;
+  padding: 8px 6px;
   border-radius: 3px;
   background: $white;
   box-shadow: 0 1px 0 $gray-1;
+  vertical-align: middle;
 
-  &:nth-of-type(3n) {
-    margin-right: 0;
+  &.aligned {
+    border-color: $green;
+    background: tint($green, 85%);
   }
-
-  &:nth-of-type(3n+1) {
-    clear: left;
-  }
-}
-
-.board-item-cover {
-  position: relative;
-  height: 220px;
-}
-
-.board-item-cover-title {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  padding: 20px;
-  font-size: em(18);
-  font-weight: 400;
 }
 
 .board-item-progress {
@@ -46,70 +48,25 @@
 }
 
 .board-item-progress-bar {
-  width: 1%;
+  width: 0;
   height: 100%;
   background: $green;
   @include transition(width 1s);
 }
 
 .board-item-user {
-  position: relative;
-  padding: 15px 15px 15px 66px;
-  min-height: 36px;
+  display: table-cell;
+  vertical-align: middle;
+  width: 35%;
+  padding: 20px 30px;
   font-size: em(12);
   color: $gray-5;
-
-  .icon:before {
-    position: absolute;
-    left: 10px;
-    bottom: 10px;
-    width: 22px;
-    line-height: 22px;
-    background: $red;
-    border-radius: 50%;
-    text-align: center;
-    color: $white;
-  }
 }
 
 .board-item-user-image {
-  position: absolute;
-  left: 12px;
-  top: 12px;
+  float: left;
   width: 42px;
   height: 42px;
+  margin: -3px 10px -3px 0;
   border-radius: 50%;
-}
-
-.board-item-user-company {
-  text-transform: uppercase;
-  font-weight: 700;
-}
-
-.board-item-branch {
-  line-height: 45px;
-  border-top: 1px solid $gray-2;
-  @include linear-gradient($white, $gray-1);
-  font-weight: 700;
-  font-size: em(14);
-  text-transform: uppercase;
-  cursor: pointer;
-
-  .icon:before {
-    float: left;
-    line-height: 45px;
-    border-right: 1px solid $gray-2;
-    margin: 0 15px 0 0;
-    padding: 0 15px;
-    color: $green;
-  }
-}
-
-.board-item-branch-count {
-  float: right;
-  min-width: 20%;
-  margin: 0 15px 0 0;
-  text-align: right;
-  font-weight: 400;
-  color: $gray-6;
 }

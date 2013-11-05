@@ -1,7 +1,7 @@
 .sidebar
   .project{:bind => {:id => 'project.slug'}}
-    {{textarea class='project-title' valueBinding='project.title' placeholder='Project name' name='title'}}
-    {{textarea class='project-description' valueBinding='project.description' placeholder='Type your project description...' name='description'}}
+    {{textarea class='project-title' valueBinding='project.title' placeholder='Project name' name='title' disabledBinding='isNotOwner'}}
+    {{textarea class='project-description' valueBinding='project.description' placeholder='Type your project description...' name='description'  disabledBinding='isNotOwner'}}
     {{#if project.isDirty}}
     .project-actions
       %button.button.btn-small{:_action => 'update'}
@@ -10,9 +10,11 @@
   .sidebar-title
     = _('Members on this proejct')
   {{project-members contentBinding='project' userBinding='currentUser'}}
+  {{#if isOwner}}
   .sidebar-title
     = _('Pendding invites')
   {{project-invitees contentBinding='project'}}
+  {{/if}}
 
 .wrapper
   .header
@@ -33,17 +35,18 @@
     {{#each board in content}}
     .board-item{:bind => {:id => 'board.slug'}}
       {{#linkTo 'boards.show' board.id}}
-      .board-item-cover
-        %h3.board-item-cover-title
+      .board-item-content
+        {{#view classNames='board-item-icon' classNameBindings='board.aligned'}}
+        .board-item-progress
+          {{view Doers.ProgressBar classNames='board-item-progress-bar' widthBinding='board.progress'}}
+        {{/view}}
+        %h3.board-item-title
           {{{board.title}}}
-      .board-item-progress
-        {{view Doers.ProgressBar classNames='board-item-progress-bar' widthBinding='board.progress'}}
       .board-item-user
         %img.board-item-user-image{:bind => {:src => 'board.user.avatarUrl'}}
-        - # TODO: Add activity icon
-        / %span.icon.icon-comment
         = _('Updated')
         {{board.lastUpdate}}
+        %br/
         = _('by')
         {{board.user.nicename}}
       {{/linkTo}}

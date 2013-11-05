@@ -8,9 +8,9 @@
 {{else}}
 {{#if view.userEndorse}}
 %li
-  .icon.icon-close.remove-endorse{:_action => 'destroy'}
+  .icon.icon-endorse.remove-endorse{:_action => 'destroy'}
 {{else}}
 %li
-  .icon.icon-plus.add-endorse{:_action => 'create'}
+  .icon.icon-endorse.add-endorse{:_action => 'create'}
 {{/if}}
 {{/if}}

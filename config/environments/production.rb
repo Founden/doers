@@ -58,8 +58,7 @@ Doers::Application.configure do
   config.cache_store = :dalli_store, Doers::Config.memcache
 
   # Use a different cache store for sessions too
-  config.session_store(
-    ActionDispatch::Session::CacheStore, :expire_after => 20.minutes)
+  config.session_store(ActionDispatch::Session::CacheStore)
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.action_controller.asset_host = "http://assets.example.com"

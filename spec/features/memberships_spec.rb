@@ -12,7 +12,7 @@ feature 'Memberships', :js, :slow do
     end
 
     context 'member is added' do
-      given(:membership) { Fabricate(:project_membership, :user => User.first) }
+      given(:membership) { Fabricate(:project_membership, :creator => User.first) }
       given(:project) { membership.project }
 
       scenario 'adds an user to memberships' do

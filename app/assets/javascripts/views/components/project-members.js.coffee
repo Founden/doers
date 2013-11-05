@@ -15,3 +15,14 @@ Doers.ProjectMembersComponent = Ember.Component.extend
       membership.deleteRecord()
       membership.save()
 
+  memberView: Ember.View.extend
+    userBinding: 'parentView.user'
+    isOwnerBinding: 'parentView.isOwner'
+
+    isCurrentUser: ( ->
+      @get('content.user') == @get('user')
+    ).property('content.user', 'user')
+
+    canRemove: ( ->
+      @get('isOwner') or @get('isCurrentUser')
+    ).property('isOwner', 'isCurrentUser')
