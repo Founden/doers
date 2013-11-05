@@ -37,13 +37,18 @@
   &:hover {
 
     .project-member-image {
-      @include blur(1px);
+      @include transform(scale(1.05));
     }
 
     .project-member-tooltip {
-      left: 100%;
       opacity: 1;
-      z-index: 10;
+      height: auto;
+      width: auto;
+      overflow: visible;
+      left: 100%;
+      border: 1px solid $gray-1;
+      padding: 10px 15px;
+      @include transition(left 0.2s 0.2s, opacity 0.2s 0.2s);
     }
   }
 }
@@ -64,14 +69,14 @@
   position: absolute;
   left: 90%;
   top: 0;
-  z-index: -1;
-  padding: 10px 15px;
-  border: 1px solid $gray-1;
+  z-index: 10;
   border-radius: 3px;
   background: $white;
   box-shadow: 0 1px 0 $gray-1;
   opacity: 0;
-  @include transition(all 0.2s 0.2s);
+  height: 0;
+  width: 0;
+  overflow: hidden;
 
   &:before {
     content: '';

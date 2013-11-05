@@ -10,22 +10,17 @@
       = _('Import from AngelList')
       {{/linkTo}}
 
-  {{#unless content}}
+  {{#unless hasProjects}}
+
   .status
     .status-message
       = _('You have no active projects at the moment.')
       %br/
       = _('Start by creating your first project.')
-    .status-actions
-      {{#linkTo 'projects.new' class='status-button'}}
-      %span.icon.icon-project
-      = _('Create new project')
-      {{/linkTo}}
-      {{#linkTo 'projects.import' class='status-button'}}
-      %span.icon.icon-angel
-      = _('Import from AngelList')
-      {{/linkTo}}
+
   {{else}}
+
+  {{#if content}}
   .project-list
     .project-list-header
       .project-list-title
@@ -49,7 +44,7 @@
         {{project.boardsCount}}
         %span.icon.icon-board
     {{/each}}
-  {{/unless}}
+  {{/if}}
 
   {{#if currentUser.sharedProjects}}
   .project-list
@@ -76,3 +71,7 @@
         %span.icon.icon-board
     {{/each}}
   {{/if}}
+
+  {{/unless}}
+
+

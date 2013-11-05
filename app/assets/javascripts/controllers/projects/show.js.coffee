@@ -3,6 +3,14 @@ Doers.ProjectsShowController =
 
   inviteEmail: ''
 
+  isOwner: ( ->
+    @get('project.user') == @get('currentUser')
+  ).property('project.user', 'currentUser')
+
+  isNotOwner: ( ->
+    !@get('isOwner')
+  ).property('isOwner')
+
   actions:
     update: ->
       project = @get('project')
