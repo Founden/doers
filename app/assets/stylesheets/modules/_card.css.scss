@@ -156,17 +156,21 @@
 .card-embed {
   @include clearfix;
   background-color: $gray-1;
+
+  iframe,
+  object {
+    width: 100%;
+    max-height: 280px;
+  }
 }
 
-.card-embed-image {
-  float: left;
-  width: 50%;
-  margin: 0 30px 0 0;
+.card-embed-meta {
+  padding: 15px 20px;
 }
 
 .card-embed-title {
   font-weight: 600;
-  margin: 20px 30px 0 0;
+  font-size: em(14);
 }
 
 .card-embed-author {

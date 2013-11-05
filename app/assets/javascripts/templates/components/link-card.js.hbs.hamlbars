@@ -15,12 +15,19 @@
     {{/if}}
     {{#if embed}}
     .card-embed
-      %img.card-embed-image{:bind => {:src => 'embed.mediaUrl'}}
-      .card-embed-title
-        {{{embed.title}}}
-      .card-embed-author
-        = _('By')
-        {{embed.authorName}}
+      {{#if embed.hasPhoto}}
+      %a{:target => '_blank', :bind => {:href => 'url'}}
+        %img.card-image{:bind => {:src => 'embed.mediaUrl'}}
+      {{/if}}
+      {{#if embed.hasRichMedia}}
+      {{{embed.html}}}
+      {{/if}}
+      .card-embed-meta
+        .card-embed-title
+          {{{embed.title}}}
+        .card-embed-author
+          = _('By')
+          {{{embed.authorName}}}
     {{/if}}
     {{/view}}
 
