@@ -70,7 +70,7 @@ describe ProfilesController do
     end
 
     it 'updates user profile' do
-      should render_template(:show)
+      should render_template(:mine)
       user.email.should eq(user.email)
       user.name.should eq(name)
       user.newsletter_allowed?.should eq(newsletter_allowed)
@@ -81,7 +81,7 @@ describe ProfilesController do
       let(:user_id) { rand(10..20) }
 
       it 'updates own profile' do
-        should render_template(:show)
+        should render_template(:mine)
         user.name.should eq(name)
         user.newsletter_allowed?.should eq(newsletter_allowed)
       end
@@ -92,7 +92,7 @@ describe ProfilesController do
       let(:current_account) { admin }
 
       it 'updates any user profile' do
-        should render_template(:show)
+        should render_template(:edit)
         admin.name.should_not eq(name)
 
         user.reload
