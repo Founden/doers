@@ -63,21 +63,24 @@
 }
 
 .card-field {
-  margin: 0 30px 10px 30px;
+  margin: 0 30px;
 }
 
 .card-field-title {
   width: 100%;
+  margin: 0 0 10px 0;
   font-size: em(18);
 }
 
 .card-field-description {
   width: 100%;
+  margin: 0 0 20px 0;
   overflow: hidden;
   font-size: em(14);
 }
 
 .card-attachment {
+  margin: 0 0 20px 0;
   min-height: 180px;
   position: relative;
   overflow: hidden;
@@ -155,7 +158,6 @@
 
 .card-embed {
   @include clearfix;
-  background-color: $gray-1;
 
   iframe,
   object {
@@ -165,7 +167,8 @@
 }
 
 .card-embed-meta {
-  padding: 15px 20px;
+  padding: 15px 30px;
+  border-bottom: 1px solid $gray-1;
 }
 
 .card-embed-title {
@@ -216,7 +219,7 @@
 }
 
 .card-actions {
-  margin: 20px 30px;
+  margin: 0 30px 20px 30px;
   font-size: em(14);
 
   a {
@@ -244,6 +247,8 @@
   border-left: 1px solid $gray-1;
   border-radius: 0 3px 3px 0;
   text-align: center;
+  padding: 10px;
+  background: rgba($black, 0.05);
 
   h4 {
     font-size: em(12);
@@ -254,7 +259,7 @@
 }
 
 .card-endorses {
-  margin: 10px 20px 30px 20px;
+  margin: 10px 0 15px 0;
 
   li {
     display: inline-block;
