@@ -37,6 +37,7 @@ module Activity::Support
       end
       if self.is_a?(Membership)
         params['user_id'] = params['creator_id']
+        params['member_name'] = self.user.nicename
       end
       if self.is_a?(Invitation)
         params['project_id'] =self.invitable_id if self.invitable.is_a?(Project)
