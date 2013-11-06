@@ -18,6 +18,10 @@ Doers.User = DS.Model.extend
       @get('externalId') + '&access_token=' + @get('angelListToken')
   ).property('angelListToken')
 
+  hasProjects: ( ->
+    @get('sharedProjects') or @get('createdProjects')
+  ).property('sharedProjects', 'createdProjects')
+
   didLoad: ->
     if @get('externalId')
       @loadStartups()
