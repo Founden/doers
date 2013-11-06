@@ -1,7 +1,8 @@
 require 'spec_helper'
-require_relative 'shared'
 
 describe NotificationsMailer, :use_truncation do
+  require_relative 'shared'
+
   let(:membership) { Fabricate(:project_membership) }
   let(:project) { membership.project }
   let(:user) { membership.user }
@@ -32,9 +33,69 @@ describe NotificationsMailer, :use_truncation do
 
   before(:each) { ActionMailer::Base.deliveries.clear }
 
+  shared_examples 'a notification email' do
+    its(:to) { should include(user.email) }
+    its('body.encoded') { should include(user.nicename) }
+    its('body.encoded') { should include(project.title) }
+    its('body.encoded') do
+      usernames.each { |username| should include(username) }
+    end
+  end
+
+  context '#notify_discussions' do
+    let(:slug_types) { %w(%comment% %endorse%) }
+    let(:opts) { {'just_this' => false} }
+    let(:usernames) do
+      activity.followed_for_project(user, slug_types).map(&:user_name).uniq
+    end
+
+    before do
+      # Generate more activities
+      NotificationsMailer.notify_discussions(
+        membership, activity, opts).deliver
+    end
+
+    it_should_behave_like 'an email from us'
+    it_should_behave_like 'a notification email'
+
+    context 'when :just_this option is passed' do
+      let(:opts) { {'just_this' => true} }
+
+      its('body.encoded') { should include(activity.user_name) }
+    end
+  end
+
+  context '#notify_collaborations' do
+    let(:slug_types) { %w(%membership% %invitation%) }
+    let(:opts) { {'just_this' => false} }
+    let(:usernames) do
+      activity.followed_for_project(user, slug_types).map { |act|
+        act.member_name || act.invitation_email
+      }.uniq
+    end
+
+    before do
+      # Generate more activities
+      NotificationsMailer.notify_collaborations(
+        membership, activity, opts).deliver
+    end
+
+    it_should_behave_like 'an email from us'
+    it_should_behave_like 'a notification email'
+
+    context 'when :just_this option is passed' do
+      let(:opts) { {'just_this' => true} }
+
+      its('body.encoded') { should include(activity.user_name) }
+    end
+  end
+
   context '#notify_boards_topics' do
     let(:slug_types) { %w(%board% %topic) }
     let(:opts) { {'just_this' => false} }
+    let(:usernames) do
+      activity.followed_for_project(user, slug_types).map(&:user_name).uniq
+    end
 
     before do
       # Generate more activities
@@ -43,10 +104,35 @@ describe NotificationsMailer, :use_truncation do
     end
 
     it_should_behave_like 'an email from us'
-    its(:to) { should include(user.email) }
-    its('body.encoded') { should include(user.nicename) }
-    its('body.encoded') { should include(project.title) }
-    its('body.encoded') { should include(activity.followed_for_project(
-      slug_types).map(&:user_name).uniq.join(', ')) }
+    it_should_behave_like 'a notification email'
+
+    context 'when :just_this option is passed' do
+      let(:opts) { {'just_this' => true} }
+
+      its('body.encoded') { should include(activity.user_name) }
+    end
+  end
+
+  context '#notify_cards_alignments' do
+    let(:slug_types) { %w(%card% %alignment%) }
+    let(:opts) { {'just_this' => false} }
+    let(:usernames) do
+      activity.followed_for_project(user, slug_types).map(&:user_name).uniq
+    end
+
+    before do
+      # Generate more activities
+      NotificationsMailer.notify_cards_alignments(
+        membership, activity, opts).deliver
+    end
+
+    it_should_behave_like 'an email from us'
+    it_should_behave_like 'a notification email'
+
+    context 'when :just_this option is passed' do
+      let(:opts) { {'just_this' => true} }
+
+      its('body.encoded') { should include(activity.user_name) }
+    end
   end
 end
