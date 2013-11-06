@@ -100,7 +100,7 @@ describe Activity, :use_truncation do
     end
 
     context 'after calling #save multiple times' do
-      before { rand(2..5).times{ sleep(1); project.save } }
+      before { rand(2..5).times{ project.save } }
 
       its('activities.count') { should eq(2) }
     end
