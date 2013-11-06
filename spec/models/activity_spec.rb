@@ -142,13 +142,13 @@ describe Activity, :use_truncation do
     end
   end
 
-  context '#followed_for_project' do
+  context '#search_for_project' do
     let(:user) { Fabricate(:user) }
     let(:activity) { user.activities.last }
     let(:slug_types) { ['%'] }
     let(:user_to_ignore) { user }
 
-    subject { activity.followed_for_project(user_to_ignore, slug_types) }
+    subject { activity.search_for_project(user_to_ignore, slug_types) }
 
     it { should be_nil }
 
