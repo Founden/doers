@@ -34,6 +34,19 @@ class Activity < ActiveRecord::Base
   end
   after_commit :notify_project_collaborators, :on => :create
 
+  # Activities that followed for the same project
+  # based on slug types
+  # @params Array slug_types like `['%slug', '%slug2%']`
+  def followed_for_project(slug_types)
+    return nil unless self.project
+
+    timing = self.created_at..DateTime.now
+    table = self.class.arel_table
+    self.project.activities.where(
+      table[:slug].matches_any(slug_types).and(
+        table[:created_at].in(timing)).and(
+        table[:user_id].eq(self.user_id).not))
+  end
 
   private
 

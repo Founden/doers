@@ -141,4 +141,38 @@ describe Activity, :use_truncation do
       it { should eq(dates.sort.reverse) }
     end
   end
+
+  context '#followed_for_project' do
+    let(:user) { Fabricate(:user) }
+    let(:activity) { user.activities.last }
+    let(:slug_types) { ['%'] }
+
+    subject { activity.followed_for_project(slug_types) }
+
+    it { should be_nil }
+
+    context 'when activity has a project' do
+      let(:project) { Fabricate(:project, :user => user) }
+      let(:activity) { project.activities.first }
+
+      its(:count) { should eq(0) }
+    end
+
+    context 'when activity has a project with users activity' do
+      let(:project) { Fabricate(:project_membership, :user => user).project }
+      let(:member) { project.members.first }
+      let(:board) { Fabricate(:board, :project => project, :user => member) }
+      let(:activity) { board.project.activities.last }
+
+      its(:count) { should eq(5) }
+      # activity#user activities are excluded
+      it { should_not include(activity) }
+
+      context 'when slug type is set for board only' do
+        let(:slug_types) { ['%board%'] }
+
+        its(:count) { should eq(1) }
+      end
+    end
+  end
 end
