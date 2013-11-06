@@ -106,7 +106,7 @@ describe Api::V1::AssetsController do
       end
 
       context 'with valid attributes' do
-        let(:attrs) { Fabricate.to_params(:image_to_upload) }
+        let(:attrs) { Fabricate.attributes_for(:image_to_upload) }
 
         subject(:api_asset) { json_to_ostruct(response.body, json_root) }
 
@@ -133,7 +133,7 @@ describe Api::V1::AssetsController do
 
           let(:attrs) {
             OpenURI.should_receive(:open_uri).and_return(image)
-            Fabricate.to_params(:image_to_upload, :attachment => image_url)
+            Fabricate.attributes_for(:image_to_upload, :attachment => image_url)
           }
 
           its('keys.size') { should eq(13) }
@@ -143,14 +143,14 @@ describe Api::V1::AssetsController do
   end
 
   describe '#create' do
-    let(:asset_attrs) { Fabricate.to_params(:image_to_upload) }
+    let(:asset_attrs) { Fabricate.attributes_for(:image_to_upload) }
     let(:json_root) { 'image' }
 
     before { post(:create, json_root => asset_attrs) }
 
     context 'with wrong parameters' do
       let(:asset_attrs) {
-        Fabricate.to_params(:image, :attachment => 'WRONG') }
+        Fabricate.attributes_for(:image, :attachment => 'WRONG') }
 
       subject(:api_asset) { json_to_ostruct(response.body) }
 
@@ -164,7 +164,7 @@ describe Api::V1::AssetsController do
     end
 
     context 'with valid parameters' do
-      let(:asset_attrs) { Fabricate.to_params(:image_to_upload,
+      let(:asset_attrs) { Fabricate.attributes_for(:image_to_upload,
         :user => user, :project => project, :board => board, :type => 'Image',
         :assetable_type => project.class, :assetable_id => project.id)
       }
@@ -184,7 +184,7 @@ describe Api::V1::AssetsController do
       its(:assetable_id) { should eq(project.id) }
 
       context 'for logo' do
-        let(:asset_attrs) { Fabricate.to_params(:image_to_upload,
+        let(:asset_attrs) { Fabricate.attributes_for(:image_to_upload,
           :user => user, :project => project, :type => 'Logo',
           :assetable_type => project.class, :assetable_id => project.id)
         }
@@ -194,7 +194,7 @@ describe Api::V1::AssetsController do
       end
 
       context 'for cover' do
-        let(:asset_attrs) { Fabricate.to_params(:image_to_upload,
+        let(:asset_attrs) { Fabricate.attributes_for(:image_to_upload,
           :user => user, :board => board, :type => 'Cover') }
         let(:json_root) { 'cover' }
 
@@ -213,7 +213,7 @@ describe Api::V1::AssetsController do
         let(:asset_attrs) {
           OpenURI.should_receive(:open_uri).and_return(image)
 
-          Fabricate.to_params(:image_to_upload, :user => user,
+          Fabricate.attributes_for(:image_to_upload, :user => user,
             :project => project, :board => board, :attachment => image_url,
             :assetable_type => project.class, :assetable_id => project.id)
         }

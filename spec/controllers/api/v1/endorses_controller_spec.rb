@@ -60,7 +60,7 @@ describe Api::V1::EndorsesController do
   end
 
   describe '#create' do
-    let(:end_attrs) { Fabricate.to_params(:endorse, :user => user) }
+    let(:end_attrs) { Fabricate.attributes_for(:endorse, :user => user) }
 
     context 'attributes are valid' do
       before { post(:create, :endorse => end_attrs) }
@@ -77,7 +77,7 @@ describe Api::V1::EndorsesController do
 
       context 'attributes are missing' do
         let(:end_attrs) {
-          Fabricate.to_params(:endorse, :card => nil, :user => user) }
+          Fabricate.attributes_for(:endorse, :card => nil, :user => user) }
 
         subject(:api_end) { json_to_ostruct(response.body) }
 
@@ -86,7 +86,7 @@ describe Api::V1::EndorsesController do
     end
 
     context 'attributes are not valid' do
-      let(:end_attrs) { Fabricate.to_params(:endorse) }
+      let(:end_attrs) { Fabricate.attributes_for(:endorse) }
 
       it 'raises not found' do
         expect{

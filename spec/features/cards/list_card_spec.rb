@@ -34,7 +34,7 @@ feature 'List', :js, :slow, :pending do
     end
 
     context 'when clicked' do
-      given(:card_attrs) { Fabricate.to_params('card/list') }
+      given(:card_attrs) { Fabricate.attributes_for('card/list') }
 
       background do
         page.find('.card-%d' % card.id).click
