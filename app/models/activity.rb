@@ -60,6 +60,8 @@ class Activity < ActiveRecord::Base
     end
   end
 
+  # This handles project collaborator notification scheduling
+  # based on user settings and selected timing options
   def notify_project_collaborator(collab)
     timing = collab.timing
     return unless timing
@@ -83,6 +85,7 @@ class Activity < ActiveRecord::Base
     end
   end
 
+  # It maps current activity type to the appropriate queue/notification method
   def queue_type
     case self.slug
     when /comment|endorse/

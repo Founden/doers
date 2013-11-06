@@ -182,4 +182,56 @@ describe Activity, :use_truncation do
       end
     end
   end
+
+  describe '#queue_type' do
+    subject { activity.send(:queue_type) }
+
+    context 'for a comment' do
+      let(:activity) { Activity.new(:slug => '-comment-') }
+
+      it { should eq('notify_discussions') }
+    end
+
+    context 'for an endorse' do
+      let(:activity) { Activity.new(:slug => '-endorse-') }
+
+      it { should eq('notify_discussions') }
+    end
+
+    context 'for a membership' do
+      let(:activity) { Activity.new(:slug => '-membership-') }
+
+      it { should eq('notify_collaborations') }
+    end
+
+    context 'for an invitation' do
+      let(:activity) { Activity.new(:slug => '-invitation-') }
+
+      it { should eq('notify_collaborations') }
+    end
+
+    context 'for a card' do
+      let(:activity) { Activity.new(:slug => '-card-') }
+
+      it { should eq('notify_cards_alignments') }
+    end
+
+    context 'for an alignment' do
+      let(:activity) { Activity.new(:slug => '-alignment-') }
+
+      it { should eq('notify_cards_alignments') }
+    end
+
+    context 'for a board' do
+      let(:activity) { Activity.new(:slug => '-board-') }
+
+      it { should eq('notify_boards_topics') }
+    end
+
+    context 'for a topic' do
+      let(:activity) { Activity.new(:slug => '-topic-') }
+
+      it { should eq('notify_boards_topics') }
+    end
+  end
 end
