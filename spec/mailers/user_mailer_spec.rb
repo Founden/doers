@@ -1,20 +1,13 @@
 require 'spec_helper'
 
 describe UserMailer do
+  require_relative 'shared'
+
   let(:user) { Fabricate(:user) }
 
   subject(:email) { ActionMailer::Base.deliveries.last }
 
   before(:each) { ActionMailer::Base.deliveries.clear }
-
-  # TODO: Move this to a more general purpose file
-  shared_examples 'an email from us' do
-    its(:subject) { should include(Doers::Config.app_name) }
-    its(:from) { should include(
-      Mail::Address.new(Doers::Config.default_email).address) }
-    its(:return_path) { should include(
-      Mail::Address.new(Doers::Config.contact_email).address) }
-  end
 
   context '#startup_imported' do
     let(:project) { Fabricate(:project, :user => user) }
