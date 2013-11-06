@@ -1,0 +1,17 @@
+= _('Hello %s.') % @user.nicename
+\
+\
+= _('%s did the following changes in %s:') % [@usernames, @project.title]
+\
+- @activities.each do |act|
+  = precede '*' do
+    = render(:partial => act.slug.underscore, :locals => {:activity => act})
+\
+\
+= _('Visit your dashboard to catch up: %s') % root_url
+\
+= _('Thanks.')
+\
+\
+= _('Your %s team.') % Doers::Config.app_name
+= Doers::Config.app_id
