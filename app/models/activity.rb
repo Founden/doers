@@ -61,7 +61,7 @@ class Activity < ActiveRecord::Base
   end
 
   def notify_project_collaborator(collab)
-    timing = notification_to_run_at(collab)
+    timing = collab.timing
     return unless timing
 
     timing_type = collab.attributes[queue_type]
@@ -80,22 +80,6 @@ class Activity < ActiveRecord::Base
     offset = job.run_at.to_i - self.created_at.to_i
     if offset < maximum_offset and timing_type.eq?(asap_type)
       job.update_attribute(:run_at, timing)
-    end
-  end
-
-  def notification_to_run_at(collab)
-    timing = collab.attributes[queue_type]
-    case timing
-    when 'now'
-      1
-    when 'asap'
-      DateTime.now + Doers::Config.notifications.asap
-    when 'daily'
-      DateTime.now.at_end_of_day
-    when 'weekly'
-      DateTime.now.at_end_of_week
-    else
-      false
     end
   end
 

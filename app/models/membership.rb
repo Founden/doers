@@ -9,7 +9,7 @@ class Membership < ActiveRecord::Base
     _('As soon as possible') => 'asap',
     _('Daily')               => 'daily',
     _('Weekly')              => 'weekly',
-    _('Never')               => false
+    _('Never')               => 'never'
   }
 
   store_accessor :data, :notify_discussions, :notify_collaborations
@@ -38,6 +38,24 @@ class Membership < ActiveRecord::Base
     self.notify_collaborations ||= TIMING.values.first
     self.notify_boards_topics ||= TIMING.values.first
     self.notify_cards_alignments ||= TIMING.values.first
+  end
+
+  # Transforms user notification option into a proper date
+  def timing(notification_option)
+    timing = self.respond_to?(notification_option) ?
+      self.send(notification_option) : nil
+    case timing
+    when 'now'
+      1
+    when 'asap'
+      DateTime.now + Doers::Config.notifications.asap
+    when 'daily'
+      DateTime.now.at_end_of_day
+    when 'weekly'
+      DateTime.now.at_end_of_week
+    else
+      false
+    end
   end
 
   private

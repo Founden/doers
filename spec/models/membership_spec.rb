@@ -48,4 +48,61 @@ describe Membership do
       }.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
+
+  describe '#timing' do
+    let(:timing) { 'never' }
+    let(:notification_option) { 'notify_discussions' }
+    let(:membership) do
+      Membership.new(notification_option => timing)
+    end
+
+    subject { membership.timing(notification_option) }
+
+    context 'when notification type is notify_discussions' do
+      context 'when timing is set to now' do
+        let(:timing) { 'now' }
+
+        it { should eq(1) }
+      end
+
+      context 'when timing is set to asap' do
+        let(:timing) { 'asap' }
+
+        Timecop.freeze do
+          its(:to_i) { should eq(
+            (DateTime.now + Doers::Config.notifications.asap).to_i) }
+        end
+      end
+
+      context 'when timing is set to daily' do
+        let(:timing) { 'daily' }
+
+        it { should eq(DateTime.now.at_end_of_day) }
+      end
+
+      context 'when timing is set to weekly' do
+        let(:timing) { 'weekly' }
+
+        it { should eq(DateTime.now.at_end_of_week) }
+      end
+    end
+
+    context 'when notification type is notify_collaborations' do
+      let(:notification_option) { 'notify_collaborations' }
+
+      it { should be_false }
+    end
+
+    context 'when notification type is notify_cards_alignments' do
+      let(:notification_option) { 'notify_cards_alignments' }
+
+      it { should be_false }
+    end
+
+    context 'when notification type is notify_boards_topics' do
+      let(:notification_option) { 'notify_boards_topics' }
+
+      it { should be_false }
+    end
+  end
 end
