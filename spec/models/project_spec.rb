@@ -15,6 +15,7 @@ describe Project do
   it { should have_many(:topics).dependent('') }
   it { should have_many(:collaborators).through(:collaborations) }
   it { should have_many(:collaborations).dependent('') }
+  it { should have_many(:endorses).dependent(:destroy) }
 
   it { should validate_presence_of(:user) }
   it { should validate_presence_of(:title) }
