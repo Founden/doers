@@ -23,6 +23,7 @@ class Project < ActiveRecord::Base
   has_many :topics
   has_many(:collaborations, :class_name => Membership)
   has_many(:collaborators, :through => :collaborations, :source => :user)
+  has_many :endorses, :dependent => :destroy
 
   # Validations
   validates :user, :presence => true
