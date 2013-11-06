@@ -6,6 +6,7 @@ class Activity < ActiveRecord::Base
   # Some dynamic attributes
   store_accessor :data, :user_name, :project_title, :board_title
   store_accessor :data, :card_title, :topic_title, :invitation_email
+  store_accessor :data, :member_name
 
   # Default scope: order by last update
   default_scope { order(:updated_at => :desc) }
