@@ -95,7 +95,7 @@ describe Api::V1::InvitationsController do
   end
 
   describe '#create' do
-    let(:invite_attrs) { Fabricate.to_params(:invitation) }
+    let(:invite_attrs) { Fabricate.attributes_for(:invitation) }
     let(:invite) { user.invitations.first }
 
     before { post(:create, :invitation => invite_attrs) }
@@ -114,7 +114,7 @@ describe Api::V1::InvitationsController do
     its(:avatar_url) { should_not be_blank }
 
     context 'when some parameter is missing' do
-      let(:invite_attrs) { Fabricate.to_params(:invitation).except(:email)}
+      let(:invite_attrs) { Fabricate.attributes_for(:invitation).except(:email)}
 
       subject(:api_invite) { json_to_ostruct(response.body) }
 
@@ -125,7 +125,7 @@ describe Api::V1::InvitationsController do
     context 'with invitable set' do
       let(:project) { Fabricate(:project, :user => user) }
       let(:invite_attrs) do
-        Fabricate.to_params(:invitation).merge(
+        Fabricate.attributes_for(:invitation).merge(
           {:invitable_id => project.id, :invitable_type => 'Project'} )
       end
 
@@ -144,7 +144,7 @@ describe Api::V1::InvitationsController do
     context 'when email is registered and no invitable set' do
       let(:invitee) { Fabricate(:user) }
       let(:invite_attrs) do
-        Fabricate.to_params(:invitation, :email => invitee.email)
+        Fabricate.attributes_for(:invitation, :email => invitee.email)
       end
 
       subject(:api_invite) { json_to_ostruct(response.body) }
@@ -157,7 +157,7 @@ describe Api::V1::InvitationsController do
       let(:invitee) { Fabricate(:user) }
       let(:project) { Fabricate(:project, :user => user) }
       let(:invite_attrs) do
-        Fabricate.to_params(:invitation, :email => invitee.email).merge(
+        Fabricate.attributes_for(:invitation, :email => invitee.email).merge(
           {:invitable_id => project.id, :invitable_type => 'Project'} )
       end
 
