@@ -9,7 +9,7 @@ class NotificationsMailer < ActionMailer::Base
     @user = membership.user
     @project = membership.project
     @activities = opts['just_this'] ?
-      [activity] : activity.followed_for_project(@user, slug_types)
+      [activity] : activity.search_for_project(@user, slug_types)
     @usernames = @activities.map(&:user_name).uniq.join(', ')
     subject = _('%s recent comments and endorsements on %s.') % [
       @project.title, Doers::Config.app_name]
@@ -22,7 +22,7 @@ class NotificationsMailer < ActionMailer::Base
     @user = membership.user
     @project = membership.project
     @activities = opts['just_this'] ?
-      [activity] : activity.followed_for_project(@user, slug_types)
+      [activity] : activity.search_for_project(@user, slug_types)
     @usernames = @activities.map { |act|
       act.member_name || act.invitation_email }.uniq.join(', ')
     subject = _('%s recent invitations and members on %s.') % [
@@ -36,7 +36,7 @@ class NotificationsMailer < ActionMailer::Base
     @user = membership.user
     @project = membership.project
     @activities = opts['just_this'] ?
-      [activity] : activity.followed_for_project(@user, slug_types)
+      [activity] : activity.search_for_project(@user, slug_types)
     @usernames = @activities.map(&:user_name).uniq.join(', ')
     subject = _('%s recent board and topic changes on %s.') % [
       @project.title, Doers::Config.app_name]
@@ -49,7 +49,7 @@ class NotificationsMailer < ActionMailer::Base
     @user = membership.user
     @project = membership.project
     @activities = opts['just_this'] ?
-      [activity] : activity.followed_for_project(@user, slug_types)
+      [activity] : activity.search_for_project(@user, slug_types)
     @usernames = @activities.map(&:user_name).uniq.join(', ')
     subject = _('%s topic alignments and suggestions on %s.') % [
       @project.title, Doers::Config.app_name]

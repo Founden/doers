@@ -46,7 +46,7 @@ describe NotificationsMailer, :use_truncation do
     let(:slug_types) { %w(%comment% %endorse%) }
     let(:opts) { {'just_this' => false} }
     let(:usernames) do
-      activity.followed_for_project(user, slug_types).map(&:user_name).uniq
+      activity.search_for_project(user, slug_types).map(&:user_name).uniq
     end
 
     before do
@@ -69,7 +69,7 @@ describe NotificationsMailer, :use_truncation do
     let(:slug_types) { %w(%membership% %invitation%) }
     let(:opts) { {'just_this' => false} }
     let(:usernames) do
-      activity.followed_for_project(user, slug_types).map { |act|
+      activity.search_for_project(user, slug_types).map { |act|
         act.member_name || act.invitation_email
       }.uniq
     end
@@ -94,7 +94,7 @@ describe NotificationsMailer, :use_truncation do
     let(:slug_types) { %w(%board% %topic) }
     let(:opts) { {'just_this' => false} }
     let(:usernames) do
-      activity.followed_for_project(user, slug_types).map(&:user_name).uniq
+      activity.search_for_project(user, slug_types).map(&:user_name).uniq
     end
 
     before do
@@ -117,7 +117,7 @@ describe NotificationsMailer, :use_truncation do
     let(:slug_types) { %w(%card% %alignment%) }
     let(:opts) { {'just_this' => false} }
     let(:usernames) do
-      activity.followed_for_project(user, slug_types).map(&:user_name).uniq
+      activity.search_for_project(user, slug_types).map(&:user_name).uniq
     end
 
     before do
