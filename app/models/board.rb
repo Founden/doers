@@ -19,7 +19,7 @@ class Board < ActiveRecord::Base
   has_many(:memberships, :dependent => :destroy, :class_name => BoardMembership)
   has_many :members, :through => :memberships, :source => :user
   has_many :invitations, :dependent => :destroy, :as => :invitable
-  has_many :topics
+  has_many :topics, :dependent => :destroy
 
   # Validations
   validates_presence_of :title, :user, :project
