@@ -16,10 +16,12 @@ describe OwnerMembership do
   end
 
   context '#notify_member should not trigger' do
-    let!(:membership) { Fabricate(:owner_membership) }
+    subject(:membership) { Fabricate(:owner_membership) }
 
-    subject(:emails) { ActionMailer::Base.deliveries }
+    before do
+      OwnerMembership.any_instance.should_not receive(:notify_member)
+    end
 
-    it { should be_empty }
+    it { should be_valid }
   end
 end
