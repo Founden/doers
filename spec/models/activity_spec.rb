@@ -146,8 +146,9 @@ describe Activity, :use_truncation do
     let(:user) { Fabricate(:user) }
     let(:activity) { user.activities.last }
     let(:slug_types) { ['%'] }
+    let(:user_to_ignore) { user }
 
-    subject { activity.followed_for_project(slug_types) }
+    subject { activity.followed_for_project(user_to_ignore, slug_types) }
 
     it { should be_nil }
 
@@ -156,16 +157,22 @@ describe Activity, :use_truncation do
       let(:activity) { project.activities.first }
 
       its(:count) { should eq(0) }
+
+      context 'for other user' do
+        let(:user_to_ignore) { Fabricate(:user) }
+
+        its(:count) { should eq(1) }
+      end
     end
 
     context 'when activity has a project with users activity' do
       let(:project) { Fabricate(:project_membership, :user => user).project }
-      let(:member) { project.members.first }
-      let(:board) { Fabricate(:board, :project => project, :user => member) }
+      let(:board) { Fabricate(:board, :project => project, :user => user) }
       let(:activity) { board.project.activities.last }
+      let(:user_to_ignore) { project.user }
 
       its(:count) { should eq(5) }
-      # activity#user activities are excluded
+
       it { should_not include(activity) }
 
       context 'when slug type is set for board only' do

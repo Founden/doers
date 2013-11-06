@@ -36,8 +36,9 @@ class Activity < ActiveRecord::Base
 
   # Activities that followed for the same project
   # based on slug types
-  # @params Array slug_types like `['%slug', '%slug2%']`
-  def followed_for_project(slug_types)
+  # @param [User] user_to_ignore is the activities user to be excluded
+  # @param [Array] slug_types like `['%slug', '%slug2%']`
+  def followed_for_project(user_to_ignore, slug_types)
     return nil unless self.project
 
     timing = self.created_at..DateTime.now
@@ -45,7 +46,7 @@ class Activity < ActiveRecord::Base
     self.project.activities.where(
       table[:slug].matches_any(slug_types).and(
         table[:created_at].in(timing)).and(
-        table[:user_id].eq(self.user_id).not))
+        table[:user_id].eq(user_to_ignore.id).not))
   end
 
   private
