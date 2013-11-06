@@ -77,10 +77,10 @@ describe Api::V1::MembershipsController do
       its(:project_id) { should eq(memb.project.id) }
       its(:board_id) { should be_nil }
       its(:updated_at) { should_not be_blank }
-      its(:notify_discussions) { should eq(Membership::TIMING.first) }
-      its(:notify_collaborations) { should eq(Membership::TIMING.first) }
-      its(:notify_boards_topics) { should eq(Membership::TIMING.first) }
-      its(:notify_cards_alignments) { should eq(Membership::TIMING.first) }
+      its(:notify_discussions) { should eq(Membership::TIMING.values.first) }
+      its(:notify_collaborations) { should eq(Membership::TIMING.values.first) }
+      its(:notify_boards_topics) { should eq(Membership::TIMING.values.first) }
+      its(:notify_cards_alignments){ should eq(Membership::TIMING.values.first)}
 
       context 'when is not owned' do
         let(:memb) { Fabricate(:project_membership, :creator => user) }
@@ -115,10 +115,10 @@ describe Api::V1::MembershipsController do
     context 'for an owned membership' do
       let(:memb) { Fabricate(:project_membership, :user => user) }
       let(:attrs) do
-        { :notify_discussions => Membership::TIMING.sample,
-          :notify_collaborations => Membership::TIMING.sample,
-          :notify_boards_topics => Membership::TIMING.sample,
-          :notify_cards_alignments => Membership::TIMING.sample,
+        { :notify_discussions => Membership::TIMING.values.sample,
+          :notify_collaborations => Membership::TIMING.values.sample,
+          :notify_boards_topics => Membership::TIMING.values.sample,
+          :notify_cards_alignments => Membership::TIMING.values.sample,
           :user_id => memb.creator.id
         }
       end
