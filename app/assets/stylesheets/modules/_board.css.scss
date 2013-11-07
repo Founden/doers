@@ -43,13 +43,8 @@
   background: $gray-1;
   min-height: 160px;
 
-  .uploader {
-    opacity: 0;
-  }
-
-  &:hover .uploader {
-    opacity: 1;
-    @include transition(opacity 0.2s);
+  .uploader-drop-area {
+    border: 0;
   }
 }
 
