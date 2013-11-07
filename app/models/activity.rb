@@ -68,20 +68,23 @@ class Activity < ActiveRecord::Base
     timing_type = collab.timing_type(queue_type)
     now_type = Membership::TIMING.values.first
     asap_type = Membership::TIMING.values[1]
-    maximum_offset = Doers::Config.notifications.offset
-    job = collab.jobs.find_by(:queue => queue_type)
+    job = collab.delayed_jobs.find_by(:queue => queue_type)
+    timing = collab.timing(queue_type)
 
-    if is_now = timing_type.eq?(now_type) or !job
-      return NotificationsMailer.delay(
-        :queue => queue_type, :run_at => timing, :membership => collab).
-        send(queue_type, collab, self, :just_this => is_now)
+    if is_now = timing_type.eql?(now_type) or !job
+      payload = Delayed::PerformableMailer.new(
+        NotificationsMailer, queue_type, [collab, self, :just_this => is_now])
+      return Delayed::Job.enqueue(payload, :queue => queue_type,
+        :run_at => timing, :membership_id => collab.id)
     end
 
     # If there's already a job, check if it doesn't need rescheduling
+    maximum_offset = Doers::Config.notifications.offset
     offset = job.run_at.to_i - self.created_at.to_i
-    if offset < maximum_offset and timing_type.eq?(asap_type)
+    if offset > maximum_offset and timing_type.eql?(asap_type)
       job.update_attribute(:run_at, timing)
     end
+    return job
   end
 
   # It maps current activity type to the appropriate queue/notification method
