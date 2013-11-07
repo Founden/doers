@@ -1,9 +1,8 @@
-Doers.UploaderView = Ember.ContainerView.extend
+Doers.AssetUploaderComponent = Ember.Component.extend
   isError: false
+  attributeName: 'image'
   assetAttribute: 'image'
-  contentBinding: 'parentView.content'
   classNames: ['uploader']
-  childViews: ['hiddenFileInputView', 'dropAreaView']
 
   doNothing: (event) ->
     event.preventDefault()
@@ -28,8 +27,51 @@ Doers.UploaderView = Ember.ContainerView.extend
       reader.readAsDataURL(attachment)
 
   attachmentObserver: ( ->
-    @get('controller').send('update')
-  ).observes('content.attachment', 'content.id')
+    object = @get('content')
+    data =
+      attr: @get('attributeName'),
+      desc: object.get('attachmentDescription'),
+      data: object.get('attachment')
+    if object.get('isNew')
+      object.save().then =>
+        @createOrUpdateAsset(data)
+    else
+      @createOrUpdateAsset(data)
+  ).observes('content.attachment')
+
+  # Creates or updates an asset
+  # @param data [Hash], a set of asset options
+  #   Includes a key: `attr` the asset attribute name
+  #                   `desc` the asset description
+  #                   `url` the asset URI to use for `attachment`
+  #                   `data` the asset base64 data to use for `attachment`
+  createOrUpdateAsset: (data) ->
+    object = @get('content')
+    if object.get(data.attr)
+      @updateAsset(data)
+    else
+      @createAsset(data)
+
+  createAsset: (data) ->
+    object = @get('content')
+    asset = @get('content.store').createRecord 'asset',
+      attachment: data.url || data.data
+      description: data.desc
+      project: object.get('project')
+      board: object.get('board') || object
+      assetableType: object.get('assetableType')
+      assetableId: object.get('id')
+      type: @get('attributeName').capitalize()
+    asset.save().then =>
+      object.reload()
+
+  updateAsset: (data) ->
+    object = @get('content')
+    asset = object.get(data.attr)
+    asset.set('attachment', data.url || data.data)
+    asset.set('description', data.desc || asset.get('description'))
+    asset.save().then ->
+      object.reload()
 
   hiddenFileInputView: Ember.View.extend
     name: 'image'
@@ -45,7 +87,6 @@ Doers.UploaderView = Ember.ContainerView.extend
     ).observes('parentView.isAttaching')
 
   dropAreaView: Ember.View.extend
-    templateName: 'partials/uploader'
     isDragging: false
     isVisible: true
     isErrorBinding: 'parentView.isError'
