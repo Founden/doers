@@ -23,7 +23,7 @@
       {{{embed.html}}}
       {{/if}}
       .card-embed-meta
-        .card-embed-title
+        %a.card-embed-title{:target => '_blank', :bind => {:href => 'url'}}
           {{{embed.title}}}
         .card-embed-author
           = _('By')
