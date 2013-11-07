@@ -53,9 +53,11 @@ class Activity < ActiveRecord::Base
 
   # If there's a project and it has collaborators, queue notifications
   def notify_project_collaborators
-    if self.project and self.project.collaborators.count > 1
-      self.project.collaborators.each do |collab|
-        notify_project_collaborator(collab)
+    if self.project and self.project.collaborations.count > 1
+      self.project.collaborations.each do |collab|
+        if collab.timing(queue_type) and !collab.user.eql?(self.user)
+          notify_project_collaborator(collab)
+        end
       end
     end
   end
@@ -63,9 +65,6 @@ class Activity < ActiveRecord::Base
   # This handles project collaborator notification scheduling
   # based on user settings and selected timing options
   def notify_project_collaborator(collab)
-    timing = collab.timing(queue_type)
-    return unless timing
-
     timing_type = collab.timing_type(queue_type)
     now_type = Membership::TIMING.values.first
     asap_type = Membership::TIMING.values[1]
