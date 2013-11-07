@@ -49,6 +49,22 @@ describe Membership do
     end
   end
 
+  describe '#timing_type' do
+    let(:membership) do
+      Membership.new('notify_discussions' => 'TIMING_TYPE')
+    end
+
+    subject { membership.timing_type('notify_discussions') }
+
+    it { should eq('TIMING_TYPE') }
+
+    context 'when option is not available' do
+      subject { membership.timing_type('some_wrong_option') }
+
+      it { should be_nil }
+    end
+  end
+
   describe '#timing' do
     let(:timing) { 'never' }
     let(:notification_option) { 'notify_discussions' }

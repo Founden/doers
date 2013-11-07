@@ -40,11 +40,14 @@ class Membership < ActiveRecord::Base
     self.notify_cards_alignments ||= TIMING.values.first
   end
 
+  # Resolves the timing type for a notification option
+  def timing_type(notification_option)
+    self.respond_to?(notification_option) ? self.send(notification_option) : nil
+  end
+
   # Transforms user notification option into a proper date
   def timing(notification_option)
-    timing = self.respond_to?(notification_option) ?
-      self.send(notification_option) : nil
-    case timing
+    case timing_type(notification_option)
     when 'now'
       1
     when 'asap'
