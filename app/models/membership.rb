@@ -15,6 +15,9 @@ class Membership < ActiveRecord::Base
   store_accessor :data, :notify_discussions, :notify_collaborations
   store_accessor :data, :notify_boards_topics, :notify_cards_alignments
 
+  # Default scope: order by id
+  default_scope { order(:id) }
+
   # Relationships
   belongs_to :creator, :class_name => User
   belongs_to :user

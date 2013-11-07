@@ -9,6 +9,8 @@ Doers::Application.routes.draw do
 
   resources :profiles, :only => [:show, :update, :edit] do
     get :mine, :on => :collection
+    get :notifications, :on => :collection
+    patch :notifications, :on => :collection
   end
   resource :pages, :only => [], :path => '/' do
     get :dashboard
