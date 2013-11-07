@@ -11,11 +11,11 @@ class ProfilesController < ApplicationController
 
   # Notifications settings for user projects
   def notifications
-    if params[:membership]
-      membership = current_account.memberships.find_by(:id => params[:membership][:id])
-      if membership.update_attributes(membership_params.except(:id))
-        flash[:success] = _('Notifications updated.')
-      end
+    membership = current_account.memberships.find_by(
+      :id => params[:membership][:id]) if params[:membership]
+
+    if membership and membership.update_attributes(membership_params.except(:id))
+      flash[:success] = _('Notifications updated.')
     end
   end
 
