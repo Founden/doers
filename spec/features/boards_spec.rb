@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'Boards', :js, :slow do
+feature 'Boards', :js, :focus do
   background do
     sign_in_with_angel_list
   end
@@ -23,6 +23,7 @@ feature 'Boards', :js, :slow do
     given(:user) { User.first }
     given(:project) { Fabricate(:project_with_boards, :user => user) }
     given(:board) { project.boards.first }
+    given(:image_path) { Rails.root.join('spec/fixtures/test.png') }
 
     background do
       visit root_path(:anchor => '/boards/%d' % board.id)
@@ -36,6 +37,16 @@ feature 'Boards', :js, :slow do
       expect(page).to have_css(
         '.board-list .board-item', :count => boards_count - 1)
       expect(project.boards.count).to eq(boards_count - 1)
+    end
+
+    scenario 'cover can be added' do
+      within('.board-cover') do
+        attach_file('image', image_path)
+      end
+      sleep(1)
+      board.reload
+      page.find('.board-cover-image')['src'].should have_content
+        board.cover.attachment.url.force_encoding('UTF-8')
     end
   end
 
