@@ -17,7 +17,7 @@ class Api::V1::MembershipsController < Api::V1::ApplicationController
 
   # Updates a membership
   def update
-    memb = current_account.accepted_memberships.find_by!(:id => params[:id])
+    memb = current_account.memberships.find_by!(:id => params[:id])
 
     if memb.update_attributes(membership_params)
       render :json => memb
