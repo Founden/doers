@@ -6,7 +6,10 @@ class User < ActiveRecord::Base
   include EasyAuth::Models::Account
   # Include [Activity] generations support
   include Activity::Support
+  # Include [Activity] listening support
+  include Activity::Listener
 
+  # Possible user interests
   INTERESTS = {
     _('Founder') => 'founder',
     _('Investor') => 'investor',
@@ -26,9 +29,9 @@ class User < ActiveRecord::Base
   has_many :images, :class_name => Asset::Image
   has_many :activities
   has_many(:created_memberships, :dependent => :destroy,
-           :foreign_key => :creator_id, :class_name => Membership)
+           :foreign_key => :creator_id, :class_name => OwnerMembership)
   has_many(:accepted_memberships, :dependent => :destroy,
-           :class_name => Membership)
+           :class_name => ProjectMembership)
   has_many :invitations, :dependent => :destroy
 
   has_many :whiteboards

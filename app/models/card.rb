@@ -16,7 +16,7 @@ class Card < ActiveRecord::Base
   belongs_to :topic
   has_many :activities
   has_many :comments, :dependent => :destroy
-  has_many :endorses, :dependent => :destroy
+  has_many :endorses
 
   # Validations
   validates_presence_of :user, :project, :board, :topic

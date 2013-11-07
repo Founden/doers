@@ -61,7 +61,7 @@ end
 
 group :development, :test do
   gem 'ffaker'
-  gem 'fabrication'
+  gem 'fabrication', '2.8.1'
   gem 'rspec-rails'
 end
 

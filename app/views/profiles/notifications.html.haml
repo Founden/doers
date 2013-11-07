@@ -1,0 +1,28 @@
+.wrapper
+  %ul.tabs
+    %li
+      %a{:href => mine_profiles_path}
+        = _('Account settings')
+    %li
+      %a.active{:href => notifications_profiles_path}
+        = _('Notifications')
+
+  - current_user.memberships.each do |membership|
+
+    = form_for membership, :as => :membership, :url => notifications_profiles_path, :html => {:class => 'settings', :id => "membership_#{membership.id}" } do |f|
+
+      = f.hidden_field :id
+
+      .settings-title
+        = membership.project.title
+
+      - %w(notify_discussions notify_collaborations notify_boards_topics notify_cards_alignments).each do |type|
+
+        .settings-field.inline
+          = f.label type, :for => "membership_#{type}_#{membership.id}"
+          = f.select type, Membership::TIMING, {}, {:id => "membership_#{type}_#{membership.id}"}
+
+      .settings-actions
+        = f.button :class => 'button btn-small', :id => "membership_submit_#{membership.id}" do
+          = _('Save')
+

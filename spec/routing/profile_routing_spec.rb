@@ -16,6 +16,10 @@ describe ProfilesController do
       get('/profiles/1/edit').should route_to('profiles#edit', :id => '1')
     end
 
+    it 'for user notifications' do
+      get('/profiles/notifications').should route_to('profiles#notifications')
+    end
+
   end
 end
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131028143013) do
+ActiveRecord::Schema.define(version: 20131101181144) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -126,9 +126,9 @@ ActiveRecord::Schema.define(version: 20131028143013) do
   add_index "comments", ["whiteboard_id"], name: "index_comments_on_whiteboard_id", using: :btree
 
   create_table "delayed_jobs", force: true do |t|
-    t.integer  "priority",   default: 0, null: false
-    t.integer  "attempts",   default: 0, null: false
-    t.text     "handler",                null: false
+    t.integer  "priority",      default: 0, null: false
+    t.integer  "attempts",      default: 0, null: false
+    t.text     "handler",                   null: false
     t.text     "last_error"
     t.datetime "run_at"
     t.datetime "locked_at"
@@ -137,8 +137,10 @@ ActiveRecord::Schema.define(version: 20131028143013) do
     t.string   "queue"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "membership_id"
   end
 
+  add_index "delayed_jobs", ["membership_id"], name: "index_delayed_jobs_on_membership_id", using: :btree
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
   create_table "gutentag_taggings", force: true do |t|
