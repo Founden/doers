@@ -9,6 +9,16 @@ class ProfilesController < ApplicationController
   def mine
   end
 
+  # Notifications settings for user projects
+  def notifications
+    membership = current_account.memberships.find_by(
+      :id => params[:membership][:id]) if params[:membership]
+
+    if membership and membership.update_attributes(membership_params.except(:id))
+      flash[:success] = _('Notifications updated.')
+    end
+  end
+
   # Shows user profile
   def show
     @profile = User.find(params[:id])
@@ -43,6 +53,11 @@ class ProfilesController < ApplicationController
     attrs = [:name, :newsletter_allowed, :avatar]
     attrs << :confirmed if current_account.admin?
     params.require(:user).permit(attrs)
+  end
+
+  def membership_params
+    params.require(:membership).permit(:notify_discussions, :notify_collaborations,
+      :notify_boards_topics, :notify_cards_alignments, :id)
   end
 
   # Check if `current_account` has `admin?`
