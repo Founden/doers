@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'project' # Fix the autoload shit
+require 'membership'
 
 describe OwnerMembership do
   it { should validate_presence_of(:project) }
