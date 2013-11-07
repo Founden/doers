@@ -63,21 +63,24 @@
 }
 
 .card-field {
-  margin: 0 30px 10px 30px;
+  margin: 0 30px;
 }
 
 .card-field-title {
   width: 100%;
+  margin: 0 0 10px 0;
   font-size: em(18);
 }
 
 .card-field-description {
   width: 100%;
+  margin: 0 0 20px 0;
   overflow: hidden;
   font-size: em(14);
 }
 
 .card-attachment {
+  margin: 0 0 20px 0;
   min-height: 180px;
   position: relative;
   overflow: hidden;
@@ -90,62 +93,6 @@
       @include transform(scale(1.1));
     }
   }
-
-  .uploader {
-    @include box-sizing(border-box);
-    position: absolute;
-    left: 0;
-    top: 0;
-    z-index: 1;
-    width: 100%;
-    height: 100%;
-    padding: 30px;
-    text-align: center;
-    cursor: pointer;
-
-    input {
-      opacity: 0;
-      position: absolute;
-      left: 0;
-      top: 0;
-    }
-  }
-
-  .uploader-drop-area {
-    @include box-sizing(border-box);
-    height: 100%;
-    border: 1px dashed $gray-5;
-    border-radius: 6px;
-    @include transition(all 0.2s);
-
-    &:hover, &.hover {
-      border-color: $black;
-
-      .uploader-status {
-        background: $white;
-        color: $black;
-      }
-    }
-  }
-
-  .uploader-status {
-    width: 200px;
-    margin: auto;
-    position: absolute;
-    top: 0; left: 0; bottom: 0; right: 0;
-    z-index: 1;
-    display: table;
-    padding: 15px 20px 20px 20px;
-    background: rgba($white, 0.8);
-    border-radius: 3px;
-    font-size: em(12);
-    color: $gray-8;
-    @include transition(all 0.2s);
-
-    .icon {
-      margin: 0 0 5px 0;
-    }
-  }
 }
 
 .card-image {
@@ -155,7 +102,6 @@
 
 .card-embed {
   @include clearfix;
-  background-color: $gray-1;
 
   iframe,
   object {
@@ -165,7 +111,8 @@
 }
 
 .card-embed-meta {
-  padding: 15px 20px;
+  padding: 15px 30px;
+  border-bottom: 1px solid $gray-1;
 }
 
 .card-embed-title {
@@ -216,7 +163,7 @@
 }
 
 .card-actions {
-  margin: 20px 30px;
+  margin: 0 30px 20px 30px;
   font-size: em(14);
 
   a {
@@ -244,6 +191,8 @@
   border-left: 1px solid $gray-1;
   border-radius: 0 3px 3px 0;
   text-align: center;
+  padding: 10px;
+  background: rgba($black, 0.05);
 
   h4 {
     font-size: em(12);
@@ -254,7 +203,7 @@
 }
 
 .card-endorses {
-  margin: 10px 20px 30px 20px;
+  margin: 10px 0 15px 0;
 
   li {
     display: inline-block;

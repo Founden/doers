@@ -1,4 +1,6 @@
 Doers.Board = DS.Model.extend Doers.LastUpdateMixin,
+  assetableType: 'Board'
+
   title: DS.attr('string')
   description: DS.attr('string')
   status: DS.attr('string')
@@ -9,7 +11,7 @@ Doers.Board = DS.Model.extend Doers.LastUpdateMixin,
 
   project: DS.belongsTo('project', inverse: 'boards')
   user: DS.belongsTo('user', readOnly: true)
-  cover: DS.belongsTo('asset', inverse: 'board')
+  cover: DS.belongsTo('cover', inverse: 'board', readOnly: true)
   activities: DS.hasMany('activity', readOnly: true, inverse: 'board', async: true)
   memberships: DS.hasMany('membership', readOnly: true, inverse: 'board', async: true)
   topics: DS.hasMany('topic', readOnly: true, inverse: 'board', async: true)

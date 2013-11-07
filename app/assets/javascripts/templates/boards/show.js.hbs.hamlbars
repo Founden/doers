@@ -1,3 +1,5 @@
+{{content-cover sourceBinding='board.cover.attachment'}}
+
 .sidebar
   .project{:bind => {:id => 'board.project.slug'}}
     {{#linkTo 'projects.show' board.project class='project-title'}}
@@ -10,13 +12,18 @@
     %button.button.btn-small{:_action => 'update'}
       = _('Save')
     {{/if}}
-
-  .board-progress-wrap
-    .board-progress-title
-      {{board.progress}}&#37;
-      = _('board alignment')
-    .board-progress
-      {{view Doers.ProgressBar classNames='board-progress-bar' widthBinding='board.progress'}}
+  .sidebar-footer
+    .board-progress-wrap
+      .board-progress-title
+        {{board.progress}}&#37;
+        = _('board alignment')
+      .board-progress
+        {{view Doers.ProgressBar classNames='board-progress-bar' widthBinding='board.progress'}}
+    .board-cover
+      {{asset-uploader contentBinding='board' attributeName='cover'}}
+      {{#if board.cover}}
+      %img.board-cover-image{:bind => {:src => 'board.cover.smallSizeUrl'}}
+      {{/if}}
 
 .wrapper
   .header
@@ -25,7 +32,7 @@
     = _('Project')
     {{/linkTo}}
     .header-actions
-      {{#view view.deleteButtonView class='button btn-icon btn-danger remove-board' confirmMessage='Are you shure you want to delete?'}}
+      {{#view view.deleteButtonView class='button btn-icon btn-danger remove-board' confirmMessage='Are you shure you want to delete this board?' title='Delete board'}}
       %span.icon.icon-trash
       {{/view}}
 

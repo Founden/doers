@@ -13,12 +13,7 @@
 }
 
 .board-progress-wrap {
-  @include box-sizing(border-box);
-  position: absolute;
-  left: 0;
-  bottom: 30px;
-  padding: 0 30px;
-  width: 100%;
+  margin: 20px 30px;
 }
 
 .board-progress-title {
@@ -32,6 +27,7 @@
   overflow: hidden;
   height: 5px;
   background: $gray-1;
+  margin: 0 0 20px 0;
 }
 
 .board-progress-bar {
@@ -39,6 +35,21 @@
   height: 100%;
   background-color: $green;
   @include transition(width 1s);
+}
+
+.board-cover {
+  position: relative;
+  overflow: hidden;
+  background: $gray-1;
+  min-height: 160px;
+
+  .uploader-drop-area {
+    border: 0;
+  }
+}
+
+.board-cover-image {
+  display: block;
 }
 
 .board-topics {
