@@ -1,3 +1,5 @@
+{{content-cover sourceBinding='board.cover.attachment'}}
+
 .sidebar
   .project
     {{#linkTo 'projects.show' board.project class='project-title'}}
@@ -14,12 +16,13 @@
       {{{topic.title}}}
       {{/linkTo}}
     {{/each}}
-  .board-progress-wrap
-    .board-progress-title
-      {{board.progress}}&#37;
-      = _('board alignment')
-    .board-progress
-      {{view Doers.ProgressBar classNames='board-progress-bar' widthBinding='board.progress'}}
+  .sidebar-footer
+    .board-progress-wrap
+      .board-progress-title
+        {{board.progress}}&#37;
+        = _('board alignment')
+      .board-progress
+        {{view Doers.ProgressBar classNames='board-progress-bar' widthBinding='board.progress'}}
 
 .wrapper
   .header
