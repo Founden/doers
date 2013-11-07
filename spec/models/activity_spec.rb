@@ -183,6 +183,46 @@ describe Activity, :use_truncation do
     end
   end
 
+  describe '#notify_project_collaborator', :focus do
+    let(:membership) { }
+
+    subject(:project) { membership.project }
+
+    context 'when project has no collaborators' do
+      let(:membership) { Fabricate(:project).collaborations.first }
+
+      before do
+        Activity.any_instance.should_not_receive(:notify_project_collaborator)
+      end
+
+      it { should be_valid }
+    end
+
+    context 'project has collaborators notifications disabled' do
+      let(:membership) do
+        Fabricate(:project_membership, :notify_collaborations => 'never')
+      end
+
+      before do
+        Activity.any_instance.should_not_receive(:notify_project_collaborator)
+      end
+
+      it { should be_valid }
+    end
+
+    context 'project collaborator is ignored if is activity user' do
+      let(:membership) do
+        Fabricate(:project_membership)
+      end
+
+      before do
+        Activity.any_instance.should_receive(:notify_project_collaborator).once
+      end
+
+      it { should be_valid }
+    end
+  end
+
   describe '#queue_type' do
     subject { activity.send(:queue_type) }
 
