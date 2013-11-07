@@ -78,28 +78,30 @@ describe Membership do
       context 'when timing is set to now' do
         let(:timing) { 'now' }
 
-        it { should eq(1) }
+        Timecop.freeze do
+          its(:to_i) { should eq(DateTime.current.to_i) }
+        end
       end
 
       context 'when timing is set to asap' do
         let(:timing) { 'asap' }
 
         Timecop.freeze do
-          its(:to_i) { should eq(
-            (DateTime.now + Doers::Config.notifications.asap).to_i) }
+          its(:to_i) { should eq(DateTime.current.advance(
+            :seconds =>Doers::Config.notifications.asap).to_i) }
         end
       end
 
       context 'when timing is set to daily' do
         let(:timing) { 'daily' }
 
-        it { should eq(DateTime.now.at_end_of_day) }
+        it { should eq(DateTime.current.at_end_of_day) }
       end
 
       context 'when timing is set to weekly' do
         let(:timing) { 'weekly' }
 
-        it { should eq(DateTime.now.at_end_of_week) }
+        it { should eq(DateTime.current.at_end_of_week) }
       end
     end
 

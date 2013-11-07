@@ -49,13 +49,13 @@ class Membership < ActiveRecord::Base
   def timing(notification_option)
     case timing_type(notification_option)
     when 'now'
-      1
+      DateTime.current
     when 'asap'
-      DateTime.now + Doers::Config.notifications.asap
+      DateTime.current.advance(:seconds => Doers::Config.notifications.asap)
     when 'daily'
-      DateTime.now.at_end_of_day
+      DateTime.current.at_end_of_day
     when 'weekly'
-      DateTime.now.at_end_of_week
+      DateTime.current.at_end_of_week
     else
       false
     end
