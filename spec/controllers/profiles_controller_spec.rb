@@ -104,4 +104,37 @@ describe ProfilesController do
     end
   end
 
+  describe '#notifications' do
+    let(:membership) { Fabricate(:project_membership) }
+    let(:user) { membership.user }
+
+    before do
+      controller.stub(:current_account) { user }
+      get(:notifications)
+    end
+
+    it { should render_template(:notifications) }
+
+    context 'on notification request' do
+      let(:value) { Membership::TIMING.values.sample }
+      let(:option) { 'notify_discussions' }
+      let(:memb_id) { membership.id }
+
+      before do
+        patch(:notifications, :membership => {option => value, :id => memb_id})
+      end
+
+      it 'updates membership notification option' do
+        should render_template(:notifications)
+        membership.reload.send(option).should eq(value)
+      end
+
+      context 'on random membership request' do
+        let(:memb_id) { Fabricate(:project_membership).id }
+
+        it { should render_template(:notifications) }
+      end
+    end
+  end
+
 end
