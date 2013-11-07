@@ -108,7 +108,7 @@ describe Activity, :use_truncation do
     context 'after calling #save in < 10 minutes' do
       before do
         project.save
-        Timecop.freeze(DateTime.now + 5.minutes) do
+        Timecop.freeze(Time.current + 5.minutes) do
           project.save
         end
       end
@@ -119,7 +119,7 @@ describe Activity, :use_truncation do
     context 'after calling #save after 10 minutes' do
       before do
         project.save
-        Timecop.freeze(DateTime.now + 11.minutes) do
+        Timecop.freeze(Time.current + 11.minutes) do
           project.save
         end
       end
@@ -183,7 +183,7 @@ describe Activity, :use_truncation do
     end
   end
 
-  describe '#notify_project_collaborator', :focus do
+  describe '#notify_project_collaborators' do
     let(:membership) { }
 
     subject(:project) { membership.project }
@@ -220,6 +220,86 @@ describe Activity, :use_truncation do
       end
 
       it { should be_valid }
+    end
+  end
+
+  describe '#notify_project_collaborator' do
+    let(:queue_type) { 'notify_collaborations' }
+    let(:timing_option) { 'asap' }
+    let(:activity) { membership.project.activities.last }
+    let(:membership) do
+      Fabricate(:project_membership, queue_type => timing_option)
+    end
+
+    subject do
+      activity.stub(:queue_type) { queue_type }
+      activity.send(:notify_project_collaborator, membership)
+    end
+    before(:all) do
+      Delayed::Worker.delay_jobs = true
+      Timecop.freeze
+    end
+    after(:all) do
+      Delayed::Worker.delay_jobs = false
+      Timecop.return
+    end
+
+    context 'when notification option is set to now' do
+      let(:timing_option) { 'now' }
+
+      its(:class) { should eq(Delayed::Job) }
+      its(:queue) { should eq(queue_type) }
+      its('run_at.to_i') { should eq(DateTime.current.to_i) }
+      its(:membership_id) { should eq(membership.id) }
+
+      context 'for a specific notification option' do
+        let(:queue_type) { 'notify_boards_topics' }
+
+        its(:queue) { should eq(queue_type) }
+      end
+    end
+
+    context 'when collaborator already has no job scheduled' do
+      before { membership.delayed_jobs.delete_all }
+
+      its(:class) { should eq(Delayed::Job) }
+      its(:queue) { should eq(queue_type) }
+      its(:membership_id) { should eq(membership.id) }
+      its('run_at.to_i') { should eq(DateTime.current.advance(
+        :seconds => Doers::Config.notifications.asap).to_i) }
+    end
+
+    context 'when collaborator has a job scheduled' do
+      let(:timing_option) { 'daily' }
+
+      its(:class) { should eq(Delayed::Job) }
+      its(:queue) { should eq(queue_type) }
+      its('run_at.to_i') { should eq(DateTime.current.at_end_of_day.to_i) }
+      its(:membership_id) { should eq(membership.id) }
+
+      context 'if timing option is set to weekly' do
+        let(:timing_option) { 'weekly' }
+
+        its('run_at.to_i') { should eq(DateTime.current.at_end_of_week.to_i) }
+      end
+    end
+
+    context 'when collaborator has a job scheduled and it needs rescheduling' do
+      let(:timing_option) { 'asap' }
+      let(:new_member) { Fabricate(:project_membership,
+        :creator => membership.creator, :project => membership.project) }
+
+      before do
+        Timecop.freeze(Time.current + Doers::Config.notifications.offset * 2) do
+          new_member
+        end
+      end
+
+      its(:class) { should eq(Delayed::Job) }
+      its(:queue) { should eq(queue_type) }
+      its(:membership_id) { should eq(membership.id) }
+      its('run_at.to_i') { should eq(DateTime.current.advance(
+        :seconds => Doers::Config.notifications.asap).to_i) }
     end
   end
 
