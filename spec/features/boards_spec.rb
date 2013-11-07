@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'Boards', :js, :focus do
+feature 'Boards', :js, :slow do
   background do
     sign_in_with_angel_list
   end
