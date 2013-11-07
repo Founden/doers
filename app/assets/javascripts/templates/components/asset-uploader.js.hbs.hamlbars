@@ -1,6 +1,8 @@
+{{view view.hiddenFileInputView}}
+{{#view view.dropAreaView}}
 .uploader-status
   .icon.icon-photo.medium
-  {{#unless view.attachment}}
+  {{#unless content.attachment}}
   {{#unless view.isError}}
   = _('Click to upload or drop a file.')
   {{else}}
@@ -9,3 +11,4 @@
   {{else}}
   = _('Image uploaded. Drop again to upload a new one.')
   {{/unless}}
+{{/view}}
