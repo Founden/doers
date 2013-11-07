@@ -63,10 +63,10 @@ class Activity < ActiveRecord::Base
   # This handles project collaborator notification scheduling
   # based on user settings and selected timing options
   def notify_project_collaborator(collab)
-    timing = collab.timing
+    timing = collab.timing(queue_type)
     return unless timing
 
-    timing_type = collab.attributes[queue_type]
+    timing_type = collab.timing_type(queue_type)
     now_type = Membership::TIMING.values.first
     asap_type = Membership::TIMING.values[1]
     maximum_offset = Doers::Config.notifications.offset
