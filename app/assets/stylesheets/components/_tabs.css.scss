@@ -1,0 +1,30 @@
+.tabs {
+  @include clearfix;
+  margin: 20px 0;
+  border-bottom: 1px solid $gray-1;
+  border-top: 1px solid $gray-1;
+
+  li {
+    float: left;
+    border-right: 1px solid $gray-1;
+
+    &:first-of-type {
+      border-left: 1px solid $gray-1;
+      margin: 0 0 0 10px;
+    }
+  }
+
+  a {
+    display: block;
+    padding: 15px;
+    font-size: em(11);
+    font-weight: 700;
+    color: $gray-2;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+
+    &.active {
+      background: rgba($black, 0.025);
+    }
+  }
+}

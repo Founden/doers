@@ -5,8 +5,8 @@
 .settings-title {
   margin: 0 0 20px 0;
   border-bottom: 1px solid $gray-1;
-  padding: 0 0 10px 0;
-  font-size: em(12);
+  padding: 0 15px 10px 15px;
+  font-size: em(11);
   font-weight: 700;
   color: $gray-2;
   text-transform: uppercase;
@@ -17,7 +17,13 @@
   @include clearfix;
   margin: 0 0 20px 0;
   border-bottom: 1px solid rgba($black, 0.05);
-  padding: 0 0 20px 0;
+  padding: 0 15px 20px 15px;
+
+  &.inline {
+    display: inline-block;
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
 
   label {
     display: block;
@@ -49,4 +55,8 @@
   .button {
     float: right;
   }
+}
+
+.settings-actions {
+  padding: 0 15px;
 }
