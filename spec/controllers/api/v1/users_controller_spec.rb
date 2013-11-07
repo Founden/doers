@@ -42,7 +42,7 @@ describe Api::V1::UsersController do
         should eq(user.shared_projects.count) }
       its('activity_ids.size') { should eq(user.activities.count) }
       its('invitation_ids.size') { should eq(user.invitations.count) }
-      its('membership_ids.size') { should eq(user.accepted_memberships.count) }
+      its('membership_ids.size') { should eq(user.memberships.count) }
     end
 
     context 'if user owns the profile' do

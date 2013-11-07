@@ -250,7 +250,7 @@ describe User do
 
         context 'or a set of boards owned by the user' do
           let(:target) do
-            Fabricate(:board, :user => user); user.created_boards
+            Fabricate(:board, :user => user).user.boards
           end
 
           it { should be_true }
@@ -481,7 +481,7 @@ describe User do
         context 'or a set of such' do
           let(:target) do
             Fabricate(:project_membership, :user => user)
-            user.accepted_memberships
+            user.project_memberships
           end
 
           it { should be_true }
