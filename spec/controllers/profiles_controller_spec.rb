@@ -22,6 +22,7 @@ describe ProfilesController do
     let(:name) { Faker::Name.name }
     let(:email) { Faker::Internet.email }
     let(:newsletter_allowed) { ['1', '0'].sample }
+    let(:interest) { User::INTERESTS.values.sample }
     let(:current_account) { user }
     let(:avatar_upload) { Rack::Test::UploadedFile.new(
       Rails.root.join('spec/fixtures/test.png'), 'image/png') }
@@ -31,7 +32,7 @@ describe ProfilesController do
       put(:update, :id => :mine, :user => {
         :email => email, :name => name, :confirmed => true,
         :newsletter_allowed => newsletter_allowed,
-        :avatar => avatar_upload } )
+        :avatar => avatar_upload, :interest => interest } )
     end
 
     it 'updates user profile' do
@@ -40,6 +41,7 @@ describe ProfilesController do
       user.name.should eq(name)
       user.newsletter_allowed?.should eq(newsletter_allowed)
       user.avatar.should_not be_nil
+      user.interest.should eq(interest)
     end
   end
 

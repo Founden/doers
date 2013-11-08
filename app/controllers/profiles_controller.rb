@@ -37,7 +37,7 @@ class ProfilesController < ApplicationController
 
   # Allowed user parameters
   def user_params
-    params.require(:user).permit(:name, :newsletter_allowed, :avatar)
+    params.require(:user).permit(:name, :newsletter_allowed, :avatar, :interest)
   end
 
   def membership_params
