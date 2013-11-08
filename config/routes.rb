@@ -20,6 +20,7 @@ Doers::Application.routes.draw do
     patch :waiting
     get :export
     get :download
+    get :stats
   end
 
   namespace :api, :constraints => {:format => :json} do
