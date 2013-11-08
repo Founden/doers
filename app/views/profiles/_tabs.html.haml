@@ -1,0 +1,7 @@
+%ul.tabs
+  %li
+    %a{:href => mine_profiles_path, :class => (current_page?(mine_profiles_path) ? 'active' : '')}
+      = _('Account settings')
+  %li
+    %a{:href => profile_notifications_path(:mine), :class => (current_page?(profile_notifications_path(:mine)) ? 'active' : '')}
+      = _('Notifications')

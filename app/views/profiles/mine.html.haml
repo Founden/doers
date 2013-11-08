@@ -1,11 +1,6 @@
 .wrapper
-  %ul.tabs
-    %li
-      %a.active{:href => mine_profiles_path}
-        = _('Account settings')
-    %li
-      %a{:href => notifications_profiles_path}
-        = _('Notifications')
+  = render('tabs')
+
   = form_for current_user, :url => profile_path(current_user), :html => {:class => 'settings'} do |f|
     .settings-field
       = f.label :email, _('Your e-mail address')

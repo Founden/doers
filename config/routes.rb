@@ -9,8 +9,10 @@ Doers::Application.routes.draw do
 
   resources :profiles, :only => [:show, :update, :edit] do
     get :mine, :on => :collection
-    get :notifications, :on => :collection
-    patch :notifications, :on => :collection
+    constraints :profile_id => :mine do
+      get :notifications
+      patch :notifications
+    end
   end
   resource :pages, :only => [], :path => '/' do
     get :dashboard
