@@ -9,6 +9,9 @@
       = f.label :name, _('Your name')
       = f.text_field :name, :required => true
     .settings-field
+      = f.label :interest, _('Your occupation')
+      = f.select :interest, User::INTERESTS
+    .settings-field
       = avatar_tag(current_user, {:size => 60})
       = f.label :avatar, _('Your profile picture')
       = f.file_field :avatar
