@@ -35,7 +35,7 @@ describe ProfilesController do
     end
 
     it 'updates user profile' do
-      should render_template(:mine)
+      should redirect_to(mine_profiles_path)
       user.email.should eq(user.email)
       user.name.should eq(name)
       user.newsletter_allowed?.should eq(newsletter_allowed)
