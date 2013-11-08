@@ -23,5 +23,9 @@ describe PagesController do
       get('/download').should route_to('pages#download')
     end
 
+    it 'for stats page' do
+      get('/stats').should route_to('pages#stats')
+    end
+
   end
 end

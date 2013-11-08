@@ -102,6 +102,8 @@ GEM
       xpath (~> 2.0)
     celluloid (0.15.2)
       timers (~> 1.1.0)
+    chartjs-rails (0.1)
+      railties (>= 3.1)
     choice (0.1.6)
     climate_control (0.0.3)
       activesupport (>= 3.0)
@@ -404,6 +406,7 @@ DEPENDENCIES
   bourbon
   brakeman
   cane
+  chartjs-rails
   coffee-rails
   daemons
   dalli

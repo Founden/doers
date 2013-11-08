@@ -43,6 +43,7 @@ group :assets do
   gem 'normalize-rails'
   gem 'momentjs-rails'
   gem 'nprogress-rails'
+  gem 'chartjs-rails'
 end
 
 group :development do

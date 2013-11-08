@@ -12,6 +12,18 @@ class PagesController < ApplicationController
   def export
   end
 
+  # Stats page
+  def stats
+    (redirect_to(root_path) and return) unless current_account.admin?
+
+    respond_to do |format|
+      format.html
+      format.json do
+        render(:json => current_account, :serializer => StatsSerializer )
+      end
+    end
+  end
+
   # Sends the export data to download
   def download
     Delayed::Job.enqueue(ExportJob.new(current_account))
