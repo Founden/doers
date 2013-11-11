@@ -1,10 +1,5 @@
-.header
-  .header-root
-    = _('Data Export')
-
-.content-wrap
-
-  .page.half
+.wrapper
+  .page
     - if @current_account.boards.count
       %h1
         = _('Your export options')
@@ -17,7 +12,7 @@
         %a#export-btn{:href => download_pages_path}
           %button.button
             %span.icon.icon-arrow-down
-              = _('Email me boards data.')
+            = _('Email me boards data')
     - else
       %h1
         = _('No export options for you')
@@ -27,4 +22,4 @@
         %a{:href => root_path}
           %button.button
             %span.icon.icon-arrow-prev
-              = _('Take me back to dashboard.')
+            = _('Take me back to dashboard')

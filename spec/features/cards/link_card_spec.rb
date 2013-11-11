@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'Link', :js, :slow, :pending do
+feature 'Link', :js, :slow do
   background do
     sign_in_with_angel_list
   end
@@ -18,13 +18,14 @@ feature 'Link', :js, :slow, :pending do
     background do
       Oembedr.should_receive(:known_service?).at_least(1).times.and_return(true)
       Oembedr.should_receive(:fetch).at_least(1).times.and_return(response)
-      visit root_path(:anchor => '/board/%d/topic/%d' % [card.board.id, card.topic.id])
+      visit root_path(:anchor => '/topic/%d' % topic.id)
     end
 
     scenario 'is shown with details' do
       expect(page).to have_css('.card', :count => 1)
-      expect(page.find('.card-field-title').value).to eq(card.title)
-      expect(page.find('.card-field-description').value).to eq(card.content)
+      expect(page).to have_field(:title, :with => card.title, :disabled => true)
+      expect(page).to have_field(
+        :content, :with => card.content, :disabled => true)
       expect(page).to have_content(embed['title'])
     end
 

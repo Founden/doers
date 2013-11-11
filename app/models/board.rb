@@ -19,7 +19,7 @@ class Board < ActiveRecord::Base
   has_many(:memberships, :dependent => :destroy, :class_name => BoardMembership)
   has_many :members, :through => :memberships, :source => :user
   has_many :invitations, :dependent => :destroy, :as => :invitable
-  has_many :topics
+  has_many :topics, :dependent => :destroy
 
   # Validations
   validates_presence_of :title, :user, :project
@@ -39,8 +39,12 @@ class Board < ActiveRecord::Base
 
   # Generates a progress out of current topics status
   def progress
-    topics.count > 0 ? (
-      (cards.aligned.count.to_f / topics.count) * 100).to_i : 100
+    return 100 if topics.count < 1
+    return 0 if topics.count > 0 and cards.count < 1
+
+    alignments = topics.where.not(:aligned_card_id => nil).count
+
+    ( (alignments.to_f / topics.count) * 100 ).to_i
   end
 
   # Fork this board into a whiteboard

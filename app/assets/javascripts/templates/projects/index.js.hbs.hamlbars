@@ -1,80 +1,71 @@
-.header
-  .header-root
-    = _('Projects')
-  .header-actions
-    {{#linkTo 'projects.import' id='projects-import' class='button secondary'}}
-    %span.icon.icon-angel
-    = _('Import from AngelList')
-    {{/linkTo}}
-    %a#projects-add.button{:href => root_path(:anchor => '/projects/new')}
+.wrapper
+  .header
+    .header-actions
+      {{#linkTo 'projects.new' id='projects-add' class='button'}}
       %span.icon.icon-project
-      = _('Create project')
+      = _('Create new project')
+      {{/linkTo}}
+      {{#linkTo 'projects.import' id='projects-import' class='button'}}
+      %span.icon.icon-angel
+      = _('Import from AngelList')
+      {{/linkTo}}
 
-.content-wrap
-
-  {{#unless content}}
+  {{#unless currentUser.hasProjects}}
   .status
     .status-message
       = _('You have no active projects at the moment.')
       %br/
       = _('Start by creating your first project.')
-    .status-actions
-      {{#linkTo 'projects.new' class='status-button'}}
-      %span.icon.icon-project
-      = _('Create new project')
-      {{/linkTo}}
-      {{#linkTo 'projects.import' class='status-button'}}
-      %span.icon.icon-angel
-      = _('Import from AngelList')
-      {{/linkTo}}
-  {{else}}
+  {{/unless}}
+
+  {{#if content}}
   .project-list
     .project-list-header
       .project-list-title
-        = _('Mine')
-      .project-list-title-boards
-        = _('Boards')
+        = _('My projects')
       .project-list-title-users
         = _('Collaborators')
+      .project-list-title-boards
+        = _('Boards')
     {{#each project in content}}
     .project-item{:bind => {:id => 'project.slug'}}
-      {{#linkTo 'projects.show' project}}
       %h3.project-item-title
-        {{project.title}}
-      {{/linkTo}}
-      .project-item-boards
-        {{project.boardsCount}}
-        %span.icon.icon-board
+        {{#linkTo 'projects.show' project}}
+        {{{project.title}}}
+        {{/linkTo}}
       .project-item-users
         %img.project-item-user-image{:bind => {:src => 'project.user.avatarUrl'}}
         {{#each membership in project.memberships}}
         %img.project-item-user-image{:bind => {:src => 'membership.user.avatarUrl'}}
         {{/each}}
+      .project-item-boards
+        {{project.boardsCount}}
+        %span.icon.icon-board
     {{/each}}
-  {{/unless}}
+  {{/if}}
 
   {{#if currentUser.sharedProjects}}
   .project-list
     .project-list-header
       .project-list-title
         = _('Shared with me')
-      .project-list-title-boards
-        = _('Boards')
       .project-list-title-users
         = _('Collaborators')
+      .project-list-title-boards
+        = _('Boards')
     {{#each project in currentUser.sharedProjects}}
     .project-item{:bind => {:id => 'project.slug'}}
-      {{#linkTo 'projects.show' project}}
       %h3.project-item-title
-        {{project.title}}
-      {{/linkTo}}
-      .project-item-boards
-        {{project.boardsCount}}
-        %span.icon.icon-board
+        {{#linkTo 'projects.show' project}}
+        {{{project.title}}}
+        {{/linkTo}}
       .project-item-users
         %img.project-item-user-image{:bind => {:src => 'project.user.avatarUrl'}}
         {{#each membership in project.memberships}}
         %img.project-item-user-image{:bind => {:src => 'membership.user.avatarUrl'}}
         {{/each}}
+      .project-item-boards
+        {{project.boardsCount}}
+        %span.icon.icon-board
     {{/each}}
   {{/if}}

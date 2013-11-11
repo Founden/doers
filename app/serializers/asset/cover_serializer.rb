@@ -1,4 +1,4 @@
 # [Asset::Cover] model serializer
 class Asset::CoverSerializer < AssetSerializer
-  root :asset
+  root :cover
 end

@@ -1,5 +1,8 @@
 Doers.BoardsShowController =
 Ember.ArrayController.extend Doers.ControllerAlertMixin,
+
+  sortProperties: ['position']
+
   actions:
 
     update: ->
@@ -11,8 +14,34 @@ Ember.ArrayController.extend Doers.ControllerAlertMixin,
       project = board.get('project')
       board.deleteRecord()
       board.save().then =>
+        @get('target.router').transitionTo('projects.show', project)
         mixpanel.track 'DELETED',
           TYPE: 'Board'
           ID: board.get('id')
           TITLE: board.get('title')
-        @get('target.router').transitionTo('projects.show', project)
+
+    addTopic: ->
+      topic = @store.createRecord 'topic',
+        board: @get('board')
+        project: @get('board.project')
+        position: @get('content.length')
+      @get('content').pushObject(topic)
+
+    saveTopic: (topic) ->
+      topic.save().then =>
+        @get('board').reload()
+        mixpanel.track 'CREATED',
+          TYPE: 'Topic'
+          ID: topic.get('id')
+          TITLE: topic.get('title')
+
+    removeTopic: (topic) ->
+      if topic.get('isNew')
+        @get('content').removeObject(topic)
+      else
+        topic.deleteRecord()
+        topic.save()
+        mixpanel.track 'DELETED',
+          TYPE: 'Topic'
+          ID: topic.get('id')
+          TITLE: topic.get('title')

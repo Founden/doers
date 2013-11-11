@@ -12,5 +12,13 @@ Doers.Embed = DS.Model.extend
   height: DS.attr('number', readOnly: true)
 
   mediaUrl: ( ->
-    @get('thumbnailUrl') || @get('embedUrl')
+    @get('embedUrl') || @get('thumbnailUrl')
   ).property('embedUrl', 'thumbnailUrl')
+
+  hasPhoto: ( ->
+    /photo|link/.test(@get('embedType'))
+  ).property('embedType')
+
+  hasRichMedia: ( ->
+    /video|rich/.test(@get('embedType'))
+  ).property('embedType')

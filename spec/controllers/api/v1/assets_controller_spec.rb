@@ -46,7 +46,7 @@ describe Api::V1::AssetsController do
 
     it 'gives not found when asset is not available' do
       expect {
-        patch(:update, :card => attrs, :id => asset_id)
+        get(:show, :id => asset_id)
       }.to raise_error
     end
 
@@ -55,10 +55,11 @@ describe Api::V1::AssetsController do
         'card/photo', :user => user, :project => project, :board => board) }
       let(:image) { card.image }
       let(:asset_id) { image.id }
+      let(:json_root) { 'image' }
 
       before { get(:show, :id => asset_id) }
 
-      subject(:api_asset) { json_to_ostruct(response.body, :asset) }
+      subject(:api_asset) { json_to_ostruct(response.body, json_root) }
 
       its('keys.size') { should eq(13) }
       its(:id) { should eq(image.id) }
@@ -80,10 +81,11 @@ describe Api::V1::AssetsController do
   describe '#update' do
     let(:asset_id) { rand(99..999) }
     let(:attrs) { {:description => ''} }
+    let(:json_root) { 'image' }
 
     it 'does nothing to a not owned asset' do
       expect {
-        patch(:update, :card => attrs, :id => asset_id)
+        patch(:update, :asset => attrs, :id => asset_id)
       }.to raise_error
     end
 
@@ -93,7 +95,7 @@ describe Api::V1::AssetsController do
       let(:asset) { card.image }
       let(:asset_id) { asset.id }
 
-      before { patch(:update, :id => asset_id, :asset => attrs) }
+      before { patch(:update, :id => asset_id, json_root => attrs) }
 
       context 'with invalid attributes' do
         let(:attrs) { {:attachment => 'STRING'} }
@@ -106,7 +108,7 @@ describe Api::V1::AssetsController do
       context 'with valid attributes' do
         let(:attrs) { Fabricate.attributes_for(:image_to_upload) }
 
-        subject(:api_asset) { json_to_ostruct(response.body, :asset) }
+        subject(:api_asset) { json_to_ostruct(response.body, json_root) }
 
         its('keys.size') { should eq(13) }
         its(:id) { should eq(asset.id) }
@@ -142,8 +144,9 @@ describe Api::V1::AssetsController do
 
   describe '#create' do
     let(:asset_attrs) { Fabricate.attributes_for(:image_to_upload) }
+    let(:json_root) { 'image' }
 
-    before { post(:create, :asset => asset_attrs) }
+    before { post(:create, json_root => asset_attrs) }
 
     context 'with wrong parameters' do
       let(:asset_attrs) {
@@ -166,7 +169,7 @@ describe Api::V1::AssetsController do
         :assetable_type => project.class, :assetable_id => project.id)
       }
 
-      subject(:api_asset) { json_to_ostruct(response.body, :asset) }
+      subject(:api_asset) { json_to_ostruct(response.body, json_root) }
 
       its('keys.size') { should eq(13) }
       its(:id) { should_not be_nil }
@@ -185,6 +188,7 @@ describe Api::V1::AssetsController do
           :user => user, :project => project, :type => 'Logo',
           :assetable_type => project.class, :assetable_id => project.id)
         }
+        let(:json_root) { 'logo' }
 
         its('keys.size') { should eq(13) }
       end
@@ -192,6 +196,7 @@ describe Api::V1::AssetsController do
       context 'for cover' do
         let(:asset_attrs) { Fabricate.attributes_for(:image_to_upload,
           :user => user, :board => board, :type => 'Cover') }
+        let(:json_root) { 'cover' }
 
         its('keys.size') { should eq(13) }
       end
@@ -212,6 +217,7 @@ describe Api::V1::AssetsController do
             :project => project, :board => board, :attachment => image_url,
             :assetable_type => project.class, :assetable_id => project.id)
         }
+        let(:json_root) { asset_attrs[:type].downcase }
 
         its('keys.size') { should eq(13) }
       end

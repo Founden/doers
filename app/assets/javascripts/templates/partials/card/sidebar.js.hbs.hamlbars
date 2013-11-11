@@ -1,0 +1,13 @@
+.card-sidebar
+  {{#unless isNew}}
+  %h4
+    = _('Endorsements')
+  {{card-endorses content=view.content user=view.user}}
+  {{#if isAlignedCard}}
+  .button.btn-small.selected.toggle-alignment{:_action => 'toggleAlignment'}
+    = _('Mark as unaligned')
+  {{else}}
+  .button.btn-small.toggle-alignment{:_action => 'toggleAlignment'}
+    = _('Mark as aligned')
+  {{/if}}
+  {{/unless}}

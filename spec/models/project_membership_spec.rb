@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'project' # Fix the autoload shit
+require 'membership'
 
 describe ProjectMembership do
   it { should validate_presence_of(:project) }
@@ -34,6 +34,7 @@ describe ProjectMembership do
       its(:project) { should eq(membership.project) }
       its(:board) { should be_nil }
       its(:slug) { should eq('create-project-membership') }
+      its(:member_name) { should eq(membership.user.nicename) }
     end
 
     context 'on update' do
@@ -53,6 +54,7 @@ describe ProjectMembership do
       its(:project) { should eq(membership.project) }
       its(:board) { should be_nil }
       its(:slug) { should eq('destroy-project-membership') }
+      its(:member_name) { should eq(membership.user.nicename) }
     end
   end
 end

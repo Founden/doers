@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'Dashboard', :js, :slow, :pending do
+feature 'Dashboard', :js, :slow, :no_ci do
 
   background do
     sign_in_with_angel_list
@@ -69,16 +69,6 @@ feature 'Dashboard', :js, :slow, :pending do
     scenario 'shows available projects' do
       expect(page).to have_css(
         '.project-item', :count => user.projects.count)
-    end
-
-    scenario 'includes project details' do
-      user.projects.each do |prj|
-        expect(page).to have_content(prj.title)
-        # expect(page).to have_content(prj.description)
-        # expect(page).to have_content(URI.parse(prj.website).hostname)
-        # expect(page.source).to include(
-        #   prj.logo.attachment.url.force_encoding('UTF-8'))
-      end
     end
 
     scenario 'goes to the project boards when clicked one' do

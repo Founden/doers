@@ -4,33 +4,26 @@ Ember.ObjectController.extend Doers.ControllerAlertMixin,
   commentContent: ''
   cardPicker: false
 
-  # TODO: make this smarter, create singletons for each card type and
-  # just switch the `content`.
-  cardController: ( ->
-    if type = @get('content.card.type')
-      @container.resolve('controller:' + type + 'Card').create
-        content: @get('content.card')
-        container: @container
-        store: @store
-  ).property('content.card.type')
-
-  cardTemplateName: ( ->
-    if type = @get('content.card.type')
-      'cards/%@'.fmt(type.underscore())
-  ).property('content.card.type')
-
-  cardClassNames: ( ->
-    if type = @get('content.card.type') and slug = @get('content.card.slug')
-      'card %@ type-%@'.fmt(slug, type.dasherize())
-  ).property('content.card.type')
-
-  uploaderView: ( ->
-    @container.resolve('view:uploader')
-  ).property()
-
   actions:
     save: ->
-      @get('content').save()
+      topic = @get('content')
+      if topic.get('title')
+        topic.save().then =>
+          mixpanel.track 'UPDATED',
+            TYPE: 'Topic'
+            ID: topic.get('id')
+            TITLE: topic.get('title')
+
+    destroy: ->
+      topic = @get('content')
+      board = @get('board')
+      topic.deleteRecord()
+      topic.save().then =>
+        mixpanel.track 'DELETED',
+          TYPE: 'Topic'
+          ID: topic.get('id')
+          TITLE: topic.get('title')
+        @get('target.router').transitionTo('boards.show', board)
 
     addComment: ->
       content = @get('commentContent')
@@ -45,6 +38,10 @@ Ember.ObjectController.extend Doers.ControllerAlertMixin,
         comment.save().then =>
           @set('commentContent', '')
           @get('content').reload()
+          mixpanel.track 'CREATED',
+            TYPE: 'Comment'
+            ID: comment.get('id')
+            CONTENT: comment.get('content')
 
     resetComment: ->
       @set('commentContent', '')
@@ -53,11 +50,13 @@ Ember.ObjectController.extend Doers.ControllerAlertMixin,
       @set('cardPicker', true)
 
     addCard: (type) ->
+      topic = @get('content')
       card = @store.createRecord type.toLowerCase(),
         user: @get('currentUser')
         board: @get('board')
         project: @get('board.project')
-        topic: @get('content')
+        topic: topic
         type: type
         isEditing: true
-      @set('content.card', card)
+      topic.get('cards').pushObject(card)
+      @set('cardPicker', false)

@@ -1,15 +1,12 @@
-.header
-  .header-root
-    = _('Sign in')
+.wrapper
 
-.content-wrap
-
-  .page.half
+  .page
     %h1
       = _('Sign in to continue')
     %p
       = _('You can use your Angel List account so we can sync with existing startups you have access to and help you win some time.')
     %p
       %a.button#signin-btn{:href => oauth2_sign_in_path(:provider => :angel_list)}
+        %span.icon.icon-angel
         = _('Sign in with Angel List')
 

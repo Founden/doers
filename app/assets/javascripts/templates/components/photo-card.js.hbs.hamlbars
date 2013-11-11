@@ -1,0 +1,18 @@
+{{#with content}}
+{{partial 'partials/card/user'}}
+.card-wrap
+  .card-edit
+    {{partial 'partials/card/fields'}}
+
+    {{#view classNames='card-attachment' classNameBindings='isEditing' content=view.content}}
+    {{#if isEditing}}
+    {{asset-uploader contentBinding='view.content'}}
+    {{/if}}
+    {{#if image}}
+    %img.card-image{:bind => {:src => 'image.mediumSizeUrl'}}
+    {{/if}}
+    {{/view}}
+
+    {{partial 'partials/card/actions'}}
+  {{partial 'partials/card/sidebar'}}
+{{/with}}

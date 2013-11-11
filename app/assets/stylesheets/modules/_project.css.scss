@@ -1,23 +1,146 @@
 .project {
-  text-align: center;
-  margin: 60px 0;
+  margin: 20px 30px;
 }
 
 .project-title {
+  display: block;
+  overflow: hidden;
   width: 100%;
-  text-align: center;
-  margin: 0 0 0.5em 0;
-  font-size: em(48);
-  line-height: 1.3em;
-  font-weight: 700;
+  margin: 0 0 10px 0;
+  font-size: em(26);
+  line-height: 1.35em;
+  font-weight: 400;
   font-family: $museo;
 }
 
 .project-description {
   width: 100%;
-  text-align: center;
-  margin: 0 0 1em 0;
-  font-size: em(28);
-  line-height: 1.4em;
-  font-weight: 300;
+  margin: 0 0 20px 0;
+  font-size: em(14);
+  color: $gray-5;
+}
+
+.project-actions {
+  margin: 0 0 20px 0;
+}
+
+.project-members {
+  @include clearfix;
+  margin: 20px 30px;
+}
+
+.project-member {
+  float: left;
+  position: relative;
+  margin: 0 10px 10px 0;
+
+  &:hover {
+
+    .project-member-image {
+      @include transform(scale(1.05));
+    }
+
+    .project-member-tooltip {
+      opacity: 1;
+      height: auto;
+      width: auto;
+      overflow: visible;
+      left: 100%;
+      border: 1px solid $gray-1;
+      padding: 10px 15px;
+      @include transition(left 0.2s 0.2s, opacity 0.2s 0.2s);
+    }
+  }
+}
+
+.project-owner {
+  @extend .project-member;
+}
+
+.project-member-image {
+  display: block;
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  cursor: pointer;
+}
+
+.project-member-tooltip {
+  position: absolute;
+  left: 90%;
+  top: 0;
+  z-index: 10;
+  border-radius: 3px;
+  background: $white;
+  box-shadow: 0 1px 0 $gray-1;
+  opacity: 0;
+  height: 0;
+  width: 0;
+  overflow: hidden;
+
+  &:before {
+    content: '';
+    position: absolute;
+    left: -3px;
+    top: 18px;
+    width: 4px;
+    height: 4px;
+    background: inherit;
+    border-width: 0 0 1px 1px;
+    border-color: $gray-1;
+    border-style: solid;
+    @include transform(rotate(45deg));
+  }
+}
+
+.project-member-name {
+  font-size: em(14);
+  font-weight: 600;
+  color: $gray-5;
+  white-space: nowrap;
+}
+
+.project-member-remove {
+  display: inline-block;
+  font-size: em(12);
+  color: $red;
+  white-space: nowrap;
+}
+
+.project-invitees {
+  margin: 0 30px 20px 30px;
+}
+
+.project-invitee {
+  display: block;
+  border-bottom: 1px solid rgba($black, 0.05);
+  padding: 5px 0;
+  font-size: em(12);
+  color: $gray-5;
+
+  .icon {
+    float: right;
+    color: $gray-2;
+    cursor: pointer;
+  }
+}
+
+.project-invitee-add {
+  margin: 5px 0;
+  display: inline-block;
+  font-size: em(12);
+  color: $green;
+}
+
+.project-invitee-form {
+
+  .button {
+    float: right;
+  }
+}
+
+.project-ivitee-email {
+  font-size: em(14);
+  height: 42px;
+  width: 75%;
 }

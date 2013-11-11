@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131025145210) do
+ActiveRecord::Schema.define(version: 20131101181144) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -94,10 +94,8 @@ ActiveRecord::Schema.define(version: 20131025145210) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "topic_id"
-    t.boolean  "alignment"
   end
 
-  add_index "cards", ["alignment"], name: "index_cards_on_alignment", using: :btree
   add_index "cards", ["board_id"], name: "index_cards_on_board_id", using: :btree
   add_index "cards", ["position"], name: "index_cards_on_position", using: :btree
   add_index "cards", ["project_id"], name: "index_cards_on_project_id", using: :btree
@@ -128,9 +126,9 @@ ActiveRecord::Schema.define(version: 20131025145210) do
   add_index "comments", ["whiteboard_id"], name: "index_comments_on_whiteboard_id", using: :btree
 
   create_table "delayed_jobs", force: true do |t|
-    t.integer  "priority",   default: 0, null: false
-    t.integer  "attempts",   default: 0, null: false
-    t.text     "handler",                null: false
+    t.integer  "priority",      default: 0, null: false
+    t.integer  "attempts",      default: 0, null: false
+    t.text     "handler",                   null: false
     t.text     "last_error"
     t.datetime "run_at"
     t.datetime "locked_at"
@@ -139,8 +137,10 @@ ActiveRecord::Schema.define(version: 20131025145210) do
     t.string   "queue"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "membership_id"
   end
 
+  add_index "delayed_jobs", ["membership_id"], name: "index_delayed_jobs_on_membership_id", using: :btree
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
   create_table "gutentag_taggings", force: true do |t|
@@ -252,8 +252,10 @@ ActiveRecord::Schema.define(version: 20131025145210) do
     t.datetime "updated_at"
     t.integer  "position"
     t.integer  "whiteboard_id"
+    t.integer  "aligned_card_id"
   end
 
+  add_index "topics", ["aligned_card_id"], name: "index_topics_on_aligned_card_id", using: :btree
   add_index "topics", ["board_id"], name: "index_topics_on_board_id", using: :btree
   add_index "topics", ["position"], name: "index_topics_on_position", using: :btree
   add_index "topics", ["project_id"], name: "index_topics_on_project_id", using: :btree
@@ -267,7 +269,6 @@ ActiveRecord::Schema.define(version: 20131025145210) do
     t.string   "external_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.datetime "login_at"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", using: :btree

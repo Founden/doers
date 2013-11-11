@@ -1,0 +1,8 @@
+{{#with content}}
+{{partial 'partials/card/user'}}
+.card-wrap
+  .card-edit
+    {{partial 'partials/card/fields'}}
+    {{partial 'partials/card/actions'}}
+  {{partial 'partials/card/sidebar'}}
+{{/with}}

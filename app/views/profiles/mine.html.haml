@@ -1,18 +1,16 @@
-.header
-  .header-root
-    = _('Settings')
-
-.content-wrap
+.wrapper
+  = render('tabs')
 
   = form_for current_user, :url => profile_path(current_user), :html => {:class => 'settings'} do |f|
-    .settings-title
-      = _('Account settings')
     .settings-field
       = f.label :email, _('Your e-mail address')
       = f.text_field :email, :readonly => true
     .settings-field
       = f.label :name, _('Your name')
       = f.text_field :name, :required => true
+    .settings-field
+      = f.label :interest, _('Your occupation')
+      = f.select :interest, User::INTERESTS
     .settings-field
       = avatar_tag(current_user, {:size => 60})
       = f.label :avatar, _('Your profile picture')

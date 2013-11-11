@@ -1,7 +1,7 @@
 .alerts {
   position: fixed;
-  left: 40px;
-  bottom: 40px;
+  left: 20px;
+  bottom: 20px;
   z-index: 30;
 }
 
@@ -10,25 +10,24 @@
   display: table;
   width: 280px;
   margin: 10px 0 0 0;
+  border: 1px solid $gray-2;
   border-radius: 3px;
-  background: $blue;
-  color: $white;
-  box-shadow: 0 2px rgba($black, 0.2);
+  box-shadow: 0 1px 0 $gray-2;
   font-size: em(12);
 
   .icon {
     display: table-cell;
     vertical-align: middle;
     width: 50px;
-    background: rgba($black, 0.2);
+    background: $gray-1;
     text-align: center;
     cursor: pointer;
-    border-left: 1px solid rgba($white, 0.1);
-    box-shadow: inset 1px 0 rgba($black, 0.1);
+    border-left: 1px solid $gray-1;
   }
 }
 
 .alert-message {
   display: table-cell;
+  background: shade($white, 5%);
   padding: 15px 20px;
 }

@@ -1,8 +1,12 @@
 # DOERS [Activity] class
 class Activity < ActiveRecord::Base
+  # Include [Activity] notifications
+  include Activity::Notifier
+
   # Some dynamic attributes
   store_accessor :data, :user_name, :project_title, :board_title
   store_accessor :data, :card_title, :topic_title, :invitation_email
+  store_accessor :data, :member_name
 
   # Default scope: order by last update
   default_scope { order(:updated_at => :desc) }
@@ -27,5 +31,73 @@ class Activity < ActiveRecord::Base
     self.board_title = self.board.title if self.board
     self.topic_title = self.topic.title if self.topic
     self.card_title = self.card.title if self.card
+  end
+  after_commit :notify_project_collaborators, :on => :create
+
+  # Activities that followed for the same project
+  # based on slug types
+  # @param [User] user_to_ignore is the activities user to be excluded
+  # @param [Array] slug_types like `['%slug', '%slug2%']`
+  def search_for_project(user_to_ignore, slug_types)
+    return nil unless self.project
+
+    timing = self.created_at..DateTime.now
+    table = self.class.arel_table
+    self.project.activities.where(
+      table[:slug].matches_any(slug_types).and(
+        table[:created_at].in(timing)).and(
+        table[:user_id].eq(user_to_ignore.id).not))
+  end
+
+  private
+
+  # If there's a project and it has collaborators, queue notifications
+  def notify_project_collaborators
+    if self.project and self.project.collaborations.count > 1
+      self.project.collaborations.each do |collab|
+        if collab.timing(queue_type) and !collab.user.eql?(self.user)
+          notify_project_collaborator(collab)
+        end
+      end
+    end
+  end
+
+  # This handles project collaborator notification scheduling
+  # based on user settings and selected timing options
+  def notify_project_collaborator(collab)
+    timing_type = collab.timing_type(queue_type)
+    now_type = Membership::TIMING.values.first
+    asap_type = Membership::TIMING.values[1]
+    job = collab.delayed_jobs.find_by(:queue => queue_type)
+    timing = collab.timing(queue_type)
+
+    if is_now = timing_type.eql?(now_type) or !job
+      payload = Delayed::PerformableMailer.new(
+        NotificationsMailer, queue_type, [collab, self, :just_this => is_now])
+      return Delayed::Job.enqueue(payload, :queue => queue_type,
+        :run_at => timing, :membership_id => collab.id)
+    end
+
+    # If there's already a job, check if it doesn't need rescheduling
+    maximum_offset = Doers::Config.notifications.offset
+    offset = job.run_at.to_i - self.created_at.to_i
+    if offset > maximum_offset and timing_type.eql?(asap_type)
+      job.update_attribute(:run_at, timing)
+    end
+    return job
+  end
+
+  # It maps current activity type to the appropriate queue/notification method
+  def queue_type
+    case self.slug
+    when /comment|endorse/
+      'notify_discussions'
+    when /membership|invitation/
+      'notify_collaborations'
+    when /card|alignment/
+      'notify_cards_alignments'
+    when /board|topic/
+      'notify_boards_topics'
+    end
   end
 end

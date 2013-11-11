@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'Projects', :js, :slow, :pending do
+feature 'Projects', :js, :slow do
   given(:user) { User.first }
 
   background do
@@ -47,7 +47,7 @@ feature 'Projects', :js, :slow, :pending do
     scenario 'confirms deletion and removes project' do
       projects_count = user.projects.count
 
-      find('.header-actions .button.secondary').click
+      find('.remove-project').click
 
       sleep(1)
 

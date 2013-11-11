@@ -5,6 +5,7 @@ describe Topic do
   it { should belong_to(:project) }
   it { should belong_to(:board).dependent('') }
   it { should belong_to(:whiteboard).dependent('') }
+  it { should belong_to(:aligned_card).dependent('') }
   it { should have_many(:cards).dependent(:destroy) }
   it { should have_many(:comments).dependent(:destroy) }
   it { should have_many(:activities).dependent('') }
@@ -26,6 +27,12 @@ describe Topic do
       let(:topic) { Fabricate.build(:topic) }
 
       it { should be_valid }
+
+      context 'and project is missing' do
+        let(:topic) { Fabricate.build(:topic, :project => nil) }
+
+        it { should_not be_valid }
+      end
     end
   end
 

@@ -1,73 +1,78 @@
 require 'spec_helper'
 
-feature 'Memberships', :js, :slow, :pending do
+feature 'Memberships', :js, :slow do
   background do
     sign_in_with_angel_list
   end
 
-  shared_examples 'member is added' do
-    scenario 'adds an user to memberships' do
-      member = Fabricate(:user)
-      expect(page).to have_css('.member-list .member-item', :count => 0)
-
-      page.find('.member-item-add').click
-      within('.member-item-add-form') do
-        fill_in :email, :with => member.email
-      end
-      page.find('.member-item-add-form .button').click
-      page.find('.member-item-add.active').click
-
-      sleep(1)
-      expect(page).to have_css('.member-list .member-item', :count => 1)
-      expect(member.accepted_memberships.reload.count).to_not eq(0)
-    end
-  end
-
-  shared_examples 'email is invited' do
-    scenario 'sends an invitation' do
-      email = Faker::Internet.email
-      expect(page).to have_css('.member-list .member-item', :count => 0)
-
-      page.find('.member-item-add').click
-      within('.member-item-add-form') do
-        fill_in :email, :with => email
-      end
-      page.find('.member-item-add-form .button').click
-      page.find('.member-item-add.active').click
-
-      expect(page).to have_css('.member-list .member-item', :count => 0)
-      sleep(1)
-      expect(Invitation.find_by(:email => email)).to_not be_nil
-    end
-  end
-
-  context 'in a page' do
-    given(:page_path) {}
+  context 'of a project' do
 
     background do
-      visit page_path
+      visit root_path(:anchor => '/projects/%d' % project.id)
     end
 
-    context 'of a build board' do
-      given(:board) do
-        Fabricate(:public_board, :user => User.first)
-      end
-      given(:page_path) do
-        root_path(:anchor => '/boards/%d/build' % board.id)
+    context 'member is added' do
+      given(:membership) { Fabricate(:project_membership, :creator => User.first) }
+      given(:project) { membership.project }
+
+      scenario 'adds an user to memberships' do
+        member = Fabricate(:user)
+        expect(page).to have_css('.project-member', :count => 1)
+
+        page.find('.project-invitee-add').click
+        within('.project-invitee-form') do
+          fill_in :email, :with => member.email
+        end
+        page.find('.invite-member').click
+
+        sleep(1)
+        expect(page).to have_css('.project-member', :count => 2)
+        expect(member.memberships.reload.count).to_not eq(0)
       end
 
-      include_examples 'member is added'
-      include_examples 'email is invited'
+      scenario 'member can be removed' do
+        expect(page).to have_css('.project-member', :count => 1)
+
+        # TODO: Fix hover
+        # page.find('.project-member').hover
+        page.find('.project-member-remove').trigger('click')
+
+        sleep(1)
+        expect(page).to have_css('.project-member', :count => 0)
+        expect(project.members.count).to eq(0)
+      end
     end
 
-    context 'of a project' do
-      given(:project) { Fabricate(:project, :user => User.first) }
-      given(:page_path) do
-        root_path(:anchor => '/projects/%d' % project.id)
+    context 'email is invited' do
+      given(:invitation) { Fabricate(:project_invitation, :user => User.first) }
+      given(:project) { invitation.invitable }
+
+      scenario 'sends an invitation' do
+
+        email = Faker::Internet.email
+        expect(page).to have_css('.project-invitee', :count => 1)
+
+        page.find('.project-invitee-add').click
+        within('.project-invitee-form') do
+          fill_in :email, :with => email
+        end
+        page.find('.invite-member').click
+
+        expect(page).to have_css('.project-invitee', :count => 2)
+        sleep(1)
+        expect(Invitation.find_by(:email => email)).to_not be_nil
       end
 
-      include_examples 'member is added'
-      include_examples 'email is invited'
+      scenario 'invitation can be removed' do
+        expect(page).to have_css('.project-invitee', :count => 1)
+
+        page.find('.remove-invitee').click
+
+        sleep(1)
+        expect(page).to have_css('.project-invitee', :count => 0)
+        expect(project.invitations.count).to eq(0)
+      end
     end
+
   end
 end

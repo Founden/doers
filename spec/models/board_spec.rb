@@ -11,7 +11,7 @@ describe Board do
   it { should have_many(:memberships).dependent(:destroy) }
   it { should have_many(:members) }
   it { should have_many(:invitations).dependent(:destroy) }
-  it { should have_many(:topics).dependent('') }
+  it { should have_many(:topics).dependent(:destroy) }
 
   it { should validate_presence_of(:title) }
   it { should validate_presence_of(:user) }
@@ -53,10 +53,16 @@ describe Board do
         its(:progress) { should eq(100) }
       end
 
-      context 'when board has cards aligned' do
-        let(:card) { Fabricate('card/paragraph', :alignment => true) }
+      context 'when board has a topic aligned' do
+        let(:board) { Fabricate(:board, :topics_count => 5) }
+        let(:topic) { board.topics.first }
+        let(:card) { Fabricate('card/paragraph',
+          :project => board.project, :board => board, :topic => topic) }
 
-        subject { card.board }
+        subject do
+          topic.update_attribute(:aligned_card, card)
+          board
+        end
 
         its(:progress) { should eq(20) }
       end
