@@ -18,6 +18,7 @@ gem 'pg'
 gem 'oembedr'
 gem 'gutentag'
 gem 'zip', :require => false
+gem 'tubesock'
 
 group :production do
   gem 'puma'
