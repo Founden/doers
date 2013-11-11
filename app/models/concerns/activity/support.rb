@@ -60,11 +60,10 @@ module Activity::Support
 
     # Callback checks for previous records on duplicated entries
     # Default time interval to check for is 10 minutes ago
-    # TODO: Find a smarter way for this, it needs ~1s to work
     def remove_previous_if_same_as(current, time_diff=nil)
       time_diff ||= Doers::Config.activity_remove_at
       keys = %w(id created_at updated_at data)
-      timing = (DateTime.now - time_diff)..DateTime.now
+      timing = (Time.current - time_diff)..Time.current
       current_attrs = current.attributes.except(*keys)
       self.activity_owner.activities.where(
         :created_at => timing, :slug => current.slug).each do |act|
