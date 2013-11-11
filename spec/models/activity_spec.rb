@@ -119,9 +119,9 @@ describe Activity, :use_truncation do
 
     context "after #save after #{Doers::Config.activity_remove_at} minutes" do
       before do
-        project.save
-<<<<<<< HEAD
         freeze_at = Time.current + Doers::Config.activity_remove_at + 1.minute
+
+        project.save
         Timecop.freeze(freeze_at) do
           project.save
         end

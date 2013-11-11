@@ -269,6 +269,7 @@ ActiveRecord::Schema.define(version: 20131101181144) do
     t.string   "external_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "login_at"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", using: :btree
