@@ -19,7 +19,7 @@ describe SessionsController do
   describe '#create' do
     let(:params) {  }
     let!(:invitation) { }
-    before { get(:create, params) }
+    before { get(:create, params) unless example.metadata[:skip_before] }
 
     context 'for denied authentication' do
       let(:params) do
@@ -38,6 +38,42 @@ describe SessionsController do
 
       it { should redirect_to(root_path) }
       its('flash.keys') { should include(:notice) }
+
+      context 'user' do
+        subject(:user) { User.first }
+
+        its('updated_at.to_i') { should eq(user.created_at.to_i) }
+
+        context "after < #{Doers::Config.logout_after}", :skip_before => true do
+          let(:user) { Fabricate(:user, :email => 'doer@geekcelerator.com') }
+
+          before do
+            @updated_at = user.updated_at
+            freeze_at = @updated_at + Doers::Config.logout_after - 1.minutes
+            Timecop.freeze(freeze_at) do
+              get(:create, params)
+            end
+          end
+
+          its('updated_at.to_i') { should eq(@updated_at.to_i) }
+          its(:login_at) { should be_blank }
+        end
+
+        context "after #{Doers::Config.logout_after}", :skip_before => true do
+          let(:user) { Fabricate(:user, :email => 'doer@geekcelerator.com') }
+
+          before do
+            @updated_at = user.updated_at
+            freeze_at = @updated_at + Doers::Config.logout_after + 1.minutes
+            Timecop.freeze(freeze_at) do
+              get(:create, params)
+            end
+          end
+
+          its('updated_at.to_i') { should eq(@updated_at.to_i) }
+          its('reload.login_at.to_i') { should eq(@updated_at.to_i) }
+        end
+      end
 
       context '#after_successful_sign_in' do
         let(:invitation) {
