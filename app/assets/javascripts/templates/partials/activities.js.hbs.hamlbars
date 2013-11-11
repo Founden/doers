@@ -20,7 +20,7 @@
         {{activity.comment.user.nicename}},
         {{activity.lastUpdate}}
       .activity-comment-content
-        {{activity.comment.content}}
+        {{{activity.comment.content}}}
     {{else}}
     .activity-title
       {{activity.user.nicename}}
@@ -38,6 +38,12 @@
       {{/if}}
       {{#if activity.isCardMisaligned}}
       = _('marked this as misaligned')
+      {{/if}}
+      {{#if activity.isCardEndorse}}
+      = _('endorsed this')
+      {{/if}}
+      {{#if activity.isCardDisagree}}
+      = _('disagree on this')
       {{/if}}
       {{activity.lastUpdate}}.
     {{/if}}

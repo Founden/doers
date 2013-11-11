@@ -1,28 +1,28 @@
-Doers.Board = DS.Model.extend
+Doers.Board = DS.Model.extend Doers.LastUpdateMixin,
+  assetableType: 'Board'
+
   title: DS.attr('string')
   description: DS.attr('string')
+  status: DS.attr('string')
   progress: DS.attr('number', readOnly: true)
   collections: DS.attr('array', readOnly: true, defaultValue: [])
   updatedAt: DS.attr('date', readOnly: true)
-  lastUpdate: DS.attr('string', readOnly: true)
-  branchesCount: DS.attr('number', readOnly: true)
   topicsCount: DS.attr('number', readOnly: true)
 
-  parentBoard: DS.belongsTo('board', inverse: 'branches')
   project: DS.belongsTo('project', inverse: 'boards')
-  user: DS.belongsTo('user', readOnly: true, inverse: 'branchedBoards')
-  author: DS.belongsTo('user', readOnly: true, inverse: 'authoredBoards')
-  team: DS.belongsTo('team', readOnly: true, inverse: 'boards')
-  cover: DS.belongsTo('asset', inverse: 'board')
+  user: DS.belongsTo('user', readOnly: true)
+  cover: DS.belongsTo('cover', inverse: 'board', readOnly: true)
   activities: DS.hasMany('activity', readOnly: true, inverse: 'board', async: true)
-  branches: DS.hasMany('board', inverse: 'parentBoard', async: true)
   memberships: DS.hasMany('membership', readOnly: true, inverse: 'board', async: true)
   topics: DS.hasMany('topic', readOnly: true, inverse: 'board', async: true)
-  parentBoardTopics: DS.hasMany('topic', readOnly: true, inverse: 'board', async: true)
 
   slug: (->
     'board-' + @get('id')
   ).property('id')
+
+  aligned: (->
+    @get('progress') == 100
+  ).property('progress')
 
   topicsOrderChanged: ->
     topics = @get('topics')

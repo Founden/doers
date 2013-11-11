@@ -1,69 +1,61 @@
-.header
-  {{#linkTo 'projects' class='header-root'}}
-  = _('Projects')
-  {{/linkTo}}
-  .header-title
-    {{project.title}}
-  .header-actions
-    {{#view view.deleteButtonView class='button compact secondary' confirmMessage='Are you shure you want to delete?'}}
-    %span.icon.icon-trash
-    {{/view}}
-
-.content-wrap
-
+.sidebar
   .project{:bind => {:id => 'project.slug'}}
-    {{view view.titleView class='project-field project-title' valueBinding='project.title' placeholder='Add project name' type='text' name='title'}}
-    {{view view.descriptionView class='project-field project-description' valueBinding='project.description' placeholder='Add project description.' name='description'}}
-    {{view Doers.MembersView contentBinding='project' authorBinding='project.user'}}
+    {{textarea class='project-title' valueBinding='project.title' placeholder='Project name' name='title' disabledBinding='isNotOwner'}}
+    {{textarea class='project-description' valueBinding='project.description' placeholder='Type your project description...' name='description'  disabledBinding='isNotOwner'}}
+    {{#if project.isDirty}}
+    .project-actions
+      %button.button.btn-small{:_action => 'update'}
+        = _('Save')
+    {{/if}}
+  .sidebar-title
+    = _('Members on this proejct')
+  {{project-members contentBinding='project' userBinding='currentUser'}}
+  {{#if isOwner}}
+  .sidebar-title
+    = _('Pendding invites')
+  {{project-invitees contentBinding='project'}}
+  {{/if}}
 
+.wrapper
+  .header
+    {{#linkTo 'projects' class='button'}}
+    %span.icon.icon-arrow-prev
+    = _('My projects')
+    {{/linkTo}}
+    .header-actions
+      {{#linkTo 'projects.add-board' project class='button'}}
+      %span.icon.icon-board
+      = _('Create new board')
+      {{/linkTo}}
+      {{#view view.deleteButtonView class='button btn-icon btn-danger remove-project' confirmMessage='Are you shure you want to delete this project?' title='Delete project'}}
+      %span.icon.icon-trash
+      {{/view}}
+
+  {{#unless content}}
+  .status
+    .status-message
+      = _('You have no boards on this project.')
+      %br/
+      = _('Start by creating your first board.')
+  {{else}}
   .board-list
     {{#each board in content}}
     .board-item{:bind => {:id => 'board.slug'}}
       {{#linkTo 'boards.show' board.id}}
-      .board-item-cover
-        %h3.board-item-cover-title
-          {{board.title}}
-      .board-item-progress
-        {{view Doers.ProgressBar classNames='board-item-progress-bar' widthBinding='board.progress'}}
-      {{#if board.isNew}}
-      .board-item-user
-        %img.board-item-user-image{:bind => {:src => 'board.author.avatarUrl'}}
-        = _('By')
-        {{board.author.nicename}}
-        -# TODO: Add team to boards
-        .board-item-user-company
-          = _('Company name')
-      {{else}}
+      .board-item-content
+        {{#view classNames='board-item-icon' classNameBindings='board.aligned'}}
+        .board-item-progress
+          {{view Doers.ProgressBar classNames='board-item-progress-bar' widthBinding='board.progress'}}
+        {{/view}}
+        %h3.board-item-title
+          {{{board.title}}}
       .board-item-user
         %img.board-item-user-image{:bind => {:src => 'board.user.avatarUrl'}}
-        - # TODO: Add activity icon
-        / %span.icon.icon-comment
         = _('Updated')
         {{board.lastUpdate}}
+        %br/
         = _('by')
         {{board.user.nicename}}
-      {{/if}}
       {{/linkTo}}
     {{/each}}
-
-  .board-list-header
-    .board-list-title
-      = _('Public boards')
-  .public-board-list
-    {{#each board in currentUser.publicBoards}}
-    .board-item{:bind => {:id => 'board.slug'}}
-      .board-item-cover
-        %h3.board-item-cover-title
-          {{board.title}}
-      .board-item-user
-        %img.board-item-user-image{:bind => {:src => 'board.author.avatarUrl'}}
-        = _('By')
-        {{board.author.nicename}}
-        .board-item-user-company
-          {{board.team.title}}
-      .board-item-branch{:_action => 'createBranch board'}
-        .icon.icon-plus
-        = _('Use board')
-        .board-item-branch-count
-          {{board.branchesCount}}
-    {{/each}}
+  {{/unless}}

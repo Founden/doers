@@ -1,18 +1,15 @@
-.header
-  {{#linkTo 'projects'}}
-  .header-root
-    = _('Projects')
-  {{/linkTo}}
-  .header-title
-    = _('Import')
-  {{#if view.hasSelections}}
-  .header-actions
-    .button#run-import{:_action => 'doImport'}
-      %span.icon.icon-angel
-      = _('Import')
-  {{/if}}
-
-.content-wrap
+.wrapper
+  .header
+    {{#linkTo 'projects' class='button'}}
+    %span.icon.icon-arrow-prev
+    = _('My projects')
+    {{/linkTo}}
+    {{#if view.hasSelections}}
+    .header-actions
+      .button#run-import{:_action => 'doImport'}
+        %span.icon.icon-angel
+        = _('Import')
+    {{/if}}
 
   .project-list
     .project-list-header
@@ -27,9 +24,9 @@
         {{/if}}
         {{/if}}
     {{#each startup in content}}
-    {{#view view.startupView contentBinding=startup}}
-    .icon.icon-checkmark
-    %h3.startup-item-title
+    {{#view view.startupView content=startup}}
+    %h3.project-item-title
+      %span.icon.icon-checkmark
       {{startup.title}}
     {{/view}}
     {{/each}}

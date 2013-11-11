@@ -2,12 +2,17 @@
   @include box-sizing(border-box);
   display: table;
   position: relative;
+  overflow: hidden;
   width: 100%;
   margin: 0 0 15px 0;
-  border: 1px solid $gray-4;
+  border: 1px solid $gray-1;
   border-radius: 3px;
-  background: $white;
-  box-shadow: 0 1px 1px $gray-3;
+  box-shadow: 0 1px 0 $gray-1;
+
+  > a {
+    display: table;
+    width: 100%;
+  }
 
   &.is-dragged {
     @include transform(translateX(20px));
@@ -17,60 +22,33 @@
   &.is-droppable {
     margin-bottom: 40px;
   }
-
-  &.with-link {
-    cursor: pointer;
-
-    &:hover {
-      background: $blue;
-      border-color: $blue;
-      color: $white;
-
-      .topic-status {
-        box-shadow: 0 0 0 1px $black;
-        background: $black;
-        color: $white;
-      }
-
-      .topic-user,
-      .topic-description {
-        color: rgba($white, 0.5);
-      }
-    }
-  }
 }
 
 .topic-status {
   display: table-cell;
-  width: 100px;
+  width: 60px;
+  border-right: 1px solid $gray-1;
+  background: $white;
   vertical-align: middle;
   text-align: center;
-  border-radius: 3px 0 0 3px;
-  background: $gray-1;
-  box-shadow: 0 0 0 1px $gray-4;
-  color: $gray-4;
+  color: $gray-2;
 
   &.aligned {
     background: tint($green, 80%);
-    box-shadow: 0 0 0 1px tint($green, 60%);
     color: $green;
   }
-}
-
-.topic-drag-handle {
-  @extend .topic-status;
 }
 
 .topic-content {
   display: table-cell;
   padding: 20px 30px;
+  background: $white;
   vertical-align: middle;
 }
 
 .topic-title {
   font-size: em(18);
-  font-weight: 600;
-  width: 75%;
+  width: 100%;
 }
 
 .topic-description {
@@ -78,7 +56,7 @@
   display: block;
   font-size: em(14);
   margin: 10px 0 0 0;
-  color: $gray-6;
+  color: $gray-5;
 }
 
 .topic-actions {
@@ -100,10 +78,11 @@
 .topic-user {
   display: table-cell;
   vertical-align: middle;
-  width: 30%;
+  width: 35%;
   padding: 20px 30px;
+  background: $white;
   font-size: em(12);
-  color: $gray-6;
+  color: $gray-5;
 }
 
 .topic-user-image {

@@ -19,9 +19,9 @@ class Api::V1::TopicsController < Api::V1::ApplicationController
       # Lets raise 404 if board is not available
       board = Board.find_by!(:id => create_params[:board_id])
       current_account.can?(:write, board)
-      topic = board.topics.create(create_params.merge(:user => current_account))
+      topic = board.topics.build(create_params.merge(:user => current_account))
 
-      if topic.errors.empty?
+      if topic.save and topic.errors.empty?
         render :json => topic
       else
         errors = topic.errors.messages
@@ -33,7 +33,13 @@ class Api::V1::TopicsController < Api::V1::ApplicationController
   def update
     topic = Topic.find_by!(:id => params[:id])
     current_account.can?(:write, topic)
-    topic.update_attributes(topic_params)
+    topic.attributes = topic_params
+    # Generate activities upon (dis)alignment
+    if topic.aligned_card_id_changed?
+      topic.activity_author = current_account
+      topic.activity_postfix = topic.aligned_card ? 'alignment' : 'misalignment'
+    end
+    topic.save
     render :json => topic
   end
 
@@ -53,11 +59,13 @@ class Api::V1::TopicsController < Api::V1::ApplicationController
 
     # Strong parameters for creating a new topic
     def create_params
-      params.require(:topic).permit(:title, :description, :board_id, :position)
+      params.require(:topic).permit(
+        :title, :description, :board_id, :project_id, :position, :whiteboard_id)
     end
 
     # Strong parameters for updating a topic
     def topic_params
-      params.require(:topic).permit(:title, :description, :position)
+      params.require(:topic).permit(
+        :title, :description, :position, :aligned_card_id)
     end
 end

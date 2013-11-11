@@ -1,20 +1,21 @@
 // Colors
 
 $white:  #fff;
-$black:  #1f3042;
+$black:  #000;
 $green:  #47a718;
-$red:    #ff4b47;
-$blue:   #374e7a;
+$red:    #ff4940;
+$blue:   #365470;
+$beige:  #f7f7f1;
 
-$gray-1: #f4f5f6;
-$gray-2: #e5e6e7;
-$gray-3: #d7dbde;
-$gray-4: #bbbfc4;
-$gray-5: #9fa5ab;
-$gray-6: #848b91;
-$gray-7: #6b7178;
-$gray-8: #52585e;
-$gray-9: #24282b;
+$gray-1: rgba($black, 0.1);
+$gray-2: rgba($black, 0.2);
+$gray-3: rgba($black, 0.3);
+$gray-4: rgba($black, 0.4);
+$gray-5: rgba($black, 0.5);
+$gray-6: rgba($black, 0.6);
+$gray-7: rgba($black, 0.7);
+$gray-8: rgba($black, 0.8);
+$gray-9: rgba($black, 0.9);
 
 $nprogress-color: $green;
 

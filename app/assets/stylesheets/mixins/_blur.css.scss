@@ -1,0 +1,3 @@
+@mixin blur($size) {
+  @include prefixer(filter, blur($size), webkit moz ms o spec);
+}

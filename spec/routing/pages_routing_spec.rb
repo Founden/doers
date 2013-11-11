@@ -23,12 +23,8 @@ describe PagesController do
       get('/download').should route_to('pages#download')
     end
 
-    it 'for promo code page' do
-      get('/promo_code').should route_to('pages#promo_code')
-    end
-
-    it 'for promo code page (PATCH)' do
-      patch('/promo_code').should route_to('pages#promo_code')
+    it 'for stats page' do
+      get('/stats').should route_to('pages#stats')
     end
 
   end

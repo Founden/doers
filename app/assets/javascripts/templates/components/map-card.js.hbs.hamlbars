@@ -1,0 +1,21 @@
+{{#with content}}
+{{partial 'partials/card/user'}}
+.card-wrap
+  .card-edit
+    {{partial 'partials/card/fields'}}
+
+    {{#view classNames='card-attachment' classNameBindings='isEditing' contentBinding='view.content'}}
+    {{#if isEditing}}
+    .card-search
+      %label
+        = _('Type address')
+      .card-search-field
+        {{input type='text' valueBinding='query' action='update' placeholder='Type address, state or city' name='query'}}
+        .icon.icon-map.medium
+    {{/if}}
+    {{view Doers.ImageMapView contentBinding='view.content' class='card-image'}}
+    {{/view}}
+
+    {{partial 'partials/card/actions'}}
+  {{partial 'partials/card/sidebar'}}
+{{/with}}

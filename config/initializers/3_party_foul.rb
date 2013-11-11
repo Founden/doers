@@ -1,3 +1,5 @@
+require 'party_foul/processors/delayed_job' if defined?(PartyFoul)
+
 PartyFoul.configure do |config|
   # The collection of exceptions PartyFoul should not be allowed to handle
   # The constants here *must* be represented as strings
@@ -34,4 +36,6 @@ PartyFoul.configure do |config|
 
   # Limit the number of comments per issue
   # config.comment_limit        = 10
+
+  config.processor = PartyFoul::Processors::DelayedJob
 end if defined?(PartyFoul)

@@ -1,27 +1,27 @@
 require 'spec_helper'
 
-feature 'Topic', :js, :slow, :pending do
+feature 'Topic', :js, :slow do
   background do
     sign_in_with_angel_list
   end
 
   context 'from an existing project board' do
-    given(:project) do
-      Fabricate(:project_with_boards, :user => User.first)
-    end
-    given(:board) { project.boards.first }
-    given(:topic) { board.parent_board.topics.first }
+    given(:user) { User.first }
+    given(:topic) { Fabricate(:topic_with_cards, :user => user) }
+    given(:cards) { topic.cards }
+    given(:board) { topic.board }
+    given(:project) { topic.project }
     given(:content) { Faker::Lorem.sentence }
-    given!(:card) {}
 
     background do
-      visit root_path(:anchor => '/board/%d/topic/%d' % [board.id, topic.id])
+      visit root_path(:anchor => '/topic/%d' % topic.id)
     end
 
     scenario 'is shown' do
       expect(page).to have_css('.topic', :count => 1)
-      expect(page).to have_content(topic.title)
-      expect(page).to have_content(topic.description)
+      expect(page).to have_field('topic-title', :with => topic.title)
+      expect(page).to have_field(
+        'topic-description', :with => topic.description)
     end
 
     scenario 'cards can be added' do
@@ -29,7 +29,7 @@ feature 'Topic', :js, :slow, :pending do
       expect(page).to have_css('.card-picker')
       expect(page).to_not have_css('.show-card-picker')
       page.all('.card-picker li').first.click
-      expect(page).to have_css('.card')
+      expect(page).to have_css('.card', :count => cards.count + 1)
       expect(page).to_not have_css('.card-picker')
     end
 
@@ -38,46 +38,53 @@ feature 'Topic', :js, :slow, :pending do
         fill_in 'comment', :with => content
       end
       page.find('.create-comment').click
-      expect(page).to have_css('.activity', :count => 1)
+      sleep(1)
+      expect(page).to have_css('.activity-comment', :count => 1)
       expect(topic.comments.count).to eq(1)
     end
 
     context 'with a card' do
-      given!(:card) do
-        Fabricate('card/paragraph', :project => project,
-          :board => board, :topic => topic)
-      end
 
       scenario 'it can be marked as aligned' do
-        page.find('.toggle-alignment').click
+        card = cards.first
+        page.find('.card-%d .toggle-alignment' % card.id).click
         expect(page).to have_css('.topic-status.aligned')
         sleep(1)
-        card.reload
-        expect(card.alignment).to be_true
+        topic.reload
+        expect(topic.aligned_card).to_not be_blank
       end
 
       scenario 'progress changes if aligned' do
-        expect(page.find('.header-progress-bar')[:style]).to include(': 0%')
-        page.find('.toggle-alignment').click
+        card = cards.first
+        expect(page.find('.board-progress-bar')[:style]).to include(': 0%')
+        page.find('.card-%d .toggle-alignment' % card.id).click
         sleep(1)
-        expect(page.find('.header-progress-bar')[:style]).to_not include(': 0%')
-      end
-
-      scenario 'user can endorse' do
-        expect(page).to have_css('.card-endorse-item', :count => 0)
-        page.find('.add-endorse').click
-        sleep(1)
-        card.reload
-        expect(card.endorses.count).to eq(1)
-        expect(page).to have_css('.card-endorse-item', :count => card.endorses.count)
+        expect(page.find('.board-progress-bar')[:style]).to_not include(': 0%')
+        topic.reload
       end
 
       scenario 'it can be deleted' do
-        page.find('.delete-card').click
-        expect(page).to_not have_css('.card')
+        card = cards.first
+        cards_count = cards.count
+        page.find('.card-%d .delete-card' % card.id).click
+        expect(page).to have_css('.card', :count => cards_count - 1)
         sleep(1)
         topic.reload
-        expect(topic.cards.count).to eq(0)
+        expect(topic.cards.count).to eq(cards_count - 1)
+      end
+
+      scenario 'user can endorse' do
+        card = cards.last
+        context = '.card-%d' % card.id
+        expect(page).to have_css(context + ' .card-endorse-item', :count => 0)
+        page.find(context + ' .add-endorse').click
+        sleep(1)
+        expect(page).to have_css(context + ' .card-endorse-item', :count => 1)
+        expect(card.endorses.reload.count).to eq(1)
+        page.find(context + ' .remove-endorse').click
+        sleep(1)
+        expect(page).to have_css(context + ' .card-endorse-item', :count => 0)
+        expect(card.endorses.reload.count).to eq(0)
       end
     end
 

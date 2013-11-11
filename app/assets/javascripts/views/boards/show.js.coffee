@@ -9,3 +9,8 @@ Doers.BoardsShowView = Ember.View.extend
       @get('controller').update()
 
   deleteButtonView: Doers.DeleteButtonView
+
+  topicItemView: Ember.View.extend Doers.MovableMixin,
+    templateName: 'partials/topic_item'
+    classNames: ['topic']
+    classNameBindings: ['content.slug', 'content.isNew:new-topic']

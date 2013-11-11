@@ -2,7 +2,7 @@
 class ProjectMembership < Membership
   # Validations
   validates_presence_of :project
-  validates_exclusion_of :project_id, :in => :user_project_ids
+  validates_exclusion_of :project_id, :in => :user_project_ids, :on => :create
 
   # Callbacks
   after_commit :generate_activity, :on => [:create, :destroy]

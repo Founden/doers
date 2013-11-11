@@ -1,49 +1,44 @@
-.header
-  {{#linkTo 'projects' class='header-root'}}
-  = _('Projects')
-  {{/linkTo}}
-  {{#linkTo 'projects.show' board.project class='header-title'}}
-  {{board.project.title}}
-  {{/linkTo}}
-  .header-title
-    {{board.title}}
-  .header-actions
-    {{#view view.deleteButtonView class='button compact secondary' confirmMessage='Are you shure you want to delete?'}}
-    %span.icon.icon-trash
-    {{/view}}
-  .header-progress-wrap
-    .header-progress-title
-      {{board.progress}}&#37;
-      = _('board alignment')
-    .header-progress
-      {{view Doers.ProgressBar classNames='header-progress-bar' widthBinding='board.progress'}}
+{{content-cover sourceBinding='board.cover.attachment'}}
 
-.content-wrap
-
+.sidebar
+  .project{:bind => {:id => 'board.project.slug'}}
+    {{#linkTo 'projects.show' board.project class='project-title'}}
+    {{{board.project.title}}}
+    {{/linkTo}}
   .board{:bind => {:id => 'board.slug'}}
-    {{view view.titleView class='board-title' valueBinding='board.title' placeholder='Add board name' type='text' name='title'}}
-    {{view view.descriptionView class='board-description' valueBinding='board.description' placeholder='Add board description.' name='description'}}
-    -# TODO: Add collaborator faces
+    {{textarea class='board-title' valueBinding='board.title' placeholder='Add board name' name='title'}}
+    {{textarea class='board-description' valueBinding='board.description' placeholder='Add board description.' name='description'}}
+    {{#if board.isDirty}}
+    %button.button.btn-small{:_action => 'update'}
+      = _('Save')
+    {{/if}}
+  .sidebar-footer
+    .board-progress-wrap
+      .board-progress-title
+        {{board.progress}}&#37;
+        = _('board alignment')
+      .board-progress
+        {{view Doers.ProgressBar classNames='board-progress-bar' widthBinding='board.progress'}}
+    .board-cover
+      {{asset-uploader contentBinding='board' attributeName='cover'}}
+      {{#if board.cover}}
+      %img.board-cover-image{:bind => {:src => 'board.cover.smallSizeUrl'}}
+      {{/if}}
+
+.wrapper
+  .header
+    {{#linkTo 'projects.show' board.project class='button'}}
+    %span.icon.icon-arrow-prev
+    = _('Project')
+    {{/linkTo}}
+    .header-actions
+      {{#view view.deleteButtonView class='button btn-icon btn-danger remove-board' confirmMessage='Are you shure you want to delete this board?' title='Delete board'}}
+      %span.icon.icon-trash
+      {{/view}}
 
   .topics
-    {{#each topic in content}}
-    {{#linkTo 'topic' board topic class='topic with-link'}}
-    {{#view classNames='topic-status' classNameBindings='topic.aligned'}}
-    {{#if topic.aligned}}
-    .icon.icon-checkmark
-    {{else}}
-    .icon.icon-ellipsis
-    {{/if}}
-    {{/view}}
-    .topic-content
-      .topic-title
-        {{topic.title}}
-    .topic-user
-      %img.topic-user-image{:bind => {:src => 'topic.user.avatarUrl'}}
-      = _('Updated')
-      {{topic.lastUpdate}}
-      %br/
-      = _('by')
-      {{topic.user.nicename}}
-    {{/linkTo}}
-    {{/each}}
+    {{each arrangedContent itemViewClass='view.topicItemView'}}
+
+  .context-button.add-topic{:_action => 'addTopic'}
+    .icon.icon-topic
+    = _('Add new topic')

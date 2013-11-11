@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'whiteboard' # Fix the autoload shit
 
 describe WhiteboardMembership do
   it { should validate_presence_of(:whiteboard) }

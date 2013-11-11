@@ -1,0 +1,49 @@
+- content_for :footer_embed, javascript_include_tag('stats')
+
+.wrapper
+  .page
+    %h1
+      = _('Daily Stats')
+
+    %h3
+      = _('Daily Users')
+    %p
+      %canvas#daily-users{:width => '920', :height => '300' }
+      %small
+        Activated users are green. Subscribers are red.
+
+    %h3
+      = _('Daily Projects')
+    %p
+      %canvas#daily-projects{:width => '920', :height => '300' }
+      %small
+        Manually created projects are green. Imported are red.
+
+    %h3
+      = _('Daily Boards')
+    %p
+      %canvas#daily-boards{:width => '920', :height => '300' }
+
+    %h3
+      = _('Daily Topics')
+    %p
+      %canvas#daily-topics{:width => '920', :height => '300' }
+      %small
+        Aligned topics are green. Unaligned topics are red.
+
+    %h3
+      = _('Daily Suggestions')
+    %p
+      %canvas#daily-suggestions{:width => '920', :height => '300' }
+
+    %h3
+      = _('Daily Comments')
+    %p
+      %canvas#daily-comments{:width => '920', :height => '300' }
+
+    %h3
+      = _('Daily Activities')
+    %p
+      %canvas#daily-activities{:width => '920', :height => '300' }
+      %small
+        Endorses are green. The rest is red.

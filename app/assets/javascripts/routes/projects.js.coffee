@@ -24,3 +24,9 @@ Doers.ProjectsImportRoute = Ember.Route.extend
   redirect: ->
     if @get('currentUser.isImporting')
       @transitionTo('projects.import-running')
+
+Doers.ProjectsAddBoardRoute = Ember.Route.extend
+
+  setupController: (controller, model) ->
+    controller.set('project', model)
+    controller.set('content', @store.createRecord('board'))

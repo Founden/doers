@@ -26,6 +26,7 @@ group :production do
   gem 'aws-sdk'
   gem 'daemons'
   gem 'intercom-rails'
+  gem 'dalli'
 end
 
 group :assets do
@@ -43,6 +44,7 @@ group :assets do
   gem 'normalize-rails'
   gem 'momentjs-rails'
   gem 'nprogress-rails'
+  gem 'chartjs-rails'
 end
 
 group :development do
@@ -61,7 +63,7 @@ end
 
 group :development, :test do
   gem 'ffaker'
-  gem 'fabrication'
+  gem 'fabrication', '2.8.1'
   gem 'rspec-rails'
 end
 

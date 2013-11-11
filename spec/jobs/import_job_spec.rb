@@ -150,7 +150,7 @@ describe ImportJob do
     let(:project) { Fabricate(:project) }
     let(:data) do
       MultiJson.load(Rails.root.join(
-        'spec/fixtures/angel_list_startup_roles.json'))['startup_roles']
+        'spec/fixtures/angel_list_startup_roles.json'))
     end
 
     before do

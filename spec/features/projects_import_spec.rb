@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'Projects', :js, :slow, :pending do
+feature 'Projects', :js, :slow do
   background do
     sign_in_with_angel_list
   end
@@ -23,16 +23,16 @@ feature 'Projects', :js, :slow, :pending do
       end
 
       scenario 'with startups' do
-        expect(page).to have_css('.startup-item', :count => 2)
+        expect(page).to have_css('.project-item', :count => 2)
       end
 
       scenario 'with an importer running message after import starts' do
         find('.startup-%d' % startup['id']).click
-        expect(page).to have_css('.startup-item.selected', :count => 1)
+        expect(page).to have_css('.project-item.selected', :count => 1)
 
         find('#run-import').click
 
-        expect(page).to_not have_css('.startup-list')
+        expect(page).to_not have_css('.project-list')
         expect(page).to have_css('.status')
       end
     end
@@ -50,7 +50,7 @@ feature 'Projects', :js, :slow, :pending do
       end
 
       scenario 'empty' do
-        expect(page).to have_css('.projects .project', :count => 0)
+        expect(page).to have_css('.project-item', :count => 0)
       end
     end
   end

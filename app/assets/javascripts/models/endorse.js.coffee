@@ -1,5 +1,8 @@
-Doers.Endorse = Doers.Activity.extend
-  project: DS.belongsTo('project', inverse: 'endorses')
-  board: DS.belongsTo('board', inverse: 'endorses')
-  topic: DS.belongsTo('topic', inverse: 'endorses')
+Doers.Endorse = DS.Model.extend
+  updatedAt: DS.attr('date', readOnly: true)
+
+  user: DS.belongsTo('user', readOnly: true)
+  project: DS.belongsTo('project')
+  board: DS.belongsTo('board')
+  topic: DS.belongsTo('topic')
   card: DS.belongsTo('card', inverse: 'endorses')

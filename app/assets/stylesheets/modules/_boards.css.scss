@@ -1,187 +1,75 @@
 .board-list {
-  @include clearfix;
-  position: relative;
-  margin: 0 0 60px 0;
-}
-
-.board-list-header {
-  padding: 10px 0;
-  border-top: 1px solid $gray-2;
-  border-bottom: 1px solid $gray-2;
-  margin: 0 0 20px 0;
-}
-
-.board-list-title {
-  font-size: em(12);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  color: $gray-5;
+  margin: 30px 0;
+  border-top: 1px solid $gray-1;
 }
 
 .board-item {
+  border-bottom: 1px solid rgba($black, 0.05);
+
+  > a {
+    display: table;
+    width: 100%;
+  }
+}
+
+.board-item-content {
+  display: table-cell;
+  vertical-align: middle;
+  padding: 20px 0;
+}
+
+.board-item-title {
+  display: inline-block;
+  vertical-align: middle;
+  width: 80%;
+  font-size: em(18);
+  font-weight: 500;
+}
+
+.board-item-icon {
   @include box-sizing(border-box);
-  position: relative;
-  overflow: hidden;
-  left: auto;
-  top: auto;
-  float: left;
-  width: 215px;
-  margin: 0 20px 20px 0;
-  border: 1px solid $gray-4;
+  display: inline-block;
+  width: 46px;
+  height: 56px;
+  margin: 0 20px 0 10px;
+  border: 1px solid $gray-1;
+  padding: 8px 6px;
   border-radius: 3px;
   background: $white;
-  box-shadow: 0 1px 1px $gray-3;
-
-  &:nth-of-type(4n) {
-    margin-right: 0;
-  }
-
-  &:nth-of-type(4n+1) {
-    clear: left;
-  }
+  box-shadow: 0 1px 0 $gray-1;
+  vertical-align: middle;
 
   &.aligned {
-    background: $green;
-
-    .board-item-cover-title {
-      color: $white;
-    }
+    border-color: $green;
+    background: tint($green, 85%);
   }
-
-  &.stacked {
-    position: absolute;
-    left: 0;
-    top: 0;
-
-    &:nth-of-type(1) {
-      position: relative;
-    }
-
-    &:nth-of-type(2) {
-      left: -2px;
-      top: -2px;
-    }
-
-    &:nth-of-type(3) {
-      left: -4px;
-      top: -4px;
-    }
-  }
-}
-
-.board-item-remove-btn {
-  position: absolute;
-  right: 10px;
-  top: 10px;
-  z-index: 1;
-  width: 24px;
-  line-height: 24px;
-  font-size: em(24);
-  font-weight: 700;
-  text-align: center;
-  cursor: pointer;
-
-  &:hover {
-    color: $red;
-  }
-}
-
-.board-item-cover {
-  position: relative;
-  height: 220px;
-}
-
-.board-item-cover-title {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  padding: 20px;
-  font-size: em(24);
-  line-height: 1.25em;
-  font-weight: 500;
 }
 
 .board-item-progress {
   height: 5px;
-  background: $gray-2;
+  background: $gray-1;
 }
 
 .board-item-progress-bar {
-  width: 1%;
+  width: 0;
   height: 100%;
   background: $green;
   @include transition(width 1s);
 }
 
 .board-item-user {
-  position: relative;
-  padding: 15px 15px 15px 66px;
-  min-height: 36px;
+  display: table-cell;
+  vertical-align: middle;
+  width: 35%;
+  padding: 20px 30px;
   font-size: em(12);
-  color: $gray-6;
-  @include linear-gradient($white, $gray-1);
-
-  .icon:before {
-    position: absolute;
-    left: 10px;
-    bottom: 10px;
-    width: 22px;
-    line-height: 22px;
-    background: $red;
-    border-radius: 50%;
-    text-align: center;
-    color: $white;
-  }
+  color: $gray-5;
 }
 
 .board-item-user-image {
-  position: absolute;
-  left: 12px;
-  top: 12px;
+  float: left;
   width: 42px;
   height: 42px;
+  margin: -3px 10px -3px 0;
   border-radius: 50%;
-}
-
-.board-item-user-company {
-  text-transform: uppercase;
-  font-weight: 700;
-}
-
-.board-item-branch {
-  line-height: 45px;
-  border-top: 1px solid $gray-2;
-  @include linear-gradient($white, $gray-1);
-  font-weight: 700;
-  font-size: em(14);
-  text-transform: uppercase;
-  cursor: pointer;
-
-  .icon:before {
-    float: left;
-    line-height: 45px;
-    border-right: 1px solid $gray-2;
-    margin: 0 15px 0 0;
-    padding: 0 15px;
-    color: $green;
-  }
-}
-
-.board-item-branch-count {
-  float: right;
-  min-width: 20%;
-  margin: 0 15px 0 0;
-  text-align: right;
-  font-weight: 400;
-  color: $gray-6;
-}
-
-.public-board-list {
-  @extend .board-list;
-}
-
-.template-board-list {
-  @extend .board-list;
-  margin-top: 60px;
 }

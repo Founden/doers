@@ -1,0 +1,36 @@
+{{#with content}}
+{{partial 'partials/card/user'}}
+.card-wrap
+  .card-edit
+    {{partial 'partials/card/fields'}}
+
+    {{#view classNames='card-attachment' classNameBindings='isEditing' contentBinding='view.content'}}
+    {{#if isEditing}}
+    .card-search
+      %label
+        = _('Type link address')
+      .card-search-field
+        {{input type='text' valueBinding='url' action='update' placeholder='Type or paste a link here' name='url'}}
+        .icon.icon-link.medium
+    {{/if}}
+    {{#if embed}}
+    .card-embed
+      {{#if embed.hasPhoto}}
+      %a{:target => '_blank', :bind => {:href => 'url'}}
+        %img.card-image{:bind => {:src => 'embed.mediaUrl'}}
+      {{/if}}
+      {{#if embed.hasRichMedia}}
+      {{{embed.html}}}
+      {{/if}}
+      .card-embed-meta
+        %a.card-embed-title{:target => '_blank', :bind => {:href => 'url'}}
+          {{{embed.title}}}
+        .card-embed-author
+          = _('By')
+          {{{embed.authorName}}}
+    {{/if}}
+    {{/view}}
+
+    {{partial 'partials/card/actions'}}
+  {{partial 'partials/card/sidebar'}}
+{{/with}}

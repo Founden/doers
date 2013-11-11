@@ -11,6 +11,9 @@ defaults: &defaults
   admin_regex: !ruby/regexp '/geekcelerator\.com/i'
   external_types:
     - angel_list
+  notifications:
+    asap: <%= 5.minutes %>
+    offset: <%= 1.minutes %>
   aws:
     s3:
       protocol: 'https'
@@ -23,6 +26,9 @@ defaults: &defaults
         thumb: 100x100#
         small: 300x300>
         medium: 600x600>
+    cover:
+      sizes:
+        small: 280x280>
   promo_codes:
     - DOERS_VLAD
     - DOERS_STAS
@@ -32,6 +38,14 @@ defaults: &defaults
     - DOERS_ANDREEA
   logout_after: <%= 10.minutes %>
   activity_remove_at: <%= 10.minutes %>
+  memcache:
+    - mc4.dev.ec2.memcachier.com:11211
+    -
+      :username: 04f07b
+      :password: 912903cba6
+      :failover: true
+      :socket_timeout: 1.5
+      :socket_failure_delay: 0.2
 
 development:
   <<: *defaults

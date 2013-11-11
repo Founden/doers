@@ -1,0 +1,18 @@
+{{#with content}}
+{{#if invitations}}
+%ul.project-invitee-list
+  {{#each invitation in invitations}}
+  %li.project-invitee
+    {{invitation.email}}
+    %span.icon.icon-trash.remove-invitee{:_action => 'destroy invitation'}
+  {{/each}}
+{{/if}}
+{{/with}}
+%a.project-invitee-add{:_action => 'toggleEdit'}
+  = _('add new collaborator')
+{{#if view.isEditing}}
+.project-invitee-form
+  {{input type='email' class='project-ivitee-email' placeholder='Type e-mail here...' name='email' valueBinding='view.inviteEmail'}}
+  .button.btn-icon.invite-member{:_action => 'invite'}
+    %span.icon.icon-mail
+{{/if}}

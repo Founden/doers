@@ -24,40 +24,6 @@ describe PagesController do
     end
   end
 
-  describe '#waiting' do
-    before do
-      controller.stub(:current_account) { user }
-      get(:waiting)
-    end
-
-    it { should render_template(:waiting) }
-
-    context 'user updates interest' do
-      let(:interest) { User::INTERESTS.values.sample }
-      before do
-        post(:waiting, :user => {:interest => interest})
-      end
-
-      it 'updates interest and renders template' do
-        should render_template(:waiting)
-        user.interest.should eq(interest.to_s)
-      end
-    end
-
-    context 'user updates newsletter option' do
-      let(:newsletter_allowed) { ['0', '1'].sample }
-
-      before do
-        post(:waiting, :user => {:newsletter_allowed => newsletter_allowed})
-      end
-
-      it 'updates interest and renders template' do
-        should render_template(:waiting)
-        user.newsletter_allowed?.should eq(newsletter_allowed)
-      end
-    end
-  end
-
   describe '#export' do
     before do
       controller.stub(:current_account) { user }
@@ -65,6 +31,40 @@ describe PagesController do
     end
 
     it { should render_template(:export) }
+  end
+
+  describe '#stats' do
+    let(:format) { :html }
+    let(:is_admin) { true }
+
+    before do
+      user.stub(:admin?) { is_admin }
+      controller.stub(:current_account) { user }
+      get(:stats, :format => format)
+    end
+
+    it { should render_template(:stats) }
+
+    context 'when user is not admin' do
+      let(:is_admin) { false }
+
+      it { should redirect_to(root_path) }
+    end
+
+    context '.json' do
+      let(:format) { :json }
+
+      it 'renders a json' do
+        stats_json = json_to_ostruct(response.body)
+        stats_json.users.should_not be_empty
+        stats_json.projects.should_not be_empty
+        stats_json.boards.should_not be_empty
+        stats_json.topics.should_not be_empty
+        stats_json.suggestions.should_not be_empty
+        stats_json.comments.should_not be_empty
+        stats_json.activities.should_not be_empty
+      end
+    end
   end
 
   describe '#download' do
@@ -78,21 +78,21 @@ describe PagesController do
     it { should redirect_to(export_pages_path) }
   end
 
-  describe '#promo_code' do
+  describe '#waiting' do
     let(:user) { Fabricate(:user, :confirmed => nil) }
 
     before do
       controller.stub(:current_account) { user }
-      get(:promo_code)
+      get(:waiting)
     end
 
-    it { should render_template(:promo_code) }
+    it { should render_template(:waiting) }
 
     context 'user claims a code' do
       let(:code) { Doers::Config.promo_codes.sample }
 
       before do
-        post(:promo_code, :user => {:promo_code => code})
+        post(:waiting, :user => {:promo_code => code})
       end
 
       it 'updates user promo_code, confirmed attrs and redirects' do
@@ -105,7 +105,7 @@ describe PagesController do
         let(:code) { Faker::Lorem.word }
 
         it 'shows the page again' do
-          should render_template(:promo_code)
+          should render_template(:waiting)
           user.confirmed?.should be_false
           user.promo_code.should be_blank
         end

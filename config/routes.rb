@@ -9,6 +9,10 @@ Doers::Application.routes.draw do
 
   resources :profiles, :only => [:show, :update, :edit] do
     get :mine, :on => :collection
+    constraints :profile_id => :mine do
+      get :notifications
+      patch :notifications
+    end
   end
   resource :pages, :only => [], :path => '/' do
     get :dashboard
@@ -16,8 +20,7 @@ Doers::Application.routes.draw do
     patch :waiting
     get :export
     get :download
-    get :promo_code
-    patch :promo_code
+    get :stats
   end
 
   namespace :api, :constraints => {:format => :json} do
@@ -33,7 +36,7 @@ Doers::Application.routes.draw do
       resources(:activities, :except => [:create, :update])
       resources(:notifications, :only => [:index])
       resources(:invitations, :except => [:update])
-      resources(:memberships, :only => [:index, :show, :destroy])
+      resources(:memberships, :only => [:index, :show, :update, :destroy])
       resources(:comments, :except => [:update])
       resources(:topics)
       resources(:endorses, :except => [:update])
