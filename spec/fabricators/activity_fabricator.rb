@@ -4,7 +4,9 @@ Fabricator(:activity) do
 end
 
 Fabricator(:topic_activity, :from => :activity) do
-  board { |attrs| Fabricate(:board, :user => attrs[:user]) }
-  topic { |attrs|
-    Fabricate(:topic, :user => attrs[:user], :board => attrs[:board]) }
+  project { |attrs| Fabricate(:project, :user => attrs[:user]) }
+  board   { |attrs|
+    Fabricate(:board, :user => attrs[:user], :project => attrs[:project]) }
+  topic   { |attrs| Fabricate(:topic, :user => attrs[:user],
+    :board => attrs[:board], :project => attrs[:project]) }
 end
