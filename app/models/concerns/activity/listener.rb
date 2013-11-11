@@ -7,10 +7,8 @@ module Activity::Listener
   def on_notifications
     self.class.connection.execute('LISTEN %s' % channel)
     loop do
-      self.class.connection.raw_connection.wait_for_notify do |ev, pid, payload|
-        if notification = parse_payload(payload)
-           yield notification
-        end
+      handle_notifications do |incoming|
+        yield incoming
       end
     end
   ensure
@@ -19,13 +17,22 @@ module Activity::Listener
 
   private
 
+  # Listens and handles any incoming notifications
+  def handle_notifications
+    self.class.connection.raw_connection.wait_for_notify do |ev, pid, payload|
+      if parsed_payload = parse_payload(payload)
+        yield parsed_payload
+      end
+    end
+  end
+
   # Handles payload
   # @param String payload
   # @return Object
   def parse_payload(payload)
-    class_name, id = payload.split(',')
-    if klass = class_name.safe_constantize
-      klass.find(id.to_i) rescue nil
+    payload_class, payload_id = payload.split(',')
+    if payload_class and klass = payload_class.safe_constantize
+      klass.find(payload_id.to_i) rescue nil
     end
   end
 
