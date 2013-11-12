@@ -5,14 +5,16 @@ module Activity::Listener
 
   # Listens to the channel for notifications and yields if any
   def on_notifications
-    self.class.connection.execute('LISTEN %s' % channel)
+    connection = self.class.connection_pool.connection
+    connection.execute('LISTEN %s' % channel)
     loop do
       handle_notifications do |incoming|
         yield incoming
       end
     end
   ensure
-    self.class.connection.execute('UNLISTEN %s' % channel)
+    connection.execute('UNLISTEN %s' % channel)
+    self.class.connection_pool.release_connection
   end
 
   private
