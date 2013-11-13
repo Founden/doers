@@ -8,6 +8,8 @@ describe Activity::Notifier do
 
     before do
       user.class.connection.stub(:execute) { |query| queries << query }
+      user.should_receive(:before_listen)
+      user.should_receive(:after_listen)
       user.should_receive(:handle_notifications).and_yield(nil)
       user.stub(:loop).and_yield
     end
