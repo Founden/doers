@@ -100,6 +100,9 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    capybara-puma (1.0.0)
+      capybara
+      puma
     celluloid (0.15.2)
       timers (~> 1.1.0)
     chartjs-rails (0.1)
@@ -414,6 +417,7 @@ DEPENDENCIES
   bourbon
   brakeman
   cane
+  capybara-puma
   chartjs-rails
   coffee-rails
   daemons

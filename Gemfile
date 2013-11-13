@@ -76,4 +76,5 @@ group :test do
   gem 'simplecov', :require => false
   gem 'parallel_tests', :require => false
   gem 'timecop'
+  gem 'capybara-puma'
 end
