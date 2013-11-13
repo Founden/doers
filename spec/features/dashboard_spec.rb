@@ -1,12 +1,12 @@
 require 'spec_helper'
 
-feature 'Dashboard', :js, :slow, :no_ci do
+feature 'Dashboard', :js, :slow do
 
   background do
     sign_in_with_angel_list
   end
 
-  context 'menu' do
+  context 'menu', :no_ci do
     background do
       visit root_path
       page.execute_script('if (localStorage) localStorage.clear()')
