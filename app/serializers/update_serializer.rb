@@ -1,5 +1,7 @@
 # [Activity] model serializer to be sent as websocket payload
 class UpdateSerializer < ActivitySerializer
+  root :activity
+
   embed :ids, :include => true
   attributes :is_new
 
