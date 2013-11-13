@@ -15,9 +15,3 @@ Doers.initializer
       if event.data.length
         data = $.parseJSON(event.data)
         store.pushPayload('activity', data)
-
-    # Handle page reloads properly
-    if window.onbeforeunload == null
-      window.onbeforeunload = socket.close
-    else
-      window.addEventListener('beforeunload', socket.close , true)
