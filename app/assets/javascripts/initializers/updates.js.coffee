@@ -14,8 +14,7 @@ Doers.initializer
     socket.onmessage = (event) ->
       if event.data.length
         data = $.parseJSON(event.data)
-        for type, payload of data
-          store.push(type, payload)
+        store.pushPayload('activity', data)
 
     # Handle page reloads properly
     if window.onbeforeunload == null
