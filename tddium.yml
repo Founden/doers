@@ -4,3 +4,5 @@
   :sqlite: false
   :postgresql:
     :version: '9.2'
+    :config:
+      pool: 5
