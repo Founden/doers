@@ -27,6 +27,7 @@ group :production do
   gem 'daemons'
   gem 'intercom-rails'
   gem 'dalli'
+  gem 'websocket-native'
 end
 
 group :assets do
