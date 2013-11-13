@@ -403,6 +403,7 @@ GEM
     vcr (2.7.0)
     websocket (1.1.1)
     websocket-driver (0.3.0)
+    websocket-native (1.0.0)
     xpath (2.0.0)
       nokogiri (~> 1.3)
     yard (0.8.7.3)
@@ -472,5 +473,6 @@ DEPENDENCIES
   tubesock
   uglifier
   vcr
+  websocket-native
   yard
   zip
