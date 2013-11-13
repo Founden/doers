@@ -4,17 +4,16 @@ Doers.initializer
     return unless window.WebSocket
 
     adapter = container.lookup('adapter:application')
+    store = container.lookup('store:main')
 
     endpoint = 'ws://%@%@'.fmt(
       window.location.host, adapter.buildURL('updates'))
 
     # Register the container namespace
     socket = new WebSocket(endpoint)
-
-    socket.onmessage = (event) =>
+    socket.onmessage = (event) ->
       if event.data.length
         data = $.parseJSON(event.data)
-        for key, value of data
-          alert = container.lookup('view:alert')
-          alert.set('message', value.slug)
-          alert.appendTo(application.get('notificationsElement'))
+        for type, payload of data
+          store.push(type, payload)
+
