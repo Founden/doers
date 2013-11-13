@@ -17,3 +17,8 @@ Doers.initializer
         for type, payload of data
           store.push(type, payload)
 
+    # Handle page reloads properly
+    if window.onbeforeunload == null
+      window.onbeforeunload = socket.close
+    else
+      window.addEventListener('beforeunload', socket.close , true)
