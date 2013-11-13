@@ -39,8 +39,7 @@ module Activity::Listener
   end
 
   # Returns the channel to listen to
-  # @return String for form `user_ID`
   def channel
-    'user_%d' % self.id
+    '%s_%d' % [self.class.name.downcase, self.id]
   end
 end
