@@ -5,6 +5,8 @@ module Activity::Listener
 
   # Listens to the channel for notifications and yields if any
   def on_notifications
+    self.before_listen if self.respond_to?(:before_listen)
+
     connection = self.class.connection_pool.connection
     connection.execute('LISTEN %s' % channel)
     loop do
@@ -15,6 +17,8 @@ module Activity::Listener
   ensure
     connection.execute('UNLISTEN %s' % channel)
     self.class.connection_pool.release_connection
+
+    self.after_listen if self.respond_to?(:after_listen)
   end
 
   private
