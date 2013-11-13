@@ -45,7 +45,7 @@
       .board-item-content
         {{#view classNames='board-item-icon' classNameBindings='board.aligned'}}
         .board-item-progress
-          {{view Doers.ProgressBar classNames='board-item-progress-bar' widthBinding='board.progress'}}
+          {{progress-bar classNames='board-item-progress-bar' widthBinding='board.progress'}}
         {{/view}}
         %h3.board-item-title
           {{{board.title}}}
