@@ -1,7 +1,6 @@
 # API (v1) application controller class
 class Api::V1::ApplicationController < ActionController::Base
   include ::EasyAuthHelper
-  include CurrentAccountConcern
   # Checks if an user is authenticated!
   include EasyAuth::Controllers::Authenticated
 
