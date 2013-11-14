@@ -1,0 +1,2 @@
+- topic_link = root_url(:anchor => '/topic/%d' % activity.topic_id)
+= _('%s updated the suggestion %s from the topic %s on board %s: %s') % [activity.user_name, activity.card_title, activity.topic_title, activity.board_title, topic_link]
