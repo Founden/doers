@@ -1,0 +1,15 @@
+= _('Hi %s,') % @user.nicename
+\
+\
+= _('%s were added/removed from %s:') % [@usernames, @project.title]
+\
+- @activities.each do |act|
+  = precede ' * ' do
+    = render(:partial => act.slug.underscore, :locals => {:activity => act})
+\
+\
+= _('Manage notifications:')
+= profile_notifications_url(:mine)
+\
+= _('Thanks.')
+= _('Your %s team.') % Doers::Config.app_name
