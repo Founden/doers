@@ -37,14 +37,14 @@ feature 'Topic', :js, :slow do
     end
 
     scenario 'comments can be created' do
-      expect(page).to have_css('.activity-comment', :count => 1)
+      expect(page).to have_css('.activity-comment', :count => 0)
       within('.activity-comment-form') do
         fill_in 'comment', :with => content
       end
       page.find('.create-comment').click
       sleep(1)
-      expect(page).to have_css('.activity-comment', :count => 2)
-      expect(topic.comments.count).to eq(2)
+      expect(page).to have_css('.activity-comment', :count => 1)
+      expect(topic.comments.count).to eq(1)
     end
 
     context 'with a card' do
