@@ -1,12 +1,12 @@
 defaults: &defaults
   app_name: DOERS
-  app_owner: Geekcelerator
+  app_owner: Founden
   app_id: app.doersapp.com
   oauth2_providers:
     angel_list:
       client_id: 645e9a49faf15df3cf67853f1ad255bd
       secret_key: d7534214ae71a6ae79a0aa4ba5f7e4ff
-  default_email: DOERS Mailer <no-reply@doersapp.com>
+  default_email: DOERS <no-reply@doersapp.com>
   contact_email: DOERS Team <support@doersapp.com>
   admin_regex: !ruby/regexp '/geekcelerator\.com/i'
   external_types:
