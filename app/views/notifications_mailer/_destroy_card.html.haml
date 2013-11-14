@@ -5,7 +5,7 @@
   %strong
     = activity.card_title
   = _('suggestion from')
-  = link_to activity.topic_title, root_url(:anchor => '/topic/%d' % activity.topic.id)
+  = @topic_link
   = _('topic on')
-  = link_to activity.board_title, root_url(:anchor => '/topic/%d' % activity.board.id)
+  = @board_link
   = _('board.')

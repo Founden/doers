@@ -4,11 +4,12 @@
 = _('%s did the following changes to topic suggestions and alignments in %s:') % [@usernames, @project.title]
 \
 - @activities.each do |act|
+  - render(:partial => 'topic_n_board_links', :locals => {:activity => act})
+  - if slug_match = act.slug.match(/(create|update|destroy)-card/)
+    - slug = slug_match[0]
+  - else
+    - slug = act.slug
   = precede ' * ' do
-    - if slug_match = act.slug.match(/(create|update|destroy)-card/)
-      - slug = slug_match[0]
-    - else
-      - slug = act.slug
     = render(:partial => slug.underscore, :locals => {:activity => act})
 \
 \

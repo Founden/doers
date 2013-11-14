@@ -11,4 +11,5 @@
       - slug = slug_match[0]
     - else
       - slug = act.slug
+    - render(:partial => 'topic_n_board_links', :locals => {:activity => act})
     = render(:partial => slug.underscore, :locals => {:activity => act})

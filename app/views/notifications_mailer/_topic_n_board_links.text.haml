@@ -1,0 +1,9 @@
+- if activity.topic
+  - @topic_link = root_url(:anchor => '/topic/%d' % activity.topic.id)
+- else
+  - @topic_link = _('Topic link unavailable due to deletion.')
+
+- if activity.board
+  - @board_link = root_url(:anchor => '/board/%d' % activity.board.id)
+- else
+  - @board_link = _('Board link unavailable due to deletion.')

@@ -2,5 +2,5 @@
   %strong
     = activity.user_name
   = _('created')
-  = link_to activity.board_title, root_url(:anchor => '/boards/%d' % activity.board.id)
+  = @board_link
   = _('board.')

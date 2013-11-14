@@ -1,2 +1,1 @@
-- board_link = root_url(:anchor => '/boards/%d' % activity.board_id)
-= _('%s created the new board: %s: %s') % [activity.user_name, activity.board_title, board_link]
+= _('%s created the %s board: %s') % [activity.user_name, activity.board_title, @board_link]

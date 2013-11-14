@@ -5,5 +5,5 @@
   %strong
     = activity.topic_title
   = _('topic from')
-  = link_to activity.board_title, root_url(:anchor => '/topic/%d' % activity.board.id)
+  = @board_link
   = _('board.')
