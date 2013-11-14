@@ -1,6 +1,8 @@
 Doers.initializer
   name: 'updates'
   initialize: (container, application)->
+    return if (/127.0.0.1/).test(window.location.href) and
+      !(/use_websockets/).test(window.location.href)
     return unless window.WebSocket
 
     adapter = container.lookup('adapter:application')
