@@ -2,7 +2,7 @@
   %strong
     = activity.user_name
   = _('added a new suggestion to')
-  = link_to activity.topic_title, root_url(:anchor => '/topic/%d' % activity.topic.id)
+  = link_to activity.topic_title, root_url(:anchor => '/topic/%s' % activity.topic_id)
   = _('topic on')
-  = link_to activity.board_title, root_url(:anchor => '/boards/%d' % activity.board.id)
+  = link_to activity.board_title, root_url(:anchor => '/boards/%s' % activity.board_id)
   = _('board.')
