@@ -18,7 +18,7 @@
         {{board.progress}}&#37;
         = _('board alignment')
       .board-progress
-        {{view Doers.ProgressBar classNames='board-progress-bar' widthBinding='board.progress'}}
+        {{progress-bar classNames='board-progress-bar' widthBinding='board.progress'}}
     .board-cover
       {{asset-uploader contentBinding='board' attributeName='cover'}}
       {{#if board.cover}}
