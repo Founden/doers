@@ -2,6 +2,7 @@
 class NotificationsMailer < ActionMailer::Base
   default :from => Doers::Config.default_email,
     :return_path => Doers::Config.contact_email
+  layout 'notification'
 
   # Handles discussion changes email
   def notify_discussions(membership, activity, opts)

@@ -1,0 +1,14 @@
+%h2
+  = _('%s did the following changes to topic suggestions and alignments in') % @usernames
+  = succeed '.' do
+    = link_to @project.title, root_url(:anchor => '/projects/%d' % @project.id)
+
+- @activities.each do |act|
+  .activity
+    %p.activity-date
+      = l(act.created_at, :format => :short)
+    - if slug_match = act.slug.match(/(create|update|destroy)-card/)
+      - slug = slug_match[0]
+    - else
+      - slug = act.slug
+    = render(:partial => slug.underscore, :locals => {:activity => act})
