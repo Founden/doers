@@ -1,4 +1,4 @@
-Doers.ProgressBar = Ember.View.extend
+Doers.ProgressBarComponent = Ember.Component.extend
   width: 0
   attributeBindings: ['style']
   style: ( ->

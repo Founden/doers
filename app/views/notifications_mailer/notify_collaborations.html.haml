@@ -1,0 +1,11 @@
+%h2
+  = _('%s were added/removed from') % @usernames
+  = succeed '.' do
+    = link_to @project.title, root_url(:anchor => '/projects/%d' % @project.id)
+
+- @activities.each do |act|
+  .activity
+    %p.activity-date
+      = l(act.created_at, :format => :short)
+    - render(:partial => 'topic_n_board_links', :locals => {:activity => act})
+    = render(:partial => act.slug.underscore, :locals => {:activity => act})

@@ -12,6 +12,9 @@ feature 'Topic', :js, :slow do
     given(:board) { topic.board }
     given(:project) { topic.project }
     given(:content) { Faker::Lorem.sentence }
+    given(:comment) do
+      Fabricate(:topic_comment, :topic => topic, :board => board, :project => project)
+    end
 
     background do
       visit root_path(:anchor => '/topic/%d' % topic.id)
@@ -34,6 +37,7 @@ feature 'Topic', :js, :slow do
     end
 
     scenario 'comments can be created' do
+      expect(page).to have_css('.activity-comment', :count => 0)
       within('.activity-comment-form') do
         fill_in 'comment', :with => content
       end

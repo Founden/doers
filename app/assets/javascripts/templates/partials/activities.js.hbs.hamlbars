@@ -21,30 +21,5 @@
         {{activity.lastUpdate}}
       .activity-comment-content
         {{{activity.comment.content}}}
-    {{else}}
-    .activity-title
-      {{activity.user.nicename}}
-      {{#if activity.isCardCreation}}
-      = _('sugested an answer')
-      {{/if}}
-      {{#if activity.isCardUpdate}}
-      = _('updated the sugestion')
-      {{/if}}
-      {{#if activity.isCardDestroy}}
-      = _('removed the sugestion')
-      {{/if}}
-      {{#if activity.isCardAligned}}
-      = _('marked this as aligned')
-      {{/if}}
-      {{#if activity.isCardMisaligned}}
-      = _('marked this as misaligned')
-      {{/if}}
-      {{#if activity.isCardEndorse}}
-      = _('endorsed this')
-      {{/if}}
-      {{#if activity.isCardDisagree}}
-      = _('disagree on this')
-      {{/if}}
-      {{activity.lastUpdate}}.
     {{/if}}
   {{/each}}
