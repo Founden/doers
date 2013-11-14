@@ -1,0 +1,9 @@
+%p.activity-title
+  %strong
+    = activity.user_name
+  = _('removed')
+  %strong
+    = activity.topic_title
+  = _('topic from')
+  = link_to activity.board_title, root_url(:anchor => '/topic/%d' % activity.board.id)
+  = _('board.')

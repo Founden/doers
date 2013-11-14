@@ -1,0 +1,73 @@
+!!! 5
+%html
+  %head
+    %title
+      = Doers::Config.app_name
+    %meta{ :charset => 'utf-8' }
+    :css
+      body {
+        font: 14px/1.5 Helvetica, Arial, sans-serif;
+        color: #333;
+        padding: 30px;
+      }
+
+      a {
+        color: #3eab00;
+      }
+
+      h1, h2 {
+        font-size: 18px;
+        border-bottom: 1px solid #f1f1f1;
+        margin: 0;
+        padding: 15px;
+      }
+
+      h2 {
+        font-size: 14px;
+        font-weight: 400;
+      }
+
+      p {
+        margin: 0;
+      }
+
+      .activity {
+        border-bottom: 1px solid #f1f1f1;
+        padding: 15px;
+      }
+
+      .activity-date {
+        color: #999;
+        font-size: 11px;
+      }
+
+      .activity-title {
+        color: #999;
+      }
+
+        .activity-title strong {
+          color: #333;
+        }
+
+      .footer {
+        font-size: 12px;
+        padding: 15px;
+      }
+
+        .footer p {
+          margin: 0 0 15px 0;
+        }
+
+  %body
+    %h1
+      = _('Hi %s,') % @user.nicename
+    = yield
+    .footer
+      %p
+        = link_to _('Manage nottifications'), profile_notifications_url(:mine)
+      %p
+        = _('Thanks.')
+        %br/
+        = _('Your')
+        = link_to Doers::Config.app_name, root_url
+        = _('team.')

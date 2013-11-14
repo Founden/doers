@@ -1,0 +1,8 @@
+%p.activity-title
+  %strong
+    = activity.user_name
+  = _('added')
+  = link_to activity.topic_title, root_url(:anchor => '/topic/%d' % activity.topic.id)
+  = _('topic on')
+  = link_to activity.board_title, root_url(:anchor => '/boards/%d' % activity.board.id)
+  = _('board.')
