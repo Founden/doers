@@ -224,6 +224,19 @@ describe Activity, :use_truncation do
 
       it { should be_valid }
     end
+
+    context 'project collaborator is online' do
+      let(:membership) do
+        Fabricate(:project_membership)
+      end
+
+      before do
+        membership.user.touch(:login_at)
+        Activity.any_instance.should_not_receive(:notify_project_collaborator)
+      end
+
+      it { should be_valid }
+    end
   end
 
   describe '#notify_project_collaborator' do
