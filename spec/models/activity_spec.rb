@@ -105,10 +105,11 @@ describe Activity, :use_truncation do
       its('activities.count') { should eq(2) }
     end
 
-    context 'after calling #save in < 10 minutes' do
+    context "after #save in < #{Doers::Config.activity_remove_at} minutes" do
       before do
         project.save
-        Timecop.freeze(Time.current + 5.minutes) do
+        freeze_at = Time.current + Doers::Config.activity_remove_at - 1.minute
+        Timecop.freeze(freeze_at) do
           project.save
         end
       end
@@ -116,10 +117,12 @@ describe Activity, :use_truncation do
       its('activities.count') { should eq(2) }
     end
 
-    context 'after calling #save after 10 minutes' do
+    context "after #save after #{Doers::Config.activity_remove_at} minutes" do
       before do
+        freeze_at = Time.current + Doers::Config.activity_remove_at + 1.minute
+
         project.save
-        Timecop.freeze(Time.current + 11.minutes) do
+        Timecop.freeze(freeze_at) do
           project.save
         end
       end
@@ -217,6 +220,19 @@ describe Activity, :use_truncation do
 
       before do
         Activity.any_instance.should_receive(:notify_project_collaborator).once
+      end
+
+      it { should be_valid }
+    end
+
+    context 'project collaborator is online' do
+      let(:membership) do
+        Fabricate(:project_membership)
+      end
+
+      before do
+        membership.user.touch(:login_at)
+        Activity.any_instance.should_not_receive(:notify_project_collaborator)
       end
 
       it { should be_valid }

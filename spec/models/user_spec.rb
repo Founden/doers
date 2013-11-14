@@ -104,6 +104,22 @@ describe User do
 
       it { should_not be_valid }
     end
+
+    context '#before_listen' do
+      before do
+        Timecop.freeze
+        user.before_listen
+      end
+      after { Timecop.return }
+
+      its(:login_at) { should eq(DateTime.current) }
+    end
+
+    context '#after_listen' do
+      before { user.after_listen }
+
+      its(:login_at) { should be_false }
+    end
   end
 
   context '#before_create', :use_truncation do

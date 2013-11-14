@@ -18,6 +18,7 @@ gem 'pg'
 gem 'oembedr'
 gem 'gutentag'
 gem 'zip', :require => false
+gem 'tubesock'
 
 group :production do
   gem 'puma'
@@ -26,6 +27,7 @@ group :production do
   gem 'daemons'
   gem 'intercom-rails'
   gem 'dalli'
+  gem 'websocket-native'
 end
 
 group :assets do
@@ -75,4 +77,5 @@ group :test do
   gem 'simplecov', :require => false
   gem 'parallel_tests', :require => false
   gem 'timecop'
+  gem 'capybara-puma'
 end

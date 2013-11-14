@@ -36,6 +36,8 @@ defaults: &defaults
     - DOERS_ALEXANDRU
     - DOERS_STEFAN
     - DOERS_ANDREEA
+  logout_after: <%= 10.minutes %>
+  activity_remove_at: <%= 10.minutes %>
   memcache:
     - mc4.dev.ec2.memcachier.com:11211
     -
@@ -44,7 +46,6 @@ defaults: &defaults
       :failover: true
       :socket_timeout: 1.5
       :socket_failure_delay: 0.2
-
 
 development:
   <<: *defaults

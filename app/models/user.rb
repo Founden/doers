@@ -96,8 +96,19 @@ class User < ActiveRecord::Base
     end
   end
 
+  # This is called as before hook by [Activity::Listener]
+  def before_listen
+    touch(:login_at)
+  end
+
+  # This is called as after hook by [Activity::Listener]
+  def after_listen
+    toggle!(:login_at)
+  end
+
   private
 
+  # Send a notification to the one who invited the user
   def notify_invitation_creator
     if invitation = Invitation.find_by(:email => self.email)
       UserMailer.delay.invitation_claimed(invitation, self)
