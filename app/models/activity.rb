@@ -55,7 +55,8 @@ class Activity < ActiveRecord::Base
   def notify_project_collaborators
     if self.project and self.project.collaborations.count > 1
       self.project.collaborations.each do |collab|
-        if collab.timing(queue_type) and !collab.user.eql?(self.user)
+        if(collab.timing(queue_type) and
+          !collab.user.eql?(self.user) and !collab.user.login_at?)
           notify_project_collaborator(collab)
         end
       end
