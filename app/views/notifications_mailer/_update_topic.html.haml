@@ -2,7 +2,7 @@
   %strong
     = activity.user_name
   = _('updated')
-  = link_to activity.topic_title, root_url(:anchor => '/topic/%d' % activity.topic.id)
+  = @topic_link
   = _('topic on')
-  = link_to activity.board_title, root_url(:anchor => '/boards/%d' % activity.board.id)
+  = @board_link
   = _('board.')

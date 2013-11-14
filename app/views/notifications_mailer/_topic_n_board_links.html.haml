@@ -1,0 +1,9 @@
+- if activity.topic
+  - @topic_link = link_to activity.topic_title, root_url(:anchor => '/topic/%d' % activity.topic.id)
+- else
+  - @topic_link = activity.topic_title || _('Topic deleted since then.')
+
+- if activity.board
+  - @board_link = link_to activity.board_title, root_url(:anchor => '/board/%d' % activity.board.id)
+- else
+  - @board_link = activity.board_title || _('Board deleted since then.')
