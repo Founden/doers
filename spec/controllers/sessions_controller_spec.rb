@@ -19,7 +19,7 @@ describe SessionsController do
   describe '#create' do
     let(:params) {  }
     let!(:invitation) { }
-    before { get(:create, params) }
+    before { get(:create, params) unless example.metadata[:skip_before] }
 
     context 'for denied authentication' do
       let(:params) do
