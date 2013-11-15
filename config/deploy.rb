@@ -4,6 +4,8 @@ require 'mina/git'
 require 'mina/rbenv'  # for rbenv support. (http://rbenv.org)
 # require 'mina/rvm'    # for rvm support. (http://rvm.io)
 
+require 'mina/rbenv/addons'
+
 set :codename, 'app.doersapp.com'
 
 set :port, '8000'

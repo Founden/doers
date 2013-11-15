@@ -20,6 +20,14 @@ GIT
     seedbank (0.3.0.pre2)
 
 GIT
+  remote: git://github.com/nadarei/mina.git
+  revision: d6d68624cb57aa8378e86a31dedc104418b868b5
+  specs:
+    mina (0.3.0)
+      open4
+      rake
+
+GIT
   remote: git://github.com/stas/easy_auth-oauth2.git
   revision: 328897ae02e487ee09b8fd41076bd7ac64c51bc3
   branch: update_to_easy_auth_master
@@ -27,15 +35,6 @@ GIT
     easy_auth-oauth2 (0.2.0)
       easy_auth
       oauth2
-
-GIT
-  remote: git://github.com/stas/mina.git
-  revision: f858d8293d04a95eaed7f0912de79cb21207171b
-  branch: rbenv_and_ruby-build_support
-  specs:
-    mina (0.2.1)
-      open4
-      rake
 
 GEM
   remote: https://rubygems.org/
@@ -230,6 +229,8 @@ GEM
       treetop (~> 1.4.8)
     method_source (0.8.2)
     mime-types (1.25)
+    mina-rbenv-addons (0.1)
+      mina
     mini_portile (0.5.2)
     minitest (4.7.5)
     momentjs-rails (2.2.1)
@@ -445,6 +446,7 @@ DEPENDENCIES
   jquery-rails
   letter_opener
   mina!
+  mina-rbenv-addons
   momentjs-rails
   normalize-rails
   nprogress-rails
