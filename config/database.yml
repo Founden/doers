@@ -4,7 +4,7 @@ postgresql: &postgresql
   username: postgres
   password:
   timeout: 5000
-  pool: 5
+  pool: 30
 
 production: &production
   <<: *postgresql
