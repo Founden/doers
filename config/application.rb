@@ -40,6 +40,9 @@ module Doers
 
     # Handle Ember.js variant based on environment
     config.ember.variant = ::Rails.env if config.respond_to?(:ember)
+
+    # Precompile assets
+    config.assets.precompile += ['mail.css']
   end
 
   # Our settings management class
