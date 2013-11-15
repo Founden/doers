@@ -28,6 +28,7 @@ group :production do
   gem 'intercom-rails'
   gem 'dalli'
   gem 'websocket-native'
+  gem 'newrelic_rpm'
 end
 
 group :assets do
@@ -61,6 +62,7 @@ group :development do
   gem 'brakeman', :require => false
   gem 'guard-rspec', :require => false
   gem 'guard-migrate', :require => false
+  gem 'newrelic_rpm'
 end
 
 group :development, :test do
