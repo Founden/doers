@@ -1,0 +1,57 @@
+@charset 'utf-8';
+
+@import 'bourbon';
+@import 'core/vars';
+
+body {
+  font: 14px/1.5 $helvetica;
+  color: $black;
+  padding: 30px;
+}
+
+a {
+  color: $green;
+}
+
+h1, h2 {
+  font-size: 18px;
+  border-bottom: 1px solid shade($white, 10%);
+  margin: 0;
+  padding: 15px;
+}
+
+h2 {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+p {
+  margin: 0;
+}
+
+.activity {
+  border-bottom: 1px solid shade($white, 10%);
+  padding: 15px;
+}
+
+.activity-date {
+  color: #999;
+  font-size: 11px;
+}
+
+.activity-title {
+  color: #999;
+
+  strong {
+    color: #333;
+  }
+}
+
+.footer {
+  font-size: 12px;
+  padding: 15px;
+
+  p {
+    margin: 0 0 15px 0;
+  }
+}
