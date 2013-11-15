@@ -7,18 +7,19 @@ module Activity::Listener
   def on_notifications
     self.before_listen if self.respond_to?(:before_listen)
 
-    connection = self.class.connection_pool.connection
-    connection.execute('LISTEN %s' % channel)
+    self.class.connection.execute('LISTEN %s' % channel)
     loop do
       handle_notifications do |incoming|
         yield incoming
       end
     end
   ensure
-    connection.execute('UNLISTEN %s' % channel)
-    self.class.connection_pool.release_connection
+    self.class.connection.execute('UNLISTEN %s' % channel)
 
     self.after_listen if self.respond_to?(:after_listen)
+
+    # Make sure we close this connection since its thread will be killed!
+    self.class.connection.close()
   end
 
   private
