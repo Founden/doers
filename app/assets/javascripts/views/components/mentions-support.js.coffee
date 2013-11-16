@@ -1,40 +1,44 @@
 Doers.MentionsSupportComponent = Ember.Component.extend
-  mentionTrigger: '@'
-  mentionsView: null
-  keyPressEvent: null
   isVisible: false
+  mentionTrigger: '@'
+  keyPressEvent: null
+
   search: ''
   mention: false
+  results: null
 
-  optionsViewClass: Ember.ContainerView.extend
-    # TODO: Focus this asap its visible
-    # TODO: Add support for key bindings (TAB, ESC... etc).
-    searchNameBinding: 'parentView.search'
-    childViews: ['userSearchView', 'uploaderView']
-    userSearchView: Ember.CollectionView.extend
-      mentionBinding: 'parentView.parentView.mention'
-      content: ( ->
-        if @get('search')
-          # TODO: Feed this an AJAX result
-          [{id: 1, name: 'Stas'}, {id: 2, name: 'Stefan'}]
-        else
-          []
-      ).property('search')
-      emptyView: Ember.TextField.extend
-        valueBinding: 'parentView.search'
-        placeholder: 'Type a name to search for...'
-      itemViewClass: Ember.View.extend
-        mentionBinding: 'parentView.mention'
-        template: Ember.Handlebars.compile('@{{view.content.name}}')
-        click: ->
-          @set('mention', @get('content.name'))
-    # TODO: Make this a real upload view
-    # TODO: Probably hook in map/link cards
-    uploaderView: Ember.View.extend
-      template: Ember.Handlebars.compile('Click to upload')
+  tabEvent: $.Event('keydown', keyCode: 9)
+
+  content: ( ->
+    search = @get('search')
+    results = @get('results')
+    if search and results.get('length') > 0
+      searchRegexp = new RegExp(search, 'i')
+      results.filter (member) ->
+        searchRegexp.test member.get('nicename').toLowerCase()
+    else
+      []
+  ).property('search', 'results')
 
   keyPressEventChanged: ( ->
     event = @get('keyPressEvent')
     if event and @get('mentionTrigger') == String.fromCharCode(event.which)
       @set('isVisible', true)
   ).observes('keyPressEvent')
+
+  becameVisible: ->
+    # Trigger tab to switch to focus here
+    $('[tabindex="2"]').focus()
+
+  becameHidden: ->
+    @set('search', null)
+    # Trigger tab to switch to parent input
+    $('[tabindex="1"]').focus()
+
+  searchInputCancel: (event) ->
+    @set('parentView.isVisible', false)
+
+  actions:
+    mentionSelected: (found) ->
+      @set('mention', found.get('nicename'))
+      @set('isVisible', false)

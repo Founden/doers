@@ -1,1 +1,8 @@
-{{view optionsViewClass}}
+{{input value=view.search placeholder='Type to search somebody...' tabindex='2' cancel=view.searchInputCancel}}
+{{#if view.search}}
+{{#collection content=view.content}}
+%li{:_action => 'mentionSelected this'}
+  %img{:bind => {:src => 'avatarUrl', :alt => 'nicename'}, :height => '15'}
+  {{nicename}}
+{{/collection}}
+{{/if}}

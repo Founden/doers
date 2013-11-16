@@ -4,6 +4,7 @@ Ember.ObjectController.extend Doers.ControllerAlertMixin,
   commentContent: ''
   cardPicker: false
   foundMention: false
+  mentionKeyPressEvent: null
 
   foundMentionChanged: ( ->
     if mention = @get('foundMention')
@@ -11,8 +12,12 @@ Ember.ObjectController.extend Doers.ControllerAlertMixin,
       @set('foundMention', false)
   ).observes('foundMention')
 
-  mentionKeyPress: (event) ->
+  mentionOnKeyPress: (event) ->
     @set('parentController.mentionKeyPressEvent', event)
+
+  projectMembers: ( ->
+    @get('content.project.memberships').mapBy('user')
+  ).property('content.project.memberships.@each.user.nicename')
 
   actions:
     save: ->

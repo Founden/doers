@@ -1,4 +1,6 @@
 Ember.TextArea.reopen
+  attributeBindings: ['tabindex']
+  tabindex: false
   autoresize: true
 
   didInsertElement: ->

@@ -1,3 +1,4 @@
 Ember.TextField.reopen
-  attributeBindings: ['autocomplete']
+  attributeBindings: ['autocomplete', 'tabindex']
   autocomplete: 'off'
+  tabindex: false
