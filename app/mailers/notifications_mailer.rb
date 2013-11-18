@@ -1,7 +1,8 @@
 # Mailer for [User] notifications
 class NotificationsMailer < ActionMailer::Base
   default :from => Doers::Config.default_email,
-    :return_path => Doers::Config.contact_email
+    :return_path => Doers::Config.contact_email,
+    :css => 'mail'
   layout 'notification'
 
   # Handles discussion changes email
