@@ -52,7 +52,7 @@ Doers.MentionsSupportComponent = Ember.Component.extend
       top: 0,
       left: -9999,
       overflow: 'auto',
-      'white-space': 'pre-wrap'
+      'white-space': 'pre-line'
 
     cursor.appendTo(mirror)
     @$().before(mirror)
