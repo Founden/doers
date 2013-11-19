@@ -3,8 +3,8 @@
     .activity-comment-user
       %img{:class => 'activity-comment-user-image', :bind => {:src => 'currentUser.avatarUrl'}}
       {{currentUser.nicename}}
-    {{mentions-support keyPressEvent=mentionKeyPressEvent mention=foundMention results=projectMembers}}
-    {{textarea class='activity-comment-content' valueBinding='commentContent' parentController=controller keyPress=mentionOnKeyPress placeholder='Write a comment...' name='comment' tabindex='1'}}
+    {{mentions-support keyPressEvent=mentionKeyPressEvent results=projectMembers}}
+    {{textarea class='activity-comment-content' valueBinding='commentContent' parentController=controller keyUp=mentionOnKeyPress placeholder='Write a comment...' name='comment' tabindex='1'}}
     .activity-comment-actions
       {{#if commentContent}}
       %a.create-comment{:_action => 'addComment'}

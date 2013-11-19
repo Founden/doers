@@ -3,14 +3,7 @@ Ember.ObjectController.extend Doers.ControllerAlertMixin,
 
   commentContent: ''
   cardPicker: false
-  foundMention: false
   mentionKeyPressEvent: null
-
-  foundMentionChanged: ( ->
-    if mention = @get('foundMention')
-      @set('commentContent', @get('commentContent') + mention)
-      @set('foundMention', false)
-  ).observes('foundMention')
 
   mentionOnKeyPress: (event) ->
     @set('parentController.mentionKeyPressEvent', event)

@@ -1,8 +1,10 @@
-{{input value=view.search placeholder='Type to search somebody...' tabindex='2' cancel=view.searchInputCancel}}
+{{input value=view.search placeholder='Type to search somebody...' tabindex='2' cancel=view.searchInputCancel insertNewline=view.searchInputEnter keyDown=view.searchInputKeyPress}}
 {{#if view.search}}
-{{#collection content=view.content}}
-%li{:_action => 'mentionSelected this'}
-  %img{:bind => {:src => 'avatarUrl', :alt => 'nicename'}, :height => '15'}
-  {{nicename}}
-{{/collection}}
+%ul
+  {{#each mention in view.content}}
+  %li{:bind => {:class => 'mention.isSelected:active'}}
+    %a{:href => '#', :_action => 'mentionSelected mention', :bind => {:enter => 'mentionSelected mention'}}
+      %img{:bind => {:src => 'mention.avatarUrl', :alt => 'mention.nicename'}, :height => '15'}
+      {{mention.nicename}} {{mention.isSelected}}
+  {{/each}}
 {{/if}}
