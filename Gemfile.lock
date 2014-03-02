@@ -163,6 +163,7 @@ GEM
       mime-types (~> 1.18)
     eventmachine (1.0.3)
     eventmachine_httpserver (0.2.1)
+    excon (0.31.0)
     execjs (2.0.2)
     fabrication (2.8.1)
     faraday (0.8.8)
@@ -202,6 +203,15 @@ GEM
       sprockets
       tilt
     handlebars-source (1.0.12)
+    heroku (3.3.0)
+      heroku-api (~> 0.3.17)
+      launchy (>= 0.3.2)
+      netrc (~> 0.7.7)
+      rest-client (~> 1.6.1)
+      rubyzip
+    heroku-api (0.3.17)
+      excon (~> 0.27)
+      multi_json (~> 1.8.2)
     highline (1.6.20)
     hike (1.2.3)
     http_parser.rb (0.5.3)
@@ -240,6 +250,7 @@ GEM
     multi_json (1.8.2)
     multi_xml (0.5.5)
     multipart-post (1.2.0)
+    netrc (0.7.7)
     newrelic_rpm (3.6.1.88)
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
@@ -327,6 +338,8 @@ GEM
       ffi (>= 0.5.0)
     readwritesettings (3.0.1)
     ref (1.0.5)
+    rest-client (1.6.7)
+      mime-types (>= 1.16)
     roadie (2.4.2)
       actionmailer (> 3.0.0, < 5.0.0)
       css_parser (~> 1.3.4)
@@ -353,6 +366,7 @@ GEM
       sexp_processor (~> 4.0)
     ruby_parser (3.2.2)
       sexp_processor (~> 4.1)
+    rubyzip (1.1.0)
     sanitize (2.0.6)
       nokogiri (>= 1.4.4)
     sass (3.2.12)
@@ -450,6 +464,7 @@ DEPENDENCIES
   gutentag
   haml-rails
   hamlbars
+  heroku
   intercom-rails
   jquery-rails
   letter_opener

@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.0.0'
+ruby '2.1.0'
 
 gem 'rails'
 gem 'gettext_i18n_rails', '0.10.1'
@@ -48,6 +48,7 @@ group :assets do
   gem 'momentjs-rails'
   gem 'nprogress-rails'
   gem 'chartjs-rails'
+  gem 'heroku'
 end
 
 group :development do
