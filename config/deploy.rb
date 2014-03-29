@@ -10,7 +10,7 @@ set :codename, 'app.doersapp.com'
 
 set :port, '8000'
 set :user, 'deployer'
-set :domain, '198.199.78.237'
+set :domain, 'HOSTNAME'
 set :deploy_to, "/home/#{user}/#{codename}"
 set :repository, 'git@github.com:stas/doers.git'
 set :branch, 'master'
