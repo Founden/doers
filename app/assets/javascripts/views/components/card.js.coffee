@@ -12,14 +12,9 @@ Doers.CardComponent = Ember.Component.extend
 
     save: ->
       card = @get('content')
-      mixpanelEvent = card.get('isNew') ? 'CREATED' : 'UPDATED'
       card.save().then =>
         card.set('isEditing', false)
         card.get('topic').reload()
-        mixpanel.track mixpanelEvent,
-          TYPE: 'Card'
-          ID: card.get('id')
-          TITLE: card.get('title')
 
     destroy: ->
       card = @get('content')
@@ -30,10 +25,6 @@ Doers.CardComponent = Ember.Component.extend
         card.deleteRecord()
         card.save().then =>
           topic.reload()
-          mixpanel.track 'DELETED',
-            TYPE: 'Card'
-            ID: card.get('id')
-            TITLE: card.get('title')
 
     toggleAlignment: ->
       card = @get('content')
@@ -41,16 +32,9 @@ Doers.CardComponent = Ember.Component.extend
 
       if card.get('isAlignedCard')
         topic.set('alignedCard', null)
-        mixpanelEvent = 'UNALIGNED'
       else
         topic.set('alignedCard', card)
-        mixpanelEvent = 'ALIGNED'
 
       topic.save().then ->
         topic.get('board').reload()
         topic.reload()
-        mixpanel.track mixpanelEvent,
-          TYPE: 'Card'
-          ID: card.get('id')
-          TITLE: card.get('title')
-

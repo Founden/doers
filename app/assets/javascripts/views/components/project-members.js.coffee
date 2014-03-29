@@ -8,10 +8,6 @@ Doers.ProjectMembersComponent = Ember.Component.extend
 
   actions:
     destroy: (membership) ->
-      mixpanel.track 'UNSHARED',
-        TYPE: 'Project'
-        ID: membership.get('project.id')
-        TITLE: membership.get('project.title')
       membership.deleteRecord()
       membership.save()
 

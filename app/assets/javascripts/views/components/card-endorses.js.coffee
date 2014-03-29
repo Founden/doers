@@ -19,10 +19,6 @@ Doers.CardEndorsesComponent = Ember.Component.extend
       endorse.save().then ->
         card.reload()
         topic.reload()
-        mixpanel.track 'ENDORSED',
-          TYPE: 'Card'
-          ID: card.get('id')
-          TITLE: card.get('title')
 
     destroy: ->
       endorse = @get('userEndorse')
@@ -32,7 +28,3 @@ Doers.CardEndorsesComponent = Ember.Component.extend
       endorse.save().then ->
         card.reload()
         topic.reload()
-        mixpanel.track 'DISAGREE',
-          TYPE: 'Card'
-          ID: card.get('id')
-          TITLE: card.get('title')

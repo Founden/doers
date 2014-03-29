@@ -8,7 +8,4 @@ Doers.ProjectsImportController = Ember.ArrayController.extend
       @get('selectedStartups').forEach (record) =>
         @store.createRecord('startup', externalId: record.id).save()
 
-      mixpanel.track 'IMPORTED',
-        TYPE: 'Startup'
-        COUNT: @get('selectedStartups.length')
       @get('target.router').transitionTo('projects.import-running')
