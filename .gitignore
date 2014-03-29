@@ -16,3 +16,5 @@ rerun.txt
 pickle-email-*.html
 erd.pdf
 .DS_Store
+config/aws.yml
+config/doers.yml

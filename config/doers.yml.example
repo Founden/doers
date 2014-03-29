@@ -1,0 +1,54 @@
+defaults: &defaults
+  app_name: DOERS
+  app_owner: Founden
+  app_id: app.doersapp.com
+  oauth2_providers:
+    angel_list:
+      client_id: ANGEL_LIST_ID
+      secret_key: ANGEL_LIST_SECRET
+  default_email: DOERS <no-reply@doersapp.com>
+  contact_email: DOERS Team <support@doersapp.com>
+  admin_regex: !ruby/regexp '/geekcelerator\.com/i'
+  external_types:
+    - angel_list
+  notifications:
+    asap: <%= 5.minutes %>
+    offset: <%= 1.minutes %>
+  aws:
+    s3:
+      protocol: 'https'
+      bucket: 'assets.doersapp.com'
+  assets:
+    image:
+      sizes:
+        thumb: 100x100#
+        small: 300x300>
+        medium: 600x600>
+    cover:
+      sizes:
+        small: 280x280>
+  promo_codes:
+    - DOERS_STAS
+  logout_after: <%= 10.minutes %>
+  activity_remove_at: <%= 10.minutes %>
+  memcache:
+    - memcache.host:11211
+    -
+      :username:
+      :password:
+      :failover: true
+      :socket_timeout: 1.5
+      :socket_failure_delay: 0.2
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults
+  oauth2_providers:
+    angel_list:
+      client_id: ANGEL_LIST_KEY
+      secret_key: ANGEL_LIST_SECRET
