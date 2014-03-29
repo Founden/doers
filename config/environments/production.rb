@@ -55,7 +55,7 @@ Doers::Application.configure do
   # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
 
   # Use a different cache store in production.
-  config.cache_store = :dalli_store, Doers::Config.memcache
+  # config.cache_store = :dalli_store, Doers::Config.memcache
 
   # Use a different cache store for sessions too
   config.session_store(ActionDispatch::Session::CacheStore)
