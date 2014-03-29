@@ -1,0 +1,11 @@
+language: ruby
+rvm:
+  - 2.1.0
+addons:
+  postgresql: "9.3"
+before_script:
+  - cp config/doers.yml.example config/doers.yml
+  - cp config/aws.yml.example config/aws.yml
+  - psql -c 'create database doers_test;' -U postgres
+script:
+  - RAILS_ENV=test bundle exec rake db:migrate spec
