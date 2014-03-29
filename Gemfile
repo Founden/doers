@@ -23,13 +23,10 @@ gem 'roadie'
 
 group :production do
   gem 'puma'
-  gem 'party_foul'
   gem 'aws-sdk'
   gem 'daemons'
-  gem 'intercom-rails'
   gem 'dalli'
   gem 'websocket-native'
-  gem 'newrelic_rpm'
 end
 
 group :assets do
